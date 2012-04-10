@@ -1,0 +1,375 @@
+MRG-MESSAGING-MIB DEFINITIONS ::= BEGIN
+
+--
+-- Red Hat MRG Messaging mib for amqp broker
+--
+-- This file is generated from management-schema.xml
+-- using qpid-snmp-mibgen and qpid-snmp.txt.
+-- Do not edit this mib file directly.
+--
+-- iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+--                             |
+--                       redhat(2312)
+--                             |
+--                    _________________________
+--                   |                         |
+--               msg(5672)                 other redhat OIDs
+--                   |
+--           ___________________
+--          |                   |
+--      amqp010(1)       amqp10(2) - reserved for futuer use
+--          |
+--       __________________________________________________
+--      |                           |                      |
+-- broker010(1)                plugins010(2)       conformance010(3)
+--      |                           |                      |
+--  system, memory, etc.       acl, cluster           groups010(1)
+--                                                         |
+--                                    _______________________________
+--                                   |           |        |          |
+--                             required(1) optional(2) eventArgs(3) ...
+
+IMPORTS
+        MODULE-IDENTITY, OBJECT-IDENTITY, OBJECT-TYPE, Counter64,
+                Counter32, Integer32, Unsigned32, TimeTicks, enterprises,
+                NOTIFICATION-TYPE
+            FROM SNMPv2-SMI
+        OBJECT-GROUP, NOTIFICATION-GROUP, MODULE-COMPLIANCE
+            FROM SNMPv2-CONF
+        TruthValue, TEXTUAL-CONVENTION
+            FROM SNMPv2-TC;
+
+redhat MODULE-IDENTITY
+        LAST-UPDATED "%{today}Z"
+        ORGANIZATION "www.redhat.com"
+        CONTACT-INFO
+                "e-mail: eallen@redhat.com"
+        DESCRIPTION
+            "Red Hat MRG snmp mib"
+        REVISION "%{today}Z"
+            DESCRIPTION
+                "First release"
+        ::= { enterprises 2312 }
+
+--
+-- TEXTUAL-CONVENTIONS to define the qpid data types that don't
+-- map directly to mib types
+-- Note: mib types must begin with a cap, qpid types are normally
+-- all lower case
+-- __________________________________________________________________
+Uuid ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "8a-4a-4a-4a-12a"
+        STATUS          current
+        DESCRIPTION     "The system generates uuids that look like dd29e3bc-6acd-4f9e-8672-5c9c0bf716a7"
+        SYNTAX          OCTET STRING (SIZE (36))
+
+Sstr ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "255a"
+        STATUS          current
+        DESCRIPTION     "Short string 0 - 255 characters"
+        SYNTAX          OCTET STRING (SIZE (0..255))
+
+Lstr ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "65535a"
+        STATUS          current
+        DESCRIPTION     "Long string"
+        SYNTAX          OCTET STRING (SIZE (0..65535))
+
+ObjId ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "255a"
+        STATUS          current
+        DESCRIPTION     "Internal field that references another qpid object."
+        SYNTAX          OCTET STRING (SIZE (0..255))
+
+Uint64 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "There is no mib 64 unsigned, so use Counter64"
+        SYNTAX          Counter64
+
+Uint16 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "There is no mib 16 unsigned, so use Integer"
+        SYNTAX          Integer32
+
+Hilo32 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "Each Hilo32 data object is one of three data values:
+                        1. The current data value at the time of the get request.
+                        2. The highest value for the reporting interval
+                        3. The lowest value for the reporting interval"
+        SYNTAX          Integer32
+
+Map ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "65535a"
+        STATUS          current
+        DESCRIPTION     "Textual representation of a map<string, string>"
+        SYNTAX          OCTET STRING (SIZE (0..65535))
+
+
+--
+-- The root OID for messaging
+-- _____________________________________________________________________
+msg OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "This is the root of all messaging OIDs.
+         This exists to avoid conflict with
+         other Redhat OIDs.
+         The number 5672 was chosen only because
+         it is the default port number the broker uses."
+        ::= { redhat 5672 }
+
+--
+-- Parent node for amqp 0.10 messaging
+--
+amqp010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Parent node for all amqp 0.10 sub-objects"
+        ::= { msg 1 }
+
+--
+-- Reserve parent node for amqp 1.0 messaging
+--
+amqp10 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Parent node for all amqp 1.0 sub-objects"
+        ::= { msg 2 }
+
+--
+-- Parent node for amqp 0.10 messaging broker classes and events
+--
+broker010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Parent node for all amqp 0.10 broker sub-objects"
+        ::= { amqp010 1 }
+
+--
+-- Parent node for amqp 0.10 messaging broker plugins
+--
+plugins010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Parent node for all amqp 0.10 broker plugins"
+        ::= { amqp010 2 }
+
+--
+-- Parent node for amqp 0.10 conformance groupings
+--
+conformance010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all conformance objects"
+        ::= { amqp010 3 }
+
+--
+-- Define the OID for each top level messaging class
+-- ______________________________________________________________
+<forEachClass>
+<singleObject>
+%{className} OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the %{capClassName} properties"
+        ::= { broker010 %{classSequence} }
+</singleObject>
+<multipleObjects>
+%{className}s OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the %{capClassName}s"
+        ::= { broker010 %{classSequence} }
+</multipleObjects>
+</forEachClass><forEachPluginClass>
+%{className} OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the plugin %{capClassName} properties"
+        ::= { plugins010 %{classSequence} }
+</forEachPluginClass>
+broker010Events OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all messaging notification nodes"
+        ::= { broker010 100 }
+
+plugins010Events OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all plugin notification nodes"
+        ::= { broker010 101 }
+
+--
+-- Define the [table]/data for each of the top level classes
+-- ______________________________________________________________
+<forEachClass><singleObject>-- ______________________________________________________________
+-- %{capClassName} class properties and statistics
+-- OID: redhat(2312).msg(5672).amqp010(1).broker010(1).%{className}(%{classSequence})
+-- ______________________________________________________________
+<forEachProperty>
+--
+-- The %{capChildName} data object
+-- OID: redhat(2312).msg(5672).amqp010(1).broker010(1).%{className}(%{classSequence}).%{capChildName}(%{childSequence})
+--
+%{capChildName} OBJECT-TYPE
+        SYNTAX      %{childType}
+        %{unit}MAX-ACCESS  %{childAccess}
+        STATUS      current
+        DESCRIPTION "%{childDesc}"
+        ::= { %{className} %{childSequence} }
+</forEachProperty>
+</singleObject><multipleObjects>-- ______________________________________________________________
+-- %{capClassName} class table definition
+-- OID: redhat(2312).msg(5672).amqp010(1).broker010(1).%{className}(%{classSequence}).%{className}Table(1)
+-- ______________________________________________________________
+%{className}Table OBJECT-TYPE
+        SYNTAX      SEQUENCE OF %{capClassName}Entry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of %{className}s"
+        ::= { %{className}s 1 }
+--
+-- %{className}Entry row definition
+-- OID: redhat(2312).msg(5672).amqp010(1).broker010(1).%{className}(%{classSequence}).%{className}Table(1).%{className}Entry(1)
+--
+%{className}Entry OBJECT-TYPE
+        SYNTAX      %{capClassName}Entry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the %{className} table"
+        INDEX { %{className}InternalIndex }
+        ::= { %{className}Table 1 }
+
+%{capClassName}Entry ::= SEQUENCE {<forEachProperty>
+    %{capChildName}%{capChildNameSpace}%{childType},</forEachProperty>
+    %{className}InternalIndex           Unsigned32
+}
+<forEachProperty>
+--
+-- %{capChildName} data object
+-- OID: redhat(2312).msg(5672).amqp010(1).broker010(1).%{className}(%{classSequence}).%{className}Table(1).%{className}Entry(1).%{capChildName}(%{childSequence})
+--
+%{capChildName} OBJECT-TYPE
+        SYNTAX      %{childType}
+        %{unit}MAX-ACCESS  %{childAccess}
+        STATUS      current
+        DESCRIPTION "%{childDesc}"
+        ::= { %{className}Entry %{childSequence} }
+</forEachProperty>
+--
+-- %{className}InternalIndex index column
+-- OID: redhat(2312).msg(5672).amqp010(1).broker010(1).%{className}(%{classSequence}).%{className}Table(1).%{className}Entry(1).%{className}InternalIndex(%{nextChildNumber})
+--
+%{className}InternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for %{className} table"
+        ::= { %{className}Entry %{nextChildNumber} }
+</multipleObjects>
+</forEachClass>
+<forEachPluginClass>-- ______________________________________________________________
+-- %{capClassName} plugin class properties and statistics
+-- OID: redhat(2312).msg(5672).amqp010(1).plugins010(2).%{className}(%{classSequence})
+-- ______________________________________________________________
+<forEachProperty>
+--
+-- The %{capChildName} data object
+-- OID: redhat(2312).msg(5672).amqp010(1).plugins010(2).%{className}(%{classSequence}).%{capChildName}(%{childSequence})
+--
+%{capChildName} OBJECT-TYPE
+        SYNTAX      %{childType}
+        %{unit}MAX-ACCESS  %{childAccess}
+        STATUS      current
+        DESCRIPTION "%{childDesc}"
+        ::= { %{className} %{childSequence} }
+</forEachProperty>
+</forEachPluginClass>
+--
+-- Notification Objects
+-- These are the object/parameters that are sent in notification
+-- events (when the agent sends a "trap" message to the manager on port 162)
+-- ______________________________________________________________
+broker010EventList OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Placeholder needed for SMIv1 managers. Node number must be 0"
+        ::= {broker010Events 0 }
+
+broker010EventArguments OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Top level node for all the event arguments"
+        ::= { broker010Events 1 }
+--
+-- Objects that are passed with events
+--<EventArguments>
+%{argumentName} OBJECT-TYPE
+        SYNTAX      %{argumentType}
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "%{argumentDesc}"
+        ::= { broker010EventArguments %{eventArgumentSequence} }
+</EventArguments>
+--
+-- Notfication events that are raised by the agent
+--
+<Events>
+%{eventName} NOTIFICATION-TYPE
+        OBJECTS {
+            %{eventArguments}
+            }
+        STATUS      current
+        DESCRIPTION "%{eventSev} %{eventName} event"
+        ::= { broker010EventList %{eventSequence} }
+</Events>
+
+--
+-- Conformance Objects and Groups
+-- This puts the data objects and notification events into
+-- groups that can be marked as required or optional
+-- ______________________________________________________________
+groups010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Root for all groups"
+        ::= { conformance010 1 }
+
+requiredGroup OBJECT-GROUP
+        OBJECTS {
+%{required}        }
+        STATUS      current
+        DESCRIPTION "Manditory class elements"
+        ::= { groups010 1 }
+
+optionalGroup OBJECT-GROUP
+        OBJECTS {
+%{optional}        }
+        STATUS      current
+        DESCRIPTION "Optional class elements"
+        ::= { groups010 2 }
+
+eventArgsGroup OBJECT-GROUP
+        OBJECTS {
+%{allEventArguments}        }
+        STATUS      current
+        DESCRIPTION "Data objects used as arguments to events"
+        ::= { groups010 3 }
+
+<forEachSeverity>
+%{sev}Group NOTIFICATION-GROUP
+        NOTIFICATIONS {
+%{eventNames}        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity %{sev}"
+        ::= { groups010 %{sevSequence} }
+</forEachSeverity>
+
+qpidCompliance MODULE-COMPLIANCE
+        STATUS      current
+        DESCRIPTION "Manditory and non-manditory mib objects"
+        MODULE -- This module
+            MANDATORY-GROUPS { requiredGroup,
+                               optionalGroup,
+                               <forEachSeverity>%{sev}Group,</forEachSeverity>
+                               eventArgsGroup }
+
+        ::= { conformance010 2 }
+
+END

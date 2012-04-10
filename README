@@ -1,0 +1,5 @@
+qpid-snmp repository
+
+Initial version: 4/10/2012
+    Added qpid-snmp-mibgen command line utility to genreate snmpv2 compliant mib from qpid management-schema.xml files.
+
