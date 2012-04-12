@@ -51,6 +51,9 @@ using namespace std;
 typedef map<const char *, string> mibVars;
 typedef map<const char *, string>::iterator mibVarIterator;
 
+
+#define initCap(s) if (s.length()) s.at(0) = toupper(s.at(0))
+
 void usage()
 {
     cout << "Usage: qpid-snmp-mibgen -t <template> -s <schema> [-s <schema> ] [-m <output mib>]" << endl;
@@ -71,11 +74,13 @@ void xmlError(char * source, pugi::xml_parse_result & result)
 // combine the class name and xml node name to form the child name
 void genChildName(const string & className, string & name, string & childName)
 {
-    childName.clear();
-    childName.append(className);
+    string capClass = className;
+    initCap(capClass);
+
+    childName = capClass;
     if (name.length()) {
         string uName = name;
-        uName.at(0) = toupper(name.at(0));
+        initCap(uName);
         childName.append(uName);
     }
 }
@@ -116,7 +121,7 @@ void replaceToday(string& buffer)
     }
 }
 
-// generate a comma separated list of attribute names and insert them in the buf
+// Generate a comma separated list of attribute names and insert them in the buf
 void replaceKeyWithAttrList(string & text, const string & key, const pugi::xml_node & schema, const string & attr, bool match)
 {
     string propertyName;
@@ -145,6 +150,7 @@ void replaceKeyWithAttrList(string & text, const string & key, const pugi::xml_n
             if ((!foundAttr.empty() && !match) || (foundAttr.empty() && match)) {
                 fixPropertyName(propertyName);
                 genChildName(className, propertyName, childName);
+                childName = "rhm010" + childName;
                 buf << "                " << sep << childName << endl;
                 sep = ",";
 
@@ -314,7 +320,7 @@ void expandSpace(string & block, const char * key, const string & fixed, int pad
 // Determine if this class type should be handled for this blockType
 bool isProcessable(const string & className, const string & blockType)
 {
-    const char *singles[] = {"system", "broker", "memory", "agent", "managementSetupState"};
+    static const char *singles[] = {"system", "broker", "memory", "agent", "managementSetupState"};
     if (blockType == "both")
         return true;
 
@@ -331,14 +337,7 @@ bool isProcessable(const string & className, const string & blockType)
     return true;
 }
 
-// change "name" to "eventName"
-void fixEventName(string & eventName)
-{
-    eventName.at(0) = toupper(eventName.at(0));
-    eventName = "event" + eventName;
-}
-
-// convert "name1, name2, name3" to "eventName1, eventName2, eventName3"
+// Convert "name1, name2, name3" to "rhm010EvtName1, rhm010EvtName2, rhm010EvtName3"
 void fixEventArgs(string & args)
 {
     vector<string> names;
@@ -346,6 +345,7 @@ void fixEventArgs(string & args)
     int pos;
     int start = 0;
 
+    // split on commas and remove spaces
     pos = args.find(',');
     while (pos != string::npos) {
         if (pos > start) {
@@ -357,19 +357,21 @@ void fixEventArgs(string & args)
         start = pos + 1;
         pos = args.find(',', start);
     }
+    // handle last token, or first token if there weren'e any commas
     if (start < args.length()) {
         token = args.substr(start, args.length() - start);
         replaceAll(token, " ", "");
         names.push_back(token);
     }
 
+    // put the tokens back together
     stringstream buf;
     string sep = "";
     vector<string>::iterator it;
     for (it = names.begin(); it != names.end(); ++it) {
         token = *it;
-        fixEventName(token);
-        buf << sep << token;
+        initCap(token);
+        buf << sep << "rhm010Evt" << token;
         sep = ", ";
     }
     args = buf.str();
@@ -400,20 +402,23 @@ void processEventBlock(string & buf, const pugi::xml_node & schema)
         eventSev = event.attribute("sev").value();
         eventArgs = event.attribute("args").value();
 
-        fixEventName(eventName);
+        initCap(eventName);
         fixEventArgs(eventArgs);
 
         eventSequence << eventSeq++;
         seq = eventSequence.str();
 
         eachEvent = block;
+        // replace all the variables in this block
         replaceAll(eachEvent, "%{eventName}", eventName);
         replaceAll(eachEvent, "%{eventSev}", eventSev);
         replaceAll(eachEvent, "%{eventArguments}", eventArgs);
         replaceAll(eachEvent, "%{eventSequence}", seq);
 
+        // accumulate the blocks for each event
         allEvents.append(eachEvent);
     }
+    // replace the placeholder with all the event blocks
     replaceAll(buf, "%{Events}", allEvents);
 
 }
@@ -444,7 +449,7 @@ void processEventArguments(string & buf, const pugi::xml_node & schema)
         argType = arg.attribute("type").value();
         argDesc = arg.attribute("desc").value();
 
-        fixEventName(argName);
+        initCap(argName);
         translateAttr(argType);
 
         if (argDesc.empty()) {
@@ -456,13 +461,16 @@ void processEventArguments(string & buf, const pugi::xml_node & schema)
         seq = eventArgumentSequence.str();
 
         eachEventArgument = block;
+        // replace the variables in this block
         replaceAll(eachEventArgument, "%{argumentName}", argName);
         replaceAll(eachEventArgument, "%{argumentType}", argType);
         replaceAll(eachEventArgument, "%{argumentDesc}", argDesc);
         replaceAll(eachEventArgument, "%{eventArgumentSequence}", seq);
 
+        // accumulate all the blocks
         allEventArguments.append(eachEventArgument);
     }
+    // and finally, replace the placeholder with the accululated blocks
     replaceAll(buf, "%{EventArguments}", allEventArguments);
 }
 
@@ -478,9 +486,9 @@ void processEventArgumentGroup(string & buf, const pugi::xml_node & schema)
     for (pugi::xml_node arg = eventArguments.first_child(); arg; arg = arg.next_sibling()) {
 
         argName = arg.attribute("name").value();
-        fixEventName(argName);
+        initCap(argName);
 
-        block << "                " << sep << argName << endl;
+        block << "                " << sep << "rhm010Evt" << argName << endl;
         sep = ",";
     }
     replaceAll(buf, "%{allEventArguments}", block.str());
@@ -510,9 +518,10 @@ void processSeverityGroups(string & buf, const pugi::xml_node & schema)
         // accumulate all the unique sev values
         for (pugi::xml_node event = schema.child("event"); event; event = event.next_sibling("event")) {
             eventName = event.attribute("name").value();
-            fixEventName(eventName);
+            initCap(eventName);
 
             eventSev = event.attribute("sev").value();
+            initCap(eventSev);
 
             if (eventNameMap.find(eventSev) == eventNameMap.end()) {
                 eventNameMap[eventSev] = new nameList;
@@ -527,7 +536,7 @@ void processSeverityGroups(string & buf, const pugi::xml_node & schema)
 
             nameList::iterator it;
             for (it = (*itMap).second->begin(); it != (*itMap).second->end(); ++it) {
-                eventNamesBuf << sep << (*it) << endl;
+                eventNamesBuf << sep << "rhm010Evt" << (*it) << endl;
                 sep = "                ,";
             }
 
