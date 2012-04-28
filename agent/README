@@ -1,0 +1,85 @@
+Source and makefiles for qpid-snmp
+
+qpid-snmp is an snmp agent based on the net-snmp libraries. It communicates with a single 
+qpid broker and exposes the broker's internal objects (queue, exchange, system, memory, etc.)
+
+Before compiling qpid-snmp, you'll need to have the following packages installed:
+- qpid-qmf-devel
+- qpid-cpp-client-devel
+- net-snmp
+
+To compile:
+cd into either the Debug or Release directories and run
+make clean
+make
+
+The application qpid-snmp should be created in that directory.
+
+To configure:
+Before you run, some configuration files need to be in place.
+- Place the file MRG-MESSAGING-MIB in ~/.snmp/mibs
+  This file is the qpid messaging mib.
+
+- Place the file snmp.conf in ~/.snmp
+  This file should contain one line:
+		mibs +MRG-MESSAGING-MIB
+  
+- Place the file rhm010.conf in ~/.snmp
+- This file should contain two lines:
+		rocommunity public
+		rwcommunity private
+  These community strings are for use while testing only. You would change them to less obvious strings
+  for production.
+  
+All the above files should be in the git repository that contains the source (and this file).
+
+To run:
+usage: qpid-snmp [-D<tokens>] [-f] [-L] [-M] [-H] [-b<broker url>]
+	[-c<broker connection options>] [-q<qmfOptions>] [LISTENING ADDRESSES]
+	-f      Do not fork() from the calling shell.
+	-DTOKEN[,TOKEN,...]
+		Turn on debugging output for the given TOKEN(s).
+		Without any tokens specified, it defaults to printing
+		all the tokens (which is equivalent to the keyword 'ALL').
+		You might want to try ALL for extremely verbose output.
+		Note: You can't put a space between the -D and the TOKENs.
+	-H	Display a list of configuration file directives
+		understood by the agent and then exit.
+	-M	Run as a normal SNMP Agent instead of an AgentX sub-agent.
+	-x ADDRESS	connect to master agent at ADDRESS (default /var/agentx/master).
+	-L	Do not open a log file; print all messages to stderr.
+	-b	The URL of the broker to monitor. Defaults to localhost:5672.
+	-c	Additional options to pass to the broker when connecting.	
+	-q	Options to use when connecting through qmf. Defaults to {strict-security:False}[eallen@redhat Release]$ 
+
+
+
+For testing, run without forking and as a non-AgentX sub-agent. 
+Run in a normal user account (not root).
+Use a LISTENING ADDRESS of localhost:1161. Normal snmp upd requests are handled on port 161. 
+Since we are testing as a normal user, we can use port 1161. 
+
+./qpid-snmp -f -M -L -b <broker> localhost:1161
+
+If you are running a broker locally, your command line would look like:
+./qpid-snmp -f -M -L localhost:1161
+In this case, the -b argument is intentionally omitted since 
+the default is to look for the broker at localhost:5672.
+
+If all goes well, you will see
+[init_smux] bind failed: Permission denied
+This is because you are running as a non-root user. No worries here.
+
+To test:
+In a separate terminal window, run one of the net-snmp commands. For example:
+[user ~]$ snmpget -v2c -c public localhost:1161 rhm010Brokeruptime.0
+MRG-MESSAGING-MIB::rhm010BrokerUptime.0 = Timeticks: (16102344) 1 day, 20:43:43.44
+
+Another example:
+[user ~]$ snmpwalk -v2c -c public localhost:1161 rhm010ExchangeTable
+< a whole slew of info about exchanges>
+
+In the above examples we are using version 2c of snmp.
+The "public" community string matches the one specified in ~/.spec/rhm010.conf
+
+Currently (4/28/2012), the net-snmp set commands have not been implemented.
