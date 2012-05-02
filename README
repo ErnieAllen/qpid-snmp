@@ -1,5 +1,19 @@
-qpid-snmp repository
+qpid-snmp mibgen utility and snmp agent
 
 Initial version: 4/10/2012
     Added qpid-snmp-mibgen command line utility to genreate snmpv2 compliant mib from qpid management-schema.xml files.
 
+To generate the mib file:
+Run the ./ms script to create the qpid-snmp-mibgen application.
+
+Usage: qpid-snmp-mibgen -t <template> -s <schema> [-s <schema> ] [-m <output mib>]
+    <template> defaults to ./qpid-snmp.txt
+    If -m <output mib> is not used, output is sent to stdout.
+    The first <schema> should be the main messaging schema.
+    Additional plugin schemas are optional (up to 10 additional schemas can be specified).
+
+For example:
+./qpid-snmp-mibgen -t qpid-snmp.txt -s ~/workspace/qpid/specs/management-schema.xml -s ~/workspace/qpid/cpp/src/qpid/cluster/management-schema.xml -s ~/workspace/qpid/cpp/src/qpid/acl/management-schema.xml -m MRG-MESSAGING-MIB
+
+This will use the qpid-snmp.txt template to generate the MRG-MESSAGING-MIB output file.
+It will use the main qpid management-schema.xml and add the schemas for cluster and acl.
