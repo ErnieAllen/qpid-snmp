@@ -761,7 +761,7 @@ rhm010ExchangeTable_validate_index(rhm010ExchangeTable_registration *
     /*
      * TODO:430:M: |-> Validate potential rhm010ExchangeTable index.
      */
-    if (1) {
+    if (0) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
                  "rhm010ExchangeTable table.\n");
         /*
