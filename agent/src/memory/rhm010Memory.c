@@ -208,8 +208,8 @@ handle_rhm010MemoryMallocarena(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("memory", "mallocarena", &count64);
+	U64 count64;
+	qpidGetScalarS64("memory", "mallocarena", &count64);
 
     switch (reqinfo->mode) {
 
@@ -250,8 +250,8 @@ handle_rhm010MemoryMallocordblks(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("memory", "mallocordblks", &count64);
+	U64 count64;
+	qpidGetScalarS64("memory", "mallocordblks", &count64);
 
     switch (reqinfo->mode) {
 
@@ -292,8 +292,8 @@ handle_rhm010MemoryMallochblks(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("memory", "mallochblks", &count64);
+	U64 count64;
+	qpidGetScalarS64("memory", "mallochblks", &count64);
 
     switch (reqinfo->mode) {
 
@@ -334,8 +334,8 @@ handle_rhm010MemoryMallochblkhd(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("memory", "mallochblkhd", &count64);
+	U64 count64;
+	qpidGetScalarS64("memory", "mallochblkhd", &count64);
 
     switch (reqinfo->mode) {
 
@@ -376,8 +376,8 @@ handle_rhm010MemoryMallocuordblks(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("memory", "mallocuordblks", &count64);
+	U64 count64;
+	qpidGetScalarS64("memory", "mallocuordblks", &count64);
 
     switch (reqinfo->mode) {
 
@@ -418,8 +418,8 @@ handle_rhm010MemoryMallocfordblks(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("memory", "mallocfordblks", &count64);
+	U64 count64;
+	qpidGetScalarS64("memory", "mallocfordblks", &count64);
 
     switch (reqinfo->mode) {
 
@@ -460,8 +460,8 @@ handle_rhm010MemoryMallockeepcost(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("memory", "Mallockeepcost", &count64);
+	U64 count64;
+	qpidGetScalarS64("memory", "Mallockeepcost", &count64);
 
     switch (reqinfo->mode) {
 

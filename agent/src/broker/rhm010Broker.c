@@ -1035,8 +1035,8 @@ handle_rhm010BrokerQueueCount(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "queueCount", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "queueCount", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1077,8 +1077,8 @@ handle_rhm010BrokerMsgTotalEnqueues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgTotalEnqueues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgTotalEnqueues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1119,8 +1119,8 @@ handle_rhm010BrokerMsgTotalDequeues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgTotalDequeues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgTotalDequeues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1161,8 +1161,8 @@ handle_rhm010BrokerByteTotalEnqueues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "byteTotalEnqueues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "byteTotalEnqueues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1203,8 +1203,8 @@ handle_rhm010BrokerByteTotalDequeues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "byteTotalDequeues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "byteTotalDequeues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1245,8 +1245,8 @@ handle_rhm010BrokerMsgDepth(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgDepth", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgDepth", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1287,8 +1287,8 @@ handle_rhm010BrokerByteDepth(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "byteDepth", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "byteDepth", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1330,8 +1330,8 @@ handle_rhm010BrokerMsgPersistEnqueues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgPersistEnqueues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgPersistEnqueues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1373,8 +1373,8 @@ handle_rhm010BrokerMsgPersistDequeues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgPersistDequeues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgPersistDequeues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1416,8 +1416,8 @@ handle_rhm010BrokerBytePersistEnqueues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "bytePersistEnqueues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "bytePersistEnqueues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1459,8 +1459,8 @@ handle_rhm010BrokerBytePersistDequeues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "bytePersistDequeues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "bytePersistDequeues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1501,8 +1501,8 @@ handle_rhm010BrokerMsgTxnEnqueues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgTxnEnqueues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgTxnEnqueues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1543,8 +1543,8 @@ handle_rhm010BrokerMsgTxnDequeues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgTxnDequeues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgTxnDequeues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1585,8 +1585,8 @@ handle_rhm010BrokerByteTxnEnqueues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "byteTxnEnqueues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "byteTxnEnqueues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1627,8 +1627,8 @@ handle_rhm010BrokerByteTxnDequeues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "byteTxnDequeues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "byteTxnDequeues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1669,8 +1669,8 @@ handle_rhm010BrokerMsgFtdEnqueues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgFtdEnqueues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgFtdEnqueues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1711,8 +1711,8 @@ handle_rhm010BrokerMsgFtdDequeues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgFtdDequeues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgFtdDequeues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1753,8 +1753,8 @@ handle_rhm010BrokerByteFtdEnqueues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "byteFtdEnqueues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "byteFtdEnqueues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1795,8 +1795,8 @@ handle_rhm010BrokerByteFtdDequeues(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "byteFtdDequeues", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "byteFtdDequeues", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1837,8 +1837,8 @@ handle_rhm010BrokerMsgFtdDepth(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "msgFtdDepth", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "msgFtdDepth", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1879,8 +1879,8 @@ handle_rhm010BrokerByteFtdDepth(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "byteFtdDepth", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "byteFtdDepth", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1921,8 +1921,8 @@ handle_rhm010BrokerReleases(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "releases", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "releases", &count64);
 
     switch (reqinfo->mode) {
 
@@ -1963,8 +1963,8 @@ handle_rhm010BrokerAcquires(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "acquires", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "acquires", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2005,8 +2005,8 @@ handle_rhm010BrokerDiscardsNoRoute(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "discardsNoRoute", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "discardsNoRoute", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2047,8 +2047,8 @@ handle_rhm010BrokerDiscardsTtl(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "discardsTtl", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "discardsTtl", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2089,8 +2089,8 @@ handle_rhm010BrokerDiscardsRing(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "discardsRing", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "discardsRing", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2131,8 +2131,8 @@ handle_rhm010BrokerDiscardsLvq(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "discardsLvq", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "discardsLvq", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2173,8 +2173,8 @@ handle_rhm010BrokerDiscardsOverflow(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "discardsOverflow", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "discardsOverflow", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2216,8 +2216,8 @@ handle_rhm010BrokerDiscardsSubscriber(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "discardsSubscriber", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "discardsSubscriber", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2258,8 +2258,8 @@ handle_rhm010BrokerDiscardsPurge(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "discardsPurge", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "discardsPurge", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2300,8 +2300,8 @@ handle_rhm010BrokerReroutes(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "reroutes", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "reroutes", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2342,8 +2342,8 @@ handle_rhm010BrokerAbandoned(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "abandoned", &count64);
+	U64 count64;
+	qpidGetScalarS64("broker", "abandoned", &count64);
 
     switch (reqinfo->mode) {
 
@@ -2384,15 +2384,15 @@ handle_rhm010BrokerAbandonedViaAlt(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("broker", "abandondViaAlt", &count64);
+	U64 val64;
+	qpidGetScalarS64("broker", "abandondViaAlt", &val64);
 
-    switch (reqinfo->mode) {
+	switch (reqinfo->mode) {
 
     case MODE_GET:
         snmp_set_var_typed_value(requests->requestvb, ASN_COUNTER64,
-        		&count64, 			// a pointer to the scalar's data
-                sizeof(count64) 	// the length of the data in bytes
+        		&val64, 			// a pointer to the scalar's data
+                sizeof(val64) 	    // the length of the data in bytes
         );
         break;
 

@@ -296,8 +296,8 @@ handle_rhm010AclAclDenyCount(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("acl", "aclDenyCount", &count64);
+	U64 count64;
+	qpidGetScalarS64("acl", "aclDenyCount", &count64);
 
     switch (reqinfo->mode) {
 

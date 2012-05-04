@@ -55,8 +55,8 @@ handle_rhm010ManagementSetupStateObjectNum(netsnmp_mib_handler *handler,
      * we don't need to loop over a list of requests; we'll only get one. 
      */
 
-	uint64_t count64;
-	qpidGetScalarU64("managementSetupState", "objectNum", &count64);
+	U64 count64;
+	qpidGetScalarS64("managementSetupState", "objectNum", &count64);
 
     switch (reqinfo->mode) {
 
