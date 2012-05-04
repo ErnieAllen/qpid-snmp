@@ -12,6 +12,12 @@ enum scalarType {
    _string,
    _bool
 };
+
+struct counter64 {
+    unsigned long high;
+    unsigned long low;
+};
+
 // forward declare function that is private to this file
 void qpidGetScalar(const char *className, const char *scalarName, void *scalar, scalarType size, size_t len=0);
 
@@ -77,6 +83,14 @@ void qpidGetScalarBool(const char *className, const char *scalarName, bool *trut
 void qpidGetScalarU64(const char *className, const char *scalarName, uint64_t *u64)
 {
 	qpidGetScalar(className, scalarName, (void *)u64, _64);
+}
+
+void qpidGetScalarS64(const char *className, const char *scalarName, struct counter64 *s64)
+{
+	uint64_t u64;
+	qpidGetScalarU64(className, scalarName, &u64);
+	s64->high = HIGHLONG(u64);
+	s64->low = LOWLONG(u64);
 }
 
 void qpidGetScalarU32(const char *className, const char *scalarName, uint32_t *u32)

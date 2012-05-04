@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 // is something like this defined somewhere else ?
-#define HIGHLONG(u64) ((u64 & 0xFFFFFFFF00000000) >> 32)
+#define HIGHLONG(u64) (u64 >> 32)
 #define LOWLONG(u64) (u64 & 0x00000000FFFFFFFF)
 
 bool init_qmf(char * brokerUrl, char * connect_options, char * qmf_options);
@@ -28,6 +28,8 @@ void qpidGetScalarBool(const char *className, const char *scalarName, bool *trut
 void qpidGetScalarU64(const char *className, const char *scalarName, uint64_t *u64);
 void qpidGetScalarU32(const char *className, const char *scalarName, uint32_t *u32);
 void qpidGetScalarU16(const char *className, const char *scalarName, uint16_t *u16);
+
+void qpidGetScalarS64(const char *className, const char *scalarName, struct counter64 *s64);
 
 #ifdef __cplusplus
 }
