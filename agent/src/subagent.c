@@ -9,9 +9,10 @@
 #include <net-snmp/net-snmp-features.h>
 #include <net-snmp/net-snmp-includes.h>
 #include <net-snmp/agent/net-snmp-agent-includes.h>
+#include <signal.h>
 
 /*
- * include our parent header 
+ * include our object headers
  */
 #include "queue/rhm010QueueTable.h"
 #include "exchange/rhm010ExchangeTable.h"
@@ -23,8 +24,8 @@
 #include "cluster/rhm010Cluster.h"
 #include "memory/rhm010Memory.h"
 #include "state/rhm010ManagementSetupState.h"
+#include "binding/rhm010BindingTable.h"
 
-#include <signal.h>
 
 #include "qpid_api.h"
 
@@ -110,6 +111,7 @@ main(int argc, char **argv)
             init_rhm010QueueTable();
             init_rhm010ExchangeTable();
             init_rhm010VhostTable();
+            init_rhm010BindingTable();
             init_rhm010System();
             init_rhm010Acl();
             init_rhm010Agent();
@@ -191,6 +193,7 @@ main(int argc, char **argv)
      */
     if (!init_qmf(qpidBrokerUrl, qpidBrokerConnectOptions, qpidQmfOptions)) {
         DEBUGMSGTL(("qpid-snmp/main", "failed to connect to broker %s\n", qpidBrokerUrl));
+        printf("qpid-snmp/main", "failed to connect to broker\n");
         exit(-1);
     }
 
@@ -222,6 +225,7 @@ main(int argc, char **argv)
     init_rhm010QueueTable();
     init_rhm010ExchangeTable();
     init_rhm010VhostTable();
+    init_rhm010BindingTable();
     init_rhm010System();
     init_rhm010Acl();
     init_rhm010Agent();
