@@ -16,6 +16,7 @@ RM := rm -rf
 -include src/exchange/subdir.mk
 -include src/cluster/subdir.mk
 -include src/broker/subdir.mk
+-include src/binding/subdir.mk
 -include src/agent/subdir.mk
 -include src/acl/subdir.mk
 -include src/subdir.mk

@@ -32,6 +32,7 @@ src/memory \
 src/exchange \
 src/cluster \
 src/broker \
+src/binding \
 src/agent \
 src/acl \
 
