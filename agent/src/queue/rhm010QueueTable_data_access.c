@@ -931,16 +931,6 @@ rhm010QueueTable_container_load(netsnmp_container * container)
     }
     qpidRelease(pEvent);
 
-    /*
-     ***************************************************
-     ***             START EXAMPLE CODE              ***
-     ***---------------------------------------------***/
-
-    /*
-     ***---------------------------------------------***
-     ***              END  EXAMPLE CODE              ***
-     ***************************************************/
-
     DEBUGMSGT(("verbose:rhm010QueueTable:rhm010QueueTable_container_load",
                "inserted %d records\n", (int)count));
 
