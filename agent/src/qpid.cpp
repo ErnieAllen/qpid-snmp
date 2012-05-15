@@ -1,7 +1,10 @@
 #include "qpid.hpp"
 #include "qpid_api.h"
+#include "traps/rhm010Events.h"
 
 #include <string.h>
+#include <string>
+#include <stdio.h>
 
 QmfWrapper * wqmf = NULL;
 
@@ -269,6 +272,7 @@ void QmfWrapper::connect(char *brokerUrl, char * connect_options, char * qmf_opt
     } catch(qpid::messaging::MessagingException& ex) {
     	isConnected = false;
     }
+    int iret1 = pthread_create( &threadEvents, NULL, QmfWrapper::threadEntryPoint, (void*) this);
 }
 
 void QmfWrapper::disconnect()
@@ -278,6 +282,184 @@ void QmfWrapper::disconnect()
 		qmsession.close();
 		sess.close();
 		conn.close();
+
+		pthread_join(threadEvents, NULL);
 	}
 }
 
+/*static */
+void * QmfWrapper::threadEntryPoint(void * pthis)
+{
+   QmfWrapper * pt = (QmfWrapper*)pthis;
+   pt->runThread( );
+   return pthis;
+}
+
+void QmfWrapper::runThread()
+{
+	while (isConnected) {
+		qmf::ConsoleEvent event;
+		if (sess.nextEvent(event, qpid::messaging::Duration::SECOND)) {
+			qmf::Agent agent = event.getAgent();
+			switch (event.getType()) {
+			case qmf::CONSOLE_EVENT :
+				emitEvent(event);
+				break;
+			default :
+				break;
+
+			}
+		}
+	}
+}
+
+void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
+{
+    uint32_t pcount = event.getDataCount();
+    if (pcount < 1)
+        return;
+
+    // each data in event is a new event
+    for (uint32_t idx = 0; idx < pcount; idx++) {
+        qmf::Data d = event.getData(idx);
+
+        std::string name;
+        name = d.getSchemaId().getName();
+
+        if (name == "clientConnect") {
+        	std::string user;
+        	findString(user, d, "user", "UNKNOWN_USER");
+        	std::string rHost;
+        	findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+
+        	send_rhm010EvtClientConnect_trap(rHost.c_str(), user.c_str());
+        } else if (name == "clientDisconnect") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+
+			send_rhm010EvtClientDisconnect_trap(rHost.c_str(), user.c_str());
+        } else if (name == "clientConnectFail") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string reason;
+			findString(reason, d, "reason", "UNKNOWN_REASON");
+
+			send_rhm010EvtClientConnectFail_trap(rHost.c_str(), user.c_str(), reason.c_str());
+        } else if (name == "brokerLinkUp") {
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+
+			send_rhm010EvtBrokerLinkUp_trap(rHost.c_str());
+        } else if (name == "brokerLinkDown") {
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+
+			send_rhm010EvtBrokerLinkDown_trap(rHost.c_str());
+        } else if (name == "queueThresholdExceeded") {
+        	std::string qName;
+        	findString(qName, d, "user", "UNKNOWN_QNAME");
+        	uint64_t msgDepth = findU64(d, "msgdepth");
+        	uint64_t byteDepth = findU64(d, "bytedepth");
+
+        	send_rhm010EvtQueueThresholdExceeded_trap(qName.c_str(), msgDepth, byteDepth);
+        } else if (name == "queueDeclare") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string qName;
+			findString(qName, d, "name", "UNKNOWN_QNAME");
+			bool durable = findBool(d, "durable");
+			bool exclusive = findBool(d, "exclusive");
+			bool autoDelete = findBool(d, "autoDelete");
+			std::string altEx;
+			findString(altEx, d, "altEx", "UNKNOWN_ALTEX");
+			std::string args;
+			findString(args, d, "args", "UNKNOWN_ARGS");
+			std::string disp;
+			findString(disp, d, "disp", "UNKNOWN_DISP");
+
+			send_rhm010EvtQueueDeclare_trap(rHost.c_str(), user.c_str(),
+					qName.c_str(), durable, exclusive, autoDelete, altEx.c_str(), args.c_str(), disp.c_str());
+        } else if (name == "bind") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string exName;
+			findString(exName, d, "name", "UNKNOWN_EXNAME");
+			std::string qName;
+			findString(qName, d, "name", "UNKNOWN_QNAME");
+			std::string key;
+			findString(key, d, "altEx", "UNKNOWN_KEY");
+			std::string args;
+			findString(args, d, "args", "UNKNOWN_ARGS");
+
+			send_rhm010EvtBind_trap(rHost.c_str(), user.c_str(),
+					exName.c_str(), qName.c_str(), key.c_str(), args.c_str());
+        } else if (name == "subscribe") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string qName;
+			findString(qName, d, "qname", "UNKNOWN_QNAME");
+			bool exclusive = findBool(d, "exclusive");
+			std::string dest;
+			findString(dest, d, "altEx", "UNKNOWN_DEST");
+			std::string args;
+			findString(args, d, "args", "UNKNOWN_ARGS");
+
+			send_rhm010EvtSubscribe_trap(rHost.c_str(), user.c_str(),
+					qName.c_str(), exclusive, dest.c_str(), args.c_str());
+        } else {
+            printf("::%s\n", d.getSchemaId().getName().c_str());
+        }
+    }
+}
+
+
+void QmfWrapper::findString(std::string &s, qmf::Data &d, const char *name, const char *defVal)
+{
+	const qpid::types::Variant::Map& attrs(d.getProperties());
+	qpid::types::Variant::Map::const_iterator iter;
+
+	iter = attrs.find(name);
+	if (iter != attrs.end())
+		s = iter->second.asString();
+	else
+		s = defVal;
+}
+
+uint64_t QmfWrapper::findU64(qmf::Data &d, const char *name)
+{
+	uint64_t u64;
+	const qpid::types::Variant::Map& attrs(d.getProperties());
+	qpid::types::Variant::Map::const_iterator iter;
+
+	iter = attrs.find(name);
+	if (iter != attrs.end())
+		u64 = iter->second.asUint64();
+	else
+		u64 = 0;
+	return u64;
+}
+
+bool QmfWrapper::findBool(qmf::Data &d, const char *name)
+{
+	bool val;
+	const qpid::types::Variant::Map& attrs(d.getProperties());
+	qpid::types::Variant::Map::const_iterator iter;
+
+	iter = attrs.find(name);
+	if (iter != attrs.end())
+		val = iter->second.asBool();
+	else
+		val = false;
+	return val;
+
+}

@@ -27,6 +27,8 @@
 #include <qmf/Data.h>
 #include <qmf/Query.h>
 
+#include <pthread.h>
+
 class QmfWrapper {
 public:
 	QmfWrapper();
@@ -38,7 +40,16 @@ public:
 
     char emptyString[1];
 
+protected:
+    static void * threadEntryPoint(void*);
+    void runThread();
+    void emitEvent(qmf::ConsoleEvent &event);
+
 private:
+    void findString(std::string &s, qmf::Data &d, const char *name, const char *defVal);
+    uint64_t findU64(qmf::Data &d, const char *name);
+    bool findBool(qmf::Data &d, const char *name);
+
     qpid::messaging::Connection conn;
     qmf::ConsoleSession sess;
     qpid::messaging::Session qmsession;
@@ -46,6 +57,9 @@ private:
     bool isConnected;
     // remember the broker object so we can make qmf calls
     qmf::Data brokerData;
+
+    pthread_t threadEvents;
+
 };
 
 #endif
