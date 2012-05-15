@@ -193,7 +193,7 @@ main(int argc, char **argv)
      */
     if (!init_qmf(qpidBrokerUrl, qpidBrokerConnectOptions, qpidQmfOptions)) {
         DEBUGMSGTL(("qpid-snmp/main", "failed to connect to broker %s\n", qpidBrokerUrl));
-        printf("qpid-snmp/main", "failed to connect to broker\n");
+        printf("qpid-snmp/main: failed to connect to broker %s\n", qpidBrokerUrl);
         exit(-1);
     }
 
@@ -255,6 +255,7 @@ main(int argc, char **argv)
     /*
      * main loop...
      */
+    printf("qpid agent listening...\n");
     while (keep_running) {
         /*
          * if you use select(), see snmp_select_info() in snmp_api(3) 
