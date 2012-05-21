@@ -11,12 +11,17 @@ RM := rm -rf
 -include src/vhost/subdir.mk
 -include src/traps/subdir.mk
 -include src/system/subdir.mk
+-include src/subscription/subdir.mk
 -include src/state/subdir.mk
+-include src/session/subdir.mk
 -include src/queue/subdir.mk
 -include src/memory/subdir.mk
+-include src/link/subdir.mk
 -include src/exchange/subdir.mk
+-include src/connection/subdir.mk
 -include src/cluster/subdir.mk
 -include src/broker/subdir.mk
+-include src/bridge/subdir.mk
 -include src/binding/subdir.mk
 -include src/agent/subdir.mk
 -include src/acl/subdir.mk

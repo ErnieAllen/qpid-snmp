@@ -1,0 +1,36 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../src/subscription/rhm010SubscriptionTable.c \
+../src/subscription/rhm010SubscriptionTable_data_access.c \
+../src/subscription/rhm010SubscriptionTable_data_get.c \
+../src/subscription/rhm010SubscriptionTable_data_set.c \
+../src/subscription/rhm010SubscriptionTable_interface.c 
+
+OBJS += \
+./src/subscription/rhm010SubscriptionTable.o \
+./src/subscription/rhm010SubscriptionTable_data_access.o \
+./src/subscription/rhm010SubscriptionTable_data_get.o \
+./src/subscription/rhm010SubscriptionTable_data_set.o \
+./src/subscription/rhm010SubscriptionTable_interface.o 
+
+C_DEPS += \
+./src/subscription/rhm010SubscriptionTable.d \
+./src/subscription/rhm010SubscriptionTable_data_access.d \
+./src/subscription/rhm010SubscriptionTable_data_get.d \
+./src/subscription/rhm010SubscriptionTable_data_set.d \
+./src/subscription/rhm010SubscriptionTable_interface.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+src/subscription/%.o: ../src/subscription/%.c
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C Compiler'
+	gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+
