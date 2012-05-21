@@ -25,6 +25,11 @@
 #include "memory/rhm010Memory.h"
 #include "state/rhm010ManagementSetupState.h"
 #include "binding/rhm010BindingTable.h"
+#include "session/rhm010SessionTable.h"
+#include "subscription/rhm010SubscriptionTable.h"
+#include "connection/rhm010ConnectionTable.h"
+#include "bridge/rhm010BridgeTable.h"
+#include "link/rhm010LinkTable.h"
 
 
 #include "qpid_api.h"
@@ -108,17 +113,6 @@ main(int argc, char **argv)
             netsnmp_ds_set_boolean(NETSNMP_DS_APPLICATION_ID,
                                    NETSNMP_DS_AGENT_NO_ROOT_ACCESS, 1);
             init_agent("rhm010");     /* register our .conf handlers */
-            init_rhm010QueueTable();
-            init_rhm010ExchangeTable();
-            init_rhm010VhostTable();
-            init_rhm010BindingTable();
-            init_rhm010System();
-            init_rhm010Acl();
-            init_rhm010Agent();
-            init_rhm010Broker();
-            init_rhm010Cluster();
-            init_rhm010Memory();
-            init_rhm010ManagementSetupState();
             init_snmp("rhm010");
             fprintf(stderr, "Configuration directives understood:\n");
             read_config_print_usage("  ");
@@ -226,6 +220,11 @@ main(int argc, char **argv)
     init_rhm010ExchangeTable();
     init_rhm010VhostTable();
     init_rhm010BindingTable();
+    init_rhm010SessionTable();
+    init_rhm010SubscriptionTable();
+    init_rhm010ConnectionTable();
+    init_rhm010BridgeTable();
+    init_rhm010LinkTable();
     init_rhm010System();
     init_rhm010Acl();
     init_rhm010Agent();
