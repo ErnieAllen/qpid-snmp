@@ -272,7 +272,7 @@ void QmfWrapper::connect(char *brokerUrl, char * connect_options, char * qmf_opt
     } catch(qpid::messaging::MessagingException& ex) {
     	isConnected = false;
     }
-    int iret1 = pthread_create( &threadEvents, NULL, QmfWrapper::threadEntryPoint, (void*) this);
+    pthread_create( &threadEvents, NULL, QmfWrapper::threadEntryPoint, (void*) this);
 }
 
 void QmfWrapper::disconnect()
