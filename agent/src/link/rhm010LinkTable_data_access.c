@@ -234,8 +234,6 @@ rhm010LinkTable_container_load(netsnmp_container * container)
     u_long          rhm010LinkInternalIndex;
     rhm010LinkTable_data qmfData;
 
-    uint64_t u64Data;
-
     void *pEvent = qpidGet("session");
 
     int index;
