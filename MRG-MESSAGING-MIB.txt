@@ -1,0 +1,4202 @@
+MRG-MESSAGING-MIB DEFINITIONS ::= BEGIN
+
+--
+-- Red Hat MRG Messaging mib for amqp broker
+--
+-- This file is generated from management-schema.xml
+-- using qpid-snmp-mibgen and qpid-snmp.txt.
+-- Do not edit this mib file directly.
+--
+-- iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+--                             |
+--                       redhat(2312)
+--                             |
+--                    _________________________
+--                   |                         |
+--               rhm(5672)                 other redhat OIDs
+--                   |
+--           ___________________
+--          |                   |
+--      rhmAmqp010(1)       rhmAmqp10(2) - reserved for futuer use
+--          |
+--       _________________________________________________________________________________________
+--      |                                                                  |                      |
+--  rhm010(1)                                              rhm010Plugins(2)       rhm010Conformance(3)
+--      |                                                                  |                      |
+--  <rhm010System, rhm010Memory, ...>                        <rhm010Acl, rhm010Cluster>        rhm010CnfGroups(1)
+--                                                                                                |
+--                                    _____________________________________________________________
+--                                   |           |                                      |          |
+--                    rhm010CnfGrpRequired(1) rhm010CnfGrpOptional(2)   rhm010CnfGrpArguments(3)    ...
+
+IMPORTS
+        MODULE-IDENTITY, OBJECT-IDENTITY, OBJECT-TYPE, Counter64,
+                Counter32, Integer32, Unsigned32, TimeTicks, enterprises,
+                NOTIFICATION-TYPE
+            FROM SNMPv2-SMI
+        OBJECT-GROUP, NOTIFICATION-GROUP, MODULE-COMPLIANCE
+            FROM SNMPv2-CONF
+        TruthValue, TEXTUAL-CONVENTION
+            FROM SNMPv2-TC;
+
+redhat MODULE-IDENTITY
+        LAST-UPDATED "201206060000Z"
+        ORGANIZATION "www.redhat.com"
+        CONTACT-INFO
+                "e-mail: eallen@redhat.com"
+        DESCRIPTION
+            "Red Hat MRG snmp mib"
+        REVISION "201206060000Z"
+            DESCRIPTION
+                "First release"
+        ::= { enterprises 2312 }
+
+--
+-- TEXTUAL-CONVENTIONS to define the qpid data types that don't
+-- map directly to mib types
+-- Note: mib types must begin with a cap, qpid types are normally
+-- all lower case
+-- __________________________________________________________________
+Uuid ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "8a-4a-4a-4a-12a"
+        STATUS          current
+        DESCRIPTION     "The system generates uuids that look like dd29e3bc-6acd-4f9e-8672-5c9c0bf716a7"
+        SYNTAX          OCTET STRING (SIZE (36))
+
+Sstr ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "255a"
+        STATUS          current
+        DESCRIPTION     "Short string 0 - 255 characters"
+        SYNTAX          OCTET STRING (SIZE (0..255))
+
+Lstr ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "65535a"
+        STATUS          current
+        DESCRIPTION     "Long string"
+        SYNTAX          OCTET STRING (SIZE (0..65535))
+
+ObjId ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "255a"
+        STATUS          current
+        DESCRIPTION     "Internal field that references another qpid object."
+        SYNTAX          OCTET STRING (SIZE (0..255))
+
+Uint64 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "There is no mib 64 unsigned, so use Counter64"
+        SYNTAX          Counter64
+
+Uint16 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "There is no mib 16 unsigned, so use Integer"
+        SYNTAX          Integer32
+
+Hilo32 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "Each Hilo32 data object is one of three data values:
+                        1. The current data value at the time of the get request.
+                        2. The highest value for the reporting interval
+                        3. The lowest value for the reporting interval"
+        SYNTAX          Integer32
+
+Map ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "65535a"
+        STATUS          current
+        DESCRIPTION     "Textual representation of a map<string, string>"
+        SYNTAX          OCTET STRING (SIZE (0..65535))
+
+
+--
+-- The root OID for messaging
+-- _____________________________________________________________________
+rhm OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "This is the root of all messaging OIDs.
+         This exists to avoid conflict with
+         other Redhat OIDs.
+         The number 5672 was chosen only because
+         it is the default port number the broker uses."
+        ::= { redhat 5672 }
+
+--
+-- Parent node for amqp 0.10 messaging
+--
+rhmAmqp010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Parent node for all amqp 0.10 sub-objects"
+        ::= { rhm 1 }
+
+--
+-- Reserve parent node for amqp 1.0 messaging
+--
+rhmAmqp10 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Parent node for all amqp 1.0 sub-objects"
+        ::= { rhm 2 }
+
+--
+-- Parent node for amqp 0.10 messaging broker classes and events
+--
+rhm010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Parent node for all amqp 0.10 broker sub-objects"
+        ::= { rhmAmqp010 1 }
+
+--
+-- Parent node for amqp 0.10 messaging broker plugins
+--
+rhm010Plugins OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Parent node for all amqp 0.10 broker plugins"
+        ::= { rhmAmqp010 2 }
+
+--
+-- Parent node for amqp 0.10 conformance groupings
+--
+rhm010Conformance OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all conformance objects"
+        ::= { rhmAmqp010 3 }
+
+--
+-- Define the OID for each top level messaging class
+-- ______________________________________________________________
+
+rhm010System OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the System properties"
+        ::= { rhm010 1 }
+
+rhm010Memory OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the Memory properties"
+        ::= { rhm010 2 }
+
+rhm010Broker OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the Broker properties"
+        ::= { rhm010 3 }
+
+rhm010Agent OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the Agent properties"
+        ::= { rhm010 4 }
+
+rhm010Vhosts OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Vhosts"
+        ::= { rhm010 5 }
+
+rhm010Queues OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Queues"
+        ::= { rhm010 6 }
+
+rhm010Exchanges OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Exchanges"
+        ::= { rhm010 7 }
+
+rhm010Bindings OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Bindings"
+        ::= { rhm010 8 }
+
+rhm010Subscriptions OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Subscriptions"
+        ::= { rhm010 9 }
+
+rhm010Connections OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Connections"
+        ::= { rhm010 10 }
+
+rhm010Links OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Links"
+        ::= { rhm010 11 }
+
+rhm010Bridges OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Bridges"
+        ::= { rhm010 12 }
+
+rhm010Sessions OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Sessions"
+        ::= { rhm010 13 }
+
+rhm010ManagementSetupState OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the ManagementSetupState properties"
+        ::= { rhm010 14 }
+
+rhm010Acl OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the plugin Acl properties"
+        ::= { rhm010Plugins 1 }
+
+rhm010Cluster OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the plugin Cluster properties"
+        ::= { rhm010Plugins 2 }
+
+rhm010HaBroker OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the plugin HaBroker properties"
+        ::= { rhm010Plugins 3 }
+
+rhm010Events OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all broker notification nodes"
+        ::= { rhm010 100 }
+
+--
+-- Define the [table]/data for each of the top level classes
+-- ______________________________________________________________
+-- ______________________________________________________________
+-- System class properties and statistics
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010System(1)
+-- ______________________________________________________________
+
+--
+-- The SystemSystemId data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010System(1).rhm010SystemSystemId(1)
+--
+rhm010SystemSystemId OBJECT-TYPE
+        SYNTAX      Uuid
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "System systemId
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010System 1 }
+
+--
+-- The SystemOsName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010System(1).rhm010SystemOsName(2)
+--
+rhm010SystemOsName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Operating System Name
+                     Additional info ( nodeType:property )"
+        ::= { rhm010System 2 }
+
+--
+-- The SystemNodeName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010System(1).rhm010SystemNodeName(3)
+--
+rhm010SystemNodeName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Node Name
+                     Additional info ( nodeType:property )"
+        ::= { rhm010System 3 }
+
+--
+-- The SystemRelease data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010System(1).rhm010SystemRelease(4)
+--
+rhm010SystemRelease OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "System release
+                     Additional info ( nodeType:property )"
+        ::= { rhm010System 4 }
+
+--
+-- The SystemVersion data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010System(1).rhm010SystemVersion(5)
+--
+rhm010SystemVersion OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "System version
+                     Additional info ( nodeType:property )"
+        ::= { rhm010System 5 }
+
+--
+-- The SystemMachine data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010System(1).rhm010SystemMachine(6)
+--
+rhm010SystemMachine OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "System machine
+                     Additional info ( nodeType:property )"
+        ::= { rhm010System 6 }
+
+-- ______________________________________________________________
+-- Memory class properties and statistics
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2)
+-- ______________________________________________________________
+
+--
+-- The MemoryName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2).rhm010MemoryName(1)
+--
+rhm010MemoryName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Index for the broker at this agent
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010Memory 1 }
+
+--
+-- The MemoryMallocarena data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2).rhm010MemoryMallocarena(2)
+--
+rhm010MemoryMallocarena OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total size of memory allocated with `sbrk' by `malloc', in bytes
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010Memory 2 }
+
+--
+-- The MemoryMallocordblks data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2).rhm010MemoryMallocordblks(3)
+--
+rhm010MemoryMallocordblks OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "The number of chunks not in use
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010Memory 3 }
+
+--
+-- The MemoryMallochblks data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2).rhm010MemoryMallochblks(4)
+--
+rhm010MemoryMallochblks OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total number of chunks allocated with `mmap'
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010Memory 4 }
+
+--
+-- The MemoryMallochblkhd data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2).rhm010MemoryMallochblkhd(5)
+--
+rhm010MemoryMallochblkhd OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total size of memory allocated with `mmap', in bytes
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010Memory 5 }
+
+--
+-- The MemoryMallocuordblks data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2).rhm010MemoryMallocuordblks(6)
+--
+rhm010MemoryMallocuordblks OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total size of memory occupied by chunks handed out by `malloc'
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010Memory 6 }
+
+--
+-- The MemoryMallocfordblks data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2).rhm010MemoryMallocfordblks(7)
+--
+rhm010MemoryMallocfordblks OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total size of memory occupied by free (not in use) chunks
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010Memory 7 }
+
+--
+-- The MemoryMallockeepcost data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Memory(2).rhm010MemoryMallockeepcost(8)
+--
+rhm010MemoryMallockeepcost OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "The size of the top-most releasable chunk that normally borders the end of the heap
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010Memory 8 }
+
+-- ______________________________________________________________
+-- Broker class properties and statistics
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3)
+-- ______________________________________________________________
+
+--
+-- The BrokerName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerName(1)
+--
+rhm010BrokerName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Index for the broker at this agent
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010Broker 1 }
+
+--
+-- The BrokerSystemRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerSystemRef(2)
+--
+rhm010BrokerSystemRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "System ID
+                     Additional info ( nodeType:property, references:System, parentRef:y )"
+        ::= { rhm010Broker 2 }
+
+--
+-- The BrokerPort data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerPort(3)
+--
+rhm010BrokerPort OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "TCP Port for AMQP Service
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Broker 3 }
+
+--
+-- The BrokerWorkerThreads data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerWorkerThreads(4)
+--
+rhm010BrokerWorkerThreads OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Thread pool size
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Broker 4 }
+
+--
+-- The BrokerMaxConns data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMaxConns(5)
+--
+rhm010BrokerMaxConns OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Maximum allowed connections
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Broker 5 }
+
+--
+-- The BrokerConnBacklog data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerConnBacklog(6)
+--
+rhm010BrokerConnBacklog OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection backlog limit for listening socket
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Broker 6 }
+
+--
+-- The BrokerStagingThreshold data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerStagingThreshold(7)
+--
+rhm010BrokerStagingThreshold OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker stages messages over this size to disk
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Broker 7 }
+
+--
+-- The BrokerMgmtPublish data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMgmtPublish(8)
+--
+rhm010BrokerMgmtPublish OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker's management agent sends unsolicited data on the publish interval
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Broker 8 }
+
+--
+-- The BrokerMgmtPubInterval data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMgmtPubInterval(9)
+--
+rhm010BrokerMgmtPubInterval OBJECT-TYPE
+        SYNTAX      Uint16
+        UNITS       "second"
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Interval for management broadcasts
+                     Additional info ( nodeType:property, min:1 )"
+        ::= { rhm010Broker 9 }
+
+--
+-- The BrokerVersion data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerVersion(10)
+--
+rhm010BrokerVersion OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Running software version
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Broker 10 }
+
+--
+-- The BrokerDataDir data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerDataDir(11)
+--
+rhm010BrokerDataDir OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent configuration storage location
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010Broker 11 }
+
+--
+-- The BrokerUptime data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerUptime(12)
+--
+rhm010BrokerUptime OBJECT-TYPE
+        SYNTAX      TimeTicks
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker uptime
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 12 }
+
+--
+-- The BrokerQueueCount data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerQueueCount(13)
+--
+rhm010BrokerQueueCount OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "queue"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of queues in the broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 13 }
+
+--
+-- The BrokerMsgTotalEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgTotalEnqueues(14)
+--
+rhm010BrokerMsgTotalEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 14 }
+
+--
+-- The BrokerMsgTotalDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgTotalDequeues(15)
+--
+rhm010BrokerMsgTotalDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 15 }
+
+--
+-- The BrokerByteTotalEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerByteTotalEnqueues(16)
+--
+rhm010BrokerByteTotalEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 16 }
+
+--
+-- The BrokerByteTotalDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerByteTotalDequeues(17)
+--
+rhm010BrokerByteTotalDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 17 }
+
+--
+-- The BrokerMsgDepth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgDepth(18)
+--
+rhm010BrokerMsgDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of messages on queues in broker
+                     Additional info ( nodeType:statistic, assign:msgTotalEnqueues - msgTotalDequeues )"
+        ::= { rhm010Broker 18 }
+
+--
+-- The BrokerByteDepth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerByteDepth(19)
+--
+rhm010BrokerByteDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of bytes on queues in broker
+                     Additional info ( nodeType:statistic, assign:byteTotalEnqueues - byteTotalDequeues )"
+        ::= { rhm010Broker 19 }
+
+--
+-- The BrokerMsgPersistEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgPersistEnqueues(20)
+--
+rhm010BrokerMsgPersistEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total persistent messages enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 20 }
+
+--
+-- The BrokerMsgPersistDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgPersistDequeues(21)
+--
+rhm010BrokerMsgPersistDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total persistent messages dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 21 }
+
+--
+-- The BrokerBytePersistEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerBytePersistEnqueues(22)
+--
+rhm010BrokerBytePersistEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total persistent bytes enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 22 }
+
+--
+-- The BrokerBytePersistDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerBytePersistDequeues(23)
+--
+rhm010BrokerBytePersistDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total persistent bytes dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 23 }
+
+--
+-- The BrokerMsgTxnEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgTxnEnqueues(24)
+--
+rhm010BrokerMsgTxnEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactional messages enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 24 }
+
+--
+-- The BrokerMsgTxnDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgTxnDequeues(25)
+--
+rhm010BrokerMsgTxnDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactional messages dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 25 }
+
+--
+-- The BrokerByteTxnEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerByteTxnEnqueues(26)
+--
+rhm010BrokerByteTxnEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactional bytes enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 26 }
+
+--
+-- The BrokerByteTxnDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerByteTxnDequeues(27)
+--
+rhm010BrokerByteTxnDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactional bytes dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 27 }
+
+--
+-- The BrokerMsgFtdEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgFtdEnqueues(28)
+--
+rhm010BrokerMsgFtdEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total message bodies released from memory and flowed-to-disk on broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 28 }
+
+--
+-- The BrokerMsgFtdDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgFtdDequeues(29)
+--
+rhm010BrokerMsgFtdDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total message bodies dequeued from the broker having been flowed-to-disk
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 29 }
+
+--
+-- The BrokerByteFtdEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerByteFtdEnqueues(30)
+--
+rhm010BrokerByteFtdEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes released from memory and flowed-to-disk on broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 30 }
+
+--
+-- The BrokerByteFtdDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerByteFtdDequeues(31)
+--
+rhm010BrokerByteFtdDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes dequeued from the broker having been flowed-to-disk
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 31 }
+
+--
+-- The BrokerMsgFtdDepth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerMsgFtdDepth(32)
+--
+rhm010BrokerMsgFtdDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of messages flowed-to-disk
+                     Additional info ( nodeType:statistic, assign:msgFtdEnqueues - msgFtdDequeues )"
+        ::= { rhm010Broker 32 }
+
+--
+-- The BrokerByteFtdDepth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerByteFtdDepth(33)
+--
+rhm010BrokerByteFtdDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of bytes flowed-to-disk
+                     Additional info ( nodeType:statistic, assign:byteFtdEnqueues - byteFtdDequeues )"
+        ::= { rhm010Broker 33 }
+
+--
+-- The BrokerReleases data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerReleases(34)
+--
+rhm010BrokerReleases OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Acquired messages reinserted into the queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 34 }
+
+--
+-- The BrokerAcquires data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerAcquires(35)
+--
+rhm010BrokerAcquires OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages acquired from the queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 35 }
+
+--
+-- The BrokerDiscardsNoRoute data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerDiscardsNoRoute(36)
+--
+rhm010BrokerDiscardsNoRoute OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to no-route from exchange
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 36 }
+
+--
+-- The BrokerDiscardsTtl data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerDiscardsTtl(37)
+--
+rhm010BrokerDiscardsTtl OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to TTL expiration
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 37 }
+
+--
+-- The BrokerDiscardsRing data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerDiscardsRing(38)
+--
+rhm010BrokerDiscardsRing OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to ring-queue overflow
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 38 }
+
+--
+-- The BrokerDiscardsLvq data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerDiscardsLvq(39)
+--
+rhm010BrokerDiscardsLvq OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to LVQ insert
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 39 }
+
+--
+-- The BrokerDiscardsOverflow data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerDiscardsOverflow(40)
+--
+rhm010BrokerDiscardsOverflow OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to reject-policy overflow
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 40 }
+
+--
+-- The BrokerDiscardsSubscriber data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerDiscardsSubscriber(41)
+--
+rhm010BrokerDiscardsSubscriber OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to subscriber reject
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 41 }
+
+--
+-- The BrokerDiscardsPurge data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerDiscardsPurge(42)
+--
+rhm010BrokerDiscardsPurge OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to management purge
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 42 }
+
+--
+-- The BrokerReroutes data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerReroutes(43)
+--
+rhm010BrokerReroutes OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages dequeued to management re-route
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 43 }
+
+--
+-- The BrokerAbandoned data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerAbandoned(44)
+--
+rhm010BrokerAbandoned OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages left in a deleted queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 44 }
+
+--
+-- The BrokerAbandonedViaAlt data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Broker(3).rhm010BrokerAbandonedViaAlt(45)
+--
+rhm010BrokerAbandonedViaAlt OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages routed to alternate exchange from a deleted queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Broker 45 }
+
+-- ______________________________________________________________
+-- Agent class properties and statistics
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Agent(4)
+-- ______________________________________________________________
+
+--
+-- The AgentConnectionRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Agent(4).rhm010AgentConnectionRef(1)
+--
+rhm010AgentConnectionRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Agent connectionRef
+                     Additional info ( nodeType:property, references:Connection, index:y )"
+        ::= { rhm010Agent 1 }
+
+--
+-- The AgentLabel data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Agent(4).rhm010AgentLabel(2)
+--
+rhm010AgentLabel OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Label for agent
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Agent 2 }
+
+--
+-- The AgentRegisteredTo data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Agent(4).rhm010AgentRegisteredTo(3)
+--
+rhm010AgentRegisteredTo OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker agent is registered to
+                     Additional info ( nodeType:property, references:Broker )"
+        ::= { rhm010Agent 3 }
+
+--
+-- The AgentSystemId data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Agent(4).rhm010AgentSystemId(4)
+--
+rhm010AgentSystemId OBJECT-TYPE
+        SYNTAX      Uuid
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Identifier of system where agent resides
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Agent 4 }
+
+--
+-- The AgentBrokerBank data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Agent(4).rhm010AgentBrokerBank(5)
+--
+rhm010AgentBrokerBank OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Assigned object-id broker bank
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Agent 5 }
+
+--
+-- The AgentAgentBank data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Agent(4).rhm010AgentAgentBank(6)
+--
+rhm010AgentAgentBank OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Assigned object-id agent bank
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Agent 6 }
+
+-- ______________________________________________________________
+-- Vhost class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Vhost(5).rhm010VhostTable(1)
+-- ______________________________________________________________
+rhm010VhostTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010VhostEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of vhosts"
+        ::= { rhm010Vhosts 1 }
+--
+-- vhostEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Vhost(5).rhm010VhostTable(1).rhm010VhostEntry(1)
+--
+rhm010VhostEntry OBJECT-TYPE
+        SYNTAX      Rhm010VhostEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the vhost table"
+        INDEX { rhm010VhostInternalIndex }
+        ::= { rhm010VhostTable 1 }
+
+Rhm010VhostEntry ::= SEQUENCE {
+    rhm010VhostBrokerRef                ObjId,
+    rhm010VhostName                     Sstr,
+    rhm010VhostFederationTag            Sstr,
+    rhm010VhostInternalIndex           Unsigned32
+}
+
+--
+-- rhm010VhostBrokerRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Vhost(5).rhm010VhostTable(1).rhm010VhostEntry(1).rhm010VhostBrokerRef(1)
+--
+rhm010VhostBrokerRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Vhost brokerRef
+                     Additional info ( nodeType:property, references:Broker, index:y, parentRef:y )"
+        ::= { rhm010VhostEntry 1 }
+
+--
+-- rhm010VhostName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Vhost(5).rhm010VhostTable(1).rhm010VhostEntry(1).rhm010VhostName(2)
+--
+rhm010VhostName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Vhost name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010VhostEntry 2 }
+
+--
+-- rhm010VhostFederationTag data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Vhost(5).rhm010VhostTable(1).rhm010VhostEntry(1).rhm010VhostFederationTag(3)
+--
+rhm010VhostFederationTag OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Vhost federationTag
+                     Additional info ( nodeType:property )"
+        ::= { rhm010VhostEntry 3 }
+
+--
+-- vhostInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Vhost(5).rhm010vhostTable(1).rhm010vhostEntry(1).vhostInternalIndex(4)
+--
+rhm010VhostInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for vhost table"
+        ::= { rhm010VhostEntry 4 }
+-- ______________________________________________________________
+-- Queue class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1)
+-- ______________________________________________________________
+rhm010QueueTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010QueueEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of queues"
+        ::= { rhm010Queues 1 }
+--
+-- queueEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1)
+--
+rhm010QueueEntry OBJECT-TYPE
+        SYNTAX      Rhm010QueueEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the queue table"
+        INDEX { rhm010QueueInternalIndex }
+        ::= { rhm010QueueTable 1 }
+
+Rhm010QueueEntry ::= SEQUENCE {
+    rhm010QueueVhostRef                 ObjId,
+    rhm010QueueName                     Sstr,
+    rhm010QueueDurable                  TruthValue,
+    rhm010QueueAutoDelete               TruthValue,
+    rhm010QueueExclusive                TruthValue,
+    rhm010QueueArguments                Map,
+    rhm010QueueAltExchange              ObjId,
+    rhm010QueueMsgTotalEnqueues         Counter64,
+    rhm010QueueMsgTotalDequeues         Counter64,
+    rhm010QueueMsgTxnEnqueues           Counter64,
+    rhm010QueueMsgTxnDequeues           Counter64,
+    rhm010QueueMsgPersistEnqueues       Counter64,
+    rhm010QueueMsgPersistDequeues       Counter64,
+    rhm010QueueMsgDepth                 Counter64,
+    rhm010QueueByteDepth                Counter64,
+    rhm010QueueByteTotalEnqueues        Counter64,
+    rhm010QueueByteTotalDequeues        Counter64,
+    rhm010QueueByteTxnEnqueues          Counter64,
+    rhm010QueueByteTxnDequeues          Counter64,
+    rhm010QueueBytePersistEnqueues      Counter64,
+    rhm010QueueBytePersistDequeues      Counter64,
+    rhm010QueueMsgFtdEnqueues           Counter64,
+    rhm010QueueMsgFtdDequeues           Counter64,
+    rhm010QueueByteFtdEnqueues          Counter64,
+    rhm010QueueByteFtdDequeues          Counter64,
+    rhm010QueueMsgFtdDepth              Counter64,
+    rhm010QueueByteFtdDepth             Counter64,
+    rhm010QueueReleases                 Counter64,
+    rhm010QueueAcquires                 Counter64,
+    rhm010QueueDiscardsTtl              Counter64,
+    rhm010QueueDiscardsRing             Counter64,
+    rhm010QueueDiscardsLvq              Counter64,
+    rhm010QueueDiscardsOverflow         Counter64,
+    rhm010QueueDiscardsSubscriber       Counter64,
+    rhm010QueueDiscardsPurge            Counter64,
+    rhm010QueueReroutes                 Counter64,
+    rhm010QueueConsumerCount            Hilo32,
+    rhm010QueueConsumerCountHi          Hilo32,
+    rhm010QueueConsumerCountLow         Hilo32,
+    rhm010QueueBindingCount             Hilo32,
+    rhm010QueueBindingCountHi           Hilo32,
+    rhm010QueueBindingCountLow          Hilo32,
+    rhm010QueueUnackedMessages          Hilo32,
+    rhm010QueueUnackedMessagesHi        Hilo32,
+    rhm010QueueUnackedMessagesLow       Hilo32,
+    rhm010QueueMessageLatency           TimeTicks,
+    rhm010QueueFlowStopped              TruthValue,
+    rhm010QueueFlowStoppedCount         Counter32,
+    rhm010QueueInternalIndex           Unsigned32
+}
+
+--
+-- rhm010QueueVhostRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueVhostRef(1)
+--
+rhm010QueueVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { rhm010QueueEntry 1 }
+
+--
+-- rhm010QueueName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueName(2)
+--
+rhm010QueueName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010QueueEntry 2 }
+
+--
+-- rhm010QueueDurable data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueDurable(3)
+--
+rhm010QueueDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue durable
+                     Additional info ( nodeType:property )"
+        ::= { rhm010QueueEntry 3 }
+
+--
+-- rhm010QueueAutoDelete data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueAutoDelete(4)
+--
+rhm010QueueAutoDelete OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue autoDelete
+                     Additional info ( nodeType:property )"
+        ::= { rhm010QueueEntry 4 }
+
+--
+-- rhm010QueueExclusive data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueExclusive(5)
+--
+rhm010QueueExclusive OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue exclusive
+                     Additional info ( nodeType:property )"
+        ::= { rhm010QueueEntry 5 }
+
+--
+-- rhm010QueueArguments data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueArguments(6)
+--
+rhm010QueueArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Arguments supplied in queue.declare
+                     Additional info ( nodeType:property )"
+        ::= { rhm010QueueEntry 6 }
+
+--
+-- rhm010QueueAltExchange data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueAltExchange(7)
+--
+rhm010QueueAltExchange OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Queue altExchange
+                     Additional info ( nodeType:property, references:Exchange, optional:y )"
+        ::= { rhm010QueueEntry 7 }
+
+--
+-- rhm010QueueMsgTotalEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgTotalEnqueues(8)
+--
+rhm010QueueMsgTotalEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 8 }
+
+--
+-- rhm010QueueMsgTotalDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgTotalDequeues(9)
+--
+rhm010QueueMsgTotalDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 9 }
+
+--
+-- rhm010QueueMsgTxnEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgTxnEnqueues(10)
+--
+rhm010QueueMsgTxnEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Transactional messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 10 }
+
+--
+-- rhm010QueueMsgTxnDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgTxnDequeues(11)
+--
+rhm010QueueMsgTxnDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Transactional messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 11 }
+
+--
+-- rhm010QueueMsgPersistEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgPersistEnqueues(12)
+--
+rhm010QueueMsgPersistEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 12 }
+
+--
+-- rhm010QueueMsgPersistDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgPersistDequeues(13)
+--
+rhm010QueueMsgPersistDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 13 }
+
+--
+-- rhm010QueueMsgDepth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgDepth(14)
+--
+rhm010QueueMsgDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current size of queue in messages
+                     Additional info ( nodeType:statistic, assign:msgTotalEnqueues - msgTotalDequeues )"
+        ::= { rhm010QueueEntry 14 }
+
+--
+-- rhm010QueueByteDepth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueByteDepth(15)
+--
+rhm010QueueByteDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current size of queue in bytes
+                     Additional info ( nodeType:statistic, assign:byteTotalEnqueues - byteTotalDequeues )"
+        ::= { rhm010QueueEntry 15 }
+
+--
+-- rhm010QueueByteTotalEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueByteTotalEnqueues(16)
+--
+rhm010QueueByteTotalEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 16 }
+
+--
+-- rhm010QueueByteTotalDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueByteTotalDequeues(17)
+--
+rhm010QueueByteTotalDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 17 }
+
+--
+-- rhm010QueueByteTxnEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueByteTxnEnqueues(18)
+--
+rhm010QueueByteTxnEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Transactional messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 18 }
+
+--
+-- rhm010QueueByteTxnDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueByteTxnDequeues(19)
+--
+rhm010QueueByteTxnDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Transactional messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 19 }
+
+--
+-- rhm010QueueBytePersistEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueBytePersistEnqueues(20)
+--
+rhm010QueueBytePersistEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 20 }
+
+--
+-- rhm010QueueBytePersistDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueBytePersistDequeues(21)
+--
+rhm010QueueBytePersistDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 21 }
+
+--
+-- rhm010QueueMsgFtdEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgFtdEnqueues(22)
+--
+rhm010QueueMsgFtdEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total message bodies released from memory and flowed-to-disk on broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 22 }
+
+--
+-- rhm010QueueMsgFtdDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgFtdDequeues(23)
+--
+rhm010QueueMsgFtdDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total message bodies dequeued from the broker having been flowed-to-disk
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 23 }
+
+--
+-- rhm010QueueByteFtdEnqueues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueByteFtdEnqueues(24)
+--
+rhm010QueueByteFtdEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes released from memory and flowed-to-disk on broker
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 24 }
+
+--
+-- rhm010QueueByteFtdDequeues data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueByteFtdDequeues(25)
+--
+rhm010QueueByteFtdDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes dequeued from the broker having been flowed-to-disk
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 25 }
+
+--
+-- rhm010QueueMsgFtdDepth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMsgFtdDepth(26)
+--
+rhm010QueueMsgFtdDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of messages flowed-to-disk
+                     Additional info ( nodeType:statistic, assign:msgFtdEnqueues - msgFtdDequeues )"
+        ::= { rhm010QueueEntry 26 }
+
+--
+-- rhm010QueueByteFtdDepth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueByteFtdDepth(27)
+--
+rhm010QueueByteFtdDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of bytes flowed-to-disk
+                     Additional info ( nodeType:statistic, assign:byteFtdEnqueues - byteFtdDequeues )"
+        ::= { rhm010QueueEntry 27 }
+
+--
+-- rhm010QueueReleases data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueReleases(28)
+--
+rhm010QueueReleases OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Acquired messages reinserted into the queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 28 }
+
+--
+-- rhm010QueueAcquires data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueAcquires(29)
+--
+rhm010QueueAcquires OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages acquired from the queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 29 }
+
+--
+-- rhm010QueueDiscardsTtl data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueDiscardsTtl(30)
+--
+rhm010QueueDiscardsTtl OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to TTL expiration
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 30 }
+
+--
+-- rhm010QueueDiscardsRing data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueDiscardsRing(31)
+--
+rhm010QueueDiscardsRing OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to ring-queue overflow
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 31 }
+
+--
+-- rhm010QueueDiscardsLvq data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueDiscardsLvq(32)
+--
+rhm010QueueDiscardsLvq OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to LVQ insert
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 32 }
+
+--
+-- rhm010QueueDiscardsOverflow data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueDiscardsOverflow(33)
+--
+rhm010QueueDiscardsOverflow OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to reject-policy overflow
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 33 }
+
+--
+-- rhm010QueueDiscardsSubscriber data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueDiscardsSubscriber(34)
+--
+rhm010QueueDiscardsSubscriber OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to subscriber reject
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 34 }
+
+--
+-- rhm010QueueDiscardsPurge data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueDiscardsPurge(35)
+--
+rhm010QueueDiscardsPurge OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to management purge
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 35 }
+
+--
+-- rhm010QueueReroutes data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueReroutes(36)
+--
+rhm010QueueReroutes OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages dequeued to management re-route
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 36 }
+
+--
+-- rhm010QueueConsumerCount data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueConsumerCount(37)
+--
+rhm010QueueConsumerCount OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "consumer"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current consumers on queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 37 }
+
+--
+-- rhm010QueueConsumerCountHi data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueConsumerCountHi(38)
+--
+rhm010QueueConsumerCountHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "consumer"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current consumers on queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 38 }
+
+--
+-- rhm010QueueConsumerCountLow data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueConsumerCountLow(39)
+--
+rhm010QueueConsumerCountLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "consumer"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current consumers on queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 39 }
+
+--
+-- rhm010QueueBindingCount data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueBindingCount(40)
+--
+rhm010QueueBindingCount OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "binding"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 40 }
+
+--
+-- rhm010QueueBindingCountHi data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueBindingCountHi(41)
+--
+rhm010QueueBindingCountHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "binding"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 41 }
+
+--
+-- rhm010QueueBindingCountLow data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueBindingCountLow(42)
+--
+rhm010QueueBindingCountLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "binding"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 42 }
+
+--
+-- rhm010QueueUnackedMessages data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueUnackedMessages(43)
+--
+rhm010QueueUnackedMessages OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages consumed but not yet acked
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 43 }
+
+--
+-- rhm010QueueUnackedMessagesHi data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueUnackedMessagesHi(44)
+--
+rhm010QueueUnackedMessagesHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages consumed but not yet acked
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 44 }
+
+--
+-- rhm010QueueUnackedMessagesLow data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueUnackedMessagesLow(45)
+--
+rhm010QueueUnackedMessagesLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages consumed but not yet acked
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 45 }
+
+--
+-- rhm010QueueMessageLatency data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueMessageLatency(46)
+--
+rhm010QueueMessageLatency OBJECT-TYPE
+        SYNTAX      TimeTicks
+        UNITS       "nanosecond"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker latency through this queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 46 }
+
+--
+-- rhm010QueueFlowStopped data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueFlowStopped(47)
+--
+rhm010QueueFlowStopped OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Flow control active.
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 47 }
+
+--
+-- rhm010QueueFlowStoppedCount data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010QueueTable(1).rhm010QueueEntry(1).rhm010QueueFlowStoppedCount(48)
+--
+rhm010QueueFlowStoppedCount OBJECT-TYPE
+        SYNTAX      Counter32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of times flow control was activated for this queue
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010QueueEntry 48 }
+
+--
+-- queueInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Queue(6).rhm010queueTable(1).rhm010queueEntry(1).queueInternalIndex(49)
+--
+rhm010QueueInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for queue table"
+        ::= { rhm010QueueEntry 49 }
+-- ______________________________________________________________
+-- Exchange class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1)
+-- ______________________________________________________________
+rhm010ExchangeTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010ExchangeEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of exchanges"
+        ::= { rhm010Exchanges 1 }
+--
+-- exchangeEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1)
+--
+rhm010ExchangeEntry OBJECT-TYPE
+        SYNTAX      Rhm010ExchangeEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the exchange table"
+        INDEX { rhm010ExchangeInternalIndex }
+        ::= { rhm010ExchangeTable 1 }
+
+Rhm010ExchangeEntry ::= SEQUENCE {
+    rhm010ExchangeVhostRef              ObjId,
+    rhm010ExchangeName                  Sstr,
+    rhm010ExchangeType                  Sstr,
+    rhm010ExchangeDurable               TruthValue,
+    rhm010ExchangeAutoDelete            TruthValue,
+    rhm010ExchangeAltExchange           ObjId,
+    rhm010ExchangeArguments             Map,
+    rhm010ExchangeProducerCount         Hilo32,
+    rhm010ExchangeProducerCountHi       Hilo32,
+    rhm010ExchangeProducerCountLow      Hilo32,
+    rhm010ExchangeBindingCount          Hilo32,
+    rhm010ExchangeBindingCountHi        Hilo32,
+    rhm010ExchangeBindingCountLow       Hilo32,
+    rhm010ExchangeMsgReceives           Counter64,
+    rhm010ExchangeMsgDrops              Counter64,
+    rhm010ExchangeMsgRoutes             Counter64,
+    rhm010ExchangeByteReceives          Counter64,
+    rhm010ExchangeByteDrops             Counter64,
+    rhm010ExchangeByteRoutes            Counter64,
+    rhm010ExchangeInternalIndex           Unsigned32
+}
+
+--
+-- rhm010ExchangeVhostRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeVhostRef(1)
+--
+rhm010ExchangeVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Exchange vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { rhm010ExchangeEntry 1 }
+
+--
+-- rhm010ExchangeName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeName(2)
+--
+rhm010ExchangeName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Exchange name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010ExchangeEntry 2 }
+
+--
+-- rhm010ExchangeType data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeType(3)
+--
+rhm010ExchangeType OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Exchange type
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ExchangeEntry 3 }
+
+--
+-- rhm010ExchangeDurable data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeDurable(4)
+--
+rhm010ExchangeDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Exchange durable
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ExchangeEntry 4 }
+
+--
+-- rhm010ExchangeAutoDelete data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeAutoDelete(5)
+--
+rhm010ExchangeAutoDelete OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Exchange autoDelete
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ExchangeEntry 5 }
+
+--
+-- rhm010ExchangeAltExchange data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeAltExchange(6)
+--
+rhm010ExchangeAltExchange OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Exchange altExchange
+                     Additional info ( nodeType:property, references:Exchange, optional:y )"
+        ::= { rhm010ExchangeEntry 6 }
+
+--
+-- rhm010ExchangeArguments data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeArguments(7)
+--
+rhm010ExchangeArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Arguments supplied in exchange.declare
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ExchangeEntry 7 }
+
+--
+-- rhm010ExchangeProducerCount data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeProducerCount(8)
+--
+rhm010ExchangeProducerCount OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current producers on exchange
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 8 }
+
+--
+-- rhm010ExchangeProducerCountHi data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeProducerCountHi(9)
+--
+rhm010ExchangeProducerCountHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current producers on exchange
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 9 }
+
+--
+-- rhm010ExchangeProducerCountLow data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeProducerCountLow(10)
+--
+rhm010ExchangeProducerCountLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current producers on exchange
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 10 }
+
+--
+-- rhm010ExchangeBindingCount data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeBindingCount(11)
+--
+rhm010ExchangeBindingCount OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 11 }
+
+--
+-- rhm010ExchangeBindingCountHi data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeBindingCountHi(12)
+--
+rhm010ExchangeBindingCountHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 12 }
+
+--
+-- rhm010ExchangeBindingCountLow data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeBindingCountLow(13)
+--
+rhm010ExchangeBindingCountLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 13 }
+
+--
+-- rhm010ExchangeMsgReceives data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeMsgReceives(14)
+--
+rhm010ExchangeMsgReceives OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages received
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 14 }
+
+--
+-- rhm010ExchangeMsgDrops data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeMsgDrops(15)
+--
+rhm010ExchangeMsgDrops OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages dropped (no matching key)
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 15 }
+
+--
+-- rhm010ExchangeMsgRoutes data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeMsgRoutes(16)
+--
+rhm010ExchangeMsgRoutes OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total routed messages
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 16 }
+
+--
+-- rhm010ExchangeByteReceives data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeByteReceives(17)
+--
+rhm010ExchangeByteReceives OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes received
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 17 }
+
+--
+-- rhm010ExchangeByteDrops data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeByteDrops(18)
+--
+rhm010ExchangeByteDrops OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes dropped (no matching key)
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 18 }
+
+--
+-- rhm010ExchangeByteRoutes data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010ExchangeTable(1).rhm010ExchangeEntry(1).rhm010ExchangeByteRoutes(19)
+--
+rhm010ExchangeByteRoutes OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total routed bytes
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ExchangeEntry 19 }
+
+--
+-- exchangeInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Exchange(7).rhm010exchangeTable(1).rhm010exchangeEntry(1).exchangeInternalIndex(20)
+--
+rhm010ExchangeInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for exchange table"
+        ::= { rhm010ExchangeEntry 20 }
+-- ______________________________________________________________
+-- Binding class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010BindingTable(1)
+-- ______________________________________________________________
+rhm010BindingTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010BindingEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of bindings"
+        ::= { rhm010Bindings 1 }
+--
+-- bindingEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010BindingTable(1).rhm010BindingEntry(1)
+--
+rhm010BindingEntry OBJECT-TYPE
+        SYNTAX      Rhm010BindingEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the binding table"
+        INDEX { rhm010BindingInternalIndex }
+        ::= { rhm010BindingTable 1 }
+
+Rhm010BindingEntry ::= SEQUENCE {
+    rhm010BindingExchangeRef            ObjId,
+    rhm010BindingQueueRef               ObjId,
+    rhm010BindingBindingKey             Lstr,
+    rhm010BindingArguments              Map,
+    rhm010BindingOrigin                 Sstr,
+    rhm010BindingMsgMatched             Counter64,
+    rhm010BindingInternalIndex           Unsigned32
+}
+
+--
+-- rhm010BindingExchangeRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010BindingTable(1).rhm010BindingEntry(1).rhm010BindingExchangeRef(1)
+--
+rhm010BindingExchangeRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Binding exchangeRef
+                     Additional info ( nodeType:property, references:Exchange, index:y, parentRef:y )"
+        ::= { rhm010BindingEntry 1 }
+
+--
+-- rhm010BindingQueueRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010BindingTable(1).rhm010BindingEntry(1).rhm010BindingQueueRef(2)
+--
+rhm010BindingQueueRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Binding queueRef
+                     Additional info ( nodeType:property, references:Queue, index:y )"
+        ::= { rhm010BindingEntry 2 }
+
+--
+-- rhm010BindingBindingKey data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010BindingTable(1).rhm010BindingEntry(1).rhm010BindingBindingKey(3)
+--
+rhm010BindingBindingKey OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Binding bindingKey
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010BindingEntry 3 }
+
+--
+-- rhm010BindingArguments data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010BindingTable(1).rhm010BindingEntry(1).rhm010BindingArguments(4)
+--
+rhm010BindingArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Binding arguments
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BindingEntry 4 }
+
+--
+-- rhm010BindingOrigin data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010BindingTable(1).rhm010BindingEntry(1).rhm010BindingOrigin(5)
+--
+rhm010BindingOrigin OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Binding origin
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010BindingEntry 5 }
+
+--
+-- rhm010BindingMsgMatched data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010BindingTable(1).rhm010BindingEntry(1).rhm010BindingMsgMatched(6)
+--
+rhm010BindingMsgMatched OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Binding msgMatched
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010BindingEntry 6 }
+
+--
+-- bindingInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Binding(8).rhm010bindingTable(1).rhm010bindingEntry(1).bindingInternalIndex(7)
+--
+rhm010BindingInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for binding table"
+        ::= { rhm010BindingEntry 7 }
+-- ______________________________________________________________
+-- Subscription class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1)
+-- ______________________________________________________________
+rhm010SubscriptionTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010SubscriptionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of subscriptions"
+        ::= { rhm010Subscriptions 1 }
+--
+-- subscriptionEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1)
+--
+rhm010SubscriptionEntry OBJECT-TYPE
+        SYNTAX      Rhm010SubscriptionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the subscription table"
+        INDEX { rhm010SubscriptionInternalIndex }
+        ::= { rhm010SubscriptionTable 1 }
+
+Rhm010SubscriptionEntry ::= SEQUENCE {
+    rhm010SubscriptionSessionRef        ObjId,
+    rhm010SubscriptionQueueRef          ObjId,
+    rhm010SubscriptionName              Sstr,
+    rhm010SubscriptionBrowsing          TruthValue,
+    rhm010SubscriptionAcknowledged      TruthValue,
+    rhm010SubscriptionExclusive         TruthValue,
+    rhm010SubscriptionCreditMode        Sstr,
+    rhm010SubscriptionArguments         Map,
+    rhm010SubscriptionDelivered         Counter64,
+    rhm010SubscriptionInternalIndex           Unsigned32
+}
+
+--
+-- rhm010SubscriptionSessionRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionSessionRef(1)
+--
+rhm010SubscriptionSessionRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription sessionRef
+                     Additional info ( nodeType:property, references:Session, index:y, parentRef:y )"
+        ::= { rhm010SubscriptionEntry 1 }
+
+--
+-- rhm010SubscriptionQueueRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionQueueRef(2)
+--
+rhm010SubscriptionQueueRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription queueRef
+                     Additional info ( nodeType:property, references:Queue, index:y )"
+        ::= { rhm010SubscriptionEntry 2 }
+
+--
+-- rhm010SubscriptionName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionName(3)
+--
+rhm010SubscriptionName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010SubscriptionEntry 3 }
+
+--
+-- rhm010SubscriptionBrowsing data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionBrowsing(4)
+--
+rhm010SubscriptionBrowsing OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription browsing
+                     Additional info ( nodeType:property )"
+        ::= { rhm010SubscriptionEntry 4 }
+
+--
+-- rhm010SubscriptionAcknowledged data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionAcknowledged(5)
+--
+rhm010SubscriptionAcknowledged OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription acknowledged
+                     Additional info ( nodeType:property )"
+        ::= { rhm010SubscriptionEntry 5 }
+
+--
+-- rhm010SubscriptionExclusive data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionExclusive(6)
+--
+rhm010SubscriptionExclusive OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription exclusive
+                     Additional info ( nodeType:property )"
+        ::= { rhm010SubscriptionEntry 6 }
+
+--
+-- rhm010SubscriptionCreditMode data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionCreditMode(7)
+--
+rhm010SubscriptionCreditMode OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "WINDOW or CREDIT
+                     Additional info ( nodeType:property )"
+        ::= { rhm010SubscriptionEntry 7 }
+
+--
+-- rhm010SubscriptionArguments data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionArguments(8)
+--
+rhm010SubscriptionArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription arguments
+                     Additional info ( nodeType:property )"
+        ::= { rhm010SubscriptionEntry 8 }
+
+--
+-- rhm010SubscriptionDelivered data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010SubscriptionTable(1).rhm010SubscriptionEntry(1).rhm010SubscriptionDelivered(9)
+--
+rhm010SubscriptionDelivered OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages delivered
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010SubscriptionEntry 9 }
+
+--
+-- subscriptionInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Subscription(9).rhm010subscriptionTable(1).rhm010subscriptionEntry(1).subscriptionInternalIndex(10)
+--
+rhm010SubscriptionInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for subscription table"
+        ::= { rhm010SubscriptionEntry 10 }
+-- ______________________________________________________________
+-- Connection class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1)
+-- ______________________________________________________________
+rhm010ConnectionTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010ConnectionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of connections"
+        ::= { rhm010Connections 1 }
+--
+-- connectionEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1)
+--
+rhm010ConnectionEntry OBJECT-TYPE
+        SYNTAX      Rhm010ConnectionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the connection table"
+        INDEX { rhm010ConnectionInternalIndex }
+        ::= { rhm010ConnectionTable 1 }
+
+Rhm010ConnectionEntry ::= SEQUENCE {
+    rhm010ConnectionVhostRef            ObjId,
+    rhm010ConnectionAddress             Sstr,
+    rhm010ConnectionIncoming            TruthValue,
+    rhm010ConnectionSystemConnection    TruthValue,
+    rhm010ConnectionUserProxyAuth       TruthValue,
+    rhm010ConnectionFederationLink      TruthValue,
+    rhm010ConnectionAuthIdentity        Sstr,
+    rhm010ConnectionRemoteProcessName   Lstr,
+    rhm010ConnectionRemotePid           Unsigned32,
+    rhm010ConnectionRemoteParentPid     Unsigned32,
+    rhm010ConnectionShadow              TruthValue,
+    rhm010ConnectionSaslMechanism       Sstr,
+    rhm010ConnectionSaslSsf             Uint16,
+    rhm010ConnectionClosing             TruthValue,
+    rhm010ConnectionFramesFromClient    Counter64,
+    rhm010ConnectionFramesToClient      Counter64,
+    rhm010ConnectionBytesFromClient     Counter64,
+    rhm010ConnectionBytesToClient       Counter64,
+    rhm010ConnectionMsgsFromClient      Counter64,
+    rhm010ConnectionMsgsToClient        Counter64,
+    rhm010ConnectionInternalIndex           Unsigned32
+}
+
+--
+-- rhm010ConnectionVhostRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionVhostRef(1)
+--
+rhm010ConnectionVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Connection vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { rhm010ConnectionEntry 1 }
+
+--
+-- rhm010ConnectionAddress data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionAddress(2)
+--
+rhm010ConnectionAddress OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Connection address
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010ConnectionEntry 2 }
+
+--
+-- rhm010ConnectionIncoming data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionIncoming(3)
+--
+rhm010ConnectionIncoming OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Connection incoming
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ConnectionEntry 3 }
+
+--
+-- rhm010ConnectionSystemConnection data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionSystemConnection(4)
+--
+rhm010ConnectionSystemConnection OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Infrastructure/ Inter-system connection (Cluster, Federation, ...)
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ConnectionEntry 4 }
+
+--
+-- rhm010ConnectionUserProxyAuth data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionUserProxyAuth(5)
+--
+rhm010ConnectionUserProxyAuth OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Authorization to proxy for users not on broker
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ConnectionEntry 5 }
+
+--
+-- rhm010ConnectionFederationLink data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionFederationLink(6)
+--
+rhm010ConnectionFederationLink OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Is this a federation link
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ConnectionEntry 6 }
+
+--
+-- rhm010ConnectionAuthIdentity data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionAuthIdentity(7)
+--
+rhm010ConnectionAuthIdentity OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "authId of connection if authentication enabled
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ConnectionEntry 7 }
+
+--
+-- rhm010ConnectionRemoteProcessName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionRemoteProcessName(8)
+--
+rhm010ConnectionRemoteProcessName OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of executable running as remote client
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010ConnectionEntry 8 }
+
+--
+-- rhm010ConnectionRemotePid data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionRemotePid(9)
+--
+rhm010ConnectionRemotePid OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Process ID of remote client
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010ConnectionEntry 9 }
+
+--
+-- rhm010ConnectionRemoteParentPid data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionRemoteParentPid(10)
+--
+rhm010ConnectionRemoteParentPid OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Parent Process ID of remote client
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010ConnectionEntry 10 }
+
+--
+-- rhm010ConnectionShadow data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionShadow(11)
+--
+rhm010ConnectionShadow OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "True for shadow connections
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ConnectionEntry 11 }
+
+--
+-- rhm010ConnectionSaslMechanism data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionSaslMechanism(12)
+--
+rhm010ConnectionSaslMechanism OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "SASL mechanism
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ConnectionEntry 12 }
+
+--
+-- rhm010ConnectionSaslSsf data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionSaslSsf(13)
+--
+rhm010ConnectionSaslSsf OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "SASL security strength factor
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ConnectionEntry 13 }
+
+--
+-- rhm010ConnectionClosing data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionClosing(14)
+--
+rhm010ConnectionClosing OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "This client is closing by management request
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ConnectionEntry 14 }
+
+--
+-- rhm010ConnectionFramesFromClient data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionFramesFromClient(15)
+--
+rhm010ConnectionFramesFromClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection framesFromClient
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ConnectionEntry 15 }
+
+--
+-- rhm010ConnectionFramesToClient data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionFramesToClient(16)
+--
+rhm010ConnectionFramesToClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection framesToClient
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ConnectionEntry 16 }
+
+--
+-- rhm010ConnectionBytesFromClient data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionBytesFromClient(17)
+--
+rhm010ConnectionBytesFromClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection bytesFromClient
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ConnectionEntry 17 }
+
+--
+-- rhm010ConnectionBytesToClient data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionBytesToClient(18)
+--
+rhm010ConnectionBytesToClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection bytesToClient
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ConnectionEntry 18 }
+
+--
+-- rhm010ConnectionMsgsFromClient data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionMsgsFromClient(19)
+--
+rhm010ConnectionMsgsFromClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection msgsFromClient
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ConnectionEntry 19 }
+
+--
+-- rhm010ConnectionMsgsToClient data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010ConnectionTable(1).rhm010ConnectionEntry(1).rhm010ConnectionMsgsToClient(20)
+--
+rhm010ConnectionMsgsToClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection msgsToClient
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010ConnectionEntry 20 }
+
+--
+-- connectionInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Connection(10).rhm010connectionTable(1).rhm010connectionEntry(1).connectionInternalIndex(21)
+--
+rhm010ConnectionInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for connection table"
+        ::= { rhm010ConnectionEntry 21 }
+-- ______________________________________________________________
+-- Link class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1)
+-- ______________________________________________________________
+rhm010LinkTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010LinkEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of links"
+        ::= { rhm010Links 1 }
+--
+-- linkEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1).rhm010LinkEntry(1)
+--
+rhm010LinkEntry OBJECT-TYPE
+        SYNTAX      Rhm010LinkEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the link table"
+        INDEX { rhm010LinkInternalIndex }
+        ::= { rhm010LinkTable 1 }
+
+Rhm010LinkEntry ::= SEQUENCE {
+    rhm010LinkVhostRef                  ObjId,
+    rhm010LinkHost                      Sstr,
+    rhm010LinkPort                      Uint16,
+    rhm010LinkTransport                 Sstr,
+    rhm010LinkDurable                   TruthValue,
+    rhm010LinkState                     Sstr,
+    rhm010LinkLastError                 Lstr,
+    rhm010LinkInternalIndex           Unsigned32
+}
+
+--
+-- rhm010LinkVhostRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1).rhm010LinkEntry(1).rhm010LinkVhostRef(1)
+--
+rhm010LinkVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Link vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { rhm010LinkEntry 1 }
+
+--
+-- rhm010LinkHost data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1).rhm010LinkEntry(1).rhm010LinkHost(2)
+--
+rhm010LinkHost OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Link host
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010LinkEntry 2 }
+
+--
+-- rhm010LinkPort data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1).rhm010LinkEntry(1).rhm010LinkPort(3)
+--
+rhm010LinkPort OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Link port
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010LinkEntry 3 }
+
+--
+-- rhm010LinkTransport data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1).rhm010LinkEntry(1).rhm010LinkTransport(4)
+--
+rhm010LinkTransport OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Link transport
+                     Additional info ( nodeType:property )"
+        ::= { rhm010LinkEntry 4 }
+
+--
+-- rhm010LinkDurable data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1).rhm010LinkEntry(1).rhm010LinkDurable(5)
+--
+rhm010LinkDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Link durable
+                     Additional info ( nodeType:property )"
+        ::= { rhm010LinkEntry 5 }
+
+--
+-- rhm010LinkState data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1).rhm010LinkEntry(1).rhm010LinkState(6)
+--
+rhm010LinkState OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Operational state of the link
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010LinkEntry 6 }
+
+--
+-- rhm010LinkLastError data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010LinkTable(1).rhm010LinkEntry(1).rhm010LinkLastError(7)
+--
+rhm010LinkLastError OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Reason link is not operational
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010LinkEntry 7 }
+
+--
+-- linkInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Link(11).rhm010linkTable(1).rhm010linkEntry(1).linkInternalIndex(9)
+--
+rhm010LinkInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for link table"
+        ::= { rhm010LinkEntry 9 }
+-- ______________________________________________________________
+-- Bridge class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1)
+-- ______________________________________________________________
+rhm010BridgeTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010BridgeEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of bridges"
+        ::= { rhm010Bridges 1 }
+--
+-- bridgeEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1)
+--
+rhm010BridgeEntry OBJECT-TYPE
+        SYNTAX      Rhm010BridgeEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the bridge table"
+        INDEX { rhm010BridgeInternalIndex }
+        ::= { rhm010BridgeTable 1 }
+
+Rhm010BridgeEntry ::= SEQUENCE {
+    rhm010BridgeLinkRef                 ObjId,
+    rhm010BridgeChannelId               Uint16,
+    rhm010BridgeDurable                 TruthValue,
+    rhm010BridgeSrc                     Sstr,
+    rhm010BridgeDest                    Sstr,
+    rhm010BridgeKey                     Lstr,
+    rhm010BridgeSrcIsQueue              TruthValue,
+    rhm010BridgeSrcIsLocal              TruthValue,
+    rhm010BridgeTag                     Sstr,
+    rhm010BridgeExcludes                Sstr,
+    rhm010BridgeDynamic                 TruthValue,
+    rhm010BridgeSync                    Uint16,
+    rhm010BridgeInternalIndex           Unsigned32
+}
+
+--
+-- rhm010BridgeLinkRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeLinkRef(1)
+--
+rhm010BridgeLinkRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge linkRef
+                     Additional info ( nodeType:property, references:Link, index:y, parentRef:y )"
+        ::= { rhm010BridgeEntry 1 }
+
+--
+-- rhm010BridgeChannelId data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeChannelId(2)
+--
+rhm010BridgeChannelId OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge channelId
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010BridgeEntry 2 }
+
+--
+-- rhm010BridgeDurable data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeDurable(3)
+--
+rhm010BridgeDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge durable
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 3 }
+
+--
+-- rhm010BridgeSrc data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeSrc(4)
+--
+rhm010BridgeSrc OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge src
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 4 }
+
+--
+-- rhm010BridgeDest data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeDest(5)
+--
+rhm010BridgeDest OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge dest
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 5 }
+
+--
+-- rhm010BridgeKey data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeKey(6)
+--
+rhm010BridgeKey OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge key
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 6 }
+
+--
+-- rhm010BridgeSrcIsQueue data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeSrcIsQueue(7)
+--
+rhm010BridgeSrcIsQueue OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge srcIsQueue
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 7 }
+
+--
+-- rhm010BridgeSrcIsLocal data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeSrcIsLocal(8)
+--
+rhm010BridgeSrcIsLocal OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge srcIsLocal
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 8 }
+
+--
+-- rhm010BridgeTag data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeTag(9)
+--
+rhm010BridgeTag OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge tag
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 9 }
+
+--
+-- rhm010BridgeExcludes data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeExcludes(10)
+--
+rhm010BridgeExcludes OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge excludes
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 10 }
+
+--
+-- rhm010BridgeDynamic data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeDynamic(11)
+--
+rhm010BridgeDynamic OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge dynamic
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 11 }
+
+--
+-- rhm010BridgeSync data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010BridgeTable(1).rhm010BridgeEntry(1).rhm010BridgeSync(12)
+--
+rhm010BridgeSync OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge sync
+                     Additional info ( nodeType:property )"
+        ::= { rhm010BridgeEntry 12 }
+
+--
+-- bridgeInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Bridge(12).rhm010bridgeTable(1).rhm010bridgeEntry(1).bridgeInternalIndex(13)
+--
+rhm010BridgeInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for bridge table"
+        ::= { rhm010BridgeEntry 13 }
+-- ______________________________________________________________
+-- Session class table definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1)
+-- ______________________________________________________________
+rhm010SessionTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Rhm010SessionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of sessions"
+        ::= { rhm010Sessions 1 }
+--
+-- sessionEntry row definition
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1)
+--
+rhm010SessionEntry OBJECT-TYPE
+        SYNTAX      Rhm010SessionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the session table"
+        INDEX { rhm010SessionInternalIndex }
+        ::= { rhm010SessionTable 1 }
+
+Rhm010SessionEntry ::= SEQUENCE {
+    rhm010SessionVhostRef               ObjId,
+    rhm010SessionName                   Sstr,
+    rhm010SessionChannelId              Uint16,
+    rhm010SessionConnectionRef          ObjId,
+    rhm010SessionDetachedLifespan       Unsigned32,
+    rhm010SessionAttached               TruthValue,
+    rhm010SessionExpireTime             TimeTicks,
+    rhm010SessionMaxClientRate          Unsigned32,
+    rhm010SessionFramesOutstanding      Counter32,
+    rhm010SessionTxnStarts              Counter64,
+    rhm010SessionTxnCommits             Counter64,
+    rhm010SessionTxnRejects             Counter64,
+    rhm010SessionTxnCount               Counter32,
+    rhm010SessionClientCredit           Counter32,
+    rhm010SessionInternalIndex           Unsigned32
+}
+
+--
+-- rhm010SessionVhostRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionVhostRef(1)
+--
+rhm010SessionVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Session vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { rhm010SessionEntry 1 }
+
+--
+-- rhm010SessionName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionName(2)
+--
+rhm010SessionName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Session name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010SessionEntry 2 }
+
+--
+-- rhm010SessionChannelId data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionChannelId(3)
+--
+rhm010SessionChannelId OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session channelId
+                     Additional info ( nodeType:property )"
+        ::= { rhm010SessionEntry 3 }
+
+--
+-- rhm010SessionConnectionRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionConnectionRef(4)
+--
+rhm010SessionConnectionRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session connectionRef
+                     Additional info ( nodeType:property, references:Connection )"
+        ::= { rhm010SessionEntry 4 }
+
+--
+-- rhm010SessionDetachedLifespan data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionDetachedLifespan(5)
+--
+rhm010SessionDetachedLifespan OBJECT-TYPE
+        SYNTAX      Unsigned32
+        UNITS       "second"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session detachedLifespan
+                     Additional info ( nodeType:property )"
+        ::= { rhm010SessionEntry 5 }
+
+--
+-- rhm010SessionAttached data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionAttached(6)
+--
+rhm010SessionAttached OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session attached
+                     Additional info ( nodeType:property )"
+        ::= { rhm010SessionEntry 6 }
+
+--
+-- rhm010SessionExpireTime data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionExpireTime(7)
+--
+rhm010SessionExpireTime OBJECT-TYPE
+        SYNTAX      TimeTicks
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session expireTime
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010SessionEntry 7 }
+
+--
+-- rhm010SessionMaxClientRate data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionMaxClientRate(8)
+--
+rhm010SessionMaxClientRate OBJECT-TYPE
+        SYNTAX      Unsigned32
+        UNITS       "msgs/sec"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session maxClientRate
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { rhm010SessionEntry 8 }
+
+--
+-- rhm010SessionFramesOutstanding data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionFramesOutstanding(9)
+--
+rhm010SessionFramesOutstanding OBJECT-TYPE
+        SYNTAX      Counter32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session framesOutstanding
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010SessionEntry 9 }
+
+--
+-- rhm010SessionTxnStarts data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionTxnStarts(10)
+--
+rhm010SessionTxnStarts OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "transaction"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactions started 
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010SessionEntry 10 }
+
+--
+-- rhm010SessionTxnCommits data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionTxnCommits(11)
+--
+rhm010SessionTxnCommits OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "transaction"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactions committed
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010SessionEntry 11 }
+
+--
+-- rhm010SessionTxnRejects data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionTxnRejects(12)
+--
+rhm010SessionTxnRejects OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "transaction"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactions rejected
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010SessionEntry 12 }
+
+--
+-- rhm010SessionTxnCount data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionTxnCount(13)
+--
+rhm010SessionTxnCount OBJECT-TYPE
+        SYNTAX      Counter32
+        UNITS       "transaction"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current pending transactions
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010SessionEntry 13 }
+
+--
+-- rhm010SessionClientCredit data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010SessionTable(1).rhm010SessionEntry(1).rhm010SessionClientCredit(14)
+--
+rhm010SessionClientCredit OBJECT-TYPE
+        SYNTAX      Counter32
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Client message credit
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010SessionEntry 14 }
+
+--
+-- sessionInternalIndex index column
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010Session(13).rhm010sessionTable(1).rhm010sessionEntry(1).sessionInternalIndex(15)
+--
+rhm010SessionInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for session table"
+        ::= { rhm010SessionEntry 15 }
+-- ______________________________________________________________
+-- ManagementSetupState class properties and statistics
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010ManagementSetupState(14)
+-- ______________________________________________________________
+
+--
+-- The ManagementSetupStateObjectNum data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010ManagementSetupState(14).rhm010ManagementSetupStateObjectNum(1)
+--
+rhm010ManagementSetupStateObjectNum OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "ManagementSetupState objectNum
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ManagementSetupState 1 }
+
+--
+-- The ManagementSetupStateBootSequence data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010(1).rhm010ManagementSetupState(14).rhm010ManagementSetupStateBootSequence(2)
+--
+rhm010ManagementSetupStateBootSequence OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "ManagementSetupState bootSequence
+                     Additional info ( nodeType:property )"
+        ::= { rhm010ManagementSetupState 2 }
+
+
+-- ______________________________________________________________
+-- Acl plugin class properties and statistics
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Acl(1)
+-- ______________________________________________________________
+
+--
+-- The AclBrokerRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Acl(1).rhm010AclBrokerRef(1)
+--
+rhm010AclBrokerRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Acl brokerRef
+                     Additional info ( nodeType:property, references:org.apache.qpid.broker:Broker, index:y, parentRef:y )"
+        ::= { rhm010Acl 1 }
+
+--
+-- The AclPolicyFile data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Acl(1).rhm010AclPolicyFile(2)
+--
+rhm010AclPolicyFile OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of the policy file
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Acl 2 }
+
+--
+-- The AclEnforcingAcl data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Acl(1).rhm010AclEnforcingAcl(3)
+--
+rhm010AclEnforcingAcl OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Currently Enforcing ACL
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Acl 3 }
+
+--
+-- The AclTransferAcl data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Acl(1).rhm010AclTransferAcl(4)
+--
+rhm010AclTransferAcl OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Any transfer ACL rules in force
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Acl 4 }
+
+--
+-- The AclLastAclLoad data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Acl(1).rhm010AclLastAclLoad(5)
+--
+rhm010AclLastAclLoad OBJECT-TYPE
+        SYNTAX      TimeTicks
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Timestamp of last successful load of ACL
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Acl 5 }
+
+--
+-- The AclAclDenyCount data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Acl(1).rhm010AclAclDenyCount(6)
+--
+rhm010AclAclDenyCount OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "request"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of ACL requests denied
+                     Additional info ( nodeType:statistic )"
+        ::= { rhm010Acl 6 }
+
+-- ______________________________________________________________
+-- Cluster plugin class properties and statistics
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2)
+-- ______________________________________________________________
+
+--
+-- The ClusterBrokerRef data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterBrokerRef(1)
+--
+rhm010ClusterBrokerRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Cluster brokerRef
+                     Additional info ( nodeType:property, references:Broker, index:y, parentRef:y )"
+        ::= { rhm010Cluster 1 }
+
+--
+-- The ClusterClusterName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterClusterName(2)
+--
+rhm010ClusterClusterName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Name of cluster this server is a member of
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Cluster 2 }
+
+--
+-- The ClusterClusterID data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterClusterID(3)
+--
+rhm010ClusterClusterID OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Globally unique ID (UUID) for this cluster instance
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Cluster 3 }
+
+--
+-- The ClusterMemberID data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterMemberID(4)
+--
+rhm010ClusterMemberID OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "ID of this member of the cluster
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Cluster 4 }
+
+--
+-- The ClusterPublishedURL data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterPublishedURL(5)
+--
+rhm010ClusterPublishedURL OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "URL this node advertizes itself as
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Cluster 5 }
+
+--
+-- The ClusterClusterSize data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterClusterSize(6)
+--
+rhm010ClusterClusterSize OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of brokers currently in the cluster
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Cluster 6 }
+
+--
+-- The ClusterStatus data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterStatus(7)
+--
+rhm010ClusterStatus OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Cluster node status (STALLED,ACTIVE,JOINING)
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Cluster 7 }
+
+--
+-- The ClusterMembers data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterMembers(8)
+--
+rhm010ClusterMembers OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "List of member URLs delimited by ';'
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Cluster 8 }
+
+--
+-- The ClusterMemberIDs data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010Cluster(2).rhm010ClusterMemberIDs(9)
+--
+rhm010ClusterMemberIDs OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "List of member IDs delimited by ';'
+                     Additional info ( nodeType:property )"
+        ::= { rhm010Cluster 9 }
+
+-- ______________________________________________________________
+-- HaBroker plugin class properties and statistics
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010HaBroker(3)
+-- ______________________________________________________________
+
+--
+-- The HaBrokerName data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010HaBroker(3).rhm010HaBrokerName(1)
+--
+rhm010HaBrokerName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Primary Key
+                     Additional info ( nodeType:property, index:y )"
+        ::= { rhm010HaBroker 1 }
+
+--
+-- The HaBrokerStatus data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010HaBroker(3).rhm010HaBrokerStatus(2)
+--
+rhm010HaBrokerStatus OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "HA status: primary or backup
+                     Additional info ( nodeType:property )"
+        ::= { rhm010HaBroker 2 }
+
+--
+-- The HaBrokerBrokers data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010HaBroker(3).rhm010HaBrokerBrokers(3)
+--
+rhm010HaBrokerBrokers OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Multiple-address URL used by HA brokers to connect to each other.
+                     Additional info ( nodeType:property )"
+        ::= { rhm010HaBroker 3 }
+
+--
+-- The HaBrokerPublicBrokers data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010HaBroker(3).rhm010HaBrokerPublicBrokers(4)
+--
+rhm010HaBrokerPublicBrokers OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Multiple-address URL used by clients to connect to the HA brokers.
+                     Additional info ( nodeType:property )"
+        ::= { rhm010HaBroker 4 }
+
+--
+-- The HaBrokerExpectedBackups data object
+-- OID: redhat(2312).rhm(5672).rhmAmqp010(1).rhm010Plugins(2).rhm010HaBroker(3).rhm010HaBrokerExpectedBackups(5)
+--
+rhm010HaBrokerExpectedBackups OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of HA backup brokers expected.
+                     Additional info ( nodeType:property )"
+        ::= { rhm010HaBroker 5 }
+
+
+
+--
+-- Notification Objects
+-- These are the object/parameters that are sent in notification
+-- events (when the agent sends a "trap" message to the manager on port 162)
+-- ______________________________________________________________
+rhm010EvtList OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Placeholder needed for SMIv1 managers. Node number must be 0"
+        ::= {rhm010Events 0 }
+
+rhm010EvtArgList OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Top level node for all the event arguments"
+        ::= { rhm010Events 1 }
+--
+-- Objects that are passed with events
+--
+rhm010EvtAltEx OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of the alternate exchange"
+        ::= { rhm010EvtArgList 1 }
+
+rhm010EvtArgs OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Supplemental arguments or parameters supplied"
+        ::= { rhm010EvtArgList 2 }
+
+rhm010EvtAutoDel OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Created object is automatically deleted when no longer in use"
+        ::= { rhm010EvtArgList 3 }
+
+rhm010EvtDest OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Destination tag for a subscription"
+        ::= { rhm010EvtArgList 4 }
+
+rhm010EvtDisp OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Disposition of a declaration: 'created' if object was created, 'existing' if object already existed"
+        ::= { rhm010EvtArgList 5 }
+
+rhm010EvtDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Created object is durable"
+        ::= { rhm010EvtArgList 6 }
+
+rhm010EvtExName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of an exchange"
+        ::= { rhm010EvtArgList 7 }
+
+rhm010EvtExType OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Type of an exchange"
+        ::= { rhm010EvtArgList 8 }
+
+rhm010EvtExcl OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Created object is exclusive for the use of the owner only"
+        ::= { rhm010EvtArgList 9 }
+
+rhm010EvtKey OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Key text used for routing or binding"
+        ::= { rhm010EvtArgList 10 }
+
+rhm010EvtQName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of a queue"
+        ::= { rhm010EvtArgList 11 }
+
+rhm010EvtReason OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Reason for a failure"
+        ::= { rhm010EvtArgList 12 }
+
+rhm010EvtRhost OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Address (i.e. DNS name, IP address, etc.) of a remotely connected host"
+        ::= { rhm010EvtArgList 13 }
+
+rhm010EvtUser OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Authentication identity"
+        ::= { rhm010EvtArgList 14 }
+
+rhm010EvtMsgDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current size of queue in messages"
+        ::= { rhm010EvtArgList 15 }
+
+rhm010EvtByteDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current size of queue in bytes"
+        ::= { rhm010EvtArgList 16 }
+
+rhm010EvtAction OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for Action is missing from the schema"
+        ::= { rhm010EvtArgList 17 }
+
+rhm010EvtArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for Arguments is missing from the schema"
+        ::= { rhm010EvtArgList 18 }
+
+rhm010EvtObjectName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for ObjectName is missing from the schema"
+        ::= { rhm010EvtArgList 19 }
+
+rhm010EvtObjectType OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for ObjectType is missing from the schema"
+        ::= { rhm010EvtArgList 20 }
+
+rhm010EvtUserId OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for UserId is missing from the schema"
+        ::= { rhm010EvtArgList 21 }
+
+--
+-- Notfication events that are raised by the agent
+--
+
+rhm010EvtClientConnect NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser
+            }
+        STATUS      current
+        DESCRIPTION "inform ClientConnect event"
+        ::= { rhm010EvtList 1 }
+
+rhm010EvtClientConnectFail NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtReason
+            }
+        STATUS      current
+        DESCRIPTION "warn ClientConnectFail event"
+        ::= { rhm010EvtList 2 }
+
+rhm010EvtClientDisconnect NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser
+            }
+        STATUS      current
+        DESCRIPTION "inform ClientDisconnect event"
+        ::= { rhm010EvtList 3 }
+
+rhm010EvtBrokerLinkUp NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost
+            }
+        STATUS      current
+        DESCRIPTION "inform BrokerLinkUp event"
+        ::= { rhm010EvtList 4 }
+
+rhm010EvtBrokerLinkDown NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost
+            }
+        STATUS      current
+        DESCRIPTION "warn BrokerLinkDown event"
+        ::= { rhm010EvtList 5 }
+
+rhm010EvtQueueDeclare NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtQName, rhm010EvtDurable, rhm010EvtExcl, rhm010EvtAutoDel, rhm010EvtAltEx, rhm010EvtArgs, rhm010EvtDisp
+            }
+        STATUS      current
+        DESCRIPTION "inform QueueDeclare event"
+        ::= { rhm010EvtList 6 }
+
+rhm010EvtQueueDelete NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtQName
+            }
+        STATUS      current
+        DESCRIPTION "inform QueueDelete event"
+        ::= { rhm010EvtList 7 }
+
+rhm010EvtExchangeDeclare NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtExName, rhm010EvtExType, rhm010EvtAltEx, rhm010EvtDurable, rhm010EvtAutoDel, rhm010EvtArgs, rhm010EvtDisp
+            }
+        STATUS      current
+        DESCRIPTION "inform ExchangeDeclare event"
+        ::= { rhm010EvtList 8 }
+
+rhm010EvtExchangeDelete NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtExName
+            }
+        STATUS      current
+        DESCRIPTION "inform ExchangeDelete event"
+        ::= { rhm010EvtList 9 }
+
+rhm010EvtBind NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtExName, rhm010EvtQName, rhm010EvtKey, rhm010EvtArgs
+            }
+        STATUS      current
+        DESCRIPTION "inform Bind event"
+        ::= { rhm010EvtList 10 }
+
+rhm010EvtUnbind NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtExName, rhm010EvtQName, rhm010EvtKey
+            }
+        STATUS      current
+        DESCRIPTION "inform Unbind event"
+        ::= { rhm010EvtList 11 }
+
+rhm010EvtSubscribe NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtQName, rhm010EvtDest, rhm010EvtExcl, rhm010EvtArgs
+            }
+        STATUS      current
+        DESCRIPTION "inform Subscribe event"
+        ::= { rhm010EvtList 12 }
+
+rhm010EvtUnsubscribe NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtRhost, rhm010EvtUser, rhm010EvtDest
+            }
+        STATUS      current
+        DESCRIPTION "inform Unsubscribe event"
+        ::= { rhm010EvtList 13 }
+
+rhm010EvtQueueThresholdExceeded NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtQName, rhm010EvtMsgDepth, rhm010EvtByteDepth
+            }
+        STATUS      current
+        DESCRIPTION "warn QueueThresholdExceeded event"
+        ::= { rhm010EvtList 14 }
+
+rhm010EvtAllow NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtUserId, rhm010EvtAction, rhm010EvtObjectType, rhm010EvtObjectName, rhm010EvtArguments
+            }
+        STATUS      current
+        DESCRIPTION "inform Allow event"
+        ::= { rhm010EvtList 15 }
+
+rhm010EvtDeny NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtUserId, rhm010EvtAction, rhm010EvtObjectType, rhm010EvtObjectName, rhm010EvtArguments
+            }
+        STATUS      current
+        DESCRIPTION "notice Deny event"
+        ::= { rhm010EvtList 16 }
+
+rhm010EvtFileLoaded NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtUserId
+            }
+        STATUS      current
+        DESCRIPTION "inform FileLoaded event"
+        ::= { rhm010EvtList 17 }
+
+rhm010EvtFileLoadFailed NOTIFICATION-TYPE
+        OBJECTS {
+            rhm010EvtUserId, rhm010EvtReason
+            }
+        STATUS      current
+        DESCRIPTION "error FileLoadFailed event"
+        ::= { rhm010EvtList 18 }
+
+
+--
+-- Conformance Objects and Groups
+-- This puts the data objects and notification events into
+-- groups that can be marked as required or optional
+-- ______________________________________________________________
+rhm010CnfGroups OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Root for all groups"
+        ::= { rhm010Conformance 1 }
+
+rhm010CnfGrpRequired OBJECT-GROUP
+        OBJECTS {
+                rhm010SystemSystemId
+                ,rhm010SystemOsName
+                ,rhm010SystemNodeName
+                ,rhm010SystemRelease
+                ,rhm010SystemVersion
+                ,rhm010SystemMachine
+                ,rhm010MemoryName
+                ,rhm010BrokerName
+                ,rhm010BrokerSystemRef
+                ,rhm010BrokerPort
+                ,rhm010BrokerWorkerThreads
+                ,rhm010BrokerMaxConns
+                ,rhm010BrokerConnBacklog
+                ,rhm010BrokerStagingThreshold
+                ,rhm010BrokerMgmtPublish
+                ,rhm010BrokerMgmtPubInterval
+                ,rhm010BrokerVersion
+                ,rhm010BrokerUptime
+                ,rhm010BrokerQueueCount
+                ,rhm010BrokerMsgTotalEnqueues
+                ,rhm010BrokerMsgTotalDequeues
+                ,rhm010BrokerByteTotalEnqueues
+                ,rhm010BrokerByteTotalDequeues
+                ,rhm010BrokerMsgDepth
+                ,rhm010BrokerByteDepth
+                ,rhm010BrokerMsgPersistEnqueues
+                ,rhm010BrokerMsgPersistDequeues
+                ,rhm010BrokerBytePersistEnqueues
+                ,rhm010BrokerBytePersistDequeues
+                ,rhm010BrokerMsgTxnEnqueues
+                ,rhm010BrokerMsgTxnDequeues
+                ,rhm010BrokerByteTxnEnqueues
+                ,rhm010BrokerByteTxnDequeues
+                ,rhm010BrokerMsgFtdEnqueues
+                ,rhm010BrokerMsgFtdDequeues
+                ,rhm010BrokerByteFtdEnqueues
+                ,rhm010BrokerByteFtdDequeues
+                ,rhm010BrokerMsgFtdDepth
+                ,rhm010BrokerByteFtdDepth
+                ,rhm010BrokerReleases
+                ,rhm010BrokerAcquires
+                ,rhm010BrokerDiscardsNoRoute
+                ,rhm010BrokerDiscardsTtl
+                ,rhm010BrokerDiscardsRing
+                ,rhm010BrokerDiscardsLvq
+                ,rhm010BrokerDiscardsOverflow
+                ,rhm010BrokerDiscardsSubscriber
+                ,rhm010BrokerDiscardsPurge
+                ,rhm010BrokerReroutes
+                ,rhm010BrokerAbandoned
+                ,rhm010BrokerAbandonedViaAlt
+                ,rhm010AgentConnectionRef
+                ,rhm010AgentLabel
+                ,rhm010AgentRegisteredTo
+                ,rhm010AgentSystemId
+                ,rhm010AgentBrokerBank
+                ,rhm010AgentAgentBank
+                ,rhm010VhostBrokerRef
+                ,rhm010VhostName
+                ,rhm010VhostFederationTag
+                ,rhm010QueueVhostRef
+                ,rhm010QueueName
+                ,rhm010QueueDurable
+                ,rhm010QueueAutoDelete
+                ,rhm010QueueExclusive
+                ,rhm010QueueArguments
+                ,rhm010QueueMsgTotalEnqueues
+                ,rhm010QueueMsgTotalDequeues
+                ,rhm010QueueMsgTxnEnqueues
+                ,rhm010QueueMsgTxnDequeues
+                ,rhm010QueueMsgPersistEnqueues
+                ,rhm010QueueMsgPersistDequeues
+                ,rhm010QueueMsgDepth
+                ,rhm010QueueByteDepth
+                ,rhm010QueueByteTotalEnqueues
+                ,rhm010QueueByteTotalDequeues
+                ,rhm010QueueByteTxnEnqueues
+                ,rhm010QueueByteTxnDequeues
+                ,rhm010QueueBytePersistEnqueues
+                ,rhm010QueueBytePersistDequeues
+                ,rhm010QueueMsgFtdEnqueues
+                ,rhm010QueueMsgFtdDequeues
+                ,rhm010QueueByteFtdEnqueues
+                ,rhm010QueueByteFtdDequeues
+                ,rhm010QueueMsgFtdDepth
+                ,rhm010QueueByteFtdDepth
+                ,rhm010QueueReleases
+                ,rhm010QueueAcquires
+                ,rhm010QueueDiscardsTtl
+                ,rhm010QueueDiscardsRing
+                ,rhm010QueueDiscardsLvq
+                ,rhm010QueueDiscardsOverflow
+                ,rhm010QueueDiscardsSubscriber
+                ,rhm010QueueDiscardsPurge
+                ,rhm010QueueReroutes
+                ,rhm010QueueConsumerCount
+                ,rhm010QueueConsumerCountLow
+                ,rhm010QueueConsumerCountHi
+                ,rhm010QueueBindingCount
+                ,rhm010QueueBindingCountLow
+                ,rhm010QueueBindingCountHi
+                ,rhm010QueueUnackedMessages
+                ,rhm010QueueUnackedMessagesLow
+                ,rhm010QueueUnackedMessagesHi
+                ,rhm010QueueMessageLatency
+                ,rhm010QueueFlowStopped
+                ,rhm010QueueFlowStoppedCount
+                ,rhm010ExchangeVhostRef
+                ,rhm010ExchangeName
+                ,rhm010ExchangeType
+                ,rhm010ExchangeDurable
+                ,rhm010ExchangeAutoDelete
+                ,rhm010ExchangeArguments
+                ,rhm010ExchangeProducerCount
+                ,rhm010ExchangeProducerCountLow
+                ,rhm010ExchangeProducerCountHi
+                ,rhm010ExchangeBindingCount
+                ,rhm010ExchangeBindingCountLow
+                ,rhm010ExchangeBindingCountHi
+                ,rhm010ExchangeMsgReceives
+                ,rhm010ExchangeMsgDrops
+                ,rhm010ExchangeMsgRoutes
+                ,rhm010ExchangeByteReceives
+                ,rhm010ExchangeByteDrops
+                ,rhm010ExchangeByteRoutes
+                ,rhm010BindingExchangeRef
+                ,rhm010BindingQueueRef
+                ,rhm010BindingBindingKey
+                ,rhm010BindingArguments
+                ,rhm010BindingMsgMatched
+                ,rhm010SubscriptionSessionRef
+                ,rhm010SubscriptionQueueRef
+                ,rhm010SubscriptionName
+                ,rhm010SubscriptionBrowsing
+                ,rhm010SubscriptionAcknowledged
+                ,rhm010SubscriptionExclusive
+                ,rhm010SubscriptionCreditMode
+                ,rhm010SubscriptionArguments
+                ,rhm010SubscriptionDelivered
+                ,rhm010ConnectionVhostRef
+                ,rhm010ConnectionAddress
+                ,rhm010ConnectionIncoming
+                ,rhm010ConnectionSystemConnection
+                ,rhm010ConnectionUserProxyAuth
+                ,rhm010ConnectionFederationLink
+                ,rhm010ConnectionAuthIdentity
+                ,rhm010ConnectionShadow
+                ,rhm010ConnectionSaslMechanism
+                ,rhm010ConnectionSaslSsf
+                ,rhm010ConnectionClosing
+                ,rhm010ConnectionFramesFromClient
+                ,rhm010ConnectionFramesToClient
+                ,rhm010ConnectionBytesFromClient
+                ,rhm010ConnectionBytesToClient
+                ,rhm010ConnectionMsgsFromClient
+                ,rhm010ConnectionMsgsToClient
+                ,rhm010LinkVhostRef
+                ,rhm010LinkHost
+                ,rhm010LinkPort
+                ,rhm010LinkTransport
+                ,rhm010LinkDurable
+                ,rhm010LinkState
+                ,rhm010LinkLastError
+                ,rhm010BridgeLinkRef
+                ,rhm010BridgeChannelId
+                ,rhm010BridgeDurable
+                ,rhm010BridgeSrc
+                ,rhm010BridgeDest
+                ,rhm010BridgeKey
+                ,rhm010BridgeSrcIsQueue
+                ,rhm010BridgeSrcIsLocal
+                ,rhm010BridgeTag
+                ,rhm010BridgeExcludes
+                ,rhm010BridgeDynamic
+                ,rhm010BridgeSync
+                ,rhm010SessionVhostRef
+                ,rhm010SessionName
+                ,rhm010SessionChannelId
+                ,rhm010SessionConnectionRef
+                ,rhm010SessionDetachedLifespan
+                ,rhm010SessionAttached
+                ,rhm010SessionFramesOutstanding
+                ,rhm010SessionTxnStarts
+                ,rhm010SessionTxnCommits
+                ,rhm010SessionTxnRejects
+                ,rhm010SessionTxnCount
+                ,rhm010SessionClientCredit
+                ,rhm010ManagementSetupStateObjectNum
+                ,rhm010ManagementSetupStateBootSequence
+                ,rhm010AclBrokerRef
+                ,rhm010AclPolicyFile
+                ,rhm010AclEnforcingAcl
+                ,rhm010AclTransferAcl
+                ,rhm010AclLastAclLoad
+                ,rhm010AclAclDenyCount
+                ,rhm010ClusterBrokerRef
+                ,rhm010ClusterClusterName
+                ,rhm010ClusterClusterID
+                ,rhm010ClusterMemberID
+                ,rhm010ClusterPublishedURL
+                ,rhm010ClusterClusterSize
+                ,rhm010ClusterStatus
+                ,rhm010ClusterMembers
+                ,rhm010ClusterMemberIDs
+                ,rhm010HaBrokerName
+                ,rhm010HaBrokerStatus
+                ,rhm010HaBrokerBrokers
+                ,rhm010HaBrokerPublicBrokers
+                ,rhm010HaBrokerExpectedBackups
+        }
+        STATUS      current
+        DESCRIPTION "Manditory class elements"
+        ::= { rhm010CnfGroups 1 }
+
+rhm010CnfGrpOptional OBJECT-GROUP
+        OBJECTS {
+                rhm010MemoryMallocarena
+                ,rhm010MemoryMallocordblks
+                ,rhm010MemoryMallochblks
+                ,rhm010MemoryMallochblkhd
+                ,rhm010MemoryMallocuordblks
+                ,rhm010MemoryMallocfordblks
+                ,rhm010MemoryMallockeepcost
+                ,rhm010BrokerDataDir
+                ,rhm010QueueAltExchange
+                ,rhm010ExchangeAltExchange
+                ,rhm010BindingOrigin
+                ,rhm010ConnectionRemoteProcessName
+                ,rhm010ConnectionRemotePid
+                ,rhm010ConnectionRemoteParentPid
+                ,rhm010SessionExpireTime
+                ,rhm010SessionMaxClientRate
+        }
+        STATUS      current
+        DESCRIPTION "Optional class elements"
+        ::= { rhm010CnfGroups 2 }
+
+rhm010CnfGrpArguments OBJECT-GROUP
+        OBJECTS {
+                rhm010EvtAltEx
+                ,rhm010EvtArgs
+                ,rhm010EvtAutoDel
+                ,rhm010EvtDest
+                ,rhm010EvtDisp
+                ,rhm010EvtDurable
+                ,rhm010EvtExName
+                ,rhm010EvtExType
+                ,rhm010EvtExcl
+                ,rhm010EvtKey
+                ,rhm010EvtQName
+                ,rhm010EvtReason
+                ,rhm010EvtRhost
+                ,rhm010EvtUser
+                ,rhm010EvtMsgDepth
+                ,rhm010EvtByteDepth
+                ,rhm010EvtAction
+                ,rhm010EvtArguments
+                ,rhm010EvtObjectName
+                ,rhm010EvtObjectType
+                ,rhm010EvtUserId
+        }
+        STATUS      current
+        DESCRIPTION "Data objects used as arguments to events"
+        ::= { rhm010CnfGroups 3 }
+
+
+rhm010CnfGrpError NOTIFICATION-GROUP
+        NOTIFICATIONS {
+                rhm010EvtFileLoadFailed
+        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity Error"
+        ::= { rhm010CnfGroups 4 }
+
+rhm010CnfGrpInform NOTIFICATION-GROUP
+        NOTIFICATIONS {
+                rhm010EvtClientConnect
+                ,rhm010EvtClientDisconnect
+                ,rhm010EvtBrokerLinkUp
+                ,rhm010EvtQueueDeclare
+                ,rhm010EvtQueueDelete
+                ,rhm010EvtExchangeDeclare
+                ,rhm010EvtExchangeDelete
+                ,rhm010EvtBind
+                ,rhm010EvtUnbind
+                ,rhm010EvtSubscribe
+                ,rhm010EvtUnsubscribe
+                ,rhm010EvtAllow
+                ,rhm010EvtFileLoaded
+        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity Inform"
+        ::= { rhm010CnfGroups 5 }
+
+rhm010CnfGrpNotice NOTIFICATION-GROUP
+        NOTIFICATIONS {
+                rhm010EvtDeny
+        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity Notice"
+        ::= { rhm010CnfGroups 6 }
+
+rhm010CnfGrpWarn NOTIFICATION-GROUP
+        NOTIFICATIONS {
+                rhm010EvtClientConnectFail
+                ,rhm010EvtBrokerLinkDown
+                ,rhm010EvtQueueThresholdExceeded
+        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity Warn"
+        ::= { rhm010CnfGroups 7 }
+
+
+rhm010Compliance MODULE-COMPLIANCE
+        STATUS      current
+        DESCRIPTION "Manditory and non-manditory mib objects"
+        MODULE -- This module
+            MANDATORY-GROUPS { rhm010CnfGrpRequired,
+                               rhm010CnfGrpOptional,
+                               rhm010CnfGrpError,rhm010CnfGrpInform,rhm010CnfGrpNotice,rhm010CnfGrpWarn,
+                               rhm010CnfGrpArguments }
+
+        ::= { rhm010Conformance 2 }
+
+END
