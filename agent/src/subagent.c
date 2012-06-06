@@ -19,6 +19,7 @@
 #include "vhost/rhm010VhostTable.h"
 #include "system/rhm010System.h"
 #include "acl/rhm010Acl.h"
+#include "ha/rhm010HaBroker.h"
 #include "agent/rhm010Agent.h"
 #include "broker/rhm010Broker.h"
 #include "cluster/rhm010Cluster.h"
@@ -227,6 +228,7 @@ main(int argc, char **argv)
     init_rhm010LinkTable();
     init_rhm010System();
     init_rhm010Acl();
+    init_rhm010HaBroker();
     init_rhm010Agent();
     init_rhm010Broker();
     init_rhm010Cluster();
