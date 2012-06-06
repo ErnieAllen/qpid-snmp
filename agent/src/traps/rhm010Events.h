@@ -20,7 +20,7 @@ int             send_rhm010EvtBrokerLinkDown_trap(const char *rHost);
 int				send_rhm010EvtQueueDeclare_trap(const char *rHost, const char * user, const char * qName,
 					int durable, int exclusive, int autoDelete, const char *altEx,
 					const char *args, const char *disp);
-int             send_rhm010EvtQueueDelete_trap(void);
+int             send_rhm010EvtQueueDelete_trap(const char *rHost, const char * user, const char * qName);
 int             send_rhm010EvtExchangeDeclare_trap(void);
 int             send_rhm010EvtExchangeDelete_trap(void);
 int 			send_rhm010EvtBind_trap(const char *rHost, const char * user,
@@ -28,7 +28,7 @@ int 			send_rhm010EvtBind_trap(const char *rHost, const char * user,
 int             send_rhm010EvtUnbind_trap(void);
 int 			send_rhm010EvtSubscribe_trap(const char *rHost, const char * user, const char * qName,
 					int exclusive, const char *dest, const char *args);
-int             send_rhm010EvtUnsubscribe_trap(void);
+int				send_rhm010EvtUnsubscribe_trap(const char *rHost, const char * user, const char *dest);
 int             send_rhm010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth, uint64_t byteDepth);
 int             send_rhm010EvtAllow_trap(void);
 int             send_rhm010EvtDeny_trap(void);

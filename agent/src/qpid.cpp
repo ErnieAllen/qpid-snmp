@@ -385,6 +385,16 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 
 			send_rhm010EvtQueueDeclare_trap(rHost.c_str(), user.c_str(),
 					qName.c_str(), durable, exclusive, autoDelete, altEx.c_str(), args.c_str(), disp.c_str());
+        } else if (name == "queueDelete") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string qName;
+			findString(qName, d, "name", "UNKNOWN_QNAME");
+
+			send_rhm010EvtQueueDelete_trap(rHost.c_str(), user.c_str(),
+					qName.c_str());
         } else if (name == "bind") {
 			std::string user;
 			findString(user, d, "user", "UNKNOWN_USER");
@@ -410,14 +420,24 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			findString(qName, d, "qname", "UNKNOWN_QNAME");
 			bool exclusive = findBool(d, "exclusive");
 			std::string dest;
-			findString(dest, d, "altEx", "UNKNOWN_DEST");
+			findString(dest, d, "dest", "UNKNOWN_DEST");
 			std::string args;
 			findString(args, d, "args", "UNKNOWN_ARGS");
 
 			send_rhm010EvtSubscribe_trap(rHost.c_str(), user.c_str(),
 					qName.c_str(), exclusive, dest.c_str(), args.c_str());
+        } else if (name == "unsubscribe") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string dest;
+			findString(dest, d, "dest", "UNKNOWN_DEST");
+
+			send_rhm010EvtUnsubscribe_trap(rHost.c_str(), user.c_str(),
+					dest.c_str());
         } else {
-            printf("::%s\n", d.getSchemaId().getName().c_str());
+            printf("::%s unhandled event\n", d.getSchemaId().getName().c_str());
         }
     }
 }

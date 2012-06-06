@@ -442,9 +442,23 @@ send_rhm010EvtQueueDeclare_trap(const char *rHost, const char * user, const char
 }
 
 int
-send_rhm010EvtQueueDelete_trap(void)
+send_rhm010EvtQueueDelete_trap(const char *rHost, const char * user, const char * qName)
 {
-    netsnmp_variable_list *var_list = NULL;
+	// sanity check the args
+	char * badArg = NULL;
+	if (!rHost)
+		badArg = "rHost";
+	else if (!user)
+		badArg = "user";
+	else if (!qName)
+		badArg = "qName";
+	// if more than one is NULL, only first NULL gets reported
+	if (badArg != NULL) {
+		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtQueueDelete_trap", "NULL %s\n", badArg));
+		return SNMP_ERR_BADVALUE;
+	}
+
+	netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtQueueDelete_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 7 };
     const oid       rhm010EvtRhost_oid[] =
@@ -473,14 +487,14 @@ send_rhm010EvtQueueDelete_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtRhost 
                                */
-                              NULL, 0);
+                              rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtUser_oid,
                               OID_LENGTH(rhm010EvtUser_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtUser 
                                */
-                              NULL, 0);
+                              user, strlen(user));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtQName_oid,
                               OID_LENGTH(rhm010EvtQName_oid),
@@ -488,7 +502,7 @@ send_rhm010EvtQueueDelete_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtQName 
                                */
-                              NULL, 0);
+                              qName, strlen(qName));
 
     /*
      * Add any extra (optional) objects here
@@ -895,7 +909,7 @@ send_rhm010EvtSubscribe_trap(const char *rHost, const char * user, const char * 
 	else if (!qName)
 		badArg = "qName";
 	else if (!dest)
-		badArg = "altEx";
+		badArg = "dest";
 	else if (!args)
 		badArg = "args";
 	// if more than one is NULL, only first NULL gets reported
@@ -991,10 +1005,27 @@ send_rhm010EvtSubscribe_trap(const char *rHost, const char * user, const char * 
     return SNMP_ERR_NOERROR;
 }
 
+//	  <event name="unsubscribe"       sev="inform" args="rhost, user, dest"/>
 int
-send_rhm010EvtUnsubscribe_trap(void)
+send_rhm010EvtUnsubscribe_trap(const char *rHost, const char * user, const char *dest)
 {
-    netsnmp_variable_list *var_list = NULL;
+
+	// sanity check the args
+	char * badArg = NULL;
+	if (!rHost)
+		badArg = "rHost";
+	else if (!user)
+		badArg = "user";
+	else if (!dest)
+		badArg = "dest";
+	// if more than one is NULL, only first NULL gets reported
+	if (badArg != NULL) {
+		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtUnsubscribe_trap", "NULL %s\n", badArg));
+		return SNMP_ERR_BADVALUE;
+	}
+
+
+	netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtUnsubscribe_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 13 };
     const oid       rhm010EvtRhost_oid[] =
@@ -1023,21 +1054,21 @@ send_rhm010EvtUnsubscribe_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtRhost 
                                */
-                              NULL, 0);
+                              rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtUser_oid,
                               OID_LENGTH(rhm010EvtUser_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtUser 
                                */
-                              NULL, 0);
+                              user, strlen(user));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtDest_oid,
                               OID_LENGTH(rhm010EvtDest_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtDest 
                                */
-                              NULL, 0);
+                              dest, strlen(dest));
 
     /*
      * Add any extra (optional) objects here
