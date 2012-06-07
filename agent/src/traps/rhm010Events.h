@@ -21,19 +21,24 @@ int				send_rhm010EvtQueueDeclare_trap(const char *rHost, const char * user, con
 					int durable, int exclusive, int autoDelete, const char *altEx,
 					const char *args, const char *disp);
 int             send_rhm010EvtQueueDelete_trap(const char *rHost, const char * user, const char * qName);
-int             send_rhm010EvtExchangeDeclare_trap(void);
-int             send_rhm010EvtExchangeDelete_trap(void);
+int             send_rhm010EvtExchangeDeclare_trap(const char *rHost, const char * user, const char * exName,
+					const char *exType, const char *altEx, int durable, int autoDelete,
+					const char *args, const char *disp);
+int             send_rhm010EvtExchangeDelete_trap(const char *rHost, const char * user, const char * exName);
 int 			send_rhm010EvtBind_trap(const char *rHost, const char * user,
 					const char *exName, const char *qName, const char * key, const char * args);
-int             send_rhm010EvtUnbind_trap(void);
+int             send_rhm010EvtUnbind_trap(const char *rHost, const char * user,
+					const char *exName, const char *qName, const char * key);
 int 			send_rhm010EvtSubscribe_trap(const char *rHost, const char * user, const char * qName,
 					int exclusive, const char *dest, const char *args);
 int				send_rhm010EvtUnsubscribe_trap(const char *rHost, const char * user, const char *dest);
 int             send_rhm010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth, uint64_t byteDepth);
-int             send_rhm010EvtAllow_trap(void);
-int             send_rhm010EvtDeny_trap(void);
-int             send_rhm010EvtFileLoaded_trap(char *userId);
-int             send_rhm010EvtFileLoadFailed_trap(void);
+int             send_rhm010EvtAllow_trap(const char *user, const char *action, const char *objectType,
+					const char *objectName, const char *args);
+int             send_rhm010EvtDeny_trap(const char *user, const char *action, const char *objectType,
+					const char *objectName, const char *args);
+int             send_rhm010EvtFileLoaded_trap(const char *user);
+int             send_rhm010EvtFileLoadFailed_trap(const char *user, const char *reason);
 
 #ifdef __cplusplus
 }

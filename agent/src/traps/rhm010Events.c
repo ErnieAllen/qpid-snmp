@@ -85,7 +85,7 @@ send_rhm010EvtClientConnectFail_trap(const char * rHost, const char * user, cons
 			badArg = "reason";
 
 		// if multiple are null, only one of them gets reported
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtClientConnectFail_trap", "NULL %s\n", badArg));
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
 		return SNMP_ERR_BADVALUE;
 	}
 
@@ -154,7 +154,7 @@ send_rhm010EvtClientDisconnect_trap(const char * rHost, const char * user)
 		if (!user)
 			badArg = "user";
 		// if both are null, only user gets reported
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtClientDisconnect_trap", "NULL %s\n", badArg));
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
 		return SNMP_ERR_BADVALUE;
 	}
 
@@ -209,7 +209,7 @@ send_rhm010EvtBrokerLinkUp_trap(const char *rHost)
 {
 	// sanity check the args
 	if (!rHost) {
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtBrokerLinkUp_trap", "NULL rHosts\n"));
+		DEBUGMSGTL(("qpid-snmp", "/%s: rHost was NULL\n", __func__));
 		return SNMP_ERR_BADVALUE;
 	}
 
@@ -255,7 +255,7 @@ send_rhm010EvtBrokerLinkDown_trap(const char *rHost)
 {
 	// sanity check the args
 	if (!rHost) {
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtBrokerLinkDown_trap", "NULL rHosts\n"));
+		DEBUGMSGTL(("qpid-snmp", "/%s: rHost was NULL\n", __func__));
 		return SNMP_ERR_BADVALUE;
 	}
     netsnmp_variable_list *var_list = NULL;
@@ -320,7 +320,7 @@ send_rhm010EvtQueueDeclare_trap(const char *rHost, const char * user, const char
 		badArg = "disp";
 	// if more than one is NULL, only first NULL gets reported
 	if (badArg != NULL) {
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtQueueDeclare_trap", "NULL %s\n", badArg));
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
 		return SNMP_ERR_BADVALUE;
 	}
 
@@ -454,7 +454,7 @@ send_rhm010EvtQueueDelete_trap(const char *rHost, const char * user, const char 
 		badArg = "qName";
 	// if more than one is NULL, only first NULL gets reported
 	if (badArg != NULL) {
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtQueueDelete_trap", "NULL %s\n", badArg));
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
 		return SNMP_ERR_BADVALUE;
 	}
 
@@ -519,9 +519,34 @@ send_rhm010EvtQueueDelete_trap(const char *rHost, const char * user, const char 
 }
 
 int
-send_rhm010EvtExchangeDeclare_trap(void)
+send_rhm010EvtExchangeDeclare_trap(const char *rHost, const char * user, const char * exName,
+		const char *exType, const char *altEx, int durable, int autoDelete,
+		const char *args, const char *disp)
 {
-    netsnmp_variable_list *var_list = NULL;
+
+	// sanity check the args
+	char * badArg = NULL;
+	if (!rHost)
+		badArg = "rHost";
+	else if (!user)
+		badArg = "user";
+	else if (!exName)
+		badArg = "exName";
+	else if (!exType)
+		badArg = "exType";
+	else if (!altEx)
+		badArg = "altEx";
+	else if (!args)
+		badArg = "args";
+	else if (!disp)
+		badArg = "disp";
+	// if more than one is NULL, only first NULL gets reported
+	if (badArg != NULL) {
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
+		return SNMP_ERR_BADVALUE;
+	}
+
+	netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtExchangeDeclare_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 8 };
     const oid       rhm010EvtRhost_oid[] =
@@ -562,14 +587,14 @@ send_rhm010EvtExchangeDeclare_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtRhost 
                                */
-                              NULL, 0);
+                              rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtUser_oid,
                               OID_LENGTH(rhm010EvtUser_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtUser 
                                */
-                              NULL, 0);
+                              user, strlen(user));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtExName_oid,
                               OID_LENGTH(rhm010EvtExName_oid),
@@ -577,7 +602,7 @@ send_rhm010EvtExchangeDeclare_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtExName 
                                */
-                              NULL, 0);
+                              exName, strlen(exName));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtExType_oid,
                               OID_LENGTH(rhm010EvtExType_oid),
@@ -585,7 +610,7 @@ send_rhm010EvtExchangeDeclare_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtExType 
                                */
-                              NULL, 0);
+                              exType, strlen(exType));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtAltEx_oid,
                               OID_LENGTH(rhm010EvtAltEx_oid),
@@ -593,7 +618,7 @@ send_rhm010EvtExchangeDeclare_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtAltEx 
                                */
-                              NULL, 0);
+                              altEx, strlen(altEx));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtDurable_oid,
                               OID_LENGTH(rhm010EvtDurable_oid),
@@ -601,7 +626,7 @@ send_rhm010EvtExchangeDeclare_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtDurable 
                                */
-                              NULL, 0);
+                              &durable, sizeof(durable));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtAutoDel_oid,
                               OID_LENGTH(rhm010EvtAutoDel_oid),
@@ -609,21 +634,21 @@ send_rhm010EvtExchangeDeclare_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtAutoDel 
                                */
-                              NULL, 0);
+                              &autoDelete, sizeof(autoDelete));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtArgs_oid,
                               OID_LENGTH(rhm010EvtArgs_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtArgs 
                                */
-                              NULL, 0);
+                              args, strlen(args));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtDisp_oid,
                               OID_LENGTH(rhm010EvtDisp_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtDisp 
                                */
-                              NULL, 0);
+                              disp, strlen(disp));
 
     /*
      * Add any extra (optional) objects here
@@ -640,8 +665,22 @@ send_rhm010EvtExchangeDeclare_trap(void)
 }
 
 int
-send_rhm010EvtExchangeDelete_trap(void)
+send_rhm010EvtExchangeDelete_trap(const char *rHost, const char * user, const char * exName)
 {
+	// sanity check the args
+	char * badArg = NULL;
+	if (!rHost)
+		badArg = "rHost";
+	else if (!user)
+		badArg = "user";
+	else if (!exName)
+		badArg = "exName";
+	// if more than one is NULL, only first NULL gets reported
+	if (badArg != NULL) {
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
+		return SNMP_ERR_BADVALUE;
+	}
+
     netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtExchangeDelete_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 9 };
@@ -671,14 +710,14 @@ send_rhm010EvtExchangeDelete_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtRhost 
                                */
-                              NULL, 0);
+                              rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtUser_oid,
                               OID_LENGTH(rhm010EvtUser_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtUser 
                                */
-                              NULL, 0);
+                              user, strlen(user));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtExName_oid,
                               OID_LENGTH(rhm010EvtExName_oid),
@@ -686,7 +725,7 @@ send_rhm010EvtExchangeDelete_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtExName 
                                */
-                              NULL, 0);
+                              exName, strlen(exName));
 
     /*
      * Add any extra (optional) objects here
@@ -722,7 +761,7 @@ send_rhm010EvtBind_trap(const char *rHost, const char * user,
 		badArg = "args";
 	// if more than one is NULL, only first NULL gets reported
 	if (badArg != NULL) {
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtBind_trap", "NULL %s\n", badArg));
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
 		return SNMP_ERR_BADVALUE;
 	}
 
@@ -815,9 +854,28 @@ send_rhm010EvtBind_trap(const char *rHost, const char * user,
 }
 
 int
-send_rhm010EvtUnbind_trap(void)
+send_rhm010EvtUnbind_trap(const char *rHost, const char * user,
+		const char *exName, const char *qName, const char * key)
 {
-    netsnmp_variable_list *var_list = NULL;
+	// sanity check the args
+	char * badArg = NULL;
+	if (!rHost)
+		badArg = "rHost";
+	else if (!user)
+		badArg = "user";
+	else if (!exName)
+		badArg = "exName";
+	else if (!qName)
+		badArg = "qName";
+	else if (!key)
+		badArg = "key";
+	// if more than one is NULL, only first NULL gets reported
+	if (badArg != NULL) {
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
+		return SNMP_ERR_BADVALUE;
+	}
+
+	netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtUnbind_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 11 };
     const oid       rhm010EvtRhost_oid[] =
@@ -850,14 +908,14 @@ send_rhm010EvtUnbind_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtRhost 
                                */
-                              NULL, 0);
+                              rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtUser_oid,
                               OID_LENGTH(rhm010EvtUser_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtUser 
                                */
-                              NULL, 0);
+                              user, strlen(user));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtExName_oid,
                               OID_LENGTH(rhm010EvtExName_oid),
@@ -865,7 +923,7 @@ send_rhm010EvtUnbind_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtExName 
                                */
-                              NULL, 0);
+                              exName, strlen(exName));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtQName_oid,
                               OID_LENGTH(rhm010EvtQName_oid),
@@ -873,14 +931,14 @@ send_rhm010EvtUnbind_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtQName 
                                */
-                              NULL, 0);
+                              qName, strlen(qName));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtKey_oid,
                               OID_LENGTH(rhm010EvtKey_oid), ASN_OCTET_STR,
                               /*
                                * Set an appropriate value for rhm010EvtKey 
                                */
-                              NULL, 0);
+                              key, strlen(key));
 
     /*
      * Add any extra (optional) objects here
@@ -914,7 +972,7 @@ send_rhm010EvtSubscribe_trap(const char *rHost, const char * user, const char * 
 		badArg = "args";
 	// if more than one is NULL, only first NULL gets reported
 	if (badArg != NULL) {
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtSubscribe_trap", "NULL %s\n", badArg));
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
 		return SNMP_ERR_BADVALUE;
 	}
 
@@ -1020,7 +1078,7 @@ send_rhm010EvtUnsubscribe_trap(const char *rHost, const char * user, const char 
 		badArg = "dest";
 	// if more than one is NULL, only first NULL gets reported
 	if (badArg != NULL) {
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtUnsubscribe_trap", "NULL %s\n", badArg));
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
 		return SNMP_ERR_BADVALUE;
 	}
 
@@ -1089,7 +1147,7 @@ send_rhm010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth, 
 {
 	// sanity check the args
 	if (!qName) {
-		DEBUGMSGTL(("qpid-snmp/send_rhm010EvtQueueThresholdExceeded_trap", "NULL qName\n"));
+		DEBUGMSGTL(("qpid-snmp", "/%s: qName was NULL\n", __func__));
 		return SNMP_ERR_BADVALUE;
 	}
 	U64 u64MsgDepth, u64ByteDepth;
@@ -1156,9 +1214,27 @@ send_rhm010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth, 
 }
 
 int
-send_rhm010EvtAllow_trap(void)
+send_rhm010EvtAllow_trap(const char *user, const char *action, const char *objectType, const char *objectName, const char *args)
 {
-    netsnmp_variable_list *var_list = NULL;
+	// sanity check the args
+	char * badArg = NULL;
+	if (!user)
+		badArg = "user";
+	else if (!action)
+		badArg = "action";
+	else if (!objectType)
+		badArg = "objectType";
+	else if (!objectName)
+		badArg = "objectName";
+	else if (!args)
+		badArg = "args";
+	// if more than one is NULL, only first NULL gets reported
+	if (badArg != NULL) {
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
+		return SNMP_ERR_BADVALUE;
+	}
+
+	netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtAllow_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 15 };
     const oid       rhm010EvtUserId_oid[] =
@@ -1191,7 +1267,7 @@ send_rhm010EvtAllow_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtUserId 
                                */
-                              NULL, 0);
+                              user, strlen(user));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtAction_oid,
                               OID_LENGTH(rhm010EvtAction_oid),
@@ -1199,7 +1275,7 @@ send_rhm010EvtAllow_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtAction 
                                */
-                              NULL, 0);
+                              action, strlen(action));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtObjectType_oid,
                               OID_LENGTH(rhm010EvtObjectType_oid),
@@ -1207,7 +1283,7 @@ send_rhm010EvtAllow_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtObjectType 
                                */
-                              NULL, 0);
+                              objectType, strlen(objectType));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtObjectName_oid,
                               OID_LENGTH(rhm010EvtObjectName_oid),
@@ -1215,7 +1291,7 @@ send_rhm010EvtAllow_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtObjectName 
                                */
-                              NULL, 0);
+                              objectType, strlen(objectType));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtArguments_oid,
                               OID_LENGTH(rhm010EvtArguments_oid),
@@ -1223,7 +1299,7 @@ send_rhm010EvtAllow_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtArguments 
                                */
-                              NULL, 0);
+                              args, strlen(args));
 
     /*
      * Add any extra (optional) objects here
@@ -1240,8 +1316,26 @@ send_rhm010EvtAllow_trap(void)
 }
 
 int
-send_rhm010EvtDeny_trap(void)
+send_rhm010EvtDeny_trap(const char *user, const char *action, const char *objectType, const char *objectName, const char *args)
 {
+	// sanity check the args
+	char * badArg = NULL;
+	if (!user)
+		badArg = "user";
+	else if (!action)
+		badArg = "action";
+	else if (!objectType)
+		badArg = "objectType";
+	else if (!objectName)
+		badArg = "objectName";
+	else if (!args)
+		badArg = "args";
+	// if more than one is NULL, only first NULL gets reported
+	if (badArg != NULL) {
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
+		return SNMP_ERR_BADVALUE;
+	}
+
     netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtDeny_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 16 };
@@ -1275,7 +1369,7 @@ send_rhm010EvtDeny_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtUserId 
                                */
-                              NULL, 0);
+                              user, strlen(user));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtAction_oid,
                               OID_LENGTH(rhm010EvtAction_oid),
@@ -1283,7 +1377,7 @@ send_rhm010EvtDeny_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtAction 
                                */
-                              NULL, 0);
+                              action, strlen(action));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtObjectType_oid,
                               OID_LENGTH(rhm010EvtObjectType_oid),
@@ -1291,7 +1385,7 @@ send_rhm010EvtDeny_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtObjectType 
                                */
-                              NULL, 0);
+                              objectType, strlen(objectType));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtObjectName_oid,
                               OID_LENGTH(rhm010EvtObjectName_oid),
@@ -1299,7 +1393,7 @@ send_rhm010EvtDeny_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtObjectName 
                                */
-                              NULL, 0);
+                              objectName, strlen(objectName));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtArguments_oid,
                               OID_LENGTH(rhm010EvtArguments_oid),
@@ -1307,7 +1401,7 @@ send_rhm010EvtDeny_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtArguments 
                                */
-                              NULL, 0);
+                              args, strlen(args));
 
     /*
      * Add any extra (optional) objects here
@@ -1324,9 +1418,15 @@ send_rhm010EvtDeny_trap(void)
 }
 
 int
-send_rhm010EvtFileLoaded_trap(char *userId)
+send_rhm010EvtFileLoaded_trap(const char *user)
 {
-    netsnmp_variable_list *var_list = NULL;
+	// sanity check the args
+	if (!user) {
+		DEBUGMSGTL(("qpid-snmp", "/%s: user was NULL\n", __func__));
+		return SNMP_ERR_BADVALUE;
+	}
+
+	netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtFileLoaded_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 17 };
     const oid       rhm010EvtUserId_oid[] =
@@ -1351,7 +1451,7 @@ send_rhm010EvtFileLoaded_trap(char *userId)
                               /*
                                * Set an appropriate value for rhm010EvtUserId 
                                */
-                              userId, 0);
+                              user, strlen(user));
 
     /*
      * Add any extra (optional) objects here
@@ -1368,9 +1468,21 @@ send_rhm010EvtFileLoaded_trap(char *userId)
 }
 
 int
-send_rhm010EvtFileLoadFailed_trap(void)
+send_rhm010EvtFileLoadFailed_trap(const char *user, const char *reason)
 {
-    netsnmp_variable_list *var_list = NULL;
+	// sanity check the args
+	char * badArg = NULL;
+	if (!user)
+		badArg = "user";
+	else if (!reason)
+		badArg = "reason";
+	// if more than one is NULL, only first NULL gets reported
+	if (badArg != NULL) {
+		DEBUGMSGTL(("qpid-snmp", "/%s: %s was NULL\n", __func__, badArg));
+		return SNMP_ERR_BADVALUE;
+	}
+
+	netsnmp_variable_list *var_list = NULL;
     const oid       rhm010EvtFileLoadFailed_oid[] =
         { 1, 3, 6, 1, 4, 1, 2312, 5672, 1, 1, 100, 0, 18 };
     const oid       rhm010EvtUserId_oid[] =
@@ -1397,7 +1509,7 @@ send_rhm010EvtFileLoadFailed_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtUserId 
                                */
-                              NULL, 0);
+                              user, strlen(user));
     snmp_varlist_add_variable(&var_list,
                               rhm010EvtReason_oid,
                               OID_LENGTH(rhm010EvtReason_oid),
@@ -1405,7 +1517,7 @@ send_rhm010EvtFileLoadFailed_trap(void)
                               /*
                                * Set an appropriate value for rhm010EvtReason 
                                */
-                              NULL, 0);
+                              reason, strlen(reason));
 
     /*
      * Add any extra (optional) objects here
