@@ -395,6 +395,37 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 
 			send_rhm010EvtQueueDelete_trap(rHost.c_str(), user.c_str(),
 					qName.c_str());
+        } else if (name == "exchangeDeclare") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string exName;
+			findString(exName, d, "name", "UNKNOWN_EXNAME");
+			std::string exType;
+			findString(exType, d, "type", "UNKNOWN_EXTYPE");
+			bool durable = findBool(d, "durable");
+			bool autoDelete = findBool(d, "autoDelete");
+			std::string altEx;
+			findString(altEx, d, "altEx", "UNKNOWN_ALTEX");
+			std::string args;
+			findString(args, d, "args", "UNKNOWN_ARGS");
+			std::string disp;
+			findString(disp, d, "disp", "UNKNOWN_DISP");
+
+			send_rhm010EvtExchangeDeclare_trap(rHost.c_str(), user.c_str(),
+					exName.c_str(), exType.c_str(), altEx.c_str(),
+					durable, autoDelete, args.c_str(), disp.c_str());
+        } else if (name == "exchangeDelete") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string exName;
+			findString(exName, d, "name", "UNKNOWN_EXNAME");
+
+			send_rhm010EvtExchangeDelete_trap(rHost.c_str(), user.c_str(),
+					exName.c_str());
         } else if (name == "bind") {
 			std::string user;
 			findString(user, d, "user", "UNKNOWN_USER");
@@ -411,6 +442,20 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 
 			send_rhm010EvtBind_trap(rHost.c_str(), user.c_str(),
 					exName.c_str(), qName.c_str(), key.c_str(), args.c_str());
+        } else if (name == "unbind") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string rHost;
+			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
+			std::string exName;
+			findString(exName, d, "name", "UNKNOWN_EXNAME");
+			std::string qName;
+			findString(qName, d, "name", "UNKNOWN_QNAME");
+			std::string key;
+			findString(key, d, "altEx", "UNKNOWN_KEY");
+
+			send_rhm010EvtUnbind_trap(rHost.c_str(), user.c_str(),
+					exName.c_str(), qName.c_str(), key.c_str());
         } else if (name == "subscribe") {
 			std::string user;
 			findString(user, d, "user", "UNKNOWN_USER");
@@ -436,6 +481,47 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 
 			send_rhm010EvtUnsubscribe_trap(rHost.c_str(), user.c_str(),
 					dest.c_str());
+
+        } else if (name == "allow") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string action;
+			findString(action, d, "action", "UNKNOWN_ACTION");
+			std::string objectType;
+			findString(objectType, d, "type", "UNKNOWN_TYPE");
+			std::string objectName;
+			findString(objectName, d, "name", "UNKNOWN_NAME");
+			std::string args;
+			findString(args, d, "args", "UNKNOWN_ARGS");
+
+			send_rhm010EvtAllow_trap(user.c_str(), action.c_str(), objectType.c_str(),
+					objectName.c_str(), args.c_str());
+        } else if (name == "deny") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string action;
+			findString(action, d, "action", "UNKNOWN_ACTION");
+			std::string objectType;
+			findString(objectType, d, "type", "UNKNOWN_TYPE");
+			std::string objectName;
+			findString(objectName, d, "name", "UNKNOWN_NAME");
+			std::string args;
+			findString(args, d, "args", "UNKNOWN_ARGS");
+
+			send_rhm010EvtDeny_trap(user.c_str(), action.c_str(), objectType.c_str(),
+					objectName.c_str(), args.c_str());
+        } else if (name == "fileLoaded") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+
+			send_rhm010EvtFileLoaded_trap(user.c_str());
+        } else if (name == "fileLoadFailed") {
+			std::string user;
+			findString(user, d, "user", "UNKNOWN_USER");
+			std::string reason;
+			findString(reason, d, "reason", "UNKNOWN_REASON");
+
+			send_rhm010EvtFileLoadFailed_trap(user.c_str(), reason.c_str());
         } else {
             printf("::%s unhandled event\n", d.getSchemaId().getName().c_str());
         }
