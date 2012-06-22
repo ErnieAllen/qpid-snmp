@@ -4,25 +4,25 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/exchange/rhm010ExchangeTable.c \
-../src/exchange/rhm010ExchangeTable_data_access.c \
-../src/exchange/rhm010ExchangeTable_data_get.c \
-../src/exchange/rhm010ExchangeTable_data_set.c \
-../src/exchange/rhm010ExchangeTable_interface.c 
+../src/exchange/ExchangeTable.c \
+../src/exchange/ExchangeTable_data_access.c \
+../src/exchange/ExchangeTable_data_get.c \
+../src/exchange/ExchangeTable_data_set.c \
+../src/exchange/ExchangeTable_interface.c 
 
 OBJS += \
-./src/exchange/rhm010ExchangeTable.o \
-./src/exchange/rhm010ExchangeTable_data_access.o \
-./src/exchange/rhm010ExchangeTable_data_get.o \
-./src/exchange/rhm010ExchangeTable_data_set.o \
-./src/exchange/rhm010ExchangeTable_interface.o 
+./src/exchange/ExchangeTable.o \
+./src/exchange/ExchangeTable_data_access.o \
+./src/exchange/ExchangeTable_data_get.o \
+./src/exchange/ExchangeTable_data_set.o \
+./src/exchange/ExchangeTable_interface.o 
 
 C_DEPS += \
-./src/exchange/rhm010ExchangeTable.d \
-./src/exchange/rhm010ExchangeTable_data_access.d \
-./src/exchange/rhm010ExchangeTable_data_get.d \
-./src/exchange/rhm010ExchangeTable_data_set.d \
-./src/exchange/rhm010ExchangeTable_interface.d 
+./src/exchange/ExchangeTable.d \
+./src/exchange/ExchangeTable_data_access.d \
+./src/exchange/ExchangeTable_data_get.d \
+./src/exchange/ExchangeTable_data_set.d \
+./src/exchange/ExchangeTable_interface.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

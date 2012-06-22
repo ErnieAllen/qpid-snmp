@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/agent/rhm010Agent.c 
+../src/agent/Agent.c 
 
 OBJS += \
-./src/agent/rhm010Agent.o 
+./src/agent/Agent.o 
 
 C_DEPS += \
-./src/agent/rhm010Agent.d 
+./src/agent/Agent.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

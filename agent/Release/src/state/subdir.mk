@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/state/rhm010ManagementSetupState.c 
+../src/state/ManagementSetupState.c 
 
 OBJS += \
-./src/state/rhm010ManagementSetupState.o 
+./src/state/ManagementSetupState.o 
 
 C_DEPS += \
-./src/state/rhm010ManagementSetupState.d 
+./src/state/ManagementSetupState.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

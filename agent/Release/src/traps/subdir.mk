@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/traps/rhm010Events.c 
+../src/traps/Events.c 
 
 OBJS += \
-./src/traps/rhm010Events.o 
+./src/traps/Events.o 
 
 C_DEPS += \
-./src/traps/rhm010Events.d 
+./src/traps/Events.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

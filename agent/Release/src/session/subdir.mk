@@ -4,25 +4,25 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/session/rhm010SessionTable.c \
-../src/session/rhm010SessionTable_data_access.c \
-../src/session/rhm010SessionTable_data_get.c \
-../src/session/rhm010SessionTable_data_set.c \
-../src/session/rhm010SessionTable_interface.c 
+../src/session/SessionTable.c \
+../src/session/SessionTable_data_access.c \
+../src/session/SessionTable_data_get.c \
+../src/session/SessionTable_data_set.c \
+../src/session/SessionTable_interface.c 
 
 OBJS += \
-./src/session/rhm010SessionTable.o \
-./src/session/rhm010SessionTable_data_access.o \
-./src/session/rhm010SessionTable_data_get.o \
-./src/session/rhm010SessionTable_data_set.o \
-./src/session/rhm010SessionTable_interface.o 
+./src/session/SessionTable.o \
+./src/session/SessionTable_data_access.o \
+./src/session/SessionTable_data_get.o \
+./src/session/SessionTable_data_set.o \
+./src/session/SessionTable_interface.o 
 
 C_DEPS += \
-./src/session/rhm010SessionTable.d \
-./src/session/rhm010SessionTable_data_access.d \
-./src/session/rhm010SessionTable_data_get.d \
-./src/session/rhm010SessionTable_data_set.d \
-./src/session/rhm010SessionTable_interface.d 
+./src/session/SessionTable.d \
+./src/session/SessionTable_data_access.d \
+./src/session/SessionTable_data_get.d \
+./src/session/SessionTable_data_set.d \
+./src/session/SessionTable_interface.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
