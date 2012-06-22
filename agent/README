@@ -24,7 +24,7 @@ Before you run, some configuration files need to be in place.
   This file should contain one line:
 		mibs +MRG-MESSAGING-MIB
   
-- Place the file rhm010.conf in ~/.snmp
+- Place the file qpid010.conf in ~/.snmp
 - This file should contain two lines:
 		rocommunity public
 		rwcommunity private
@@ -72,14 +72,14 @@ This is because you are running as a non-root user. No worries here.
 
 To test:
 In a separate terminal window, run one of the net-snmp commands. For example:
-[user ~]$ snmpget -v2c -c public localhost:1161 rhm010Brokeruptime.0
-MRG-MESSAGING-MIB::rhm010BrokerUptime.0 = Timeticks: (16102344) 1 day, 20:43:43.44
+[user ~]$ snmpget -v2c -c public localhost:1161 qpid010Brokeruptime.0
+MRG-MESSAGING-MIB::qpid010BrokerUptime.0 = Timeticks: (16102344) 1 day, 20:43:43.44
 
 Another example:
-[user ~]$ snmpwalk -v2c -c public localhost:1161 rhm010ExchangeTable
+[user ~]$ snmpwalk -v2c -c public localhost:1161 qpid010ExchangeTable
 < a whole slew of info about exchanges>
 
 In the above examples we are using version 2c of snmp.
-The "public" community string matches the one specified in ~/.spec/rhm010.conf
+The "public" community string matches the one specified in ~/.spec/qpid010.conf
 
 Currently (4/28/2012), the net-snmp set commands have not been implemented.
