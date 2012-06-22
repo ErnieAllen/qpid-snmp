@@ -150,7 +150,7 @@ void replaceKeyWithAttrList(string & text, const string & key, const pugi::xml_n
             if ((!foundAttr.empty() && !match) || (foundAttr.empty() && match)) {
                 fixPropertyName(propertyName);
                 genChildName(className, propertyName, childName);
-                childName = "rhm010" + childName;
+                childName = "qpid010" + childName;
                 buf << "                " << sep << childName << endl;
                 sep = ",";
 
@@ -337,7 +337,7 @@ bool isProcessable(const string & className, const string & blockType)
     return true;
 }
 
-// Convert "name1, name2, name3" to "rhm010EvtName1, rhm010EvtName2, rhm010EvtName3"
+// Convert "name1, name2, name3" to "qpid010EvtName1, qpid010EvtName2, qpid010EvtName3"
 void fixEventArgs(string & args)
 {
     vector<string> names;
@@ -371,7 +371,7 @@ void fixEventArgs(string & args)
     for (it = names.begin(); it != names.end(); ++it) {
         token = *it;
         initCap(token);
-        buf << sep << "rhm010Evt" << token;
+        buf << sep << "qpid010Evt" << token;
         sep = ", ";
     }
     args = buf.str();
@@ -488,7 +488,7 @@ void processEventArgumentGroup(string & buf, const pugi::xml_node & schema)
         argName = arg.attribute("name").value();
         initCap(argName);
 
-        block << "                " << sep << "rhm010Evt" << argName << endl;
+        block << "                " << sep << "qpid010Evt" << argName << endl;
         sep = ",";
     }
     replaceAll(buf, "%{allEventArguments}", block.str());
@@ -536,7 +536,7 @@ void processSeverityGroups(string & buf, const pugi::xml_node & schema)
 
             nameList::iterator it;
             for (it = (*itMap).second->begin(); it != (*itMap).second->end(); ++it) {
-                eventNamesBuf << sep << "rhm010Evt" << (*it) << endl;
+                eventNamesBuf << sep << "qpid010Evt" << (*it) << endl;
                 sep = "                ,";
             }
 
