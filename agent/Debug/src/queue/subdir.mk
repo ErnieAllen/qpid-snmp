@@ -4,25 +4,25 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/queue/rhm010QueueTable.c \
-../src/queue/rhm010QueueTable_data_access.c \
-../src/queue/rhm010QueueTable_data_get.c \
-../src/queue/rhm010QueueTable_data_set.c \
-../src/queue/rhm010QueueTable_interface.c 
+../src/queue/QueueTable.c \
+../src/queue/QueueTable_data_access.c \
+../src/queue/QueueTable_data_get.c \
+../src/queue/QueueTable_data_set.c \
+../src/queue/QueueTable_interface.c 
 
 OBJS += \
-./src/queue/rhm010QueueTable.o \
-./src/queue/rhm010QueueTable_data_access.o \
-./src/queue/rhm010QueueTable_data_get.o \
-./src/queue/rhm010QueueTable_data_set.o \
-./src/queue/rhm010QueueTable_interface.o 
+./src/queue/QueueTable.o \
+./src/queue/QueueTable_data_access.o \
+./src/queue/QueueTable_data_get.o \
+./src/queue/QueueTable_data_set.o \
+./src/queue/QueueTable_interface.o 
 
 C_DEPS += \
-./src/queue/rhm010QueueTable.d \
-./src/queue/rhm010QueueTable_data_access.d \
-./src/queue/rhm010QueueTable_data_get.d \
-./src/queue/rhm010QueueTable_data_set.d \
-./src/queue/rhm010QueueTable_interface.d 
+./src/queue/QueueTable.d \
+./src/queue/QueueTable_data_access.d \
+./src/queue/QueueTable_data_get.d \
+./src/queue/QueueTable_data_set.d \
+./src/queue/QueueTable_interface.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -4,25 +4,25 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/subscription/rhm010SubscriptionTable.c \
-../src/subscription/rhm010SubscriptionTable_data_access.c \
-../src/subscription/rhm010SubscriptionTable_data_get.c \
-../src/subscription/rhm010SubscriptionTable_data_set.c \
-../src/subscription/rhm010SubscriptionTable_interface.c 
+../src/subscription/SubscriptionTable.c \
+../src/subscription/SubscriptionTable_data_access.c \
+../src/subscription/SubscriptionTable_data_get.c \
+../src/subscription/SubscriptionTable_data_set.c \
+../src/subscription/SubscriptionTable_interface.c 
 
 OBJS += \
-./src/subscription/rhm010SubscriptionTable.o \
-./src/subscription/rhm010SubscriptionTable_data_access.o \
-./src/subscription/rhm010SubscriptionTable_data_get.o \
-./src/subscription/rhm010SubscriptionTable_data_set.o \
-./src/subscription/rhm010SubscriptionTable_interface.o 
+./src/subscription/SubscriptionTable.o \
+./src/subscription/SubscriptionTable_data_access.o \
+./src/subscription/SubscriptionTable_data_get.o \
+./src/subscription/SubscriptionTable_data_set.o \
+./src/subscription/SubscriptionTable_interface.o 
 
 C_DEPS += \
-./src/subscription/rhm010SubscriptionTable.d \
-./src/subscription/rhm010SubscriptionTable_data_access.d \
-./src/subscription/rhm010SubscriptionTable_data_get.d \
-./src/subscription/rhm010SubscriptionTable_data_set.d \
-./src/subscription/rhm010SubscriptionTable_interface.d 
+./src/subscription/SubscriptionTable.d \
+./src/subscription/SubscriptionTable_data_access.d \
+./src/subscription/SubscriptionTable_data_get.d \
+./src/subscription/SubscriptionTable_data_set.d \
+./src/subscription/SubscriptionTable_interface.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

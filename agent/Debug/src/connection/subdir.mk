@@ -4,25 +4,25 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/connection/rhm010ConnectionTable.c \
-../src/connection/rhm010ConnectionTable_data_access.c \
-../src/connection/rhm010ConnectionTable_data_get.c \
-../src/connection/rhm010ConnectionTable_data_set.c \
-../src/connection/rhm010ConnectionTable_interface.c 
+../src/connection/ConnectionTable.c \
+../src/connection/ConnectionTable_data_access.c \
+../src/connection/ConnectionTable_data_get.c \
+../src/connection/ConnectionTable_data_set.c \
+../src/connection/ConnectionTable_interface.c 
 
 OBJS += \
-./src/connection/rhm010ConnectionTable.o \
-./src/connection/rhm010ConnectionTable_data_access.o \
-./src/connection/rhm010ConnectionTable_data_get.o \
-./src/connection/rhm010ConnectionTable_data_set.o \
-./src/connection/rhm010ConnectionTable_interface.o 
+./src/connection/ConnectionTable.o \
+./src/connection/ConnectionTable_data_access.o \
+./src/connection/ConnectionTable_data_get.o \
+./src/connection/ConnectionTable_data_set.o \
+./src/connection/ConnectionTable_interface.o 
 
 C_DEPS += \
-./src/connection/rhm010ConnectionTable.d \
-./src/connection/rhm010ConnectionTable_data_access.d \
-./src/connection/rhm010ConnectionTable_data_get.d \
-./src/connection/rhm010ConnectionTable_data_set.d \
-./src/connection/rhm010ConnectionTable_interface.d 
+./src/connection/ConnectionTable.d \
+./src/connection/ConnectionTable_data_access.d \
+./src/connection/ConnectionTable_data_get.d \
+./src/connection/ConnectionTable_data_set.d \
+./src/connection/ConnectionTable_interface.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/cluster/rhm010Cluster.c 
+../src/cluster/Cluster.c 
 
 OBJS += \
-./src/cluster/rhm010Cluster.o 
+./src/cluster/Cluster.o 
 
 C_DEPS += \
-./src/cluster/rhm010Cluster.d 
+./src/cluster/Cluster.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

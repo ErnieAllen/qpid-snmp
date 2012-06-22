@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/acl/rhm010Acl.c 
+../src/acl/Acl.c 
 
 OBJS += \
-./src/acl/rhm010Acl.o 
+./src/acl/Acl.o 
 
 C_DEPS += \
-./src/acl/rhm010Acl.d 
+./src/acl/Acl.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
