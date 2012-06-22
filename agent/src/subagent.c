@@ -14,23 +14,23 @@
 /*
  * include our object headers
  */
-#include "queue/rhm010QueueTable.h"
-#include "exchange/rhm010ExchangeTable.h"
-#include "vhost/rhm010VhostTable.h"
-#include "system/rhm010System.h"
-#include "acl/rhm010Acl.h"
-#include "ha/rhm010HaBroker.h"
-#include "agent/rhm010Agent.h"
-#include "broker/rhm010Broker.h"
-#include "cluster/rhm010Cluster.h"
-#include "memory/rhm010Memory.h"
-#include "state/rhm010ManagementSetupState.h"
-#include "binding/rhm010BindingTable.h"
-#include "session/rhm010SessionTable.h"
-#include "subscription/rhm010SubscriptionTable.h"
-#include "connection/rhm010ConnectionTable.h"
-#include "bridge/rhm010BridgeTable.h"
-#include "link/rhm010LinkTable.h"
+#include "queue/QueueTable.h"
+#include "exchange/ExchangeTable.h"
+#include "vhost/VhostTable.h"
+#include "system/System.h"
+#include "acl/Acl.h"
+#include "ha/HaBroker.h"
+#include "agent/Agent.h"
+#include "broker/Broker.h"
+#include "cluster/Cluster.h"
+#include "memory/Memory.h"
+#include "state/ManagementSetupState.h"
+#include "binding/BindingTable.h"
+#include "session/SessionTable.h"
+#include "subscription/SubscriptionTable.h"
+#include "connection/ConnectionTable.h"
+#include "bridge/BridgeTable.h"
+#include "link/LinkTable.h"
 
 
 #include "qpid_api.h"
@@ -113,8 +113,8 @@ main(int argc, char **argv)
         case 'H':
             netsnmp_ds_set_boolean(NETSNMP_DS_APPLICATION_ID,
                                    NETSNMP_DS_AGENT_NO_ROOT_ACCESS, 1);
-            init_agent("rhm010");     /* register our .conf handlers */
-            init_snmp("rhm010");
+            init_agent("qpid010");     /* register our .conf handlers */
+            init_snmp("qpid010");
             fprintf(stderr, "Configuration directives understood:\n");
             read_config_print_usage("  ");
             exit(0);
@@ -212,33 +212,33 @@ main(int argc, char **argv)
     /*
      * initialize the agent library 
      */
-    init_agent("rhm010");
+    init_agent("qpid010");
 
     /*
      * init tables mib code
      */
-    init_rhm010QueueTable();
-    init_rhm010ExchangeTable();
-    init_rhm010VhostTable();
-    init_rhm010BindingTable();
-    init_rhm010SessionTable();
-    init_rhm010SubscriptionTable();
-    init_rhm010ConnectionTable();
-    init_rhm010BridgeTable();
-    init_rhm010LinkTable();
-    init_rhm010System();
-    init_rhm010Acl();
-    init_rhm010HaBroker();
-    init_rhm010Agent();
-    init_rhm010Broker();
-    init_rhm010Cluster();
-    init_rhm010Memory();
-    init_rhm010ManagementSetupState();
+    init_QueueTable();
+    init_ExchangeTable();
+    init_VhostTable();
+    init_BindingTable();
+    init_SessionTable();
+    init_SubscriptionTable();
+    init_ConnectionTable();
+    init_BridgeTable();
+    init_LinkTable();
+    init_System();
+    init_Acl();
+    init_HaBroker();
+    init_Agent();
+    init_Broker();
+    init_Cluster();
+    init_Memory();
+    init_ManagementSetupState();
 
     /*
-     * read rhm010.conf files.
+     * read qpid010.conf files.
      */
-    init_snmp("rhm010");
+    init_snmp("qpid010");
 
     /*
      * If we're going to be a snmp master agent, initial the ports 
@@ -271,7 +271,7 @@ main(int argc, char **argv)
      * at shutdown time 
      */
     close_qmf();
-    snmp_shutdown("rhm010");
+    snmp_shutdown("qpid010");
     SOCK_CLEANUP;
     exit(0);
 }
