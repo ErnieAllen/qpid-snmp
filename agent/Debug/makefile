@@ -17,6 +17,7 @@ RM := rm -rf
 -include src/queue/subdir.mk
 -include src/memory/subdir.mk
 -include src/link/subdir.mk
+-include src/ha/subdir.mk
 -include src/exchange/subdir.mk
 -include src/connection/subdir.mk
 -include src/cluster/subdir.mk

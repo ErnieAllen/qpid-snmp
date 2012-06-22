@@ -33,6 +33,7 @@ src/session \
 src/queue \
 src/memory \
 src/link \
+src/ha \
 src/exchange \
 src/connection \
 src/cluster \
