@@ -35,7 +35,7 @@ extern          "C" {
 #define TRUTHVALUE_ENUMS
 
 #define TRUTHVALUE_TRUE  1
-#define TRUTHVALUE_FALSE  0
+#define TRUTHVALUE_FALSE  2
 
 #endif                          /* TRUTHVALUE_ENUMS */
 
