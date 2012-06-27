@@ -6,6 +6,7 @@
  * standard Net-SNMP includes 
  */
 #include <net-snmp/net-snmp-config.h>
+#include <net-snmp/config_api.h>
 #include <net-snmp/net-snmp-features.h>
 #include <net-snmp/net-snmp-includes.h>
 #include <net-snmp/agent/net-snmp-agent-includes.h>
@@ -34,6 +35,12 @@
 
 
 #include "qpid_api.h"
+
+// qpid broker options
+// overridden from command line or config files
+char		   *qpidBrokerUrl;
+char		   *qpidBrokerConnectOptions;
+char		   *qpidQmfOptions;
 
 /*
  * If compiling within the net-snmp source code, this will trigger the feature
@@ -77,10 +84,30 @@ usage(void)
     exit(0);
 }
 
+// called by init_snmp("qpid010")
+// called
+void
+set_broker_config_params(const char *name, char * value)
+{
+	if (strcmp(name, "broker") == 0) {
+		qpidBrokerUrl = malloc(strlen(value) + 1);
+		strcpy(qpidBrokerUrl, value);
+        DEBUGMSGTL(("read broker value from config file: %s\n", qpidBrokerUrl));
+	} else if (strcmp(name, "connect") == 0) {
+		qpidBrokerConnectOptions = malloc(strlen(value) + 1);
+		strcpy(qpidBrokerConnectOptions, value);
+		DEBUGMSGTL(("read connect value from config file: %s\n", qpidBrokerConnectOptions));
+	} else if (strcmp(name, "qmf") == 0) {
+		qpidQmfOptions = malloc(strlen(value) + 1);
+		strcpy(qpidQmfOptions, value);
+		DEBUGMSGTL(("read qmf value from config file: %s\n", qpidQmfOptions));
+	}
+}
+
 int
 main(int argc, char **argv)
 {
-    int             agentx_subagent = 1;        /* change this if you want to be a SNMP master agent */
+    int             agentx_subagent = 0;        /* change this if you don't want to be a SNMP master agent */
     /*
      * Defs for arg-handling code: handles setting of policy-related variables 
      */
@@ -88,9 +115,14 @@ main(int argc, char **argv)
     extern char    *optarg;
     int             dont_fork = 0, use_syslog = 0;
     char           *agentx_socket = NULL;
-    char		   *qpidBrokerUrl = "localhost:5672";
-    char		   *qpidBrokerConnectOptions = "";
-    char		   *qpidQmfOptions = "{strict-security:False}";
+
+    char		   *qpidBrokerUrl_default = "localhost:5672";
+    char		   *qpidBrokerConnectOptions_default = "";
+    char		   *qpidQmfOptions_default = "{strict-security:False}";
+
+    char		   *qpidBrokerUrl_cmdl = NULL;
+    char		   *qpidBrokerConnectOptions_cmdl = NULL;
+    char		   *qpidQmfOptions_cmdl = NULL;
 
     while ((ch = getopt(argc, argv, "D:b:c:q:fHLMx:")) != EOF)
         switch (ch) {
@@ -99,13 +131,13 @@ main(int argc, char **argv)
             snmp_set_do_debugging(1);
             break;
         case 'b':
-        	qpidBrokerUrl = optarg;
+        	qpidBrokerUrl_cmdl = optarg;
         	break;
         case 'c':
-        	qpidBrokerConnectOptions = optarg;
+        	qpidBrokerConnectOptions_cmdl = optarg;
         	break;
         case 'q':
-        	qpidQmfOptions = optarg;
+        	qpidQmfOptions_cmdl = optarg;
         	break;
         case 'f':
             dont_fork = 1;
@@ -184,22 +216,12 @@ main(int argc, char **argv)
         snmp_enable_stderrlog();
 
     /*
-     * Connect to the broker
-     */
-    if (!init_qmf(qpidBrokerUrl, qpidBrokerConnectOptions, qpidQmfOptions)) {
-        DEBUGMSGTL(("qpid-snmp/main", "failed to connect to broker %s\n", qpidBrokerUrl));
-        printf("qpid-snmp/main: failed to connect to broker %s\n", qpidBrokerUrl);
-        exit(-1);
-    }
-
-    /*
      * daemonize 
      */
     if (!dont_fork) {
         int             rc = netsnmp_daemonize(1, !use_syslog);
         if (rc) {
-            close_qmf();
-            exit(-1);
+        	exit(-1);
         }
     }
 
@@ -210,7 +232,7 @@ main(int argc, char **argv)
 
 
     /*
-     * initialize the agent library 
+     * initialize the agent library
      */
     init_agent("qpid010");
 
@@ -235,10 +257,49 @@ main(int argc, char **argv)
     init_Memory();
     init_ManagementSetupState();
 
+    register_config_handler("qpid010", "broker", set_broker_config_params, NULL, "URL");
+    register_config_handler("qpid010", "connect", set_broker_config_params, NULL, NULL);
+    register_config_handler("qpid010", "qmf", set_broker_config_params, NULL, NULL);
     /*
      * read qpid010.conf files.
+	 * This has the side-effect of calling set_broker_config_params() if
+	 * one of our config entries is encountered.
      */
     init_snmp("qpid010");
+
+    /*
+     * Connect to the broker
+     */
+
+    // command line | config file | default
+    if (qpidBrokerUrl_cmdl) {
+    	if (qpidBrokerUrl)
+    		free(qpidBrokerUrl);
+    	qpidBrokerUrl = qpidBrokerUrl_cmdl;
+    }
+    if (qpidBrokerConnectOptions_cmdl) {
+    	if (qpidBrokerConnectOptions)
+    		free(qpidBrokerConnectOptions);
+    	qpidBrokerConnectOptions = qpidBrokerConnectOptions_cmdl;
+    }
+    if (qpidQmfOptions_cmdl) {
+    	if (qpidQmfOptions)
+    		free(qpidQmfOptions);
+    	qpidQmfOptions = qpidQmfOptions_cmdl;
+    }
+    // the init_snmp() call above will load any config entries into the global variables
+    if (!qpidBrokerUrl)
+    	qpidBrokerUrl = qpidBrokerUrl_default;
+    if (!qpidBrokerConnectOptions)
+    	qpidBrokerConnectOptions = qpidBrokerConnectOptions_default;
+    if (!qpidQmfOptions)
+    	qpidQmfOptions = qpidQmfOptions_default;
+
+    if (!init_qmf(qpidBrokerUrl, qpidBrokerConnectOptions, qpidQmfOptions)) {
+        DEBUGMSGTL(("qpid-snmp/main", "failed to connect to broker %s\n", qpidBrokerUrl));
+        printf("qpid-snmp/main: failed to connect to broker %s\n", qpidBrokerUrl);
+        exit(-1);
+    }
 
     /*
      * If we're going to be a snmp master agent, initial the ports 
