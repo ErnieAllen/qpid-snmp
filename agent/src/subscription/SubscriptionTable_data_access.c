@@ -153,7 +153,7 @@ qpid010SubscriptionTable_container_init(netsnmp_container **
      */
     cache->timeout = qpid010SUBSCRIPTIONTABLE_CACHE_TIMEOUT;     /* seconds */
 
-    cache->flags |= NETSNMP_CACHE_PRELOAD;
+    //cache->flags |= NETSNMP_CACHE_PRELOAD;
 }                               /* qpid010SubscriptionTable_container_init */
 
 /**

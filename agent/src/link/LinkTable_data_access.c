@@ -153,7 +153,7 @@ qpid010LinkTable_container_init(netsnmp_container ** container_ptr_ptr,
      * cache->enabled to 0.
      */
     cache->timeout = qpid010LINKTABLE_CACHE_TIMEOUT;     /* seconds */
-    cache->flags |= NETSNMP_CACHE_PRELOAD;
+    //cache->flags |= NETSNMP_CACHE_PRELOAD;
 
 }                               /* qpid010LinkTable_container_init */
 

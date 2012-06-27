@@ -152,7 +152,7 @@ qpid010BindingTable_container_init(netsnmp_container ** container_ptr_ptr,
     /* **EA**
         * preload to assign initial index values
         */
-       cache->flags |= NETSNMP_CACHE_PRELOAD;
+//       cache->flags |= NETSNMP_CACHE_PRELOAD;
 }                               /* qpid010BindingTable_container_init */
 
 /**

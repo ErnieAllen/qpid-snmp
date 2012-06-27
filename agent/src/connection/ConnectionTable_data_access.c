@@ -152,7 +152,7 @@ qpid010ConnectionTable_container_init(netsnmp_container **
      * cache->enabled to 0.
      */
     cache->timeout = qpid010CONNECTIONTABLE_CACHE_TIMEOUT;       /* seconds */
-    cache->flags |= NETSNMP_CACHE_PRELOAD;
+    //cache->flags |= NETSNMP_CACHE_PRELOAD;
 }                               /* qpid010ConnectionTable_container_init */
 
 /**

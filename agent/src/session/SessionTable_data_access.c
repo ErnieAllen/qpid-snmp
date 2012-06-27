@@ -148,7 +148,7 @@ qpid010SessionTable_container_init(netsnmp_container ** container_ptr_ptr,
         */
 
     cache->timeout = qpid010SESSIONTABLE_CACHE_TIMEOUT;  /* seconds */
-    cache->flags |= NETSNMP_CACHE_PRELOAD;
+    //cache->flags |= NETSNMP_CACHE_PRELOAD;
 }                               /* qpid010SessionTable_container_init */
 
 /**
