@@ -113,6 +113,11 @@ Map ::= TEXTUAL-CONVENTION
         DESCRIPTION     "Textual representation of a map<string, string>"
         SYNTAX          OCTET STRING (SIZE (0..65535))
 
+List ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "255a"
+        STATUS          current
+        DESCRIPTION     "Textual representation of a list"
+        SYNTAX          OCTET STRING (SIZE (0..255))
 
 --
 -- The root OID for this MIB

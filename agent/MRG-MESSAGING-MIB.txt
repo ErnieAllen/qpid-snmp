@@ -45,13 +45,13 @@ IMPORTS
             FROM SNMPv2-TC;
 
 qpid010 MODULE-IDENTITY
-        LAST-UPDATED "201206220000Z"
+        LAST-UPDATED "201207100000Z"
         ORGANIZATION "www.redhat.com"
         CONTACT-INFO
                 "e-mail: eallen@redhat.com"
         DESCRIPTION
             "Root for Red Hat qpid messaging nodes"
-        REVISION "201206220000Z"
+        REVISION "201207100000Z"
             DESCRIPTION
                 "First release"
         ::= { enterprises 18060 15 1 }
@@ -113,6 +113,11 @@ Map ::= TEXTUAL-CONVENTION
         DESCRIPTION     "Textual representation of a map<string, string>"
         SYNTAX          OCTET STRING (SIZE (0..65535))
 
+List ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "255a"
+        STATUS          current
+        DESCRIPTION     "Textual representation of a list"
+        SYNTAX          OCTET STRING (SIZE (0..255))
 
 --
 -- The root OID for this MIB
@@ -3341,7 +3346,7 @@ qpid010HaBrokerReplicateDefault OBJECT-TYPE
 -- The HaBrokerMembers data object
 --
 qpid010HaBrokerMembers OBJECT-TYPE
-        SYNTAX      list
+        SYNTAX      List
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION "List of brokers in the cluster
@@ -3533,7 +3538,7 @@ qpid010EvtClientAddr OBJECT-TYPE
         ::= { qpid010EvtArgList 22 }
 
 qpid010EvtMembers OBJECT-TYPE
-        SYNTAX      list
+        SYNTAX      List
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION "List of broker information maps"

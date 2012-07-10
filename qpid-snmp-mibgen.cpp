@@ -232,6 +232,7 @@ void translateAttr(string & child)
     attrMap["deltaTime"] =  "TimeTicks";
     attrMap["hilo32"] =     "Hilo32";
     attrMap["map"] =        "Map";
+    attrMap["list"] =       "List";
 
     attrMap["RO"] = "read-only";
     attrMap["RC"] = "read-write";
