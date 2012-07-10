@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010LINKTABLE_H
-#define qpid010LINKTABLE_H
+#ifndef QPID010LINKTABLE_H
+#define QPID010LINKTABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -60,7 +60,7 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
     /*
      * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060,15.1.1.11.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
      */
     /*
      *********************************************************************
@@ -90,41 +90,53 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
          * qpid010LinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
         char            qpid010LinkVhostRef[255];
-        size_t          qpid010LinkVhostRef_len; /* # of char elements, not bytes */
+        size_t          qpid010LinkVhostRef_len;        /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkHost(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         */
+        char            qpid010LinkName[255];
+        size_t          qpid010LinkName_len;    /* # of char elements, not bytes */
+
+        /*
+         * qpid010LinkHost(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
         char            qpid010LinkHost[255];
-        size_t          qpid010LinkHost_len;     /* # of char elements, not bytes */
+        size_t          qpid010LinkHost_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkPort(3)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * qpid010LinkPort(4)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
         long            qpid010LinkPort;
 
         /*
-         * qpid010LinkTransport(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * qpid010LinkTransport(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
         char            qpid010LinkTransport[255];
-        size_t          qpid010LinkTransport_len;        /* # of char elements, not bytes */
+        size_t          qpid010LinkTransport_len;       /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkDurable(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
         u_long          qpid010LinkDurable;
 
         /*
-         * qpid010LinkState(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * qpid010LinkConnectionRef(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010LinkState[255];
-        size_t          qpid010LinkState_len;    /* # of char elements, not bytes */
+        char            qpid010LinkConnectionRef[255];
+        size_t          qpid010LinkConnectionRef_len;   /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkLastError(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * qpid010LinkState(8)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         */
+        char            qpid010LinkState[255];
+        size_t          qpid010LinkState_len;   /* # of char elements, not bytes */
+
+        /*
+         * qpid010LinkLastError(9)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
         char            qpid010LinkLastError[65535];
-        size_t          qpid010LinkLastError_len;        /* # of char elements, not bytes */
+        size_t          qpid010LinkLastError_len;       /* # of char elements, not bytes */
 
     } qpid010LinkTable_data;
 
@@ -145,7 +157,7 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
     typedef struct qpid010LinkTable_mib_index_s {
 
         /*
-         * qpid010LinkInternalIndex(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
         u_long          qpid010LinkInternalIndex;
 
@@ -206,27 +218,27 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
      */
     int            
         qpid010LinkTable_pre_request(qpid010LinkTable_registration *
-                                    user_context);
+                                     user_context);
     int            
         qpid010LinkTable_post_request(qpid010LinkTable_registration *
-                                     user_context, int rc);
+                                      user_context, int rc);
 
     int            
         qpid010LinkTable_rowreq_ctx_init(qpid010LinkTable_rowreq_ctx *
-                                        rowreq_ctx, void *user_init_ctx);
+                                         rowreq_ctx, void *user_init_ctx);
     void           
         qpid010LinkTable_rowreq_ctx_cleanup(qpid010LinkTable_rowreq_ctx *
-                                           rowreq_ctx);
+                                            rowreq_ctx);
 
     int            
         qpid010LinkTable_check_dependencies(qpid010LinkTable_rowreq_ctx *
-                                           rowreq_ctx);
+                                            rowreq_ctx);
     int             qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx *
-                                           rowreq_ctx);
+                                            rowreq_ctx);
 
     qpid010LinkTable_rowreq_ctx
-        *qpid010LinkTable_row_find_by_mib_index(qpid010LinkTable_mib_index *
-                                               mib_idx);
+        *qpid010LinkTable_row_find_by_mib_index(qpid010LinkTable_mib_index
+                                                * mib_idx);
 
     extern const oid qpid010LinkTable_oid[];
     extern const int qpid010LinkTable_oid_size;
@@ -250,5 +262,5 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010LINKTABLE_H */
+#endif                          /* QPID010LINKTABLE_H */
 /** @} */

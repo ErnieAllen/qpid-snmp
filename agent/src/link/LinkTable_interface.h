@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef qpid010LINKTABLE_INTERFACE_H
-#define qpid010LINKTABLE_INTERFACE_H
+#ifndef QPID010LINKTABLE_INTERFACE_H
+#define QPID010LINKTABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,17 +53,17 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010LinkTable_initialize_interface(qpid010LinkTable_registration
-                                              * user_ctx, u_long flags);
+        _qpid010LinkTable_initialize_interface
+        (qpid010LinkTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010LinkTable_shutdown_interface(qpid010LinkTable_registration *
-                                            user_ctx);
+        _qpid010LinkTable_shutdown_interface(qpid010LinkTable_registration
+                                             * user_ctx);
 
     qpid010LinkTable_registration *qpid010LinkTable_registration_get(void);
 
     qpid010LinkTable_registration
         *qpid010LinkTable_registration_set(qpid010LinkTable_registration *
-                                          newreg);
+                                           newreg);
 
     netsnmp_container *qpid010LinkTable_container_get(void);
     int             qpid010LinkTable_container_size(void);
@@ -72,17 +72,18 @@ extern          "C" {
     void            qpid010LinkTable_dirty_set(u_int status);
 
     qpid010LinkTable_rowreq_ctx *qpid010LinkTable_allocate_rowreq_ctx(void
-                                                                    *);
+                                                                      *);
     void           
         qpid010LinkTable_release_rowreq_ctx(qpid010LinkTable_rowreq_ctx *
-                                           rowreq_ctx);
+                                            rowreq_ctx);
 
     int             qpid010LinkTable_index_to_oid(netsnmp_index * oid_idx,
-                                                 qpid010LinkTable_mib_index
-                                                 * mib_idx);
-    int             qpid010LinkTable_index_from_oid(netsnmp_index * oid_idx,
-                                                   qpid010LinkTable_mib_index
-                                                   * mib_idx);
+                                                  qpid010LinkTable_mib_index
+                                                  * mib_idx);
+    int             qpid010LinkTable_index_from_oid(netsnmp_index *
+                                                    oid_idx,
+                                                    qpid010LinkTable_mib_index
+                                                    * mib_idx);
 
     /*
      *********************************************************************
@@ -95,21 +96,21 @@ extern          "C" {
 
     void           
         qpid010LinkTable_container_init_persistence(netsnmp_container *
-                                                   container);
+                                                    container);
     int            
-        qpid010LinkTable_container_should_save(qpid010LinkTable_rowreq_ctx *
-                                              rowreq_ctx);
+        qpid010LinkTable_container_should_save(qpid010LinkTable_rowreq_ctx
+                                               * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
     void            qpid010LinkTable_valid_columns_set(netsnmp_column_info
-                                                      *vc);
+                                                       *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010LINKTABLE_INTERFACE_H */
+#endif                          /* QPID010LINKTABLE_INTERFACE_H */
 /** @} */

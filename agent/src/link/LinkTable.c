@@ -27,9 +27,10 @@
 
 #include "LinkTable_interface.h"
 
-const oid       qpid010LinkTable_oid[] = { qpid010LINKTABLE_OID };
+const oid       qpid010LinkTable_oid[] = { QPID010LINKTABLE_OID };
 
-const int       qpid010LinkTable_oid_size = OID_LENGTH(qpid010LinkTable_oid);
+const int       qpid010LinkTable_oid_size =
+OID_LENGTH(qpid010LinkTable_oid);
 
 qpid010LinkTable_registration qpid010LinkTable_user_context;
 
@@ -43,7 +44,7 @@ void            shutdown_table_qpid010LinkTable(void);
 void
 init_LinkTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:init_LinkTable",
+    DEBUGMSGTL(("verbose:qpid010LinkTable:init_qpid010LinkTable",
                 "called\n"));
 
     /*
@@ -56,7 +57,7 @@ init_LinkTable(void)
     if (should_init("qpid010LinkTable"))
         initialize_table_qpid010LinkTable();
 
-}                               /* init_LinkTable */
+}                               /* init_qpid010LinkTable */
 
 /**
  * Shut-down the qpid010LinkTable module (agent is exiting)
@@ -79,8 +80,7 @@ initialize_table_qpid010LinkTable(void)
     qpid010LinkTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:initialize_table_qpid010LinkTable",
-                "called\n"));
+    DEBUGMSGTL(("verbose:qpid010LinkTable:initialize_table_qpid010LinkTable", "called\n"));
 
     /*
      * TODO:301:o: Perform qpid010LinkTable one-time table initialization.
@@ -95,7 +95,8 @@ initialize_table_qpid010LinkTable(void)
      * a netsnmp_data_list is a simple way to store void pointers. A simple
      * string token is used to add, find or remove pointers.
      */
-    user_context = netsnmp_create_data_list("qpid010LinkTable", NULL, NULL);
+    user_context =
+        netsnmp_create_data_list("qpid010LinkTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -132,18 +133,22 @@ shutdown_table_qpid010LinkTable(void)
  */
 int
 qpid010LinkTable_rowreq_ctx_init(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                                void *user_init_ctx)
+                                 void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_rowreq_ctx_init",
-                "called\n"));
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rowreq_ctx->data.qpid010LinkVhostRef_len = sizeof(rowreq_ctx->data.qpid010LinkVhostRef); /* # of char elements, not bytes */
-    rowreq_ctx->data.qpid010LinkHost_len = sizeof(rowreq_ctx->data.qpid010LinkHost);
-    rowreq_ctx->data.qpid010LinkTransport_len = sizeof(rowreq_ctx->data.qpid010LinkTransport);
-    rowreq_ctx->data.qpid010LinkState_len = sizeof(rowreq_ctx->data.qpid010LinkState);
-    rowreq_ctx->data.qpid010LinkLastError_len = sizeof(rowreq_ctx->data.qpid010LinkLastError);
+    /*
+     * TODO:210:o: |-> Perform extra qpid010LinkTable rowreq initialization. (eg DEFVALS)
+     */
+    rowreq_ctx->data.qpid010LinkConnectionRef_len = 255;
+    rowreq_ctx->data.qpid010LinkHost_len = 255;
+    rowreq_ctx->data.qpid010LinkLastError_len = 65535;
+    rowreq_ctx->data.qpid010LinkName_len = 255;
+    rowreq_ctx->data.qpid010LinkState_len = 255;
+    rowreq_ctx->data.qpid010LinkTransport_len = 255;
+    rowreq_ctx->data.qpid010LinkVhostRef_len = 255;
 
     return MFD_SUCCESS;
 }                               /* qpid010LinkTable_rowreq_ctx_init */
@@ -153,7 +158,8 @@ qpid010LinkTable_rowreq_ctx_init(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  *
  */
 void
-qpid010LinkTable_rowreq_ctx_cleanup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+qpid010LinkTable_rowreq_ctx_cleanup(qpid010LinkTable_rowreq_ctx *
+                                    rowreq_ctx)
 {
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_rowreq_ctx_cleanup", "called\n"));
 
@@ -177,7 +183,7 @@ qpid010LinkTable_rowreq_ctx_cleanup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  */
 int
 qpid010LinkTable_container_should_save(qpid010LinkTable_rowreq_ctx *
-                                      rowreq_ctx)
+                                       rowreq_ctx)
 {
 
     return 1;                   /* save the row */
@@ -219,7 +225,7 @@ qpid010LinkTable_pre_request(qpid010LinkTable_registration * user_context)
  */
 int
 qpid010LinkTable_post_request(qpid010LinkTable_registration * user_context,
-                             int rc)
+                              int rc)
 {
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_post_request",
                 "called\n"));
@@ -244,7 +250,7 @@ qpid010LinkTable_post_request(qpid010LinkTable_registration * user_context,
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010LinkTable_dirty_set(0);   /* clear table dirty flag */
+        qpid010LinkTable_dirty_set(0);  /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;

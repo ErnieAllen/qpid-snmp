@@ -39,7 +39,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
  */
 
 /*
@@ -64,12 +64,12 @@
  */
 int
 qpid010LinkTable_indexes_set_tbl_idx(qpid010LinkTable_mib_index * tbl_idx,
-                                    u_long qpid010LinkInternalIndex_val)
+                                     u_long qpid010LinkInternalIndex_val)
 {
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010LinkInternalIndex(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     tbl_idx->qpid010LinkInternalIndex = qpid010LinkInternalIndex_val;
 
@@ -92,14 +92,14 @@ qpid010LinkTable_indexes_set_tbl_idx(qpid010LinkTable_mib_index * tbl_idx,
  */
 int
 qpid010LinkTable_indexes_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                            u_long qpid010LinkInternalIndex_val)
+                             u_long qpid010LinkInternalIndex_val)
 {
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_indexes_set",
                 "called\n"));
 
     if (MFD_SUCCESS !=
         qpid010LinkTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                            qpid010LinkInternalIndex_val))
+                                             qpid010LinkInternalIndex_val))
         return MFD_ERROR;
 
     /*
@@ -107,7 +107,7 @@ qpid010LinkTable_indexes_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
     if (0 != qpid010LinkTable_index_to_oid(&rowreq_ctx->oid_idx,
-                                          &rowreq_ctx->tbl_idx)) {
+                                           &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
@@ -119,7 +119,7 @@ qpid010LinkTable_indexes_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkVhostRef
  * qpid010LinkVhostRef is subid 1 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.1
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.1
  * Description:
 Link vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -166,8 +166,8 @@ Link vhostRef
  */
 int
 qpid010LinkVhostRef_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                       char **qpid010LinkVhostRef_val_ptr_ptr,
-                       size_t *qpid010LinkVhostRef_val_ptr_len_ptr)
+                        char **qpid010LinkVhostRef_val_ptr_ptr,
+                        size_t *qpid010LinkVhostRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
     netsnmp_assert((NULL != qpid010LinkVhostRef_val_ptr_ptr)
@@ -215,18 +215,117 @@ qpid010LinkVhostRef_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 }                               /* qpid010LinkVhostRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkHost
- * qpid010LinkHost is subid 2 of qpid010LinkEntry.
+ * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkName
+ * qpid010LinkName is subid 2 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.2
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.2
  * Description:
-Link host
+Link name
                      Additional info ( nodeType:property, index:y )
  *
  * Attributes:
  *   accessible 1     isscalar 0     enums  0      hasdefval 0
  *   readable   1     iscolumn 1     ranges 1      hashint   1
  *   settable   1
+ *   hint: 255a
+ *
+ * Ranges:  0 - 255;
+ *
+ * Its syntax is Sstr (based on perltype OCTETSTR)
+ * The net-snmp type is ASN_OCTET_STR. The C type decl is char (char)
+ * This data type requires a length.  (Max 255)
+ */
+/**
+ * Extract the current value of the qpid010LinkName data.
+ *
+ * Set a value using the data context for the row.
+ *
+ * @param rowreq_ctx
+ *        Pointer to the row request context.
+ * @param qpid010LinkName_val_ptr_ptr
+ *        Pointer to storage for a char variable
+ * @param qpid010LinkName_val_ptr_len_ptr
+ *        Pointer to a size_t. On entry, it will contain the size (in bytes)
+ *        pointed to by qpid010LinkName.
+ *        On exit, this value should contain the data size (in bytes).
+ *
+ * @retval MFD_SUCCESS         : success
+ * @retval MFD_SKIP            : skip this node (no value for now)
+ * @retval MFD_ERROR           : Any other error
+*
+ * @note If you need more than (*qpid010LinkName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update qpid010LinkName_val_ptr_ptr.
+ *       <b>DO NOT</b> free the previous pointer.
+ *       The MFD helper will release the memory you allocate.
+ *
+ * @remark If you call this function yourself, you are responsible
+ *         for checking if the pointer changed, and freeing any
+ *         previously allocated memory. (Not necessary if you pass
+ *         in a pointer to static memory, obviously.)
+ */
+int
+qpid010LinkName_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
+                    char **qpid010LinkName_val_ptr_ptr,
+                    size_t *qpid010LinkName_val_ptr_len_ptr)
+{
+   /** we should have a non-NULL pointer and enough storage */
+    netsnmp_assert((NULL != qpid010LinkName_val_ptr_ptr)
+                   && (NULL != *qpid010LinkName_val_ptr_ptr));
+    netsnmp_assert(NULL != qpid010LinkName_val_ptr_len_ptr);
+
+
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_get",
+                "called\n"));
+
+    netsnmp_assert(NULL != rowreq_ctx);
+
+    /*
+     * TODO:231:o: |-> Extract the current value of the qpid010LinkName data.
+     * copy (* qpid010LinkName_val_ptr_ptr ) data and (* qpid010LinkName_val_ptr_len_ptr ) from rowreq_ctx->data
+     */
+    /*
+     * make sure there is enough space for qpid010LinkName data
+     */
+    if ((NULL == (*qpid010LinkName_val_ptr_ptr)) ||
+        ((*qpid010LinkName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.qpid010LinkName_len *
+          sizeof(rowreq_ctx->data.qpid010LinkName[0])))) {
+        /*
+         * allocate space for qpid010LinkName data
+         */
+        (*qpid010LinkName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.qpid010LinkName_len *
+                   sizeof(rowreq_ctx->data.qpid010LinkName[0]));
+        if (NULL == (*qpid010LinkName_val_ptr_ptr)) {
+            snmp_log(LOG_ERR,
+                     "could not allocate memory (rowreq_ctx->data.qpid010LinkName)\n");
+            return MFD_ERROR;
+        }
+    }
+    (*qpid010LinkName_val_ptr_len_ptr) =
+        rowreq_ctx->data.qpid010LinkName_len *
+        sizeof(rowreq_ctx->data.qpid010LinkName[0]);
+    memcpy((*qpid010LinkName_val_ptr_ptr),
+           rowreq_ctx->data.qpid010LinkName,
+           rowreq_ctx->data.qpid010LinkName_len *
+           sizeof(rowreq_ctx->data.qpid010LinkName[0]));
+
+    return MFD_SUCCESS;
+}                               /* qpid010LinkName_get */
+
+/*---------------------------------------------------------------------
+ * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkHost
+ * qpid010LinkHost is subid 3 of qpid010LinkEntry.
+ * Its status is Current, and its access level is ReadOnly.
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.3
+ * Description:
+Link host
+                     Additional info ( nodeType:property )
+ *
+ * Attributes:
+ *   accessible 1     isscalar 0     enums  0      hasdefval 0
+ *   readable   1     iscolumn 1     ranges 1      hashint   1
+ *   settable   0
  *   hint: 255a
  *
  * Ranges:  0 - 255;
@@ -265,8 +364,8 @@ Link host
  */
 int
 qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                   char **qpid010LinkHost_val_ptr_ptr,
-                   size_t *qpid010LinkHost_val_ptr_len_ptr)
+                    char **qpid010LinkHost_val_ptr_ptr,
+                    size_t *qpid010LinkHost_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
     netsnmp_assert((NULL != qpid010LinkHost_val_ptr_ptr)
@@ -274,7 +373,8 @@ qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
     netsnmp_assert(NULL != qpid010LinkHost_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkHost_get", "called\n"));
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkHost_get",
+                "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -304,7 +404,8 @@ qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
     (*qpid010LinkHost_val_ptr_len_ptr) =
         rowreq_ctx->data.qpid010LinkHost_len *
         sizeof(rowreq_ctx->data.qpid010LinkHost[0]);
-    memcpy((*qpid010LinkHost_val_ptr_ptr), rowreq_ctx->data.qpid010LinkHost,
+    memcpy((*qpid010LinkHost_val_ptr_ptr),
+           rowreq_ctx->data.qpid010LinkHost,
            rowreq_ctx->data.qpid010LinkHost_len *
            sizeof(rowreq_ctx->data.qpid010LinkHost[0]));
 
@@ -313,17 +414,17 @@ qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkPort
- * qpid010LinkPort is subid 3 of qpid010LinkEntry.
- * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.3
+ * qpid010LinkPort is subid 4 of qpid010LinkEntry.
+ * Its status is Current, and its access level is ReadOnly.
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.4
  * Description:
 Link port
-                     Additional info ( nodeType:property, index:y )
+                     Additional info ( nodeType:property )
  *
  * Attributes:
  *   accessible 1     isscalar 0     enums  0      hasdefval 0
  *   readable   1     iscolumn 1     ranges 0      hashint   1
- *   settable   1
+ *   settable   0
  *   hint: d
  *
  *
@@ -346,13 +447,14 @@ Link port
  */
 int
 qpid010LinkPort_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                   long *qpid010LinkPort_val_ptr)
+                    long *qpid010LinkPort_val_ptr)
 {
    /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != qpid010LinkPort_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkPort_get", "called\n"));
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkPort_get",
+                "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -367,9 +469,9 @@ qpid010LinkPort_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkTransport
- * qpid010LinkTransport is subid 4 of qpid010LinkEntry.
- * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.4
+ * qpid010LinkTransport is subid 5 of qpid010LinkEntry.
+ * Its status is Current, and its access level is ReadOnly.
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.5
  * Description:
 Link transport
                      Additional info ( nodeType:property )
@@ -377,7 +479,7 @@ Link transport
  * Attributes:
  *   accessible 1     isscalar 0     enums  0      hasdefval 0
  *   readable   1     iscolumn 1     ranges 1      hashint   1
- *   settable   1
+ *   settable   0
  *   hint: 255a
  *
  * Ranges:  0 - 255;
@@ -416,8 +518,8 @@ Link transport
  */
 int
 qpid010LinkTransport_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                        char **qpid010LinkTransport_val_ptr_ptr,
-                        size_t *qpid010LinkTransport_val_ptr_len_ptr)
+                         char **qpid010LinkTransport_val_ptr_ptr,
+                         size_t *qpid010LinkTransport_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
     netsnmp_assert((NULL != qpid010LinkTransport_val_ptr_ptr)
@@ -466,9 +568,9 @@ qpid010LinkTransport_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkDurable
- * qpid010LinkDurable is subid 5 of qpid010LinkEntry.
+ * qpid010LinkDurable is subid 6 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.5
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.6
  * Description:
 Link durable
                      Additional info ( nodeType:property )
@@ -499,7 +601,7 @@ Link durable
  */
 int
 qpid010LinkDurable_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                      u_long * qpid010LinkDurable_val_ptr)
+                       u_long * qpid010LinkDurable_val_ptr)
 {
    /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != qpid010LinkDurable_val_ptr);
@@ -520,10 +622,110 @@ qpid010LinkDurable_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 }                               /* qpid010LinkDurable_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkState
- * qpid010LinkState is subid 6 of qpid010LinkEntry.
+ * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkConnectionRef
+ * qpid010LinkConnectionRef is subid 7 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.6
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.7
+ * Description:
+Link connectionRef
+                     Additional info ( nodeType:property, references:Connection )
+ *
+ * Attributes:
+ *   accessible 1     isscalar 0     enums  0      hasdefval 0
+ *   readable   1     iscolumn 1     ranges 1      hashint   1
+ *   settable   0
+ *   hint: 255a
+ *
+ * Ranges:  0 - 255;
+ *
+ * Its syntax is ObjId (based on perltype OCTETSTR)
+ * The net-snmp type is ASN_OCTET_STR. The C type decl is char (char)
+ * This data type requires a length.  (Max 255)
+ */
+/**
+ * Extract the current value of the qpid010LinkConnectionRef data.
+ *
+ * Set a value using the data context for the row.
+ *
+ * @param rowreq_ctx
+ *        Pointer to the row request context.
+ * @param qpid010LinkConnectionRef_val_ptr_ptr
+ *        Pointer to storage for a char variable
+ * @param qpid010LinkConnectionRef_val_ptr_len_ptr
+ *        Pointer to a size_t. On entry, it will contain the size (in bytes)
+ *        pointed to by qpid010LinkConnectionRef.
+ *        On exit, this value should contain the data size (in bytes).
+ *
+ * @retval MFD_SUCCESS         : success
+ * @retval MFD_SKIP            : skip this node (no value for now)
+ * @retval MFD_ERROR           : Any other error
+*
+ * @note If you need more than (*qpid010LinkConnectionRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update qpid010LinkConnectionRef_val_ptr_ptr.
+ *       <b>DO NOT</b> free the previous pointer.
+ *       The MFD helper will release the memory you allocate.
+ *
+ * @remark If you call this function yourself, you are responsible
+ *         for checking if the pointer changed, and freeing any
+ *         previously allocated memory. (Not necessary if you pass
+ *         in a pointer to static memory, obviously.)
+ */
+int
+qpid010LinkConnectionRef_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
+                             char **qpid010LinkConnectionRef_val_ptr_ptr,
+                             size_t
+                             *qpid010LinkConnectionRef_val_ptr_len_ptr)
+{
+   /** we should have a non-NULL pointer and enough storage */
+    netsnmp_assert((NULL != qpid010LinkConnectionRef_val_ptr_ptr)
+                   && (NULL != *qpid010LinkConnectionRef_val_ptr_ptr));
+    netsnmp_assert(NULL != qpid010LinkConnectionRef_val_ptr_len_ptr);
+
+
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkConnectionRef_get",
+                "called\n"));
+
+    netsnmp_assert(NULL != rowreq_ctx);
+
+    /*
+     * TODO:231:o: |-> Extract the current value of the qpid010LinkConnectionRef data.
+     * copy (* qpid010LinkConnectionRef_val_ptr_ptr ) data and (* qpid010LinkConnectionRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     */
+    /*
+     * make sure there is enough space for qpid010LinkConnectionRef data
+     */
+    if ((NULL == (*qpid010LinkConnectionRef_val_ptr_ptr)) ||
+        ((*qpid010LinkConnectionRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.qpid010LinkConnectionRef_len *
+          sizeof(rowreq_ctx->data.qpid010LinkConnectionRef[0])))) {
+        /*
+         * allocate space for qpid010LinkConnectionRef data
+         */
+        (*qpid010LinkConnectionRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.qpid010LinkConnectionRef_len *
+                   sizeof(rowreq_ctx->data.qpid010LinkConnectionRef[0]));
+        if (NULL == (*qpid010LinkConnectionRef_val_ptr_ptr)) {
+            snmp_log(LOG_ERR,
+                     "could not allocate memory (rowreq_ctx->data.qpid010LinkConnectionRef)\n");
+            return MFD_ERROR;
+        }
+    }
+    (*qpid010LinkConnectionRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.qpid010LinkConnectionRef_len *
+        sizeof(rowreq_ctx->data.qpid010LinkConnectionRef[0]);
+    memcpy((*qpid010LinkConnectionRef_val_ptr_ptr),
+           rowreq_ctx->data.qpid010LinkConnectionRef,
+           rowreq_ctx->data.qpid010LinkConnectionRef_len *
+           sizeof(rowreq_ctx->data.qpid010LinkConnectionRef[0]));
+
+    return MFD_SUCCESS;
+}                               /* qpid010LinkConnectionRef_get */
+
+/*---------------------------------------------------------------------
+ * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkState
+ * qpid010LinkState is subid 8 of qpid010LinkEntry.
+ * Its status is Current, and its access level is ReadOnly.
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.8
  * Description:
 Operational state of the link
                      Additional info ( nodeType:statistic )
@@ -570,8 +772,8 @@ Operational state of the link
  */
 int
 qpid010LinkState_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                    char **qpid010LinkState_val_ptr_ptr,
-                    size_t *qpid010LinkState_val_ptr_len_ptr)
+                     char **qpid010LinkState_val_ptr_ptr,
+                     size_t *qpid010LinkState_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
     netsnmp_assert((NULL != qpid010LinkState_val_ptr_ptr)
@@ -620,9 +822,9 @@ qpid010LinkState_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkLastError
- * qpid010LinkLastError is subid 7 of qpid010LinkEntry.
+ * qpid010LinkLastError is subid 9 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.7
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.9
  * Description:
 Reason link is not operational
                      Additional info ( nodeType:statistic )
@@ -669,8 +871,8 @@ Reason link is not operational
  */
 int
 qpid010LinkLastError_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                        char **qpid010LinkLastError_val_ptr_ptr,
-                        size_t *qpid010LinkLastError_val_ptr_len_ptr)
+                         char **qpid010LinkLastError_val_ptr_ptr,
+                         size_t *qpid010LinkLastError_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
     netsnmp_assert((NULL != qpid010LinkLastError_val_ptr_ptr)

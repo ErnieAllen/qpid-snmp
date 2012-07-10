@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010LINKTABLE_ENUMS_H
-#define qpid010LINKTABLE_ENUMS_H
+#ifndef QPID010LINKTABLE_ENUMS_H
+#define QPID010LINKTABLE_ENUMS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -52,4 +52,4 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010LINKTABLE_ENUMS_H */
+#endif                          /* QPID010LINKTABLE_ENUMS_H */

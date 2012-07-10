@@ -59,7 +59,7 @@ netsnmp_feature_require(baby_steps)
     /*
      * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060,15.1.1.11.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
      */
      typedef struct qpid010LinkTable_interface_ctx_s {
 
@@ -80,10 +80,10 @@ netsnmp_feature_require(baby_steps)
 
      static void    
          _qpid010LinkTable_container_init(qpid010LinkTable_interface_ctx *
-                                         if_ctx);
+                                          if_ctx);
      static void    
-         _qpid010LinkTable_container_shutdown(qpid010LinkTable_interface_ctx
-                                             * if_ctx);
+         _qpid010LinkTable_container_shutdown
+         (qpid010LinkTable_interface_ctx * if_ctx);
 
 
      netsnmp_container *qpid010LinkTable_container_get(void)
@@ -152,7 +152,7 @@ qpid010LinkTable_data *qpid010LinkTable_allocate_data(void);
  */
 void
 _qpid010LinkTable_initialize_interface(qpid010LinkTable_registration *
-                                      reg_ptr, u_long flags)
+                                       reg_ptr, u_long flags)
 {
     netsnmp_baby_steps_access_methods *access_multiplexer =
         &qpid010LinkTable_if_ctx.access_multiplexer;
@@ -180,8 +180,8 @@ _qpid010LinkTable_initialize_interface(qpid010LinkTable_registration *
      * Define the minimum and maximum accessible columns.  This
      * optimizes retrieval. 
      */
-    tbl_info->min_column = qpid010LINKTABLE_MIN_COL;
-    tbl_info->max_column = qpid010LINKTABLE_MAX_COL;
+    tbl_info->min_column = QPID010LINKTABLE_MIN_COL;
+    tbl_info->max_column = QPID010LINKTABLE_MAX_COL;
 
     /*
      * save users context
@@ -206,7 +206,8 @@ _qpid010LinkTable_initialize_interface(qpid010LinkTable_registration *
     /*
      * access_multiplexer: REQUIRED wrapper for get request handling
      */
-    access_multiplexer->object_lookup = _mfd_qpid010LinkTable_object_lookup;
+    access_multiplexer->object_lookup =
+        _mfd_qpid010LinkTable_object_lookup;
     access_multiplexer->get_values = _mfd_qpid010LinkTable_get_values;
 
     /*
@@ -244,7 +245,7 @@ _qpid010LinkTable_initialize_interface(qpid010LinkTable_registration *
      *
      * Create a registration, save our reg data, register table.
      */
-    DEBUGMSGTL(("qpid010LinkTable:init_LinkTable",
+    DEBUGMSGTL(("qpid010LinkTable:init_qpid010LinkTable",
                 "Registering qpid010LinkTable as a mibs-for-dummies table.\n"));
     handler =
         netsnmp_baby_steps_access_multiplexer_get(access_multiplexer);
@@ -337,7 +338,7 @@ _qpid010LinkTable_initialize_interface(qpid010LinkTable_registration *
      * register config/persistence callbacks
      */
     qpid010LinkTable_container_init_persistence(qpid010LinkTable_if_ctx.
-                                               container);
+                                                container);
 
 }                               /* _qpid010LinkTable_initialize_interface */
 
@@ -346,7 +347,8 @@ _qpid010LinkTable_initialize_interface(qpid010LinkTable_registration *
  * Shutdown the table qpid010LinkTable
  */
 void
-_qpid010LinkTable_shutdown_interface(qpid010LinkTable_registration * reg_ptr)
+_qpid010LinkTable_shutdown_interface(qpid010LinkTable_registration *
+                                     reg_ptr)
 {
     /*
      * shutdown the container
@@ -366,7 +368,7 @@ qpid010LinkTable_valid_columns_set(netsnmp_column_info *vc)
  */
 int
 qpid010LinkTable_index_to_oid(netsnmp_index * oid_idx,
-                             qpid010LinkTable_mib_index * mib_idx)
+                              qpid010LinkTable_mib_index * mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
 
@@ -374,7 +376,7 @@ qpid010LinkTable_index_to_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010LinkInternalIndex(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
     netsnmp_variable_list var_qpid010LinkInternalIndex;
 
@@ -395,7 +397,7 @@ qpid010LinkTable_index_to_oid(netsnmp_index * oid_idx,
                 "called\n"));
 
     /*
-     * qpid010LinkInternalIndex(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     snmp_set_var_value(&var_qpid010LinkInternalIndex,
                        &mib_idx->qpid010LinkInternalIndex,
@@ -423,7 +425,7 @@ qpid010LinkTable_index_to_oid(netsnmp_index * oid_idx,
  */
 int
 qpid010LinkTable_index_from_oid(netsnmp_index * oid_idx,
-                               qpid010LinkTable_mib_index * mib_idx)
+                                qpid010LinkTable_mib_index * mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
 
@@ -431,7 +433,7 @@ qpid010LinkTable_index_from_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010LinkInternalIndex(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
     netsnmp_variable_list var_qpid010LinkInternalIndex;
 
@@ -483,7 +485,8 @@ qpid010LinkTable_index_from_oid(netsnmp_index * oid_idx,
 qpid010LinkTable_data *
 qpid010LinkTable_allocate_data(void)
 {
-    qpid010LinkTable_data *rtn = SNMP_MALLOC_TYPEDEF(qpid010LinkTable_data);
+    qpid010LinkTable_data *rtn =
+        SNMP_MALLOC_TYPEDEF(qpid010LinkTable_data);
 
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_allocate_data",
                 "called\n"));
@@ -552,7 +555,8 @@ qpid010LinkTable_allocate_rowreq_ctx(void *user_init_ctx)
  * release resources for a qpid010LinkTable_rowreq_ctx
  */
 void
-qpid010LinkTable_release_rowreq_ctx(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+qpid010LinkTable_release_rowreq_ctx(qpid010LinkTable_rowreq_ctx *
+                                    rowreq_ctx)
 {
     DEBUGMSGTL(("internal:qpid010LinkTable:qpid010LinkTable_release_rowreq_ctx", "called\n"));
 
@@ -578,9 +582,9 @@ qpid010LinkTable_release_rowreq_ctx(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  */
 static int
 _mfd_qpid010LinkTable_pre_request(netsnmp_mib_handler *handler,
-                                 netsnmp_handler_registration *reginfo,
-                                 netsnmp_agent_request_info *agtreq_info,
-                                 netsnmp_request_info *requests)
+                                  netsnmp_handler_registration *reginfo,
+                                  netsnmp_agent_request_info *agtreq_info,
+                                  netsnmp_request_info *requests)
 {
     int             rc;
 
@@ -611,11 +615,12 @@ _mfd_qpid010LinkTable_pre_request(netsnmp_mib_handler *handler,
  */
 static int
 _mfd_qpid010LinkTable_post_request(netsnmp_mib_handler *handler,
-                                  netsnmp_handler_registration *reginfo,
-                                  netsnmp_agent_request_info *agtreq_info,
-                                  netsnmp_request_info *requests)
+                                   netsnmp_handler_registration *reginfo,
+                                   netsnmp_agent_request_info *agtreq_info,
+                                   netsnmp_request_info *requests)
 {
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc, packet_rc;
 
@@ -648,7 +653,7 @@ _mfd_qpid010LinkTable_post_request(netsnmp_mib_handler *handler,
     }
 
     rc = qpid010LinkTable_post_request(qpid010LinkTable_if_ctx.user_ctx,
-                                      packet_rc);
+                                       packet_rc);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
@@ -665,14 +670,13 @@ _qpid010LinkTable_check_indexes(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010LinkTable:_qpid010LinkTable_check_indexes",
-                "called\n"));
+    DEBUGMSGTL(("internal:qpid010LinkTable:_qpid010LinkTable_check_indexes", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
 
     /*
-     * (INDEX) qpid010LinkInternalIndex(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * (INDEX) qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     if (MFD_SUCCESS != rc)
         return rc;
@@ -683,8 +687,8 @@ _qpid010LinkTable_check_indexes(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
     /*
      * if individual parts look ok, check them as a whole
      */
-    return qpid010LinkTable_validate_index(qpid010LinkTable_if_ctx.user_ctx,
-                                          rowreq_ctx);
+    return qpid010LinkTable_validate_index(qpid010LinkTable_if_ctx.
+                                           user_ctx, rowreq_ctx);
 }                               /* _qpid010LinkTable_check_indexes */
 
 /**
@@ -693,7 +697,7 @@ _qpid010LinkTable_check_indexes(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  */
 static qpid010LinkTable_rowreq_ctx *
 _mfd_qpid010LinkTable_rowreq_from_index(netsnmp_index * oid_idx,
-                                       int *rc_ptr)
+                                        int *rc_ptr)
 {
     qpid010LinkTable_rowreq_ctx *rowreq_ctx;
     qpid010LinkTable_mib_index mib_idx;
@@ -755,12 +759,14 @@ _mfd_qpid010LinkTable_rowreq_from_index(netsnmp_index * oid_idx,
  */
 static int
 _mfd_qpid010LinkTable_object_lookup(netsnmp_mib_handler *handler,
-                                   netsnmp_handler_registration *reginfo,
-                                   netsnmp_agent_request_info *agtreq_info,
-                                   netsnmp_request_info *requests)
+                                    netsnmp_handler_registration *reginfo,
+                                    netsnmp_agent_request_info
+                                    *agtreq_info,
+                                    netsnmp_request_info *requests)
 {
     int             rc = SNMP_ERR_NOERROR;
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
     DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_object_lookup", "called\n"));
@@ -794,12 +800,11 @@ _mfd_qpid010LinkTable_object_lookup(netsnmp_mib_handler *handler,
  */
 NETSNMP_STATIC_INLINE int
 _qpid010LinkTable_get_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                            netsnmp_variable_list * var, int column)
+                             netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_get_column",
-                "called for %d\n", column));
+    DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_get_column", "called for %d\n", column));
 
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -809,71 +814,92 @@ _qpid010LinkTable_get_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
         /*
          * qpid010LinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKVHOSTREF:
+    case COLUMN_QPID010LINKVHOSTREF:
         var->type = ASN_OCTET_STR;
-        rc = qpid010LinkVhostRef_get(rowreq_ctx, (char **) &var->val.string,
-                                    &var->val_len);
+        rc = qpid010LinkVhostRef_get(rowreq_ctx,
+                                     (char **) &var->val.string,
+                                     &var->val_len);
         break;
 
         /*
-         * qpid010LinkHost(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKHOST:
+    case COLUMN_QPID010LINKNAME:
+        var->type = ASN_OCTET_STR;
+        rc = qpid010LinkName_get(rowreq_ctx, (char **) &var->val.string,
+                                 &var->val_len);
+        break;
+
+        /*
+         * qpid010LinkHost(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         */
+    case COLUMN_QPID010LINKHOST:
         var->type = ASN_OCTET_STR;
         rc = qpid010LinkHost_get(rowreq_ctx, (char **) &var->val.string,
-                                &var->val_len);
+                                 &var->val_len);
         break;
 
         /*
-         * qpid010LinkPort(3)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * qpid010LinkPort(4)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010LINKPORT:
+    case COLUMN_QPID010LINKPORT:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
         rc = qpid010LinkPort_get(rowreq_ctx, (long *) var->val.string);
         break;
 
         /*
-         * qpid010LinkTransport(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * qpid010LinkTransport(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010LINKTRANSPORT:
+    case COLUMN_QPID010LINKTRANSPORT:
         var->type = ASN_OCTET_STR;
         rc = qpid010LinkTransport_get(rowreq_ctx,
-                                     (char **) &var->val.string,
-                                     &var->val_len);
+                                      (char **) &var->val.string,
+                                      &var->val_len);
         break;
 
         /*
-         * qpid010LinkDurable(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010LINKDURABLE:
+    case COLUMN_QPID010LINKDURABLE:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010LinkDurable_get(rowreq_ctx, (u_long *) var->val.string);
+        rc = qpid010LinkDurable_get(rowreq_ctx,
+                                    (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010LinkState(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * qpid010LinkConnectionRef(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010LINKSTATE:
+    case COLUMN_QPID010LINKCONNECTIONREF:
+        var->type = ASN_OCTET_STR;
+        rc = qpid010LinkConnectionRef_get(rowreq_ctx,
+                                          (char **) &var->val.string,
+                                          &var->val_len);
+        break;
+
+        /*
+         * qpid010LinkState(8)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         */
+    case COLUMN_QPID010LINKSTATE:
         var->type = ASN_OCTET_STR;
         rc = qpid010LinkState_get(rowreq_ctx, (char **) &var->val.string,
-                                 &var->val_len);
+                                  &var->val_len);
         break;
 
         /*
-         * qpid010LinkLastError(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * qpid010LinkLastError(9)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010LINKLASTERROR:
+    case COLUMN_QPID010LINKLASTERROR:
         var->type = ASN_OCTET_STR;
         rc = qpid010LinkLastError_get(rowreq_ctx,
-                                     (char **) &var->val.string,
-                                     &var->val_len);
+                                      (char **) &var->val.string,
+                                      &var->val_len);
         break;
 
     default:
-        if (qpid010LINKTABLE_MIN_COL <= column
-            && column <= qpid010LINKTABLE_MAX_COL) {
+        if (QPID010LINKTABLE_MIN_COL <= column
+            && column <= QPID010LINKTABLE_MAX_COL) {
             DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_get_column", "assume column %d is reserved\n", column));
             rc = MFD_SKIP;
         } else {
@@ -889,19 +915,19 @@ _qpid010LinkTable_get_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
 int
 _mfd_qpid010LinkTable_get_values(netsnmp_mib_handler *handler,
-                                netsnmp_handler_registration *reginfo,
-                                netsnmp_agent_request_info *agtreq_info,
-                                netsnmp_request_info *requests)
+                                 netsnmp_handler_registration *reginfo,
+                                 netsnmp_agent_request_info *agtreq_info,
+                                 netsnmp_request_info *requests)
 {
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     u_char         *old_string;
     void            (*dataFreeHook) (void *);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_get_values",
-                "called\n"));
+    DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_get_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -931,7 +957,7 @@ _mfd_qpid010LinkTable_get_values(netsnmp_mib_handler *handler,
             continue;
 
         rc = _qpid010LinkTable_get_column(rowreq_ctx, requests->requestvb,
-                                         tri->colnum);
+                                          tri->colnum);
         if (rc) {
             if (MFD_SKIP == rc) {
                 requests->requestvb->type = SNMP_NOSUCHINSTANCE;
@@ -978,7 +1004,7 @@ _mfd_qpid010LinkTable_get_values(netsnmp_mib_handler *handler,
  */
 NETSNMP_STATIC_INLINE int
 _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                              netsnmp_variable_list * var, int column)
+                               netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
@@ -989,16 +1015,16 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
     switch (column) {
         /*
-         * (INDEX) qpid010LinkInternalIndex(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+         * (INDEX) qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
          */
-    case COLUMN_qpid010LINKINTERNALINDEX:
+    case COLUMN_QPID010LINKINTERNALINDEX:
         rc = SNMP_ERR_NOTWRITABLE;      /* can not change index of active row */
         break;
 
         /*
          * qpid010LinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKVHOSTREF:
+    case COLUMN_QPID010LINKVHOSTREF:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
                                                        qpid010LinkVhostRef));
@@ -1014,8 +1040,8 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
             DEBUGMSGTL(("qpid010LinkTable:_qpid010LinkTable_check_column:qpid010LinkVhostRef", "varbind validation failed (eg bad type or size)\n"));
         } else {
             rc = qpid010LinkVhostRef_check_value(rowreq_ctx,
-                                                (char *) var->val.string,
-                                                var->val_len);
+                                                 (char *) var->val.string,
+                                                 var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
@@ -1027,12 +1053,12 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010LinkHost(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKHOST:
+    case COLUMN_QPID010LINKNAME:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010LinkHost));
+                                                       qpid010LinkName));
         /*
          * check defined range(s). 
          */
@@ -1042,15 +1068,15 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010LinkTable:_qpid010LinkTable_check_column:qpid010LinkHost", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("qpid010LinkTable:_qpid010LinkTable_check_column:qpid010LinkName", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010LinkHost_check_value(rowreq_ctx,
-                                            (char *) var->val.string,
-                                            var->val_len);
+            rc = qpid010LinkName_check_value(rowreq_ctx,
+                                             (char *) var->val.string,
+                                             var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010LinkHost_check_value\n",
+                         "bad rc %d from qpid010LinkName_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1058,62 +1084,30 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010LinkPort(3)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * qpid010LinkHost(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010LINKPORT:
-        rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
-                                            sizeof(rowreq_ctx->data.
-                                                   qpid010LinkPort));
-        if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010LinkTable:_qpid010LinkTable_check_column:qpid010LinkPort", "varbind validation failed (eg bad type or size)\n"));
-        } else {
-            rc = qpid010LinkPort_check_value(rowreq_ctx,
-                                            *((long *) var->val.string));
-            if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
-                && (MFD_NOT_VALID_NOW != rc)) {
-                snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010LinkPort_check_value\n",
-                         rc);
-                rc = SNMP_ERR_GENERR;
-            }
-        }
+    case COLUMN_QPID010LINKHOST:
+        rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010LinkTransport(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * qpid010LinkPort(4)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010LINKTRANSPORT:
-        rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
-                                                sizeof(rowreq_ctx->data.
-                                                       qpid010LinkTransport));
-        /*
-         * check defined range(s). 
-         */
-        if ((SNMPERR_SUCCESS == rc)
-            && ((var->val_len < 0) || (var->val_len > 255))
-            ) {
-            rc = SNMP_ERR_WRONGLENGTH;
-        }
-        if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010LinkTable:_qpid010LinkTable_check_column:qpid010LinkTransport", "varbind validation failed (eg bad type or size)\n"));
-        } else {
-            rc = qpid010LinkTransport_check_value(rowreq_ctx,
-                                                 (char *) var->val.string,
-                                                 var->val_len);
-            if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
-                && (MFD_NOT_VALID_NOW != rc)) {
-                snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010LinkTransport_check_value\n",
-                         rc);
-                rc = SNMP_ERR_GENERR;
-            }
-        }
+    case COLUMN_QPID010LINKPORT:
+        rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010LinkDurable(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * qpid010LinkTransport(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010LINKDURABLE:
+    case COLUMN_QPID010LINKTRANSPORT:
+        rc = SNMP_ERR_NOTWRITABLE;
+        break;
+
+        /*
+         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         */
+    case COLUMN_QPID010LINKDURABLE:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
                                             sizeof(rowreq_ctx->data.
                                                    qpid010LinkDurable));
@@ -1130,8 +1124,8 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
             DEBUGMSGTL(("qpid010LinkTable:_qpid010LinkTable_check_column:qpid010LinkDurable", "varbind validation failed (eg bad type or size)\n"));
         } else {
             rc = qpid010LinkDurable_check_value(rowreq_ctx,
-                                               *((u_long *) var->val.
-                                                 string));
+                                                *((u_long *) var->val.
+                                                  string));
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
@@ -1143,16 +1137,23 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010LinkState(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * qpid010LinkConnectionRef(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010LINKSTATE:
+    case COLUMN_QPID010LINKCONNECTIONREF:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010LinkLastError(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * qpid010LinkState(8)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010LINKLASTERROR:
+    case COLUMN_QPID010LINKSTATE:
+        rc = SNMP_ERR_NOTWRITABLE;
+        break;
+
+        /*
+         * qpid010LinkLastError(9)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         */
+    case COLUMN_QPID010LINKLASTERROR:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
@@ -1168,11 +1169,13 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
 int
 _mfd_qpid010LinkTable_check_objects(netsnmp_mib_handler *handler,
-                                   netsnmp_handler_registration *reginfo,
-                                   netsnmp_agent_request_info *agtreq_info,
-                                   netsnmp_request_info *requests)
+                                    netsnmp_handler_registration *reginfo,
+                                    netsnmp_agent_request_info
+                                    *agtreq_info,
+                                    netsnmp_request_info *requests)
 {
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc;
@@ -1190,8 +1193,9 @@ _mfd_qpid010LinkTable_check_objects(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010LinkTable_check_column(rowreq_ctx, requests->requestvb,
-                                           tri->colnum);
+        rc = _qpid010LinkTable_check_column(rowreq_ctx,
+                                            requests->requestvb,
+                                            tri->colnum);
         if (rc) {
             netsnmp_request_set_error(requests, SNMP_VALIDATE_ERR(rc));
             break;
@@ -1214,14 +1218,15 @@ _mfd_qpid010LinkTable_check_objects(netsnmp_mib_handler *handler,
  */
 static int
 _mfd_qpid010LinkTable_check_dependencies(netsnmp_mib_handler *handler,
-                                        netsnmp_handler_registration
-                                        *reginfo,
-                                        netsnmp_agent_request_info
-                                        *agtreq_info,
-                                        netsnmp_request_info *requests)
+                                         netsnmp_handler_registration
+                                         *reginfo,
+                                         netsnmp_agent_request_info
+                                         *agtreq_info,
+                                         netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_check_dependencies", "called\n"));
 
@@ -1247,8 +1252,8 @@ _mfd_qpid010LinkTable_check_dependencies(netsnmp_mib_handler *handler,
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010LinkTable_undo_setup_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                                   int column)
+_qpid010LinkTable_undo_setup_column(qpid010LinkTable_rowreq_ctx *
+                                    rowreq_ctx, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
@@ -1261,40 +1266,24 @@ _qpid010LinkTable_undo_setup_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
         /*
          * qpid010LinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKVHOSTREF:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKVHOSTREF_FLAG;
+    case COLUMN_QPID010LINKVHOSTREF:
+        rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKVHOSTREF_FLAG;
         rc = qpid010LinkVhostRef_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010LinkHost(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKHOST:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKHOST_FLAG;
-        rc = qpid010LinkHost_undo_setup(rowreq_ctx);
+    case COLUMN_QPID010LINKNAME:
+        rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKNAME_FLAG;
+        rc = qpid010LinkName_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010LinkPort(3)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010LINKPORT:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKPORT_FLAG;
-        rc = qpid010LinkPort_undo_setup(rowreq_ctx);
-        break;
-
-        /*
-         * qpid010LinkTransport(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
-         */
-    case COLUMN_qpid010LINKTRANSPORT:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKTRANSPORT_FLAG;
-        rc = qpid010LinkTransport_undo_setup(rowreq_ctx);
-        break;
-
-        /*
-         * qpid010LinkDurable(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
-         */
-    case COLUMN_qpid010LINKDURABLE:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKDURABLE_FLAG;
+    case COLUMN_QPID010LINKDURABLE:
+        rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKDURABLE_FLAG;
         rc = qpid010LinkDurable_undo_setup(rowreq_ctx);
         break;
 
@@ -1315,16 +1304,16 @@ _qpid010LinkTable_undo_setup_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  */
 int
 _mfd_qpid010LinkTable_undo_setup(netsnmp_mib_handler *handler,
-                                netsnmp_handler_registration *reginfo,
-                                netsnmp_agent_request_info *agtreq_info,
-                                netsnmp_request_info *requests)
+                                 netsnmp_handler_registration *reginfo,
+                                 netsnmp_agent_request_info *agtreq_info,
+                                 netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_undo_setup",
-                "called\n"));
+    DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_undo_setup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1362,7 +1351,7 @@ _mfd_qpid010LinkTable_undo_setup(netsnmp_mib_handler *handler,
                 continue;
 
             rc = _qpid010LinkTable_undo_setup_column(rowreq_ctx,
-                                                    tri->colnum);
+                                                     tri->colnum);
             if (MFD_SUCCESS != rc) {
                 DEBUGMSGTL(("qpid010LinkTable:mfd", "error %d from "
                             "qpid010LinkTable_undo_setup_column\n", rc));
@@ -1381,11 +1370,12 @@ _mfd_qpid010LinkTable_undo_setup(netsnmp_mib_handler *handler,
  */
 int
 _mfd_qpid010LinkTable_undo_cleanup(netsnmp_mib_handler *handler,
-                                  netsnmp_handler_registration *reginfo,
-                                  netsnmp_agent_request_info *agtreq_info,
-                                  netsnmp_request_info *requests)
+                                   netsnmp_handler_registration *reginfo,
+                                   netsnmp_agent_request_info *agtreq_info,
+                                   netsnmp_request_info *requests)
 {
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc;
 
@@ -1432,7 +1422,7 @@ _mfd_qpid010LinkTable_undo_cleanup(netsnmp_mib_handler *handler,
  */
 NETSNMP_STATIC_INLINE int
 _qpid010LinkTable_set_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                            netsnmp_variable_list * var, int column)
+                             netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
@@ -1446,45 +1436,28 @@ _qpid010LinkTable_set_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
         /*
          * qpid010LinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKVHOSTREF:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKVHOSTREF_FLAG;
+    case COLUMN_QPID010LINKVHOSTREF:
+        rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKVHOSTREF_FLAG;
         rc = qpid010LinkVhostRef_set(rowreq_ctx, (char *) var->val.string,
-                                    var->val_len);
-        break;
-
-        /*
-         * qpid010LinkHost(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
-         */
-    case COLUMN_qpid010LINKHOST:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKHOST_FLAG;
-        rc = qpid010LinkHost_set(rowreq_ctx, (char *) var->val.string,
-                                var->val_len);
-        break;
-
-        /*
-         * qpid010LinkPort(3)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
-         */
-    case COLUMN_qpid010LINKPORT:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKPORT_FLAG;
-        rc = qpid010LinkPort_set(rowreq_ctx, *((long *) var->val.string));
-        break;
-
-        /*
-         * qpid010LinkTransport(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
-         */
-    case COLUMN_qpid010LINKTRANSPORT:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKTRANSPORT_FLAG;
-        rc = qpid010LinkTransport_set(rowreq_ctx, (char *) var->val.string,
                                      var->val_len);
         break;
 
         /*
-         * qpid010LinkDurable(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKDURABLE:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKDURABLE_FLAG;
+    case COLUMN_QPID010LINKNAME:
+        rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKNAME_FLAG;
+        rc = qpid010LinkName_set(rowreq_ctx, (char *) var->val.string,
+                                 var->val_len);
+        break;
+
+        /*
+         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         */
+    case COLUMN_QPID010LINKDURABLE:
+        rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKDURABLE_FLAG;
         rc = qpid010LinkDurable_set(rowreq_ctx,
-                                   *((u_long *) var->val.string));
+                                    *((u_long *) var->val.string));
         break;
 
     default:
@@ -1500,17 +1473,17 @@ _qpid010LinkTable_set_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
 int
 _mfd_qpid010LinkTable_set_values(netsnmp_mib_handler *handler,
-                                netsnmp_handler_registration *reginfo,
-                                netsnmp_agent_request_info *agtreq_info,
-                                netsnmp_request_info *requests)
+                                 netsnmp_handler_registration *reginfo,
+                                 netsnmp_agent_request_info *agtreq_info,
+                                 netsnmp_request_info *requests)
 {
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc = SNMP_ERR_NOERROR;
 
-    DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_set_values",
-                "called\n"));
+    DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_set_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1524,7 +1497,8 @@ _mfd_qpid010LinkTable_set_values(netsnmp_mib_handler *handler,
             continue;
 
         rc = _qpid010LinkTable_set_column(rowreq_ctx,
-                                         requests->requestvb, tri->colnum);
+                                          requests->requestvb,
+                                          tri->colnum);
         if (MFD_SUCCESS != rc) {
             DEBUGMSGTL(("qpid010LinkTable:mfd", "error %d from "
                         "qpid010LinkTable_set_column\n", rc));
@@ -1547,12 +1521,13 @@ _mfd_qpid010LinkTable_set_values(netsnmp_mib_handler *handler,
  */
 int
 _mfd_qpid010LinkTable_commit(netsnmp_mib_handler *handler,
-                            netsnmp_handler_registration *reginfo,
-                            netsnmp_agent_request_info *agtreq_info,
-                            netsnmp_request_info *requests)
+                             netsnmp_handler_registration *reginfo,
+                             netsnmp_agent_request_info *agtreq_info,
+                             netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
     DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_commit",
@@ -1573,7 +1548,7 @@ _mfd_qpid010LinkTable_commit(netsnmp_mib_handler *handler,
          * current value + 1 (i.e. dirty = # rows changed).
          * this is checked in post_request...
          */
-        qpid010LinkTable_dirty_set(qpid010LinkTable_dirty_get() + 1);     /* set table dirty flag */
+        qpid010LinkTable_dirty_set(qpid010LinkTable_dirty_get() + 1);   /* set table dirty flag */
     }
 
     return SNMP_ERR_NOERROR;
@@ -1581,12 +1556,13 @@ _mfd_qpid010LinkTable_commit(netsnmp_mib_handler *handler,
 
 int
 _mfd_qpid010LinkTable_undo_commit(netsnmp_mib_handler *handler,
-                                 netsnmp_handler_registration *reginfo,
-                                 netsnmp_agent_request_info *agtreq_info,
-                                 netsnmp_request_info *requests)
+                                  netsnmp_handler_registration *reginfo,
+                                  netsnmp_agent_request_info *agtreq_info,
+                                  netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
     DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_undo_commit", "called\n"));
@@ -1630,7 +1606,7 @@ _mfd_qpid010LinkTable_undo_commit(netsnmp_mib_handler *handler,
  */
 NETSNMP_STATIC_INLINE int
 _qpid010LinkTable_undo_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                             netsnmp_variable_list * var, int column)
+                              netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
@@ -1644,35 +1620,21 @@ _qpid010LinkTable_undo_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
         /*
          * qpid010LinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKVHOSTREF:
+    case COLUMN_QPID010LINKVHOSTREF:
         rc = qpid010LinkVhostRef_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010LinkHost(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010LINKHOST:
-        rc = qpid010LinkHost_undo(rowreq_ctx);
+    case COLUMN_QPID010LINKNAME:
+        rc = qpid010LinkName_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010LinkPort(3)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010LINKPORT:
-        rc = qpid010LinkPort_undo(rowreq_ctx);
-        break;
-
-        /*
-         * qpid010LinkTransport(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
-         */
-    case COLUMN_qpid010LINKTRANSPORT:
-        rc = qpid010LinkTransport_undo(rowreq_ctx);
-        break;
-
-        /*
-         * qpid010LinkDurable(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
-         */
-    case COLUMN_qpid010LINKDURABLE:
+    case COLUMN_QPID010LINKDURABLE:
         rc = qpid010LinkDurable_undo(rowreq_ctx);
         break;
 
@@ -1688,12 +1650,13 @@ _qpid010LinkTable_undo_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
 int
 _mfd_qpid010LinkTable_undo_values(netsnmp_mib_handler *handler,
-                                 netsnmp_handler_registration *reginfo,
-                                 netsnmp_agent_request_info *agtreq_info,
-                                 netsnmp_request_info *requests)
+                                  netsnmp_handler_registration *reginfo,
+                                  netsnmp_agent_request_info *agtreq_info,
+                                  netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
 
@@ -1719,7 +1682,7 @@ _mfd_qpid010LinkTable_undo_values(netsnmp_mib_handler *handler,
             continue;
 
         rc = _qpid010LinkTable_undo_column(rowreq_ctx, requests->requestvb,
-                                          tri->colnum);
+                                           tri->colnum);
         if (MFD_SUCCESS != rc) {
             /*
              * nothing we can do about it but log it
@@ -1743,13 +1706,14 @@ _mfd_qpid010LinkTable_undo_values(netsnmp_mib_handler *handler,
  */
 int
 _mfd_qpid010LinkTable_irreversible_commit(netsnmp_mib_handler *handler,
-                                         netsnmp_handler_registration
-                                         *reginfo,
-                                         netsnmp_agent_request_info
-                                         *agtreq_info,
-                                         netsnmp_request_info *requests)
+                                          netsnmp_handler_registration
+                                          *reginfo,
+                                          netsnmp_agent_request_info
+                                          *agtreq_info,
+                                          netsnmp_request_info *requests)
 {
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx = (qpid010LinkTable_rowreq_ctx *)
+    qpid010LinkTable_rowreq_ctx *rowreq_ctx =
+        (qpid010LinkTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
     DEBUGMSGTL(("internal:qpid010LinkTable:_mfd_qpid010LinkTable_irreversible:commit", "called\n"));
@@ -1762,7 +1726,8 @@ _mfd_qpid010LinkTable_irreversible_commit(netsnmp_mib_handler *handler,
      */
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED) {
         if (!(rowreq_ctx->rowreq_flags & MFD_ROW_CREATED))
-            CONTAINER_REMOVE(qpid010LinkTable_if_ctx.container, rowreq_ctx);
+            CONTAINER_REMOVE(qpid010LinkTable_if_ctx.container,
+                             rowreq_ctx);
     } else {
         if (rowreq_ctx->column_set_flags) {
             rowreq_ctx->column_set_flags = 0;
@@ -1800,7 +1765,7 @@ _cache_load(netsnmp_cache * cache, void *vmagic)
      * call user code
      */
     return qpid010LinkTable_container_load((netsnmp_container *) cache->
-                                          magic);
+                                           magic);
 }                               /* _cache_load */
 
 /**
@@ -1814,7 +1779,8 @@ _cache_free(netsnmp_cache * cache, void *magic)
     DEBUGMSGTL(("internal:qpid010LinkTable:_cache_free", "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
-        snmp_log(LOG_ERR, "invalid cache in qpid010LinkTable_cache_free\n");
+        snmp_log(LOG_ERR,
+                 "invalid cache in qpid010LinkTable_cache_free\n");
         return;
     }
 
@@ -1873,8 +1839,7 @@ _container_free(netsnmp_container * container)
 void
 _qpid010LinkTable_container_init(qpid010LinkTable_interface_ctx * if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010LinkTable:_qpid010LinkTable_container_init",
-                "called\n"));
+    DEBUGMSGTL(("internal:qpid010LinkTable:_qpid010LinkTable_container_init", "called\n"));
 
     /*
      * cache init
@@ -1910,7 +1875,8 @@ _qpid010LinkTable_container_init(qpid010LinkTable_interface_ctx * if_ctx)
  * shutdown the container with functions or wrappers
  */
 void
-_qpid010LinkTable_container_shutdown(qpid010LinkTable_interface_ctx * if_ctx)
+_qpid010LinkTable_container_shutdown(qpid010LinkTable_interface_ctx *
+                                     if_ctx)
 {
     DEBUGMSGTL(("internal:qpid010LinkTable:_qpid010LinkTable_container_shutdown", "called\n"));
 
@@ -1927,21 +1893,22 @@ _qpid010LinkTable_container_shutdown(qpid010LinkTable_interface_ctx * if_ctx)
  ***********************************************************************/
 
 static int      _qpid010LinkTable_container_save_rows(int majorID,
-                                                     int minorID,
-                                                     void *serverarg,
-                                                     void *clientarg);
+                                                      int minorID,
+                                                      void *serverarg,
+                                                      void *clientarg);
 static void     _qpid010LinkTable_container_row_restore(const char *token,
-                                                       char *buf);
+                                                        char *buf);
 static int     
 _qpid010LinkTable_container_row_save(qpid010LinkTable_rowreq_ctx *
-                                    rowreq_ctx, void *type);
+                                     rowreq_ctx, void *type);
 static char   
     *_qpid010LinkTable_container_col_restore(qpid010LinkTable_rowreq_ctx *
-                                            rowreq_ctx, u_int col,
-                                            char *buf);
+                                             rowreq_ctx, u_int col,
+                                             char *buf);
 static char   
     *_qpid010LinkTable_container_col_save(qpid010LinkTable_rowreq_ctx *
-                                         rowreq_ctx, u_int col, char *buf);
+                                          rowreq_ctx, u_int col,
+                                          char *buf);
 
 static char     row_token[] = "qpid010LinkTable";
 
@@ -1974,7 +1941,7 @@ qpid010LinkTable_container_init_persistence(netsnmp_container * container)
 
 static int
 _qpid010LinkTable_container_save_rows(int majorID, int minorID,
-                                     void *serverarg, void *clientarg)
+                                      void *serverarg, void *clientarg)
 {
     char            sep[] =
         "##############################################################";
@@ -2009,7 +1976,7 @@ _qpid010LinkTable_container_save_rows(int majorID, int minorID,
  */
 static int
 _qpid010LinkTable_container_row_save(qpid010LinkTable_rowreq_ctx *
-                                    rowreq_ctx, void *type)
+                                     rowreq_ctx, void *type)
 {
     /*
      * Allocate space for a line with all data for a row. An
@@ -2042,11 +2009,9 @@ _qpid010LinkTable_container_row_save(qpid010LinkTable_rowreq_ctx *
         /** xxx: add storage for external index(s)! */
 #define MAX_ROW_SIZE (sizeof(row_token) + 1 +  \
         ( ( 2 * sizeof(rowreq_ctx->data.qpid010LinkVhostRef) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010LinkHost) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( 12 ) + /* ASN_INTEGER qpid010LinkPort */ \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010LinkTransport) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.qpid010LinkName) ) + 3 ) + /* ASN_OCTET_STR */ \
         ( 12 ) + /* ASN_INTEGER qpid010LinkDurable */ \
-        ( qpid010LINKTABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
+        ( QPID010LINKTABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
     2 /* LINE_TERM_CHAR + \n */ )
 
     char            buf[MAX_ROW_SIZE], *pos = buf, *max =
@@ -2079,9 +2044,9 @@ _qpid010LinkTable_container_row_save(qpid010LinkTable_rowreq_ctx *
     /*
      * add each column
      */
-    for (i = qpid010LINKTABLE_MIN_COL; i <= qpid010LINKTABLE_MAX_COL; ++i) {
+    for (i = QPID010LINKTABLE_MIN_COL; i <= QPID010LINKTABLE_MAX_COL; ++i) {
 
-        if ((0x1 << (i - 1)) & ~qpid010LINKTABLE_SETTABLE_COLS)
+        if ((0x1 << (i - 1)) & ~QPID010LINKTABLE_SETTABLE_COLS)
             continue;
 
         tmp = pos;
@@ -2175,7 +2140,8 @@ _qpid010LinkTable_container_row_restore(const char *token, char *buf)
          */
         DEBUGMSGTL(("_qpid010LinkTable_container_row_restore",
                     "parsing column %d\n", col));
-        buf = _qpid010LinkTable_container_col_restore(rowreq_ctx, col, buf);
+        buf =
+            _qpid010LinkTable_container_col_restore(rowreq_ctx, col, buf);
         ++found;
     }
     if (0 == found) {
@@ -2219,7 +2185,7 @@ _qpid010LinkTable_container_row_restore(const char *token, char *buf)
  */
 static char    *
 _qpid010LinkTable_container_col_save(qpid010LinkTable_rowreq_ctx *
-                                    rowreq_ctx, u_int col, char *buf)
+                                     rowreq_ctx, u_int col, char *buf)
 {
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
@@ -2240,7 +2206,7 @@ _qpid010LinkTable_container_col_save(qpid010LinkTable_rowreq_ctx *
      */
     switch (col) {
 
-    case COLUMN_qpid010LINKVHOSTREF:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKVHOSTREF:    /** ObjId = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
@@ -2249,7 +2215,15 @@ _qpid010LinkTable_container_col_save(qpid010LinkTable_rowreq_ctx *
                                           qpid010LinkVhostRef_len);
         break;
 
-    case COLUMN_qpid010LINKHOST:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKNAME:    /** Sstr = ASN_OCTET_STR */
+        buf =
+            read_config_save_octet_string(buf,
+                                          rowreq_ctx->data.qpid010LinkName,
+                                          rowreq_ctx->data.
+                                          qpid010LinkName_len);
+        break;
+
+    case COLUMN_QPID010LINKHOST:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.qpid010LinkHost,
@@ -2257,11 +2231,11 @@ _qpid010LinkTable_container_col_save(qpid010LinkTable_rowreq_ctx *
                                           qpid010LinkHost_len);
         break;
 
-    case COLUMN_qpid010LINKPORT:    /** Uint16 = ASN_INTEGER */
+    case COLUMN_QPID010LINKPORT:    /** Uint16 = ASN_INTEGER */
         buf += sprintf(buf, "%ld", rowreq_ctx->data.qpid010LinkPort);
         break;
 
-    case COLUMN_qpid010LINKTRANSPORT:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKTRANSPORT:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
@@ -2270,19 +2244,29 @@ _qpid010LinkTable_container_col_save(qpid010LinkTable_rowreq_ctx *
                                           qpid010LinkTransport_len);
         break;
 
-    case COLUMN_qpid010LINKDURABLE:    /** TruthValue = ASN_INTEGER */
+    case COLUMN_QPID010LINKDURABLE:    /** TruthValue = ASN_INTEGER */
         buf += sprintf(buf, "%ld", rowreq_ctx->data.qpid010LinkDurable);
         break;
 
-    case COLUMN_qpid010LINKSTATE:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKCONNECTIONREF:    /** ObjId = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
-                                          rowreq_ctx->data.qpid010LinkState,
+                                          rowreq_ctx->data.
+                                          qpid010LinkConnectionRef,
+                                          rowreq_ctx->data.
+                                          qpid010LinkConnectionRef_len);
+        break;
+
+    case COLUMN_QPID010LINKSTATE:    /** Sstr = ASN_OCTET_STR */
+        buf =
+            read_config_save_octet_string(buf,
+                                          rowreq_ctx->data.
+                                          qpid010LinkState,
                                           rowreq_ctx->data.
                                           qpid010LinkState_len);
         break;
 
-    case COLUMN_qpid010LINKLASTERROR:    /** Lstr = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKLASTERROR:    /** Lstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
@@ -2305,7 +2289,7 @@ _qpid010LinkTable_container_col_save(qpid010LinkTable_rowreq_ctx *
  */
 static char    *
 _qpid010LinkTable_container_col_restore(qpid010LinkTable_rowreq_ctx *
-                                       rowreq_ctx, u_int col, char *buf)
+                                        rowreq_ctx, u_int col, char *buf)
 {
     size_t          len;
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
@@ -2321,7 +2305,7 @@ _qpid010LinkTable_container_col_restore(qpid010LinkTable_rowreq_ctx *
      */
     switch (col) {
 
-    case COLUMN_qpid010LINKVHOSTREF:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKVHOSTREF:    /** ObjId = ASN_OCTET_STR */
         rowreq_ctx->data.qpid010LinkVhostRef_len =
             sizeof(rowreq_ctx->data.qpid010LinkVhostRef);
         buf =
@@ -2332,7 +2316,18 @@ _qpid010LinkTable_container_col_restore(qpid010LinkTable_rowreq_ctx *
                                     qpid010LinkVhostRef_len);
         break;
 
-    case COLUMN_qpid010LINKHOST:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKNAME:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.qpid010LinkName_len =
+            sizeof(rowreq_ctx->data.qpid010LinkName);
+        buf =
+            read_config_read_memory(ASN_OCTET_STR, buf,
+                                    (char *) &rowreq_ctx->data.
+                                    qpid010LinkName,
+                                    (size_t *) &rowreq_ctx->data.
+                                    qpid010LinkName_len);
+        break;
+
+    case COLUMN_QPID010LINKHOST:    /** Sstr = ASN_OCTET_STR */
         rowreq_ctx->data.qpid010LinkHost_len =
             sizeof(rowreq_ctx->data.qpid010LinkHost);
         buf =
@@ -2343,14 +2338,14 @@ _qpid010LinkTable_container_col_restore(qpid010LinkTable_rowreq_ctx *
                                     qpid010LinkHost_len);
         break;
 
-    case COLUMN_qpid010LINKPORT:    /** Uint16 = ASN_INTEGER */
+    case COLUMN_QPID010LINKPORT:    /** Uint16 = ASN_INTEGER */
         len = sizeof(rowreq_ctx->data.qpid010LinkPort);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
                                       qpid010LinkPort, &len);
         break;
 
-    case COLUMN_qpid010LINKTRANSPORT:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKTRANSPORT:    /** Sstr = ASN_OCTET_STR */
         rowreq_ctx->data.qpid010LinkTransport_len =
             sizeof(rowreq_ctx->data.qpid010LinkTransport);
         buf =
@@ -2361,14 +2356,25 @@ _qpid010LinkTable_container_col_restore(qpid010LinkTable_rowreq_ctx *
                                     qpid010LinkTransport_len);
         break;
 
-    case COLUMN_qpid010LINKDURABLE:    /** TruthValue = ASN_INTEGER */
+    case COLUMN_QPID010LINKDURABLE:    /** TruthValue = ASN_INTEGER */
         len = sizeof(rowreq_ctx->data.qpid010LinkDurable);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
                                       qpid010LinkDurable, &len);
         break;
 
-    case COLUMN_qpid010LINKSTATE:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKCONNECTIONREF:    /** ObjId = ASN_OCTET_STR */
+        rowreq_ctx->data.qpid010LinkConnectionRef_len =
+            sizeof(rowreq_ctx->data.qpid010LinkConnectionRef);
+        buf =
+            read_config_read_memory(ASN_OCTET_STR, buf,
+                                    (char *) &rowreq_ctx->data.
+                                    qpid010LinkConnectionRef,
+                                    (size_t *) &rowreq_ctx->data.
+                                    qpid010LinkConnectionRef_len);
+        break;
+
+    case COLUMN_QPID010LINKSTATE:    /** Sstr = ASN_OCTET_STR */
         rowreq_ctx->data.qpid010LinkState_len =
             sizeof(rowreq_ctx->data.qpid010LinkState);
         buf =
@@ -2379,7 +2385,7 @@ _qpid010LinkTable_container_col_restore(qpid010LinkTable_rowreq_ctx *
                                     qpid010LinkState_len);
         break;
 
-    case COLUMN_qpid010LINKLASTERROR:    /** Lstr = ASN_OCTET_STR */
+    case COLUMN_QPID010LINKLASTERROR:    /** Lstr = ASN_OCTET_STR */
         rowreq_ctx->data.qpid010LinkLastError_len =
             sizeof(rowreq_ctx->data.qpid010LinkLastError);
         buf =
@@ -2401,7 +2407,8 @@ _qpid010LinkTable_container_col_restore(qpid010LinkTable_rowreq_ctx *
 
 
 qpid010LinkTable_rowreq_ctx *
-qpid010LinkTable_row_find_by_mib_index(qpid010LinkTable_mib_index * mib_idx)
+qpid010LinkTable_row_find_by_mib_index(qpid010LinkTable_mib_index *
+                                       mib_idx)
 {
     qpid010LinkTable_rowreq_ctx *rowreq_ctx;
     oid             oid_tmp[MAX_OID_LEN];

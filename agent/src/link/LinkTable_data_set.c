@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -269,8 +269,8 @@ qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010LINKVHOSTREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010LINKVHOSTREF_FLAG;  /* clear qpid010LinkVhostRef */
+    if (save_flags & COLUMN_QPID010LINKVHOSTREF_FLAG) {
+        save_flags &= ~COLUMN_QPID010LINKVHOSTREF_FLAG; /* clear qpid010LinkVhostRef */
         /*
          * TODO:482:o: |-> commit column qpid010LinkVhostRef.
          */
@@ -282,64 +282,30 @@ qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
             /*
              * set flag, in case we need to undo qpid010LinkVhostRef
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKVHOSTREF_FLAG;
-        }
-    }
-
-    if (save_flags & COLUMN_qpid010LINKHOST_FLAG) {
-        save_flags &= ~COLUMN_qpid010LINKHOST_FLAG;      /* clear qpid010LinkHost */
-        /*
-         * TODO:482:o: |-> commit column qpid010LinkHost.
-         */
-        rc = -1;
-        if (-1 == rc) {
-            snmp_log(LOG_ERR,
-                     "qpid010LinkTable column qpid010LinkHost commit failed\n");
-        } else {
-            /*
-             * set flag, in case we need to undo qpid010LinkHost
-             */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKHOST_FLAG;
-        }
-    }
-
-    if (save_flags & COLUMN_qpid010LINKPORT_FLAG) {
-        save_flags &= ~COLUMN_qpid010LINKPORT_FLAG;      /* clear qpid010LinkPort */
-        /*
-         * TODO:482:o: |-> commit column qpid010LinkPort.
-         */
-        rc = -1;
-        if (-1 == rc) {
-            snmp_log(LOG_ERR,
-                     "qpid010LinkTable column qpid010LinkPort commit failed\n");
-        } else {
-            /*
-             * set flag, in case we need to undo qpid010LinkPort
-             */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKPORT_FLAG;
-        }
-    }
-
-    if (save_flags & COLUMN_qpid010LINKTRANSPORT_FLAG) {
-        save_flags &= ~COLUMN_qpid010LINKTRANSPORT_FLAG; /* clear qpid010LinkTransport */
-        /*
-         * TODO:482:o: |-> commit column qpid010LinkTransport.
-         */
-        rc = -1;
-        if (-1 == rc) {
-            snmp_log(LOG_ERR,
-                     "qpid010LinkTable column qpid010LinkTransport commit failed\n");
-        } else {
-            /*
-             * set flag, in case we need to undo qpid010LinkTransport
-             */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010LINKTRANSPORT_FLAG;
+                COLUMN_QPID010LINKVHOSTREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010LINKDURABLE_FLAG) {
-        save_flags &= ~COLUMN_qpid010LINKDURABLE_FLAG;   /* clear qpid010LinkDurable */
+    if (save_flags & COLUMN_QPID010LINKNAME_FLAG) {
+        save_flags &= ~COLUMN_QPID010LINKNAME_FLAG;     /* clear qpid010LinkName */
+        /*
+         * TODO:482:o: |-> commit column qpid010LinkName.
+         */
+        rc = -1;
+        if (-1 == rc) {
+            snmp_log(LOG_ERR,
+                     "qpid010LinkTable column qpid010LinkName commit failed\n");
+        } else {
+            /*
+             * set flag, in case we need to undo qpid010LinkName
+             */
+            rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKNAME_FLAG;
+        }
+    }
+
+    if (save_flags & COLUMN_QPID010LINKDURABLE_FLAG) {
+        save_flags &= ~COLUMN_QPID010LINKDURABLE_FLAG;  /* clear qpid010LinkDurable */
         /*
          * TODO:482:o: |-> commit column qpid010LinkDurable.
          */
@@ -351,7 +317,7 @@ qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
             /*
              * set flag, in case we need to undo qpid010LinkDurable
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010LINKDURABLE_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKDURABLE_FLAG;
         }
     }
 
@@ -426,7 +392,7 @@ qpid010LinkTable_undo_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkVhostRef
  * qpid010LinkVhostRef is subid 1 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.1
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.1
  * Description:
 Link vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -486,8 +452,8 @@ Link vhostRef
  */
 int
 qpid010LinkVhostRef_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                               char *qpid010LinkVhostRef_val_ptr,
-                               size_t qpid010LinkVhostRef_val_ptr_len)
+                                char *qpid010LinkVhostRef_val_ptr,
+                                size_t qpid010LinkVhostRef_val_ptr_len)
 {
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkVhostRef_check_value",
                 "called\n"));
@@ -562,8 +528,8 @@ qpid010LinkVhostRef_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  */
 int
 qpid010LinkVhostRef_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                       char *qpid010LinkVhostRef_val_ptr,
-                       size_t qpid010LinkVhostRef_val_ptr_len)
+                        char *qpid010LinkVhostRef_val_ptr,
+                        size_t qpid010LinkVhostRef_val_ptr_len)
 {
 
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkVhostRef_set",
@@ -577,8 +543,8 @@ qpid010LinkVhostRef_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
      * TODO:461:M: |-> Set qpid010LinkVhostRef value.
      * set qpid010LinkVhostRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010LinkVhostRef, qpid010LinkVhostRef_val_ptr,
-           qpid010LinkVhostRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.qpid010LinkVhostRef,
+           qpid010LinkVhostRef_val_ptr, qpid010LinkVhostRef_val_ptr_len);
     /** convert bytes to number of char */
     rowreq_ctx->data.qpid010LinkVhostRef_len =
         qpid010LinkVhostRef_val_ptr_len /
@@ -621,12 +587,12 @@ qpid010LinkVhostRef_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
 }                               /* qpid010LinkVhostRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkHost
- * qpid010LinkHost is subid 2 of qpid010LinkEntry.
+ * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkName
+ * qpid010LinkName is subid 2 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.2
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.2
  * Description:
-Link host
+Link name
                      Additional info ( nodeType:property, index:y )
  *
  * Attributes:
@@ -646,10 +612,10 @@ Link host
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkHost_val_ptr
+ * @param qpid010LinkName_val_ptr
  *        A char containing the new value.
- * @param qpid010LinkHost_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010LinkHost_val_ptr
+ * @param qpid010LinkName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by qpid010LinkName_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -676,30 +642,30 @@ Link host
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010LinkHost).
+ *    The length is < sizeof(rowreq_ctx->data.qpid010LinkName).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010LinkHost_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                           char *qpid010LinkHost_val_ptr,
-                           size_t qpid010LinkHost_val_ptr_len)
+qpid010LinkName_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
+                            char *qpid010LinkName_val_ptr,
+                            size_t qpid010LinkName_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkHost_check_value",
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010LinkHost_val_ptr);
+    netsnmp_assert(NULL != qpid010LinkName_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010LinkHost value.
+     * TODO:441:o: |-> Check for valid qpid010LinkName value.
      */
 
-    return MFD_SUCCESS;         /* qpid010LinkHost value not illegal */
-}                               /* qpid010LinkHost_check_value */
+    return MFD_SUCCESS;         /* qpid010LinkName value not illegal */
+}                               /* qpid010LinkName_check_value */
 
 /**
  * Save old value information
@@ -721,31 +687,31 @@ qpid010LinkHost_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010LinkHost_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+qpid010LinkName_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkHost_undo_setup",
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010LinkHost undo.
+     * TODO:455:o: |-> Setup qpid010LinkName undo.
      */
     /*
-     * copy qpid010LinkHost and qpid010LinkHost_len data
-     * set rowreq_ctx->undo->qpid010LinkHost from rowreq_ctx->data.qpid010LinkHost
+     * copy qpid010LinkName and qpid010LinkName_len data
+     * set rowreq_ctx->undo->qpid010LinkName from rowreq_ctx->data.qpid010LinkName
      */
-    memcpy(rowreq_ctx->undo->qpid010LinkHost,
-           rowreq_ctx->data.qpid010LinkHost,
-           (rowreq_ctx->data.qpid010LinkHost_len *
-            sizeof(rowreq_ctx->undo->qpid010LinkHost[0])));
-    rowreq_ctx->undo->qpid010LinkHost_len =
-        rowreq_ctx->data.qpid010LinkHost_len;
+    memcpy(rowreq_ctx->undo->qpid010LinkName,
+           rowreq_ctx->data.qpid010LinkName,
+           (rowreq_ctx->data.qpid010LinkName_len *
+            sizeof(rowreq_ctx->undo->qpid010LinkName[0])));
+    rowreq_ctx->undo->qpid010LinkName_len =
+        rowreq_ctx->data.qpid010LinkName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkHost_undo_setup */
+}                               /* qpid010LinkName_undo_setup */
 
 /**
  * Set the new value.
@@ -753,35 +719,36 @@ qpid010LinkHost_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010LinkHost_val_ptr
+ * @param qpid010LinkName_val_ptr
  *        A char containing the new value.
- * @param qpid010LinkHost_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010LinkHost_val_ptr
+ * @param qpid010LinkName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by qpid010LinkName_val_ptr
  */
 int
-qpid010LinkHost_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                   char *qpid010LinkHost_val_ptr,
-                   size_t qpid010LinkHost_val_ptr_len)
+qpid010LinkName_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
+                    char *qpid010LinkName_val_ptr,
+                    size_t qpid010LinkName_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkHost_set", "called\n"));
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_set",
+                "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010LinkHost_val_ptr);
+    netsnmp_assert(NULL != qpid010LinkName_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010LinkHost value.
-     * set qpid010LinkHost value in rowreq_ctx->data
+     * TODO:461:M: |-> Set qpid010LinkName value.
+     * set qpid010LinkName value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010LinkHost, qpid010LinkHost_val_ptr,
-           qpid010LinkHost_val_ptr_len);
+    memcpy(rowreq_ctx->data.qpid010LinkName, qpid010LinkName_val_ptr,
+           qpid010LinkName_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010LinkHost_len =
-        qpid010LinkHost_val_ptr_len / sizeof(qpid010LinkHost_val_ptr[0]);
+    rowreq_ctx->data.qpid010LinkName_len =
+        qpid010LinkName_val_ptr_len / sizeof(qpid010LinkName_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkHost_set */
+}                               /* qpid010LinkName_set */
 
 /**
  * undo the previous set.
@@ -790,405 +757,37 @@ qpid010LinkHost_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010LinkHost_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+qpid010LinkName_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkHost_undo",
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010LinkHost undo.
+     * TODO:456:o: |-> Clean up qpid010LinkName undo.
      */
     /*
-     * copy qpid010LinkHost and qpid010LinkHost_len data
-     * set rowreq_ctx->data.qpid010LinkHost from rowreq_ctx->undo->qpid010LinkHost
+     * copy qpid010LinkName and qpid010LinkName_len data
+     * set rowreq_ctx->data.qpid010LinkName from rowreq_ctx->undo->qpid010LinkName
      */
-    memcpy(rowreq_ctx->data.qpid010LinkHost,
-           rowreq_ctx->undo->qpid010LinkHost,
-           (rowreq_ctx->undo->qpid010LinkHost_len *
-            sizeof(rowreq_ctx->data.qpid010LinkHost[0])));
-    rowreq_ctx->data.qpid010LinkHost_len =
-        rowreq_ctx->undo->qpid010LinkHost_len;
+    memcpy(rowreq_ctx->data.qpid010LinkName,
+           rowreq_ctx->undo->qpid010LinkName,
+           (rowreq_ctx->undo->qpid010LinkName_len *
+            sizeof(rowreq_ctx->data.qpid010LinkName[0])));
+    rowreq_ctx->data.qpid010LinkName_len =
+        rowreq_ctx->undo->qpid010LinkName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkHost_undo */
-
-/*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkPort
- * qpid010LinkPort is subid 3 of qpid010LinkEntry.
- * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.3
- * Description:
-Link port
-                     Additional info ( nodeType:property, index:y )
- *
- * Attributes:
- *   accessible 1     isscalar 0     enums  0      hasdefval 0
- *   readable   1     iscolumn 1     ranges 0      hashint   1
- *   settable   1
- *   hint: d
- *
- *
- * Its syntax is Uint16 (based on perltype INTEGER32)
- * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
- */
-/**
- * Check that the proposed new value is potentially valid.
- *
- * @param rowreq_ctx
- *        Pointer to the row request context.
- * @param qpid010LinkPort_val
- *        A long containing the new value.
- *
- * @retval MFD_SUCCESS        : incoming value is legal
- * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
- * @retval MFD_NOT_VALID_EVER : incoming value is never valid
- *
- * This is the place to check for requirements that are not
- * expressed in the mib syntax (for example, a requirement that
- * is detailed in the description for an object).
- *
- * You should check that the requested change between the undo value and the
- * new value is legal (ie, the transistion from one value to another
- * is legal).
- *      
- *@note
- * This check is only to determine if the new value
- * is \b potentially valid. This is the first check of many, and
- * is one of the simplest ones.
- * 
- *@note
- * this is not the place to do any checks for values
- * which depend on some other value in the mib. Those
- * types of checks should be done in the
- * qpid010LinkTable_check_dependencies() function.
- *
- * The following checks have already been done for you:
- *    The syntax is ASN_INTEGER
- *
- * If there a no other checks you need to do, simply return MFD_SUCCESS.
- *
- */
-int
-qpid010LinkPort_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                           long qpid010LinkPort_val)
-{
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkPort_check_value",
-                "called\n"));
-
-    /** should never get a NULL pointer */
-    netsnmp_assert(NULL != rowreq_ctx);
-
-    /*
-     * TODO:441:o: |-> Check for valid qpid010LinkPort value.
-     */
-
-    return MFD_SUCCESS;         /* qpid010LinkPort value not illegal */
-}                               /* qpid010LinkPort_check_value */
-
-/**
- * Save old value information
- *
- * @param rowreq_ctx
- *        Pointer to the table context (qpid010LinkTable_rowreq_ctx)
- *
- * @retval MFD_SUCCESS : success
- * @retval MFD_ERROR   : error. set will fail.
- *
- * This function will be called after the table level undo setup function
- * qpid010LinkTable_undo_setup has been called.
- *
- *@note
- * this function will only be called if a new value is set for this column.
- *
- * If there is any setup specific to a particular column (e.g. allocating
- * memory for a string), you should do that setup in this function, so it
- * won't be done unless it is necessary.
- */
-int
-qpid010LinkPort_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
-{
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkPort_undo_setup",
-                "called\n"));
-
-    /** should never get a NULL pointer */
-    netsnmp_assert(NULL != rowreq_ctx);
-
-    /*
-     * TODO:455:o: |-> Setup qpid010LinkPort undo.
-     */
-    /*
-     * copy qpid010LinkPort data
-     * set rowreq_ctx->undo->qpid010LinkPort from rowreq_ctx->data.qpid010LinkPort
-     */
-    rowreq_ctx->undo->qpid010LinkPort = rowreq_ctx->data.qpid010LinkPort;
-
-
-    return MFD_SUCCESS;
-}                               /* qpid010LinkPort_undo_setup */
-
-/**
- * Set the new value.
- *
- * @param rowreq_ctx
- *        Pointer to the users context. You should know how to
- *        manipulate the value from this object.
- * @param qpid010LinkPort_val
- *        A long containing the new value.
- */
-int
-qpid010LinkPort_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                   long qpid010LinkPort_val)
-{
-
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkPort_set", "called\n"));
-
-    /** should never get a NULL pointer */
-    netsnmp_assert(NULL != rowreq_ctx);
-
-    /*
-     * TODO:461:M: |-> Set qpid010LinkPort value.
-     * set qpid010LinkPort value in rowreq_ctx->data
-     */
-    rowreq_ctx->data.qpid010LinkPort = qpid010LinkPort_val;
-
-    return MFD_SUCCESS;
-}                               /* qpid010LinkPort_set */
-
-/**
- * undo the previous set.
- *
- * @param rowreq_ctx
- *        Pointer to the users context.
- */
-int
-qpid010LinkPort_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
-{
-
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkPort_undo",
-                "called\n"));
-
-    netsnmp_assert(NULL != rowreq_ctx);
-
-    /*
-     * TODO:456:o: |-> Clean up qpid010LinkPort undo.
-     */
-    /*
-     * copy qpid010LinkPort data
-     * set rowreq_ctx->data.qpid010LinkPort from rowreq_ctx->undo->qpid010LinkPort
-     */
-    rowreq_ctx->data.qpid010LinkPort = rowreq_ctx->undo->qpid010LinkPort;
-
-
-    return MFD_SUCCESS;
-}                               /* qpid010LinkPort_undo */
-
-/*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkTransport
- * qpid010LinkTransport is subid 4 of qpid010LinkEntry.
- * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.4
- * Description:
-Link transport
-                     Additional info ( nodeType:property )
- *
- * Attributes:
- *   accessible 1     isscalar 0     enums  0      hasdefval 0
- *   readable   1     iscolumn 1     ranges 1      hashint   1
- *   settable   1
- *   hint: 255a
- *
- * Ranges:  0 - 255;
- *
- * Its syntax is Sstr (based on perltype OCTETSTR)
- * The net-snmp type is ASN_OCTET_STR. The C type decl is char (char)
- * This data type requires a length.  (Max 255)
- */
-/**
- * Check that the proposed new value is potentially valid.
- *
- * @param rowreq_ctx
- *        Pointer to the row request context.
- * @param qpid010LinkTransport_val_ptr
- *        A char containing the new value.
- * @param qpid010LinkTransport_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010LinkTransport_val_ptr
- *
- * @retval MFD_SUCCESS        : incoming value is legal
- * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
- * @retval MFD_NOT_VALID_EVER : incoming value is never valid
- *
- * This is the place to check for requirements that are not
- * expressed in the mib syntax (for example, a requirement that
- * is detailed in the description for an object).
- *
- * You should check that the requested change between the undo value and the
- * new value is legal (ie, the transistion from one value to another
- * is legal).
- *      
- *@note
- * This check is only to determine if the new value
- * is \b potentially valid. This is the first check of many, and
- * is one of the simplest ones.
- * 
- *@note
- * this is not the place to do any checks for values
- * which depend on some other value in the mib. Those
- * types of checks should be done in the
- * qpid010LinkTable_check_dependencies() function.
- *
- * The following checks have already been done for you:
- *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010LinkTransport).
- *    The length is in (one of) the range set(s):  0 - 255
- *
- * If there a no other checks you need to do, simply return MFD_SUCCESS.
- *
- */
-int
-qpid010LinkTransport_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                                char *qpid010LinkTransport_val_ptr,
-                                size_t qpid010LinkTransport_val_ptr_len)
-{
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTransport_check_value",
-                "called\n"));
-
-    /** should never get a NULL pointer */
-    netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010LinkTransport_val_ptr);
-
-    /*
-     * TODO:441:o: |-> Check for valid qpid010LinkTransport value.
-     */
-
-    return MFD_SUCCESS;         /* qpid010LinkTransport value not illegal */
-}                               /* qpid010LinkTransport_check_value */
-
-/**
- * Save old value information
- *
- * @param rowreq_ctx
- *        Pointer to the table context (qpid010LinkTable_rowreq_ctx)
- *
- * @retval MFD_SUCCESS : success
- * @retval MFD_ERROR   : error. set will fail.
- *
- * This function will be called after the table level undo setup function
- * qpid010LinkTable_undo_setup has been called.
- *
- *@note
- * this function will only be called if a new value is set for this column.
- *
- * If there is any setup specific to a particular column (e.g. allocating
- * memory for a string), you should do that setup in this function, so it
- * won't be done unless it is necessary.
- */
-int
-qpid010LinkTransport_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
-{
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTransport_undo_setup",
-                "called\n"));
-
-    /** should never get a NULL pointer */
-    netsnmp_assert(NULL != rowreq_ctx);
-
-    /*
-     * TODO:455:o: |-> Setup qpid010LinkTransport undo.
-     */
-    /*
-     * copy qpid010LinkTransport and qpid010LinkTransport_len data
-     * set rowreq_ctx->undo->qpid010LinkTransport from rowreq_ctx->data.qpid010LinkTransport
-     */
-    memcpy(rowreq_ctx->undo->qpid010LinkTransport,
-           rowreq_ctx->data.qpid010LinkTransport,
-           (rowreq_ctx->data.qpid010LinkTransport_len *
-            sizeof(rowreq_ctx->undo->qpid010LinkTransport[0])));
-    rowreq_ctx->undo->qpid010LinkTransport_len =
-        rowreq_ctx->data.qpid010LinkTransport_len;
-
-
-    return MFD_SUCCESS;
-}                               /* qpid010LinkTransport_undo_setup */
-
-/**
- * Set the new value.
- *
- * @param rowreq_ctx
- *        Pointer to the users context. You should know how to
- *        manipulate the value from this object.
- * @param qpid010LinkTransport_val_ptr
- *        A char containing the new value.
- * @param qpid010LinkTransport_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010LinkTransport_val_ptr
- */
-int
-qpid010LinkTransport_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                        char *qpid010LinkTransport_val_ptr,
-                        size_t qpid010LinkTransport_val_ptr_len)
-{
-
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTransport_set",
-                "called\n"));
-
-    /** should never get a NULL pointer */
-    netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010LinkTransport_val_ptr);
-
-    /*
-     * TODO:461:M: |-> Set qpid010LinkTransport value.
-     * set qpid010LinkTransport value in rowreq_ctx->data
-     */
-    memcpy(rowreq_ctx->data.qpid010LinkTransport,
-           qpid010LinkTransport_val_ptr, qpid010LinkTransport_val_ptr_len);
-    /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010LinkTransport_len =
-        qpid010LinkTransport_val_ptr_len /
-        sizeof(qpid010LinkTransport_val_ptr[0]);
-
-    return MFD_SUCCESS;
-}                               /* qpid010LinkTransport_set */
-
-/**
- * undo the previous set.
- *
- * @param rowreq_ctx
- *        Pointer to the users context.
- */
-int
-qpid010LinkTransport_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
-{
-
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTransport_undo",
-                "called\n"));
-
-    netsnmp_assert(NULL != rowreq_ctx);
-
-    /*
-     * TODO:456:o: |-> Clean up qpid010LinkTransport undo.
-     */
-    /*
-     * copy qpid010LinkTransport and qpid010LinkTransport_len data
-     * set rowreq_ctx->data.qpid010LinkTransport from rowreq_ctx->undo->qpid010LinkTransport
-     */
-    memcpy(rowreq_ctx->data.qpid010LinkTransport,
-           rowreq_ctx->undo->qpid010LinkTransport,
-           (rowreq_ctx->undo->qpid010LinkTransport_len *
-            sizeof(rowreq_ctx->data.qpid010LinkTransport[0])));
-    rowreq_ctx->data.qpid010LinkTransport_len =
-        rowreq_ctx->undo->qpid010LinkTransport_len;
-
-
-    return MFD_SUCCESS;
-}                               /* qpid010LinkTransport_undo */
+}                               /* qpid010LinkName_undo */
 
 /*---------------------------------------------------------------------
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkDurable
- * qpid010LinkDurable is subid 5 of qpid010LinkEntry.
+ * qpid010LinkDurable is subid 6 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.11.1.1.5
+ * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.6
  * Description:
 Link durable
                      Additional info ( nodeType:property )
@@ -1243,7 +842,7 @@ Link durable
  */
 int
 qpid010LinkDurable_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                              u_long qpid010LinkDurable_val)
+                               u_long qpid010LinkDurable_val)
 {
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkDurable_check_value",
                 "called\n"));
@@ -1311,7 +910,7 @@ qpid010LinkDurable_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  */
 int
 qpid010LinkDurable_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                      u_long qpid010LinkDurable_val)
+                       u_long qpid010LinkDurable_val)
 {
 
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkDurable_set",
@@ -1377,7 +976,8 @@ qpid010LinkDurable_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * (see README-table-qpid010LinkTable if you don't have dependencies)
  */
 int
-qpid010LinkTable_check_dependencies(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+qpid010LinkTable_check_dependencies(qpid010LinkTable_rowreq_ctx *
+                                    rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 

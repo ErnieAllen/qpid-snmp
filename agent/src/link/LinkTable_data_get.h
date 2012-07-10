@@ -12,8 +12,8 @@
  *
  * @{
  */
-#ifndef qpid010LINKTABLE_DATA_GET_H
-#define qpid010LINKTABLE_DATA_GET_H
+#ifndef QPID010LINKTABLE_DATA_GET_H
+#define QPID010LINKTABLE_DATA_GET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -38,58 +38,71 @@ extern          "C" {
     /*
      * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060,15.1.1.11.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
      */
     /*
      * indexes
      */
 
     int             qpid010LinkVhostRef_get(qpid010LinkTable_rowreq_ctx *
-                                           rowreq_ctx,
-                                           char
-                                           **qpid010LinkVhostRef_val_ptr_ptr,
-                                           size_t
-                                           *qpid010LinkVhostRef_val_ptr_len_ptr);
-    int             qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx *
-                                       rowreq_ctx,
-                                       char **qpid010LinkHost_val_ptr_ptr,
-                                       size_t
-                                       *qpid010LinkHost_val_ptr_len_ptr);
-    int             qpid010LinkPort_get(qpid010LinkTable_rowreq_ctx *
-                                       rowreq_ctx,
-                                       long *qpid010LinkPort_val_ptr);
-    int             qpid010LinkTransport_get(qpid010LinkTable_rowreq_ctx *
                                             rowreq_ctx,
                                             char
-                                            **qpid010LinkTransport_val_ptr_ptr,
+                                            **qpid010LinkVhostRef_val_ptr_ptr,
                                             size_t
-                                            *qpid010LinkTransport_val_ptr_len_ptr);
-    int             qpid010LinkDurable_get(qpid010LinkTable_rowreq_ctx *
-                                          rowreq_ctx,
-                                          u_long *
-                                          qpid010LinkDurable_val_ptr);
-    int             qpid010LinkState_get(qpid010LinkTable_rowreq_ctx *
+                                            *qpid010LinkVhostRef_val_ptr_len_ptr);
+    int             qpid010LinkName_get(qpid010LinkTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char **qpid010LinkState_val_ptr_ptr,
+                                        char **qpid010LinkName_val_ptr_ptr,
                                         size_t
-                                        *qpid010LinkState_val_ptr_len_ptr);
+                                        *qpid010LinkName_val_ptr_len_ptr);
+    int             qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx *
+                                        rowreq_ctx,
+                                        char **qpid010LinkHost_val_ptr_ptr,
+                                        size_t
+                                        *qpid010LinkHost_val_ptr_len_ptr);
+    int             qpid010LinkPort_get(qpid010LinkTable_rowreq_ctx *
+                                        rowreq_ctx,
+                                        long *qpid010LinkPort_val_ptr);
+    int             qpid010LinkTransport_get(qpid010LinkTable_rowreq_ctx *
+                                             rowreq_ctx,
+                                             char
+                                             **qpid010LinkTransport_val_ptr_ptr,
+                                             size_t
+                                             *qpid010LinkTransport_val_ptr_len_ptr);
+    int             qpid010LinkDurable_get(qpid010LinkTable_rowreq_ctx *
+                                           rowreq_ctx,
+                                           u_long *
+                                           qpid010LinkDurable_val_ptr);
+    int            
+        qpid010LinkConnectionRef_get(qpid010LinkTable_rowreq_ctx *
+                                     rowreq_ctx,
+                                     char
+                                     **qpid010LinkConnectionRef_val_ptr_ptr,
+                                     size_t
+                                     *qpid010LinkConnectionRef_val_ptr_len_ptr);
+    int             qpid010LinkState_get(qpid010LinkTable_rowreq_ctx *
+                                         rowreq_ctx,
+                                         char
+                                         **qpid010LinkState_val_ptr_ptr,
+                                         size_t
+                                         *qpid010LinkState_val_ptr_len_ptr);
     int             qpid010LinkLastError_get(qpid010LinkTable_rowreq_ctx *
-                                            rowreq_ctx,
-                                            char
-                                            **qpid010LinkLastError_val_ptr_ptr,
-                                            size_t
-                                            *qpid010LinkLastError_val_ptr_len_ptr);
+                                             rowreq_ctx,
+                                             char
+                                             **qpid010LinkLastError_val_ptr_ptr,
+                                             size_t
+                                             *qpid010LinkLastError_val_ptr_len_ptr);
 
 
     int            
         qpid010LinkTable_indexes_set_tbl_idx(qpid010LinkTable_mib_index *
-                                            tbl_idx,
-                                            u_long
-                                            qpid010LinkInternalIndex_val);
-    int             qpid010LinkTable_indexes_set(qpid010LinkTable_rowreq_ctx
-                                                * rowreq_ctx,
-                                                u_long
-                                                qpid010LinkInternalIndex_val);
+                                             tbl_idx,
+                                             u_long
+                                             qpid010LinkInternalIndex_val);
+    int            
+        qpid010LinkTable_indexes_set(qpid010LinkTable_rowreq_ctx *
+                                     rowreq_ctx,
+                                     u_long qpid010LinkInternalIndex_val);
 
 
 
@@ -97,5 +110,5 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010LINKTABLE_DATA_GET_H */
+#endif                          /* QPID010LINKTABLE_DATA_GET_H */
 /** @} */

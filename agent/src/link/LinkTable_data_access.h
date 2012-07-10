@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010LINKTABLE_DATA_ACCESS_H
-#define qpid010LINKTABLE_DATA_ACCESS_H
+#ifndef QPID010LINKTABLE_DATA_ACCESS_H
+#define QPID010LINKTABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -31,35 +31,36 @@ extern          "C" {
     /*
      * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060,15.1.1.11.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
      */
 
 
-    int             qpid010LinkTable_init_data(qpid010LinkTable_registration
-                                              * qpid010LinkTable_reg);
+    int            
+        qpid010LinkTable_init_data(qpid010LinkTable_registration *
+                                   qpid010LinkTable_reg);
 
 
     /*
      * TODO:180:o: Review qpid010LinkTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define qpid010LINKTABLE_CACHE_TIMEOUT   60
+#define QPID010LINKTABLE_CACHE_TIMEOUT   60
 
     void            qpid010LinkTable_container_init(netsnmp_container **
-                                                   container_ptr_ptr,
-                                                   netsnmp_cache * cache);
+                                                    container_ptr_ptr,
+                                                    netsnmp_cache * cache);
     void            qpid010LinkTable_container_shutdown(netsnmp_container *
-                                                       container_ptr);
+                                                        container_ptr);
 
     int             qpid010LinkTable_container_load(netsnmp_container *
-                                                   container);
+                                                    container);
     void            qpid010LinkTable_container_free(netsnmp_container *
-                                                   container);
+                                                    container);
 
     int             qpid010LinkTable_cache_load(netsnmp_container *
-                                               container);
+                                                container);
     void            qpid010LinkTable_cache_free(netsnmp_container *
-                                               container);
+                                                container);
 
     /*
      ***************************************************
@@ -76,17 +77,17 @@ extern          "C" {
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
     int             qpid010LinkTable_row_prep(qpid010LinkTable_rowreq_ctx *
-                                             rowreq_ctx);
+                                              rowreq_ctx);
 
     int            
         qpid010LinkTable_validate_index(qpid010LinkTable_registration *
-                                       qpid010LinkTable_reg,
-                                       qpid010LinkTable_rowreq_ctx *
-                                       rowreq_ctx);
-    int             qpid010LinkInternalIndex_check_index(qpid010LinkTable_rowreq_ctx * rowreq_ctx);       /* internal */
+                                        qpid010LinkTable_reg,
+                                        qpid010LinkTable_rowreq_ctx *
+                                        rowreq_ctx);
+    int             qpid010LinkInternalIndex_check_index(qpid010LinkTable_rowreq_ctx * rowreq_ctx);     /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010LINKTABLE_DATA_ACCESS_H */
+#endif                          /* QPID010LINKTABLE_DATA_ACCESS_H */
