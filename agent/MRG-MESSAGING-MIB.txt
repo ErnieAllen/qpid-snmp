@@ -13,7 +13,7 @@ MRG-MESSAGING-MIB DEFINITIONS ::= BEGIN
 --                             |
 --                    _________________________
 --                   |                         |
---               amqp(15)                 other apache OIDs (https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html)
+--               amqp(5672)            other apache OIDs (https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html)
 --                   |
 --           ___________________
 --          |                   |
@@ -44,18 +44,17 @@ IMPORTS
         TruthValue, TEXTUAL-CONVENTION
             FROM SNMPv2-TC;
 
-qpid010 MODULE-IDENTITY
-        LAST-UPDATED "201207100000Z"
+apacheAMQP MODULE-IDENTITY
+        LAST-UPDATED "201207110000Z"
         ORGANIZATION "www.redhat.com"
         CONTACT-INFO
                 "e-mail: eallen@redhat.com"
         DESCRIPTION
-            "Root for Red Hat qpid messaging nodes"
-        REVISION "201207100000Z"
+            "Root for apache amqp qpid messaging nodes"
+        REVISION "201207110000Z"
             DESCRIPTION
                 "First release"
-        ::= { enterprises 18060 15 1 }
-
+        ::= { enterprises 18060 }
 --
 -- TEXTUAL-CONVENTIONS to define the qpid data types that don't
 -- map directly to mib types
@@ -113,15 +112,25 @@ Map ::= TEXTUAL-CONVENTION
         DESCRIPTION     "Textual representation of a map<string, string>"
         SYNTAX          OCTET STRING (SIZE (0..65535))
 
-List ::= TEXTUAL-CONVENTION
-        DISPLAY-HINT    "255a"
-        STATUS          current
-        DESCRIPTION     "Textual representation of a list"
-        SYNTAX          OCTET STRING (SIZE (0..255))
+--
+-- This object and the qpqcheAMQP object should probably be stored in a separate MIB
+-- and imported
+--
+amqp010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Version 010 amqp"
+        ::= { apacheAMQP 5672 }
 
 --
 -- The root OID for this MIB
 -- _____________________________________________________________________
+qpid010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "RedHat qpid implementation"
+        ::= { amqp010 1 }
+
 qpid010BrokerClasses OBJECT-IDENTITY
         STATUS      current
         DESCRIPTION
@@ -2638,7 +2647,7 @@ qpid010LinkInternalIndex OBJECT-TYPE
         MAX-ACCESS  not-accessible
         STATUS      current
         DESCRIPTION "Internal index for link table"
-        ::= { qpid010LinkEntry 11 }
+        ::= { qpid010LinkEntry 10 }
 -- ______________________________________________________________
 -- Bridge class table definition
 -- ______________________________________________________________
@@ -3346,7 +3355,7 @@ qpid010HaBrokerReplicateDefault OBJECT-TYPE
 -- The HaBrokerMembers data object
 --
 qpid010HaBrokerMembers OBJECT-TYPE
-        SYNTAX      List
+        SYNTAX      Sstr
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION "List of brokers in the cluster
@@ -3538,7 +3547,7 @@ qpid010EvtClientAddr OBJECT-TYPE
         ::= { qpid010EvtArgList 22 }
 
 qpid010EvtMembers OBJECT-TYPE
-        SYNTAX      List
+        SYNTAX      Sstr
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION "List of broker information maps"
