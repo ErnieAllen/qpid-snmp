@@ -232,7 +232,7 @@ void translateAttr(string & child)
     attrMap["deltaTime"] =  "TimeTicks";
     attrMap["hilo32"] =     "Hilo32";
     attrMap["map"] =        "Map";
-    attrMap["list"] =       "List";
+    attrMap["list"] =       "Sstr";
 
     attrMap["RO"] = "read-only";
     attrMap["RC"] = "read-write";
@@ -288,10 +288,17 @@ void genUnit(string & unit)
 // Add up all the usable xml child nodes and return the count
 void calcNextChildNumber(pugi::xml_node & xclass, string & nextChildNumber)
 {
-    int num = 1;
+	string propertyName;
+	int num = 1;
     for (pugi::xml_node property = xclass.first_child(); property; property = property.next_sibling()) {
         if (strcmp(property.name(), "method") == 0)
             continue;
+
+        // skip naked text outside of an element
+        propertyName = property.attribute("name").value();
+        if (propertyName.empty())
+            continue;
+
         ++num;
         // add the hi and lo generated numbers
         if (strcmp(property.attribute("type").value(), "hilo32") == 0) {
