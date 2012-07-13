@@ -1,11 +1,18 @@
 MRG-MESSAGING-MIB DEFINITIONS ::= BEGIN
 
 --
--- Red Hat MRG Messaging mib for amqp broker
+-- Apache amqp messaging MIB for Red Hat MRG qpid broker
 --
--- This file is generated from management-schema.xml
+-- This file is generated from management-schema.xml found in the apache qpid packages
 -- using qpid-snmp-mibgen and qpid-snmp.txt.
--- Do not edit this mib file directly.
+-- Do not edit this mib file directly, instead generate it using
+-- qpid-snmp-mibgen \
+--	-s $QPID/specs/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/acl/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/cluster/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/ha/management-schema.xml \
+--  -m MRG-MESSAGING-MIB.txt 
+-- 
 --
 -- iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
 --                             |
@@ -45,13 +52,13 @@ IMPORTS
             FROM SNMPv2-TC;
 
 apacheAMQP MODULE-IDENTITY
-        LAST-UPDATED "201207110000Z"
+        LAST-UPDATED "201207130000Z"
         ORGANIZATION "www.redhat.com"
         CONTACT-INFO
                 "e-mail: eallen@redhat.com"
         DESCRIPTION
             "Root for apache amqp qpid messaging nodes"
-        REVISION "201207110000Z"
+        REVISION "201207130000Z"
             DESCRIPTION
                 "First release"
         ::= { enterprises 18060 }
