@@ -14,17 +14,19 @@ void
 init_HaBroker(void)
 {
     const oid       qpid010HaBrokerName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 3, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 3, 1 };
     const oid       qpid010HaBrokerStatus_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 3, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 3, 2 };
     const oid       qpid010HaBrokerBrokersUrl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 3, 3 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 3, 3 };
     const oid       qpid010HaBrokerPublicUrl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 3, 4 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 3, 4 };
     const oid       qpid010HaBrokerReplicateDefault_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 3, 5 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 3, 5 };
+    const oid       qpid010HaBrokerMembers_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 3, 6 };
     const oid       qpid010HaBrokerSystemId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 3, 7 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 3, 7 };
 
     DEBUGMSGTL(("qpid010HaBroker", "Initializing\n"));
 
@@ -56,8 +58,13 @@ init_HaBroker(void)
                             ("qpid010HaBrokerReplicateDefault",
                              handle_qpid010HaBrokerReplicateDefault,
                              qpid010HaBrokerReplicateDefault_oid,
-                             OID_LENGTH
-                             (qpid010HaBrokerReplicateDefault_oid),
+                             OID_LENGTH(qpid010HaBrokerReplicateDefault_oid),
+                             HANDLER_CAN_RONLY));
+    netsnmp_register_scalar(netsnmp_create_handler_registration
+                            ("qpid010HaBrokerMembers",
+                             handle_qpid010HaBrokerMembers,
+                             qpid010HaBrokerMembers_oid,
+                             OID_LENGTH(qpid010HaBrokerMembers_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
                             ("qpid010HaBrokerSystemId",
@@ -340,6 +347,48 @@ handle_qpid010HaBrokerReplicateDefault(netsnmp_mib_handler *handler,
          */
         snmp_log(LOG_ERR,
                  "unknown mode (%d) in handle_qpid010HaBrokerReplicateDefault\n",
+                 reqinfo->mode);
+        return SNMP_ERR_GENERR;
+    }
+
+    return SNMP_ERR_NOERROR;
+}
+
+int
+handle_qpid010HaBrokerMembers(netsnmp_mib_handler *handler,
+                               netsnmp_handler_registration *reginfo,
+                               netsnmp_agent_request_info *reqinfo,
+                               netsnmp_request_info *requests)
+{
+    /*
+     * We are never called for a GETNEXT if it's registered as a
+     * "instance", as it's "magically" handled for us.
+     */
+
+    /*
+     * a instance handler also only hands us one request at a time, so
+     * we don't need to loop over a list of requests; we'll only get one.
+     */
+
+    char data[256];
+    qpidGetScalarString("habroker", "members", data, 255);
+
+    switch (reqinfo->mode) {
+
+    case MODE_GET:
+        snmp_set_var_typed_value(requests->requestvb, ASN_OCTET_STR,
+        		data, 			// a pointer to the scalar's data
+        		strlen(data)	// the length of the data in bytes
+        );
+        break;
+
+
+    default:
+        /*
+         * we should never get here, so this is a really bad error
+         */
+        snmp_log(LOG_ERR,
+                 "unknown mode (%d) in handle_qpid010HaBrokerMembers\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }

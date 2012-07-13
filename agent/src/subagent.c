@@ -30,8 +30,8 @@
 #include "session/SessionTable.h"
 #include "subscription/SubscriptionTable.h"
 #include "connection/ConnectionTable.h"
-#include "bridge/BridgeTable.h"
 #include "link/LinkTable.h"
+#include "bridge/BridgeTable.h"
 
 
 #include "qpid_api.h"
@@ -246,8 +246,8 @@ main(int argc, char **argv)
     init_SessionTable();
     init_SubscriptionTable();
     init_ConnectionTable();
-    init_BridgeTable();
     init_LinkTable();
+    init_BridgeTable();
     init_System();
     init_Acl();
     init_HaBroker();

@@ -15,17 +15,17 @@ void
 init_Agent(void)
 {
     const oid       qpid010AgentConnectionRef_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 4, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 1 };
     const oid       qpid010AgentLabel_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 4, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 2 };
     const oid       qpid010AgentRegisteredTo_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 4, 3 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 3 };
     const oid       qpid010AgentSystemId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 4, 4 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 4 };
     const oid       qpid010AgentBrokerBank_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 4, 5 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 5 };
     const oid       qpid010AgentAgentBank_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 4, 6 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 6 };
 
     DEBUGMSGTL(("qpid010Agent", "Initializing\n"));
 

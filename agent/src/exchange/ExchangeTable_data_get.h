@@ -38,7 +38,7 @@ extern          "C" {
     /*
      * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060,15.1.1.7.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
      */
     /*
      * indexes

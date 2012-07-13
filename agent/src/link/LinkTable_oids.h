@@ -15,7 +15,7 @@ extern          "C" {
     /*
      * column number definitions for table qpid010LinkTable 
      */
-#define QPID010LINKTABLE_OID              1,3,6,1,4,1,18060,15,1,1,11,1
+#define QPID010LINKTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,11,1
 
 
 #define COLUMN_QPID010LINKVHOSTREF         1
@@ -39,7 +39,7 @@ extern          "C" {
 
 #define COLUMN_QPID010LINKLASTERROR         9
 
-#define COLUMN_QPID010LINKINTERNALINDEX         11
+#define COLUMN_QPID010LINKINTERNALINDEX         10
 
 
 #define QPID010LINKTABLE_MIN_COL   COLUMN_QPID010LINKVHOSTREF

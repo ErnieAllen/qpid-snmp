@@ -15,7 +15,7 @@ extern          "C" {
     /*
      * column number definitions for table qpid010SessionTable 
      */
-#define qpid010SESSIONTABLE_OID              1,3,6,1,4,1,18060,15,1,1,13,1
+#define qpid010SESSIONTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,13,1
 
 
 #define COLUMN_qpid010SESSIONVHOSTREF         1

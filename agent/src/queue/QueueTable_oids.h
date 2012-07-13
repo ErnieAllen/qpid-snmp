@@ -15,7 +15,7 @@ extern          "C" {
     /*
      * column number definitions for table qpid010QueueTable 
      */
-#define qpid010QUEUETABLE_OID              1,3,6,1,4,1,18060,15,1,1,6,1
+#define qpid010QUEUETABLE_OID              1,3,6,1,4,1,18060,5672,1,1,6,1
 
 
 #define COLUMN_qpid010QUEUEVHOSTREF         1

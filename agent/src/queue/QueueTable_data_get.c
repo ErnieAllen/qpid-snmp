@@ -39,7 +39,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
  */
 
 /*
@@ -119,7 +119,7 @@ qpid010QueueTable_indexes_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueVhostRef
  * qpid010QueueVhostRef is subid 1 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.1
  * Description:
 Queue vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -218,7 +218,7 @@ qpid010QueueVhostRef_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueName
  * qpid010QueueName is subid 2 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.2
  * Description:
 Queue name
                      Additional info ( nodeType:property, index:y )
@@ -317,7 +317,7 @@ qpid010QueueName_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDurable
  * qpid010QueueDurable is subid 3 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.3
  * Description:
 Queue durable
                      Additional info ( nodeType:property )
@@ -372,7 +372,7 @@ qpid010QueueDurable_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueAutoDelete
  * qpid010QueueAutoDelete is subid 4 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.4
  * Description:
 Queue autoDelete
                      Additional info ( nodeType:property )
@@ -428,7 +428,7 @@ qpid010QueueAutoDelete_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueExclusive
  * qpid010QueueExclusive is subid 5 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.5
  * Description:
 Queue exclusive
                      Additional info ( nodeType:property )
@@ -484,7 +484,7 @@ qpid010QueueExclusive_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueArguments
  * qpid010QueueArguments is subid 6 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.6
  * Description:
 Arguments supplied in queue.declare
                      Additional info ( nodeType:property )
@@ -583,7 +583,7 @@ qpid010QueueArguments_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueAltExchange
  * qpid010QueueAltExchange is subid 7 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.7
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.7
  * Description:
 Queue altExchange
                      Additional info ( nodeType:property, references:Exchange, optional:y )
@@ -682,7 +682,7 @@ qpid010QueueAltExchange_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgTotalEnqueues
  * qpid010QueueMsgTotalEnqueues is subid 8 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.8
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.8
  * Description:
 Total messages enqueued
                      Additional info ( nodeType:statistic )
@@ -734,7 +734,7 @@ qpid010QueueMsgTotalEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgTotalDequeues
  * qpid010QueueMsgTotalDequeues is subid 9 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.9
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.9
  * Description:
 Total messages dequeued
                      Additional info ( nodeType:statistic )
@@ -786,7 +786,7 @@ qpid010QueueMsgTotalDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgTxnEnqueues
  * qpid010QueueMsgTxnEnqueues is subid 10 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.10
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.10
  * Description:
 Transactional messages enqueued
                      Additional info ( nodeType:statistic )
@@ -838,7 +838,7 @@ qpid010QueueMsgTxnEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgTxnDequeues
  * qpid010QueueMsgTxnDequeues is subid 11 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.11
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.11
  * Description:
 Transactional messages dequeued
                      Additional info ( nodeType:statistic )
@@ -890,7 +890,7 @@ qpid010QueueMsgTxnDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgPersistEnqueues
  * qpid010QueueMsgPersistEnqueues is subid 12 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.12
  * Description:
 Persistent messages enqueued
                      Additional info ( nodeType:statistic )
@@ -943,7 +943,7 @@ qpid010QueueMsgPersistEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgPersistDequeues
  * qpid010QueueMsgPersistDequeues is subid 13 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.13
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.13
  * Description:
 Persistent messages dequeued
                      Additional info ( nodeType:statistic )
@@ -996,7 +996,7 @@ qpid010QueueMsgPersistDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgDepth
  * qpid010QueueMsgDepth is subid 14 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.14
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.14
  * Description:
 Current size of queue in messages
                      Additional info ( nodeType:statistic, assign:msgTotalEnqueues - msgTotalDequeues )
@@ -1048,7 +1048,7 @@ qpid010QueueMsgDepth_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteDepth
  * qpid010QueueByteDepth is subid 15 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.15
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.15
  * Description:
 Current size of queue in bytes
                      Additional info ( nodeType:statistic, assign:byteTotalEnqueues - byteTotalDequeues )
@@ -1100,7 +1100,7 @@ qpid010QueueByteDepth_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteTotalEnqueues
  * qpid010QueueByteTotalEnqueues is subid 16 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.16
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.16
  * Description:
 Total messages enqueued
                      Additional info ( nodeType:statistic )
@@ -1153,7 +1153,7 @@ qpid010QueueByteTotalEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteTotalDequeues
  * qpid010QueueByteTotalDequeues is subid 17 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.17
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.17
  * Description:
 Total messages dequeued
                      Additional info ( nodeType:statistic )
@@ -1206,7 +1206,7 @@ qpid010QueueByteTotalDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteTxnEnqueues
  * qpid010QueueByteTxnEnqueues is subid 18 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.18
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.18
  * Description:
 Transactional messages enqueued
                      Additional info ( nodeType:statistic )
@@ -1258,7 +1258,7 @@ qpid010QueueByteTxnEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteTxnDequeues
  * qpid010QueueByteTxnDequeues is subid 19 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.19
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.19
  * Description:
 Transactional messages dequeued
                      Additional info ( nodeType:statistic )
@@ -1310,7 +1310,7 @@ qpid010QueueByteTxnDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBytePersistEnqueues
  * qpid010QueueBytePersistEnqueues is subid 20 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.20
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.20
  * Description:
 Persistent messages enqueued
                      Additional info ( nodeType:statistic )
@@ -1364,7 +1364,7 @@ qpid010QueueBytePersistEnqueues_get(qpid010QueueTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBytePersistDequeues
  * qpid010QueueBytePersistDequeues is subid 21 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.21
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.21
  * Description:
 Persistent messages dequeued
                      Additional info ( nodeType:statistic )
@@ -1418,7 +1418,7 @@ qpid010QueueBytePersistDequeues_get(qpid010QueueTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgFtdEnqueues
  * qpid010QueueMsgFtdEnqueues is subid 22 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.22
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.22
  * Description:
 Total message bodies released from memory and flowed-to-disk on broker
                      Additional info ( nodeType:statistic )
@@ -1470,7 +1470,7 @@ qpid010QueueMsgFtdEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgFtdDequeues
  * qpid010QueueMsgFtdDequeues is subid 23 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.23
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.23
  * Description:
 Total message bodies dequeued from the broker having been flowed-to-disk
                      Additional info ( nodeType:statistic )
@@ -1522,7 +1522,7 @@ qpid010QueueMsgFtdDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteFtdEnqueues
  * qpid010QueueByteFtdEnqueues is subid 24 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.24
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.24
  * Description:
 Total bytes released from memory and flowed-to-disk on broker
                      Additional info ( nodeType:statistic )
@@ -1574,7 +1574,7 @@ qpid010QueueByteFtdEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteFtdDequeues
  * qpid010QueueByteFtdDequeues is subid 25 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.25
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.25
  * Description:
 Total bytes dequeued from the broker having been flowed-to-disk
                      Additional info ( nodeType:statistic )
@@ -1626,7 +1626,7 @@ qpid010QueueByteFtdDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgFtdDepth
  * qpid010QueueMsgFtdDepth is subid 26 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.26
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.26
  * Description:
 Current number of messages flowed-to-disk
                      Additional info ( nodeType:statistic, assign:msgFtdEnqueues - msgFtdDequeues )
@@ -1678,7 +1678,7 @@ qpid010QueueMsgFtdDepth_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteFtdDepth
  * qpid010QueueByteFtdDepth is subid 27 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.27
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.27
  * Description:
 Current number of bytes flowed-to-disk
                      Additional info ( nodeType:statistic, assign:byteFtdEnqueues - byteFtdDequeues )
@@ -1730,7 +1730,7 @@ qpid010QueueByteFtdDepth_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueReleases
  * qpid010QueueReleases is subid 28 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.28
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.28
  * Description:
 Acquired messages reinserted into the queue
                      Additional info ( nodeType:statistic )
@@ -1782,7 +1782,7 @@ qpid010QueueReleases_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueAcquires
  * qpid010QueueAcquires is subid 29 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.29
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.29
  * Description:
 Messages acquired from the queue
                      Additional info ( nodeType:statistic )
@@ -1834,7 +1834,7 @@ qpid010QueueAcquires_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsTtl
  * qpid010QueueDiscardsTtl is subid 30 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.30
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.30
  * Description:
 Messages discarded due to TTL expiration
                      Additional info ( nodeType:statistic )
@@ -1886,7 +1886,7 @@ qpid010QueueDiscardsTtl_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsRing
  * qpid010QueueDiscardsRing is subid 31 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.31
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.31
  * Description:
 Messages discarded due to ring-queue overflow
                      Additional info ( nodeType:statistic )
@@ -1938,7 +1938,7 @@ qpid010QueueDiscardsRing_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsLvq
  * qpid010QueueDiscardsLvq is subid 32 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.32
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.32
  * Description:
 Messages discarded due to LVQ insert
                      Additional info ( nodeType:statistic )
@@ -1990,7 +1990,7 @@ qpid010QueueDiscardsLvq_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsOverflow
  * qpid010QueueDiscardsOverflow is subid 33 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.33
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.33
  * Description:
 Messages discarded due to reject-policy overflow
                      Additional info ( nodeType:statistic )
@@ -2042,7 +2042,7 @@ qpid010QueueDiscardsOverflow_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsSubscriber
  * qpid010QueueDiscardsSubscriber is subid 34 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.34
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.34
  * Description:
 Messages discarded due to subscriber reject
                      Additional info ( nodeType:statistic )
@@ -2095,7 +2095,7 @@ qpid010QueueDiscardsSubscriber_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsPurge
  * qpid010QueueDiscardsPurge is subid 35 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.35
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.35
  * Description:
 Messages discarded due to management purge
                      Additional info ( nodeType:statistic )
@@ -2147,7 +2147,7 @@ qpid010QueueDiscardsPurge_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueReroutes
  * qpid010QueueReroutes is subid 36 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.36
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.36
  * Description:
 Messages dequeued to management re-route
                      Additional info ( nodeType:statistic )
@@ -2199,7 +2199,7 @@ qpid010QueueReroutes_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueConsumerCount
  * qpid010QueueConsumerCount is subid 37 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.37
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.37
  * Description:
 Current consumers on queue
                      Additional info ( nodeType:statistic )
@@ -2255,7 +2255,7 @@ qpid010QueueConsumerCount_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueConsumerCountHi
  * qpid010QueueConsumerCountHi is subid 38 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.38
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.38
  * Description:
 Current consumers on queue
                      Additional info ( nodeType:statistic )
@@ -2311,7 +2311,7 @@ qpid010QueueConsumerCountHi_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueConsumerCountLow
  * qpid010QueueConsumerCountLow is subid 39 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.39
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.39
  * Description:
 Current consumers on queue
                      Additional info ( nodeType:statistic )
@@ -2367,7 +2367,7 @@ qpid010QueueConsumerCountLow_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBindingCount
  * qpid010QueueBindingCount is subid 40 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.40
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.40
  * Description:
 Current bindings
                      Additional info ( nodeType:statistic )
@@ -2423,7 +2423,7 @@ qpid010QueueBindingCount_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBindingCountHi
  * qpid010QueueBindingCountHi is subid 41 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.41
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.41
  * Description:
 Current bindings
                      Additional info ( nodeType:statistic )
@@ -2479,7 +2479,7 @@ qpid010QueueBindingCountHi_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBindingCountLow
  * qpid010QueueBindingCountLow is subid 42 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.42
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.42
  * Description:
 Current bindings
                      Additional info ( nodeType:statistic )
@@ -2535,7 +2535,7 @@ qpid010QueueBindingCountLow_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueUnackedMessages
  * qpid010QueueUnackedMessages is subid 43 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.43
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.43
  * Description:
 Messages consumed but not yet acked
                      Additional info ( nodeType:statistic )
@@ -2591,7 +2591,7 @@ qpid010QueueUnackedMessages_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueUnackedMessagesHi
  * qpid010QueueUnackedMessagesHi is subid 44 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.44
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.44
  * Description:
 Messages consumed but not yet acked
                      Additional info ( nodeType:statistic )
@@ -2647,7 +2647,7 @@ qpid010QueueUnackedMessagesHi_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueUnackedMessagesLow
  * qpid010QueueUnackedMessagesLow is subid 45 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.45
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.45
  * Description:
 Messages consumed but not yet acked
                      Additional info ( nodeType:statistic )
@@ -2703,7 +2703,7 @@ qpid010QueueUnackedMessagesLow_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMessageLatency
  * qpid010QueueMessageLatency is subid 46 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.46
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.46
  * Description:
 Broker latency through this queue
                      Additional info ( nodeType:statistic )
@@ -2758,7 +2758,7 @@ qpid010QueueMessageLatency_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueFlowStopped
  * qpid010QueueFlowStopped is subid 47 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.47
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.47
  * Description:
 Flow control active.
                      Additional info ( nodeType:statistic )
@@ -2814,7 +2814,7 @@ qpid010QueueFlowStopped_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueFlowStoppedCount
  * qpid010QueueFlowStoppedCount is subid 48 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.48
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.48
  * Description:
 Number of times flow control was activated for this queue
                      Additional info ( nodeType:statistic )

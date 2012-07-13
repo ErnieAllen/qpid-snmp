@@ -12,12 +12,11 @@
 #include <net-snmp/net-snmp-includes.h>
 #include <net-snmp/agent/net-snmp-agent-includes.h>
 
-#include "../qpid_api.h"
-
 /*
  * include our parent header 
  */
 #include "LinkTable.h"
+
 
 #include "LinkTable_data_access.h"
 
@@ -39,7 +38,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
  */
 
 /**
@@ -58,7 +57,8 @@ int
 qpid010LinkTable_init_data(qpid010LinkTable_registration *
                            qpid010LinkTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_init_data", "called\n"));
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_init_data",
+                "called\n"));
 
     /*
      * TODO:303:o: Initialize qpid010LinkTable data.
@@ -117,7 +117,8 @@ void
 qpid010LinkTable_container_init(netsnmp_container ** container_ptr_ptr,
                                 netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_container_init", "called\n"));
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_container_init",
+                "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
@@ -219,12 +220,15 @@ qpid010LinkTable_container_load(netsnmp_container * container)
      * temporary storage for index values
      */
     /*
-     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
     u_long          qpid010LinkInternalIndex;
     qpid010LinkTable_data qmfData;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_container_load", "called\n"));
+
+
+    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_container_load",
+                "called\n"));
 
     /*
      * Load/update data in the qpid010LinkTable container.
@@ -259,25 +263,24 @@ qpid010LinkTable_container_load(netsnmp_container * container)
         		qpidGetString(pRow, "host"), 254);
         qmfData.qpid010LinkHost_len = strlen(qmfData.qpid010LinkHost) + 1;
 
-        qmfData.qpid010LinkPort = qpidGetU16(pRow, "port");
-
         strncpy(qmfData.qpid010LinkTransport,
         		qpidGetString(pRow, "transport"), 254);
         qmfData.qpid010LinkTransport_len = strlen(qmfData.qpid010LinkTransport) + 1;
-
-        qmfData.qpid010LinkDurable = qpidGetBool(pRow, "durable");
 
         strncpy(qmfData.qpid010LinkConnectionRef,
         		qpidGetString(pRow, "connectionRef"), 254);
         qmfData.qpid010LinkConnectionRef_len = strlen(qmfData.qpid010LinkConnectionRef) + 1;
 
         strncpy(qmfData.qpid010LinkState,
-        		qpidGetString(pRow, "state"), 254);
+        		qpidGetString(pRow, "linkState"), 254);
         qmfData.qpid010LinkState_len = strlen(qmfData.qpid010LinkState) + 1;
 
         strncpy(qmfData.qpid010LinkLastError,
         		qpidGetString(pRow, "lastError"), 65534);
         qmfData.qpid010LinkLastError_len = strlen(qmfData.qpid010LinkLastError) + 1;
+
+        qmfData.qpid010LinkDurable = qpidGetBool(pRow, "durable");
+        qmfData.qpid010LinkPort = qpidGetU32(pRow, "linkPort");
 
         /*
          * set indexes in new qpid010LinkTable rowreq context.
@@ -291,14 +294,14 @@ qpid010LinkTable_container_load(netsnmp_container * container)
         }
         if (MFD_SUCCESS !=
             qpid010LinkTable_indexes_set(rowreq_ctx,
-                                        qpid010LinkInternalIndex)) {
+                                         qpid010LinkInternalIndex)) {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
                      "qpid010LinkTable data.\n");
             qpid010LinkTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        qpid010LinkInternalIndex++;
+        ++qpid010LinkInternalIndex;
 
         /*
          * setup/save data for qpid010LinkVhostRef
@@ -316,17 +319,17 @@ qpid010LinkTable_container_load(netsnmp_container * container)
             return MFD_ERROR;
         }
         rowreq_ctx->data.qpid010LinkVhostRef_len =
-        		qmfData.qpid010LinkVhostRef_len * sizeof(qmfData.qpid010LinkVhostRef[0]);
+            qmfData.qpid010LinkVhostRef_len * sizeof(qmfData.qpid010LinkVhostRef[0]);
         memcpy(rowreq_ctx->data.qpid010LinkVhostRef, qmfData.qpid010LinkVhostRef,
         		qmfData.qpid010LinkVhostRef_len * sizeof(qmfData.qpid010LinkVhostRef[0]));
 
         /*
-         * setup/save data for qpid010LinkHost
-         * qpid010LinkHost(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for qpid010LinkName
+         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010LinkHost data
+         * make sure there is enough space for qpid010LinkName data
          */
         if ((NULL == rowreq_ctx->data.qpid010LinkName) ||
             (rowreq_ctx->data.qpid010LinkName_len <
@@ -342,7 +345,7 @@ qpid010LinkTable_container_load(netsnmp_container * container)
 
         /*
          * setup/save data for qpid010LinkHost
-         * qpid010LinkHost(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * qpid010LinkHost(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
@@ -362,14 +365,14 @@ qpid010LinkTable_container_load(netsnmp_container * container)
 
         /*
          * setup/save data for qpid010LinkPort
-         * qpid010LinkPort(3)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * qpid010LinkPort(4)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
         rowreq_ctx->data.qpid010LinkPort = qmfData.qpid010LinkPort;
 
         /*
          * setup/save data for qpid010LinkTransport
-         * qpid010LinkTransport(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * qpid010LinkTransport(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
@@ -377,7 +380,8 @@ qpid010LinkTable_container_load(netsnmp_container * container)
          */
         if ((NULL == rowreq_ctx->data.qpid010LinkTransport) ||
             (rowreq_ctx->data.qpid010LinkTransport_len <
-             (qmfData.qpid010LinkTransport_len * sizeof(qmfData.qpid010LinkTransport[0])))) {
+             (qmfData.qpid010LinkTransport_len *
+              sizeof(qmfData.qpid010LinkTransport[0])))) {
             snmp_log(LOG_ERR,
                      "not enough space for value (qpid010LinkTransport)\n");
             return MFD_ERROR;
@@ -389,14 +393,16 @@ qpid010LinkTable_container_load(netsnmp_container * container)
 
         /*
          * setup/save data for qpid010LinkDurable
-         * qpid010LinkDurable(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-    /** no mapping */
+
+        if (qmfData.qpid010LinkDurable == 0)
+        	qmfData.qpid010LinkDurable = TRUTHVALUE_FALSE;
         rowreq_ctx->data.qpid010LinkDurable = qmfData.qpid010LinkDurable;
 
         /*
          * setup/save data for qpid010LinkConnectionRef
-         * qpid010LinkConnectionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * qpid010LinkConnectionRef(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
@@ -404,19 +410,23 @@ qpid010LinkTable_container_load(netsnmp_container * container)
          */
         if ((NULL == rowreq_ctx->data.qpid010LinkConnectionRef) ||
             (rowreq_ctx->data.qpid010LinkConnectionRef_len <
-             (qmfData.qpid010LinkConnectionRef_len * sizeof(qmfData.qpid010LinkConnectionRef[0])))) {
+             (qmfData.qpid010LinkConnectionRef_len *
+              sizeof(qmfData.qpid010LinkConnectionRef[0])))) {
             snmp_log(LOG_ERR,
                      "not enough space for value (qpid010LinkConnectionRef)\n");
             return MFD_ERROR;
         }
         rowreq_ctx->data.qpid010LinkConnectionRef_len =
-        		qmfData.qpid010LinkConnectionRef_len * sizeof(qmfData.qpid010LinkConnectionRef[0]);
-        memcpy(rowreq_ctx->data.qpid010LinkConnectionRef, qmfData.qpid010LinkConnectionRef,
-        		qmfData.qpid010LinkConnectionRef_len * sizeof(qmfData.qpid010LinkConnectionRef[0]));
+        		qmfData.qpid010LinkConnectionRef_len *
+            sizeof(qmfData.qpid010LinkConnectionRef[0]);
+        memcpy(rowreq_ctx->data.qpid010LinkConnectionRef,
+        		qmfData.qpid010LinkConnectionRef,
+        		qmfData.qpid010LinkConnectionRef_len *
+               sizeof(qmfData.qpid010LinkConnectionRef[0]));
 
         /*
          * setup/save data for qpid010LinkState
-         * qpid010LinkState(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * qpid010LinkState(8)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
@@ -436,7 +446,7 @@ qpid010LinkTable_container_load(netsnmp_container * container)
 
         /*
          * setup/save data for qpid010LinkLastError
-         * qpid010LinkLastError(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * qpid010LinkLastError(9)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
@@ -444,7 +454,8 @@ qpid010LinkTable_container_load(netsnmp_container * container)
          */
         if ((NULL == rowreq_ctx->data.qpid010LinkLastError) ||
             (rowreq_ctx->data.qpid010LinkLastError_len <
-             (qmfData.qpid010LinkLastError_len * sizeof(qmfData.qpid010LinkLastError[0])))) {
+             (qmfData.qpid010LinkLastError_len *
+              sizeof(qmfData.qpid010LinkLastError[0])))) {
             snmp_log(LOG_ERR,
                      "not enough space for value (qpid010LinkLastError)\n");
             return MFD_ERROR;
@@ -461,13 +472,15 @@ qpid010LinkTable_container_load(netsnmp_container * container)
         CONTAINER_INSERT(container, rowreq_ctx);
         qpidReleaseDataRow(pRow);
     }
+
     qpidRelease(pEvent);
 
     DEBUGMSGT(("verbose:qpid010LinkTable:qpid010LinkTable_container_load",
-               "inserted %d records\n", index));
+               "inserted %d records\n", qpid010LinkInternalIndex));
 
     return MFD_SUCCESS;
 }                               /* qpid010LinkTable_container_load */
+
 
 /**
  * container clean up
@@ -528,9 +541,9 @@ qpid010LinkTable_row_prep(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  */
 /*---------------------------------------------------------------------
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkInternalIndex
- * qpid010LinkInternalIndex is subid 11 of qpid010LinkEntry.
+ * qpid010LinkInternalIndex is subid 10 of qpid010LinkEntry.
  * Its status is Current, and its access level is NoAccess.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.11
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.10
  * Description:
 Internal index for link table
  *

@@ -60,7 +60,7 @@ config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTab
     /*
      * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060,15.1.1.9.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
      */
     /*
      *********************************************************************

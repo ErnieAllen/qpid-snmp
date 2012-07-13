@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -428,7 +428,7 @@ qpid010QueueTable_undo_commit(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueVhostRef
  * qpid010QueueVhostRef is subid 1 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.1
  * Description:
 Queue vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -626,7 +626,7 @@ qpid010QueueVhostRef_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueName
  * qpid010QueueName is subid 2 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.2
  * Description:
 Queue name
                      Additional info ( nodeType:property, index:y )
@@ -823,7 +823,7 @@ qpid010QueueName_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDurable
  * qpid010QueueDurable is subid 3 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.3
  * Description:
 Queue durable
                      Additional info ( nodeType:property )
@@ -997,7 +997,7 @@ qpid010QueueDurable_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueAutoDelete
  * qpid010QueueAutoDelete is subid 4 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.4
  * Description:
 Queue autoDelete
                      Additional info ( nodeType:property )
@@ -1169,7 +1169,7 @@ qpid010QueueAutoDelete_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueExclusive
  * qpid010QueueExclusive is subid 5 of qpid010QueueEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.5
  * Description:
 Queue exclusive
                      Additional info ( nodeType:property )

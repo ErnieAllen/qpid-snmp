@@ -15,7 +15,7 @@ extern          "C" {
     /*
      * column number definitions for table qpid010ConnectionTable 
      */
-#define qpid010CONNECTIONTABLE_OID              1,3,6,1,4,1,18060,15,1,1,10,1
+#define qpid010CONNECTIONTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,10,1
 
 
 #define COLUMN_qpid010CONNECTIONVHOSTREF         1

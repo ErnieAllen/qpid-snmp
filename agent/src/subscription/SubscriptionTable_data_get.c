@@ -39,7 +39,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
  */
 
 /*
@@ -122,7 +122,7 @@ qpid010SubscriptionTable_indexes_set(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionSessionRef
  * qpid010SubscriptionSessionRef is subid 1 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.1
  * Description:
 Subscription sessionRef
                      Additional info ( nodeType:property, references:Session, index:y, parentRef:y )
@@ -224,7 +224,7 @@ qpid010SubscriptionSessionRef_get(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionQueueRef
  * qpid010SubscriptionQueueRef is subid 2 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.2
  * Description:
 Subscription queueRef
                      Additional info ( nodeType:property, references:Queue, index:y )
@@ -325,7 +325,7 @@ qpid010SubscriptionQueueRef_get(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionName
  * qpid010SubscriptionName is subid 3 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.3
  * Description:
 Subscription name
                      Additional info ( nodeType:property, index:y )
@@ -423,7 +423,7 @@ qpid010SubscriptionName_get(qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionBrowsing
  * qpid010SubscriptionBrowsing is subid 4 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.4
  * Description:
 Subscription browsing
                      Additional info ( nodeType:property )
@@ -479,7 +479,7 @@ qpid010SubscriptionBrowsing_get(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionAcknowledged
  * qpid010SubscriptionAcknowledged is subid 5 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.5
  * Description:
 Subscription acknowledged
                      Additional info ( nodeType:property )
@@ -536,7 +536,7 @@ qpid010SubscriptionAcknowledged_get(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionExclusive
  * qpid010SubscriptionExclusive is subid 6 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.6
  * Description:
 Subscription exclusive
                      Additional info ( nodeType:property )
@@ -593,7 +593,7 @@ qpid010SubscriptionExclusive_get(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionCreditMode
  * qpid010SubscriptionCreditMode is subid 7 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.7
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.7
  * Description:
 WINDOW or CREDIT
                      Additional info ( nodeType:property )
@@ -695,7 +695,7 @@ qpid010SubscriptionCreditMode_get(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionArguments
  * qpid010SubscriptionArguments is subid 8 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.8
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.8
  * Description:
 Subscription arguments
                      Additional info ( nodeType:property )
@@ -797,7 +797,7 @@ qpid010SubscriptionArguments_get(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionDelivered
  * qpid010SubscriptionDelivered is subid 9 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.9
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.9
  * Description:
 Messages delivered
                      Additional info ( nodeType:statistic )

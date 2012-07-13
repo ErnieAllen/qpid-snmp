@@ -59,7 +59,7 @@ netsnmp_feature_require(baby_steps)
     /*
      * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060,15.1.1.12.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
      */
      typedef struct qpid010BridgeTable_interface_ctx_s {
 

@@ -142,13 +142,14 @@ qpid010LinkTable_rowreq_ctx_init(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
     /*
      * TODO:210:o: |-> Perform extra qpid010LinkTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010LinkConnectionRef_len = 255;
-    rowreq_ctx->data.qpid010LinkHost_len = 255;
-    rowreq_ctx->data.qpid010LinkLastError_len = 65535;
-    rowreq_ctx->data.qpid010LinkName_len = 255;
-    rowreq_ctx->data.qpid010LinkState_len = 255;
-    rowreq_ctx->data.qpid010LinkTransport_len = 255;
+
     rowreq_ctx->data.qpid010LinkVhostRef_len = 255;
+    rowreq_ctx->data.qpid010LinkName_len = 255;
+    rowreq_ctx->data.qpid010LinkHost_len = 255;
+    rowreq_ctx->data.qpid010LinkTransport_len = 255;
+    rowreq_ctx->data.qpid010LinkConnectionRef_len = 255;
+    rowreq_ctx->data.qpid010LinkState_len = 255;
+    rowreq_ctx->data.qpid010LinkLastError_len = 65535;
 
     return MFD_SUCCESS;
 }                               /* qpid010LinkTable_rowreq_ctx_init */

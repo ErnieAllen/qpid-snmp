@@ -15,7 +15,7 @@ extern          "C" {
     /*
      * column number definitions for table qpid010VhostTable 
      */
-#define qpid010VHOSTTABLE_OID              1,3,6,1,4,1,18060,15,1,1,5,1
+#define qpid010VHOSTTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,5,1
 
 
 #define COLUMN_qpid010VHOSTBROKERREF         1

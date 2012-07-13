@@ -15,9 +15,9 @@ void
 init_ManagementSetupState(void)
 {
     const oid       qpid010ManagementSetupStateObjectNum_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 14, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 14, 1 };
     const oid       qpid010ManagementSetupStateBootSequence_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 14, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 14, 2 };
 
     DEBUGMSGTL(("qpid010ManagementSetupState", "Initializing\n"));
 

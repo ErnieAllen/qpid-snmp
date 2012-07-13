@@ -44,7 +44,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
  */
 
 /**
@@ -538,7 +538,7 @@ qpid010BridgeTable_row_prep(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeInternalIndex
  * qpid010BridgeInternalIndex is subid 13 of qpid010BridgeEntry.
  * Its status is Current, and its access level is NoAccess.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.13
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.13
  * Description:
 Internal index for bridge table
  *

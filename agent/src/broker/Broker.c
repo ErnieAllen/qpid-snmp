@@ -15,93 +15,93 @@ void
 init_Broker(void)
 {
     const oid       qpid010BrokerName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 1 };
     const oid       qpid010BrokerSystemRef_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 2 };
     const oid       qpid010BrokerPort_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 3 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 3 };
     const oid       qpid010BrokerWorkerThreads_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 4 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 4 };
     const oid       qpid010BrokerConnBacklog_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 5 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 5 };
     const oid       qpid010BrokerStagingThreshold_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 6 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 6 };
     const oid       qpid010BrokerMgmtPublish_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 7 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 7 };
     const oid       qpid010BrokerMgmtPubInterval_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 8 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 8 };
     const oid       qpid010BrokerVersion_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 9 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 9 };
     const oid       qpid010BrokerDataDir_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 10 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 10 };
     const oid       qpid010BrokerUptime_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 11 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 11 };
     const oid       qpid010BrokerQueueCount_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 12 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 12 };
     const oid       qpid010BrokerMsgTotalEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 13 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 13 };
     const oid       qpid010BrokerMsgTotalDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 14 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 14 };
     const oid       qpid010BrokerByteTotalEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 15 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 15 };
     const oid       qpid010BrokerByteTotalDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 16 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 16 };
     const oid       qpid010BrokerMsgDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 17 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 17 };
     const oid       qpid010BrokerByteDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 18 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 18 };
     const oid       qpid010BrokerMsgPersistEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 19 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 19 };
     const oid       qpid010BrokerMsgPersistDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 20 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 20 };
     const oid       qpid010BrokerBytePersistEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 21 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 21 };
     const oid       qpid010BrokerBytePersistDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 22 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 22 };
     const oid       qpid010BrokerMsgTxnEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 23 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 23 };
     const oid       qpid010BrokerMsgTxnDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 24 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 24 };
     const oid       qpid010BrokerByteTxnEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 25 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 25 };
     const oid       qpid010BrokerByteTxnDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 26 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 26 };
     const oid       qpid010BrokerMsgFtdEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 27 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 27 };
     const oid       qpid010BrokerMsgFtdDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 28 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 28 };
     const oid       qpid010BrokerByteFtdEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 29 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 29 };
     const oid       qpid010BrokerByteFtdDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 30 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 30 };
     const oid       qpid010BrokerMsgFtdDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 31 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 31 };
     const oid       qpid010BrokerByteFtdDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 32 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 32 };
     const oid       qpid010BrokerReleases_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 33 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 33 };
     const oid       qpid010BrokerAcquires_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 34 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 34 };
     const oid       qpid010BrokerDiscardsNoRoute_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 35 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 35 };
     const oid       qpid010BrokerDiscardsTtl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 36 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 36 };
     const oid       qpid010BrokerDiscardsRing_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 37 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 37 };
     const oid       qpid010BrokerDiscardsLvq_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 38 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 38 };
     const oid       qpid010BrokerDiscardsOverflow_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 39 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 39 };
     const oid       qpid010BrokerDiscardsSubscriber_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 40 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 40 };
     const oid       qpid010BrokerDiscardsPurge_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 41 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 41 };
     const oid       qpid010BrokerReroutes_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 42 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 42 };
     const oid       qpid010BrokerAbandoned_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 43 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 43 };
     const oid       qpid010BrokerAbandonedViaAlt_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 3, 44 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 44 };
 
     DEBUGMSGTL(("qpid010Broker", "Initializing\n"));
 

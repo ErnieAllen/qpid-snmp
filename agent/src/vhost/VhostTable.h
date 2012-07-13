@@ -60,7 +60,7 @@ config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_set)
     /*
      * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060,15.1.1.5.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
      */
     /*
      *********************************************************************

@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010BindingTable is subid 1 of qpid010Bindings.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.8.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -410,7 +410,7 @@ qpid010BindingTable_undo_commit(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingExchangeRef
  * qpid010BindingExchangeRef is subid 1 of qpid010BindingEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.8.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.1
  * Description:
 Binding exchangeRef
                      Additional info ( nodeType:property, references:Exchange, index:y, parentRef:y )
@@ -611,7 +611,7 @@ qpid010BindingExchangeRef_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingQueueRef
  * qpid010BindingQueueRef is subid 2 of qpid010BindingEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.8.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.2
  * Description:
 Binding queueRef
                      Additional info ( nodeType:property, references:Queue, index:y )
@@ -810,7 +810,7 @@ qpid010BindingQueueRef_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingBindingKey
  * qpid010BindingBindingKey is subid 3 of qpid010BindingEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.8.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.3
  * Description:
 Binding bindingKey
                      Additional info ( nodeType:property, index:y )
@@ -1010,7 +1010,7 @@ qpid010BindingBindingKey_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingArguments
  * qpid010BindingArguments is subid 4 of qpid010BindingEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.8.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.4
  * Description:
 Binding arguments
                      Additional info ( nodeType:property )

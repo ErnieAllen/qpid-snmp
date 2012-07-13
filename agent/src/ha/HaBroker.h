@@ -14,6 +14,7 @@ Netsnmp_Node_Handler handle_qpid010HaBrokerStatus;
 Netsnmp_Node_Handler handle_qpid010HaBrokerBrokersUrl;
 Netsnmp_Node_Handler handle_qpid010HaBrokerPublicUrl;
 Netsnmp_Node_Handler handle_qpid010HaBrokerReplicateDefault;
+Netsnmp_Node_Handler handle_qpid010HaBrokerMembers;
 Netsnmp_Node_Handler handle_qpid010HaBrokerSystemId;
 
 #endif                          /* QPID010HABROKER_H */

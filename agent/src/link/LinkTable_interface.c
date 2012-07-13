@@ -59,7 +59,7 @@ netsnmp_feature_require(baby_steps)
     /*
      * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
      */
      typedef struct qpid010LinkTable_interface_ctx_s {
 
@@ -376,7 +376,7 @@ qpid010LinkTable_index_to_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
     netsnmp_variable_list var_qpid010LinkInternalIndex;
 
@@ -397,7 +397,7 @@ qpid010LinkTable_index_to_oid(netsnmp_index * oid_idx,
                 "called\n"));
 
     /*
-     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     snmp_set_var_value(&var_qpid010LinkInternalIndex,
                        &mib_idx->qpid010LinkInternalIndex,
@@ -433,7 +433,7 @@ qpid010LinkTable_index_from_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
     netsnmp_variable_list var_qpid010LinkInternalIndex;
 
@@ -676,7 +676,7 @@ _qpid010LinkTable_check_indexes(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
 
 
     /*
-     * (INDEX) qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * (INDEX) qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     if (MFD_SUCCESS != rc)
         return rc;
@@ -1015,7 +1015,7 @@ _qpid010LinkTable_check_column(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
 
     switch (column) {
         /*
-         * (INDEX) qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+         * (INDEX) qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
          */
     case COLUMN_QPID010LINKINTERNALINDEX:
         rc = SNMP_ERR_NOTWRITABLE;      /* can not change index of active row */

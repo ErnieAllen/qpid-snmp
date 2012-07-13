@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010ConnectionTable is subid 1 of qpid010Connections.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -411,7 +411,7 @@ qpid010ConnectionTable_undo_commit(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionVhostRef
  * qpid010ConnectionVhostRef is subid 1 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.1
  * Description:
 Connection vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -611,7 +611,7 @@ qpid010ConnectionVhostRef_undo(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionAddress
  * qpid010ConnectionAddress is subid 2 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.2
  * Description:
 Connection address
                      Additional info ( nodeType:property, index:y )
@@ -809,7 +809,7 @@ qpid010ConnectionAddress_undo(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionIncoming
  * qpid010ConnectionIncoming is subid 3 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.3
  * Description:
 Connection incoming
                      Additional info ( nodeType:property )
@@ -983,7 +983,7 @@ qpid010ConnectionIncoming_undo(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionSystemConnection
  * qpid010ConnectionSystemConnection is subid 4 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.4
  * Description:
 Infrastructure/ Inter-system connection (Cluster, Federation, ...)
                      Additional info ( nodeType:property )

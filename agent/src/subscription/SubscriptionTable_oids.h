@@ -15,7 +15,7 @@ extern          "C" {
     /*
      * column number definitions for table qpid010SubscriptionTable 
      */
-#define qpid010SUBSCRIPTIONTABLE_OID              1,3,6,1,4,1,18060,15,1,1,9,1
+#define qpid010SUBSCRIPTIONTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,9,1
 
 
 #define COLUMN_qpid010SUBSCRIPTIONSESSIONREF         1

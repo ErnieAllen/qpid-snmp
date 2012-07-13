@@ -39,7 +39,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
  */
 
 /**
@@ -657,7 +657,7 @@ qpid010ExchangeTable_row_prep(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeInternalIndex
  * qpid010ExchangeInternalIndex is subid 20 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is NoAccess.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.20
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.20
  * Description:
 Internal index for exchange table
  *

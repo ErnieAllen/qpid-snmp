@@ -15,7 +15,7 @@ extern          "C" {
     /*
      * column number definitions for table qpid010ExchangeTable 
      */
-#define qpid010EXCHANGETABLE_OID              1,3,6,1,4,1,18060,15,1,1,7,1
+#define qpid010EXCHANGETABLE_OID              1,3,6,1,4,1,18060,5672,1,1,7,1
 
 
 #define COLUMN_qpid010EXCHANGEVHOSTREF         1

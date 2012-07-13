@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -551,7 +551,7 @@ qpid010BridgeTable_undo_commit(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeLinkRef
  * qpid010BridgeLinkRef is subid 1 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.1
  * Description:
 Bridge linkRef
                      Additional info ( nodeType:property, references:Link, index:y, parentRef:y )
@@ -748,7 +748,7 @@ qpid010BridgeLinkRef_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeChannelId
  * qpid010BridgeChannelId is subid 2 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.2
  * Description:
 Bridge channelId
                      Additional info ( nodeType:property, index:y )
@@ -920,7 +920,7 @@ qpid010BridgeChannelId_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDurable
  * qpid010BridgeDurable is subid 3 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.3
  * Description:
 Bridge durable
                      Additional info ( nodeType:property )
@@ -1093,7 +1093,7 @@ qpid010BridgeDurable_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrc
  * qpid010BridgeSrc is subid 4 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.4
  * Description:
 Bridge src
                      Additional info ( nodeType:property )
@@ -1290,7 +1290,7 @@ qpid010BridgeSrc_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDest
  * qpid010BridgeDest is subid 5 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.5
  * Description:
 Bridge dest
                      Additional info ( nodeType:property )
@@ -1487,7 +1487,7 @@ qpid010BridgeDest_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeKey
  * qpid010BridgeKey is subid 6 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.6
  * Description:
 Bridge key
                      Additional info ( nodeType:property )
@@ -1684,7 +1684,7 @@ qpid010BridgeKey_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrcIsQueue
  * qpid010BridgeSrcIsQueue is subid 7 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.7
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.7
  * Description:
 Bridge srcIsQueue
                      Additional info ( nodeType:property )
@@ -1858,7 +1858,7 @@ qpid010BridgeSrcIsQueue_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrcIsLocal
  * qpid010BridgeSrcIsLocal is subid 8 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.8
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.8
  * Description:
 Bridge srcIsLocal
                      Additional info ( nodeType:property )
@@ -2032,7 +2032,7 @@ qpid010BridgeSrcIsLocal_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeTag
  * qpid010BridgeTag is subid 9 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.9
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.9
  * Description:
 Bridge tag
                      Additional info ( nodeType:property )
@@ -2229,7 +2229,7 @@ qpid010BridgeTag_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeExcludes
  * qpid010BridgeExcludes is subid 10 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.10
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.10
  * Description:
 Bridge excludes
                      Additional info ( nodeType:property )
@@ -2425,7 +2425,7 @@ qpid010BridgeExcludes_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDynamic
  * qpid010BridgeDynamic is subid 11 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.11
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.11
  * Description:
 Bridge dynamic
                      Additional info ( nodeType:property )
@@ -2598,7 +2598,7 @@ qpid010BridgeDynamic_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSync
  * qpid010BridgeSync is subid 12 of qpid010BridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.12.1.1.12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.12
  * Description:
 Bridge sync
                      Additional info ( nodeType:property )

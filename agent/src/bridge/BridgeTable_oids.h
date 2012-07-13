@@ -15,7 +15,7 @@ extern          "C" {
     /*
      * column number definitions for table qpid010BridgeTable 
      */
-#define qpid010BRIDGETABLE_OID              1,3,6,1,4,1,18060,15,1,1,12,1
+#define qpid010BRIDGETABLE_OID              1,3,6,1,4,1,18060,5672,1,1,12,1
 
 
 #define COLUMN_qpid010BRIDGELINKREF         1

@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -374,7 +374,7 @@ qpid010ExchangeTable_undo_commit(qpid010ExchangeTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeVhostRef
  * qpid010ExchangeVhostRef is subid 1 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.1
  * Description:
 Exchange vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -574,7 +574,7 @@ qpid010ExchangeVhostRef_undo(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeName
  * qpid010ExchangeName is subid 2 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.2
  * Description:
 Exchange name
                      Additional info ( nodeType:property, index:y )

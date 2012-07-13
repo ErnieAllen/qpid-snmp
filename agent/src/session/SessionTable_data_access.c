@@ -44,7 +44,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
  */
 
 /**
@@ -535,7 +535,7 @@ qpid010SessionTable_row_prep(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionInternalIndex
  * qpid010SessionInternalIndex is subid 15 of qpid010SessionEntry.
  * Its status is Current, and its access level is NoAccess.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.15
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.15
  * Description:
 Internal index for session table
  *

@@ -39,7 +39,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
  */
 
 /*
@@ -121,7 +121,7 @@ qpid010ExchangeTable_indexes_set(qpid010ExchangeTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeVhostRef
  * qpid010ExchangeVhostRef is subid 1 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.1
  * Description:
 Exchange vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -220,7 +220,7 @@ qpid010ExchangeVhostRef_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeName
  * qpid010ExchangeName is subid 2 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.2
  * Description:
 Exchange name
                      Additional info ( nodeType:property, index:y )
@@ -319,7 +319,7 @@ qpid010ExchangeName_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeType
  * qpid010ExchangeType is subid 3 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.3
  * Description:
 Exchange type
                      Additional info ( nodeType:property )
@@ -418,7 +418,7 @@ qpid010ExchangeType_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeDurable
  * qpid010ExchangeDurable is subid 4 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.4
  * Description:
 Exchange durable
                      Additional info ( nodeType:property )
@@ -474,7 +474,7 @@ qpid010ExchangeDurable_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeAutoDelete
  * qpid010ExchangeAutoDelete is subid 5 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.5
  * Description:
 Exchange autoDelete
                      Additional info ( nodeType:property )
@@ -530,7 +530,7 @@ qpid010ExchangeAutoDelete_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeAltExchange
  * qpid010ExchangeAltExchange is subid 6 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.6
  * Description:
 Exchange altExchange
                      Additional info ( nodeType:property, references:Exchange, optional:y )
@@ -629,7 +629,7 @@ qpid010ExchangeAltExchange_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeArguments
  * qpid010ExchangeArguments is subid 7 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.7
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.7
  * Description:
 Arguments supplied in exchange.declare
                      Additional info ( nodeType:property )
@@ -729,7 +729,7 @@ qpid010ExchangeArguments_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeProducerCount
  * qpid010ExchangeProducerCount is subid 8 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.8
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.8
  * Description:
 Current producers on exchange
                      Additional info ( nodeType:statistic )
@@ -785,7 +785,7 @@ qpid010ExchangeProducerCount_get(qpid010ExchangeTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeProducerCountHi
  * qpid010ExchangeProducerCountHi is subid 9 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.9
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.9
  * Description:
 Current producers on exchange
                      Additional info ( nodeType:statistic )
@@ -842,7 +842,7 @@ qpid010ExchangeProducerCountHi_get(qpid010ExchangeTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeProducerCountLow
  * qpid010ExchangeProducerCountLow is subid 10 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.10
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.10
  * Description:
 Current producers on exchange
                      Additional info ( nodeType:statistic )
@@ -899,7 +899,7 @@ qpid010ExchangeProducerCountLow_get(qpid010ExchangeTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeBindingCount
  * qpid010ExchangeBindingCount is subid 11 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.11
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.11
  * Description:
 Current bindings
                      Additional info ( nodeType:statistic )
@@ -954,7 +954,7 @@ qpid010ExchangeBindingCount_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeBindingCountHi
  * qpid010ExchangeBindingCountHi is subid 12 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.12
  * Description:
 Current bindings
                      Additional info ( nodeType:statistic )
@@ -1011,7 +1011,7 @@ qpid010ExchangeBindingCountHi_get(qpid010ExchangeTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeBindingCountLow
  * qpid010ExchangeBindingCountLow is subid 13 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.13
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.13
  * Description:
 Current bindings
                      Additional info ( nodeType:statistic )
@@ -1068,7 +1068,7 @@ qpid010ExchangeBindingCountLow_get(qpid010ExchangeTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeMsgReceives
  * qpid010ExchangeMsgReceives is subid 14 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.14
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.14
  * Description:
 Total messages received
                      Additional info ( nodeType:statistic )
@@ -1120,7 +1120,7 @@ qpid010ExchangeMsgReceives_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeMsgDrops
  * qpid010ExchangeMsgDrops is subid 15 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.15
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.15
  * Description:
 Total messages dropped (no matching key)
                      Additional info ( nodeType:statistic )
@@ -1172,7 +1172,7 @@ qpid010ExchangeMsgDrops_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeMsgRoutes
  * qpid010ExchangeMsgRoutes is subid 16 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.16
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.16
  * Description:
 Total routed messages
                      Additional info ( nodeType:statistic )
@@ -1224,7 +1224,7 @@ qpid010ExchangeMsgRoutes_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeByteReceives
  * qpid010ExchangeByteReceives is subid 17 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.17
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.17
  * Description:
 Total bytes received
                      Additional info ( nodeType:statistic )
@@ -1276,7 +1276,7 @@ qpid010ExchangeByteReceives_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeByteDrops
  * qpid010ExchangeByteDrops is subid 18 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.18
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.18
  * Description:
 Total bytes dropped (no matching key)
                      Additional info ( nodeType:statistic )
@@ -1328,7 +1328,7 @@ qpid010ExchangeByteDrops_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeByteRoutes
  * qpid010ExchangeByteRoutes is subid 19 of qpid010ExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.7.1.1.19
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.19
  * Description:
 Total routed bytes
                      Additional info ( nodeType:statistic )

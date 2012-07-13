@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.5.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -375,7 +375,7 @@ qpid010VhostTable_undo_commit(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostBrokerRef
  * qpid010VhostBrokerRef is subid 1 of qpid010VhostEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.5.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.1
  * Description:
 Vhost brokerRef
                      Additional info ( nodeType:property, references:Broker, index:y, parentRef:y )
@@ -572,7 +572,7 @@ qpid010VhostBrokerRef_undo(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostName
  * qpid010VhostName is subid 2 of qpid010VhostEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.5.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.2
  * Description:
 Vhost name
                      Additional info ( nodeType:property, index:y )

@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -373,7 +373,7 @@ qpid010SessionTable_undo_commit(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionVhostRef
  * qpid010SessionVhostRef is subid 1 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.1
  * Description:
 Session vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -572,7 +572,7 @@ qpid010SessionVhostRef_undo(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionName
  * qpid010SessionName is subid 2 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.2
  * Description:
 Session name
                      Additional info ( nodeType:property, index:y )

@@ -39,7 +39,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
  */
 
 /*
@@ -69,7 +69,7 @@ qpid010LinkTable_indexes_set_tbl_idx(qpid010LinkTable_mib_index * tbl_idx,
     DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     tbl_idx->qpid010LinkInternalIndex = qpid010LinkInternalIndex_val;
 
@@ -119,7 +119,7 @@ qpid010LinkTable_indexes_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkVhostRef
  * qpid010LinkVhostRef is subid 1 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.1
  * Description:
 Link vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -218,7 +218,7 @@ qpid010LinkVhostRef_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkName
  * qpid010LinkName is subid 2 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.2
  * Description:
 Link name
                      Additional info ( nodeType:property, index:y )
@@ -317,7 +317,7 @@ qpid010LinkName_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkHost
  * qpid010LinkHost is subid 3 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.3
  * Description:
 Link host
                      Additional info ( nodeType:property )
@@ -416,7 +416,7 @@ qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkPort
  * qpid010LinkPort is subid 4 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.4
  * Description:
 Link port
                      Additional info ( nodeType:property )
@@ -471,7 +471,7 @@ qpid010LinkPort_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkTransport
  * qpid010LinkTransport is subid 5 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.5
  * Description:
 Link transport
                      Additional info ( nodeType:property )
@@ -570,7 +570,7 @@ qpid010LinkTransport_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkDurable
  * qpid010LinkDurable is subid 6 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.6
  * Description:
 Link durable
                      Additional info ( nodeType:property )
@@ -625,7 +625,7 @@ qpid010LinkDurable_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkConnectionRef
  * qpid010LinkConnectionRef is subid 7 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.7
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.7
  * Description:
 Link connectionRef
                      Additional info ( nodeType:property, references:Connection )
@@ -725,7 +725,7 @@ qpid010LinkConnectionRef_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkState
  * qpid010LinkState is subid 8 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.8
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.8
  * Description:
 Operational state of the link
                      Additional info ( nodeType:statistic )
@@ -824,7 +824,7 @@ qpid010LinkState_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkLastError
  * qpid010LinkLastError is subid 9 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.9
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.9
  * Description:
 Reason link is not operational
                      Additional info ( nodeType:statistic )

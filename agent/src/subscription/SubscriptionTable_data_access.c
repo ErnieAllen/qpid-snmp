@@ -44,7 +44,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
  */
 
 /**
@@ -539,7 +539,7 @@ qpid010SubscriptionTable_row_prep(qpid010SubscriptionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionInternalIndex
  * qpid010SubscriptionInternalIndex is subid 10 of qpid010SubscriptionEntry.
  * Its status is Current, and its access level is NoAccess.
- * OID: .1.3.6.1.4.1.18060,15.1.1.9.1.1.10
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.10
  * Description:
 Internal index for subscription table
  *

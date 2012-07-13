@@ -40,7 +40,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.5.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
  */
 
 /**
@@ -428,7 +428,7 @@ qpid010VhostTable_row_prep(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostInternalIndex
  * qpid010VhostInternalIndex is subid 4 of qpid010VhostEntry.
  * Its status is Current, and its access level is NoAccess.
- * OID: .1.3.6.1.4.1.18060,15.1.1.5.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.4
  * Description:
 Internal index for vhost table
  *

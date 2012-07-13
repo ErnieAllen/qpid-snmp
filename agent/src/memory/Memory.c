@@ -15,21 +15,21 @@ void
 init_Memory(void)
 {
     const oid       qpid010MemoryName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 2, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 1 };
     const oid       qpid010MemoryMallocarena_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 2, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 2 };
     const oid       qpid010MemoryMallocordblks_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 2, 3 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 3 };
     const oid       qpid010MemoryMallochblks_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 2, 4 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 4 };
     const oid       qpid010MemoryMallochblkhd_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 2, 5 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 5 };
     const oid       qpid010MemoryMallocuordblks_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 2, 6 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 6 };
     const oid       qpid010MemoryMallocfordblks_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 2, 7 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 7 };
     const oid       qpid010MemoryMallockeepcost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 2, 8 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 8 };
 
     DEBUGMSGTL(("qpid010Memory", "Initializing\n"));
 

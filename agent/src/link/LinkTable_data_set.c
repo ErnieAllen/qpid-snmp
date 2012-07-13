@@ -36,7 +36,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
  */
     /*
      * NOTE: if you update this chart, please update the versions in
@@ -392,7 +392,7 @@ qpid010LinkTable_undo_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkVhostRef
  * qpid010LinkVhostRef is subid 1 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.1
  * Description:
 Link vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -590,7 +590,7 @@ qpid010LinkVhostRef_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkName
  * qpid010LinkName is subid 2 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.2
  * Description:
 Link name
                      Additional info ( nodeType:property, index:y )
@@ -787,7 +787,7 @@ qpid010LinkName_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkDurable
  * qpid010LinkDurable is subid 6 of qpid010LinkEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.15.1.1.11.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.6
  * Description:
 Link durable
                      Additional info ( nodeType:property )

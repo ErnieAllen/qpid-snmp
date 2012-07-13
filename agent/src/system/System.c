@@ -15,17 +15,17 @@ void
 init_System(void)
 {
     const oid       qpid010SystemSystemId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 1, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 1 };
     const oid       qpid010SystemOsName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 1, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 2 };
     const oid       qpid010SystemNodeName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 1, 3 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 3 };
     const oid       qpid010SystemRelease_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 1, 4 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 4 };
     const oid       qpid010SystemVersion_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 1, 5 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 5 };
     const oid       qpid010SystemMachine_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 1, 6 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 6 };
 
     DEBUGMSGTL(("qpid010System", "Initializing\n"));
 

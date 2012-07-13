@@ -15,17 +15,17 @@ void
 init_Acl(void)
 {
     const oid       qpid010AclBrokerRef_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 1, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 1 };
     const oid       qpid010AclPolicyFile_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 1, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 2 };
     const oid       qpid010AclEnforcingAcl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 1, 3 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 3 };
     const oid       qpid010AclTransferAcl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 1, 4 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 4 };
     const oid       qpid010AclLastAclLoad_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 1, 5 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 5 };
     const oid       qpid010AclAclDenyCount_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 1, 6 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 6 };
 
     DEBUGMSGTL(("qpid010Acl", "Initializing\n"));
 

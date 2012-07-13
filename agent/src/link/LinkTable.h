@@ -37,7 +37,7 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
     /*
      * enum definions 
      */
-#include "LinkTable_enums.h"
+#include "../enums.h"
 
     /*
      *********************************************************************
@@ -60,7 +60,7 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
     /*
      * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060.15.1.1.11.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
      */
     /*
      *********************************************************************
@@ -157,7 +157,7 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
     typedef struct qpid010LinkTable_mib_index_s {
 
         /*
-         * qpid010LinkInternalIndex(11)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
         u_long          qpid010LinkInternalIndex;
 

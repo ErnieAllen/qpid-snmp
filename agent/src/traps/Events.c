@@ -28,11 +28,11 @@ send_qpid010EvtClientConnect_trap(const char * rHost, const char * user)
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtClientConnect_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 1 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -91,13 +91,13 @@ send_qpid010EvtClientConnectFail_trap(const char * rHost, const char * user, con
 
     netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtClientConnectFail_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 2 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtReason_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 12, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 12, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -160,11 +160,11 @@ send_qpid010EvtClientDisconnect_trap(const char * rHost, const char * user)
 
     netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtClientDisconnect_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 3 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 3 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -215,9 +215,9 @@ send_qpid010EvtBrokerLinkUp_trap(const char *rHost)
 
     netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtBrokerLinkUp_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 4 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 4 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -260,9 +260,9 @@ send_qpid010EvtBrokerLinkDown_trap(const char *rHost)
 	}
     netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtBrokerLinkDown_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 5 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 5 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -326,25 +326,25 @@ send_qpid010EvtQueueDeclare_trap(const char *rHost, const char * user, const cha
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtQueueDeclare_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 6 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 6 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 11, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
     const oid       qpid010EvtDurable_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 6, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 6, 0 };
     const oid       qpid010EvtExcl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 9, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 9, 0 };
     const oid       qpid010EvtAutoDel_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 3, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 3, 0 };
     const oid       qpid010EvtAltEx_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 1, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 1, 0 };
     const oid       qpid010EvtArgs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 2, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 2, 0 };
     const oid       qpid010EvtDisp_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 5, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 5, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -460,13 +460,13 @@ send_qpid010EvtQueueDelete_trap(const char *rHost, const char * user, const char
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtQueueDelete_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 7 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 7 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 11, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -548,25 +548,25 @@ send_qpid010EvtExchangeDeclare_trap(const char *rHost, const char * user, const 
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtExchangeDeclare_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 8 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 8 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtExName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 7, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 7, 0 };
     const oid       qpid010EvtExType_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 8, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 8, 0 };
     const oid       qpid010EvtAltEx_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 1, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 1, 0 };
     const oid       qpid010EvtDurable_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 6, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 6, 0 };
     const oid       qpid010EvtAutoDel_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 3, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 3, 0 };
     const oid       qpid010EvtArgs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 2, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 2, 0 };
     const oid       qpid010EvtDisp_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 5, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 5, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -683,13 +683,13 @@ send_qpid010EvtExchangeDelete_trap(const char *rHost, const char * user, const c
 
     netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtExchangeDelete_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 9 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 9 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtExName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 7, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 7, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -767,19 +767,19 @@ send_qpid010EvtBind_trap(const char *rHost, const char * user,
 
 		netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtBind_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 10 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 10 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtExName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 7, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 7, 0 };
     const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 11, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
     const oid       qpid010EvtKey_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 10, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 10, 0 };
     const oid       qpid010EvtArgs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 2, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 2, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -877,17 +877,17 @@ send_qpid010EvtUnbind_trap(const char *rHost, const char * user,
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtUnbind_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 11 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 11 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtExName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 7, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 7, 0 };
     const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 11, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
     const oid       qpid010EvtKey_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 10, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 10, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -978,19 +978,19 @@ send_qpid010EvtSubscribe_trap(const char *rHost, const char * user, const char *
 
     netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtSubscribe_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 12 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 12 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 11, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
     const oid       qpid010EvtDest_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 4, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 4, 0 };
     const oid       qpid010EvtExcl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 9, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 9, 0 };
     const oid       qpid010EvtArgs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 2, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 2, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1085,13 +1085,13 @@ send_qpid010EvtUnsubscribe_trap(const char *rHost, const char * user, const char
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtUnsubscribe_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 13 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 13 };
     const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 13, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
     const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 14, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
     const oid       qpid010EvtDest_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 4, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 4, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1158,13 +1158,13 @@ send_qpid010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth,
 
     netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtQueueThresholdExceeded_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 14 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 14 };
     const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 11, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
     const oid       qpid010EvtMsgDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 15, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 15, 0 };
     const oid       qpid010EvtByteDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 16, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 16, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1236,17 +1236,17 @@ send_qpid010EvtAllow_trap(const char *user, const char *action, const char *obje
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtAllow_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 15 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 15 };
     const oid       qpid010EvtUserId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 21, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 21, 0 };
     const oid       qpid010EvtAction_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 17, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 17, 0 };
     const oid       qpid010EvtObjectType_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 20, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 20, 0 };
     const oid       qpid010EvtObjectName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 19, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 19, 0 };
     const oid       qpid010EvtArguments_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 18, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 18, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1338,17 +1338,17 @@ send_qpid010EvtDeny_trap(const char *user, const char *action, const char *objec
 
     netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtDeny_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 16 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 16 };
     const oid       qpid010EvtUserId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 21, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 21, 0 };
     const oid       qpid010EvtAction_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 17, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 17, 0 };
     const oid       qpid010EvtObjectType_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 20, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 20, 0 };
     const oid       qpid010EvtObjectName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 19, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 19, 0 };
     const oid       qpid010EvtArguments_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 18, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 18, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1428,9 +1428,9 @@ send_qpid010EvtFileLoaded_trap(const char *user)
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtFileLoaded_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 17 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 17 };
     const oid       qpid010EvtUserId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 21, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 21, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1484,11 +1484,11 @@ send_qpid010EvtFileLoadFailed_trap(const char *user, const char *reason)
 
 	netsnmp_variable_list *var_list = NULL;
     const oid       qpid010EvtFileLoadFailed_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 0, 18 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 18 };
     const oid       qpid010EvtUserId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 21, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 21, 0 };
     const oid       qpid010EvtReason_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 1, 100, 1, 12, 0 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 12, 0 };
 
     /*
      * Set the snmpTrapOid.0 value

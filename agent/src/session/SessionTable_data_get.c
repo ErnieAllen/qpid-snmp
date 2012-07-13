@@ -39,7 +39,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
  */
 
 /*
@@ -120,7 +120,7 @@ qpid010SessionTable_indexes_set(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionVhostRef
  * qpid010SessionVhostRef is subid 1 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.1
  * Description:
 Session vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -219,7 +219,7 @@ qpid010SessionVhostRef_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionName
  * qpid010SessionName is subid 2 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.2
  * Description:
 Session name
                      Additional info ( nodeType:property, index:y )
@@ -318,7 +318,7 @@ qpid010SessionName_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionChannelId
  * qpid010SessionChannelId is subid 3 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.3
  * Description:
 Session channelId
                      Additional info ( nodeType:property )
@@ -374,7 +374,7 @@ qpid010SessionChannelId_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionConnectionRef
  * qpid010SessionConnectionRef is subid 4 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.4
  * Description:
 Session connectionRef
                      Additional info ( nodeType:property, references:Connection )
@@ -474,7 +474,7 @@ qpid010SessionConnectionRef_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionDetachedLifespan
  * qpid010SessionDetachedLifespan is subid 5 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.5
  * Description:
 Session detachedLifespan
                      Additional info ( nodeType:property )
@@ -530,7 +530,7 @@ qpid010SessionDetachedLifespan_get(qpid010SessionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionAttached
  * qpid010SessionAttached is subid 6 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.6
  * Description:
 Session attached
                      Additional info ( nodeType:property )
@@ -586,7 +586,7 @@ qpid010SessionAttached_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionExpireTime
  * qpid010SessionExpireTime is subid 7 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.7
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.7
  * Description:
 Session expireTime
                      Additional info ( nodeType:property, optional:y )
@@ -641,7 +641,7 @@ qpid010SessionExpireTime_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionMaxClientRate
  * qpid010SessionMaxClientRate is subid 8 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.8
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.8
  * Description:
 Session maxClientRate
                      Additional info ( nodeType:property, optional:y )
@@ -695,7 +695,7 @@ qpid010SessionMaxClientRate_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionFramesOutstanding
  * qpid010SessionFramesOutstanding is subid 9 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.9
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.9
  * Description:
 Session framesOutstanding
                      Additional info ( nodeType:statistic )
@@ -751,7 +751,7 @@ qpid010SessionFramesOutstanding_get(qpid010SessionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionTxnStarts
  * qpid010SessionTxnStarts is subid 10 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.10
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.10
  * Description:
 Total transactions started 
                      Additional info ( nodeType:statistic )
@@ -803,7 +803,7 @@ qpid010SessionTxnStarts_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionTxnCommits
  * qpid010SessionTxnCommits is subid 11 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.11
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.11
  * Description:
 Total transactions committed
                      Additional info ( nodeType:statistic )
@@ -855,7 +855,7 @@ qpid010SessionTxnCommits_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionTxnRejects
  * qpid010SessionTxnRejects is subid 12 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.12
  * Description:
 Total transactions rejected
                      Additional info ( nodeType:statistic )
@@ -907,7 +907,7 @@ qpid010SessionTxnRejects_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionTxnCount
  * qpid010SessionTxnCount is subid 13 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.13
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.13
  * Description:
 Current pending transactions
                      Additional info ( nodeType:statistic )
@@ -962,7 +962,7 @@ qpid010SessionTxnCount_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionClientCredit
  * qpid010SessionClientCredit is subid 14 of qpid010SessionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.13.1.1.14
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.14
  * Description:
 Client message credit
                      Additional info ( nodeType:statistic )

@@ -44,7 +44,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
  */
 
 /**
@@ -998,7 +998,7 @@ qpid010QueueTable_row_prep(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueInternalIndex
  * qpid010QueueInternalIndex is subid 49 of qpid010QueueEntry.
  * Its status is Current, and its access level is NoAccess.
- * OID: .1.3.6.1.4.1.18060,15.1.1.6.1.1.49
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.49
  * Description:
 Internal index for queue table
  *

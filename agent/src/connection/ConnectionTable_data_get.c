@@ -39,7 +39,7 @@
 /*
  * MRG-MESSAGING-MIB::qpid010ConnectionTable is subid 1 of qpid010Connections.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1, length: 12
  */
 
 /*
@@ -122,7 +122,7 @@ qpid010ConnectionTable_indexes_set(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionVhostRef
  * qpid010ConnectionVhostRef is subid 1 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.1
  * Description:
 Connection vhostRef
                      Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )
@@ -221,7 +221,7 @@ qpid010ConnectionVhostRef_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionAddress
  * qpid010ConnectionAddress is subid 2 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.2
  * Description:
 Connection address
                      Additional info ( nodeType:property, index:y )
@@ -320,7 +320,7 @@ qpid010ConnectionAddress_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionIncoming
  * qpid010ConnectionIncoming is subid 3 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.3
  * Description:
 Connection incoming
                      Additional info ( nodeType:property )
@@ -375,7 +375,7 @@ qpid010ConnectionIncoming_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionSystemConnection
  * qpid010ConnectionSystemConnection is subid 4 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.4
  * Description:
 Infrastructure/ Inter-system connection (Cluster, Federation, ...)
                      Additional info ( nodeType:property )
@@ -432,7 +432,7 @@ qpid010ConnectionSystemConnection_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionUserProxyAuth
  * qpid010ConnectionUserProxyAuth is subid 5 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.5
  * Description:
 Authorization to proxy for users not on broker
                      Additional info ( nodeType:property )
@@ -489,7 +489,7 @@ qpid010ConnectionUserProxyAuth_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionFederationLink
  * qpid010ConnectionFederationLink is subid 6 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.6
  * Description:
 Is this a federation link
                      Additional info ( nodeType:property )
@@ -546,7 +546,7 @@ qpid010ConnectionFederationLink_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionAuthIdentity
  * qpid010ConnectionAuthIdentity is subid 7 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.7
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.7
  * Description:
 authId of connection if authentication enabled
                      Additional info ( nodeType:property )
@@ -648,7 +648,7 @@ qpid010ConnectionAuthIdentity_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionRemoteProcessName
  * qpid010ConnectionRemoteProcessName is subid 8 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.8
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.8
  * Description:
 Name of executable running as remote client
                      Additional info ( nodeType:property, optional:y )
@@ -753,7 +753,7 @@ qpid010ConnectionRemoteProcessName_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionRemotePid
  * qpid010ConnectionRemotePid is subid 9 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.9
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.9
  * Description:
 Process ID of remote client
                      Additional info ( nodeType:property, optional:y )
@@ -808,7 +808,7 @@ qpid010ConnectionRemotePid_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionRemoteParentPid
  * qpid010ConnectionRemoteParentPid is subid 10 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.10
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.10
  * Description:
 Parent Process ID of remote client
                      Additional info ( nodeType:property, optional:y )
@@ -864,7 +864,7 @@ qpid010ConnectionRemoteParentPid_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionShadow
  * qpid010ConnectionShadow is subid 11 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.11
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.11
  * Description:
 True for shadow connections
                      Additional info ( nodeType:property )
@@ -920,7 +920,7 @@ qpid010ConnectionShadow_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionSaslMechanism
  * qpid010ConnectionSaslMechanism is subid 12 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.12
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.12
  * Description:
 SASL mechanism
                      Additional info ( nodeType:property )
@@ -1023,7 +1023,7 @@ qpid010ConnectionSaslMechanism_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionSaslSsf
  * qpid010ConnectionSaslSsf is subid 13 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.13
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.13
  * Description:
 SASL security strength factor
                      Additional info ( nodeType:property )
@@ -1078,7 +1078,7 @@ qpid010ConnectionSaslSsf_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionClosing
  * qpid010ConnectionClosing is subid 14 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.14
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.14
  * Description:
 This client is closing by management request
                      Additional info ( nodeType:statistic )
@@ -1133,7 +1133,7 @@ qpid010ConnectionClosing_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionFramesFromClient
  * qpid010ConnectionFramesFromClient is subid 15 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.15
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.15
  * Description:
 Connection framesFromClient
                      Additional info ( nodeType:statistic )
@@ -1187,7 +1187,7 @@ qpid010ConnectionFramesFromClient_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionFramesToClient
  * qpid010ConnectionFramesToClient is subid 16 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.16
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.16
  * Description:
 Connection framesToClient
                      Additional info ( nodeType:statistic )
@@ -1241,7 +1241,7 @@ qpid010ConnectionFramesToClient_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionBytesFromClient
  * qpid010ConnectionBytesFromClient is subid 17 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.17
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.17
  * Description:
 Connection bytesFromClient
                      Additional info ( nodeType:statistic )
@@ -1295,7 +1295,7 @@ qpid010ConnectionBytesFromClient_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionBytesToClient
  * qpid010ConnectionBytesToClient is subid 18 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.18
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.18
  * Description:
 Connection bytesToClient
                      Additional info ( nodeType:statistic )
@@ -1349,7 +1349,7 @@ qpid010ConnectionBytesToClient_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionMsgsFromClient
  * qpid010ConnectionMsgsFromClient is subid 19 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.19
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.19
  * Description:
 Connection msgsFromClient
                      Additional info ( nodeType:statistic )
@@ -1403,7 +1403,7 @@ qpid010ConnectionMsgsFromClient_get(qpid010ConnectionTable_rowreq_ctx *
  * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionMsgsToClient
  * qpid010ConnectionMsgsToClient is subid 20 of qpid010ConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
- * OID: .1.3.6.1.4.1.18060,15.1.1.10.1.1.20
+ * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.20
  * Description:
 Connection msgsToClient
                      Additional info ( nodeType:statistic )

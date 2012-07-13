@@ -15,23 +15,23 @@ void
 init_Cluster(void)
 {
     const oid       qpid010ClusterBrokerRef_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 1 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 1 };
     const oid       qpid010ClusterClusterName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 2 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 2 };
     const oid       qpid010ClusterClusterID_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 3 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 3 };
     const oid       qpid010ClusterMemberID_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 4 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 4 };
     const oid       qpid010ClusterPublishedURL_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 5 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 5 };
     const oid       qpid010ClusterClusterSize_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 6 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 6 };
     const oid       qpid010ClusterStatus_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 7 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 7 };
     const oid       qpid010ClusterMembers_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 8 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 8 };
     const oid       qpid010ClusterMemberIDs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060, 15, 1, 2, 2, 9 };
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 9 };
 
     DEBUGMSGTL(("qpid010Cluster", "Initializing\n"));
 
