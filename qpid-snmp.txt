@@ -1,11 +1,18 @@
 MRG-MESSAGING-MIB DEFINITIONS ::= BEGIN
 
 --
--- Red Hat MRG Messaging mib for amqp broker
+-- Apache amqp messaging MIB for Red Hat MRG qpid broker
 --
--- This file is generated from management-schema.xml
+-- This file is generated from management-schema.xml found in the apache qpid packages
 -- using qpid-snmp-mibgen and qpid-snmp.txt.
--- Do not edit this mib file directly.
+-- Do not edit this mib file directly, instead generate it using
+-- qpid-snmp-mibgen \
+--	-s $QPID/specs/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/acl/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/cluster/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/ha/management-schema.xml \
+--  -m MRG-MESSAGING-MIB.txt 
+-- 
 --
 -- iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
 --                             |
@@ -13,7 +20,7 @@ MRG-MESSAGING-MIB DEFINITIONS ::= BEGIN
 --                             |
 --                    _________________________
 --                   |                         |
---               amqp(15)                 other apache OIDs (https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html)
+--               amqp(5672)            other apache OIDs (https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html)
 --                   |
 --           ___________________
 --          |                   |
@@ -44,18 +51,17 @@ IMPORTS
         TruthValue, TEXTUAL-CONVENTION
             FROM SNMPv2-TC;
 
-qpid010 MODULE-IDENTITY
+apacheAMQP MODULE-IDENTITY
         LAST-UPDATED "%{today}Z"
         ORGANIZATION "www.redhat.com"
         CONTACT-INFO
                 "e-mail: eallen@redhat.com"
         DESCRIPTION
-            "Root for Red Hat qpid messaging nodes"
+            "Root for apache amqp qpid messaging nodes"
         REVISION "%{today}Z"
             DESCRIPTION
                 "First release"
-        ::= { enterprises 18060 15 1 }
-
+        ::= { enterprises 18060 }
 --
 -- TEXTUAL-CONVENTIONS to define the qpid data types that don't
 -- map directly to mib types
@@ -113,15 +119,25 @@ Map ::= TEXTUAL-CONVENTION
         DESCRIPTION     "Textual representation of a map<string, string>"
         SYNTAX          OCTET STRING (SIZE (0..65535))
 
-List ::= TEXTUAL-CONVENTION
-        DISPLAY-HINT    "255a"
-        STATUS          current
-        DESCRIPTION     "Textual representation of a list"
-        SYNTAX          OCTET STRING (SIZE (0..255))
+--
+-- This object and the qpqcheAMQP object should probably be stored in a separate MIB
+-- and imported
+--
+amqp010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "Version 010 amqp"
+        ::= { apacheAMQP 5672 }
 
 --
 -- The root OID for this MIB
 -- _____________________________________________________________________
+qpid010 OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "RedHat qpid implementation"
+        ::= { amqp010 1 }
+
 qpid010BrokerClasses OBJECT-IDENTITY
         STATUS      current
         DESCRIPTION
