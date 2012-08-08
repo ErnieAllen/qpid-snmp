@@ -1,0 +1,4092 @@
+QPID-MESSAGING-MIB DEFINITIONS ::= BEGIN
+
+--
+-- Apache amqp messaging MIB for qpid broker
+--
+-- This file is generated from management-schema.xml found in the apache qpid packages
+-- using qpid-snmp-mibgen and qpid-snmp.txt.
+-- Do not edit this mib file directly, instead generate it using
+-- qpid-snmp-mibgen \
+--	-s $QPID/specs/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/acl/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/cluster/management-schema.xml \
+--  -s $QPID/cpp/src/qpid/ha/management-schema.xml \
+--  -m QPID-MESSAGING-MIB.txt 
+-- 
+--
+-- iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+--                             |
+--                       apache(18060)
+--                             |
+--                    _________|_______________
+--                   |                         |
+--               qpid(5672)            other apache OIDs 
+--                   |          (https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html)
+--                   |
+--           ________|_________________________________
+--          |                         |                |
+--      broker(1)                   plugins(2)        SNMP(3)
+--          |                         |                |
+--        __|______..._            ___|______         _|__________________________________
+--       |      |      |          |    |     |       |                  |                 |
+--	 system  memory  sessions    acl cluster ha   conformance(1)     events(2)     compliance(3) 
+--       |     |       |          |    |     |       |                  |
+--      _|_   ...     ...        _|_  ...   ...      |                  |
+--     |   |                    |   |                |                  |
+--    id  name...              ref policy...         |                  |
+--                                                   |                  |
+--                  _________________________________|______          __|_________
+--                 |          |            |        |       |        |            |
+--             required    optional    arguments  error  inform...  connect declareQueue ...
+
+IMPORTS
+        MODULE-IDENTITY, OBJECT-IDENTITY, OBJECT-TYPE, Counter64,
+                Counter32, Integer32, Unsigned32, TimeTicks, enterprises,
+                NOTIFICATION-TYPE
+            FROM SNMPv2-SMI
+        OBJECT-GROUP, NOTIFICATION-GROUP, MODULE-COMPLIANCE
+            FROM SNMPv2-CONF
+        TruthValue, TEXTUAL-CONVENTION
+            FROM SNMPv2-TC;
+
+-- _____________________________________________________________________
+--
+-- The root OID for this MIB
+-- _____________________________________________________________________
+apacheAMQP MODULE-IDENTITY
+        LAST-UPDATED "201208020000Z"
+        ORGANIZATION "qpid.apache.org"
+        CONTACT-INFO
+                "e-mail: dev@qpid.apache.org"
+        DESCRIPTION
+            "Root for apache amqp qpid messaging nodes. See https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html"
+        REVISION "201208020000Z"
+            DESCRIPTION
+                "First release"
+        ::= { enterprises 18060 }
+
+-- _____________________________________________________________________
+--
+-- Parent node for qpid  
+-- _____________________________________________________________________
+qpid OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "qpid implementation of amqp"
+        ::= { apacheAMQP 5672 }
+
+-- _____________________________________________________________________
+--
+-- Parent node for all qpid broker objects  
+-- _____________________________________________________________________
+broker OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "qpid implementation of amqp"
+        ::= { qpid 1 }
+
+-- _____________________________________________________________________
+--
+-- Parent node for optional broker plugin objects  
+-- _____________________________________________________________________
+brokerPlugins OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "optional broker plugins"
+        ::= { qpid 2 }
+
+-- _____________________________________________________________________
+--
+-- Parent node for snmp specific objects  
+-- _____________________________________________________________________
+qpidSNMP OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "snmp specific objects"
+        ::= { qpid 3 }
+
+-- _____________________________________________________________________
+--
+-- Define the OID for each top level messaging class
+-- ______________________________________________________________
+
+brokerSystem OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the System properties"
+        ::= { broker 1 }
+
+brokerMemory OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the Memory properties"
+        ::= { broker 2 }
+
+brokerBroker OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the Broker properties"
+        ::= { broker 3 }
+
+brokerAgent OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the Agent properties"
+        ::= { broker 4 }
+
+brokerVhosts OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Vhosts"
+        ::= { broker 5 }
+
+brokerQueues OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Queues"
+        ::= { broker 6 }
+
+brokerExchanges OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Exchanges"
+        ::= { broker 7 }
+
+brokerBindings OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Bindings"
+        ::= { broker 8 }
+
+brokerSubscriptions OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Subscriptions"
+        ::= { broker 9 }
+
+brokerConnections OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Connections"
+        ::= { broker 10 }
+
+brokerLinks OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Links"
+        ::= { broker 11 }
+
+brokerBridges OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Bridges"
+        ::= { broker 12 }
+
+brokerSessions OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the Sessions"
+        ::= { broker 13 }
+
+brokerManagementSetupState OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the ManagementSetupState properties"
+        ::= { broker 14 }
+
+brokerAcl OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the plugin Acl properties"
+        ::= { brokerPlugins 1 }
+
+brokerCluster OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the plugin Cluster properties"
+        ::= { brokerPlugins 2 }
+
+brokerHaBroker OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the plugin HaBroker properties"
+        ::= { brokerPlugins 3 }
+
+
+-- __________________________________________________________________
+-- TEXTUAL-CONVENTIONS to define the qpid data types that don't
+-- map directly to mib types
+-- Note: mib types must begin with a cap, qpid types are normally
+-- all lower case
+-- __________________________________________________________________
+Uuid ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "8a-4a-4a-4a-12a"
+        STATUS          current
+        DESCRIPTION     "The system generates uuids that look like dd29e3bc-6acd-4f9e-8672-5c9c0bf716a7"
+        SYNTAX          OCTET STRING (SIZE (36))
+
+Sstr ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "255a"
+        STATUS          current
+        DESCRIPTION     "Short string 0 - 255 characters"
+        SYNTAX          OCTET STRING (SIZE (0..255))
+
+Lstr ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "65535a"
+        STATUS          current
+        DESCRIPTION     "Long string"
+        SYNTAX          OCTET STRING (SIZE (0..65535))
+
+ObjId ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "255a"
+        STATUS          current
+        DESCRIPTION     "Internal field that references another qpid object."
+        SYNTAX          OCTET STRING (SIZE (0..255))
+
+Uint64 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "There is no mib 64 unsigned, so use Counter64"
+        SYNTAX          Counter64
+
+Uint16 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "There is no mib 16 unsigned, so use Integer"
+        SYNTAX          Integer32
+
+Hilo32 ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "d"
+        STATUS          current
+        DESCRIPTION     "Each Hilo32 data object is one of three data values:
+                        1. The current data value at the time of the get request.
+                        2. The highest value for the reporting interval
+                        3. The lowest value for the reporting interval"
+        SYNTAX          Integer32
+
+Map ::= TEXTUAL-CONVENTION
+        DISPLAY-HINT    "65535a"
+        STATUS          current
+        DESCRIPTION     "Textual representation of a map<string, string>"
+        SYNTAX          OCTET STRING (SIZE (0..65535))
+
+-- _____________________________________________________________________
+--
+-- Define the [table]/data for each of the top level classes
+-- ______________________________________________________________
+-- ______________________________________________________________
+-- System class properties and statistics
+-- ______________________________________________________________
+
+--
+-- The SystemSystemId data object
+--
+brokerSystemSystemId OBJECT-TYPE
+        SYNTAX      Uuid
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "System systemId
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerSystem 1 }
+
+--
+-- The SystemOsName data object
+--
+brokerSystemOsName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Operating System Name
+                     Additional info ( nodeType:property )"
+        ::= { brokerSystem 2 }
+
+--
+-- The SystemNodeName data object
+--
+brokerSystemNodeName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Node Name
+                     Additional info ( nodeType:property )"
+        ::= { brokerSystem 3 }
+
+--
+-- The SystemRelease data object
+--
+brokerSystemRelease OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "System release
+                     Additional info ( nodeType:property )"
+        ::= { brokerSystem 4 }
+
+--
+-- The SystemVersion data object
+--
+brokerSystemVersion OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "System version
+                     Additional info ( nodeType:property )"
+        ::= { brokerSystem 5 }
+
+--
+-- The SystemMachine data object
+--
+brokerSystemMachine OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "System machine
+                     Additional info ( nodeType:property )"
+        ::= { brokerSystem 6 }
+
+-- ______________________________________________________________
+-- Memory class properties and statistics
+-- ______________________________________________________________
+
+--
+-- The MemoryName data object
+--
+brokerMemoryName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Index for the broker at this agent
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerMemory 1 }
+
+--
+-- The MemoryMallocarena data object
+--
+brokerMemoryMallocarena OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total size of memory allocated with `sbrk' by `malloc', in bytes
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerMemory 2 }
+
+--
+-- The MemoryMallocordblks data object
+--
+brokerMemoryMallocordblks OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "The number of chunks not in use
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerMemory 3 }
+
+--
+-- The MemoryMallochblks data object
+--
+brokerMemoryMallochblks OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total number of chunks allocated with `mmap'
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerMemory 4 }
+
+--
+-- The MemoryMallochblkhd data object
+--
+brokerMemoryMallochblkhd OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total size of memory allocated with `mmap', in bytes
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerMemory 5 }
+
+--
+-- The MemoryMallocuordblks data object
+--
+brokerMemoryMallocuordblks OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total size of memory occupied by chunks handed out by `malloc'
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerMemory 6 }
+
+--
+-- The MemoryMallocfordblks data object
+--
+brokerMemoryMallocfordblks OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total size of memory occupied by free (not in use) chunks
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerMemory 7 }
+
+--
+-- The MemoryMallockeepcost data object
+--
+brokerMemoryMallockeepcost OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "The size of the top-most releasable chunk that normally borders the end of the heap
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerMemory 8 }
+
+-- ______________________________________________________________
+-- Broker class properties and statistics
+-- ______________________________________________________________
+
+--
+-- The BrokerName data object
+--
+brokerBrokerName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Index for the broker at this agent
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerBroker 1 }
+
+--
+-- The BrokerSystemRef data object
+--
+brokerBrokerSystemRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "System ID
+                     Additional info ( nodeType:property, references:System, parentRef:y )"
+        ::= { brokerBroker 2 }
+
+--
+-- The BrokerPort data object
+--
+brokerBrokerPort OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "TCP Port for AMQP Service
+                     Additional info ( nodeType:property )"
+        ::= { brokerBroker 3 }
+
+--
+-- The BrokerWorkerThreads data object
+--
+brokerBrokerWorkerThreads OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Thread pool size
+                     Additional info ( nodeType:property )"
+        ::= { brokerBroker 4 }
+
+--
+-- The BrokerConnBacklog data object
+--
+brokerBrokerConnBacklog OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection backlog limit for listening socket
+                     Additional info ( nodeType:property )"
+        ::= { brokerBroker 5 }
+
+--
+-- The BrokerStagingThreshold data object
+--
+brokerBrokerStagingThreshold OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker stages messages over this size to disk
+                     Additional info ( nodeType:property )"
+        ::= { brokerBroker 6 }
+
+--
+-- The BrokerMgmtPublish data object
+--
+brokerBrokerMgmtPublish OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker's management agent sends unsolicited data on the publish interval
+                     Additional info ( nodeType:property )"
+        ::= { brokerBroker 7 }
+
+--
+-- The BrokerMgmtPubInterval data object
+--
+brokerBrokerMgmtPubInterval OBJECT-TYPE
+        SYNTAX      Uint16
+        UNITS       "second"
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Interval for management broadcasts
+                     Additional info ( nodeType:property, min:1 )"
+        ::= { brokerBroker 8 }
+
+--
+-- The BrokerVersion data object
+--
+brokerBrokerVersion OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Running software version
+                     Additional info ( nodeType:property )"
+        ::= { brokerBroker 9 }
+
+--
+-- The BrokerDataDir data object
+--
+brokerBrokerDataDir OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent configuration storage location
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerBroker 10 }
+
+--
+-- The BrokerUptime data object
+--
+brokerBrokerUptime OBJECT-TYPE
+        SYNTAX      TimeTicks
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker uptime
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 11 }
+
+--
+-- The BrokerQueueCount data object
+--
+brokerBrokerQueueCount OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "queue"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of queues in the broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 12 }
+
+--
+-- The BrokerMsgTotalEnqueues data object
+--
+brokerBrokerMsgTotalEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 13 }
+
+--
+-- The BrokerMsgTotalDequeues data object
+--
+brokerBrokerMsgTotalDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 14 }
+
+--
+-- The BrokerByteTotalEnqueues data object
+--
+brokerBrokerByteTotalEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 15 }
+
+--
+-- The BrokerByteTotalDequeues data object
+--
+brokerBrokerByteTotalDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 16 }
+
+--
+-- The BrokerMsgDepth data object
+--
+brokerBrokerMsgDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of messages on queues in broker
+                     Additional info ( nodeType:statistic, assign:msgTotalEnqueues - msgTotalDequeues )"
+        ::= { brokerBroker 17 }
+
+--
+-- The BrokerByteDepth data object
+--
+brokerBrokerByteDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of bytes on queues in broker
+                     Additional info ( nodeType:statistic, assign:byteTotalEnqueues - byteTotalDequeues )"
+        ::= { brokerBroker 18 }
+
+--
+-- The BrokerMsgPersistEnqueues data object
+--
+brokerBrokerMsgPersistEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total persistent messages enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 19 }
+
+--
+-- The BrokerMsgPersistDequeues data object
+--
+brokerBrokerMsgPersistDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total persistent messages dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 20 }
+
+--
+-- The BrokerBytePersistEnqueues data object
+--
+brokerBrokerBytePersistEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total persistent bytes enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 21 }
+
+--
+-- The BrokerBytePersistDequeues data object
+--
+brokerBrokerBytePersistDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total persistent bytes dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 22 }
+
+--
+-- The BrokerMsgTxnEnqueues data object
+--
+brokerBrokerMsgTxnEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactional messages enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 23 }
+
+--
+-- The BrokerMsgTxnDequeues data object
+--
+brokerBrokerMsgTxnDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactional messages dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 24 }
+
+--
+-- The BrokerByteTxnEnqueues data object
+--
+brokerBrokerByteTxnEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactional bytes enqueued to broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 25 }
+
+--
+-- The BrokerByteTxnDequeues data object
+--
+brokerBrokerByteTxnDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactional bytes dequeued from broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 26 }
+
+--
+-- The BrokerMsgFtdEnqueues data object
+--
+brokerBrokerMsgFtdEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total message bodies released from memory and flowed-to-disk on broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 27 }
+
+--
+-- The BrokerMsgFtdDequeues data object
+--
+brokerBrokerMsgFtdDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total message bodies dequeued from the broker having been flowed-to-disk
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 28 }
+
+--
+-- The BrokerByteFtdEnqueues data object
+--
+brokerBrokerByteFtdEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes released from memory and flowed-to-disk on broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 29 }
+
+--
+-- The BrokerByteFtdDequeues data object
+--
+brokerBrokerByteFtdDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes dequeued from the broker having been flowed-to-disk
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 30 }
+
+--
+-- The BrokerMsgFtdDepth data object
+--
+brokerBrokerMsgFtdDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of messages flowed-to-disk
+                     Additional info ( nodeType:statistic, assign:msgFtdEnqueues - msgFtdDequeues )"
+        ::= { brokerBroker 31 }
+
+--
+-- The BrokerByteFtdDepth data object
+--
+brokerBrokerByteFtdDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of bytes flowed-to-disk
+                     Additional info ( nodeType:statistic, assign:byteFtdEnqueues - byteFtdDequeues )"
+        ::= { brokerBroker 32 }
+
+--
+-- The BrokerReleases data object
+--
+brokerBrokerReleases OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Acquired messages reinserted into the queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 33 }
+
+--
+-- The BrokerAcquires data object
+--
+brokerBrokerAcquires OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages acquired from the queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 34 }
+
+--
+-- The BrokerDiscardsNoRoute data object
+--
+brokerBrokerDiscardsNoRoute OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to no-route from exchange
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 35 }
+
+--
+-- The BrokerDiscardsTtl data object
+--
+brokerBrokerDiscardsTtl OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to TTL expiration
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 36 }
+
+--
+-- The BrokerDiscardsRing data object
+--
+brokerBrokerDiscardsRing OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to ring-queue overflow
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 37 }
+
+--
+-- The BrokerDiscardsLvq data object
+--
+brokerBrokerDiscardsLvq OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to LVQ insert
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 38 }
+
+--
+-- The BrokerDiscardsOverflow data object
+--
+brokerBrokerDiscardsOverflow OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to reject-policy overflow
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 39 }
+
+--
+-- The BrokerDiscardsSubscriber data object
+--
+brokerBrokerDiscardsSubscriber OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to subscriber reject
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 40 }
+
+--
+-- The BrokerDiscardsPurge data object
+--
+brokerBrokerDiscardsPurge OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to management purge
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 41 }
+
+--
+-- The BrokerReroutes data object
+--
+brokerBrokerReroutes OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages dequeued to management re-route
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 42 }
+
+--
+-- The BrokerAbandoned data object
+--
+brokerBrokerAbandoned OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages left in a deleted queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 43 }
+
+--
+-- The BrokerAbandonedViaAlt data object
+--
+brokerBrokerAbandonedViaAlt OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages routed to alternate exchange from a deleted queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBroker 44 }
+
+-- ______________________________________________________________
+-- Agent class properties and statistics
+-- ______________________________________________________________
+
+--
+-- The AgentConnectionRef data object
+--
+brokerAgentConnectionRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Agent connectionRef
+                     Additional info ( nodeType:property, references:Connection, index:y )"
+        ::= { brokerAgent 1 }
+
+--
+-- The AgentLabel data object
+--
+brokerAgentLabel OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Label for agent
+                     Additional info ( nodeType:property )"
+        ::= { brokerAgent 2 }
+
+--
+-- The AgentRegisteredTo data object
+--
+brokerAgentRegisteredTo OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker agent is registered to
+                     Additional info ( nodeType:property, references:Broker )"
+        ::= { brokerAgent 3 }
+
+--
+-- The AgentSystemId data object
+--
+brokerAgentSystemId OBJECT-TYPE
+        SYNTAX      Uuid
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Identifier of system where agent resides
+                     Additional info ( nodeType:property )"
+        ::= { brokerAgent 4 }
+
+--
+-- The AgentBrokerBank data object
+--
+brokerAgentBrokerBank OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Assigned object-id broker bank
+                     Additional info ( nodeType:property )"
+        ::= { brokerAgent 5 }
+
+--
+-- The AgentAgentBank data object
+--
+brokerAgentAgentBank OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Assigned object-id agent bank
+                     Additional info ( nodeType:property )"
+        ::= { brokerAgent 6 }
+
+-- ______________________________________________________________
+-- Vhost class table definition
+-- ______________________________________________________________
+brokerVhostTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerVhostEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of vhosts"
+        ::= { brokerVhosts 1 }
+--
+-- vhostEntry row definition
+--
+brokerVhostEntry OBJECT-TYPE
+        SYNTAX      BrokerVhostEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the vhost table"
+        INDEX { brokerVhostInternalIndex }
+        ::= { brokerVhostTable 1 }
+
+BrokerVhostEntry ::= SEQUENCE {
+    brokerVhostBrokerRef                ObjId,
+    brokerVhostName                     Sstr,
+    brokerVhostFederationTag            Sstr,
+    brokerVhostInternalIndex           Unsigned32
+}
+
+--
+-- brokerVhostBrokerRef data object
+--
+brokerVhostBrokerRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Vhost brokerRef
+                     Additional info ( nodeType:property, references:Broker, index:y, parentRef:y )"
+        ::= { brokerVhostEntry 1 }
+
+--
+-- brokerVhostName data object
+--
+brokerVhostName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Vhost name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerVhostEntry 2 }
+
+--
+-- brokerVhostFederationTag data object
+--
+brokerVhostFederationTag OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Vhost federationTag
+                     Additional info ( nodeType:property )"
+        ::= { brokerVhostEntry 3 }
+
+--
+-- vhostInternalIndex index column
+--
+brokerVhostInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for vhost table"
+        ::= { brokerVhostEntry 4 }
+-- ______________________________________________________________
+-- Queue class table definition
+-- ______________________________________________________________
+brokerQueueTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerQueueEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of queues"
+        ::= { brokerQueues 1 }
+--
+-- queueEntry row definition
+--
+brokerQueueEntry OBJECT-TYPE
+        SYNTAX      BrokerQueueEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the queue table"
+        INDEX { brokerQueueInternalIndex }
+        ::= { brokerQueueTable 1 }
+
+BrokerQueueEntry ::= SEQUENCE {
+    brokerQueueVhostRef                 ObjId,
+    brokerQueueName                     Sstr,
+    brokerQueueDurable                  TruthValue,
+    brokerQueueAutoDelete               TruthValue,
+    brokerQueueExclusive                TruthValue,
+    brokerQueueArguments                Map,
+    brokerQueueAltExchange              ObjId,
+    brokerQueueMsgTotalEnqueues         Counter64,
+    brokerQueueMsgTotalDequeues         Counter64,
+    brokerQueueMsgTxnEnqueues           Counter64,
+    brokerQueueMsgTxnDequeues           Counter64,
+    brokerQueueMsgPersistEnqueues       Counter64,
+    brokerQueueMsgPersistDequeues       Counter64,
+    brokerQueueMsgDepth                 Counter64,
+    brokerQueueByteDepth                Counter64,
+    brokerQueueByteTotalEnqueues        Counter64,
+    brokerQueueByteTotalDequeues        Counter64,
+    brokerQueueByteTxnEnqueues          Counter64,
+    brokerQueueByteTxnDequeues          Counter64,
+    brokerQueueBytePersistEnqueues      Counter64,
+    brokerQueueBytePersistDequeues      Counter64,
+    brokerQueueMsgFtdEnqueues           Counter64,
+    brokerQueueMsgFtdDequeues           Counter64,
+    brokerQueueByteFtdEnqueues          Counter64,
+    brokerQueueByteFtdDequeues          Counter64,
+    brokerQueueMsgFtdDepth              Counter64,
+    brokerQueueByteFtdDepth             Counter64,
+    brokerQueueReleases                 Counter64,
+    brokerQueueAcquires                 Counter64,
+    brokerQueueDiscardsTtl              Counter64,
+    brokerQueueDiscardsRing             Counter64,
+    brokerQueueDiscardsLvq              Counter64,
+    brokerQueueDiscardsOverflow         Counter64,
+    brokerQueueDiscardsSubscriber       Counter64,
+    brokerQueueDiscardsPurge            Counter64,
+    brokerQueueReroutes                 Counter64,
+    brokerQueueConsumerCount            Hilo32,
+    brokerQueueConsumerCountHi          Hilo32,
+    brokerQueueConsumerCountLow         Hilo32,
+    brokerQueueBindingCount             Hilo32,
+    brokerQueueBindingCountHi           Hilo32,
+    brokerQueueBindingCountLow          Hilo32,
+    brokerQueueUnackedMessages          Hilo32,
+    brokerQueueUnackedMessagesHi        Hilo32,
+    brokerQueueUnackedMessagesLow       Hilo32,
+    brokerQueueMessageLatency           TimeTicks,
+    brokerQueueFlowStopped              TruthValue,
+    brokerQueueFlowStoppedCount         Counter32,
+    brokerQueueInternalIndex           Unsigned32
+}
+
+--
+-- brokerQueueVhostRef data object
+--
+brokerQueueVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { brokerQueueEntry 1 }
+
+--
+-- brokerQueueName data object
+--
+brokerQueueName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerQueueEntry 2 }
+
+--
+-- brokerQueueDurable data object
+--
+brokerQueueDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue durable
+                     Additional info ( nodeType:property )"
+        ::= { brokerQueueEntry 3 }
+
+--
+-- brokerQueueAutoDelete data object
+--
+brokerQueueAutoDelete OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue autoDelete
+                     Additional info ( nodeType:property )"
+        ::= { brokerQueueEntry 4 }
+
+--
+-- brokerQueueExclusive data object
+--
+brokerQueueExclusive OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Queue exclusive
+                     Additional info ( nodeType:property )"
+        ::= { brokerQueueEntry 5 }
+
+--
+-- brokerQueueArguments data object
+--
+brokerQueueArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Arguments supplied in queue.declare
+                     Additional info ( nodeType:property )"
+        ::= { brokerQueueEntry 6 }
+
+--
+-- brokerQueueAltExchange data object
+--
+brokerQueueAltExchange OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Queue altExchange
+                     Additional info ( nodeType:property, references:Exchange, optional:y )"
+        ::= { brokerQueueEntry 7 }
+
+--
+-- brokerQueueMsgTotalEnqueues data object
+--
+brokerQueueMsgTotalEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 8 }
+
+--
+-- brokerQueueMsgTotalDequeues data object
+--
+brokerQueueMsgTotalDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 9 }
+
+--
+-- brokerQueueMsgTxnEnqueues data object
+--
+brokerQueueMsgTxnEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Transactional messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 10 }
+
+--
+-- brokerQueueMsgTxnDequeues data object
+--
+brokerQueueMsgTxnDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Transactional messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 11 }
+
+--
+-- brokerQueueMsgPersistEnqueues data object
+--
+brokerQueueMsgPersistEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 12 }
+
+--
+-- brokerQueueMsgPersistDequeues data object
+--
+brokerQueueMsgPersistDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 13 }
+
+--
+-- brokerQueueMsgDepth data object
+--
+brokerQueueMsgDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current size of queue in messages
+                     Additional info ( nodeType:statistic, assign:msgTotalEnqueues - msgTotalDequeues )"
+        ::= { brokerQueueEntry 14 }
+
+--
+-- brokerQueueByteDepth data object
+--
+brokerQueueByteDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current size of queue in bytes
+                     Additional info ( nodeType:statistic, assign:byteTotalEnqueues - byteTotalDequeues )"
+        ::= { brokerQueueEntry 15 }
+
+--
+-- brokerQueueByteTotalEnqueues data object
+--
+brokerQueueByteTotalEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 16 }
+
+--
+-- brokerQueueByteTotalDequeues data object
+--
+brokerQueueByteTotalDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 17 }
+
+--
+-- brokerQueueByteTxnEnqueues data object
+--
+brokerQueueByteTxnEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Transactional messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 18 }
+
+--
+-- brokerQueueByteTxnDequeues data object
+--
+brokerQueueByteTxnDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Transactional messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 19 }
+
+--
+-- brokerQueueBytePersistEnqueues data object
+--
+brokerQueueBytePersistEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent messages enqueued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 20 }
+
+--
+-- brokerQueueBytePersistDequeues data object
+--
+brokerQueueBytePersistDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Persistent messages dequeued
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 21 }
+
+--
+-- brokerQueueMsgFtdEnqueues data object
+--
+brokerQueueMsgFtdEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total message bodies released from memory and flowed-to-disk on broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 22 }
+
+--
+-- brokerQueueMsgFtdDequeues data object
+--
+brokerQueueMsgFtdDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total message bodies dequeued from the broker having been flowed-to-disk
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 23 }
+
+--
+-- brokerQueueByteFtdEnqueues data object
+--
+brokerQueueByteFtdEnqueues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes released from memory and flowed-to-disk on broker
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 24 }
+
+--
+-- brokerQueueByteFtdDequeues data object
+--
+brokerQueueByteFtdDequeues OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes dequeued from the broker having been flowed-to-disk
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 25 }
+
+--
+-- brokerQueueMsgFtdDepth data object
+--
+brokerQueueMsgFtdDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of messages flowed-to-disk
+                     Additional info ( nodeType:statistic, assign:msgFtdEnqueues - msgFtdDequeues )"
+        ::= { brokerQueueEntry 26 }
+
+--
+-- brokerQueueByteFtdDepth data object
+--
+brokerQueueByteFtdDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "octet"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current number of bytes flowed-to-disk
+                     Additional info ( nodeType:statistic, assign:byteFtdEnqueues - byteFtdDequeues )"
+        ::= { brokerQueueEntry 27 }
+
+--
+-- brokerQueueReleases data object
+--
+brokerQueueReleases OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Acquired messages reinserted into the queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 28 }
+
+--
+-- brokerQueueAcquires data object
+--
+brokerQueueAcquires OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages acquired from the queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 29 }
+
+--
+-- brokerQueueDiscardsTtl data object
+--
+brokerQueueDiscardsTtl OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to TTL expiration
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 30 }
+
+--
+-- brokerQueueDiscardsRing data object
+--
+brokerQueueDiscardsRing OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to ring-queue overflow
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 31 }
+
+--
+-- brokerQueueDiscardsLvq data object
+--
+brokerQueueDiscardsLvq OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to LVQ insert
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 32 }
+
+--
+-- brokerQueueDiscardsOverflow data object
+--
+brokerQueueDiscardsOverflow OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to reject-policy overflow
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 33 }
+
+--
+-- brokerQueueDiscardsSubscriber data object
+--
+brokerQueueDiscardsSubscriber OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to subscriber reject
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 34 }
+
+--
+-- brokerQueueDiscardsPurge data object
+--
+brokerQueueDiscardsPurge OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages discarded due to management purge
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 35 }
+
+--
+-- brokerQueueReroutes data object
+--
+brokerQueueReroutes OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages dequeued to management re-route
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 36 }
+
+--
+-- brokerQueueConsumerCount data object
+--
+brokerQueueConsumerCount OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "consumer"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current consumers on queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 37 }
+
+--
+-- brokerQueueConsumerCountHi data object
+--
+brokerQueueConsumerCountHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "consumer"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current consumers on queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 38 }
+
+--
+-- brokerQueueConsumerCountLow data object
+--
+brokerQueueConsumerCountLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "consumer"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current consumers on queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 39 }
+
+--
+-- brokerQueueBindingCount data object
+--
+brokerQueueBindingCount OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "binding"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 40 }
+
+--
+-- brokerQueueBindingCountHi data object
+--
+brokerQueueBindingCountHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "binding"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 41 }
+
+--
+-- brokerQueueBindingCountLow data object
+--
+brokerQueueBindingCountLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "binding"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 42 }
+
+--
+-- brokerQueueUnackedMessages data object
+--
+brokerQueueUnackedMessages OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages consumed but not yet acked
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 43 }
+
+--
+-- brokerQueueUnackedMessagesHi data object
+--
+brokerQueueUnackedMessagesHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages consumed but not yet acked
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 44 }
+
+--
+-- brokerQueueUnackedMessagesLow data object
+--
+brokerQueueUnackedMessagesLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages consumed but not yet acked
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 45 }
+
+--
+-- brokerQueueMessageLatency data object
+--
+brokerQueueMessageLatency OBJECT-TYPE
+        SYNTAX      TimeTicks
+        UNITS       "nanosecond"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Broker latency through this queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 46 }
+
+--
+-- brokerQueueFlowStopped data object
+--
+brokerQueueFlowStopped OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Flow control active.
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 47 }
+
+--
+-- brokerQueueFlowStoppedCount data object
+--
+brokerQueueFlowStoppedCount OBJECT-TYPE
+        SYNTAX      Counter32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of times flow control was activated for this queue
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerQueueEntry 48 }
+
+--
+-- queueInternalIndex index column
+--
+brokerQueueInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for queue table"
+        ::= { brokerQueueEntry 49 }
+-- ______________________________________________________________
+-- Exchange class table definition
+-- ______________________________________________________________
+brokerExchangeTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerExchangeEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of exchanges"
+        ::= { brokerExchanges 1 }
+--
+-- exchangeEntry row definition
+--
+brokerExchangeEntry OBJECT-TYPE
+        SYNTAX      BrokerExchangeEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the exchange table"
+        INDEX { brokerExchangeInternalIndex }
+        ::= { brokerExchangeTable 1 }
+
+BrokerExchangeEntry ::= SEQUENCE {
+    brokerExchangeVhostRef              ObjId,
+    brokerExchangeName                  Sstr,
+    brokerExchangeType                  Sstr,
+    brokerExchangeDurable               TruthValue,
+    brokerExchangeAutoDelete            TruthValue,
+    brokerExchangeAltExchange           ObjId,
+    brokerExchangeArguments             Map,
+    brokerExchangeProducerCount         Hilo32,
+    brokerExchangeProducerCountHi       Hilo32,
+    brokerExchangeProducerCountLow      Hilo32,
+    brokerExchangeBindingCount          Hilo32,
+    brokerExchangeBindingCountHi        Hilo32,
+    brokerExchangeBindingCountLow       Hilo32,
+    brokerExchangeMsgReceives           Counter64,
+    brokerExchangeMsgDrops              Counter64,
+    brokerExchangeMsgRoutes             Counter64,
+    brokerExchangeByteReceives          Counter64,
+    brokerExchangeByteDrops             Counter64,
+    brokerExchangeByteRoutes            Counter64,
+    brokerExchangeInternalIndex           Unsigned32
+}
+
+--
+-- brokerExchangeVhostRef data object
+--
+brokerExchangeVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Exchange vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { brokerExchangeEntry 1 }
+
+--
+-- brokerExchangeName data object
+--
+brokerExchangeName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Exchange name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerExchangeEntry 2 }
+
+--
+-- brokerExchangeType data object
+--
+brokerExchangeType OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Exchange type
+                     Additional info ( nodeType:property )"
+        ::= { brokerExchangeEntry 3 }
+
+--
+-- brokerExchangeDurable data object
+--
+brokerExchangeDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Exchange durable
+                     Additional info ( nodeType:property )"
+        ::= { brokerExchangeEntry 4 }
+
+--
+-- brokerExchangeAutoDelete data object
+--
+brokerExchangeAutoDelete OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Exchange autoDelete
+                     Additional info ( nodeType:property )"
+        ::= { brokerExchangeEntry 5 }
+
+--
+-- brokerExchangeAltExchange data object
+--
+brokerExchangeAltExchange OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Exchange altExchange
+                     Additional info ( nodeType:property, references:Exchange, optional:y )"
+        ::= { brokerExchangeEntry 6 }
+
+--
+-- brokerExchangeArguments data object
+--
+brokerExchangeArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Arguments supplied in exchange.declare
+                     Additional info ( nodeType:property )"
+        ::= { brokerExchangeEntry 7 }
+
+--
+-- brokerExchangeProducerCount data object
+--
+brokerExchangeProducerCount OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current producers on exchange
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 8 }
+
+--
+-- brokerExchangeProducerCountHi data object
+--
+brokerExchangeProducerCountHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current producers on exchange
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 9 }
+
+--
+-- brokerExchangeProducerCountLow data object
+--
+brokerExchangeProducerCountLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current producers on exchange
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 10 }
+
+--
+-- brokerExchangeBindingCount data object
+--
+brokerExchangeBindingCount OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 11 }
+
+--
+-- brokerExchangeBindingCountHi data object
+--
+brokerExchangeBindingCountHi OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 12 }
+
+--
+-- brokerExchangeBindingCountLow data object
+--
+brokerExchangeBindingCountLow OBJECT-TYPE
+        SYNTAX      Hilo32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current bindings
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 13 }
+
+--
+-- brokerExchangeMsgReceives data object
+--
+brokerExchangeMsgReceives OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages received
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 14 }
+
+--
+-- brokerExchangeMsgDrops data object
+--
+brokerExchangeMsgDrops OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total messages dropped (no matching key)
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 15 }
+
+--
+-- brokerExchangeMsgRoutes data object
+--
+brokerExchangeMsgRoutes OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total routed messages
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 16 }
+
+--
+-- brokerExchangeByteReceives data object
+--
+brokerExchangeByteReceives OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes received
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 17 }
+
+--
+-- brokerExchangeByteDrops data object
+--
+brokerExchangeByteDrops OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total bytes dropped (no matching key)
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 18 }
+
+--
+-- brokerExchangeByteRoutes data object
+--
+brokerExchangeByteRoutes OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total routed bytes
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerExchangeEntry 19 }
+
+--
+-- exchangeInternalIndex index column
+--
+brokerExchangeInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for exchange table"
+        ::= { brokerExchangeEntry 20 }
+-- ______________________________________________________________
+-- Binding class table definition
+-- ______________________________________________________________
+brokerBindingTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerBindingEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of bindings"
+        ::= { brokerBindings 1 }
+--
+-- bindingEntry row definition
+--
+brokerBindingEntry OBJECT-TYPE
+        SYNTAX      BrokerBindingEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the binding table"
+        INDEX { brokerBindingInternalIndex }
+        ::= { brokerBindingTable 1 }
+
+BrokerBindingEntry ::= SEQUENCE {
+    brokerBindingExchangeRef            ObjId,
+    brokerBindingQueueRef               ObjId,
+    brokerBindingBindingKey             Lstr,
+    brokerBindingArguments              Map,
+    brokerBindingOrigin                 Sstr,
+    brokerBindingMsgMatched             Counter64,
+    brokerBindingInternalIndex           Unsigned32
+}
+
+--
+-- brokerBindingExchangeRef data object
+--
+brokerBindingExchangeRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Binding exchangeRef
+                     Additional info ( nodeType:property, references:Exchange, index:y, parentRef:y )"
+        ::= { brokerBindingEntry 1 }
+
+--
+-- brokerBindingQueueRef data object
+--
+brokerBindingQueueRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Binding queueRef
+                     Additional info ( nodeType:property, references:Queue, index:y )"
+        ::= { brokerBindingEntry 2 }
+
+--
+-- brokerBindingBindingKey data object
+--
+brokerBindingBindingKey OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Binding bindingKey
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerBindingEntry 3 }
+
+--
+-- brokerBindingArguments data object
+--
+brokerBindingArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Binding arguments
+                     Additional info ( nodeType:property )"
+        ::= { brokerBindingEntry 4 }
+
+--
+-- brokerBindingOrigin data object
+--
+brokerBindingOrigin OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Binding origin
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerBindingEntry 5 }
+
+--
+-- brokerBindingMsgMatched data object
+--
+brokerBindingMsgMatched OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Binding msgMatched
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerBindingEntry 6 }
+
+--
+-- bindingInternalIndex index column
+--
+brokerBindingInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for binding table"
+        ::= { brokerBindingEntry 7 }
+-- ______________________________________________________________
+-- Subscription class table definition
+-- ______________________________________________________________
+brokerSubscriptionTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerSubscriptionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of subscriptions"
+        ::= { brokerSubscriptions 1 }
+--
+-- subscriptionEntry row definition
+--
+brokerSubscriptionEntry OBJECT-TYPE
+        SYNTAX      BrokerSubscriptionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the subscription table"
+        INDEX { brokerSubscriptionInternalIndex }
+        ::= { brokerSubscriptionTable 1 }
+
+BrokerSubscriptionEntry ::= SEQUENCE {
+    brokerSubscriptionSessionRef        ObjId,
+    brokerSubscriptionQueueRef          ObjId,
+    brokerSubscriptionName              Sstr,
+    brokerSubscriptionBrowsing          TruthValue,
+    brokerSubscriptionAcknowledged      TruthValue,
+    brokerSubscriptionExclusive         TruthValue,
+    brokerSubscriptionCreditMode        Sstr,
+    brokerSubscriptionArguments         Map,
+    brokerSubscriptionDelivered         Counter64,
+    brokerSubscriptionInternalIndex           Unsigned32
+}
+
+--
+-- brokerSubscriptionSessionRef data object
+--
+brokerSubscriptionSessionRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription sessionRef
+                     Additional info ( nodeType:property, references:Session, index:y, parentRef:y )"
+        ::= { brokerSubscriptionEntry 1 }
+
+--
+-- brokerSubscriptionQueueRef data object
+--
+brokerSubscriptionQueueRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription queueRef
+                     Additional info ( nodeType:property, references:Queue, index:y )"
+        ::= { brokerSubscriptionEntry 2 }
+
+--
+-- brokerSubscriptionName data object
+--
+brokerSubscriptionName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerSubscriptionEntry 3 }
+
+--
+-- brokerSubscriptionBrowsing data object
+--
+brokerSubscriptionBrowsing OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription browsing
+                     Additional info ( nodeType:property )"
+        ::= { brokerSubscriptionEntry 4 }
+
+--
+-- brokerSubscriptionAcknowledged data object
+--
+brokerSubscriptionAcknowledged OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription acknowledged
+                     Additional info ( nodeType:property )"
+        ::= { brokerSubscriptionEntry 5 }
+
+--
+-- brokerSubscriptionExclusive data object
+--
+brokerSubscriptionExclusive OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription exclusive
+                     Additional info ( nodeType:property )"
+        ::= { brokerSubscriptionEntry 6 }
+
+--
+-- brokerSubscriptionCreditMode data object
+--
+brokerSubscriptionCreditMode OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "WINDOW or CREDIT
+                     Additional info ( nodeType:property )"
+        ::= { brokerSubscriptionEntry 7 }
+
+--
+-- brokerSubscriptionArguments data object
+--
+brokerSubscriptionArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Subscription arguments
+                     Additional info ( nodeType:property )"
+        ::= { brokerSubscriptionEntry 8 }
+
+--
+-- brokerSubscriptionDelivered data object
+--
+brokerSubscriptionDelivered OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Messages delivered
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerSubscriptionEntry 9 }
+
+--
+-- subscriptionInternalIndex index column
+--
+brokerSubscriptionInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for subscription table"
+        ::= { brokerSubscriptionEntry 10 }
+-- ______________________________________________________________
+-- Connection class table definition
+-- ______________________________________________________________
+brokerConnectionTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerConnectionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of connections"
+        ::= { brokerConnections 1 }
+--
+-- connectionEntry row definition
+--
+brokerConnectionEntry OBJECT-TYPE
+        SYNTAX      BrokerConnectionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the connection table"
+        INDEX { brokerConnectionInternalIndex }
+        ::= { brokerConnectionTable 1 }
+
+BrokerConnectionEntry ::= SEQUENCE {
+    brokerConnectionVhostRef            ObjId,
+    brokerConnectionAddress             Sstr,
+    brokerConnectionIncoming            TruthValue,
+    brokerConnectionSystemConnection    TruthValue,
+    brokerConnectionUserProxyAuth       TruthValue,
+    brokerConnectionFederationLink      TruthValue,
+    brokerConnectionAuthIdentity        Sstr,
+    brokerConnectionRemoteProcessName   Lstr,
+    brokerConnectionRemotePid           Unsigned32,
+    brokerConnectionRemoteParentPid     Unsigned32,
+    brokerConnectionShadow              TruthValue,
+    brokerConnectionSaslMechanism       Sstr,
+    brokerConnectionSaslSsf             Uint16,
+    brokerConnectionClosing             TruthValue,
+    brokerConnectionFramesFromClient    Counter64,
+    brokerConnectionFramesToClient      Counter64,
+    brokerConnectionBytesFromClient     Counter64,
+    brokerConnectionBytesToClient       Counter64,
+    brokerConnectionMsgsFromClient      Counter64,
+    brokerConnectionMsgsToClient        Counter64,
+    brokerConnectionInternalIndex           Unsigned32
+}
+
+--
+-- brokerConnectionVhostRef data object
+--
+brokerConnectionVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Connection vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { brokerConnectionEntry 1 }
+
+--
+-- brokerConnectionAddress data object
+--
+brokerConnectionAddress OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Connection address
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerConnectionEntry 2 }
+
+--
+-- brokerConnectionIncoming data object
+--
+brokerConnectionIncoming OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Connection incoming
+                     Additional info ( nodeType:property )"
+        ::= { brokerConnectionEntry 3 }
+
+--
+-- brokerConnectionSystemConnection data object
+--
+brokerConnectionSystemConnection OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Infrastructure/ Inter-system connection (Cluster, Federation, ...)
+                     Additional info ( nodeType:property )"
+        ::= { brokerConnectionEntry 4 }
+
+--
+-- brokerConnectionUserProxyAuth data object
+--
+brokerConnectionUserProxyAuth OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Authorization to proxy for users not on broker
+                     Additional info ( nodeType:property )"
+        ::= { brokerConnectionEntry 5 }
+
+--
+-- brokerConnectionFederationLink data object
+--
+brokerConnectionFederationLink OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Is this a federation link
+                     Additional info ( nodeType:property )"
+        ::= { brokerConnectionEntry 6 }
+
+--
+-- brokerConnectionAuthIdentity data object
+--
+brokerConnectionAuthIdentity OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "authId of connection if authentication enabled
+                     Additional info ( nodeType:property )"
+        ::= { brokerConnectionEntry 7 }
+
+--
+-- brokerConnectionRemoteProcessName data object
+--
+brokerConnectionRemoteProcessName OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of executable running as remote client
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerConnectionEntry 8 }
+
+--
+-- brokerConnectionRemotePid data object
+--
+brokerConnectionRemotePid OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Process ID of remote client
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerConnectionEntry 9 }
+
+--
+-- brokerConnectionRemoteParentPid data object
+--
+brokerConnectionRemoteParentPid OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Parent Process ID of remote client
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerConnectionEntry 10 }
+
+--
+-- brokerConnectionShadow data object
+--
+brokerConnectionShadow OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "True for shadow connections
+                     Additional info ( nodeType:property )"
+        ::= { brokerConnectionEntry 11 }
+
+--
+-- brokerConnectionSaslMechanism data object
+--
+brokerConnectionSaslMechanism OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "SASL mechanism
+                     Additional info ( nodeType:property )"
+        ::= { brokerConnectionEntry 12 }
+
+--
+-- brokerConnectionSaslSsf data object
+--
+brokerConnectionSaslSsf OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "SASL security strength factor
+                     Additional info ( nodeType:property )"
+        ::= { brokerConnectionEntry 13 }
+
+--
+-- brokerConnectionClosing data object
+--
+brokerConnectionClosing OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "This client is closing by management request
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerConnectionEntry 14 }
+
+--
+-- brokerConnectionFramesFromClient data object
+--
+brokerConnectionFramesFromClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection framesFromClient
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerConnectionEntry 15 }
+
+--
+-- brokerConnectionFramesToClient data object
+--
+brokerConnectionFramesToClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection framesToClient
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerConnectionEntry 16 }
+
+--
+-- brokerConnectionBytesFromClient data object
+--
+brokerConnectionBytesFromClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection bytesFromClient
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerConnectionEntry 17 }
+
+--
+-- brokerConnectionBytesToClient data object
+--
+brokerConnectionBytesToClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection bytesToClient
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerConnectionEntry 18 }
+
+--
+-- brokerConnectionMsgsFromClient data object
+--
+brokerConnectionMsgsFromClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection msgsFromClient
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerConnectionEntry 19 }
+
+--
+-- brokerConnectionMsgsToClient data object
+--
+brokerConnectionMsgsToClient OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Connection msgsToClient
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerConnectionEntry 20 }
+
+--
+-- connectionInternalIndex index column
+--
+brokerConnectionInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for connection table"
+        ::= { brokerConnectionEntry 21 }
+-- ______________________________________________________________
+-- Link class table definition
+-- ______________________________________________________________
+brokerLinkTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerLinkEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of links"
+        ::= { brokerLinks 1 }
+--
+-- linkEntry row definition
+--
+brokerLinkEntry OBJECT-TYPE
+        SYNTAX      BrokerLinkEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the link table"
+        INDEX { brokerLinkInternalIndex }
+        ::= { brokerLinkTable 1 }
+
+BrokerLinkEntry ::= SEQUENCE {
+    brokerLinkVhostRef                  ObjId,
+    brokerLinkName                      Sstr,
+    brokerLinkHost                      Sstr,
+    brokerLinkPort                      Uint16,
+    brokerLinkTransport                 Sstr,
+    brokerLinkDurable                   TruthValue,
+    brokerLinkConnectionRef             ObjId,
+    brokerLinkState                     Sstr,
+    brokerLinkLastError                 Lstr,
+    brokerLinkInternalIndex           Unsigned32
+}
+
+--
+-- brokerLinkVhostRef data object
+--
+brokerLinkVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Link vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { brokerLinkEntry 1 }
+
+--
+-- brokerLinkName data object
+--
+brokerLinkName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Link name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerLinkEntry 2 }
+
+--
+-- brokerLinkHost data object
+--
+brokerLinkHost OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Link host
+                     Additional info ( nodeType:property )"
+        ::= { brokerLinkEntry 3 }
+
+--
+-- brokerLinkPort data object
+--
+brokerLinkPort OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Link port
+                     Additional info ( nodeType:property )"
+        ::= { brokerLinkEntry 4 }
+
+--
+-- brokerLinkTransport data object
+--
+brokerLinkTransport OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Link transport
+                     Additional info ( nodeType:property )"
+        ::= { brokerLinkEntry 5 }
+
+--
+-- brokerLinkDurable data object
+--
+brokerLinkDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Link durable
+                     Additional info ( nodeType:property )"
+        ::= { brokerLinkEntry 6 }
+
+--
+-- brokerLinkConnectionRef data object
+--
+brokerLinkConnectionRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Link connectionRef
+                     Additional info ( nodeType:property, references:Connection )"
+        ::= { brokerLinkEntry 7 }
+
+--
+-- brokerLinkState data object
+--
+brokerLinkState OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Operational state of the link
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerLinkEntry 8 }
+
+--
+-- brokerLinkLastError data object
+--
+brokerLinkLastError OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Reason link is not operational
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerLinkEntry 9 }
+
+--
+-- linkInternalIndex index column
+--
+brokerLinkInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for link table"
+        ::= { brokerLinkEntry 10 }
+-- ______________________________________________________________
+-- Bridge class table definition
+-- ______________________________________________________________
+brokerBridgeTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerBridgeEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of bridges"
+        ::= { brokerBridges 1 }
+--
+-- bridgeEntry row definition
+--
+brokerBridgeEntry OBJECT-TYPE
+        SYNTAX      BrokerBridgeEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the bridge table"
+        INDEX { brokerBridgeInternalIndex }
+        ::= { brokerBridgeTable 1 }
+
+BrokerBridgeEntry ::= SEQUENCE {
+    brokerBridgeLinkRef                 ObjId,
+    brokerBridgeName                    Sstr,
+    brokerBridgeChannelId               Uint16,
+    brokerBridgeDurable                 TruthValue,
+    brokerBridgeSrc                     Sstr,
+    brokerBridgeDest                    Sstr,
+    brokerBridgeKey                     Lstr,
+    brokerBridgeSrcIsQueue              TruthValue,
+    brokerBridgeSrcIsLocal              TruthValue,
+    brokerBridgeTag                     Sstr,
+    brokerBridgeExcludes                Sstr,
+    brokerBridgeDynamic                 TruthValue,
+    brokerBridgeSync                    Uint16,
+    brokerBridgeInternalIndex           Unsigned32
+}
+
+--
+-- brokerBridgeLinkRef data object
+--
+brokerBridgeLinkRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge linkRef
+                     Additional info ( nodeType:property, references:Link, index:y, parentRef:y )"
+        ::= { brokerBridgeEntry 1 }
+
+--
+-- brokerBridgeName data object
+--
+brokerBridgeName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerBridgeEntry 2 }
+
+--
+-- brokerBridgeChannelId data object
+--
+brokerBridgeChannelId OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Bridge channelId
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 3 }
+
+--
+-- brokerBridgeDurable data object
+--
+brokerBridgeDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge durable
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 4 }
+
+--
+-- brokerBridgeSrc data object
+--
+brokerBridgeSrc OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge src
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 5 }
+
+--
+-- brokerBridgeDest data object
+--
+brokerBridgeDest OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge dest
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 6 }
+
+--
+-- brokerBridgeKey data object
+--
+brokerBridgeKey OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge key
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 7 }
+
+--
+-- brokerBridgeSrcIsQueue data object
+--
+brokerBridgeSrcIsQueue OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge srcIsQueue
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 8 }
+
+--
+-- brokerBridgeSrcIsLocal data object
+--
+brokerBridgeSrcIsLocal OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge srcIsLocal
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 9 }
+
+--
+-- brokerBridgeTag data object
+--
+brokerBridgeTag OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge tag
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 10 }
+
+--
+-- brokerBridgeExcludes data object
+--
+brokerBridgeExcludes OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge excludes
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 11 }
+
+--
+-- brokerBridgeDynamic data object
+--
+brokerBridgeDynamic OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge dynamic
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 12 }
+
+--
+-- brokerBridgeSync data object
+--
+brokerBridgeSync OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Bridge sync
+                     Additional info ( nodeType:property )"
+        ::= { brokerBridgeEntry 13 }
+
+--
+-- bridgeInternalIndex index column
+--
+brokerBridgeInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for bridge table"
+        ::= { brokerBridgeEntry 14 }
+-- ______________________________________________________________
+-- Session class table definition
+-- ______________________________________________________________
+brokerSessionTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF BrokerSessionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "table of sessions"
+        ::= { brokerSessions 1 }
+--
+-- sessionEntry row definition
+--
+brokerSessionEntry OBJECT-TYPE
+        SYNTAX      BrokerSessionEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "A row in the session table"
+        INDEX { brokerSessionInternalIndex }
+        ::= { brokerSessionTable 1 }
+
+BrokerSessionEntry ::= SEQUENCE {
+    brokerSessionVhostRef               ObjId,
+    brokerSessionName                   Sstr,
+    brokerSessionChannelId              Uint16,
+    brokerSessionConnectionRef          ObjId,
+    brokerSessionDetachedLifespan       Unsigned32,
+    brokerSessionAttached               TruthValue,
+    brokerSessionExpireTime             TimeTicks,
+    brokerSessionMaxClientRate          Unsigned32,
+    brokerSessionUnackedMessages        Uint64,
+    brokerSessionTxnStarts              Counter64,
+    brokerSessionTxnCommits             Counter64,
+    brokerSessionTxnRejects             Counter64,
+    brokerSessionTxnCount               Counter32,
+    brokerSessionClientCredit           Counter32,
+    brokerSessionInternalIndex           Unsigned32
+}
+
+--
+-- brokerSessionVhostRef data object
+--
+brokerSessionVhostRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Session vhostRef
+                     Additional info ( nodeType:property, references:Vhost, index:y, parentRef:y )"
+        ::= { brokerSessionEntry 1 }
+
+--
+-- brokerSessionName data object
+--
+brokerSessionName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Session name
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerSessionEntry 2 }
+
+--
+-- brokerSessionChannelId data object
+--
+brokerSessionChannelId OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session channelId
+                     Additional info ( nodeType:property )"
+        ::= { brokerSessionEntry 3 }
+
+--
+-- brokerSessionConnectionRef data object
+--
+brokerSessionConnectionRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session connectionRef
+                     Additional info ( nodeType:property, references:Connection )"
+        ::= { brokerSessionEntry 4 }
+
+--
+-- brokerSessionDetachedLifespan data object
+--
+brokerSessionDetachedLifespan OBJECT-TYPE
+        SYNTAX      Unsigned32
+        UNITS       "second"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session detachedLifespan
+                     Additional info ( nodeType:property )"
+        ::= { brokerSessionEntry 5 }
+
+--
+-- brokerSessionAttached data object
+--
+brokerSessionAttached OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session attached
+                     Additional info ( nodeType:property )"
+        ::= { brokerSessionEntry 6 }
+
+--
+-- brokerSessionExpireTime data object
+--
+brokerSessionExpireTime OBJECT-TYPE
+        SYNTAX      TimeTicks
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session expireTime
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerSessionEntry 7 }
+
+--
+-- brokerSessionMaxClientRate data object
+--
+brokerSessionMaxClientRate OBJECT-TYPE
+        SYNTAX      Unsigned32
+        UNITS       "msgs/sec"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Session maxClientRate
+                     Additional info ( nodeType:property, optional:y )"
+        ::= { brokerSessionEntry 8 }
+
+--
+-- brokerSessionUnackedMessages data object
+--
+brokerSessionUnackedMessages OBJECT-TYPE
+        SYNTAX      Uint64
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Unacknowledged messages in the session
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerSessionEntry 9 }
+
+--
+-- brokerSessionTxnStarts data object
+--
+brokerSessionTxnStarts OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "transaction"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactions started 
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerSessionEntry 10 }
+
+--
+-- brokerSessionTxnCommits data object
+--
+brokerSessionTxnCommits OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "transaction"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactions committed
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerSessionEntry 11 }
+
+--
+-- brokerSessionTxnRejects data object
+--
+brokerSessionTxnRejects OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "transaction"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Total transactions rejected
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerSessionEntry 12 }
+
+--
+-- brokerSessionTxnCount data object
+--
+brokerSessionTxnCount OBJECT-TYPE
+        SYNTAX      Counter32
+        UNITS       "transaction"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current pending transactions
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerSessionEntry 13 }
+
+--
+-- brokerSessionClientCredit data object
+--
+brokerSessionClientCredit OBJECT-TYPE
+        SYNTAX      Counter32
+        UNITS       "message"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Client message credit
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerSessionEntry 14 }
+
+--
+-- sessionInternalIndex index column
+--
+brokerSessionInternalIndex OBJECT-TYPE
+        SYNTAX      Unsigned32
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION "Internal index for session table"
+        ::= { brokerSessionEntry 15 }
+-- ______________________________________________________________
+-- ManagementSetupState class properties and statistics
+-- ______________________________________________________________
+
+--
+-- The ManagementSetupStateObjectNum data object
+--
+brokerManagementSetupStateObjectNum OBJECT-TYPE
+        SYNTAX      Uint64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "ManagementSetupState objectNum
+                     Additional info ( nodeType:property )"
+        ::= { brokerManagementSetupState 1 }
+
+--
+-- The ManagementSetupStateBootSequence data object
+--
+brokerManagementSetupStateBootSequence OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "ManagementSetupState bootSequence
+                     Additional info ( nodeType:property )"
+        ::= { brokerManagementSetupState 2 }
+
+
+-- ______________________________________________________________
+-- Acl plugin class properties and statistics
+-- ______________________________________________________________
+
+--
+-- The AclBrokerRef data object
+--
+brokerAclBrokerRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Acl brokerRef
+                     Additional info ( nodeType:property, references:org.apache.qpid.broker:Broker, index:y, parentRef:y )"
+        ::= { brokerAcl 1 }
+
+--
+-- The AclPolicyFile data object
+--
+brokerAclPolicyFile OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of the policy file
+                     Additional info ( nodeType:property )"
+        ::= { brokerAcl 2 }
+
+--
+-- The AclEnforcingAcl data object
+--
+brokerAclEnforcingAcl OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Currently Enforcing ACL
+                     Additional info ( nodeType:property )"
+        ::= { brokerAcl 3 }
+
+--
+-- The AclTransferAcl data object
+--
+brokerAclTransferAcl OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Any transfer ACL rules in force
+                     Additional info ( nodeType:property )"
+        ::= { brokerAcl 4 }
+
+--
+-- The AclLastAclLoad data object
+--
+brokerAclLastAclLoad OBJECT-TYPE
+        SYNTAX      TimeTicks
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Timestamp of last successful load of ACL
+                     Additional info ( nodeType:property )"
+        ::= { brokerAcl 5 }
+
+--
+-- The AclMaxConnections data object
+--
+brokerAclMaxConnections OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Maximum allowed connections
+                     Additional info ( nodeType:property )"
+        ::= { brokerAcl 6 }
+
+--
+-- The AclMaxConnectionsPerIp data object
+--
+brokerAclMaxConnectionsPerIp OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Maximum allowed connections
+                     Additional info ( nodeType:property )"
+        ::= { brokerAcl 7 }
+
+--
+-- The AclMaxConnectionsPerUser data object
+--
+brokerAclMaxConnectionsPerUser OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Maximum allowed connections
+                     Additional info ( nodeType:property )"
+        ::= { brokerAcl 8 }
+
+--
+-- The AclAclDenyCount data object
+--
+brokerAclAclDenyCount OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "request"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of ACL requests denied
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerAcl 9 }
+
+--
+-- The AclConnectionDenyCount data object
+--
+brokerAclConnectionDenyCount OBJECT-TYPE
+        SYNTAX      Counter64
+        UNITS       "connection"
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of connections denied
+                     Additional info ( nodeType:statistic )"
+        ::= { brokerAcl 10 }
+
+-- ______________________________________________________________
+-- Cluster plugin class properties and statistics
+-- ______________________________________________________________
+
+--
+-- The ClusterBrokerRef data object
+--
+brokerClusterBrokerRef OBJECT-TYPE
+        SYNTAX      ObjId
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Cluster brokerRef
+                     Additional info ( nodeType:property, references:Broker, index:y, parentRef:y )"
+        ::= { brokerCluster 1 }
+
+--
+-- The ClusterClusterName data object
+--
+brokerClusterClusterName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Name of cluster this server is a member of
+                     Additional info ( nodeType:property )"
+        ::= { brokerCluster 2 }
+
+--
+-- The ClusterClusterID data object
+--
+brokerClusterClusterID OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Globally unique ID (UUID) for this cluster instance
+                     Additional info ( nodeType:property )"
+        ::= { brokerCluster 3 }
+
+--
+-- The ClusterMemberID data object
+--
+brokerClusterMemberID OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "ID of this member of the cluster
+                     Additional info ( nodeType:property )"
+        ::= { brokerCluster 4 }
+
+--
+-- The ClusterPublishedURL data object
+--
+brokerClusterPublishedURL OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "URL this node advertizes itself as
+                     Additional info ( nodeType:property )"
+        ::= { brokerCluster 5 }
+
+--
+-- The ClusterClusterSize data object
+--
+brokerClusterClusterSize OBJECT-TYPE
+        SYNTAX      Uint16
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Number of brokers currently in the cluster
+                     Additional info ( nodeType:property )"
+        ::= { brokerCluster 6 }
+
+--
+-- The ClusterStatus data object
+--
+brokerClusterStatus OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Cluster node status (STALLED,ACTIVE,JOINING)
+                     Additional info ( nodeType:property )"
+        ::= { brokerCluster 7 }
+
+--
+-- The ClusterMembers data object
+--
+brokerClusterMembers OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "List of member URLs delimited by ';'
+                     Additional info ( nodeType:property )"
+        ::= { brokerCluster 8 }
+
+--
+-- The ClusterMemberIDs data object
+--
+brokerClusterMemberIDs OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "List of member IDs delimited by ';'
+                     Additional info ( nodeType:property )"
+        ::= { brokerCluster 9 }
+
+-- ______________________________________________________________
+-- HaBroker plugin class properties and statistics
+-- ______________________________________________________________
+
+--
+-- The HaBrokerName data object
+--
+brokerHaBrokerName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-write
+        STATUS      current
+        DESCRIPTION "Primary Key
+                     Additional info ( nodeType:property, index:y )"
+        ::= { brokerHaBroker 1 }
+
+--
+-- The HaBrokerStatus data object
+--
+brokerHaBrokerStatus OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "HA status: primary or backup
+                     Additional info ( nodeType:property )"
+        ::= { brokerHaBroker 2 }
+
+--
+-- The HaBrokerBrokersUrl data object
+--
+brokerHaBrokerBrokersUrl OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "URL with address of each broker in the cluster.
+                     Additional info ( nodeType:property )"
+        ::= { brokerHaBroker 3 }
+
+--
+-- The HaBrokerPublicUrl data object
+--
+brokerHaBrokerPublicUrl OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "URL advertized to clients to connect to the cluster.
+                     Additional info ( nodeType:property )"
+        ::= { brokerHaBroker 4 }
+
+--
+-- The HaBrokerReplicateDefault data object
+--
+brokerHaBrokerReplicateDefault OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Replication for queues/exchanges with no qpid.replicate argument
+                     Additional info ( nodeType:property )"
+        ::= { brokerHaBroker 5 }
+
+--
+-- The HaBrokerMembers data object
+--
+brokerHaBrokerMembers OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "List of brokers in the cluster
+                     Additional info ( nodeType:property )"
+        ::= { brokerHaBroker 6 }
+
+--
+-- The HaBrokerSystemId data object
+--
+brokerHaBrokerSystemId OBJECT-TYPE
+        SYNTAX      Uuid
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Identifies the system.
+                     Additional info ( nodeType:property )"
+        ::= { brokerHaBroker 7 }
+
+
+
+-- ________________________________________________________________________________
+-- ________________________________________________________________________________
+--
+-- Parent node for amqp 0.10 conformance groupings
+--
+brokerConformance OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all conformance objects"
+        ::= { qpidSNMP 1 }
+
+--
+-- Parent node for events
+--
+brokerEvents OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all qpid events"
+        ::= { qpidSNMP 2 }
+
+--
+-- Parent node for events
+--
+brokerCompliance OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for the compliance object"
+        ::= { qpidSNMP 3 }
+
+--
+-- Notification Objects
+-- These are the object/parameters that are sent in notification
+-- events (when the agent sends a "trap" message to the manager on port 162)
+-- ______________________________________________________________
+brokerEvtList OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Placeholder needed for SMIv1 managers. Node number must be 0"
+        ::= {brokerEvents 0 }
+
+brokerEvtArgList OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Top level node for all the event arguments"
+        ::= { brokerEvents 1 }
+--
+-- Objects that are passed with events
+--
+brokerEvtAltEx OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of the alternate exchange"
+        ::= { brokerEvtArgList 1 }
+
+brokerEvtArgs OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Supplemental arguments or parameters supplied"
+        ::= { brokerEvtArgList 2 }
+
+brokerEvtAutoDel OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Created object is automatically deleted when no longer in use"
+        ::= { brokerEvtArgList 3 }
+
+brokerEvtDest OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Destination tag for a subscription"
+        ::= { brokerEvtArgList 4 }
+
+brokerEvtDisp OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Disposition of a declaration: 'created' if object was created, 'existing' if object already existed"
+        ::= { brokerEvtArgList 5 }
+
+brokerEvtDurable OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Created object is durable"
+        ::= { brokerEvtArgList 6 }
+
+brokerEvtExName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of an exchange"
+        ::= { brokerEvtArgList 7 }
+
+brokerEvtExType OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Type of an exchange"
+        ::= { brokerEvtArgList 8 }
+
+brokerEvtExcl OBJECT-TYPE
+        SYNTAX      TruthValue
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Created object is exclusive for the use of the owner only"
+        ::= { brokerEvtArgList 9 }
+
+brokerEvtKey OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Key text used for routing or binding"
+        ::= { brokerEvtArgList 10 }
+
+brokerEvtQName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Name of a queue"
+        ::= { brokerEvtArgList 11 }
+
+brokerEvtReason OBJECT-TYPE
+        SYNTAX      Lstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Reason for a failure"
+        ::= { brokerEvtArgList 12 }
+
+brokerEvtRhost OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Address (i.e. DNS name, IP address, etc.) of a remotely connected host"
+        ::= { brokerEvtArgList 13 }
+
+brokerEvtUser OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Authentication identity"
+        ::= { brokerEvtArgList 14 }
+
+brokerEvtMsgDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current size of queue in messages"
+        ::= { brokerEvtArgList 15 }
+
+brokerEvtByteDepth OBJECT-TYPE
+        SYNTAX      Counter64
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Current size of queue in bytes"
+        ::= { brokerEvtArgList 16 }
+
+brokerEvtAction OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for Action is missing from the schema"
+        ::= { brokerEvtArgList 17 }
+
+brokerEvtArguments OBJECT-TYPE
+        SYNTAX      Map
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for Arguments is missing from the schema"
+        ::= { brokerEvtArgList 18 }
+
+brokerEvtObjectName OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for ObjectName is missing from the schema"
+        ::= { brokerEvtArgList 19 }
+
+brokerEvtObjectType OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for ObjectType is missing from the schema"
+        ::= { brokerEvtArgList 20 }
+
+brokerEvtUserId OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for UserId is missing from the schema"
+        ::= { brokerEvtArgList 21 }
+
+brokerEvtClientAddr OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "Description for ClientAddr is missing from the schema"
+        ::= { brokerEvtArgList 22 }
+
+brokerEvtMembers OBJECT-TYPE
+        SYNTAX      Sstr
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION "List of broker information maps"
+        ::= { brokerEvtArgList 23 }
+
+--
+-- Notfication events that are raised by the agent
+--
+
+brokerEvtClientConnect NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser
+            }
+        STATUS      current
+        DESCRIPTION "inform ClientConnect event"
+        ::= { brokerEvtList 1 }
+
+brokerEvtClientConnectFail NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtReason
+            }
+        STATUS      current
+        DESCRIPTION "warn ClientConnectFail event"
+        ::= { brokerEvtList 2 }
+
+brokerEvtClientDisconnect NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser
+            }
+        STATUS      current
+        DESCRIPTION "inform ClientDisconnect event"
+        ::= { brokerEvtList 3 }
+
+brokerEvtBrokerLinkUp NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost
+            }
+        STATUS      current
+        DESCRIPTION "inform BrokerLinkUp event"
+        ::= { brokerEvtList 4 }
+
+brokerEvtBrokerLinkDown NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost
+            }
+        STATUS      current
+        DESCRIPTION "warn BrokerLinkDown event"
+        ::= { brokerEvtList 5 }
+
+brokerEvtQueueDeclare NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtQName, brokerEvtDurable, brokerEvtExcl, brokerEvtAutoDel, brokerEvtAltEx, brokerEvtArgs, brokerEvtDisp
+            }
+        STATUS      current
+        DESCRIPTION "inform QueueDeclare event"
+        ::= { brokerEvtList 6 }
+
+brokerEvtQueueDelete NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtQName
+            }
+        STATUS      current
+        DESCRIPTION "inform QueueDelete event"
+        ::= { brokerEvtList 7 }
+
+brokerEvtExchangeDeclare NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtExName, brokerEvtExType, brokerEvtAltEx, brokerEvtDurable, brokerEvtAutoDel, brokerEvtArgs, brokerEvtDisp
+            }
+        STATUS      current
+        DESCRIPTION "inform ExchangeDeclare event"
+        ::= { brokerEvtList 8 }
+
+brokerEvtExchangeDelete NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtExName
+            }
+        STATUS      current
+        DESCRIPTION "inform ExchangeDelete event"
+        ::= { brokerEvtList 9 }
+
+brokerEvtBind NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtExName, brokerEvtQName, brokerEvtKey, brokerEvtArgs
+            }
+        STATUS      current
+        DESCRIPTION "inform Bind event"
+        ::= { brokerEvtList 10 }
+
+brokerEvtUnbind NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtExName, brokerEvtQName, brokerEvtKey
+            }
+        STATUS      current
+        DESCRIPTION "inform Unbind event"
+        ::= { brokerEvtList 11 }
+
+brokerEvtSubscribe NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtQName, brokerEvtDest, brokerEvtExcl, brokerEvtArgs
+            }
+        STATUS      current
+        DESCRIPTION "inform Subscribe event"
+        ::= { brokerEvtList 12 }
+
+brokerEvtUnsubscribe NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtRhost, brokerEvtUser, brokerEvtDest
+            }
+        STATUS      current
+        DESCRIPTION "inform Unsubscribe event"
+        ::= { brokerEvtList 13 }
+
+brokerEvtQueueThresholdExceeded NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtQName, brokerEvtMsgDepth, brokerEvtByteDepth
+            }
+        STATUS      current
+        DESCRIPTION "warn QueueThresholdExceeded event"
+        ::= { brokerEvtList 14 }
+
+brokerEvtAllow NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtUserId, brokerEvtAction, brokerEvtObjectType, brokerEvtObjectName, brokerEvtArguments
+            }
+        STATUS      current
+        DESCRIPTION "inform Allow event"
+        ::= { brokerEvtList 15 }
+
+brokerEvtDeny NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtUserId, brokerEvtAction, brokerEvtObjectType, brokerEvtObjectName, brokerEvtArguments
+            }
+        STATUS      current
+        DESCRIPTION "notice Deny event"
+        ::= { brokerEvtList 16 }
+
+brokerEvtConnectionDeny NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtUserId, brokerEvtClientAddr
+            }
+        STATUS      current
+        DESCRIPTION "notice ConnectionDeny event"
+        ::= { brokerEvtList 17 }
+
+brokerEvtFileLoaded NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtUserId
+            }
+        STATUS      current
+        DESCRIPTION "inform FileLoaded event"
+        ::= { brokerEvtList 18 }
+
+brokerEvtFileLoadFailed NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtUserId, brokerEvtReason
+            }
+        STATUS      current
+        DESCRIPTION "error FileLoadFailed event"
+        ::= { brokerEvtList 19 }
+
+brokerEvtMembersUpdate NOTIFICATION-TYPE
+        OBJECTS {
+            brokerEvtMembers
+            }
+        STATUS      current
+        DESCRIPTION "inform MembersUpdate event"
+        ::= { brokerEvtList 20 }
+
+
+--
+-- Conformance Objects and Groups
+-- This puts the data objects and notification events into
+-- groups that can be marked as required or optional
+-- ______________________________________________________________
+brokerCnfRequired OBJECT-GROUP
+        OBJECTS {
+                brokerSystemSystemId
+                ,brokerSystemOsName
+                ,brokerSystemNodeName
+                ,brokerSystemRelease
+                ,brokerSystemVersion
+                ,brokerSystemMachine
+                ,brokerMemoryName
+                ,brokerBrokerName
+                ,brokerBrokerSystemRef
+                ,brokerBrokerPort
+                ,brokerBrokerWorkerThreads
+                ,brokerBrokerConnBacklog
+                ,brokerBrokerStagingThreshold
+                ,brokerBrokerMgmtPublish
+                ,brokerBrokerMgmtPubInterval
+                ,brokerBrokerVersion
+                ,brokerBrokerUptime
+                ,brokerBrokerQueueCount
+                ,brokerBrokerMsgTotalEnqueues
+                ,brokerBrokerMsgTotalDequeues
+                ,brokerBrokerByteTotalEnqueues
+                ,brokerBrokerByteTotalDequeues
+                ,brokerBrokerMsgDepth
+                ,brokerBrokerByteDepth
+                ,brokerBrokerMsgPersistEnqueues
+                ,brokerBrokerMsgPersistDequeues
+                ,brokerBrokerBytePersistEnqueues
+                ,brokerBrokerBytePersistDequeues
+                ,brokerBrokerMsgTxnEnqueues
+                ,brokerBrokerMsgTxnDequeues
+                ,brokerBrokerByteTxnEnqueues
+                ,brokerBrokerByteTxnDequeues
+                ,brokerBrokerMsgFtdEnqueues
+                ,brokerBrokerMsgFtdDequeues
+                ,brokerBrokerByteFtdEnqueues
+                ,brokerBrokerByteFtdDequeues
+                ,brokerBrokerMsgFtdDepth
+                ,brokerBrokerByteFtdDepth
+                ,brokerBrokerReleases
+                ,brokerBrokerAcquires
+                ,brokerBrokerDiscardsNoRoute
+                ,brokerBrokerDiscardsTtl
+                ,brokerBrokerDiscardsRing
+                ,brokerBrokerDiscardsLvq
+                ,brokerBrokerDiscardsOverflow
+                ,brokerBrokerDiscardsSubscriber
+                ,brokerBrokerDiscardsPurge
+                ,brokerBrokerReroutes
+                ,brokerBrokerAbandoned
+                ,brokerBrokerAbandonedViaAlt
+                ,brokerAgentConnectionRef
+                ,brokerAgentLabel
+                ,brokerAgentRegisteredTo
+                ,brokerAgentSystemId
+                ,brokerAgentBrokerBank
+                ,brokerAgentAgentBank
+                ,brokerVhostBrokerRef
+                ,brokerVhostName
+                ,brokerVhostFederationTag
+                ,brokerQueueVhostRef
+                ,brokerQueueName
+                ,brokerQueueDurable
+                ,brokerQueueAutoDelete
+                ,brokerQueueExclusive
+                ,brokerQueueArguments
+                ,brokerQueueMsgTotalEnqueues
+                ,brokerQueueMsgTotalDequeues
+                ,brokerQueueMsgTxnEnqueues
+                ,brokerQueueMsgTxnDequeues
+                ,brokerQueueMsgPersistEnqueues
+                ,brokerQueueMsgPersistDequeues
+                ,brokerQueueMsgDepth
+                ,brokerQueueByteDepth
+                ,brokerQueueByteTotalEnqueues
+                ,brokerQueueByteTotalDequeues
+                ,brokerQueueByteTxnEnqueues
+                ,brokerQueueByteTxnDequeues
+                ,brokerQueueBytePersistEnqueues
+                ,brokerQueueBytePersistDequeues
+                ,brokerQueueMsgFtdEnqueues
+                ,brokerQueueMsgFtdDequeues
+                ,brokerQueueByteFtdEnqueues
+                ,brokerQueueByteFtdDequeues
+                ,brokerQueueMsgFtdDepth
+                ,brokerQueueByteFtdDepth
+                ,brokerQueueReleases
+                ,brokerQueueAcquires
+                ,brokerQueueDiscardsTtl
+                ,brokerQueueDiscardsRing
+                ,brokerQueueDiscardsLvq
+                ,brokerQueueDiscardsOverflow
+                ,brokerQueueDiscardsSubscriber
+                ,brokerQueueDiscardsPurge
+                ,brokerQueueReroutes
+                ,brokerQueueConsumerCount
+                ,brokerQueueConsumerCountLow
+                ,brokerQueueConsumerCountHi
+                ,brokerQueueBindingCount
+                ,brokerQueueBindingCountLow
+                ,brokerQueueBindingCountHi
+                ,brokerQueueUnackedMessages
+                ,brokerQueueUnackedMessagesLow
+                ,brokerQueueUnackedMessagesHi
+                ,brokerQueueMessageLatency
+                ,brokerQueueFlowStopped
+                ,brokerQueueFlowStoppedCount
+                ,brokerExchangeVhostRef
+                ,brokerExchangeName
+                ,brokerExchangeType
+                ,brokerExchangeDurable
+                ,brokerExchangeAutoDelete
+                ,brokerExchangeArguments
+                ,brokerExchangeProducerCount
+                ,brokerExchangeProducerCountLow
+                ,brokerExchangeProducerCountHi
+                ,brokerExchangeBindingCount
+                ,brokerExchangeBindingCountLow
+                ,brokerExchangeBindingCountHi
+                ,brokerExchangeMsgReceives
+                ,brokerExchangeMsgDrops
+                ,brokerExchangeMsgRoutes
+                ,brokerExchangeByteReceives
+                ,brokerExchangeByteDrops
+                ,brokerExchangeByteRoutes
+                ,brokerBindingExchangeRef
+                ,brokerBindingQueueRef
+                ,brokerBindingBindingKey
+                ,brokerBindingArguments
+                ,brokerBindingMsgMatched
+                ,brokerSubscriptionSessionRef
+                ,brokerSubscriptionQueueRef
+                ,brokerSubscriptionName
+                ,brokerSubscriptionBrowsing
+                ,brokerSubscriptionAcknowledged
+                ,brokerSubscriptionExclusive
+                ,brokerSubscriptionCreditMode
+                ,brokerSubscriptionArguments
+                ,brokerSubscriptionDelivered
+                ,brokerConnectionVhostRef
+                ,brokerConnectionAddress
+                ,brokerConnectionIncoming
+                ,brokerConnectionSystemConnection
+                ,brokerConnectionUserProxyAuth
+                ,brokerConnectionFederationLink
+                ,brokerConnectionAuthIdentity
+                ,brokerConnectionShadow
+                ,brokerConnectionSaslMechanism
+                ,brokerConnectionSaslSsf
+                ,brokerConnectionClosing
+                ,brokerConnectionFramesFromClient
+                ,brokerConnectionFramesToClient
+                ,brokerConnectionBytesFromClient
+                ,brokerConnectionBytesToClient
+                ,brokerConnectionMsgsFromClient
+                ,brokerConnectionMsgsToClient
+                ,brokerLinkVhostRef
+                ,brokerLinkName
+                ,brokerLinkHost
+                ,brokerLinkPort
+                ,brokerLinkTransport
+                ,brokerLinkDurable
+                ,brokerLinkConnectionRef
+                ,brokerLinkState
+                ,brokerLinkLastError
+                ,brokerBridgeLinkRef
+                ,brokerBridgeName
+                ,brokerBridgeChannelId
+                ,brokerBridgeDurable
+                ,brokerBridgeSrc
+                ,brokerBridgeDest
+                ,brokerBridgeKey
+                ,brokerBridgeSrcIsQueue
+                ,brokerBridgeSrcIsLocal
+                ,brokerBridgeTag
+                ,brokerBridgeExcludes
+                ,brokerBridgeDynamic
+                ,brokerBridgeSync
+                ,brokerSessionVhostRef
+                ,brokerSessionName
+                ,brokerSessionChannelId
+                ,brokerSessionConnectionRef
+                ,brokerSessionDetachedLifespan
+                ,brokerSessionAttached
+                ,brokerSessionUnackedMessages
+                ,brokerSessionTxnStarts
+                ,brokerSessionTxnCommits
+                ,brokerSessionTxnRejects
+                ,brokerSessionTxnCount
+                ,brokerSessionClientCredit
+                ,brokerManagementSetupStateObjectNum
+                ,brokerManagementSetupStateBootSequence
+                ,brokerAclBrokerRef
+                ,brokerAclPolicyFile
+                ,brokerAclEnforcingAcl
+                ,brokerAclTransferAcl
+                ,brokerAclLastAclLoad
+                ,brokerAclMaxConnections
+                ,brokerAclMaxConnectionsPerIp
+                ,brokerAclMaxConnectionsPerUser
+                ,brokerAclAclDenyCount
+                ,brokerAclConnectionDenyCount
+                ,brokerClusterBrokerRef
+                ,brokerClusterClusterName
+                ,brokerClusterClusterID
+                ,brokerClusterMemberID
+                ,brokerClusterPublishedURL
+                ,brokerClusterClusterSize
+                ,brokerClusterStatus
+                ,brokerClusterMembers
+                ,brokerClusterMemberIDs
+                ,brokerHaBrokerName
+                ,brokerHaBrokerStatus
+                ,brokerHaBrokerBrokersUrl
+                ,brokerHaBrokerPublicUrl
+                ,brokerHaBrokerReplicateDefault
+                ,brokerHaBrokerMembers
+                ,brokerHaBrokerSystemId
+        }
+        STATUS      current
+        DESCRIPTION "Manditory class elements"
+        ::= { brokerConformance 1 }
+
+brokerCnfOptional OBJECT-GROUP
+        OBJECTS {
+                brokerMemoryMallocarena
+                ,brokerMemoryMallocordblks
+                ,brokerMemoryMallochblks
+                ,brokerMemoryMallochblkhd
+                ,brokerMemoryMallocuordblks
+                ,brokerMemoryMallocfordblks
+                ,brokerMemoryMallockeepcost
+                ,brokerBrokerDataDir
+                ,brokerQueueAltExchange
+                ,brokerExchangeAltExchange
+                ,brokerBindingOrigin
+                ,brokerConnectionRemoteProcessName
+                ,brokerConnectionRemotePid
+                ,brokerConnectionRemoteParentPid
+                ,brokerSessionExpireTime
+                ,brokerSessionMaxClientRate
+        }
+        STATUS      current
+        DESCRIPTION "Optional class elements"
+        ::= { brokerConformance 2 }
+
+brokerCnfArguments OBJECT-GROUP
+        OBJECTS {
+                brokerEvtAltEx
+                ,brokerEvtArgs
+                ,brokerEvtAutoDel
+                ,brokerEvtDest
+                ,brokerEvtDisp
+                ,brokerEvtDurable
+                ,brokerEvtExName
+                ,brokerEvtExType
+                ,brokerEvtExcl
+                ,brokerEvtKey
+                ,brokerEvtQName
+                ,brokerEvtReason
+                ,brokerEvtRhost
+                ,brokerEvtUser
+                ,brokerEvtMsgDepth
+                ,brokerEvtByteDepth
+                ,brokerEvtAction
+                ,brokerEvtArguments
+                ,brokerEvtObjectName
+                ,brokerEvtObjectType
+                ,brokerEvtUserId
+                ,brokerEvtClientAddr
+                ,brokerEvtMembers
+        }
+        STATUS      current
+        DESCRIPTION "Data objects used as arguments to events"
+        ::= { brokerConformance 3 }
+
+
+brokerCnfError NOTIFICATION-GROUP
+        NOTIFICATIONS {
+                brokerEvtFileLoadFailed
+        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity Error"
+        ::= { brokerConformance 4 }
+
+brokerCnfInform NOTIFICATION-GROUP
+        NOTIFICATIONS {
+                brokerEvtClientConnect
+                ,brokerEvtClientDisconnect
+                ,brokerEvtBrokerLinkUp
+                ,brokerEvtQueueDeclare
+                ,brokerEvtQueueDelete
+                ,brokerEvtExchangeDeclare
+                ,brokerEvtExchangeDelete
+                ,brokerEvtBind
+                ,brokerEvtUnbind
+                ,brokerEvtSubscribe
+                ,brokerEvtUnsubscribe
+                ,brokerEvtAllow
+                ,brokerEvtFileLoaded
+                ,brokerEvtMembersUpdate
+        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity Inform"
+        ::= { brokerConformance 5 }
+
+brokerCnfNotice NOTIFICATION-GROUP
+        NOTIFICATIONS {
+                brokerEvtDeny
+                ,brokerEvtConnectionDeny
+        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity Notice"
+        ::= { brokerConformance 6 }
+
+brokerCnfWarn NOTIFICATION-GROUP
+        NOTIFICATIONS {
+                brokerEvtClientConnectFail
+                ,brokerEvtBrokerLinkDown
+                ,brokerEvtQueueThresholdExceeded
+        }
+        STATUS      current
+        DESCRIPTION "Events that are of severity Warn"
+        ::= { brokerConformance 7 }
+
+
+brokerComplianceModule MODULE-COMPLIANCE
+        STATUS      current
+        DESCRIPTION "Manditory and non-manditory mib objects"
+        MODULE -- This module
+            MANDATORY-GROUPS { brokerCnfRequired,
+                               brokerCnfOptional,
+                               brokerCnfError,brokerCnfInform,brokerCnfNotice,brokerCnfWarn,
+                               brokerCnfArguments }
+
+        ::= { brokerCompliance 1 }
+
+END
