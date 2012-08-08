@@ -1,7 +1,7 @@
-MRG-MESSAGING-MIB DEFINITIONS ::= BEGIN
+QPID-MESSAGING-MIB DEFINITIONS ::= BEGIN
 
 --
--- Apache amqp messaging MIB for Red Hat MRG qpid broker
+-- Apache amqp messaging MIB for qpid broker
 --
 -- This file is generated from management-schema.xml found in the apache qpid packages
 -- using qpid-snmp-mibgen and qpid-snmp.txt.
@@ -11,35 +11,33 @@ MRG-MESSAGING-MIB DEFINITIONS ::= BEGIN
 --  -s $QPID/cpp/src/qpid/acl/management-schema.xml \
 --  -s $QPID/cpp/src/qpid/cluster/management-schema.xml \
 --  -s $QPID/cpp/src/qpid/ha/management-schema.xml \
---  -m MRG-MESSAGING-MIB.txt 
+--  -m QPID-MESSAGING-MIB.txt 
 -- 
 --
 -- iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
 --                             |
 --                       apache(18060)
 --                             |
---                    _________________________
+--                    _________|_______________
 --                   |                         |
---               amqp(5672)            other apache OIDs (https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html)
+--               qpid(5672)            other apache OIDs 
+--                   |          (https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html)
 --                   |
---           ___________________
---          |                   |
---      amqp010(1)       amqp10(2) - reserved for future use
---          |
---           ___________________________________________________________________
---          |                                                                   |
---
---      qpid010(1) this mib defines this node and all its child nodes         [other amqp101 based products]...
---          |
---        ____________________________________________________________________________________________________________________
---       |                                                                    |                           |                   |
---	  qpid010BrokerClasses(1)                                      qpid010Plugins(2)              qpid010Performance(3)    qpid010Events(4)
---       |                                                                    |                           |
---  <qpid010System, qpid010Memory, qpid010Broker...>    [qpid010Acl, qpid010Cluster, qpid010HA]        qpidCnfGroups(1)
---                                                                                                        |
---                                                                         _______________________________________________
---                                                                        |           |                                   |
---                                                          qpidCnfGrpRequired(1) qpidCnfGrpOptional(2)   qpidCnfGrpArguments(3)    ...
+--           ________|_________________________________
+--          |                         |                |
+--      broker(1)                   plugins(2)        SNMP(3)
+--          |                         |                |
+--        __|______..._            ___|______         _|__________________________________
+--       |      |      |          |    |     |       |                  |                 |
+--	 system  memory  sessions    acl cluster ha   conformance(1)     events(2)     compliance(3) 
+--       |     |       |          |    |     |       |                  |
+--      _|_   ...     ...        _|_  ...   ...      |                  |
+--     |   |                    |   |                |                  |
+--    id  name...              ref policy...         |                  |
+--                                                   |                  |
+--                  _________________________________|______          __|_________
+--                 |          |            |        |       |        |            |
+--             required    optional    arguments  error  inform...  connect declareQueue ...
 
 IMPORTS
         MODULE-IDENTITY, OBJECT-IDENTITY, OBJECT-TYPE, Counter64,
@@ -51,18 +49,87 @@ IMPORTS
         TruthValue, TEXTUAL-CONVENTION
             FROM SNMPv2-TC;
 
+-- _____________________________________________________________________
+--
+-- The root OID for this MIB
+-- _____________________________________________________________________
 apacheAMQP MODULE-IDENTITY
         LAST-UPDATED "%{today}Z"
-        ORGANIZATION "www.redhat.com"
+        ORGANIZATION "qpid.apache.org"
         CONTACT-INFO
-                "e-mail: eallen@redhat.com"
+                "e-mail: dev@qpid.apache.org"
         DESCRIPTION
-            "Root for apache amqp qpid messaging nodes"
+            "Root for apache amqp qpid messaging nodes. See https://cwiki.apache.org/DIRxPMGT/oid-assignment-scheme.html"
         REVISION "%{today}Z"
             DESCRIPTION
                 "First release"
         ::= { enterprises 18060 }
+
+-- _____________________________________________________________________
 --
+-- Parent node for qpid  
+-- _____________________________________________________________________
+qpid OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "qpid implementation of amqp"
+        ::= { apacheAMQP 5672 }
+
+-- _____________________________________________________________________
+--
+-- Parent node for all qpid broker objects  
+-- _____________________________________________________________________
+broker OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "qpid implementation of amqp"
+        ::= { qpid 1 }
+
+-- _____________________________________________________________________
+--
+-- Parent node for optional broker plugin objects  
+-- _____________________________________________________________________
+brokerPlugins OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "optional broker plugins"
+        ::= { qpid 2 }
+
+-- _____________________________________________________________________
+--
+-- Parent node for snmp specific objects  
+-- _____________________________________________________________________
+qpidSNMP OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION
+        "snmp specific objects"
+        ::= { qpid 3 }
+
+-- _____________________________________________________________________
+--
+-- Define the OID for each top level messaging class
+-- ______________________________________________________________
+<forEachClass>
+<singleObject>
+broker%{capClassName} OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the %{capClassName} properties"
+        ::= { broker %{classSequence} }
+</singleObject>
+<multipleObjects>
+broker%{capClassName}s OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "Table for all the %{capClassName}s"
+        ::= { broker %{classSequence} }
+</multipleObjects>
+</forEachClass><forEachPluginClass>
+broker%{capClassName} OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent of the plugin %{capClassName} properties"
+        ::= { brokerPlugins %{classSequence} }
+</forEachPluginClass>
+
+-- __________________________________________________________________
 -- TEXTUAL-CONVENTIONS to define the qpid data types that don't
 -- map directly to mib types
 -- Note: mib types must begin with a cap, qpid types are normally
@@ -119,79 +186,7 @@ Map ::= TEXTUAL-CONVENTION
         DESCRIPTION     "Textual representation of a map<string, string>"
         SYNTAX          OCTET STRING (SIZE (0..65535))
 
---
--- This object and the qpqcheAMQP object should probably be stored in a separate MIB
--- and imported
---
-amqp010 OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION
-        "Version 010 amqp"
-        ::= { apacheAMQP 5672 }
-
---
--- The root OID for this MIB
 -- _____________________________________________________________________
-qpid010 OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION
-        "RedHat qpid implementation"
-        ::= { amqp010 1 }
-
-qpid010BrokerClasses OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION
-        "Root for all broker classes defined in $QPIDROOT/specs/management-schema.xml"
-        ::= { qpid010 1 }
---
---
--- Parent node for amqp 0.10 messaging broker plugins
---
-qpid010Plugins OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION
-        "Parent node for all amqp 0.10 broker plugins"
-        ::= { qpid010 2 }
-
---
--- Parent node for amqp 0.10 conformance groupings
---
-qpid010Conformance OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION "The parent for all conformance objects"
-        ::= { qpid010 3 }
-
---
--- Parent node for events
---
-qpid010Events OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION "The parent for all qpid events"
-        ::= { qpid010 4 }
-
---
--- Define the OID for each top level messaging class
--- ______________________________________________________________
-<forEachClass>
-<singleObject>
-qpid010%{capClassName} OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION "The parent of the %{capClassName} properties"
-        ::= { qpid010BrokerClasses %{classSequence} }
-</singleObject>
-<multipleObjects>
-qpid010%{capClassName}s OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION "Table for all the %{capClassName}s"
-        ::= { qpid010BrokerClasses %{classSequence} }
-</multipleObjects>
-</forEachClass><forEachPluginClass>
-qpid010%{capClassName} OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION "The parent of the plugin %{capClassName} properties"
-        ::= { qpid010Plugins %{classSequence} }
-</forEachPluginClass>
-
 --
 -- Define the [table]/data for each of the top level classes
 -- ______________________________________________________________
@@ -202,57 +197,57 @@ qpid010%{capClassName} OBJECT-IDENTITY
 --
 -- The %{capChildName} data object
 --
-qpid010%{capChildName} OBJECT-TYPE
+broker%{capChildName} OBJECT-TYPE
         SYNTAX      %{childType}
         %{unit}MAX-ACCESS  %{childAccess}
         STATUS      current
         DESCRIPTION "%{childDesc}"
-        ::= { qpid010%{capClassName} %{childSequence} }
+        ::= { broker%{capClassName} %{childSequence} }
 </forEachProperty>
 </singleObject><multipleObjects>-- ______________________________________________________________
 -- %{capClassName} class table definition
 -- ______________________________________________________________
-qpid010%{capClassName}Table OBJECT-TYPE
-        SYNTAX      SEQUENCE OF Qpid010%{capClassName}Entry
+broker%{capClassName}Table OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Broker%{capClassName}Entry
         MAX-ACCESS  not-accessible
         STATUS      current
         DESCRIPTION "table of %{className}s"
-        ::= { qpid010%{capClassName}s 1 }
+        ::= { broker%{capClassName}s 1 }
 --
 -- %{className}Entry row definition
 --
-qpid010%{capClassName}Entry OBJECT-TYPE
-        SYNTAX      Qpid010%{capClassName}Entry
+broker%{capClassName}Entry OBJECT-TYPE
+        SYNTAX      Broker%{capClassName}Entry
         MAX-ACCESS  not-accessible
         STATUS      current
         DESCRIPTION "A row in the %{className} table"
-        INDEX { qpid010%{capClassName}InternalIndex }
-        ::= { qpid010%{capClassName}Table 1 }
+        INDEX { broker%{capClassName}InternalIndex }
+        ::= { broker%{capClassName}Table 1 }
 
-Qpid010%{capClassName}Entry ::= SEQUENCE {<forEachProperty>
-    qpid010%{capChildName}%{capChildNameSpace}%{childType},</forEachProperty>
-    qpid010%{capClassName}InternalIndex           Unsigned32
+Broker%{capClassName}Entry ::= SEQUENCE {<forEachProperty>
+    broker%{capChildName}%{capChildNameSpace}%{childType},</forEachProperty>
+    broker%{capClassName}InternalIndex           Unsigned32
 }
 <forEachProperty>
 --
--- qpid010%{capChildName} data object
+-- broker%{capChildName} data object
 --
-qpid010%{capChildName} OBJECT-TYPE
+broker%{capChildName} OBJECT-TYPE
         SYNTAX      %{childType}
         %{unit}MAX-ACCESS  %{childAccess}
         STATUS      current
         DESCRIPTION "%{childDesc}"
-        ::= { qpid010%{capClassName}Entry %{childSequence} }
+        ::= { broker%{capClassName}Entry %{childSequence} }
 </forEachProperty>
 --
 -- %{className}InternalIndex index column
 --
-qpid010%{capClassName}InternalIndex OBJECT-TYPE
+broker%{capClassName}InternalIndex OBJECT-TYPE
         SYNTAX      Unsigned32
         MAX-ACCESS  not-accessible
         STATUS      current
         DESCRIPTION "Internal index for %{className} table"
-        ::= { qpid010%{capClassName}Entry %{nextChildNumber} }
+        ::= { broker%{capClassName}Entry %{nextChildNumber} }
 </multipleObjects>
 </forEachClass>
 <forEachPluginClass>-- ______________________________________________________________
@@ -262,50 +257,76 @@ qpid010%{capClassName}InternalIndex OBJECT-TYPE
 --
 -- The %{capChildName} data object
 --
-qpid010%{capChildName} OBJECT-TYPE
+broker%{capChildName} OBJECT-TYPE
         SYNTAX      %{childType}
         %{unit}MAX-ACCESS  %{childAccess}
         STATUS      current
         DESCRIPTION "%{childDesc}"
-        ::= { qpid010%{capClassName} %{childSequence} }
+        ::= { broker%{capClassName} %{childSequence} }
 </forEachProperty>
 </forEachPluginClass>
+
+-- ________________________________________________________________________________
+-- ________________________________________________________________________________
+--
+-- Parent node for amqp 0.10 conformance groupings
+--
+brokerConformance OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all conformance objects"
+        ::= { qpidSNMP 1 }
+
+--
+-- Parent node for events
+--
+brokerEvents OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for all qpid events"
+        ::= { qpidSNMP 2 }
+
+--
+-- Parent node for events
+--
+brokerCompliance OBJECT-IDENTITY
+        STATUS      current
+        DESCRIPTION "The parent for the compliance object"
+        ::= { qpidSNMP 3 }
 
 --
 -- Notification Objects
 -- These are the object/parameters that are sent in notification
 -- events (when the agent sends a "trap" message to the manager on port 162)
 -- ______________________________________________________________
-qpid010EvtList OBJECT-IDENTITY
+brokerEvtList OBJECT-IDENTITY
         STATUS      current
         DESCRIPTION "Placeholder needed for SMIv1 managers. Node number must be 0"
-        ::= {qpid010Events 0 }
+        ::= {brokerEvents 0 }
 
-qpid010EvtArgList OBJECT-IDENTITY
+brokerEvtArgList OBJECT-IDENTITY
         STATUS      current
         DESCRIPTION "Top level node for all the event arguments"
-        ::= { qpid010Events 1 }
+        ::= { brokerEvents 1 }
 --
 -- Objects that are passed with events
 --<EventArguments>
-qpid010Evt%{argumentName} OBJECT-TYPE
+brokerEvt%{argumentName} OBJECT-TYPE
         SYNTAX      %{argumentType}
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION "%{argumentDesc}"
-        ::= { qpid010EvtArgList %{eventArgumentSequence} }
+        ::= { brokerEvtArgList %{eventArgumentSequence} }
 </EventArguments>
 --
 -- Notfication events that are raised by the agent
 --
 <Events>
-qpid010Evt%{eventName} NOTIFICATION-TYPE
+brokerEvt%{eventName} NOTIFICATION-TYPE
         OBJECTS {
             %{eventArguments}
             }
         STATUS      current
         DESCRIPTION "%{eventSev} %{eventName} event"
-        ::= { qpid010EvtList %{eventSequence} }
+        ::= { brokerEvtList %{eventSequence} }
 </Events>
 
 --
@@ -313,50 +334,45 @@ qpid010Evt%{eventName} NOTIFICATION-TYPE
 -- This puts the data objects and notification events into
 -- groups that can be marked as required or optional
 -- ______________________________________________________________
-qpid010CnfGroups OBJECT-IDENTITY
-        STATUS      current
-        DESCRIPTION "Root for all groups"
-        ::= { qpid010Conformance 1 }
-
-qpid010CnfGrpRequired OBJECT-GROUP
+brokerCnfRequired OBJECT-GROUP
         OBJECTS {
 %{required}        }
         STATUS      current
         DESCRIPTION "Manditory class elements"
-        ::= { qpid010CnfGroups 1 }
+        ::= { brokerConformance 1 }
 
-qpid010CnfGrpOptional OBJECT-GROUP
+brokerCnfOptional OBJECT-GROUP
         OBJECTS {
 %{optional}        }
         STATUS      current
         DESCRIPTION "Optional class elements"
-        ::= { qpid010CnfGroups 2 }
+        ::= { brokerConformance 2 }
 
-qpid010CnfGrpArguments OBJECT-GROUP
+brokerCnfArguments OBJECT-GROUP
         OBJECTS {
 %{allEventArguments}        }
         STATUS      current
         DESCRIPTION "Data objects used as arguments to events"
-        ::= { qpid010CnfGroups 3 }
+        ::= { brokerConformance 3 }
 
 <forEachSeverity>
-qpid010CnfGrp%{sev} NOTIFICATION-GROUP
+brokerCnf%{sev} NOTIFICATION-GROUP
         NOTIFICATIONS {
 %{eventNames}        }
         STATUS      current
         DESCRIPTION "Events that are of severity %{sev}"
-        ::= { qpid010CnfGroups %{sevSequence} }
+        ::= { brokerConformance %{sevSequence} }
 </forEachSeverity>
 
-qpid010Compliance MODULE-COMPLIANCE
+brokerComplianceModule MODULE-COMPLIANCE
         STATUS      current
         DESCRIPTION "Manditory and non-manditory mib objects"
         MODULE -- This module
-            MANDATORY-GROUPS { qpid010CnfGrpRequired,
-                               qpid010CnfGrpOptional,
-                               <forEachSeverity>qpid010CnfGrp%{sev},</forEachSeverity>
-                               qpid010CnfGrpArguments }
+            MANDATORY-GROUPS { brokerCnfRequired,
+                               brokerCnfOptional,
+                               <forEachSeverity>brokerCnf%{sev},</forEachSeverity>
+                               brokerCnfArguments }
 
-        ::= { qpid010Conformance 2 }
+        ::= { brokerCompliance 1 }
 
 END
