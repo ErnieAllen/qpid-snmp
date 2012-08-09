@@ -10,65 +10,98 @@
 
 #include "../qpid_api.h"
 
-/** Initializes the qpid010Acl module */
+/** Initializes the brokerAcl module */
 void
 init_Acl(void)
 {
-    const oid       qpid010AclBrokerRef_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 1 };
-    const oid       qpid010AclPolicyFile_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 2 };
-    const oid       qpid010AclEnforcingAcl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 3 };
-    const oid       qpid010AclTransferAcl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 4 };
-    const oid       qpid010AclLastAclLoad_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 5 };
-    const oid       qpid010AclAclDenyCount_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1, 6 };
+    const oid       brokerAclBrokerRef_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 1 };
+    const oid       brokerAclPolicyFile_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 2 };
+    const oid       brokerAclEnforcingAcl_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 3 };
+    const oid       brokerAclTransferAcl_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 4 };
+    const oid       brokerAclLastAclLoad_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 5 };
+    const oid       brokerAclMaxConnections_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 6 };
+    const oid       brokerAclMaxConnectionsPerIp_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 7 };
+    const oid       brokerAclMaxConnectionsPerUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 8 };
+    const oid       brokerAclAclDenyCount_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 9 };
+    const oid       brokerAclConnectionDenyCount_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060, 5672, 2, 1, 10 };
 
-    DEBUGMSGTL(("qpid010Acl", "Initializing\n"));
+    DEBUGMSGTL(("brokerAcl", "Initializing\n"));
 
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AclBrokerRef",
-                             handle_qpid010AclBrokerRef,
-                             qpid010AclBrokerRef_oid,
-                             OID_LENGTH(qpid010AclBrokerRef_oid),
+                            ("brokerAclBrokerRef",
+                             handle_brokerAclBrokerRef,
+                             brokerAclBrokerRef_oid,
+                             OID_LENGTH(brokerAclBrokerRef_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AclPolicyFile",
-                             handle_qpid010AclPolicyFile,
-                             qpid010AclPolicyFile_oid,
-                             OID_LENGTH(qpid010AclPolicyFile_oid),
+                            ("brokerAclPolicyFile",
+                             handle_brokerAclPolicyFile,
+                             brokerAclPolicyFile_oid,
+                             OID_LENGTH(brokerAclPolicyFile_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AclEnforcingAcl",
-                             handle_qpid010AclEnforcingAcl,
-                             qpid010AclEnforcingAcl_oid,
-                             OID_LENGTH(qpid010AclEnforcingAcl_oid),
+                            ("brokerAclEnforcingAcl",
+                             handle_brokerAclEnforcingAcl,
+                             brokerAclEnforcingAcl_oid,
+                             OID_LENGTH(brokerAclEnforcingAcl_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AclTransferAcl",
-                             handle_qpid010AclTransferAcl,
-                             qpid010AclTransferAcl_oid,
-                             OID_LENGTH(qpid010AclTransferAcl_oid),
+                            ("brokerAclTransferAcl",
+                             handle_brokerAclTransferAcl,
+                             brokerAclTransferAcl_oid,
+                             OID_LENGTH(brokerAclTransferAcl_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AclLastAclLoad",
-                             handle_qpid010AclLastAclLoad,
-                             qpid010AclLastAclLoad_oid,
-                             OID_LENGTH(qpid010AclLastAclLoad_oid),
+                            ("brokerAclLastAclLoad",
+                             handle_brokerAclLastAclLoad,
+                             brokerAclLastAclLoad_oid,
+                             OID_LENGTH(brokerAclLastAclLoad_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AclAclDenyCount",
-                             handle_qpid010AclAclDenyCount,
-                             qpid010AclAclDenyCount_oid,
-                             OID_LENGTH(qpid010AclAclDenyCount_oid),
+                            ("brokerAclMaxConnections",
+                             handle_brokerAclMaxConnections,
+                             brokerAclMaxConnections_oid,
+                             OID_LENGTH(brokerAclMaxConnections_oid),
+                             HANDLER_CAN_RONLY));
+    netsnmp_register_scalar(netsnmp_create_handler_registration
+                            ("brokerAclMaxConnectionsPerIp",
+                             handle_brokerAclMaxConnectionsPerIp,
+                             brokerAclMaxConnectionsPerIp_oid,
+                             OID_LENGTH(brokerAclMaxConnectionsPerIp_oid),
+                             HANDLER_CAN_RONLY));
+    netsnmp_register_scalar(netsnmp_create_handler_registration
+                            ("brokerAclMaxConnectionsPerUser",
+                             handle_brokerAclMaxConnectionsPerUser,
+                             brokerAclMaxConnectionsPerUser_oid,
+                             OID_LENGTH
+                             (brokerAclMaxConnectionsPerUser_oid),
+                             HANDLER_CAN_RONLY));
+    netsnmp_register_scalar(netsnmp_create_handler_registration
+                            ("brokerAclAclDenyCount",
+                             handle_brokerAclAclDenyCount,
+                             brokerAclAclDenyCount_oid,
+                             OID_LENGTH(brokerAclAclDenyCount_oid),
+                             HANDLER_CAN_RONLY));
+    netsnmp_register_scalar(netsnmp_create_handler_registration
+                            ("brokerAclConnectionDenyCount",
+                             handle_brokerAclConnectionDenyCount,
+                             brokerAclConnectionDenyCount_oid,
+                             OID_LENGTH(brokerAclConnectionDenyCount_oid),
                              HANDLER_CAN_RONLY));
 }
 
 int
-handle_qpid010AclBrokerRef(netsnmp_mib_handler *handler,
+handle_brokerAclBrokerRef(netsnmp_mib_handler *handler,
                           netsnmp_handler_registration *reginfo,
                           netsnmp_agent_request_info *reqinfo,
                           netsnmp_request_info *requests)
@@ -101,7 +134,7 @@ handle_qpid010AclBrokerRef(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AclBrokerRef\n",
+                 "unknown mode (%d) in handle_brokerAclBrokerRef\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -110,7 +143,7 @@ handle_qpid010AclBrokerRef(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AclPolicyFile(netsnmp_mib_handler *handler,
+handle_brokerAclPolicyFile(netsnmp_mib_handler *handler,
                            netsnmp_handler_registration *reginfo,
                            netsnmp_agent_request_info *reqinfo,
                            netsnmp_request_info *requests)
@@ -143,7 +176,7 @@ handle_qpid010AclPolicyFile(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AclPolicyFile\n",
+                 "unknown mode (%d) in handle_brokerAclPolicyFile\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -152,7 +185,7 @@ handle_qpid010AclPolicyFile(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AclEnforcingAcl(netsnmp_mib_handler *handler,
+handle_brokerAclEnforcingAcl(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *reqinfo,
                              netsnmp_request_info *requests)
@@ -185,7 +218,7 @@ handle_qpid010AclEnforcingAcl(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AclEnforcingAcl\n",
+                 "unknown mode (%d) in handle_brokerAclEnforcingAcl\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -194,7 +227,7 @@ handle_qpid010AclEnforcingAcl(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AclTransferAcl(netsnmp_mib_handler *handler,
+handle_brokerAclTransferAcl(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -227,7 +260,7 @@ handle_qpid010AclTransferAcl(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AclTransferAcl\n",
+                 "unknown mode (%d) in handle_brokerAclTransferAcl\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -236,7 +269,7 @@ handle_qpid010AclTransferAcl(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AclLastAclLoad(netsnmp_mib_handler *handler,
+handle_brokerAclLastAclLoad(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -252,7 +285,7 @@ handle_qpid010AclLastAclLoad(netsnmp_mib_handler *handler,
      */
 
 	uint64_t ticks;
-	qpidGetScalarU64("broker", "uptime", &ticks);
+	qpidGetScalarU64("acl", "lastAclLoad", &ticks);
 	// qpid reports time in a uin64 in nanoseconds
 	// snmp assumes the time is in a uint32 in 10ths of seconds
 	uint32_t tocks = (uint32_t)(ticks / 10000000);
@@ -272,7 +305,7 @@ handle_qpid010AclLastAclLoad(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AclLastAclLoad\n",
+                 "unknown mode (%d) in handle_brokerAclLastAclLoad\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -281,7 +314,133 @@ handle_qpid010AclLastAclLoad(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AclAclDenyCount(netsnmp_mib_handler *handler,
+handle_brokerAclMaxConnections(netsnmp_mib_handler *handler,
+                               netsnmp_handler_registration *reginfo,
+                               netsnmp_agent_request_info *reqinfo,
+                               netsnmp_request_info *requests)
+{
+    /*
+     * We are never called for a GETNEXT if it's registered as a
+     * "instance", as it's "magically" handled for us.  
+     */
+
+    /*
+     * a instance handler also only hands us one request at a time, so
+     * we don't need to loop over a list of requests; we'll only get one. 
+     */
+
+	uint16_t u16;
+	qpidGetScalarU16("acl", "maxConnections", &u16);
+
+    switch (reqinfo->mode) {
+
+    case MODE_GET:
+        snmp_set_var_typed_value(requests->requestvb, ASN_INTEGER,
+        		&u16,		// a pointer to the scalar's data
+        		sizeof(u16)	// the length of the data in bytes
+        );
+        break;
+
+
+    default:
+        /*
+         * we should never get here, so this is a really bad error
+         */
+        snmp_log(LOG_ERR, "unknown mode (%d) in handle_brokerAclMaxConnections\n",
+                 reqinfo->mode);
+        return SNMP_ERR_GENERR;
+    }
+
+    return SNMP_ERR_NOERROR;
+}
+
+int
+handle_brokerAclMaxConnectionsPerIp(netsnmp_mib_handler *handler,
+                                    netsnmp_handler_registration *reginfo,
+                                    netsnmp_agent_request_info *reqinfo,
+                                    netsnmp_request_info *requests)
+{
+    /*
+     * We are never called for a GETNEXT if it's registered as a
+     * "instance", as it's "magically" handled for us.  
+     */
+
+    /*
+     * a instance handler also only hands us one request at a time, so
+     * we don't need to loop over a list of requests; we'll only get one. 
+     */
+
+	uint16_t u16;
+	qpidGetScalarU16("acl", "maxConnectionsPerIp", &u16);
+
+    switch (reqinfo->mode) {
+
+    case MODE_GET:
+        snmp_set_var_typed_value(requests->requestvb, ASN_INTEGER,
+        		&u16,		// a pointer to the scalar's data
+        		sizeof(u16)	// the length of the data in bytes
+        );
+        break;
+
+
+    default:
+        /*
+         * we should never get here, so this is a really bad error 
+         */
+        snmp_log(LOG_ERR,
+                 "unknown mode (%d) in handle_brokerAclMaxConnectionsPerIp\n",
+                 reqinfo->mode);
+        return SNMP_ERR_GENERR;
+    }
+
+    return SNMP_ERR_NOERROR;
+}
+
+int
+handle_brokerAclMaxConnectionsPerUser(netsnmp_mib_handler *handler,
+                                      netsnmp_handler_registration
+                                      *reginfo,
+                                      netsnmp_agent_request_info *reqinfo,
+                                      netsnmp_request_info *requests)
+{
+    /*
+     * We are never called for a GETNEXT if it's registered as a
+     * "instance", as it's "magically" handled for us.  
+     */
+
+    /*
+     * a instance handler also only hands us one request at a time, so
+     * we don't need to loop over a list of requests; we'll only get one. 
+     */
+
+	uint16_t u16;
+	qpidGetScalarU16("acl", "maxConnectionsPerUser", &u16);
+
+    switch (reqinfo->mode) {
+
+    case MODE_GET:
+        snmp_set_var_typed_value(requests->requestvb, ASN_INTEGER,
+        		&u16,		// a pointer to the scalar's data
+        		sizeof(u16)	// the length of the data in bytes
+        );
+        break;
+
+
+    default:
+        /*
+         * we should never get here, so this is a really bad error 
+         */
+        snmp_log(LOG_ERR,
+                 "unknown mode (%d) in handle_brokerAclMaxConnectionsPerUser\n",
+                 reqinfo->mode);
+        return SNMP_ERR_GENERR;
+    }
+
+    return SNMP_ERR_NOERROR;
+}
+
+int
+handle_brokerAclAclDenyCount(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *reqinfo,
                              netsnmp_request_info *requests)
@@ -314,7 +473,49 @@ handle_qpid010AclAclDenyCount(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AclAclDenyCount\n",
+                 "unknown mode (%d) in handle_brokerAclAclDenyCount\n",
+                 reqinfo->mode);
+        return SNMP_ERR_GENERR;
+    }
+
+    return SNMP_ERR_NOERROR;
+}
+
+int
+handle_brokerAclConnectionDenyCount(netsnmp_mib_handler *handler,
+                                    netsnmp_handler_registration *reginfo,
+                                    netsnmp_agent_request_info *reqinfo,
+                                    netsnmp_request_info *requests)
+{
+    /*
+     * We are never called for a GETNEXT if it's registered as a
+     * "instance", as it's "magically" handled for us.  
+     */
+
+    /*
+     * a instance handler also only hands us one request at a time, so
+     * we don't need to loop over a list of requests; we'll only get one. 
+     */
+
+	U64 count64;
+	qpidGetScalarS64("acl", "aclConnectionDenyCount", &count64);
+
+    switch (reqinfo->mode) {
+
+    case MODE_GET:
+        snmp_set_var_typed_value(requests->requestvb, ASN_COUNTER64,
+        		&count64, 			// a pointer to the scalar's data
+                sizeof(count64) 	// the length of the data in bytes
+        );
+        break;
+
+
+    default:
+        /*
+         * we should never get here, so this is a really bad error 
+         */
+        snmp_log(LOG_ERR,
+                 "unknown mode (%d) in handle_brokerAclConnectionDenyCount\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
