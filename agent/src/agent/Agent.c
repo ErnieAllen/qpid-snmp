@@ -10,64 +10,64 @@
 
 #include "../qpid_api.h"
 
-/** Initializes the qpid010Agent module */
+/** Initializes the brokerAgent module */
 void
 init_Agent(void)
 {
-    const oid       qpid010AgentConnectionRef_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 1 };
-    const oid       qpid010AgentLabel_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 2 };
-    const oid       qpid010AgentRegisteredTo_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 3 };
-    const oid       qpid010AgentSystemId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 4 };
-    const oid       qpid010AgentBrokerBank_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 5 };
-    const oid       qpid010AgentAgentBank_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4, 6 };
+    const oid       brokerAgentConnectionRef_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 4, 1 };
+    const oid       brokerAgentLabel_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 4, 2 };
+    const oid       brokerAgentRegisteredTo_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 4, 3 };
+    const oid       brokerAgentSystemId_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 4, 4 };
+    const oid       brokerAgentBrokerBank_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 4, 5 };
+    const oid       brokerAgentAgentBank_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 4, 6 };
 
-    DEBUGMSGTL(("qpid010Agent", "Initializing\n"));
+    DEBUGMSGTL(("brokerAgent", "Initializing\n"));
 
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AgentConnectionRef",
-                             handle_qpid010AgentConnectionRef,
-                             qpid010AgentConnectionRef_oid,
-                             OID_LENGTH(qpid010AgentConnectionRef_oid),
+                            ("brokerAgentConnectionRef",
+                             handle_brokerAgentConnectionRef,
+                             brokerAgentConnectionRef_oid,
+                             OID_LENGTH(brokerAgentConnectionRef_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AgentLabel", handle_qpid010AgentLabel,
-                             qpid010AgentLabel_oid,
-                             OID_LENGTH(qpid010AgentLabel_oid),
+                            ("brokerAgentLabel", handle_brokerAgentLabel,
+                             brokerAgentLabel_oid,
+                             OID_LENGTH(brokerAgentLabel_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AgentRegisteredTo",
-                             handle_qpid010AgentRegisteredTo,
-                             qpid010AgentRegisteredTo_oid,
-                             OID_LENGTH(qpid010AgentRegisteredTo_oid),
+                            ("brokerAgentRegisteredTo",
+                             handle_brokerAgentRegisteredTo,
+                             brokerAgentRegisteredTo_oid,
+                             OID_LENGTH(brokerAgentRegisteredTo_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AgentSystemId",
-                             handle_qpid010AgentSystemId,
-                             qpid010AgentSystemId_oid,
-                             OID_LENGTH(qpid010AgentSystemId_oid),
+                            ("brokerAgentSystemId",
+                             handle_brokerAgentSystemId,
+                             brokerAgentSystemId_oid,
+                             OID_LENGTH(brokerAgentSystemId_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AgentBrokerBank",
-                             handle_qpid010AgentBrokerBank,
-                             qpid010AgentBrokerBank_oid,
-                             OID_LENGTH(qpid010AgentBrokerBank_oid),
+                            ("brokerAgentBrokerBank",
+                             handle_brokerAgentBrokerBank,
+                             brokerAgentBrokerBank_oid,
+                             OID_LENGTH(brokerAgentBrokerBank_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010AgentAgentBank",
-                             handle_qpid010AgentAgentBank,
-                             qpid010AgentAgentBank_oid,
-                             OID_LENGTH(qpid010AgentAgentBank_oid),
+                            ("brokerAgentAgentBank",
+                             handle_brokerAgentAgentBank,
+                             brokerAgentAgentBank_oid,
+                             OID_LENGTH(brokerAgentAgentBank_oid),
                              HANDLER_CAN_RONLY));
 }
 
 int
-handle_qpid010AgentConnectionRef(netsnmp_mib_handler *handler,
+handle_brokerAgentConnectionRef(netsnmp_mib_handler *handler,
                                 netsnmp_handler_registration *reginfo,
                                 netsnmp_agent_request_info *reqinfo,
                                 netsnmp_request_info *requests)
@@ -99,7 +99,7 @@ handle_qpid010AgentConnectionRef(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AgentConnectionRef\n",
+                 "unknown mode (%d) in handle_brokerAgentConnectionRef\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -108,7 +108,7 @@ handle_qpid010AgentConnectionRef(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AgentLabel(netsnmp_mib_handler *handler,
+handle_brokerAgentLabel(netsnmp_mib_handler *handler,
                         netsnmp_handler_registration *reginfo,
                         netsnmp_agent_request_info *reqinfo,
                         netsnmp_request_info *requests)
@@ -140,7 +140,7 @@ handle_qpid010AgentLabel(netsnmp_mib_handler *handler,
         /*
          * we should never get here, so this is a really bad error 
          */
-        snmp_log(LOG_ERR, "unknown mode (%d) in handle_qpid010AgentLabel\n",
+        snmp_log(LOG_ERR, "unknown mode (%d) in handle_brokerAgentLabel\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -149,7 +149,7 @@ handle_qpid010AgentLabel(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AgentRegisteredTo(netsnmp_mib_handler *handler,
+handle_brokerAgentRegisteredTo(netsnmp_mib_handler *handler,
                                netsnmp_handler_registration *reginfo,
                                netsnmp_agent_request_info *reqinfo,
                                netsnmp_request_info *requests)
@@ -181,7 +181,7 @@ handle_qpid010AgentRegisteredTo(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AgentRegisteredTo\n",
+                 "unknown mode (%d) in handle_brokerAgentRegisteredTo\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -190,7 +190,7 @@ handle_qpid010AgentRegisteredTo(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AgentSystemId(netsnmp_mib_handler *handler,
+handle_brokerAgentSystemId(netsnmp_mib_handler *handler,
                            netsnmp_handler_registration *reginfo,
                            netsnmp_agent_request_info *reqinfo,
                            netsnmp_request_info *requests)
@@ -223,7 +223,7 @@ handle_qpid010AgentSystemId(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AgentSystemId\n",
+                 "unknown mode (%d) in handle_brokerAgentSystemId\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -232,7 +232,7 @@ handle_qpid010AgentSystemId(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AgentBrokerBank(netsnmp_mib_handler *handler,
+handle_brokerAgentBrokerBank(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *reqinfo,
                              netsnmp_request_info *requests)
@@ -265,7 +265,7 @@ handle_qpid010AgentBrokerBank(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AgentBrokerBank\n",
+                 "unknown mode (%d) in handle_brokerAgentBrokerBank\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -274,7 +274,7 @@ handle_qpid010AgentBrokerBank(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010AgentAgentBank(netsnmp_mib_handler *handler,
+handle_brokerAgentAgentBank(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -307,7 +307,7 @@ handle_qpid010AgentAgentBank(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010AgentAgentBank\n",
+                 "unknown mode (%d) in handle_brokerAgentAgentBank\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }

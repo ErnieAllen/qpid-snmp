@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010SessionTable
+/** \page MFD helper for brokerSessionTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -27,67 +27,67 @@
 
 #include "SessionTable_interface.h"
 
-const oid       qpid010SessionTable_oid[] = { qpid010SESSIONTABLE_OID };
+const oid       brokerSessionTable_oid[] = { brokerSESSIONTABLE_OID };
 
-const int       qpid010SessionTable_oid_size =
-OID_LENGTH(qpid010SessionTable_oid);
+const int       brokerSessionTable_oid_size =
+OID_LENGTH(brokerSessionTable_oid);
 
-qpid010SessionTable_registration qpid010SessionTable_user_context;
+brokerSessionTable_registration brokerSessionTable_user_context;
 
-void            initialize_table_qpid010SessionTable(void);
-void            shutdown_table_qpid010SessionTable(void);
+void            initialize_table_brokerSessionTable(void);
+void            shutdown_table_brokerSessionTable(void);
 
 
 /**
- * Initializes the qpid010SessionTable module
+ * Initializes the brokerSessionTable module
  */
 void
 init_SessionTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:init_SessionTable",
+    DEBUGMSGTL(("verbose:brokerSessionTable:init_SessionTable",
                 "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010SessionTable one-time module initialization.
+     * TODO:300:o: Perform brokerSessionTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010SessionTable"))
-        initialize_table_qpid010SessionTable();
+    if (should_init("brokerSessionTable"))
+        initialize_table_brokerSessionTable();
 
 }                               /* init_SessionTable */
 
 /**
- * Shut-down the qpid010SessionTable module (agent is exiting)
+ * Shut-down the brokerSessionTable module (agent is exiting)
  */
 void
-shutdown_qpid010SessionTable(void)
+shutdown_brokerSessionTable(void)
 {
-    if (should_init("qpid010SessionTable"))
-        shutdown_table_qpid010SessionTable();
+    if (should_init("brokerSessionTable"))
+        shutdown_table_brokerSessionTable();
 
 }
 
 /**
- * Initialize the table qpid010SessionTable 
+ * Initialize the table brokerSessionTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010SessionTable(void)
+initialize_table_brokerSessionTable(void)
 {
-    qpid010SessionTable_registration *user_context;
+    brokerSessionTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:initialize_table_qpid010SessionTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:initialize_table_brokerSessionTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010SessionTable one-time table initialization.
+     * TODO:301:o: Perform brokerSessionTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010SessionTable user context
+     * TODO:302:o: |->Initialize brokerSessionTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -96,7 +96,7 @@ initialize_table_qpid010SessionTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010SessionTable", NULL, NULL);
+        netsnmp_create_data_list("brokerSessionTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -107,20 +107,20 @@ initialize_table_qpid010SessionTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010SessionTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010SessionTable */
+    _brokerSessionTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerSessionTable */
 
 /**
- * Shutdown the table qpid010SessionTable 
+ * Shutdown the table brokerSessionTable 
  */
 void
-shutdown_table_qpid010SessionTable(void)
+shutdown_table_brokerSessionTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010SessionTable_shutdown_interface
-        (&qpid010SessionTable_user_context);
+    _brokerSessionTable_shutdown_interface
+        (&brokerSessionTable_user_context);
 }
 
 /**
@@ -133,42 +133,42 @@ shutdown_table_qpid010SessionTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010SessionTable_rowreq_ctx_init(qpid010SessionTable_rowreq_ctx *
+brokerSessionTable_rowreq_ctx_init(brokerSessionTable_rowreq_ctx *
                                    rowreq_ctx, void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:210:o: |-> Perform extra qpid010SessionTable rowreq initialization. (eg DEFVALS)
+     * TODO:210:o: |-> Perform extra brokerSessionTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010SessionVhostRef_len = sizeof(rowreq_ctx->data.qpid010SessionVhostRef) /
-    		sizeof(rowreq_ctx->data.qpid010SessionVhostRef[0]);
-    rowreq_ctx->data.qpid010SessionName_len = sizeof(rowreq_ctx->data.qpid010SessionName) /
-    		sizeof(rowreq_ctx->data.qpid010SessionName[0]);
-    rowreq_ctx->data.qpid010SessionConnectionRef_len = sizeof(rowreq_ctx->data.qpid010SessionConnectionRef) /
-    		sizeof(rowreq_ctx->data.qpid010SessionConnectionRef[0]);
+    rowreq_ctx->data.brokerSessionVhostRef_len = sizeof(rowreq_ctx->data.brokerSessionVhostRef) /
+    		sizeof(rowreq_ctx->data.brokerSessionVhostRef[0]);
+    rowreq_ctx->data.brokerSessionName_len = sizeof(rowreq_ctx->data.brokerSessionName) /
+    		sizeof(rowreq_ctx->data.brokerSessionName[0]);
+    rowreq_ctx->data.brokerSessionConnectionRef_len = sizeof(rowreq_ctx->data.brokerSessionConnectionRef) /
+    		sizeof(rowreq_ctx->data.brokerSessionConnectionRef[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTable_rowreq_ctx_init */
+}                               /* brokerSessionTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010SessionTable_rowreq_ctx_cleanup(qpid010SessionTable_rowreq_ctx *
+brokerSessionTable_rowreq_ctx_cleanup(brokerSessionTable_rowreq_ctx *
                                       rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010SessionTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerSessionTable rowreq cleanup.
      */
-}                               /* qpid010SessionTable_rowreq_ctx_cleanup */
+}                               /* brokerSessionTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -182,7 +182,7 @@ qpid010SessionTable_rowreq_ctx_cleanup(qpid010SessionTable_rowreq_ctx *
  * return 0 if the row should not be stored
  */
 int
-qpid010SessionTable_container_should_save(qpid010SessionTable_rowreq_ctx *
+brokerSessionTable_container_should_save(brokerSessionTable_rowreq_ctx *
                                          rowreq_ctx)
 {
 
@@ -197,17 +197,17 @@ qpid010SessionTable_container_should_save(qpid010SessionTable_rowreq_ctx *
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010SessionTable_pre_request(qpid010SessionTable_registration *
+brokerSessionTable_pre_request(brokerSessionTable_registration *
                                user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_pre_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_pre_request", "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010SessionTable pre-request actions.
+     * TODO:510:o: Perform brokerSessionTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTable_pre_request */
+}                               /* brokerSessionTable_pre_request */
 
 /**
  * post-request callback
@@ -224,19 +224,19 @@ qpid010SessionTable_pre_request(qpid010SessionTable_registration *
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010SessionTable_post_request(qpid010SessionTable_registration *
+brokerSessionTable_post_request(brokerSessionTable_registration *
                                 user_context, int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_post_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_post_request", "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010SessionTable post-request actions.
+     * TODO:511:o: Perform brokerSessionTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010SessionTable_dirty_get()) {
+    if (brokerSessionTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -249,11 +249,11 @@ qpid010SessionTable_post_request(qpid010SessionTable_registration *
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010SessionTable_dirty_set(0);        /* clear table dirty flag */
+        brokerSessionTable_dirty_set(0);        /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTable_post_request */
+}                               /* brokerSessionTable_post_request */
 
 
 /** @{ */

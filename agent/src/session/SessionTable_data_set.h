@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010SESSIONTABLE_DATA_SET_H
-#define qpid010SESSIONTABLE_DATA_SET_H
+#ifndef brokerSESSIONTABLE_DATA_SET_H
+#define brokerSESSIONTABLE_DATA_SET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -23,271 +23,271 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SessionTable
+ *** Table brokerSessionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
+     * QPID-MESSAGING-MIB::brokerSessionTable is subid 1 of brokerSessions.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
      */
 
 
     int            
-        qpid010SessionTable_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTable_undo_setup(brokerSessionTable_rowreq_ctx *
                                       rowreq_ctx);
     int            
-        qpid010SessionTable_undo_cleanup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTable_undo_cleanup(brokerSessionTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010SessionTable_undo(qpid010SessionTable_rowreq_ctx *
+    int             brokerSessionTable_undo(brokerSessionTable_rowreq_ctx *
                                             rowreq_ctx);
-    int             qpid010SessionTable_commit(qpid010SessionTable_rowreq_ctx
+    int             brokerSessionTable_commit(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx);
     int            
-        qpid010SessionTable_undo_commit(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTable_undo_commit(brokerSessionTable_rowreq_ctx *
                                        rowreq_ctx);
 
 
     int            
-        qpid010SessionVhostRef_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionVhostRef_check_value(brokerSessionTable_rowreq_ctx *
                                           rowreq_ctx,
                                           char
-                                          *qpid010SessionVhostRef_val_ptr,
+                                          *brokerSessionVhostRef_val_ptr,
                                           size_t
-                                          qpid010SessionVhostRef_val_ptr_len);
+                                          brokerSessionVhostRef_val_ptr_len);
     int            
-        qpid010SessionVhostRef_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionVhostRef_undo_setup(brokerSessionTable_rowreq_ctx *
                                          rowreq_ctx);
-    int             qpid010SessionVhostRef_set(qpid010SessionTable_rowreq_ctx
+    int             brokerSessionVhostRef_set(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx,
                                               char
-                                              *qpid010SessionVhostRef_val_ptr,
+                                              *brokerSessionVhostRef_val_ptr,
                                               size_t
-                                              qpid010SessionVhostRef_val_ptr_len);
+                                              brokerSessionVhostRef_val_ptr_len);
     int            
-        qpid010SessionVhostRef_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionVhostRef_undo(brokerSessionTable_rowreq_ctx *
                                    rowreq_ctx);
 
     int            
-        qpid010SessionName_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionName_check_value(brokerSessionTable_rowreq_ctx *
                                       rowreq_ctx,
-                                      char *qpid010SessionName_val_ptr,
+                                      char *brokerSessionName_val_ptr,
                                       size_t
-                                      qpid010SessionName_val_ptr_len);
+                                      brokerSessionName_val_ptr_len);
     int            
-        qpid010SessionName_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionName_undo_setup(brokerSessionTable_rowreq_ctx *
                                      rowreq_ctx);
-    int             qpid010SessionName_set(qpid010SessionTable_rowreq_ctx *
+    int             brokerSessionName_set(brokerSessionTable_rowreq_ctx *
                                           rowreq_ctx,
-                                          char *qpid010SessionName_val_ptr,
+                                          char *brokerSessionName_val_ptr,
                                           size_t
-                                          qpid010SessionName_val_ptr_len);
-    int             qpid010SessionName_undo(qpid010SessionTable_rowreq_ctx *
+                                          brokerSessionName_val_ptr_len);
+    int             brokerSessionName_undo(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx);
 
     int            
-        qpid010SessionChannelId_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionChannelId_check_value(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx,
                                            long
-                                           qpid010SessionChannelId_val);
+                                           brokerSessionChannelId_val);
     int            
-        qpid010SessionChannelId_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionChannelId_undo_setup(brokerSessionTable_rowreq_ctx *
                                           rowreq_ctx);
     int            
-        qpid010SessionChannelId_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionChannelId_set(brokerSessionTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   long qpid010SessionChannelId_val);
+                                   long brokerSessionChannelId_val);
     int            
-        qpid010SessionChannelId_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionChannelId_undo(brokerSessionTable_rowreq_ctx *
                                     rowreq_ctx);
 
     int            
-        qpid010SessionConnectionRef_check_value
-        (qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-         char *qpid010SessionConnectionRef_val_ptr,
-         size_t qpid010SessionConnectionRef_val_ptr_len);
+        brokerSessionConnectionRef_check_value
+        (brokerSessionTable_rowreq_ctx * rowreq_ctx,
+         char *brokerSessionConnectionRef_val_ptr,
+         size_t brokerSessionConnectionRef_val_ptr_len);
     int            
-        qpid010SessionConnectionRef_undo_setup(qpid010SessionTable_rowreq_ctx
+        brokerSessionConnectionRef_undo_setup(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx);
     int            
-        qpid010SessionConnectionRef_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionConnectionRef_set(brokerSessionTable_rowreq_ctx *
                                        rowreq_ctx,
                                        char
-                                       *qpid010SessionConnectionRef_val_ptr,
+                                       *brokerSessionConnectionRef_val_ptr,
                                        size_t
-                                       qpid010SessionConnectionRef_val_ptr_len);
+                                       brokerSessionConnectionRef_val_ptr_len);
     int            
-        qpid010SessionConnectionRef_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionConnectionRef_undo(brokerSessionTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010SessionDetachedLifespan_check_value
-        (qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010SessionDetachedLifespan_val);
+        brokerSessionDetachedLifespan_check_value
+        (brokerSessionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerSessionDetachedLifespan_val);
     int            
-        qpid010SessionDetachedLifespan_undo_setup
-        (qpid010SessionTable_rowreq_ctx * rowreq_ctx);
+        brokerSessionDetachedLifespan_undo_setup
+        (brokerSessionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010SessionDetachedLifespan_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionDetachedLifespan_set(brokerSessionTable_rowreq_ctx *
                                           rowreq_ctx,
                                           u_long
-                                          qpid010SessionDetachedLifespan_val);
+                                          brokerSessionDetachedLifespan_val);
     int            
-        qpid010SessionDetachedLifespan_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionDetachedLifespan_undo(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx);
 
     int            
-        qpid010SessionAttached_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionAttached_check_value(brokerSessionTable_rowreq_ctx *
                                           rowreq_ctx,
                                           u_long
-                                          qpid010SessionAttached_val);
+                                          brokerSessionAttached_val);
     int            
-        qpid010SessionAttached_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionAttached_undo_setup(brokerSessionTable_rowreq_ctx *
                                          rowreq_ctx);
-    int             qpid010SessionAttached_set(qpid010SessionTable_rowreq_ctx
+    int             brokerSessionAttached_set(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx,
                                               u_long
-                                              qpid010SessionAttached_val);
+                                              brokerSessionAttached_val);
     int            
-        qpid010SessionAttached_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionAttached_undo(brokerSessionTable_rowreq_ctx *
                                    rowreq_ctx);
 
     int            
-        qpid010SessionExpireTime_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionExpireTime_check_value(brokerSessionTable_rowreq_ctx *
                                             rowreq_ctx,
                                             u_long
-                                            qpid010SessionExpireTime_val);
+                                            brokerSessionExpireTime_val);
     int            
-        qpid010SessionExpireTime_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionExpireTime_undo_setup(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx);
     int            
-        qpid010SessionExpireTime_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionExpireTime_set(brokerSessionTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    u_long qpid010SessionExpireTime_val);
+                                    u_long brokerSessionExpireTime_val);
     int            
-        qpid010SessionExpireTime_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionExpireTime_undo(brokerSessionTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010SessionMaxClientRate_check_value
-        (qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010SessionMaxClientRate_val);
+        brokerSessionMaxClientRate_check_value
+        (brokerSessionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerSessionMaxClientRate_val);
     int            
-        qpid010SessionMaxClientRate_undo_setup(qpid010SessionTable_rowreq_ctx
+        brokerSessionMaxClientRate_undo_setup(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx);
     int            
-        qpid010SessionMaxClientRate_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionMaxClientRate_set(brokerSessionTable_rowreq_ctx *
                                        rowreq_ctx,
                                        u_long
-                                       qpid010SessionMaxClientRate_val);
+                                       brokerSessionMaxClientRate_val);
     int            
-        qpid010SessionMaxClientRate_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionMaxClientRate_undo(brokerSessionTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010SessionFramesOutstanding_check_value
-        (qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010SessionFramesOutstanding_val);
+        brokerSessionFramesOutstanding_check_value
+        (brokerSessionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerSessionFramesOutstanding_val);
     int            
-        qpid010SessionFramesOutstanding_undo_setup
-        (qpid010SessionTable_rowreq_ctx * rowreq_ctx);
+        brokerSessionFramesOutstanding_undo_setup
+        (brokerSessionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010SessionFramesOutstanding_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionFramesOutstanding_set(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx,
                                            u_long
-                                           qpid010SessionFramesOutstanding_val);
+                                           brokerSessionFramesOutstanding_val);
     int            
-        qpid010SessionFramesOutstanding_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionFramesOutstanding_undo(brokerSessionTable_rowreq_ctx *
                                             rowreq_ctx);
 
     int            
-        qpid010SessionTxnStarts_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnStarts_check_value(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx,
-                                           U64 qpid010SessionTxnStarts_val);
+                                           U64 brokerSessionTxnStarts_val);
     int            
-        qpid010SessionTxnStarts_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnStarts_undo_setup(brokerSessionTable_rowreq_ctx *
                                           rowreq_ctx);
     int            
-        qpid010SessionTxnStarts_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnStarts_set(brokerSessionTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   U64 qpid010SessionTxnStarts_val);
+                                   U64 brokerSessionTxnStarts_val);
     int            
-        qpid010SessionTxnStarts_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnStarts_undo(brokerSessionTable_rowreq_ctx *
                                     rowreq_ctx);
 
     int            
-        qpid010SessionTxnCommits_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnCommits_check_value(brokerSessionTable_rowreq_ctx *
                                             rowreq_ctx,
                                             U64
-                                            qpid010SessionTxnCommits_val);
+                                            brokerSessionTxnCommits_val);
     int            
-        qpid010SessionTxnCommits_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnCommits_undo_setup(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx);
     int            
-        qpid010SessionTxnCommits_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnCommits_set(brokerSessionTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    U64 qpid010SessionTxnCommits_val);
+                                    U64 brokerSessionTxnCommits_val);
     int            
-        qpid010SessionTxnCommits_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnCommits_undo(brokerSessionTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010SessionTxnRejects_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnRejects_check_value(brokerSessionTable_rowreq_ctx *
                                             rowreq_ctx,
                                             U64
-                                            qpid010SessionTxnRejects_val);
+                                            brokerSessionTxnRejects_val);
     int            
-        qpid010SessionTxnRejects_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnRejects_undo_setup(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx);
     int            
-        qpid010SessionTxnRejects_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnRejects_set(brokerSessionTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    U64 qpid010SessionTxnRejects_val);
+                                    U64 brokerSessionTxnRejects_val);
     int            
-        qpid010SessionTxnRejects_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnRejects_undo(brokerSessionTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010SessionTxnCount_check_value(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnCount_check_value(brokerSessionTable_rowreq_ctx *
                                           rowreq_ctx,
                                           u_long
-                                          qpid010SessionTxnCount_val);
+                                          brokerSessionTxnCount_val);
     int            
-        qpid010SessionTxnCount_undo_setup(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnCount_undo_setup(brokerSessionTable_rowreq_ctx *
                                          rowreq_ctx);
-    int             qpid010SessionTxnCount_set(qpid010SessionTable_rowreq_ctx
+    int             brokerSessionTxnCount_set(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx,
                                               u_long
-                                              qpid010SessionTxnCount_val);
+                                              brokerSessionTxnCount_val);
     int            
-        qpid010SessionTxnCount_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTxnCount_undo(brokerSessionTable_rowreq_ctx *
                                    rowreq_ctx);
 
     int            
-        qpid010SessionClientCredit_check_value(qpid010SessionTable_rowreq_ctx
+        brokerSessionClientCredit_check_value(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx,
                                               u_long
-                                              qpid010SessionClientCredit_val);
+                                              brokerSessionClientCredit_val);
     int            
-        qpid010SessionClientCredit_undo_setup(qpid010SessionTable_rowreq_ctx
+        brokerSessionClientCredit_undo_setup(brokerSessionTable_rowreq_ctx
                                              * rowreq_ctx);
     int            
-        qpid010SessionClientCredit_set(qpid010SessionTable_rowreq_ctx *
+        brokerSessionClientCredit_set(brokerSessionTable_rowreq_ctx *
                                       rowreq_ctx,
                                       u_long
-                                      qpid010SessionClientCredit_val);
+                                      brokerSessionClientCredit_val);
     int            
-        qpid010SessionClientCredit_undo(qpid010SessionTable_rowreq_ctx *
+        brokerSessionClientCredit_undo(brokerSessionTable_rowreq_ctx *
                                        rowreq_ctx);
 
 
     int            
-        qpid010SessionTable_check_dependencies(qpid010SessionTable_rowreq_ctx
+        brokerSessionTable_check_dependencies(brokerSessionTable_rowreq_ctx
                                               * ctx);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SESSIONTABLE_DATA_SET_H */
+#endif                          /* brokerSESSIONTABLE_DATA_SET_H */

@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010QUEUETABLE_OIDS_H
-#define qpid010QUEUETABLE_OIDS_H
+#ifndef brokerQUEUETABLE_OIDS_H
+#define brokerQUEUETABLE_OIDS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -13,126 +13,126 @@ extern          "C" {
 
 
     /*
-     * column number definitions for table qpid010QueueTable 
+     * column number definitions for table brokerQueueTable 
      */
-#define qpid010QUEUETABLE_OID              1,3,6,1,4,1,18060,5672,1,1,6,1
+#define brokerQUEUETABLE_OID              1,3,6,1,4,1,18060,5672,1,6,1
 
 
-#define COLUMN_qpid010QUEUEVHOSTREF         1
-#define COLUMN_qpid010QUEUEVHOSTREF_FLAG    (0x1 << 0)
+#define COLUMN_brokerQUEUEVHOSTREF         1
+#define COLUMN_brokerQUEUEVHOSTREF_FLAG    (0x1 << 0)
 
-#define COLUMN_qpid010QUEUENAME         2
-#define COLUMN_qpid010QUEUENAME_FLAG    (0x1 << 1)
+#define COLUMN_brokerQUEUENAME         2
+#define COLUMN_brokerQUEUENAME_FLAG    (0x1 << 1)
 
-#define COLUMN_qpid010QUEUEDURABLE         3
-#define COLUMN_qpid010QUEUEDURABLE_FLAG    (0x1 << 2)
+#define COLUMN_brokerQUEUEDURABLE         3
+#define COLUMN_brokerQUEUEDURABLE_FLAG    (0x1 << 2)
 
-#define COLUMN_qpid010QUEUEAUTODELETE         4
-#define COLUMN_qpid010QUEUEAUTODELETE_FLAG    (0x1 << 3)
+#define COLUMN_brokerQUEUEAUTODELETE         4
+#define COLUMN_brokerQUEUEAUTODELETE_FLAG    (0x1 << 3)
 
-#define COLUMN_qpid010QUEUEEXCLUSIVE         5
-#define COLUMN_qpid010QUEUEEXCLUSIVE_FLAG    (0x1 << 4)
+#define COLUMN_brokerQUEUEEXCLUSIVE         5
+#define COLUMN_brokerQUEUEEXCLUSIVE_FLAG    (0x1 << 4)
 
-#define COLUMN_qpid010QUEUEARGUMENTS         6
+#define COLUMN_brokerQUEUEARGUMENTS         6
 
-#define COLUMN_qpid010QUEUEALTEXCHANGE         7
+#define COLUMN_brokerQUEUEALTEXCHANGE         7
 
-#define COLUMN_qpid010QUEUEMSGTOTALENQUEUES         8
+#define COLUMN_brokerQUEUEMSGTOTALENQUEUES         8
 
-#define COLUMN_qpid010QUEUEMSGTOTALDEQUEUES         9
+#define COLUMN_brokerQUEUEMSGTOTALDEQUEUES         9
 
-#define COLUMN_qpid010QUEUEMSGTXNENQUEUES         10
+#define COLUMN_brokerQUEUEMSGTXNENQUEUES         10
 
-#define COLUMN_qpid010QUEUEMSGTXNDEQUEUES         11
+#define COLUMN_brokerQUEUEMSGTXNDEQUEUES         11
 
-#define COLUMN_qpid010QUEUEMSGPERSISTENQUEUES         12
+#define COLUMN_brokerQUEUEMSGPERSISTENQUEUES         12
 
-#define COLUMN_qpid010QUEUEMSGPERSISTDEQUEUES         13
+#define COLUMN_brokerQUEUEMSGPERSISTDEQUEUES         13
 
-#define COLUMN_qpid010QUEUEMSGDEPTH         14
+#define COLUMN_brokerQUEUEMSGDEPTH         14
 
-#define COLUMN_qpid010QUEUEBYTEDEPTH         15
+#define COLUMN_brokerQUEUEBYTEDEPTH         15
 
-#define COLUMN_qpid010QUEUEBYTETOTALENQUEUES         16
+#define COLUMN_brokerQUEUEBYTETOTALENQUEUES         16
 
-#define COLUMN_qpid010QUEUEBYTETOTALDEQUEUES         17
+#define COLUMN_brokerQUEUEBYTETOTALDEQUEUES         17
 
-#define COLUMN_qpid010QUEUEBYTETXNENQUEUES         18
+#define COLUMN_brokerQUEUEBYTETXNENQUEUES         18
 
-#define COLUMN_qpid010QUEUEBYTETXNDEQUEUES         19
+#define COLUMN_brokerQUEUEBYTETXNDEQUEUES         19
 
-#define COLUMN_qpid010QUEUEBYTEPERSISTENQUEUES         20
+#define COLUMN_brokerQUEUEBYTEPERSISTENQUEUES         20
 
-#define COLUMN_qpid010QUEUEBYTEPERSISTDEQUEUES         21
+#define COLUMN_brokerQUEUEBYTEPERSISTDEQUEUES         21
 
-#define COLUMN_qpid010QUEUEMSGFTDENQUEUES         22
+#define COLUMN_brokerQUEUEMSGFTDENQUEUES         22
 
-#define COLUMN_qpid010QUEUEMSGFTDDEQUEUES         23
+#define COLUMN_brokerQUEUEMSGFTDDEQUEUES         23
 
-#define COLUMN_qpid010QUEUEBYTEFTDENQUEUES         24
+#define COLUMN_brokerQUEUEBYTEFTDENQUEUES         24
 
-#define COLUMN_qpid010QUEUEBYTEFTDDEQUEUES         25
+#define COLUMN_brokerQUEUEBYTEFTDDEQUEUES         25
 
-#define COLUMN_qpid010QUEUEMSGFTDDEPTH         26
+#define COLUMN_brokerQUEUEMSGFTDDEPTH         26
 
-#define COLUMN_qpid010QUEUEBYTEFTDDEPTH         27
+#define COLUMN_brokerQUEUEBYTEFTDDEPTH         27
 
-#define COLUMN_qpid010QUEUERELEASES         28
+#define COLUMN_brokerQUEUERELEASES         28
 
-#define COLUMN_qpid010QUEUEACQUIRES         29
+#define COLUMN_brokerQUEUEACQUIRES         29
 
-#define COLUMN_qpid010QUEUEDISCARDSTTL         30
+#define COLUMN_brokerQUEUEDISCARDSTTL         30
 
-#define COLUMN_qpid010QUEUEDISCARDSRING         31
+#define COLUMN_brokerQUEUEDISCARDSRING         31
 
-#define COLUMN_qpid010QUEUEDISCARDSLVQ         32
+#define COLUMN_brokerQUEUEDISCARDSLVQ         32
 
-#define COLUMN_qpid010QUEUEDISCARDSOVERFLOW         33
+#define COLUMN_brokerQUEUEDISCARDSOVERFLOW         33
 
-#define COLUMN_qpid010QUEUEDISCARDSSUBSCRIBER         34
+#define COLUMN_brokerQUEUEDISCARDSSUBSCRIBER         34
 
-#define COLUMN_qpid010QUEUEDISCARDSPURGE         35
+#define COLUMN_brokerQUEUEDISCARDSPURGE         35
 
-#define COLUMN_qpid010QUEUEREROUTES         36
+#define COLUMN_brokerQUEUEREROUTES         36
 
-#define COLUMN_qpid010QUEUECONSUMERCOUNT         37
+#define COLUMN_brokerQUEUECONSUMERCOUNT         37
 
-#define COLUMN_qpid010QUEUECONSUMERCOUNTHI         38
+#define COLUMN_brokerQUEUECONSUMERCOUNTHI         38
 
-#define COLUMN_qpid010QUEUECONSUMERCOUNTLOW         39
+#define COLUMN_brokerQUEUECONSUMERCOUNTLOW         39
 
-#define COLUMN_qpid010QUEUEBINDINGCOUNT         40
+#define COLUMN_brokerQUEUEBINDINGCOUNT         40
 
-#define COLUMN_qpid010QUEUEBINDINGCOUNTHI         41
+#define COLUMN_brokerQUEUEBINDINGCOUNTHI         41
 
-#define COLUMN_qpid010QUEUEBINDINGCOUNTLOW         42
+#define COLUMN_brokerQUEUEBINDINGCOUNTLOW         42
 
-#define COLUMN_qpid010QUEUEUNACKEDMESSAGES         43
+#define COLUMN_brokerQUEUEUNACKEDMESSAGES         43
 
-#define COLUMN_qpid010QUEUEUNACKEDMESSAGESHI         44
+#define COLUMN_brokerQUEUEUNACKEDMESSAGESHI         44
 
-#define COLUMN_qpid010QUEUEUNACKEDMESSAGESLOW         45
+#define COLUMN_brokerQUEUEUNACKEDMESSAGESLOW         45
 
-#define COLUMN_qpid010QUEUEMESSAGELATENCY         46
+#define COLUMN_brokerQUEUEMESSAGELATENCY         46
 
-#define COLUMN_qpid010QUEUEFLOWSTOPPED         47
+#define COLUMN_brokerQUEUEFLOWSTOPPED         47
 
-#define COLUMN_qpid010QUEUEFLOWSTOPPEDCOUNT         48
+#define COLUMN_brokerQUEUEFLOWSTOPPEDCOUNT         48
 
-#define COLUMN_qpid010QUEUEINTERNALINDEX         49
+#define COLUMN_brokerQUEUEINTERNALINDEX         49
 
 
-#define qpid010QUEUETABLE_MIN_COL   COLUMN_qpid010QUEUEVHOSTREF
-#define qpid010QUEUETABLE_MAX_COL   COLUMN_qpid010QUEUEFLOWSTOPPEDCOUNT
+#define brokerQUEUETABLE_MIN_COL   COLUMN_brokerQUEUEVHOSTREF
+#define brokerQUEUETABLE_MAX_COL   COLUMN_brokerQUEUEFLOWSTOPPEDCOUNT
 
 
     /*
-     * TODO:405:r: Review qpid010QUEUETABLE_SETTABLE_COLS macro.
+     * TODO:405:r: Review brokerQUEUETABLE_SETTABLE_COLS macro.
      * OR together all the writable cols.
      */
-#define qpid010QUEUETABLE_SETTABLE_COLS (COLUMN_qpid010QUEUEVHOSTREF_FLAG | COLUMN_qpid010QUEUENAME_FLAG | COLUMN_qpid010QUEUEDURABLE_FLAG | COLUMN_qpid010QUEUEAUTODELETE_FLAG | COLUMN_qpid010QUEUEEXCLUSIVE_FLAG)
+#define brokerQUEUETABLE_SETTABLE_COLS (COLUMN_brokerQUEUEVHOSTREF_FLAG | COLUMN_brokerQUEUENAME_FLAG | COLUMN_brokerQUEUEDURABLE_FLAG | COLUMN_brokerQUEUEAUTODELETE_FLAG | COLUMN_brokerQUEUEEXCLUSIVE_FLAG)
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010QUEUETABLE_OIDS_H */
+#endif                          /* brokerQUEUETABLE_OIDS_H */

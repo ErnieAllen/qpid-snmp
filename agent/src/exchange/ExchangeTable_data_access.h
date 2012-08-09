@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010EXCHANGETABLE_DATA_ACCESS_H
-#define qpid010EXCHANGETABLE_DATA_ACCESS_H
+#ifndef brokerEXCHANGETABLE_DATA_ACCESS_H
+#define brokerEXCHANGETABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -24,44 +24,44 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ExchangeTable
+ *** Table brokerExchangeTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
+     * QPID-MESSAGING-MIB::brokerExchangeTable is subid 1 of brokerExchanges.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
      */
 
 
     int            
-        qpid010ExchangeTable_init_data(qpid010ExchangeTable_registration *
-                                      qpid010ExchangeTable_reg);
+        brokerExchangeTable_init_data(brokerExchangeTable_registration *
+                                      brokerExchangeTable_reg);
 
 
     /*
-     * TODO:180:o: Review qpid010ExchangeTable cache timeout.
+     * TODO:180:o: Review brokerExchangeTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define qpid010EXCHANGETABLE_CACHE_TIMEOUT   60
+#define brokerEXCHANGETABLE_CACHE_TIMEOUT   60
 
-    void            qpid010ExchangeTable_container_init(netsnmp_container **
+    void            brokerExchangeTable_container_init(netsnmp_container **
                                                        container_ptr_ptr,
                                                        netsnmp_cache *
                                                        cache);
     void           
-        qpid010ExchangeTable_container_shutdown(netsnmp_container *
+        brokerExchangeTable_container_shutdown(netsnmp_container *
                                                container_ptr);
 
-    int             qpid010ExchangeTable_container_load(netsnmp_container *
+    int             brokerExchangeTable_container_load(netsnmp_container *
                                                        container);
-    void            qpid010ExchangeTable_container_free(netsnmp_container *
+    void            brokerExchangeTable_container_free(netsnmp_container *
                                                        container);
 
-    int             qpid010ExchangeTable_cache_load(netsnmp_container *
+    int             brokerExchangeTable_cache_load(netsnmp_container *
                                                    container);
-    void            qpid010ExchangeTable_cache_free(netsnmp_container *
+    void            brokerExchangeTable_cache_free(netsnmp_container *
                                                    container);
 
     /*
@@ -79,18 +79,18 @@ extern          "C" {
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
     int            
-        qpid010ExchangeTable_row_prep(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeTable_row_prep(brokerExchangeTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010ExchangeTable_validate_index(qpid010ExchangeTable_registration
-                                           * qpid010ExchangeTable_reg,
-                                           qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeTable_validate_index(brokerExchangeTable_registration
+                                           * brokerExchangeTable_reg,
+                                           brokerExchangeTable_rowreq_ctx *
                                            rowreq_ctx);
-    int             qpid010ExchangeInternalIndex_check_index(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx);       /* internal */
+    int             brokerExchangeInternalIndex_check_index(brokerExchangeTable_rowreq_ctx * rowreq_ctx);       /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010EXCHANGETABLE_DATA_ACCESS_H */
+#endif                          /* brokerEXCHANGETABLE_DATA_ACCESS_H */

@@ -10,65 +10,65 @@
 
 #include "../qpid_api.h"
 
-/** Initializes the qpid010System module */
+/** Initializes the brokerSystem module */
 void
 init_System(void)
 {
-    const oid       qpid010SystemSystemId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 1 };
-    const oid       qpid010SystemOsName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 2 };
-    const oid       qpid010SystemNodeName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 3 };
-    const oid       qpid010SystemRelease_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 4 };
-    const oid       qpid010SystemVersion_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 5 };
-    const oid       qpid010SystemMachine_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1, 6 };
+    const oid       brokerSystemSystemId_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 1 };
+    const oid       brokerSystemOsName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2 };
+    const oid       brokerSystemNodeName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3 };
+    const oid       brokerSystemRelease_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 4 };
+    const oid       brokerSystemVersion_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 5 };
+    const oid       brokerSystemMachine_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 6 };
 
-    DEBUGMSGTL(("qpid010System", "Initializing\n"));
+    DEBUGMSGTL(("brokerSystem", "Initializing\n"));
 
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010SystemSystemId",
-                             handle_qpid010SystemSystemId,
-                             qpid010SystemSystemId_oid,
-                             OID_LENGTH(qpid010SystemSystemId_oid),
+                            ("brokerSystemSystemId",
+                             handle_brokerSystemSystemId,
+                             brokerSystemSystemId_oid,
+                             OID_LENGTH(brokerSystemSystemId_oid),
                              HANDLER_CAN_RWRITE));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010SystemOsName",
-                             handle_qpid010SystemOsName,
-                             qpid010SystemOsName_oid,
-                             OID_LENGTH(qpid010SystemOsName_oid),
+                            ("brokerSystemOsName",
+                             handle_brokerSystemOsName,
+                             brokerSystemOsName_oid,
+                             OID_LENGTH(brokerSystemOsName_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010SystemNodeName",
-                             handle_qpid010SystemNodeName,
-                             qpid010SystemNodeName_oid,
-                             OID_LENGTH(qpid010SystemNodeName_oid),
+                            ("brokerSystemNodeName",
+                             handle_brokerSystemNodeName,
+                             brokerSystemNodeName_oid,
+                             OID_LENGTH(brokerSystemNodeName_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010SystemRelease",
-                             handle_qpid010SystemRelease,
-                             qpid010SystemRelease_oid,
-                             OID_LENGTH(qpid010SystemRelease_oid),
+                            ("brokerSystemRelease",
+                             handle_brokerSystemRelease,
+                             brokerSystemRelease_oid,
+                             OID_LENGTH(brokerSystemRelease_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010SystemVersion",
-                             handle_qpid010SystemVersion,
-                             qpid010SystemVersion_oid,
-                             OID_LENGTH(qpid010SystemVersion_oid),
+                            ("brokerSystemVersion",
+                             handle_brokerSystemVersion,
+                             brokerSystemVersion_oid,
+                             OID_LENGTH(brokerSystemVersion_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010SystemMachine",
-                             handle_qpid010SystemMachine,
-                             qpid010SystemMachine_oid,
-                             OID_LENGTH(qpid010SystemMachine_oid),
+                            ("brokerSystemMachine",
+                             handle_brokerSystemMachine,
+                             brokerSystemMachine_oid,
+                             OID_LENGTH(brokerSystemMachine_oid),
                              HANDLER_CAN_RONLY));
 }
 
 int
-handle_qpid010SystemSystemId(netsnmp_mib_handler *handler,
+handle_brokerSystemSystemId(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -171,7 +171,7 @@ handle_qpid010SystemSystemId(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010SystemSystemId\n",
+                 "unknown mode (%d) in handle_brokerSystemSystemId\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -180,7 +180,7 @@ handle_qpid010SystemSystemId(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010SystemOsName(netsnmp_mib_handler *handler,
+handle_brokerSystemOsName(netsnmp_mib_handler *handler,
                           netsnmp_handler_registration *reginfo,
                           netsnmp_agent_request_info *reqinfo,
                           netsnmp_request_info *requests)
@@ -218,7 +218,7 @@ handle_qpid010SystemOsName(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010SystemOsName\n",
+                 "unknown mode (%d) in handle_brokerSystemOsName\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -227,7 +227,7 @@ handle_qpid010SystemOsName(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010SystemNodeName(netsnmp_mib_handler *handler,
+handle_brokerSystemNodeName(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -265,7 +265,7 @@ handle_qpid010SystemNodeName(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010SystemNodeName\n",
+                 "unknown mode (%d) in handle_brokerSystemNodeName\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -274,7 +274,7 @@ handle_qpid010SystemNodeName(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010SystemRelease(netsnmp_mib_handler *handler,
+handle_brokerSystemRelease(netsnmp_mib_handler *handler,
                            netsnmp_handler_registration *reginfo,
                            netsnmp_agent_request_info *reqinfo,
                            netsnmp_request_info *requests)
@@ -312,7 +312,7 @@ handle_qpid010SystemRelease(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010SystemRelease\n",
+                 "unknown mode (%d) in handle_brokerSystemRelease\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -321,7 +321,7 @@ handle_qpid010SystemRelease(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010SystemVersion(netsnmp_mib_handler *handler,
+handle_brokerSystemVersion(netsnmp_mib_handler *handler,
                            netsnmp_handler_registration *reginfo,
                            netsnmp_agent_request_info *reqinfo,
                            netsnmp_request_info *requests)
@@ -359,7 +359,7 @@ handle_qpid010SystemVersion(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010SystemVersion\n",
+                 "unknown mode (%d) in handle_brokerSystemVersion\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -368,7 +368,7 @@ handle_qpid010SystemVersion(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010SystemMachine(netsnmp_mib_handler *handler,
+handle_brokerSystemMachine(netsnmp_mib_handler *handler,
                            netsnmp_handler_registration *reginfo,
                            netsnmp_agent_request_info *reqinfo,
                            netsnmp_request_info *requests)
@@ -406,7 +406,7 @@ handle_qpid010SystemMachine(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010SystemMachine\n",
+                 "unknown mode (%d) in handle_brokerSystemMachine\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }

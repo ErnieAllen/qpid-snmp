@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010QueueTable
+ *** Table brokerQueueTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
+ * QPID-MESSAGING-MIB::brokerQueueTable is subid 1 of brokerQueues.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010QueueTable_allocate_data(), but may need extra
+ * brokerQueueTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010QueueTable_rowreq_ctx_init().
+ * brokerQueueTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,30 +125,30 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010QueueTable_rowreq_ctx)
+ *        Pointer to the table context (brokerQueueTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010QueueTable_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueTable_undo_setup(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_undo_setup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010QueueTable undo.
-     * set up qpid010QueueTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010QueueFlowStoppedCount_val_ptr )*
+     * TODO:451:M: |-> Setup brokerQueueTable undo.
+     * set up brokerQueueTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerQueueFlowStoppedCount_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010QueueTable_undo_setup */
+}                               /* brokerQueueTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -165,30 +165,30 @@ qpid010QueueTable_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010QueueTable_rowreq_ctx)
+ *        Pointer to the table context (brokerQueueTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010QueueTable_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueTable_undo(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_undo",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_undo",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010QueueTable undo.
-     * qpid010QueueTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010QueueFlowStoppedCount_val_ptr )*
+     * TODO:451:M: |-> brokerQueueTable undo.
+     * brokerQueueTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerQueueFlowStoppedCount_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010QueueTable_undo_setup */
+}                               /* brokerQueueTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -202,29 +202,29 @@ qpid010QueueTable_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010QueueTable_rowreq_ctx)
+ *        Pointer to the table context (brokerQueueTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010QueueTable_undo_cleanup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueTable_undo_cleanup(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_undo_cleanup",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_undo_cleanup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010QueueTable undo.
-     * Undo storage is in (* qpid010QueueFlowStoppedCount_val_ptr )*
+     * TODO:452:M: |-> Cleanup brokerQueueTable undo.
+     * Undo storage is in (* brokerQueueFlowStoppedCount_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010QueueTable_undo_cleanup */
+}                               /* brokerQueueTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -235,22 +235,22 @@ qpid010QueueTable_undo_cleanup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010QueueTable_oids.h.
+ * brokerQueueTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010QueueTable_rowreq_ctx
+ * @param brokerQueueTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010QueueTable_commit(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueTable_commit(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_commit",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
@@ -263,97 +263,97 @@ qpid010QueueTable_commit(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010QueueTable data
+     * commit brokerQueueTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010QUEUEVHOSTREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010QUEUEVHOSTREF_FLAG; /* clear qpid010QueueVhostRef */
+    if (save_flags & COLUMN_brokerQUEUEVHOSTREF_FLAG) {
+        save_flags &= ~COLUMN_brokerQUEUEVHOSTREF_FLAG; /* clear brokerQueueVhostRef */
         /*
-         * TODO:482:o: |-> commit column qpid010QueueVhostRef.
+         * TODO:482:o: |-> commit column brokerQueueVhostRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010QueueTable column qpid010QueueVhostRef commit failed\n");
+                     "brokerQueueTable column brokerQueueVhostRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010QueueVhostRef
+             * set flag, in case we need to undo brokerQueueVhostRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010QUEUEVHOSTREF_FLAG;
+                COLUMN_brokerQUEUEVHOSTREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010QUEUENAME_FLAG) {
-        save_flags &= ~COLUMN_qpid010QUEUENAME_FLAG;     /* clear qpid010QueueName */
+    if (save_flags & COLUMN_brokerQUEUENAME_FLAG) {
+        save_flags &= ~COLUMN_brokerQUEUENAME_FLAG;     /* clear brokerQueueName */
         /*
-         * TODO:482:o: |-> commit column qpid010QueueName.
+         * TODO:482:o: |-> commit column brokerQueueName.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010QueueTable column qpid010QueueName commit failed\n");
+                     "brokerQueueTable column brokerQueueName commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010QueueName
+             * set flag, in case we need to undo brokerQueueName
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUENAME_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUENAME_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010QUEUEDURABLE_FLAG) {
-        save_flags &= ~COLUMN_qpid010QUEUEDURABLE_FLAG;  /* clear qpid010QueueDurable */
+    if (save_flags & COLUMN_brokerQUEUEDURABLE_FLAG) {
+        save_flags &= ~COLUMN_brokerQUEUEDURABLE_FLAG;  /* clear brokerQueueDurable */
         /*
-         * TODO:482:o: |-> commit column qpid010QueueDurable.
+         * TODO:482:o: |-> commit column brokerQueueDurable.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010QueueTable column qpid010QueueDurable commit failed\n");
+                     "brokerQueueTable column brokerQueueDurable commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010QueueDurable
+             * set flag, in case we need to undo brokerQueueDurable
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEDURABLE_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEDURABLE_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010QUEUEAUTODELETE_FLAG) {
-        save_flags &= ~COLUMN_qpid010QUEUEAUTODELETE_FLAG;       /* clear qpid010QueueAutoDelete */
+    if (save_flags & COLUMN_brokerQUEUEAUTODELETE_FLAG) {
+        save_flags &= ~COLUMN_brokerQUEUEAUTODELETE_FLAG;       /* clear brokerQueueAutoDelete */
         /*
-         * TODO:482:o: |-> commit column qpid010QueueAutoDelete.
+         * TODO:482:o: |-> commit column brokerQueueAutoDelete.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010QueueTable column qpid010QueueAutoDelete commit failed\n");
+                     "brokerQueueTable column brokerQueueAutoDelete commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010QueueAutoDelete
-             */
-            rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010QUEUEAUTODELETE_FLAG;
-        }
-    }
-
-    if (save_flags & COLUMN_qpid010QUEUEEXCLUSIVE_FLAG) {
-        save_flags &= ~COLUMN_qpid010QUEUEEXCLUSIVE_FLAG;        /* clear qpid010QueueExclusive */
-        /*
-         * TODO:482:o: |-> commit column qpid010QueueExclusive.
-         */
-        rc = -1;
-        if (-1 == rc) {
-            snmp_log(LOG_ERR,
-                     "qpid010QueueTable column qpid010QueueExclusive commit failed\n");
-        } else {
-            /*
-             * set flag, in case we need to undo qpid010QueueExclusive
+             * set flag, in case we need to undo brokerQueueAutoDelete
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010QUEUEEXCLUSIVE_FLAG;
+                COLUMN_brokerQUEUEAUTODELETE_FLAG;
+        }
+    }
+
+    if (save_flags & COLUMN_brokerQUEUEEXCLUSIVE_FLAG) {
+        save_flags &= ~COLUMN_brokerQUEUEEXCLUSIVE_FLAG;        /* clear brokerQueueExclusive */
+        /*
+         * TODO:482:o: |-> commit column brokerQueueExclusive.
+         */
+        rc = -1;
+        if (-1 == rc) {
+            snmp_log(LOG_ERR,
+                     "brokerQueueTable column brokerQueueExclusive commit failed\n");
+        } else {
+            /*
+             * set flag, in case we need to undo brokerQueueExclusive
+             */
+            rowreq_ctx->column_set_flags |=
+                COLUMN_brokerQUEUEEXCLUSIVE_FLAG;
         }
     }
 
@@ -371,7 +371,7 @@ qpid010QueueTable_commit(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010QueueTable_commit */
+}                               /* brokerQueueTable_commit */
 
 /**
  * undo commit new values.
@@ -379,28 +379,28 @@ qpid010QueueTable_commit(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010QueueTable_oids.h.
+ * brokerQueueTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010QueueTable_rowreq_ctx
+ * @param brokerQueueTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010QueueTable_undo_commit(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueTable_undo_commit(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_undo_commit",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_undo_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010QueueTable commit.
+     * TODO:485:M: |-> Undo brokerQueueTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -416,17 +416,17 @@ qpid010QueueTable_undo_commit(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010QueueTable_undo_commit */
+}                               /* brokerQueueTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010QueueTable node value checks.
- * TODO:450:M: Implement qpid010QueueTable undo functions.
- * TODO:460:M: Implement qpid010QueueTable set functions.
- * TODO:480:M: Implement qpid010QueueTable commit functions.
+ * TODO:440:M: Implement brokerQueueTable node value checks.
+ * TODO:450:M: Implement brokerQueueTable undo functions.
+ * TODO:460:M: Implement brokerQueueTable set functions.
+ * TODO:480:M: Implement brokerQueueTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueVhostRef
- * qpid010QueueVhostRef is subid 1 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueVhostRef
+ * brokerQueueVhostRef is subid 1 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.1
  * Description:
@@ -450,10 +450,10 @@ Queue vhostRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueVhostRef_val_ptr
+ * @param brokerQueueVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010QueueVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010QueueVhostRef_val_ptr
+ * @param brokerQueueVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerQueueVhostRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -476,46 +476,46 @@ Queue vhostRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010QueueTable_check_dependencies() function.
+ * brokerQueueTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010QueueVhostRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerQueueVhostRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010QueueVhostRef_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                                char *qpid010QueueVhostRef_val_ptr,
-                                size_t qpid010QueueVhostRef_val_ptr_len)
+brokerQueueVhostRef_check_value(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                                char *brokerQueueVhostRef_val_ptr,
+                                size_t brokerQueueVhostRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueVhostRef_check_value",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueVhostRef_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010QueueVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerQueueVhostRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010QueueVhostRef value.
+     * TODO:441:o: |-> Check for valid brokerQueueVhostRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010QueueVhostRef value not illegal */
-}                               /* qpid010QueueVhostRef_check_value */
+    return MFD_SUCCESS;         /* brokerQueueVhostRef value not illegal */
+}                               /* brokerQueueVhostRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010QueueTable_rowreq_ctx)
+ *        Pointer to the table context (brokerQueueTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010QueueTable_undo_setup has been called.
+ * brokerQueueTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -525,31 +525,31 @@ qpid010QueueVhostRef_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010QueueVhostRef_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueVhostRef_undo_setup(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueVhostRef_undo_setup",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueVhostRef_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010QueueVhostRef undo.
+     * TODO:455:o: |-> Setup brokerQueueVhostRef undo.
      */
     /*
-     * copy qpid010QueueVhostRef and qpid010QueueVhostRef_len data
-     * set rowreq_ctx->undo->qpid010QueueVhostRef from rowreq_ctx->data.qpid010QueueVhostRef
+     * copy brokerQueueVhostRef and brokerQueueVhostRef_len data
+     * set rowreq_ctx->undo->brokerQueueVhostRef from rowreq_ctx->data.brokerQueueVhostRef
      */
-    memcpy(rowreq_ctx->undo->qpid010QueueVhostRef,
-           rowreq_ctx->data.qpid010QueueVhostRef,
-           (rowreq_ctx->data.qpid010QueueVhostRef_len *
-            sizeof(rowreq_ctx->undo->qpid010QueueVhostRef[0])));
-    rowreq_ctx->undo->qpid010QueueVhostRef_len =
-        rowreq_ctx->data.qpid010QueueVhostRef_len;
+    memcpy(rowreq_ctx->undo->brokerQueueVhostRef,
+           rowreq_ctx->data.brokerQueueVhostRef,
+           (rowreq_ctx->data.brokerQueueVhostRef_len *
+            sizeof(rowreq_ctx->undo->brokerQueueVhostRef[0])));
+    rowreq_ctx->undo->brokerQueueVhostRef_len =
+        rowreq_ctx->data.brokerQueueVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueVhostRef_undo_setup */
+}                               /* brokerQueueVhostRef_undo_setup */
 
 /**
  * Set the new value.
@@ -557,37 +557,37 @@ qpid010QueueVhostRef_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010QueueVhostRef_val_ptr
+ * @param brokerQueueVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010QueueVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010QueueVhostRef_val_ptr
+ * @param brokerQueueVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerQueueVhostRef_val_ptr
  */
 int
-qpid010QueueVhostRef_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                        char *qpid010QueueVhostRef_val_ptr,
-                        size_t qpid010QueueVhostRef_val_ptr_len)
+brokerQueueVhostRef_set(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                        char *brokerQueueVhostRef_val_ptr,
+                        size_t brokerQueueVhostRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueVhostRef_set",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueVhostRef_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010QueueVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerQueueVhostRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010QueueVhostRef value.
-     * set qpid010QueueVhostRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerQueueVhostRef value.
+     * set brokerQueueVhostRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010QueueVhostRef,
-           qpid010QueueVhostRef_val_ptr, qpid010QueueVhostRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerQueueVhostRef,
+           brokerQueueVhostRef_val_ptr, brokerQueueVhostRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010QueueVhostRef_len =
-        qpid010QueueVhostRef_val_ptr_len /
-        sizeof(qpid010QueueVhostRef_val_ptr[0]);
+    rowreq_ctx->data.brokerQueueVhostRef_len =
+        brokerQueueVhostRef_val_ptr_len /
+        sizeof(brokerQueueVhostRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueVhostRef_set */
+}                               /* brokerQueueVhostRef_set */
 
 /**
  * undo the previous set.
@@ -596,35 +596,35 @@ qpid010QueueVhostRef_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010QueueVhostRef_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueVhostRef_undo(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueVhostRef_undo",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueVhostRef_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010QueueVhostRef undo.
+     * TODO:456:o: |-> Clean up brokerQueueVhostRef undo.
      */
     /*
-     * copy qpid010QueueVhostRef and qpid010QueueVhostRef_len data
-     * set rowreq_ctx->data.qpid010QueueVhostRef from rowreq_ctx->undo->qpid010QueueVhostRef
+     * copy brokerQueueVhostRef and brokerQueueVhostRef_len data
+     * set rowreq_ctx->data.brokerQueueVhostRef from rowreq_ctx->undo->brokerQueueVhostRef
      */
-    memcpy(rowreq_ctx->data.qpid010QueueVhostRef,
-           rowreq_ctx->undo->qpid010QueueVhostRef,
-           (rowreq_ctx->undo->qpid010QueueVhostRef_len *
-            sizeof(rowreq_ctx->data.qpid010QueueVhostRef[0])));
-    rowreq_ctx->data.qpid010QueueVhostRef_len =
-        rowreq_ctx->undo->qpid010QueueVhostRef_len;
+    memcpy(rowreq_ctx->data.brokerQueueVhostRef,
+           rowreq_ctx->undo->brokerQueueVhostRef,
+           (rowreq_ctx->undo->brokerQueueVhostRef_len *
+            sizeof(rowreq_ctx->data.brokerQueueVhostRef[0])));
+    rowreq_ctx->data.brokerQueueVhostRef_len =
+        rowreq_ctx->undo->brokerQueueVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueVhostRef_undo */
+}                               /* brokerQueueVhostRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueName
- * qpid010QueueName is subid 2 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueName
+ * brokerQueueName is subid 2 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.2
  * Description:
@@ -648,10 +648,10 @@ Queue name
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueName_val_ptr
+ * @param brokerQueueName_val_ptr
  *        A char containing the new value.
- * @param qpid010QueueName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010QueueName_val_ptr
+ * @param brokerQueueName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerQueueName_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -674,46 +674,46 @@ Queue name
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010QueueTable_check_dependencies() function.
+ * brokerQueueTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010QueueName).
+ *    The length is < sizeof(rowreq_ctx->data.brokerQueueName).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010QueueName_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                            char *qpid010QueueName_val_ptr,
-                            size_t qpid010QueueName_val_ptr_len)
+brokerQueueName_check_value(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                            char *brokerQueueName_val_ptr,
+                            size_t brokerQueueName_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueName_check_value",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueName_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010QueueName_val_ptr);
+    netsnmp_assert(NULL != brokerQueueName_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010QueueName value.
+     * TODO:441:o: |-> Check for valid brokerQueueName value.
      */
 
-    return MFD_SUCCESS;         /* qpid010QueueName value not illegal */
-}                               /* qpid010QueueName_check_value */
+    return MFD_SUCCESS;         /* brokerQueueName value not illegal */
+}                               /* brokerQueueName_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010QueueTable_rowreq_ctx)
+ *        Pointer to the table context (brokerQueueTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010QueueTable_undo_setup has been called.
+ * brokerQueueTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -723,31 +723,31 @@ qpid010QueueName_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010QueueName_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueName_undo_setup(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueName_undo_setup",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueName_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010QueueName undo.
+     * TODO:455:o: |-> Setup brokerQueueName undo.
      */
     /*
-     * copy qpid010QueueName and qpid010QueueName_len data
-     * set rowreq_ctx->undo->qpid010QueueName from rowreq_ctx->data.qpid010QueueName
+     * copy brokerQueueName and brokerQueueName_len data
+     * set rowreq_ctx->undo->brokerQueueName from rowreq_ctx->data.brokerQueueName
      */
-    memcpy(rowreq_ctx->undo->qpid010QueueName,
-           rowreq_ctx->data.qpid010QueueName,
-           (rowreq_ctx->data.qpid010QueueName_len *
-            sizeof(rowreq_ctx->undo->qpid010QueueName[0])));
-    rowreq_ctx->undo->qpid010QueueName_len =
-        rowreq_ctx->data.qpid010QueueName_len;
+    memcpy(rowreq_ctx->undo->brokerQueueName,
+           rowreq_ctx->data.brokerQueueName,
+           (rowreq_ctx->data.brokerQueueName_len *
+            sizeof(rowreq_ctx->undo->brokerQueueName[0])));
+    rowreq_ctx->undo->brokerQueueName_len =
+        rowreq_ctx->data.brokerQueueName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueName_undo_setup */
+}                               /* brokerQueueName_undo_setup */
 
 /**
  * Set the new value.
@@ -755,36 +755,36 @@ qpid010QueueName_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010QueueName_val_ptr
+ * @param brokerQueueName_val_ptr
  *        A char containing the new value.
- * @param qpid010QueueName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010QueueName_val_ptr
+ * @param brokerQueueName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerQueueName_val_ptr
  */
 int
-qpid010QueueName_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                    char *qpid010QueueName_val_ptr,
-                    size_t qpid010QueueName_val_ptr_len)
+brokerQueueName_set(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                    char *brokerQueueName_val_ptr,
+                    size_t brokerQueueName_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueName_set",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueName_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010QueueName_val_ptr);
+    netsnmp_assert(NULL != brokerQueueName_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010QueueName value.
-     * set qpid010QueueName value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerQueueName value.
+     * set brokerQueueName value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010QueueName, qpid010QueueName_val_ptr,
-           qpid010QueueName_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerQueueName, brokerQueueName_val_ptr,
+           brokerQueueName_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010QueueName_len =
-        qpid010QueueName_val_ptr_len / sizeof(qpid010QueueName_val_ptr[0]);
+    rowreq_ctx->data.brokerQueueName_len =
+        brokerQueueName_val_ptr_len / sizeof(brokerQueueName_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueName_set */
+}                               /* brokerQueueName_set */
 
 /**
  * undo the previous set.
@@ -793,35 +793,35 @@ qpid010QueueName_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010QueueName_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueName_undo(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueName_undo",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueName_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010QueueName undo.
+     * TODO:456:o: |-> Clean up brokerQueueName undo.
      */
     /*
-     * copy qpid010QueueName and qpid010QueueName_len data
-     * set rowreq_ctx->data.qpid010QueueName from rowreq_ctx->undo->qpid010QueueName
+     * copy brokerQueueName and brokerQueueName_len data
+     * set rowreq_ctx->data.brokerQueueName from rowreq_ctx->undo->brokerQueueName
      */
-    memcpy(rowreq_ctx->data.qpid010QueueName,
-           rowreq_ctx->undo->qpid010QueueName,
-           (rowreq_ctx->undo->qpid010QueueName_len *
-            sizeof(rowreq_ctx->data.qpid010QueueName[0])));
-    rowreq_ctx->data.qpid010QueueName_len =
-        rowreq_ctx->undo->qpid010QueueName_len;
+    memcpy(rowreq_ctx->data.brokerQueueName,
+           rowreq_ctx->undo->brokerQueueName,
+           (rowreq_ctx->undo->brokerQueueName_len *
+            sizeof(rowreq_ctx->data.brokerQueueName[0])));
+    rowreq_ctx->data.brokerQueueName_len =
+        rowreq_ctx->undo->brokerQueueName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueName_undo */
+}                               /* brokerQueueName_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDurable
- * qpid010QueueDurable is subid 3 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueDurable
+ * brokerQueueDurable is subid 3 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.3
  * Description:
@@ -843,7 +843,7 @@ Queue durable
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueDurable_val
+ * @param brokerQueueDurable_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -867,7 +867,7 @@ Queue durable
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010QueueTable_check_dependencies() function.
+ * brokerQueueTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -877,33 +877,33 @@ Queue durable
  *
  */
 int
-qpid010QueueDurable_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                               u_long qpid010QueueDurable_val)
+brokerQueueDurable_check_value(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                               u_long brokerQueueDurable_val)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueDurable_check_value",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueDurable_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010QueueDurable value.
+     * TODO:441:o: |-> Check for valid brokerQueueDurable value.
      */
 
-    return MFD_SUCCESS;         /* qpid010QueueDurable value not illegal */
-}                               /* qpid010QueueDurable_check_value */
+    return MFD_SUCCESS;         /* brokerQueueDurable value not illegal */
+}                               /* brokerQueueDurable_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010QueueTable_rowreq_ctx)
+ *        Pointer to the table context (brokerQueueTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010QueueTable_undo_setup has been called.
+ * brokerQueueTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -913,27 +913,27 @@ qpid010QueueDurable_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010QueueDurable_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueDurable_undo_setup(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueDurable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueDurable_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010QueueDurable undo.
+     * TODO:455:o: |-> Setup brokerQueueDurable undo.
      */
     /*
-     * copy qpid010QueueDurable data
-     * set rowreq_ctx->undo->qpid010QueueDurable from rowreq_ctx->data.qpid010QueueDurable
+     * copy brokerQueueDurable data
+     * set rowreq_ctx->undo->brokerQueueDurable from rowreq_ctx->data.brokerQueueDurable
      */
-    rowreq_ctx->undo->qpid010QueueDurable =
-        rowreq_ctx->data.qpid010QueueDurable;
+    rowreq_ctx->undo->brokerQueueDurable =
+        rowreq_ctx->data.brokerQueueDurable;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDurable_undo_setup */
+}                               /* brokerQueueDurable_undo_setup */
 
 /**
  * Set the new value.
@@ -941,28 +941,28 @@ qpid010QueueDurable_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010QueueDurable_val
+ * @param brokerQueueDurable_val
  *        A long containing the new value.
  */
 int
-qpid010QueueDurable_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                       u_long qpid010QueueDurable_val)
+brokerQueueDurable_set(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                       u_long brokerQueueDurable_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueDurable_set",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueDurable_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010QueueDurable value.
-     * set qpid010QueueDurable value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerQueueDurable value.
+     * set brokerQueueDurable value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010QueueDurable = qpid010QueueDurable_val;
+    rowreq_ctx->data.brokerQueueDurable = brokerQueueDurable_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDurable_set */
+}                               /* brokerQueueDurable_set */
 
 /**
  * undo the previous set.
@@ -971,31 +971,31 @@ qpid010QueueDurable_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010QueueDurable_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueDurable_undo(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueDurable_undo",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueDurable_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010QueueDurable undo.
+     * TODO:456:o: |-> Clean up brokerQueueDurable undo.
      */
     /*
-     * copy qpid010QueueDurable data
-     * set rowreq_ctx->data.qpid010QueueDurable from rowreq_ctx->undo->qpid010QueueDurable
+     * copy brokerQueueDurable data
+     * set rowreq_ctx->data.brokerQueueDurable from rowreq_ctx->undo->brokerQueueDurable
      */
-    rowreq_ctx->data.qpid010QueueDurable =
-        rowreq_ctx->undo->qpid010QueueDurable;
+    rowreq_ctx->data.brokerQueueDurable =
+        rowreq_ctx->undo->brokerQueueDurable;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDurable_undo */
+}                               /* brokerQueueDurable_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueAutoDelete
- * qpid010QueueAutoDelete is subid 4 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueAutoDelete
+ * brokerQueueAutoDelete is subid 4 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.4
  * Description:
@@ -1017,7 +1017,7 @@ Queue autoDelete
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueAutoDelete_val
+ * @param brokerQueueAutoDelete_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -1041,7 +1041,7 @@ Queue autoDelete
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010QueueTable_check_dependencies() function.
+ * brokerQueueTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -1051,32 +1051,32 @@ Queue autoDelete
  *
  */
 int
-qpid010QueueAutoDelete_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                                  u_long qpid010QueueAutoDelete_val)
+brokerQueueAutoDelete_check_value(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                                  u_long brokerQueueAutoDelete_val)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueAutoDelete_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueAutoDelete_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010QueueAutoDelete value.
+     * TODO:441:o: |-> Check for valid brokerQueueAutoDelete value.
      */
 
-    return MFD_SUCCESS;         /* qpid010QueueAutoDelete value not illegal */
-}                               /* qpid010QueueAutoDelete_check_value */
+    return MFD_SUCCESS;         /* brokerQueueAutoDelete value not illegal */
+}                               /* brokerQueueAutoDelete_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010QueueTable_rowreq_ctx)
+ *        Pointer to the table context (brokerQueueTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010QueueTable_undo_setup has been called.
+ * brokerQueueTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1086,26 +1086,26 @@ qpid010QueueAutoDelete_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010QueueAutoDelete_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueAutoDelete_undo_setup(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueAutoDelete_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueAutoDelete_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010QueueAutoDelete undo.
+     * TODO:455:o: |-> Setup brokerQueueAutoDelete undo.
      */
     /*
-     * copy qpid010QueueAutoDelete data
-     * set rowreq_ctx->undo->qpid010QueueAutoDelete from rowreq_ctx->data.qpid010QueueAutoDelete
+     * copy brokerQueueAutoDelete data
+     * set rowreq_ctx->undo->brokerQueueAutoDelete from rowreq_ctx->data.brokerQueueAutoDelete
      */
-    rowreq_ctx->undo->qpid010QueueAutoDelete =
-        rowreq_ctx->data.qpid010QueueAutoDelete;
+    rowreq_ctx->undo->brokerQueueAutoDelete =
+        rowreq_ctx->data.brokerQueueAutoDelete;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueAutoDelete_undo_setup */
+}                               /* brokerQueueAutoDelete_undo_setup */
 
 /**
  * Set the new value.
@@ -1113,28 +1113,28 @@ qpid010QueueAutoDelete_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010QueueAutoDelete_val
+ * @param brokerQueueAutoDelete_val
  *        A long containing the new value.
  */
 int
-qpid010QueueAutoDelete_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                          u_long qpid010QueueAutoDelete_val)
+brokerQueueAutoDelete_set(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                          u_long brokerQueueAutoDelete_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueAutoDelete_set",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueAutoDelete_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010QueueAutoDelete value.
-     * set qpid010QueueAutoDelete value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerQueueAutoDelete value.
+     * set brokerQueueAutoDelete value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010QueueAutoDelete = qpid010QueueAutoDelete_val;
+    rowreq_ctx->data.brokerQueueAutoDelete = brokerQueueAutoDelete_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueAutoDelete_set */
+}                               /* brokerQueueAutoDelete_set */
 
 /**
  * undo the previous set.
@@ -1143,31 +1143,31 @@ qpid010QueueAutoDelete_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010QueueAutoDelete_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueAutoDelete_undo(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueAutoDelete_undo",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueAutoDelete_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010QueueAutoDelete undo.
+     * TODO:456:o: |-> Clean up brokerQueueAutoDelete undo.
      */
     /*
-     * copy qpid010QueueAutoDelete data
-     * set rowreq_ctx->data.qpid010QueueAutoDelete from rowreq_ctx->undo->qpid010QueueAutoDelete
+     * copy brokerQueueAutoDelete data
+     * set rowreq_ctx->data.brokerQueueAutoDelete from rowreq_ctx->undo->brokerQueueAutoDelete
      */
-    rowreq_ctx->data.qpid010QueueAutoDelete =
-        rowreq_ctx->undo->qpid010QueueAutoDelete;
+    rowreq_ctx->data.brokerQueueAutoDelete =
+        rowreq_ctx->undo->brokerQueueAutoDelete;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueAutoDelete_undo */
+}                               /* brokerQueueAutoDelete_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueExclusive
- * qpid010QueueExclusive is subid 5 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueExclusive
+ * brokerQueueExclusive is subid 5 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.5
  * Description:
@@ -1189,7 +1189,7 @@ Queue exclusive
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueExclusive_val
+ * @param brokerQueueExclusive_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -1213,7 +1213,7 @@ Queue exclusive
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010QueueTable_check_dependencies() function.
+ * brokerQueueTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -1223,32 +1223,32 @@ Queue exclusive
  *
  */
 int
-qpid010QueueExclusive_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                                 u_long qpid010QueueExclusive_val)
+brokerQueueExclusive_check_value(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                                 u_long brokerQueueExclusive_val)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueExclusive_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueExclusive_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010QueueExclusive value.
+     * TODO:441:o: |-> Check for valid brokerQueueExclusive value.
      */
 
-    return MFD_SUCCESS;         /* qpid010QueueExclusive value not illegal */
-}                               /* qpid010QueueExclusive_check_value */
+    return MFD_SUCCESS;         /* brokerQueueExclusive value not illegal */
+}                               /* brokerQueueExclusive_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010QueueTable_rowreq_ctx)
+ *        Pointer to the table context (brokerQueueTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010QueueTable_undo_setup has been called.
+ * brokerQueueTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1258,27 +1258,27 @@ qpid010QueueExclusive_check_value(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010QueueExclusive_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueExclusive_undo_setup(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueExclusive_undo_setup",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueExclusive_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010QueueExclusive undo.
+     * TODO:455:o: |-> Setup brokerQueueExclusive undo.
      */
     /*
-     * copy qpid010QueueExclusive data
-     * set rowreq_ctx->undo->qpid010QueueExclusive from rowreq_ctx->data.qpid010QueueExclusive
+     * copy brokerQueueExclusive data
+     * set rowreq_ctx->undo->brokerQueueExclusive from rowreq_ctx->data.brokerQueueExclusive
      */
-    rowreq_ctx->undo->qpid010QueueExclusive =
-        rowreq_ctx->data.qpid010QueueExclusive;
+    rowreq_ctx->undo->brokerQueueExclusive =
+        rowreq_ctx->data.brokerQueueExclusive;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueExclusive_undo_setup */
+}                               /* brokerQueueExclusive_undo_setup */
 
 /**
  * Set the new value.
@@ -1286,28 +1286,28 @@ qpid010QueueExclusive_undo_setup(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010QueueExclusive_val
+ * @param brokerQueueExclusive_val
  *        A long containing the new value.
  */
 int
-qpid010QueueExclusive_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                         u_long qpid010QueueExclusive_val)
+brokerQueueExclusive_set(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                         u_long brokerQueueExclusive_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueExclusive_set",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueExclusive_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010QueueExclusive value.
-     * set qpid010QueueExclusive value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerQueueExclusive value.
+     * set brokerQueueExclusive value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010QueueExclusive = qpid010QueueExclusive_val;
+    rowreq_ctx->data.brokerQueueExclusive = brokerQueueExclusive_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueExclusive_set */
+}                               /* brokerQueueExclusive_set */
 
 /**
  * undo the previous set.
@@ -1316,27 +1316,27 @@ qpid010QueueExclusive_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010QueueExclusive_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueExclusive_undo(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueExclusive_undo",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueExclusive_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010QueueExclusive undo.
+     * TODO:456:o: |-> Clean up brokerQueueExclusive undo.
      */
     /*
-     * copy qpid010QueueExclusive data
-     * set rowreq_ctx->data.qpid010QueueExclusive from rowreq_ctx->undo->qpid010QueueExclusive
+     * copy brokerQueueExclusive data
+     * set rowreq_ctx->data.brokerQueueExclusive from rowreq_ctx->undo->brokerQueueExclusive
      */
-    rowreq_ctx->data.qpid010QueueExclusive =
-        rowreq_ctx->undo->qpid010QueueExclusive;
+    rowreq_ctx->data.brokerQueueExclusive =
+        rowreq_ctx->undo->brokerQueueExclusive;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueExclusive_undo */
+}                               /* brokerQueueExclusive_undo */
 
 /**
  * check dependencies
@@ -1348,29 +1348,29 @@ qpid010QueueExclusive_undo(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010QueueTable_oids.h.
+ * brokerQueueTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010QueueTable if you don't have dependencies)
+ * (see README-table-brokerQueueTable if you don't have dependencies)
  */
 int
-qpid010QueueTable_check_dependencies(qpid010QueueTable_rowreq_ctx *
+brokerQueueTable_check_dependencies(brokerQueueTable_rowreq_ctx *
                                     rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:qpid010QueueTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:brokerQueueTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010QueueTable row dependencies.
+     * TODO:470:o: Check brokerQueueTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010QueueTable_check_dependencies */
+}                               /* brokerQueueTable_check_dependencies */
 
 /** @} */

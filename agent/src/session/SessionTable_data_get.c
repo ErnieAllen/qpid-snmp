@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010SessionTable get routines.
- * TODO:240:M: Implement qpid010SessionTable mapping routines (if any).
+ * TODO:230:M: Implement brokerSessionTable get routines.
+ * TODO:240:M: Implement brokerSessionTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SessionTable
+ *** Table brokerSessionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
+ * QPID-MESSAGING-MIB::brokerSessionTable is subid 1 of brokerSessions.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010SessionTable data context functions.
+ * * TODO:200:r: Implement brokerSessionTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010SessionInternalIndex_val
+ * @param brokerSessionInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,21 +63,21 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010SessionTable_indexes_set_tbl_idx(qpid010SessionTable_mib_index *
+brokerSessionTable_indexes_set_tbl_idx(brokerSessionTable_mib_index *
                                        tbl_idx,
                                        u_long
-                                       qpid010SessionInternalIndex_val)
+                                       brokerSessionInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010SessionInternalIndex(15)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerSessionInternalIndex(15)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010SessionInternalIndex = qpid010SessionInternalIndex_val;
+    tbl_idx->brokerSessionInternalIndex = brokerSessionInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTable_indexes_set_tbl_idx */
+}                               /* brokerSessionTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -93,32 +93,32 @@ qpid010SessionTable_indexes_set_tbl_idx(qpid010SessionTable_mib_index *
  *  from the mib index.
  */
 int
-qpid010SessionTable_indexes_set(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                               u_long qpid010SessionInternalIndex_val)
+brokerSessionTable_indexes_set(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                               u_long brokerSessionInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_indexes_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_indexes_set", "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010SessionTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                               qpid010SessionInternalIndex_val))
+        brokerSessionTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                               brokerSessionInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010SessionTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerSessionTable_index_to_oid(&rowreq_ctx->oid_idx,
                                              &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTable_indexes_set */
+}                               /* brokerSessionTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionVhostRef
- * qpid010SessionVhostRef is subid 1 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionVhostRef
+ * brokerSessionVhostRef is subid 1 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.1
  * Description:
@@ -138,25 +138,25 @@ Session vhostRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010SessionVhostRef data.
+ * Extract the current value of the brokerSessionVhostRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionVhostRef_val_ptr_ptr
+ * @param brokerSessionVhostRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010SessionVhostRef_val_ptr_len_ptr
+ * @param brokerSessionVhostRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010SessionVhostRef.
+ *        pointed to by brokerSessionVhostRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010SessionVhostRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010SessionVhostRef_val_ptr_ptr.
+ * @note If you need more than (*brokerSessionVhostRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerSessionVhostRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -166,58 +166,58 @@ Session vhostRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010SessionVhostRef_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                          char **qpid010SessionVhostRef_val_ptr_ptr,
-                          size_t *qpid010SessionVhostRef_val_ptr_len_ptr)
+brokerSessionVhostRef_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                          char **brokerSessionVhostRef_val_ptr_ptr,
+                          size_t *brokerSessionVhostRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010SessionVhostRef_val_ptr_ptr)
-                   && (NULL != *qpid010SessionVhostRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010SessionVhostRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerSessionVhostRef_val_ptr_ptr)
+                   && (NULL != *brokerSessionVhostRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerSessionVhostRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionVhostRef_get",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionVhostRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionVhostRef data.
-     * copy (* qpid010SessionVhostRef_val_ptr_ptr ) data and (* qpid010SessionVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionVhostRef data.
+     * copy (* brokerSessionVhostRef_val_ptr_ptr ) data and (* brokerSessionVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010SessionVhostRef data
+     * make sure there is enough space for brokerSessionVhostRef data
      */
-    if ((NULL == (*qpid010SessionVhostRef_val_ptr_ptr)) ||
-        ((*qpid010SessionVhostRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010SessionVhostRef_len *
-          sizeof(rowreq_ctx->data.qpid010SessionVhostRef[0])))) {
+    if ((NULL == (*brokerSessionVhostRef_val_ptr_ptr)) ||
+        ((*brokerSessionVhostRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerSessionVhostRef_len *
+          sizeof(rowreq_ctx->data.brokerSessionVhostRef[0])))) {
         /*
-         * allocate space for qpid010SessionVhostRef data
+         * allocate space for brokerSessionVhostRef data
          */
-        (*qpid010SessionVhostRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010SessionVhostRef_len *
-                   sizeof(rowreq_ctx->data.qpid010SessionVhostRef[0]));
-        if (NULL == (*qpid010SessionVhostRef_val_ptr_ptr)) {
+        (*brokerSessionVhostRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerSessionVhostRef_len *
+                   sizeof(rowreq_ctx->data.brokerSessionVhostRef[0]));
+        if (NULL == (*brokerSessionVhostRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010SessionVhostRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerSessionVhostRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010SessionVhostRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010SessionVhostRef_len *
-        sizeof(rowreq_ctx->data.qpid010SessionVhostRef[0]);
-    memcpy((*qpid010SessionVhostRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010SessionVhostRef,
-           rowreq_ctx->data.qpid010SessionVhostRef_len *
-           sizeof(rowreq_ctx->data.qpid010SessionVhostRef[0]));
+    (*brokerSessionVhostRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerSessionVhostRef_len *
+        sizeof(rowreq_ctx->data.brokerSessionVhostRef[0]);
+    memcpy((*brokerSessionVhostRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerSessionVhostRef,
+           rowreq_ctx->data.brokerSessionVhostRef_len *
+           sizeof(rowreq_ctx->data.brokerSessionVhostRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionVhostRef_get */
+}                               /* brokerSessionVhostRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionName
- * qpid010SessionName is subid 2 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionName
+ * brokerSessionName is subid 2 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.2
  * Description:
@@ -237,25 +237,25 @@ Session name
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010SessionName data.
+ * Extract the current value of the brokerSessionName data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionName_val_ptr_ptr
+ * @param brokerSessionName_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010SessionName_val_ptr_len_ptr
+ * @param brokerSessionName_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010SessionName.
+ *        pointed to by brokerSessionName.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010SessionName_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010SessionName_val_ptr_ptr.
+ * @note If you need more than (*brokerSessionName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerSessionName_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -265,58 +265,58 @@ Session name
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010SessionName_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                      char **qpid010SessionName_val_ptr_ptr,
-                      size_t *qpid010SessionName_val_ptr_len_ptr)
+brokerSessionName_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                      char **brokerSessionName_val_ptr_ptr,
+                      size_t *brokerSessionName_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010SessionName_val_ptr_ptr)
-                   && (NULL != *qpid010SessionName_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010SessionName_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerSessionName_val_ptr_ptr)
+                   && (NULL != *brokerSessionName_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerSessionName_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionName_get",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionName_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionName data.
-     * copy (* qpid010SessionName_val_ptr_ptr ) data and (* qpid010SessionName_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionName data.
+     * copy (* brokerSessionName_val_ptr_ptr ) data and (* brokerSessionName_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010SessionName data
+     * make sure there is enough space for brokerSessionName data
      */
-    if ((NULL == (*qpid010SessionName_val_ptr_ptr)) ||
-        ((*qpid010SessionName_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010SessionName_len *
-          sizeof(rowreq_ctx->data.qpid010SessionName[0])))) {
+    if ((NULL == (*brokerSessionName_val_ptr_ptr)) ||
+        ((*brokerSessionName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerSessionName_len *
+          sizeof(rowreq_ctx->data.brokerSessionName[0])))) {
         /*
-         * allocate space for qpid010SessionName data
+         * allocate space for brokerSessionName data
          */
-        (*qpid010SessionName_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010SessionName_len *
-                   sizeof(rowreq_ctx->data.qpid010SessionName[0]));
-        if (NULL == (*qpid010SessionName_val_ptr_ptr)) {
+        (*brokerSessionName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerSessionName_len *
+                   sizeof(rowreq_ctx->data.brokerSessionName[0]));
+        if (NULL == (*brokerSessionName_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010SessionName)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerSessionName)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010SessionName_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010SessionName_len *
-        sizeof(rowreq_ctx->data.qpid010SessionName[0]);
-    memcpy((*qpid010SessionName_val_ptr_ptr),
-           rowreq_ctx->data.qpid010SessionName,
-           rowreq_ctx->data.qpid010SessionName_len *
-           sizeof(rowreq_ctx->data.qpid010SessionName[0]));
+    (*brokerSessionName_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerSessionName_len *
+        sizeof(rowreq_ctx->data.brokerSessionName[0]);
+    memcpy((*brokerSessionName_val_ptr_ptr),
+           rowreq_ctx->data.brokerSessionName,
+           rowreq_ctx->data.brokerSessionName_len *
+           sizeof(rowreq_ctx->data.brokerSessionName[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionName_get */
+}                               /* brokerSessionName_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionChannelId
- * qpid010SessionChannelId is subid 3 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionChannelId
+ * brokerSessionChannelId is subid 3 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.3
  * Description:
@@ -334,13 +334,13 @@ Session channelId
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010SessionChannelId data.
+ * Extract the current value of the brokerSessionChannelId data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionChannelId_val_ptr
+ * @param brokerSessionChannelId_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -348,31 +348,31 @@ Session channelId
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionChannelId_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                           long *qpid010SessionChannelId_val_ptr)
+brokerSessionChannelId_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                           long *brokerSessionChannelId_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionChannelId_val_ptr);
+    netsnmp_assert(NULL != brokerSessionChannelId_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionChannelId_get",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionChannelId_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionChannelId data.
-     * copy (* qpid010SessionChannelId_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionChannelId data.
+     * copy (* brokerSessionChannelId_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SessionChannelId_val_ptr) =
-        rowreq_ctx->data.qpid010SessionChannelId;
+    (*brokerSessionChannelId_val_ptr) =
+        rowreq_ctx->data.brokerSessionChannelId;
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionChannelId_get */
+}                               /* brokerSessionChannelId_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionConnectionRef
- * qpid010SessionConnectionRef is subid 4 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionConnectionRef
+ * brokerSessionConnectionRef is subid 4 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.4
  * Description:
@@ -392,25 +392,25 @@ Session connectionRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010SessionConnectionRef data.
+ * Extract the current value of the brokerSessionConnectionRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionConnectionRef_val_ptr_ptr
+ * @param brokerSessionConnectionRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010SessionConnectionRef_val_ptr_len_ptr
+ * @param brokerSessionConnectionRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010SessionConnectionRef.
+ *        pointed to by brokerSessionConnectionRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010SessionConnectionRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010SessionConnectionRef_val_ptr_ptr.
+ * @note If you need more than (*brokerSessionConnectionRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerSessionConnectionRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -420,59 +420,59 @@ Session connectionRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010SessionConnectionRef_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
+brokerSessionConnectionRef_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
                                char
-                               **qpid010SessionConnectionRef_val_ptr_ptr,
+                               **brokerSessionConnectionRef_val_ptr_ptr,
                                size_t
-                               *qpid010SessionConnectionRef_val_ptr_len_ptr)
+                               *brokerSessionConnectionRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010SessionConnectionRef_val_ptr_ptr)
-                   && (NULL != *qpid010SessionConnectionRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010SessionConnectionRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerSessionConnectionRef_val_ptr_ptr)
+                   && (NULL != *brokerSessionConnectionRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerSessionConnectionRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionConnectionRef_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionConnectionRef_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionConnectionRef data.
-     * copy (* qpid010SessionConnectionRef_val_ptr_ptr ) data and (* qpid010SessionConnectionRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionConnectionRef data.
+     * copy (* brokerSessionConnectionRef_val_ptr_ptr ) data and (* brokerSessionConnectionRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010SessionConnectionRef data
+     * make sure there is enough space for brokerSessionConnectionRef data
      */
-    if ((NULL == (*qpid010SessionConnectionRef_val_ptr_ptr)) ||
-        ((*qpid010SessionConnectionRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010SessionConnectionRef_len *
-          sizeof(rowreq_ctx->data.qpid010SessionConnectionRef[0])))) {
+    if ((NULL == (*brokerSessionConnectionRef_val_ptr_ptr)) ||
+        ((*brokerSessionConnectionRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerSessionConnectionRef_len *
+          sizeof(rowreq_ctx->data.brokerSessionConnectionRef[0])))) {
         /*
-         * allocate space for qpid010SessionConnectionRef data
+         * allocate space for brokerSessionConnectionRef data
          */
-        (*qpid010SessionConnectionRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010SessionConnectionRef_len *
-                   sizeof(rowreq_ctx->data.qpid010SessionConnectionRef[0]));
-        if (NULL == (*qpid010SessionConnectionRef_val_ptr_ptr)) {
+        (*brokerSessionConnectionRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerSessionConnectionRef_len *
+                   sizeof(rowreq_ctx->data.brokerSessionConnectionRef[0]));
+        if (NULL == (*brokerSessionConnectionRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010SessionConnectionRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerSessionConnectionRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010SessionConnectionRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010SessionConnectionRef_len *
-        sizeof(rowreq_ctx->data.qpid010SessionConnectionRef[0]);
-    memcpy((*qpid010SessionConnectionRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010SessionConnectionRef,
-           rowreq_ctx->data.qpid010SessionConnectionRef_len *
-           sizeof(rowreq_ctx->data.qpid010SessionConnectionRef[0]));
+    (*brokerSessionConnectionRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerSessionConnectionRef_len *
+        sizeof(rowreq_ctx->data.brokerSessionConnectionRef[0]);
+    memcpy((*brokerSessionConnectionRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerSessionConnectionRef,
+           rowreq_ctx->data.brokerSessionConnectionRef_len *
+           sizeof(rowreq_ctx->data.brokerSessionConnectionRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionConnectionRef_get */
+}                               /* brokerSessionConnectionRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionDetachedLifespan
- * qpid010SessionDetachedLifespan is subid 5 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionDetachedLifespan
+ * brokerSessionDetachedLifespan is subid 5 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.5
  * Description:
@@ -489,13 +489,13 @@ Session detachedLifespan
  * The net-snmp type is ASN_UNSIGNED. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010SessionDetachedLifespan data.
+ * Extract the current value of the brokerSessionDetachedLifespan data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionDetachedLifespan_val_ptr
+ * @param brokerSessionDetachedLifespan_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -503,32 +503,32 @@ Session detachedLifespan
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionDetachedLifespan_get(qpid010SessionTable_rowreq_ctx *
+brokerSessionDetachedLifespan_get(brokerSessionTable_rowreq_ctx *
                                   rowreq_ctx,
                                   u_long *
-                                  qpid010SessionDetachedLifespan_val_ptr)
+                                  brokerSessionDetachedLifespan_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionDetachedLifespan_val_ptr);
+    netsnmp_assert(NULL != brokerSessionDetachedLifespan_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionDetachedLifespan_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionDetachedLifespan_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionDetachedLifespan data.
-     * copy (* qpid010SessionDetachedLifespan_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionDetachedLifespan data.
+     * copy (* brokerSessionDetachedLifespan_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SessionDetachedLifespan_val_ptr) =
-        rowreq_ctx->data.qpid010SessionDetachedLifespan;
+    (*brokerSessionDetachedLifespan_val_ptr) =
+        rowreq_ctx->data.brokerSessionDetachedLifespan;
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionDetachedLifespan_get */
+}                               /* brokerSessionDetachedLifespan_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionAttached
- * qpid010SessionAttached is subid 6 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionAttached
+ * brokerSessionAttached is subid 6 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.6
  * Description:
@@ -546,13 +546,13 @@ Session attached
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010SessionAttached data.
+ * Extract the current value of the brokerSessionAttached data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionAttached_val_ptr
+ * @param brokerSessionAttached_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -560,31 +560,31 @@ Session attached
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionAttached_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                          u_long * qpid010SessionAttached_val_ptr)
+brokerSessionAttached_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                          u_long * brokerSessionAttached_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionAttached_val_ptr);
+    netsnmp_assert(NULL != brokerSessionAttached_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionAttached_get",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionAttached_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionAttached data.
-     * copy (* qpid010SessionAttached_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionAttached data.
+     * copy (* brokerSessionAttached_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SessionAttached_val_ptr) =
-        rowreq_ctx->data.qpid010SessionAttached;
+    (*brokerSessionAttached_val_ptr) =
+        rowreq_ctx->data.brokerSessionAttached;
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionAttached_get */
+}                               /* brokerSessionAttached_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionExpireTime
- * qpid010SessionExpireTime is subid 7 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionExpireTime
+ * brokerSessionExpireTime is subid 7 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.7
  * Description:
@@ -601,13 +601,13 @@ Session expireTime
  * The net-snmp type is ASN_TIMETICKS. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010SessionExpireTime data.
+ * Extract the current value of the brokerSessionExpireTime data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionExpireTime_val_ptr
+ * @param brokerSessionExpireTime_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -615,31 +615,31 @@ Session expireTime
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionExpireTime_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                            u_long * qpid010SessionExpireTime_val_ptr)
+brokerSessionExpireTime_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                            u_long * brokerSessionExpireTime_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionExpireTime_val_ptr);
+    netsnmp_assert(NULL != brokerSessionExpireTime_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionExpireTime_get",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionExpireTime_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionExpireTime data.
-     * copy (* qpid010SessionExpireTime_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionExpireTime data.
+     * copy (* brokerSessionExpireTime_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SessionExpireTime_val_ptr) =
-        rowreq_ctx->data.qpid010SessionExpireTime;
+    (*brokerSessionExpireTime_val_ptr) =
+        rowreq_ctx->data.brokerSessionExpireTime;
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionExpireTime_get */
+}                               /* brokerSessionExpireTime_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionMaxClientRate
- * qpid010SessionMaxClientRate is subid 8 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionMaxClientRate
+ * brokerSessionMaxClientRate is subid 8 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.8
  * Description:
@@ -656,13 +656,13 @@ Session maxClientRate
  * The net-snmp type is ASN_UNSIGNED. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010SessionMaxClientRate data.
+ * Extract the current value of the brokerSessionMaxClientRate data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionMaxClientRate_val_ptr
+ * @param brokerSessionMaxClientRate_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -670,30 +670,30 @@ Session maxClientRate
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionMaxClientRate_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                               u_long * qpid010SessionMaxClientRate_val_ptr)
+brokerSessionMaxClientRate_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                               u_long * brokerSessionMaxClientRate_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionMaxClientRate_val_ptr);
+    netsnmp_assert(NULL != brokerSessionMaxClientRate_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionMaxClientRate_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionMaxClientRate_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionMaxClientRate data.
-     * copy (* qpid010SessionMaxClientRate_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionMaxClientRate data.
+     * copy (* brokerSessionMaxClientRate_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SessionMaxClientRate_val_ptr) =
-        rowreq_ctx->data.qpid010SessionMaxClientRate;
+    (*brokerSessionMaxClientRate_val_ptr) =
+        rowreq_ctx->data.brokerSessionMaxClientRate;
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionMaxClientRate_get */
+}                               /* brokerSessionMaxClientRate_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionFramesOutstanding
- * qpid010SessionFramesOutstanding is subid 9 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionFramesOutstanding
+ * brokerSessionFramesOutstanding is subid 9 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.9
  * Description:
@@ -710,13 +710,13 @@ Session framesOutstanding
  * The net-snmp type is ASN_COUNTER. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010SessionFramesOutstanding data.
+ * Extract the current value of the brokerSessionFramesOutstanding data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionFramesOutstanding_val_ptr
+ * @param brokerSessionFramesOutstanding_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -724,32 +724,32 @@ Session framesOutstanding
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionFramesOutstanding_get(qpid010SessionTable_rowreq_ctx *
+brokerSessionFramesOutstanding_get(brokerSessionTable_rowreq_ctx *
                                    rowreq_ctx,
                                    u_long *
-                                   qpid010SessionFramesOutstanding_val_ptr)
+                                   brokerSessionFramesOutstanding_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionFramesOutstanding_val_ptr);
+    netsnmp_assert(NULL != brokerSessionFramesOutstanding_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionFramesOutstanding_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionFramesOutstanding_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionFramesOutstanding data.
-     * copy (* qpid010SessionFramesOutstanding_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionFramesOutstanding data.
+     * copy (* brokerSessionFramesOutstanding_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SessionFramesOutstanding_val_ptr) =
-        rowreq_ctx->data.qpid010SessionFramesOutstanding;
+    (*brokerSessionFramesOutstanding_val_ptr) =
+        rowreq_ctx->data.brokerSessionFramesOutstanding;
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionFramesOutstanding_get */
+}                               /* brokerSessionFramesOutstanding_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionTxnStarts
- * qpid010SessionTxnStarts is subid 10 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionTxnStarts
+ * brokerSessionTxnStarts is subid 10 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.10
  * Description:
@@ -766,13 +766,13 @@ Total transactions started
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010SessionTxnStarts data.
+ * Extract the current value of the brokerSessionTxnStarts data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionTxnStarts_val_ptr
+ * @param brokerSessionTxnStarts_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -780,28 +780,28 @@ Total transactions started
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionTxnStarts_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                           U64 * qpid010SessionTxnStarts_val_ptr)
+brokerSessionTxnStarts_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                           U64 * brokerSessionTxnStarts_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionTxnStarts_val_ptr);
+    netsnmp_assert(NULL != brokerSessionTxnStarts_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010SessionTxnStarts data.
-     * get (* qpid010SessionTxnStarts_val_ptr ).low and (* qpid010SessionTxnStarts_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerSessionTxnStarts data.
+     * get (* brokerSessionTxnStarts_val_ptr ).low and (* brokerSessionTxnStarts_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010SessionTxnStarts_val_ptr).high =
-        rowreq_ctx->data.qpid010SessionTxnStarts.high;
-    (*qpid010SessionTxnStarts_val_ptr).low =
-        rowreq_ctx->data.qpid010SessionTxnStarts.low;
+    (*brokerSessionTxnStarts_val_ptr).high =
+        rowreq_ctx->data.brokerSessionTxnStarts.high;
+    (*brokerSessionTxnStarts_val_ptr).low =
+        rowreq_ctx->data.brokerSessionTxnStarts.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTxnStarts_get */
+}                               /* brokerSessionTxnStarts_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionTxnCommits
- * qpid010SessionTxnCommits is subid 11 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionTxnCommits
+ * brokerSessionTxnCommits is subid 11 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.11
  * Description:
@@ -818,13 +818,13 @@ Total transactions committed
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010SessionTxnCommits data.
+ * Extract the current value of the brokerSessionTxnCommits data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionTxnCommits_val_ptr
+ * @param brokerSessionTxnCommits_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -832,28 +832,28 @@ Total transactions committed
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionTxnCommits_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                            U64 * qpid010SessionTxnCommits_val_ptr)
+brokerSessionTxnCommits_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                            U64 * brokerSessionTxnCommits_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionTxnCommits_val_ptr);
+    netsnmp_assert(NULL != brokerSessionTxnCommits_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010SessionTxnCommits data.
-     * get (* qpid010SessionTxnCommits_val_ptr ).low and (* qpid010SessionTxnCommits_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerSessionTxnCommits data.
+     * get (* brokerSessionTxnCommits_val_ptr ).low and (* brokerSessionTxnCommits_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010SessionTxnCommits_val_ptr).high =
-        rowreq_ctx->data.qpid010SessionTxnCommits.high;
-    (*qpid010SessionTxnCommits_val_ptr).low =
-        rowreq_ctx->data.qpid010SessionTxnCommits.low;
+    (*brokerSessionTxnCommits_val_ptr).high =
+        rowreq_ctx->data.brokerSessionTxnCommits.high;
+    (*brokerSessionTxnCommits_val_ptr).low =
+        rowreq_ctx->data.brokerSessionTxnCommits.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTxnCommits_get */
+}                               /* brokerSessionTxnCommits_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionTxnRejects
- * qpid010SessionTxnRejects is subid 12 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionTxnRejects
+ * brokerSessionTxnRejects is subid 12 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.12
  * Description:
@@ -870,13 +870,13 @@ Total transactions rejected
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010SessionTxnRejects data.
+ * Extract the current value of the brokerSessionTxnRejects data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionTxnRejects_val_ptr
+ * @param brokerSessionTxnRejects_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -884,28 +884,28 @@ Total transactions rejected
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionTxnRejects_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                            U64 * qpid010SessionTxnRejects_val_ptr)
+brokerSessionTxnRejects_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                            U64 * brokerSessionTxnRejects_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionTxnRejects_val_ptr);
+    netsnmp_assert(NULL != brokerSessionTxnRejects_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010SessionTxnRejects data.
-     * get (* qpid010SessionTxnRejects_val_ptr ).low and (* qpid010SessionTxnRejects_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerSessionTxnRejects data.
+     * get (* brokerSessionTxnRejects_val_ptr ).low and (* brokerSessionTxnRejects_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010SessionTxnRejects_val_ptr).high =
-        rowreq_ctx->data.qpid010SessionTxnRejects.high;
-    (*qpid010SessionTxnRejects_val_ptr).low =
-        rowreq_ctx->data.qpid010SessionTxnRejects.low;
+    (*brokerSessionTxnRejects_val_ptr).high =
+        rowreq_ctx->data.brokerSessionTxnRejects.high;
+    (*brokerSessionTxnRejects_val_ptr).low =
+        rowreq_ctx->data.brokerSessionTxnRejects.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTxnRejects_get */
+}                               /* brokerSessionTxnRejects_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionTxnCount
- * qpid010SessionTxnCount is subid 13 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionTxnCount
+ * brokerSessionTxnCount is subid 13 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.13
  * Description:
@@ -922,13 +922,13 @@ Current pending transactions
  * The net-snmp type is ASN_COUNTER. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010SessionTxnCount data.
+ * Extract the current value of the brokerSessionTxnCount data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionTxnCount_val_ptr
+ * @param brokerSessionTxnCount_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -936,31 +936,31 @@ Current pending transactions
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionTxnCount_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                          u_long * qpid010SessionTxnCount_val_ptr)
+brokerSessionTxnCount_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                          u_long * brokerSessionTxnCount_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionTxnCount_val_ptr);
+    netsnmp_assert(NULL != brokerSessionTxnCount_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTxnCount_get",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTxnCount_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionTxnCount data.
-     * copy (* qpid010SessionTxnCount_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionTxnCount data.
+     * copy (* brokerSessionTxnCount_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SessionTxnCount_val_ptr) =
-        rowreq_ctx->data.qpid010SessionTxnCount;
+    (*brokerSessionTxnCount_val_ptr) =
+        rowreq_ctx->data.brokerSessionTxnCount;
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTxnCount_get */
+}                               /* brokerSessionTxnCount_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionClientCredit
- * qpid010SessionClientCredit is subid 14 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionClientCredit
+ * brokerSessionClientCredit is subid 14 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.14
  * Description:
@@ -977,13 +977,13 @@ Client message credit
  * The net-snmp type is ASN_COUNTER. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010SessionClientCredit data.
+ * Extract the current value of the brokerSessionClientCredit data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionClientCredit_val_ptr
+ * @param brokerSessionClientCredit_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -991,27 +991,27 @@ Client message credit
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SessionClientCredit_get(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                              u_long * qpid010SessionClientCredit_val_ptr)
+brokerSessionClientCredit_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                              u_long * brokerSessionClientCredit_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SessionClientCredit_val_ptr);
+    netsnmp_assert(NULL != brokerSessionClientCredit_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionClientCredit_get",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionClientCredit_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SessionClientCredit data.
-     * copy (* qpid010SessionClientCredit_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionClientCredit data.
+     * copy (* brokerSessionClientCredit_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SessionClientCredit_val_ptr) =
-        rowreq_ctx->data.qpid010SessionClientCredit;
+    (*brokerSessionClientCredit_val_ptr) =
+        rowreq_ctx->data.brokerSessionClientCredit;
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionClientCredit_get */
+}                               /* brokerSessionClientCredit_get */
 
 
 

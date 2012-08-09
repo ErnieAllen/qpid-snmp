@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef QPID010LINKTABLE_OIDS_H
-#define QPID010LINKTABLE_OIDS_H
+#ifndef brokerLINKTABLE_OIDS_H
+#define brokerLINKTABLE_OIDS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -13,46 +13,46 @@ extern          "C" {
 
 
     /*
-     * column number definitions for table qpid010LinkTable 
+     * column number definitions for table brokerLinkTable 
      */
-#define QPID010LINKTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,11,1
+#define brokerLINKTABLE_OID              1,3,6,1,4,1,18060,5672,1,11,1
 
 
-#define COLUMN_QPID010LINKVHOSTREF         1
-#define COLUMN_QPID010LINKVHOSTREF_FLAG    (0x1 << 0)
+#define COLUMN_brokerLINKVHOSTREF         1
+#define COLUMN_brokerLINKVHOSTREF_FLAG    (0x1 << 0)
 
-#define COLUMN_QPID010LINKNAME         2
-#define COLUMN_QPID010LINKNAME_FLAG    (0x1 << 1)
+#define COLUMN_brokerLINKNAME         2
+#define COLUMN_brokerLINKNAME_FLAG    (0x1 << 1)
 
-#define COLUMN_QPID010LINKHOST         3
+#define COLUMN_brokerLINKHOST         3
 
-#define COLUMN_QPID010LINKPORT         4
+#define COLUMN_brokerLINKPORT         4
 
-#define COLUMN_QPID010LINKTRANSPORT         5
+#define COLUMN_brokerLINKTRANSPORT         5
 
-#define COLUMN_QPID010LINKDURABLE         6
-#define COLUMN_QPID010LINKDURABLE_FLAG    (0x1 << 2)
+#define COLUMN_brokerLINKDURABLE         6
+#define COLUMN_brokerLINKDURABLE_FLAG    (0x1 << 2)
 
-#define COLUMN_QPID010LINKCONNECTIONREF         7
+#define COLUMN_brokerLINKCONNECTIONREF         7
 
-#define COLUMN_QPID010LINKSTATE         8
+#define COLUMN_brokerLINKSTATE         8
 
-#define COLUMN_QPID010LINKLASTERROR         9
+#define COLUMN_brokerLINKLASTERROR         9
 
-#define COLUMN_QPID010LINKINTERNALINDEX         10
+#define COLUMN_brokerLINKINTERNALINDEX         10
 
 
-#define QPID010LINKTABLE_MIN_COL   COLUMN_QPID010LINKVHOSTREF
-#define QPID010LINKTABLE_MAX_COL   COLUMN_QPID010LINKLASTERROR
+#define brokerLINKTABLE_MIN_COL   COLUMN_brokerLINKVHOSTREF
+#define brokerLINKTABLE_MAX_COL   COLUMN_brokerLINKLASTERROR
 
 
     /*
-     * TODO:405:r: Review QPID010LINKTABLE_SETTABLE_COLS macro.
+     * TODO:405:r: Review brokerLINKTABLE_SETTABLE_COLS macro.
      * OR together all the writable cols.
      */
-#define QPID010LINKTABLE_SETTABLE_COLS (COLUMN_QPID010LINKVHOSTREF_FLAG | COLUMN_QPID010LINKNAME_FLAG | COLUMN_QPID010LINKDURABLE_FLAG)
+#define brokerLINKTABLE_SETTABLE_COLS (COLUMN_brokerLINKVHOSTREF_FLAG | COLUMN_brokerLINKNAME_FLAG | COLUMN_brokerLINKDURABLE_FLAG)
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* QPID010LINKTABLE_OIDS_H */
+#endif                          /* brokerLINKTABLE_OIDS_H */

@@ -52,21 +52,21 @@ netsnmp_feature_require(baby_steps)
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010VhostTable
+ *** Table brokerVhostTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
+     * QPID-MESSAGING-MIB::brokerVhostTable is subid 1 of brokerVhosts.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
      */
-     typedef struct qpid010VhostTable_interface_ctx_s {
+     typedef struct brokerVhostTable_interface_ctx_s {
 
          netsnmp_container *container;
          netsnmp_cache  *cache;
 
-         qpid010VhostTable_registration *user_ctx;
+         brokerVhostTable_registration *user_ctx;
 
          netsnmp_table_registration_info tbl_info;
 
@@ -74,132 +74,132 @@ netsnmp_feature_require(baby_steps)
 
          u_int           table_dirty;
 
-     } qpid010VhostTable_interface_ctx;
+     } brokerVhostTable_interface_ctx;
 
-     static qpid010VhostTable_interface_ctx qpid010VhostTable_if_ctx;
+     static brokerVhostTable_interface_ctx brokerVhostTable_if_ctx;
 
      static void    
-         _qpid010VhostTable_container_init(qpid010VhostTable_interface_ctx *
+         _brokerVhostTable_container_init(brokerVhostTable_interface_ctx *
                                           if_ctx);
      static void    
-         _qpid010VhostTable_container_shutdown
-         (qpid010VhostTable_interface_ctx * if_ctx);
+         _brokerVhostTable_container_shutdown
+         (brokerVhostTable_interface_ctx * if_ctx);
 
 
-     netsnmp_container *qpid010VhostTable_container_get(void)
+     netsnmp_container *brokerVhostTable_container_get(void)
 {
-    return qpid010VhostTable_if_ctx.container;
+    return brokerVhostTable_if_ctx.container;
 }
 
-qpid010VhostTable_registration *
-qpid010VhostTable_registration_get(void)
+brokerVhostTable_registration *
+brokerVhostTable_registration_get(void)
 {
-    return qpid010VhostTable_if_ctx.user_ctx;
+    return brokerVhostTable_if_ctx.user_ctx;
 }
 
-qpid010VhostTable_registration *
-qpid010VhostTable_registration_set(qpid010VhostTable_registration * newreg)
+brokerVhostTable_registration *
+brokerVhostTable_registration_set(brokerVhostTable_registration * newreg)
 {
-    qpid010VhostTable_registration *old = qpid010VhostTable_if_ctx.user_ctx;
-    qpid010VhostTable_if_ctx.user_ctx = newreg;
+    brokerVhostTable_registration *old = brokerVhostTable_if_ctx.user_ctx;
+    brokerVhostTable_if_ctx.user_ctx = newreg;
     return old;
 }
 
 int
-qpid010VhostTable_container_size(void)
+brokerVhostTable_container_size(void)
 {
-    return CONTAINER_SIZE(qpid010VhostTable_if_ctx.container);
+    return CONTAINER_SIZE(brokerVhostTable_if_ctx.container);
 }
 
 u_int
-qpid010VhostTable_dirty_get(void)
+brokerVhostTable_dirty_get(void)
 {
-    return qpid010VhostTable_if_ctx.table_dirty;
+    return brokerVhostTable_if_ctx.table_dirty;
 }
 
 void
-qpid010VhostTable_dirty_set(u_int status)
+brokerVhostTable_dirty_set(u_int status)
 {
-    DEBUGMSGTL(("qpid010VhostTable:qpid010VhostTable_dirty_set",
+    DEBUGMSGTL(("brokerVhostTable:brokerVhostTable_dirty_set",
                 "called. was %d, now %d\n",
-                qpid010VhostTable_if_ctx.table_dirty, status));
-    qpid010VhostTable_if_ctx.table_dirty = status;
+                brokerVhostTable_if_ctx.table_dirty, status));
+    brokerVhostTable_if_ctx.table_dirty = status;
 }
 
 /*
  * mfd multiplexer modes
  */
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_pre_request;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_post_request;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_object_lookup;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_get_values;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_check_objects;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_undo_setup;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_set_values;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_undo_cleanup;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_undo_values;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_commit;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_undo_commit;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_irreversible_commit;
-static Netsnmp_Node_Handler _mfd_qpid010VhostTable_check_dependencies;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_pre_request;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_post_request;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_object_lookup;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_get_values;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_check_objects;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_undo_setup;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_set_values;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_undo_cleanup;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_undo_values;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_commit;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_undo_commit;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_irreversible_commit;
+static Netsnmp_Node_Handler _mfd_brokerVhostTable_check_dependencies;
 
-qpid010VhostTable_data *qpid010VhostTable_allocate_data(void);
+brokerVhostTable_data *brokerVhostTable_allocate_data(void);
 
 /**
  * @internal
- * Initialize the table qpid010VhostTable 
+ * Initialize the table brokerVhostTable 
  *    (Define its contents and how it's structured)
  */
 void
-_qpid010VhostTable_initialize_interface(qpid010VhostTable_registration *
+_brokerVhostTable_initialize_interface(brokerVhostTable_registration *
                                        reg_ptr, u_long flags)
 {
     netsnmp_baby_steps_access_methods *access_multiplexer =
-        &qpid010VhostTable_if_ctx.access_multiplexer;
+        &brokerVhostTable_if_ctx.access_multiplexer;
     netsnmp_table_registration_info *tbl_info =
-        &qpid010VhostTable_if_ctx.tbl_info;
+        &brokerVhostTable_if_ctx.tbl_info;
     netsnmp_handler_registration *reginfo;
     netsnmp_mib_handler *handler;
     int             mfd_modes = 0;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_initialize_interface", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_initialize_interface", "called\n"));
 
 
     /*************************************************
      *
-     * save interface context for qpid010VhostTable
+     * save interface context for brokerVhostTable
      */
     /*
      * Setting up the table's definition
      */
     netsnmp_table_helper_add_indexes(tbl_info, ASN_UNSIGNED,
-                                                /** index: qpid010VhostInternalIndex */
+                                                /** index: brokerVhostInternalIndex */
                                      0);
 
     /*
      * Define the minimum and maximum accessible columns.  This
      * optimizes retrieval. 
      */
-    tbl_info->min_column = qpid010VHOSTTABLE_MIN_COL;
-    tbl_info->max_column = qpid010VHOSTTABLE_MAX_COL;
+    tbl_info->min_column = brokerVHOSTTABLE_MIN_COL;
+    tbl_info->max_column = brokerVHOSTTABLE_MAX_COL;
 
     /*
      * save users context
      */
-    qpid010VhostTable_if_ctx.user_ctx = reg_ptr;
+    brokerVhostTable_if_ctx.user_ctx = reg_ptr;
 
     /*
      * call data access initialization code
      */
-    qpid010VhostTable_init_data(reg_ptr);
+    brokerVhostTable_init_data(reg_ptr);
 
     /*
      * set up the container
      */
-    _qpid010VhostTable_container_init(&qpid010VhostTable_if_ctx);
-    if (NULL == qpid010VhostTable_if_ctx.container) {
+    _brokerVhostTable_container_init(&brokerVhostTable_if_ctx);
+    if (NULL == brokerVhostTable_if_ctx.container) {
         snmp_log(LOG_ERR,
-                 "could not initialize container for qpid010VhostTable\n");
+                 "could not initialize container for brokerVhostTable\n");
         return;
     }
 
@@ -207,59 +207,59 @@ _qpid010VhostTable_initialize_interface(qpid010VhostTable_registration *
      * access_multiplexer: REQUIRED wrapper for get request handling
      */
     access_multiplexer->object_lookup =
-        _mfd_qpid010VhostTable_object_lookup;
-    access_multiplexer->get_values = _mfd_qpid010VhostTable_get_values;
+        _mfd_brokerVhostTable_object_lookup;
+    access_multiplexer->get_values = _mfd_brokerVhostTable_get_values;
 
     /*
      * no wrappers yet
      */
-    access_multiplexer->pre_request = _mfd_qpid010VhostTable_pre_request;
-    access_multiplexer->post_request = _mfd_qpid010VhostTable_post_request;
+    access_multiplexer->pre_request = _mfd_brokerVhostTable_pre_request;
+    access_multiplexer->post_request = _mfd_brokerVhostTable_post_request;
 
 
     /*
      * REQUIRED wrappers for set request handling
      */
     access_multiplexer->object_syntax_checks =
-        _mfd_qpid010VhostTable_check_objects;
-    access_multiplexer->undo_setup = _mfd_qpid010VhostTable_undo_setup;
-    access_multiplexer->undo_cleanup = _mfd_qpid010VhostTable_undo_cleanup;
-    access_multiplexer->set_values = _mfd_qpid010VhostTable_set_values;
-    access_multiplexer->undo_sets = _mfd_qpid010VhostTable_undo_values;
+        _mfd_brokerVhostTable_check_objects;
+    access_multiplexer->undo_setup = _mfd_brokerVhostTable_undo_setup;
+    access_multiplexer->undo_cleanup = _mfd_brokerVhostTable_undo_cleanup;
+    access_multiplexer->set_values = _mfd_brokerVhostTable_set_values;
+    access_multiplexer->undo_sets = _mfd_brokerVhostTable_undo_values;
 
     /*
      * no wrappers yet
      */
-    access_multiplexer->commit = _mfd_qpid010VhostTable_commit;
-    access_multiplexer->undo_commit = _mfd_qpid010VhostTable_undo_commit;
+    access_multiplexer->commit = _mfd_brokerVhostTable_commit;
+    access_multiplexer->undo_commit = _mfd_brokerVhostTable_undo_commit;
     access_multiplexer->irreversible_commit =
-        _mfd_qpid010VhostTable_irreversible_commit;
+        _mfd_brokerVhostTable_irreversible_commit;
 
     /*
      * REQUIRED for tables with dependencies
      */
     access_multiplexer->consistency_checks =
-        _mfd_qpid010VhostTable_check_dependencies;
+        _mfd_brokerVhostTable_check_dependencies;
 
     /*************************************************
      *
      * Create a registration, save our reg data, register table.
      */
-    DEBUGMSGTL(("qpid010VhostTable:init_VhostTable",
-                "Registering qpid010VhostTable as a mibs-for-dummies table.\n"));
+    DEBUGMSGTL(("brokerVhostTable:init_VhostTable",
+                "Registering brokerVhostTable as a mibs-for-dummies table.\n"));
     handler =
         netsnmp_baby_steps_access_multiplexer_get(access_multiplexer);
     reginfo =
-        netsnmp_handler_registration_create("qpid010VhostTable", handler,
-                                            qpid010VhostTable_oid,
-                                            qpid010VhostTable_oid_size,
+        netsnmp_handler_registration_create("brokerVhostTable", handler,
+                                            brokerVhostTable_oid,
+                                            brokerVhostTable_oid_size,
                                             HANDLER_CAN_BABY_STEP |
                                             HANDLER_CAN_RWRITE);
     if (NULL == reginfo) {
-        snmp_log(LOG_ERR, "error registering table qpid010VhostTable\n");
+        snmp_log(LOG_ERR, "error registering table brokerVhostTable\n");
         return;
     }
-    reginfo->my_reg_void = &qpid010VhostTable_if_ctx;
+    reginfo->my_reg_void = &brokerVhostTable_if_ctx;
 
     /*************************************************
      *
@@ -315,7 +315,7 @@ _qpid010VhostTable_initialize_interface(qpid010VhostTable_registration *
      */
     handler =
         netsnmp_container_table_handler_get(tbl_info,
-                                            qpid010VhostTable_if_ctx.
+                                            brokerVhostTable_if_ctx.
                                             container,
                                             TABLE_CONTAINER_KEY_NETSNMP_INDEX);
     netsnmp_inject_handler(reginfo, handler);
@@ -324,8 +324,8 @@ _qpid010VhostTable_initialize_interface(qpid010VhostTable_registration *
      *
      * inject cache helper
      */
-    if (NULL != qpid010VhostTable_if_ctx.cache) {
-        handler = netsnmp_cache_handler_get(qpid010VhostTable_if_ctx.cache);
+    if (NULL != brokerVhostTable_if_ctx.cache) {
+        handler = netsnmp_cache_handler_get(brokerVhostTable_if_ctx.cache);
         netsnmp_inject_handler(reginfo, handler);
     }
 
@@ -337,38 +337,38 @@ _qpid010VhostTable_initialize_interface(qpid010VhostTable_registration *
     /*
      * register config/persistence callbacks
      */
-    qpid010VhostTable_container_init_persistence(qpid010VhostTable_if_ctx.
+    brokerVhostTable_container_init_persistence(brokerVhostTable_if_ctx.
                                                 container);
 
-}                               /* _qpid010VhostTable_initialize_interface */
+}                               /* _brokerVhostTable_initialize_interface */
 
 /**
  * @internal
- * Shutdown the table qpid010VhostTable
+ * Shutdown the table brokerVhostTable
  */
 void
-_qpid010VhostTable_shutdown_interface(qpid010VhostTable_registration *
+_brokerVhostTable_shutdown_interface(brokerVhostTable_registration *
                                      reg_ptr)
 {
     /*
      * shutdown the container
      */
-    _qpid010VhostTable_container_shutdown(&qpid010VhostTable_if_ctx);
+    _brokerVhostTable_container_shutdown(&brokerVhostTable_if_ctx);
 }
 
 void
-qpid010VhostTable_valid_columns_set(netsnmp_column_info *vc)
+brokerVhostTable_valid_columns_set(netsnmp_column_info *vc)
 {
-    qpid010VhostTable_if_ctx.tbl_info.valid_columns = vc;
-}                               /* qpid010VhostTable_valid_columns_set */
+    brokerVhostTable_if_ctx.tbl_info.valid_columns = vc;
+}                               /* brokerVhostTable_valid_columns_set */
 
 /**
  * @internal
  * convert the index component stored in the context to an oid
  */
 int
-qpid010VhostTable_index_to_oid(netsnmp_index * oid_idx,
-                              qpid010VhostTable_mib_index * mib_idx)
+brokerVhostTable_index_to_oid(netsnmp_index * oid_idx,
+                              brokerVhostTable_mib_index * mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
 
@@ -376,56 +376,56 @@ qpid010VhostTable_index_to_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010VhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerVhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    netsnmp_variable_list var_qpid010VhostInternalIndex;
+    netsnmp_variable_list var_brokerVhostInternalIndex;
 
     /*
      * set up varbinds
      */
-    memset(&var_qpid010VhostInternalIndex, 0x00,
-           sizeof(var_qpid010VhostInternalIndex));
-    var_qpid010VhostInternalIndex.type = ASN_UNSIGNED;
+    memset(&var_brokerVhostInternalIndex, 0x00,
+           sizeof(var_brokerVhostInternalIndex));
+    var_brokerVhostInternalIndex.type = ASN_UNSIGNED;
 
     /*
      * chain temp index varbinds together
      */
-    var_qpid010VhostInternalIndex.next_variable = NULL;
+    var_brokerVhostInternalIndex.next_variable = NULL;
 
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_index_to_oid",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_index_to_oid",
                 "called\n"));
 
     /*
-     * qpid010VhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerVhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    snmp_set_var_value(&var_qpid010VhostInternalIndex,
-                       &mib_idx->qpid010VhostInternalIndex,
-                       sizeof(mib_idx->qpid010VhostInternalIndex));
+    snmp_set_var_value(&var_brokerVhostInternalIndex,
+                       &mib_idx->brokerVhostInternalIndex,
+                       sizeof(mib_idx->brokerVhostInternalIndex));
 
 
     err = build_oid_noalloc(oid_idx->oids, oid_idx->len, &oid_idx->len,
-                            NULL, 0, &var_qpid010VhostInternalIndex);
+                            NULL, 0, &var_brokerVhostInternalIndex);
     if (err)
         snmp_log(LOG_ERR, "error %d converting index to oid\n", err);
 
     /*
      * parsing may have allocated memory. free it.
      */
-    snmp_reset_var_buffers(&var_qpid010VhostInternalIndex);
+    snmp_reset_var_buffers(&var_brokerVhostInternalIndex);
 
     return err;
-}                               /* qpid010VhostTable_index_to_oid */
+}                               /* brokerVhostTable_index_to_oid */
 
 /**
- * extract qpid010VhostTable indexes from a netsnmp_index
+ * extract brokerVhostTable indexes from a netsnmp_index
  *
  * @retval SNMP_ERR_NOERROR  : no error
  * @retval SNMP_ERR_GENERR   : error
  */
 int
-qpid010VhostTable_index_from_oid(netsnmp_index * oid_idx,
-                                qpid010VhostTable_mib_index * mib_idx)
+brokerVhostTable_index_from_oid(netsnmp_index * oid_idx,
+                                brokerVhostTable_mib_index * mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
 
@@ -433,37 +433,37 @@ qpid010VhostTable_index_from_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010VhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerVhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    netsnmp_variable_list var_qpid010VhostInternalIndex;
+    netsnmp_variable_list var_brokerVhostInternalIndex;
 
     /*
      * set up varbinds
      */
-    memset(&var_qpid010VhostInternalIndex, 0x00,
-           sizeof(var_qpid010VhostInternalIndex));
-    var_qpid010VhostInternalIndex.type = ASN_UNSIGNED;
+    memset(&var_brokerVhostInternalIndex, 0x00,
+           sizeof(var_brokerVhostInternalIndex));
+    var_brokerVhostInternalIndex.type = ASN_UNSIGNED;
 
     /*
      * chain temp index varbinds together
      */
-    var_qpid010VhostInternalIndex.next_variable = NULL;
+    var_brokerVhostInternalIndex.next_variable = NULL;
 
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_index_from_oid",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_index_from_oid",
                 "called\n"));
 
     /*
      * parse the oid into the individual index components
      */
     err = parse_oid_indexes(oid_idx->oids, oid_idx->len,
-                            &var_qpid010VhostInternalIndex);
+                            &var_brokerVhostInternalIndex);
     if (err == SNMP_ERR_NOERROR) {
         /*
          * copy out values
          */
-        mib_idx->qpid010VhostInternalIndex =
-            *((u_long *) var_qpid010VhostInternalIndex.val.string);
+        mib_idx->brokerVhostInternalIndex =
+            *((u_long *) var_brokerVhostInternalIndex.val.string);
 
 
     }
@@ -471,101 +471,101 @@ qpid010VhostTable_index_from_oid(netsnmp_index * oid_idx,
     /*
      * parsing may have allocated memory. free it.
      */
-    snmp_reset_var_buffers(&var_qpid010VhostInternalIndex);
+    snmp_reset_var_buffers(&var_brokerVhostInternalIndex);
 
     return err;
-}                               /* qpid010VhostTable_index_from_oid */
+}                               /* brokerVhostTable_index_from_oid */
 
 
 /*
- * qpid010VhostTable_allocate_data
+ * brokerVhostTable_allocate_data
  *
- * Purpose: create new qpid010VhostTable_data.
+ * Purpose: create new brokerVhostTable_data.
  */
-qpid010VhostTable_data *
-qpid010VhostTable_allocate_data(void)
+brokerVhostTable_data *
+brokerVhostTable_allocate_data(void)
 {
-    qpid010VhostTable_data *rtn =
-        SNMP_MALLOC_TYPEDEF(qpid010VhostTable_data);
+    brokerVhostTable_data *rtn =
+        SNMP_MALLOC_TYPEDEF(brokerVhostTable_data);
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_allocate_data",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_allocate_data",
                 "called\n"));
 
     if (NULL == rtn) {
         snmp_log(LOG_ERR, "unable to malloc memory for new "
-                 "qpid010VhostTable_data.\n");
+                 "brokerVhostTable_data.\n");
     }
 
     return rtn;
-}                               /* qpid010VhostTable_allocate_data */
+}                               /* brokerVhostTable_allocate_data */
 
 /*
- * qpid010VhostTable_release_data
+ * brokerVhostTable_release_data
  *
- * Purpose: release qpid010VhostTable data.
+ * Purpose: release brokerVhostTable data.
  */
 void
-qpid010VhostTable_release_data(qpid010VhostTable_data * data)
+brokerVhostTable_release_data(brokerVhostTable_data * data)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_release_data",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_release_data",
                 "called\n"));
 
     free(data);
-}                               /* qpid010VhostTable_release_data */
+}                               /* brokerVhostTable_release_data */
 
 /*
  *********************************************************************
  * @internal
- * allocate resources for a qpid010VhostTable_rowreq_ctx
+ * allocate resources for a brokerVhostTable_rowreq_ctx
  */
-qpid010VhostTable_rowreq_ctx *
-qpid010VhostTable_allocate_rowreq_ctx(void *user_init_ctx)
+brokerVhostTable_rowreq_ctx *
+brokerVhostTable_allocate_rowreq_ctx(void *user_init_ctx)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        SNMP_MALLOC_TYPEDEF(qpid010VhostTable_rowreq_ctx);
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        SNMP_MALLOC_TYPEDEF(brokerVhostTable_rowreq_ctx);
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:qpid010VhostTable_allocate_rowreq_ctx", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:brokerVhostTable_allocate_rowreq_ctx", "called\n"));
 
     if (NULL == rowreq_ctx) {
         snmp_log(LOG_ERR, "Couldn't allocate memory for a "
-                 "qpid010VhostTable_rowreq_ctx.\n");
+                 "brokerVhostTable_rowreq_ctx.\n");
         return NULL;
     }
 
     rowreq_ctx->oid_idx.oids = rowreq_ctx->oid_tmp;
 
-    rowreq_ctx->qpid010VhostTable_data_list = NULL;
+    rowreq_ctx->brokerVhostTable_data_list = NULL;
 
     /*
      * if we allocated data, call init routine
      */
     if (!(rowreq_ctx->rowreq_flags & MFD_ROW_DATA_FROM_USER)) {
         if (SNMPERR_SUCCESS !=
-            qpid010VhostTable_rowreq_ctx_init(rowreq_ctx, user_init_ctx)) {
-            qpid010VhostTable_release_rowreq_ctx(rowreq_ctx);
+            brokerVhostTable_rowreq_ctx_init(rowreq_ctx, user_init_ctx)) {
+            brokerVhostTable_release_rowreq_ctx(rowreq_ctx);
             rowreq_ctx = NULL;
         }
     }
 
     return rowreq_ctx;
-}                               /* qpid010VhostTable_allocate_rowreq_ctx */
+}                               /* brokerVhostTable_allocate_rowreq_ctx */
 
 /*
  * @internal
- * release resources for a qpid010VhostTable_rowreq_ctx
+ * release resources for a brokerVhostTable_rowreq_ctx
  */
 void
-qpid010VhostTable_release_rowreq_ctx(qpid010VhostTable_rowreq_ctx *
+brokerVhostTable_release_rowreq_ctx(brokerVhostTable_rowreq_ctx *
                                     rowreq_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010VhostTable:qpid010VhostTable_release_rowreq_ctx", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:brokerVhostTable_release_rowreq_ctx", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    qpid010VhostTable_rowreq_ctx_cleanup(rowreq_ctx);
+    brokerVhostTable_rowreq_ctx_cleanup(rowreq_ctx);
 
     if (rowreq_ctx->undo)
-        qpid010VhostTable_release_data(rowreq_ctx->undo);
+        brokerVhostTable_release_data(rowreq_ctx->undo);
 
     /*
      * free index oid pointer
@@ -574,136 +574,136 @@ qpid010VhostTable_release_rowreq_ctx(qpid010VhostTable_rowreq_ctx *
         free(rowreq_ctx->oid_idx.oids);
 
     SNMP_FREE(rowreq_ctx);
-}                               /* qpid010VhostTable_release_rowreq_ctx */
+}                               /* brokerVhostTable_release_rowreq_ctx */
 
 /**
  * @internal
  * wrapper
  */
 static int
-_mfd_qpid010VhostTable_pre_request(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_pre_request(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *agtreq_info,
                                   netsnmp_request_info *requests)
 {
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_pre_request", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_pre_request", "called\n"));
 
     if (1 != netsnmp_row_merge_status_first(reginfo, agtreq_info)) {
-        DEBUGMSGTL(("internal:qpid010VhostTable",
+        DEBUGMSGTL(("internal:brokerVhostTable",
                     "skipping additional pre_request\n"));
         return SNMP_ERR_NOERROR;
     }
 
-    rc = qpid010VhostTable_pre_request(qpid010VhostTable_if_ctx.user_ctx);
+    rc = brokerVhostTable_pre_request(brokerVhostTable_if_ctx.user_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010VhostTable", "error %d from "
-                    "qpid010VhostTable_pre_request\n", rc));
+        DEBUGMSGTL(("brokerVhostTable", "error %d from "
+                    "brokerVhostTable_pre_request\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_pre_request */
+}                               /* _mfd_brokerVhostTable_pre_request */
 
 /**
  * @internal
  * wrapper
  */
 static int
-_mfd_qpid010VhostTable_post_request(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_post_request(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *agtreq_info,
                                    netsnmp_request_info *requests)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc, packet_rc;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_post_request", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_post_request", "called\n"));
 
     /*
      * release row context, if deleted
      */
     if (rowreq_ctx && (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED))
-        qpid010VhostTable_release_rowreq_ctx(rowreq_ctx);
+        brokerVhostTable_release_rowreq_ctx(rowreq_ctx);
 
     /*
      * wait for last call before calling user
      */
     if (1 != netsnmp_row_merge_status_last(reginfo, agtreq_info)) {
-        DEBUGMSGTL(("internal:qpid010VhostTable",
+        DEBUGMSGTL(("internal:brokerVhostTable",
                     "waiting for last post_request\n"));
         return SNMP_ERR_NOERROR;
     }
 
     packet_rc = netsnmp_check_all_requests_error(agtreq_info->asp, 0);
-    if ((MFD_SUCCESS != packet_rc) && qpid010VhostTable_dirty_get()) {
+    if ((MFD_SUCCESS != packet_rc) && brokerVhostTable_dirty_get()) {
         /*
          * we shouldn't get here. the undo steps should also clear
          * the dirty flags.
          */
         snmp_log(LOG_WARNING,
-                 "qpid010VhostTable dirty flag set in post_request "
+                 "brokerVhostTable dirty flag set in post_request "
                  "but status != SUCCESS.\n");
     }
 
-    rc = qpid010VhostTable_post_request(qpid010VhostTable_if_ctx.user_ctx,
+    rc = brokerVhostTable_post_request(brokerVhostTable_if_ctx.user_ctx,
                                        packet_rc);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010VhostTable", "error %d from "
-                    "qpid010VhostTable_post_request\n", rc));
+        DEBUGMSGTL(("brokerVhostTable", "error %d from "
+                    "brokerVhostTable_post_request\n", rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_post_request */
+}                               /* _mfd_brokerVhostTable_post_request */
 
 NETSNMP_STATIC_INLINE int
-_qpid010VhostTable_check_indexes(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+_brokerVhostTable_check_indexes(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_check_indexes", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_check_indexes", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
 
     /*
-     * (INDEX) qpid010VhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * (INDEX) brokerVhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     if (MFD_SUCCESS != rc)
         return rc;
-    rc = qpid010VhostInternalIndex_check_index(rowreq_ctx);
+    rc = brokerVhostInternalIndex_check_index(rowreq_ctx);
     if (MFD_SUCCESS != rc)
         return SNMP_ERR_NOCREATION;
 
     /*
      * if individual parts look ok, check them as a whole
      */
-    return qpid010VhostTable_validate_index(qpid010VhostTable_if_ctx.
+    return brokerVhostTable_validate_index(brokerVhostTable_if_ctx.
                                            user_ctx, rowreq_ctx);
-}                               /* _qpid010VhostTable_check_indexes */
+}                               /* _brokerVhostTable_check_indexes */
 
 /**
  * @internal
  * wrapper
  */
-static qpid010VhostTable_rowreq_ctx *
-_mfd_qpid010VhostTable_rowreq_from_index(netsnmp_index * oid_idx,
+static brokerVhostTable_rowreq_ctx *
+_mfd_brokerVhostTable_rowreq_from_index(netsnmp_index * oid_idx,
                                         int *rc_ptr)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx;
-    qpid010VhostTable_mib_index mib_idx;
+    brokerVhostTable_rowreq_ctx *rowreq_ctx;
+    brokerVhostTable_mib_index mib_idx;
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_rowreq_from_index", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_rowreq_from_index", "called\n"));
 
     if (NULL == rc_ptr)
         rc_ptr = &rc;
@@ -714,16 +714,16 @@ _mfd_qpid010VhostTable_rowreq_from_index(netsnmp_index * oid_idx,
     /*
      * try to parse oid
      */
-    *rc_ptr = qpid010VhostTable_index_from_oid(oid_idx, &mib_idx);
+    *rc_ptr = brokerVhostTable_index_from_oid(oid_idx, &mib_idx);
     if (MFD_SUCCESS != *rc_ptr) {
-        DEBUGMSGT(("qpid010VhostTable", "error parsing index\n"));
+        DEBUGMSGT(("brokerVhostTable", "error parsing index\n"));
         return NULL;
     }
 
     /*
      * allocate new context
      */
-    rowreq_ctx = qpid010VhostTable_allocate_rowreq_ctx(NULL);
+    rowreq_ctx = brokerVhostTable_allocate_rowreq_ctx(NULL);
     if (NULL == rowreq_ctx) {
         *rc_ptr = MFD_ERROR;
         return NULL;            /* msg already logged */
@@ -734,11 +734,11 @@ _mfd_qpid010VhostTable_rowreq_from_index(netsnmp_index * oid_idx,
     /*
      * check indexes
      */
-    *rc_ptr = _qpid010VhostTable_check_indexes(rowreq_ctx);
+    *rc_ptr = _brokerVhostTable_check_indexes(rowreq_ctx);
     if (MFD_SUCCESS != *rc_ptr) {
         netsnmp_assert((*rc_ptr == SNMP_ERR_NOCREATION) ||
                        (*rc_ptr == SNMP_ERR_INCONSISTENTNAME));
-        qpid010VhostTable_release_rowreq_ctx(rowreq_ctx);
+        brokerVhostTable_release_rowreq_ctx(rowreq_ctx);
         return NULL;
     }
 
@@ -750,7 +750,7 @@ _mfd_qpid010VhostTable_rowreq_from_index(netsnmp_index * oid_idx,
            oid_idx->len * sizeof(oid));
 
     return rowreq_ctx;
-}                               /* _mfd_qpid010VhostTable_rowreq_from_index */
+}                               /* _mfd_brokerVhostTable_rowreq_from_index */
 
 
 /**
@@ -758,23 +758,23 @@ _mfd_qpid010VhostTable_rowreq_from_index(netsnmp_index * oid_idx,
  * wrapper
  */
 static int
-_mfd_qpid010VhostTable_object_lookup(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_object_lookup(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info
                                     *agtreq_info,
                                     netsnmp_request_info *requests)
 {
     int             rc = SNMP_ERR_NOERROR;
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_object_lookup", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_object_lookup", "called\n"));
 
     /*
      * get our context from mfd
-     * qpid010VhostTable_interface_ctx *if_ctx =
-     *             (qpid010VhostTable_interface_ctx *)reginfo->my_reg_void;
+     * brokerVhostTable_interface_ctx *if_ctx =
+     *             (brokerVhostTable_interface_ctx *)reginfo->my_reg_void;
      */
 
     if (NULL == rowreq_ctx) {
@@ -784,10 +784,10 @@ _mfd_qpid010VhostTable_object_lookup(netsnmp_mib_handler *handler,
     if (MFD_SUCCESS != rc)
         netsnmp_request_set_error_all(requests, rc);
     else
-        qpid010VhostTable_row_prep(rowreq_ctx);
+        brokerVhostTable_row_prep(rowreq_ctx);
 
     return SNMP_VALIDATE_ERR(rc);
-}                               /* _mfd_qpid010VhostTable_object_lookup */
+}                               /* _mfd_brokerVhostTable_object_lookup */
 
 /***********************************************************************
  *
@@ -799,12 +799,12 @@ _mfd_qpid010VhostTable_object_lookup(netsnmp_mib_handler *handler,
  * Retrieve the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010VhostTable_get_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
+_brokerVhostTable_get_column(brokerVhostTable_rowreq_ctx * rowreq_ctx,
                              netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_get_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_get_column", "called for %d\n", column));
 
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -812,65 +812,65 @@ _qpid010VhostTable_get_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
     switch (column) {
 
         /*
-         * qpid010VhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTBROKERREF:
+    case COLUMN_brokerVHOSTBROKERREF:
         var->type = ASN_OCTET_STR;
-        rc = qpid010VhostBrokerRef_get(rowreq_ctx,
+        rc = brokerVhostBrokerRef_get(rowreq_ctx,
                                       (char **) &var->val.string,
                                       &var->val_len);
         break;
 
         /*
-         * qpid010VhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTNAME:
+    case COLUMN_brokerVHOSTNAME:
         var->type = ASN_OCTET_STR;
-        rc = qpid010VhostName_get(rowreq_ctx, (char **) &var->val.string,
+        rc = brokerVhostName_get(rowreq_ctx, (char **) &var->val.string,
                                  &var->val_len);
         break;
 
         /*
-         * qpid010VhostFederationTag(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerVhostFederationTag(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTFEDERATIONTAG:
+    case COLUMN_brokerVHOSTFEDERATIONTAG:
         var->type = ASN_OCTET_STR;
-        rc = qpid010VhostFederationTag_get(rowreq_ctx,
+        rc = brokerVhostFederationTag_get(rowreq_ctx,
                                           (char **) &var->val.string,
                                           &var->val_len);
         break;
 
     default:
-        if (qpid010VHOSTTABLE_MIN_COL <= column
-            && column <= qpid010VHOSTTABLE_MAX_COL) {
-            DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_get_column", "assume column %d is reserved\n", column));
+        if (brokerVHOSTTABLE_MIN_COL <= column
+            && column <= brokerVHOSTTABLE_MAX_COL) {
+            DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_get_column", "assume column %d is reserved\n", column));
             rc = MFD_SKIP;
         } else {
             snmp_log(LOG_ERR,
-                     "unknown column %d in _qpid010VhostTable_get_column\n",
+                     "unknown column %d in _brokerVhostTable_get_column\n",
                      column);
         }
         break;
     }
 
     return rc;
-}                               /* _qpid010VhostTable_get_column */
+}                               /* _brokerVhostTable_get_column */
 
 int
-_mfd_qpid010VhostTable_get_values(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_get_values(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *agtreq_info,
                                  netsnmp_request_info *requests)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     u_char         *old_string;
     void            (*dataFreeHook) (void *);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_get_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_get_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -899,7 +899,7 @@ _mfd_qpid010VhostTable_get_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010VhostTable_get_column(rowreq_ctx, requests->requestvb,
+        rc = _brokerVhostTable_get_column(rowreq_ctx, requests->requestvb,
                                           tri->colnum);
         if (rc) {
             if (MFD_SKIP == rc) {
@@ -928,7 +928,7 @@ _mfd_qpid010VhostTable_get_values(netsnmp_mib_handler *handler,
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_get_values */
+}                               /* _mfd_brokerVhostTable_get_values */
 
 /***********************************************************************
  *
@@ -946,31 +946,31 @@ _mfd_qpid010VhostTable_get_values(netsnmp_mib_handler *handler,
  * Check the syntax for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010VhostTable_check_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
+_brokerVhostTable_check_column(brokerVhostTable_rowreq_ctx * rowreq_ctx,
                                netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_check_column",
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_check_column",
                 "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
         /*
-         * (INDEX) qpid010VhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+         * (INDEX) brokerVhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
          */
-    case COLUMN_qpid010VHOSTINTERNALINDEX:
+    case COLUMN_brokerVHOSTINTERNALINDEX:
         rc = SNMP_ERR_NOTWRITABLE;      /* can not change index of active row */
         break;
 
         /*
-         * qpid010VhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTBROKERREF:
+    case COLUMN_brokerVHOSTBROKERREF:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010VhostBrokerRef));
+                                                       brokerVhostBrokerRef));
         /*
          * check defined range(s). 
          */
@@ -980,15 +980,15 @@ _qpid010VhostTable_check_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010VhostTable:_qpid010VhostTable_check_column:qpid010VhostBrokerRef", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerVhostTable:_brokerVhostTable_check_column:brokerVhostBrokerRef", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010VhostBrokerRef_check_value(rowreq_ctx,
+            rc = brokerVhostBrokerRef_check_value(rowreq_ctx,
                                                   (char *) var->val.string,
                                                   var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010VhostBrokerRef_check_value\n",
+                         "bad rc %d from brokerVhostBrokerRef_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -996,12 +996,12 @@ _qpid010VhostTable_check_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010VhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTNAME:
+    case COLUMN_brokerVHOSTNAME:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010VhostName));
+                                                       brokerVhostName));
         /*
          * check defined range(s). 
          */
@@ -1011,15 +1011,15 @@ _qpid010VhostTable_check_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010VhostTable:_qpid010VhostTable_check_column:qpid010VhostName", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerVhostTable:_brokerVhostTable_check_column:brokerVhostName", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010VhostName_check_value(rowreq_ctx,
+            rc = brokerVhostName_check_value(rowreq_ctx,
                                              (char *) var->val.string,
                                              var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010VhostName_check_value\n",
+                         "bad rc %d from brokerVhostName_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1027,36 +1027,36 @@ _qpid010VhostTable_check_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010VhostFederationTag(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerVhostFederationTag(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTFEDERATIONTAG:
+    case COLUMN_brokerVHOSTFEDERATIONTAG:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
     default:    /** We shouldn't get here */
         rc = SNMP_ERR_GENERR;
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010VhostTable_check_column\n",
+                 "unknown column %d in _brokerVhostTable_check_column\n",
                  column);
     }
 
     return rc;
-}                               /* _qpid010VhostTable_check_column */
+}                               /* _brokerVhostTable_check_column */
 
 int
-_mfd_qpid010VhostTable_check_objects(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_check_objects(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info
                                     *agtreq_info,
                                     netsnmp_request_info *requests)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_check_objects", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_check_objects", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1069,7 +1069,7 @@ _mfd_qpid010VhostTable_check_objects(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010VhostTable_check_column(rowreq_ctx,
+        rc = _brokerVhostTable_check_column(rowreq_ctx,
                                             requests->requestvb,
                                             tri->colnum);
         if (rc) {
@@ -1080,7 +1080,7 @@ _mfd_qpid010VhostTable_check_objects(netsnmp_mib_handler *handler,
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_check_objects */
+}                               /* _mfd_brokerVhostTable_check_objects */
 
 
 /*----------------------------------------------------------------------
@@ -1093,7 +1093,7 @@ _mfd_qpid010VhostTable_check_objects(netsnmp_mib_handler *handler,
  * Check dependencies wrapper
  */
 static int
-_mfd_qpid010VhostTable_check_dependencies(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_check_dependencies(netsnmp_mib_handler *handler,
                                          netsnmp_handler_registration
                                          *reginfo,
                                          netsnmp_agent_request_info
@@ -1101,22 +1101,22 @@ _mfd_qpid010VhostTable_check_dependencies(netsnmp_mib_handler *handler,
                                          netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010VhostTable_check_dependencies(rowreq_ctx);
+    rc = brokerVhostTable_check_dependencies(rowreq_ctx);
     if (rc) {
-        DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                    "qpid010VhostTable_check_dependencies\n", rc));
+        DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                    "brokerVhostTable_check_dependencies\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_check_dependencies */
+}                               /* _mfd_brokerVhostTable_check_dependencies */
 
 /*----------------------------------------------------------------------
  *
@@ -1128,42 +1128,42 @@ _mfd_qpid010VhostTable_check_dependencies(netsnmp_mib_handler *handler,
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010VhostTable_undo_setup_column(qpid010VhostTable_rowreq_ctx *
+_brokerVhostTable_undo_setup_column(brokerVhostTable_rowreq_ctx *
                                     rowreq_ctx, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_undo_setup_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_undo_setup_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
 
         /*
-         * qpid010VhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTBROKERREF:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010VHOSTBROKERREF_FLAG;
-        rc = qpid010VhostBrokerRef_undo_setup(rowreq_ctx);
+    case COLUMN_brokerVHOSTBROKERREF:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerVHOSTBROKERREF_FLAG;
+        rc = brokerVhostBrokerRef_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010VhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTNAME:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010VHOSTNAME_FLAG;
-        rc = qpid010VhostName_undo_setup(rowreq_ctx);
+    case COLUMN_brokerVHOSTNAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerVHOSTNAME_FLAG;
+        rc = brokerVhostName_undo_setup(rowreq_ctx);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010VhostTable_undo_setup_column\n",
+                 "unknown column %d in _brokerVhostTable_undo_setup_column\n",
                  column);
         break;
     }
 
     return rc;
-}                               /* _qpid010VhostTable_undo_setup_column */
+}                               /* _brokerVhostTable_undo_setup_column */
 
 
 /**
@@ -1171,24 +1171,24 @@ _qpid010VhostTable_undo_setup_column(qpid010VhostTable_rowreq_ctx *
  * undo setup
  */
 int
-_mfd_qpid010VhostTable_undo_setup(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_undo_setup(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *agtreq_info,
                                  netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_undo_setup", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_undo_setup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
      * allocate undo context
      */
-    rowreq_ctx->undo = qpid010VhostTable_allocate_data();
+    rowreq_ctx->undo = brokerVhostTable_allocate_data();
     if (NULL == rowreq_ctx->undo) {
         /** msg already logged */
         netsnmp_request_set_error_all(requests,
@@ -1200,10 +1200,10 @@ _mfd_qpid010VhostTable_undo_setup(netsnmp_mib_handler *handler,
      * row undo setup
      */
     rowreq_ctx->column_set_flags = 0;
-    rc = qpid010VhostTable_undo_setup(rowreq_ctx);
+    rc = brokerVhostTable_undo_setup(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
-        DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                    "qpid010VhostTable_undo_setup\n", rc));
+        DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                    "brokerVhostTable_undo_setup\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     } else {
         /*
@@ -1218,11 +1218,11 @@ _mfd_qpid010VhostTable_undo_setup(netsnmp_mib_handler *handler,
             if (NULL == tri)
                 continue;
 
-            rc = _qpid010VhostTable_undo_setup_column(rowreq_ctx,
+            rc = _brokerVhostTable_undo_setup_column(rowreq_ctx,
                                                      tri->colnum);
             if (MFD_SUCCESS != rc) {
-                DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                            "qpid010VhostTable_undo_setup_column\n", rc));
+                DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                            "brokerVhostTable_undo_setup_column\n", rc));
                 netsnmp_set_request_error(agtreq_info, requests,
                                           SNMP_VALIDATE_ERR(rc));
             }
@@ -1230,24 +1230,24 @@ _mfd_qpid010VhostTable_undo_setup(netsnmp_mib_handler *handler,
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_undo_setup */
+}                               /* _mfd_brokerVhostTable_undo_setup */
 
 /**
  * @internal
  * undo setup
  */
 int
-_mfd_qpid010VhostTable_undo_cleanup(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_undo_cleanup(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *agtreq_info,
                                    netsnmp_request_info *requests)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_undo_cleanup", "called\n"));
 
     /*
      * failed row create in early stages has no rowreq_ctx
@@ -1258,26 +1258,26 @@ _mfd_qpid010VhostTable_undo_cleanup(netsnmp_mib_handler *handler,
     /*
      * call user cleanup
      */
-    rc = qpid010VhostTable_undo_cleanup(rowreq_ctx);
+    rc = brokerVhostTable_undo_cleanup(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                    "qpid010VhostTable_undo_cleanup\n", rc));
+        DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                    "brokerVhostTable_undo_cleanup\n", rc));
     }
 
     /*
      * release undo context, if needed
      */
     if (rowreq_ctx->undo) {
-        qpid010VhostTable_release_data(rowreq_ctx->undo);
+        brokerVhostTable_release_data(rowreq_ctx->undo);
         rowreq_ctx->undo = NULL;
     }
 
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_undo_cleanup */
+}                               /* _mfd_brokerVhostTable_undo_cleanup */
 
 /*----------------------------------------------------------------------
  *
@@ -1289,12 +1289,12 @@ _mfd_qpid010VhostTable_undo_cleanup(netsnmp_mib_handler *handler,
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010VhostTable_set_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
+_brokerVhostTable_set_column(brokerVhostTable_rowreq_ctx * rowreq_ctx,
                              netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_set_column",
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_set_column",
                 "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -1302,47 +1302,47 @@ _qpid010VhostTable_set_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
     switch (column) {
 
         /*
-         * qpid010VhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTBROKERREF:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010VHOSTBROKERREF_FLAG;
-        rc = qpid010VhostBrokerRef_set(rowreq_ctx, (char *) var->val.string,
+    case COLUMN_brokerVHOSTBROKERREF:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerVHOSTBROKERREF_FLAG;
+        rc = brokerVhostBrokerRef_set(rowreq_ctx, (char *) var->val.string,
                                       var->val_len);
         break;
 
         /*
-         * qpid010VhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTNAME:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010VHOSTNAME_FLAG;
-        rc = qpid010VhostName_set(rowreq_ctx, (char *) var->val.string,
+    case COLUMN_brokerVHOSTNAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerVHOSTNAME_FLAG;
+        rc = brokerVhostName_set(rowreq_ctx, (char *) var->val.string,
                                  var->val_len);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010VhostTable_set_column\n",
+                 "unknown column %d in _brokerVhostTable_set_column\n",
                  column);
         rc = SNMP_ERR_GENERR;
         break;
     }
 
     return rc;
-}                               /* _qpid010VhostTable_set_column */
+}                               /* _brokerVhostTable_set_column */
 
 int
-_mfd_qpid010VhostTable_set_values(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_set_values(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *agtreq_info,
                                  netsnmp_request_info *requests)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc = SNMP_ERR_NOERROR;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_set_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_set_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1355,19 +1355,19 @@ _mfd_qpid010VhostTable_set_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010VhostTable_set_column(rowreq_ctx,
+        rc = _brokerVhostTable_set_column(rowreq_ctx,
                                           requests->requestvb,
                                           tri->colnum);
         if (MFD_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                        "qpid010VhostTable_set_column\n", rc));
+            DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                        "brokerVhostTable_set_column\n", rc));
             netsnmp_set_request_error(agtreq_info, requests,
                                       SNMP_VALIDATE_ERR(rc));
         }
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_set_values */
+}                               /* _mfd_brokerVhostTable_set_values */
 
 /*----------------------------------------------------------------------
  *
@@ -1379,25 +1379,25 @@ _mfd_qpid010VhostTable_set_values(netsnmp_mib_handler *handler,
  * commit the values
  */
 int
-_mfd_qpid010VhostTable_commit(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_commit(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *agtreq_info,
                              netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_commit",
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_commit",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010VhostTable_commit(rowreq_ctx);
+    rc = brokerVhostTable_commit(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
-        DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                    "qpid010VhostTable_commit\n", rc));
+        DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                    "brokerVhostTable_commit\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
@@ -1407,52 +1407,52 @@ _mfd_qpid010VhostTable_commit(netsnmp_mib_handler *handler,
          * current value + 1 (i.e. dirty = # rows changed).
          * this is checked in post_request...
          */
-        qpid010VhostTable_dirty_set(qpid010VhostTable_dirty_get() + 1);   /* set table dirty flag */
+        brokerVhostTable_dirty_set(brokerVhostTable_dirty_get() + 1);   /* set table dirty flag */
     }
 
     return SNMP_ERR_NOERROR;
 }
 
 int
-_mfd_qpid010VhostTable_undo_commit(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_undo_commit(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *agtreq_info,
                                   netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_undo_commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DIRTY) {
-        u_int           d = qpid010VhostTable_dirty_get();
+        u_int           d = brokerVhostTable_dirty_get();
 
         netsnmp_assert(d != 0);
         if (d)
-            qpid010VhostTable_dirty_set(d - 1);
+            brokerVhostTable_dirty_set(d - 1);
     }
 
-    rc = qpid010VhostTable_undo_commit(rowreq_ctx);
+    rc = brokerVhostTable_undo_commit(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                    "qpid010VhostTable_undo_commit\n", rc));
+        DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                    "brokerVhostTable_undo_commit\n", rc));
     }
 
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DIRTY) {
         snmp_log(LOG_WARNING,
-                 "qpid010VhostTable row dirty flag still set after undo_commit\n");
+                 "brokerVhostTable row dirty flag still set after undo_commit\n");
         rowreq_ctx->rowreq_flags &= ~MFD_ROW_DIRTY;
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_commit */
+}                               /* _mfd_brokerVhostTable_commit */
 
 /*----------------------------------------------------------------------
  *
@@ -1464,12 +1464,12 @@ _mfd_qpid010VhostTable_undo_commit(netsnmp_mib_handler *handler,
  * undo the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010VhostTable_undo_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
+_brokerVhostTable_undo_column(brokerVhostTable_rowreq_ctx * rowreq_ctx,
                               netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_undo_column",
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_undo_column",
                 "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -1477,52 +1477,52 @@ _qpid010VhostTable_undo_column(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
     switch (column) {
 
         /*
-         * qpid010VhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTBROKERREF:
-        rc = qpid010VhostBrokerRef_undo(rowreq_ctx);
+    case COLUMN_brokerVHOSTBROKERREF:
+        rc = brokerVhostBrokerRef_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010VhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerVhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010VHOSTNAME:
-        rc = qpid010VhostName_undo(rowreq_ctx);
+    case COLUMN_brokerVHOSTNAME:
+        rc = brokerVhostName_undo(rowreq_ctx);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010VhostTable_undo_column\n",
+                 "unknown column %d in _brokerVhostTable_undo_column\n",
                  column);
         break;
     }
 
     return rc;
-}                               /* _qpid010VhostTable_undo_column */
+}                               /* _brokerVhostTable_undo_column */
 
 int
-_mfd_qpid010VhostTable_undo_values(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_undo_values(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *agtreq_info,
                                   netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_undo_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_undo_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010VhostTable_undo(rowreq_ctx);
+    rc = brokerVhostTable_undo(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                    "qpid010VhostTable_undo\n", rc));
+        DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                    "brokerVhostTable_undo\n", rc));
     }
 
     for (; requests; requests = requests->next) {
@@ -1533,19 +1533,19 @@ _mfd_qpid010VhostTable_undo_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010VhostTable_undo_column(rowreq_ctx, requests->requestvb,
+        rc = _brokerVhostTable_undo_column(rowreq_ctx, requests->requestvb,
                                            tri->colnum);
         if (MFD_SUCCESS != rc) {
             /*
              * nothing we can do about it but log it
              */
-            DEBUGMSGTL(("qpid010VhostTable:mfd", "error %d from "
-                        "qpid010VhostTable_undo_column\n", rc));
+            DEBUGMSGTL(("brokerVhostTable:mfd", "error %d from "
+                        "brokerVhostTable_undo_column\n", rc));
         }
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_undo_values */
+}                               /* _mfd_brokerVhostTable_undo_values */
 
 /*----------------------------------------------------------------------
  *
@@ -1557,18 +1557,18 @@ _mfd_qpid010VhostTable_undo_values(netsnmp_mib_handler *handler,
  * commit irreversible actions
  */
 int
-_mfd_qpid010VhostTable_irreversible_commit(netsnmp_mib_handler *handler,
+_mfd_brokerVhostTable_irreversible_commit(netsnmp_mib_handler *handler,
                                           netsnmp_handler_registration
                                           *reginfo,
                                           netsnmp_agent_request_info
                                           *agtreq_info,
                                           netsnmp_request_info *requests)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
+    brokerVhostTable_rowreq_ctx *rowreq_ctx =
+        (brokerVhostTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_mfd_qpid010VhostTable_irreversible:commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_mfd_brokerVhostTable_irreversible:commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1578,7 +1578,7 @@ _mfd_qpid010VhostTable_irreversible_commit(netsnmp_mib_handler *handler,
      */
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED) {
         if (!(rowreq_ctx->rowreq_flags & MFD_ROW_CREATED))
-            CONTAINER_REMOVE(qpid010VhostTable_if_ctx.container,
+            CONTAINER_REMOVE(brokerVhostTable_if_ctx.container,
                              rowreq_ctx);
     } else {
         if (rowreq_ctx->column_set_flags) {
@@ -1587,7 +1587,7 @@ _mfd_qpid010VhostTable_irreversible_commit(netsnmp_mib_handler *handler,
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010VhostTable_irreversible_commit */
+}                               /* _mfd_brokerVhostTable_irreversible_commit */
 
 /***********************************************************************
  *
@@ -1602,11 +1602,11 @@ static void     _container_free(netsnmp_container * container);
 static int
 _cache_load(netsnmp_cache * cache, void *vmagic)
 {
-    DEBUGMSGTL(("internal:qpid010VhostTable:_cache_load", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_cache_load", "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
         snmp_log(LOG_ERR,
-                 "invalid cache for qpid010VhostTable_cache_load\n");
+                 "invalid cache for brokerVhostTable_cache_load\n");
         return -1;
     }
 
@@ -1616,7 +1616,7 @@ _cache_load(netsnmp_cache * cache, void *vmagic)
     /*
      * call user code
      */
-    return qpid010VhostTable_container_load((netsnmp_container *) cache->
+    return brokerVhostTable_container_load((netsnmp_container *) cache->
                                            magic);
 }                               /* _cache_load */
 
@@ -1628,11 +1628,11 @@ _cache_free(netsnmp_cache * cache, void *magic)
 {
     netsnmp_container *container;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_cache_free", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_cache_free", "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
         snmp_log(LOG_ERR,
-                 "invalid cache in qpid010VhostTable_cache_free\n");
+                 "invalid cache in brokerVhostTable_cache_free\n");
         return;
     }
 
@@ -1645,16 +1645,16 @@ _cache_free(netsnmp_cache * cache, void *magic)
  * @internal
  */
 static void
-_container_item_free(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
+_container_item_free(brokerVhostTable_rowreq_ctx * rowreq_ctx,
                      void *context)
 {
-    DEBUGMSGTL(("internal:qpid010VhostTable:_container_item_free",
+    DEBUGMSGTL(("internal:brokerVhostTable:_container_item_free",
                 "called\n"));
 
     if (NULL == rowreq_ctx)
         return;
 
-    qpid010VhostTable_release_rowreq_ctx(rowreq_ctx);
+    brokerVhostTable_release_rowreq_ctx(rowreq_ctx);
 }                               /* _container_item_free */
 
 /**
@@ -1663,18 +1663,18 @@ _container_item_free(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
 static void
 _container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("internal:qpid010VhostTable:_container_free", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_container_free", "called\n"));
 
     if (NULL == container) {
         snmp_log(LOG_ERR,
-                 "invalid container in qpid010VhostTable_container_free\n");
+                 "invalid container in brokerVhostTable_container_free\n");
         return;
     }
 
     /*
      * call user code
      */
-    qpid010VhostTable_container_free(container);
+    brokerVhostTable_container_free(container);
 
     /*
      * free all items. inefficient, but easy.
@@ -1689,54 +1689,54 @@ _container_free(netsnmp_container * container)
  * initialize the container with functions or wrappers
  */
 void
-_qpid010VhostTable_container_init(qpid010VhostTable_interface_ctx * if_ctx)
+_brokerVhostTable_container_init(brokerVhostTable_interface_ctx * if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_container_init", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_container_init", "called\n"));
 
     /*
      * cache init
      */
     if_ctx->cache = netsnmp_cache_create(30,    /* timeout in seconds */
                                          _cache_load, _cache_free,
-                                         qpid010VhostTable_oid,
-                                         qpid010VhostTable_oid_size);
+                                         brokerVhostTable_oid,
+                                         brokerVhostTable_oid_size);
 
     if (NULL == if_ctx->cache) {
-        snmp_log(LOG_ERR, "error creating cache for qpid010VhostTable\n");
+        snmp_log(LOG_ERR, "error creating cache for brokerVhostTable\n");
         return;
     }
 
     if_ctx->cache->flags = NETSNMP_CACHE_DONT_INVALIDATE_ON_SET;
 
-    qpid010VhostTable_container_init(&if_ctx->container, if_ctx->cache);
+    brokerVhostTable_container_init(&if_ctx->container, if_ctx->cache);
     if (NULL == if_ctx->container)
         if_ctx->container =
-            netsnmp_container_find("qpid010VhostTable:table_container");
+            netsnmp_container_find("brokerVhostTable:table_container");
     if (NULL == if_ctx->container) {
         snmp_log(LOG_ERR, "error creating container in "
-                 "qpid010VhostTable_container_init\n");
+                 "brokerVhostTable_container_init\n");
         return;
     }
 
     if (NULL != if_ctx->cache)
         if_ctx->cache->magic = (void *) if_ctx->container;
-}                               /* _qpid010VhostTable_container_init */
+}                               /* _brokerVhostTable_container_init */
 
 /**
  * @internal
  * shutdown the container with functions or wrappers
  */
 void
-_qpid010VhostTable_container_shutdown(qpid010VhostTable_interface_ctx *
+_brokerVhostTable_container_shutdown(brokerVhostTable_interface_ctx *
                                      if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_container_shutdown", "called\n"));
 
-    qpid010VhostTable_container_shutdown(if_ctx->container);
+    brokerVhostTable_container_shutdown(if_ctx->container);
 
     _container_free(if_ctx->container);
 
-}                               /* _qpid010VhostTable_container_shutdown */
+}                               /* _brokerVhostTable_container_shutdown */
 
 /***********************************************************************
  *
@@ -1744,25 +1744,25 @@ _qpid010VhostTable_container_shutdown(qpid010VhostTable_interface_ctx *
  *
  ***********************************************************************/
 
-static int      _qpid010VhostTable_container_save_rows(int majorID,
+static int      _brokerVhostTable_container_save_rows(int majorID,
                                                       int minorID,
                                                       void *serverarg,
                                                       void *clientarg);
-static void     _qpid010VhostTable_container_row_restore(const char *token,
+static void     _brokerVhostTable_container_row_restore(const char *token,
                                                         char *buf);
 static int     
-_qpid010VhostTable_container_row_save(qpid010VhostTable_rowreq_ctx *
+_brokerVhostTable_container_row_save(brokerVhostTable_rowreq_ctx *
                                      rowreq_ctx, void *type);
 static char   
-    *_qpid010VhostTable_container_col_restore(qpid010VhostTable_rowreq_ctx *
+    *_brokerVhostTable_container_col_restore(brokerVhostTable_rowreq_ctx *
                                              rowreq_ctx, u_int col,
                                              char *buf);
 static char   
-    *_qpid010VhostTable_container_col_save(qpid010VhostTable_rowreq_ctx *
+    *_brokerVhostTable_container_col_save(brokerVhostTable_rowreq_ctx *
                                           rowreq_ctx, u_int col,
                                           char *buf);
 
-static char     row_token[] = "qpid010VhostTable";
+static char     row_token[] = "brokerVhostTable";
 
 /************************************************************
  * *_init_persistence should be called from the main table
@@ -1774,31 +1774,31 @@ static char     row_token[] = "qpid010VhostTable";
  * (and re-created) before the dependent rows.
  */
 void
-qpid010VhostTable_container_init_persistence(netsnmp_container * container)
+brokerVhostTable_container_init_persistence(netsnmp_container * container)
 {
     int             rc;
 
     register_config_handler(NULL, row_token,
-                            _qpid010VhostTable_container_row_restore, NULL,
+                            _brokerVhostTable_container_row_restore, NULL,
                             NULL);
     rc = snmp_register_callback(SNMP_CALLBACK_LIBRARY,
                                 SNMP_CALLBACK_STORE_DATA,
-                                _qpid010VhostTable_container_save_rows,
+                                _brokerVhostTable_container_save_rows,
                                 container);
 
     if (rc != SNMP_ERR_NOERROR)
         snmp_log(LOG_ERR, "error registering for STORE_DATA callback "
-                 "in _qpid010VhostTable_container_init_persistence\n");
+                 "in _brokerVhostTable_container_init_persistence\n");
 }
 
 static int
-_qpid010VhostTable_container_save_rows(int majorID, int minorID,
+_brokerVhostTable_container_save_rows(int majorID, int minorID,
                                       void *serverarg, void *clientarg)
 {
     char            sep[] =
         "##############################################################";
     char            buf[] =
-        "#\n" "# qpid010VhostTable persistent data\n" "#";
+        "#\n" "# brokerVhostTable persistent data\n" "#";
     char           *type = netsnmp_ds_get_string(NETSNMP_DS_LIBRARY_ID,
                                                  NETSNMP_DS_LIB_APPTYPE);
 
@@ -1810,7 +1810,7 @@ _qpid010VhostTable_container_save_rows(int majorID, int minorID,
      */
     CONTAINER_FOR_EACH((netsnmp_container *) clientarg,
                        (netsnmp_container_obj_func *)
-                       _qpid010VhostTable_container_row_save, type);
+                       _brokerVhostTable_container_row_save, type);
 
     read_config_store((char *) type, sep);
     read_config_store((char *) type, "\n");
@@ -1824,10 +1824,10 @@ _qpid010VhostTable_container_save_rows(int majorID, int minorID,
 
 
 /************************************************************
- * _qpid010VhostTable_container_row_save
+ * _brokerVhostTable_container_row_save
  */
 static int
-_qpid010VhostTable_container_row_save(qpid010VhostTable_rowreq_ctx *
+_brokerVhostTable_container_row_save(brokerVhostTable_rowreq_ctx *
                                      rowreq_ctx, void *type)
 {
     /*
@@ -1860,9 +1860,9 @@ _qpid010VhostTable_container_row_save(qpid010VhostTable_rowreq_ctx *
      */
         /** xxx: add storage for external index(s)! */
 #define MAX_ROW_SIZE (sizeof(row_token) + 1 +  \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010VhostBrokerRef) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010VhostName) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( qpid010VHOSTTABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerVhostBrokerRef) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerVhostName) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( brokerVHOSTTABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
     2 /* LINE_TERM_CHAR + \n */ )
 
     char            buf[MAX_ROW_SIZE], *pos = buf, *max =
@@ -1870,7 +1870,7 @@ _qpid010VhostTable_container_row_save(qpid010VhostTable_rowreq_ctx *
     char           *tmp;
     int             i;
 
-    if (qpid010VhostTable_container_should_save(rowreq_ctx) == 0) {
+    if (brokerVhostTable_container_should_save(rowreq_ctx) == 0) {
         return SNMP_ERR_NOERROR;
     }
 
@@ -1881,13 +1881,13 @@ _qpid010VhostTable_container_row_save(qpid010VhostTable_rowreq_ctx *
     pos = read_config_save_objid(pos, rowreq_ctx->oid_idx.oids,
                                  rowreq_ctx->oid_idx.len);
     if (NULL == pos) {
-        snmp_log(LOG_ERR, "error saving qpid010VhostTable row "
+        snmp_log(LOG_ERR, "error saving brokerVhostTable row "
                  "to persistent file\n");
         return SNMP_ERR_GENERR;
     }
     *pos++ = ' ';
     if (pos > max) {
-        snmp_log(LOG_ERR, "error saving qpid010VhostTable row "
+        snmp_log(LOG_ERR, "error saving brokerVhostTable row "
                  "to persistent file (too long)\n");
         return SNMP_ERR_GENERR;
     }
@@ -1895,19 +1895,19 @@ _qpid010VhostTable_container_row_save(qpid010VhostTable_rowreq_ctx *
     /*
      * add each column
      */
-    for (i = qpid010VHOSTTABLE_MIN_COL; i <= qpid010VHOSTTABLE_MAX_COL; ++i) {
+    for (i = brokerVHOSTTABLE_MIN_COL; i <= brokerVHOSTTABLE_MAX_COL; ++i) {
 
-        if ((0x1 << (i - 1)) & ~qpid010VHOSTTABLE_SETTABLE_COLS)
+        if ((0x1 << (i - 1)) & ~brokerVHOSTTABLE_SETTABLE_COLS)
             continue;
 
         tmp = pos;
-        pos = _qpid010VhostTable_container_col_save(rowreq_ctx, i, pos);
+        pos = _brokerVhostTable_container_col_save(rowreq_ctx, i, pos);
         if (NULL == pos)
             pos = tmp;
         else
             *pos++ = ' ';
         if (pos > max) {
-            snmp_log(LOG_ERR, "error saving qpid010VhostTable row "
+            snmp_log(LOG_ERR, "error saving brokerVhostTable row "
                      "to persistent file (too long)\n");
             return SNMP_ERR_GENERR;
         }
@@ -1923,33 +1923,33 @@ _qpid010VhostTable_container_row_save(qpid010VhostTable_rowreq_ctx *
      */
     pos += sprintf(pos, "%c", LINE_TERM_CHAR);
     if (pos > max) {
-        snmp_log(LOG_ERR, "error saving qpid010VhostTable row "
+        snmp_log(LOG_ERR, "error saving brokerVhostTable row "
                  "to persistent file (too long)\n");
         return SNMP_ERR_GENERR;
     }
     read_config_store((char *) type, buf);
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_container_row_save", "saving line '%s'\n", buf));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_container_row_save", "saving line '%s'\n", buf));
 
     return SNMP_ERR_NOERROR;
 }
 
 static void
-_qpid010VhostTable_container_row_restore(const char *token, char *buf)
+_brokerVhostTable_container_row_restore(const char *token, char *buf)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx;
+    brokerVhostTable_rowreq_ctx *rowreq_ctx;
     netsnmp_index   index;
-    oid             tmp_oid[MAX_qpid010VhostTable_IDX_LEN];
+    oid             tmp_oid[MAX_brokerVhostTable_IDX_LEN];
     u_int           col = 0, found = 0;
 
 
     if (strncmp(token, row_token, sizeof(row_token)) != 0) {
         snmp_log(LOG_ERR,
-                 "unknown token in _qpid010VhostTable_container_row_restore\n");
+                 "unknown token in _brokerVhostTable_container_row_restore\n");
         return;
     }
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_container_row_restore", "parsing line '%s'\n", buf));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_container_row_restore", "parsing line '%s'\n", buf));
 
     /*
      * pull out index and create default row
@@ -1959,13 +1959,13 @@ _qpid010VhostTable_container_row_restore(const char *token, char *buf)
     buf = read_config_read_objid(buf, &index.oids, &index.len);
     if (NULL == buf) {
         snmp_log(LOG_ERR, "error reading row index in "
-                 "_qpid010VhostTable_container_row_restore\n");
+                 "_brokerVhostTable_container_row_restore\n");
         return;
     }
-    rowreq_ctx = _mfd_qpid010VhostTable_rowreq_from_index(&index, NULL);
+    rowreq_ctx = _mfd_brokerVhostTable_rowreq_from_index(&index, NULL);
     if (NULL == rowreq_ctx) {
         snmp_log(LOG_ERR, "error creating row index in "
-                 "_qpid010VhostTable_container_row_restore\n");
+                 "_brokerVhostTable_container_row_restore\n");
         return;
     }
 
@@ -1989,16 +1989,16 @@ _qpid010VhostTable_container_row_restore(const char *token, char *buf)
         /*
          * parse value
          */
-        DEBUGMSGTL(("_qpid010VhostTable_container_row_restore",
+        DEBUGMSGTL(("_brokerVhostTable_container_row_restore",
                     "parsing column %d\n", col));
         buf =
-            _qpid010VhostTable_container_col_restore(rowreq_ctx, col, buf);
+            _brokerVhostTable_container_col_restore(rowreq_ctx, col, buf);
         ++found;
     }
     if (0 == found) {
         snmp_log(LOG_ERR,
-                 "error parsing qpid010VhostTable row; no columns found\n");
-        qpid010VhostTable_release_rowreq_ctx(rowreq_ctx);
+                 "error parsing brokerVhostTable row; no columns found\n");
+        brokerVhostTable_release_rowreq_ctx(rowreq_ctx);
         return;
     }
 
@@ -2014,13 +2014,13 @@ _qpid010VhostTable_container_row_restore(const char *token, char *buf)
      */
     if ((buf == NULL) || (*buf != LINE_TERM_CHAR)) {
         snmp_log(LOG_ERR,
-                 "error parsing qpid010VhostTable row around column %d\n",
+                 "error parsing brokerVhostTable row around column %d\n",
                  col);
-        qpid010VhostTable_release_rowreq_ctx(rowreq_ctx);
+        brokerVhostTable_release_rowreq_ctx(rowreq_ctx);
         return;
     }
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_container_row_restore", "inserting row\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_container_row_restore", "inserting row\n"));
 
     /*
      * copy oid index and insert row
@@ -2028,23 +2028,23 @@ _qpid010VhostTable_container_row_restore(const char *token, char *buf)
     rowreq_ctx->oid_idx.len = index.len;
     memcpy(rowreq_ctx->oid_idx.oids, index.oids, index.len * sizeof(oid));
 
-    CONTAINER_INSERT(qpid010VhostTable_if_ctx.container, rowreq_ctx);
+    CONTAINER_INSERT(brokerVhostTable_if_ctx.container, rowreq_ctx);
 }
 
 /************************************************************
- * _qpid010VhostTable_container_col_save
+ * _brokerVhostTable_container_col_save
  */
 static char    *
-_qpid010VhostTable_container_col_save(qpid010VhostTable_rowreq_ctx *
+_brokerVhostTable_container_col_save(brokerVhostTable_rowreq_ctx *
                                      rowreq_ctx, u_int col, char *buf)
 {
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
-                 "_qpid010VhostTable_container_col_save\n");
+                 "_brokerVhostTable_container_col_save\n");
         return NULL;
     }
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:_qpid010VhostTable_container_col_save", "processing column %d\n", col));
+    DEBUGMSGTL(("internal:brokerVhostTable:_brokerVhostTable_container_col_save", "processing column %d\n", col));
 
     /*
      * prefix with column number, so we don't ever depend on
@@ -2057,35 +2057,35 @@ _qpid010VhostTable_container_col_save(qpid010VhostTable_rowreq_ctx *
      */
     switch (col) {
 
-    case COLUMN_qpid010VHOSTBROKERREF:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_brokerVHOSTBROKERREF:    /** ObjId = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010VhostBrokerRef,
+                                          brokerVhostBrokerRef,
                                           rowreq_ctx->data.
-                                          qpid010VhostBrokerRef_len);
+                                          brokerVhostBrokerRef_len);
         break;
 
-    case COLUMN_qpid010VHOSTNAME:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_brokerVHOSTNAME:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
-                                          rowreq_ctx->data.qpid010VhostName,
+                                          rowreq_ctx->data.brokerVhostName,
                                           rowreq_ctx->data.
-                                          qpid010VhostName_len);
+                                          brokerVhostName_len);
         break;
 
-    case COLUMN_qpid010VHOSTFEDERATIONTAG:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_brokerVHOSTFEDERATIONTAG:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010VhostFederationTag,
+                                          brokerVhostFederationTag,
                                           rowreq_ctx->data.
-                                          qpid010VhostFederationTag_len);
+                                          brokerVhostFederationTag_len);
         break;
 
     default:/** We shouldn't get here */
         snmp_log(LOG_ERR, "unknown column %d in "
-                 "_qpid010VhostTable_container_col_save\n", col);
+                 "_brokerVhostTable_container_col_save\n", col);
         return NULL;
     }
 
@@ -2093,61 +2093,61 @@ _qpid010VhostTable_container_col_save(qpid010VhostTable_rowreq_ctx *
 }
 
 /************************************************************
- * _qpid010VhostTable_container_col_restore
+ * _brokerVhostTable_container_col_restore
  */
 static char    *
-_qpid010VhostTable_container_col_restore(qpid010VhostTable_rowreq_ctx *
+_brokerVhostTable_container_col_restore(brokerVhostTable_rowreq_ctx *
                                         rowreq_ctx, u_int col, char *buf)
 {
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
-                 "_qpid010VhostTable_container_col_restore\n");
+                 "_brokerVhostTable_container_col_restore\n");
         return NULL;
     }
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:_qpid010VhostTable_container_col_restore", "processing column %d\n", col));
+    DEBUGMSGTL(("verbose:brokerVhostTable:_brokerVhostTable_container_col_restore", "processing column %d\n", col));
 
     /*
      * restore data for the column
      */
     switch (col) {
 
-    case COLUMN_qpid010VHOSTBROKERREF:    /** ObjId = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010VhostBrokerRef_len =
-            sizeof(rowreq_ctx->data.qpid010VhostBrokerRef);
+    case COLUMN_brokerVHOSTBROKERREF:    /** ObjId = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerVhostBrokerRef_len =
+            sizeof(rowreq_ctx->data.brokerVhostBrokerRef);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010VhostBrokerRef,
+                                    brokerVhostBrokerRef,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010VhostBrokerRef_len);
+                                    brokerVhostBrokerRef_len);
         break;
 
-    case COLUMN_qpid010VHOSTNAME:    /** Sstr = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010VhostName_len =
-            sizeof(rowreq_ctx->data.qpid010VhostName);
+    case COLUMN_brokerVHOSTNAME:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerVhostName_len =
+            sizeof(rowreq_ctx->data.brokerVhostName);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010VhostName,
+                                    brokerVhostName,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010VhostName_len);
+                                    brokerVhostName_len);
         break;
 
-    case COLUMN_qpid010VHOSTFEDERATIONTAG:    /** Sstr = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010VhostFederationTag_len =
-            sizeof(rowreq_ctx->data.qpid010VhostFederationTag);
+    case COLUMN_brokerVHOSTFEDERATIONTAG:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerVhostFederationTag_len =
+            sizeof(rowreq_ctx->data.brokerVhostFederationTag);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010VhostFederationTag,
+                                    brokerVhostFederationTag,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010VhostFederationTag_len);
+                                    brokerVhostFederationTag_len);
         break;
 
     default:/** We shouldn't get here */
         snmp_log(LOG_ERR, "unknown column %d in "
-                 "_qpid010VhostTable_container_col_restore\n", col);
+                 "_brokerVhostTable_container_col_restore\n", col);
         return NULL;
     }
 
@@ -2155,11 +2155,11 @@ _qpid010VhostTable_container_col_restore(qpid010VhostTable_rowreq_ctx *
 }
 
 
-qpid010VhostTable_rowreq_ctx *
-qpid010VhostTable_row_find_by_mib_index(qpid010VhostTable_mib_index *
+brokerVhostTable_rowreq_ctx *
+brokerVhostTable_row_find_by_mib_index(brokerVhostTable_mib_index *
                                        mib_idx)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx;
+    brokerVhostTable_rowreq_ctx *rowreq_ctx;
     oid             oid_tmp[MAX_OID_LEN];
     netsnmp_index   oid_idx;
     int             rc;
@@ -2173,13 +2173,13 @@ qpid010VhostTable_row_find_by_mib_index(qpid010VhostTable_mib_index *
     /*
      * convert
      */
-    rc = qpid010VhostTable_index_to_oid(&oid_idx, mib_idx);
+    rc = brokerVhostTable_index_to_oid(&oid_idx, mib_idx);
     if (MFD_SUCCESS != rc)
         return NULL;
 
     rowreq_ctx =
-        (qpid010VhostTable_rowreq_ctx *)
-        CONTAINER_FIND(qpid010VhostTable_if_ctx.container, &oid_idx);
+        (brokerVhostTable_rowreq_ctx *)
+        CONTAINER_FIND(brokerVhostTable_if_ctx.container, &oid_idx);
 
     return rowreq_ctx;
 }

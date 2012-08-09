@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010QueueTable
+/** \page MFD helper for brokerQueueTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -25,67 +25,67 @@
 
 #include <net-snmp/agent/mib_modules.h>
 
-const oid       qpid010QueueTable_oid[] = { qpid010QUEUETABLE_OID };
+const oid       brokerQueueTable_oid[] = { brokerQUEUETABLE_OID };
 
-const int       qpid010QueueTable_oid_size =
-OID_LENGTH(qpid010QueueTable_oid);
+const int       brokerQueueTable_oid_size =
+OID_LENGTH(brokerQueueTable_oid);
 
-qpid010QueueTable_registration qpid010QueueTable_user_context;
+brokerQueueTable_registration brokerQueueTable_user_context;
 
-void            initialize_table_qpid010QueueTable(void);
-void            shutdown_table_qpid010QueueTable(void);
+void            initialize_table_brokerQueueTable(void);
+void            shutdown_table_brokerQueueTable(void);
 
 
 /**
- * Initializes the qpid010QueueTable module
+ * Initializes the brokerQueueTable module
  */
 void
 init_QueueTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:init_QueueTable",
+    DEBUGMSGTL(("verbose:brokerQueueTable:init_QueueTable",
                 "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010QueueTable one-time module initialization.
+     * TODO:300:o: Perform brokerQueueTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010QueueTable"))
-        initialize_table_qpid010QueueTable();
+    if (should_init("brokerQueueTable"))
+        initialize_table_brokerQueueTable();
 
 }                               /* init_QueueTable */
 
 /**
- * Shut-down the qpid010QueueTable module (agent is exiting)
+ * Shut-down the brokerQueueTable module (agent is exiting)
  */
 void
-shutdown_qpid010QueueTable(void)
+shutdown_brokerQueueTable(void)
 {
-    if (should_init("qpid010QueueTable"))
-        shutdown_table_qpid010QueueTable();
+    if (should_init("brokerQueueTable"))
+        shutdown_table_brokerQueueTable();
 
 }
 
 /**
- * Initialize the table qpid010QueueTable 
+ * Initialize the table brokerQueueTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010QueueTable(void)
+initialize_table_brokerQueueTable(void)
 {
-    qpid010QueueTable_registration *user_context;
+    brokerQueueTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:initialize_table_qpid010QueueTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:initialize_table_brokerQueueTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010QueueTable one-time table initialization.
+     * TODO:301:o: Perform brokerQueueTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010QueueTable user context
+     * TODO:302:o: |->Initialize brokerQueueTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -94,7 +94,7 @@ initialize_table_qpid010QueueTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010QueueTable", NULL, NULL);
+        netsnmp_create_data_list("brokerQueueTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -105,19 +105,19 @@ initialize_table_qpid010QueueTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010QueueTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010QueueTable */
+    _brokerQueueTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerQueueTable */
 
 /**
- * Shutdown the table qpid010QueueTable 
+ * Shutdown the table brokerQueueTable 
  */
 void
-shutdown_table_qpid010QueueTable(void)
+shutdown_table_brokerQueueTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010QueueTable_shutdown_interface(&qpid010QueueTable_user_context);
+    _brokerQueueTable_shutdown_interface(&brokerQueueTable_user_context);
 }
 
 /**
@@ -130,40 +130,40 @@ shutdown_table_qpid010QueueTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010QueueTable_rowreq_ctx_init(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueTable_rowreq_ctx_init(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                  void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:210:o: |-> Perform extra qpid010QueueTable rowreq initialization. (eg DEFVALS)
+     * TODO:210:o: |-> Perform extra brokerQueueTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010QueueVhostRef_len = 255;
-    rowreq_ctx->data.qpid010QueueName_len = 255;
-    rowreq_ctx->data.qpid010QueueArguments_len = 65535;
-    rowreq_ctx->data.qpid010QueueAltExchange_len = 255;
+    rowreq_ctx->data.brokerQueueVhostRef_len = 255;
+    rowreq_ctx->data.brokerQueueName_len = 255;
+    rowreq_ctx->data.brokerQueueArguments_len = 65535;
+    rowreq_ctx->data.brokerQueueAltExchange_len = 255;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueTable_rowreq_ctx_init */
+}                               /* brokerQueueTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010QueueTable_rowreq_ctx_cleanup(qpid010QueueTable_rowreq_ctx *
+brokerQueueTable_rowreq_ctx_cleanup(brokerQueueTable_rowreq_ctx *
                                     rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010QueueTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerQueueTable rowreq cleanup.
      */
-}                               /* qpid010QueueTable_rowreq_ctx_cleanup */
+}                               /* brokerQueueTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -177,7 +177,7 @@ qpid010QueueTable_rowreq_ctx_cleanup(qpid010QueueTable_rowreq_ctx *
  * return 0 if the row should not be stored
  */
 int
-qpid010QueueTable_container_should_save(qpid010QueueTable_rowreq_ctx *
+brokerQueueTable_container_should_save(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx)
 {
 
@@ -192,17 +192,17 @@ qpid010QueueTable_container_should_save(qpid010QueueTable_rowreq_ctx *
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010QueueTable_pre_request(qpid010QueueTable_registration * user_context)
+brokerQueueTable_pre_request(brokerQueueTable_registration * user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_pre_request",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_pre_request",
                 "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010QueueTable pre-request actions.
+     * TODO:510:o: Perform brokerQueueTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueTable_pre_request */
+}                               /* brokerQueueTable_pre_request */
 
 /**
  * post-request callback
@@ -219,20 +219,20 @@ qpid010QueueTable_pre_request(qpid010QueueTable_registration * user_context)
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010QueueTable_post_request(qpid010QueueTable_registration * user_context,
+brokerQueueTable_post_request(brokerQueueTable_registration * user_context,
                               int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_post_request",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_post_request",
                 "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010QueueTable post-request actions.
+     * TODO:511:o: Perform brokerQueueTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010QueueTable_dirty_get()) {
+    if (brokerQueueTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -245,11 +245,11 @@ qpid010QueueTable_post_request(qpid010QueueTable_registration * user_context,
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010QueueTable_dirty_set(0);  /* clear table dirty flag */
+        brokerQueueTable_dirty_set(0);  /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueTable_post_request */
+}                               /* brokerQueueTable_post_request */
 
 
 /** @{ */

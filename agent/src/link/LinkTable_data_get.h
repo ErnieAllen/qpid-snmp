@@ -4,7 +4,7 @@
  *
  * $Id:$
  *
- * @file qpid010LinkTable_data_get.h
+ * @file brokerLinkTable_data_get.h
  *
  * @addtogroup get
  *
@@ -12,8 +12,8 @@
  *
  * @{
  */
-#ifndef QPID010LINKTABLE_DATA_GET_H
-#define QPID010LINKTABLE_DATA_GET_H
+#ifndef brokerLINKTABLE_DATA_GET_H
+#define brokerLINKTABLE_DATA_GET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -31,12 +31,12 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010LinkTable
+ *** Table brokerLinkTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
+     * QPID-MESSAGING-MIB::brokerLinkTable is subid 1 of brokerLinks.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
      */
@@ -44,65 +44,65 @@ extern          "C" {
      * indexes
      */
 
-    int             qpid010LinkVhostRef_get(qpid010LinkTable_rowreq_ctx *
+    int             brokerLinkVhostRef_get(brokerLinkTable_rowreq_ctx *
                                             rowreq_ctx,
                                             char
-                                            **qpid010LinkVhostRef_val_ptr_ptr,
+                                            **brokerLinkVhostRef_val_ptr_ptr,
                                             size_t
-                                            *qpid010LinkVhostRef_val_ptr_len_ptr);
-    int             qpid010LinkName_get(qpid010LinkTable_rowreq_ctx *
+                                            *brokerLinkVhostRef_val_ptr_len_ptr);
+    int             brokerLinkName_get(brokerLinkTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char **qpid010LinkName_val_ptr_ptr,
+                                        char **brokerLinkName_val_ptr_ptr,
                                         size_t
-                                        *qpid010LinkName_val_ptr_len_ptr);
-    int             qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx *
+                                        *brokerLinkName_val_ptr_len_ptr);
+    int             brokerLinkHost_get(brokerLinkTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char **qpid010LinkHost_val_ptr_ptr,
+                                        char **brokerLinkHost_val_ptr_ptr,
                                         size_t
-                                        *qpid010LinkHost_val_ptr_len_ptr);
-    int             qpid010LinkPort_get(qpid010LinkTable_rowreq_ctx *
+                                        *brokerLinkHost_val_ptr_len_ptr);
+    int             brokerLinkPort_get(brokerLinkTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        long *qpid010LinkPort_val_ptr);
-    int             qpid010LinkTransport_get(qpid010LinkTable_rowreq_ctx *
+                                        long *brokerLinkPort_val_ptr);
+    int             brokerLinkTransport_get(brokerLinkTable_rowreq_ctx *
                                              rowreq_ctx,
                                              char
-                                             **qpid010LinkTransport_val_ptr_ptr,
+                                             **brokerLinkTransport_val_ptr_ptr,
                                              size_t
-                                             *qpid010LinkTransport_val_ptr_len_ptr);
-    int             qpid010LinkDurable_get(qpid010LinkTable_rowreq_ctx *
+                                             *brokerLinkTransport_val_ptr_len_ptr);
+    int             brokerLinkDurable_get(brokerLinkTable_rowreq_ctx *
                                            rowreq_ctx,
                                            u_long *
-                                           qpid010LinkDurable_val_ptr);
+                                           brokerLinkDurable_val_ptr);
     int            
-        qpid010LinkConnectionRef_get(qpid010LinkTable_rowreq_ctx *
+        brokerLinkConnectionRef_get(brokerLinkTable_rowreq_ctx *
                                      rowreq_ctx,
                                      char
-                                     **qpid010LinkConnectionRef_val_ptr_ptr,
+                                     **brokerLinkConnectionRef_val_ptr_ptr,
                                      size_t
-                                     *qpid010LinkConnectionRef_val_ptr_len_ptr);
-    int             qpid010LinkState_get(qpid010LinkTable_rowreq_ctx *
+                                     *brokerLinkConnectionRef_val_ptr_len_ptr);
+    int             brokerLinkState_get(brokerLinkTable_rowreq_ctx *
                                          rowreq_ctx,
                                          char
-                                         **qpid010LinkState_val_ptr_ptr,
+                                         **brokerLinkState_val_ptr_ptr,
                                          size_t
-                                         *qpid010LinkState_val_ptr_len_ptr);
-    int             qpid010LinkLastError_get(qpid010LinkTable_rowreq_ctx *
+                                         *brokerLinkState_val_ptr_len_ptr);
+    int             brokerLinkLastError_get(brokerLinkTable_rowreq_ctx *
                                              rowreq_ctx,
                                              char
-                                             **qpid010LinkLastError_val_ptr_ptr,
+                                             **brokerLinkLastError_val_ptr_ptr,
                                              size_t
-                                             *qpid010LinkLastError_val_ptr_len_ptr);
+                                             *brokerLinkLastError_val_ptr_len_ptr);
 
 
     int            
-        qpid010LinkTable_indexes_set_tbl_idx(qpid010LinkTable_mib_index *
+        brokerLinkTable_indexes_set_tbl_idx(brokerLinkTable_mib_index *
                                              tbl_idx,
                                              u_long
-                                             qpid010LinkInternalIndex_val);
+                                             brokerLinkInternalIndex_val);
     int            
-        qpid010LinkTable_indexes_set(qpid010LinkTable_rowreq_ctx *
+        brokerLinkTable_indexes_set(brokerLinkTable_rowreq_ctx *
                                      rowreq_ctx,
-                                     u_long qpid010LinkInternalIndex_val);
+                                     u_long brokerLinkInternalIndex_val);
 
 
 
@@ -110,5 +110,5 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* QPID010LINKTABLE_DATA_GET_H */
+#endif                          /* brokerLINKTABLE_DATA_GET_H */
 /** @} */

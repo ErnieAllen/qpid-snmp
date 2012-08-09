@@ -332,14 +332,14 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
         	std::string rHost;
         	findString(rHost, d, "rhost", "UNKNOWN_RHOST");
 
-        	send_qpid010EvtClientConnect_trap(rHost.c_str(), user.c_str());
+        	send_brokerEvtClientConnect_trap(rHost.c_str(), user.c_str());
         } else if (name == "clientDisconnect") {
 			std::string user;
 			findString(user, d, "user", "UNKNOWN_USER");
 			std::string rHost;
 			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
 
-			send_qpid010EvtClientDisconnect_trap(rHost.c_str(), user.c_str());
+			send_brokerEvtClientDisconnect_trap(rHost.c_str(), user.c_str());
         } else if (name == "clientConnectFail") {
 			std::string user;
 			findString(user, d, "user", "UNKNOWN_USER");
@@ -348,24 +348,24 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string reason;
 			findString(reason, d, "reason", "UNKNOWN_REASON");
 
-			send_qpid010EvtClientConnectFail_trap(rHost.c_str(), user.c_str(), reason.c_str());
+			send_brokerEvtClientConnectFail_trap(rHost.c_str(), user.c_str(), reason.c_str());
         } else if (name == "brokerLinkUp") {
 			std::string rHost;
 			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
 
-			send_qpid010EvtBrokerLinkUp_trap(rHost.c_str());
+			send_brokerEvtBrokerLinkUp_trap(rHost.c_str());
         } else if (name == "brokerLinkDown") {
 			std::string rHost;
 			findString(rHost, d, "rhost", "UNKNOWN_RHOST");
 
-			send_qpid010EvtBrokerLinkDown_trap(rHost.c_str());
+			send_brokerEvtBrokerLinkDown_trap(rHost.c_str());
         } else if (name == "queueThresholdExceeded") {
         	std::string qName;
         	findString(qName, d, "user", "UNKNOWN_QNAME");
         	uint64_t msgDepth = findU64(d, "msgdepth");
         	uint64_t byteDepth = findU64(d, "bytedepth");
 
-        	send_qpid010EvtQueueThresholdExceeded_trap(qName.c_str(), msgDepth, byteDepth);
+        	send_brokerEvtQueueThresholdExceeded_trap(qName.c_str(), msgDepth, byteDepth);
         } else if (name == "queueDeclare") {
 			std::string user;
 			findString(user, d, "user", "UNKNOWN_USER");
@@ -383,7 +383,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string disp;
 			findString(disp, d, "disp", "UNKNOWN_DISP");
 
-			send_qpid010EvtQueueDeclare_trap(rHost.c_str(), user.c_str(),
+			send_brokerEvtQueueDeclare_trap(rHost.c_str(), user.c_str(),
 					qName.c_str(), durable, exclusive, autoDelete, altEx.c_str(), args.c_str(), disp.c_str());
         } else if (name == "queueDelete") {
 			std::string user;
@@ -393,7 +393,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string qName;
 			findString(qName, d, "name", "UNKNOWN_QNAME");
 
-			send_qpid010EvtQueueDelete_trap(rHost.c_str(), user.c_str(),
+			send_brokerEvtQueueDelete_trap(rHost.c_str(), user.c_str(),
 					qName.c_str());
         } else if (name == "exchangeDeclare") {
 			std::string user;
@@ -413,7 +413,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string disp;
 			findString(disp, d, "disp", "UNKNOWN_DISP");
 
-			send_qpid010EvtExchangeDeclare_trap(rHost.c_str(), user.c_str(),
+			send_brokerEvtExchangeDeclare_trap(rHost.c_str(), user.c_str(),
 					exName.c_str(), exType.c_str(), altEx.c_str(),
 					durable, autoDelete, args.c_str(), disp.c_str());
         } else if (name == "exchangeDelete") {
@@ -424,7 +424,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string exName;
 			findString(exName, d, "name", "UNKNOWN_EXNAME");
 
-			send_qpid010EvtExchangeDelete_trap(rHost.c_str(), user.c_str(),
+			send_brokerEvtExchangeDelete_trap(rHost.c_str(), user.c_str(),
 					exName.c_str());
         } else if (name == "bind") {
 			std::string user;
@@ -440,7 +440,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string args;
 			findString(args, d, "args", "UNKNOWN_ARGS");
 
-			send_qpid010EvtBind_trap(rHost.c_str(), user.c_str(),
+			send_brokerEvtBind_trap(rHost.c_str(), user.c_str(),
 					exName.c_str(), qName.c_str(), key.c_str(), args.c_str());
         } else if (name == "unbind") {
 			std::string user;
@@ -454,7 +454,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string key;
 			findString(key, d, "altEx", "UNKNOWN_KEY");
 
-			send_qpid010EvtUnbind_trap(rHost.c_str(), user.c_str(),
+			send_brokerEvtUnbind_trap(rHost.c_str(), user.c_str(),
 					exName.c_str(), qName.c_str(), key.c_str());
         } else if (name == "subscribe") {
 			std::string user;
@@ -469,7 +469,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string args;
 			findString(args, d, "args", "UNKNOWN_ARGS");
 
-			send_qpid010EvtSubscribe_trap(rHost.c_str(), user.c_str(),
+			send_brokerEvtSubscribe_trap(rHost.c_str(), user.c_str(),
 					qName.c_str(), exclusive, dest.c_str(), args.c_str());
         } else if (name == "unsubscribe") {
 			std::string user;
@@ -479,7 +479,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string dest;
 			findString(dest, d, "dest", "UNKNOWN_DEST");
 
-			send_qpid010EvtUnsubscribe_trap(rHost.c_str(), user.c_str(),
+			send_brokerEvtUnsubscribe_trap(rHost.c_str(), user.c_str(),
 					dest.c_str());
 
         } else if (name == "allow") {
@@ -494,7 +494,7 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string args;
 			findString(args, d, "args", "UNKNOWN_ARGS");
 
-			send_qpid010EvtAllow_trap(user.c_str(), action.c_str(), objectType.c_str(),
+			send_brokerEvtAllow_trap(user.c_str(), action.c_str(), objectType.c_str(),
 					objectName.c_str(), args.c_str());
         } else if (name == "deny") {
 			std::string user;
@@ -508,20 +508,20 @@ void QmfWrapper::emitEvent(qmf::ConsoleEvent &event)
 			std::string args;
 			findString(args, d, "args", "UNKNOWN_ARGS");
 
-			send_qpid010EvtDeny_trap(user.c_str(), action.c_str(), objectType.c_str(),
+			send_brokerEvtDeny_trap(user.c_str(), action.c_str(), objectType.c_str(),
 					objectName.c_str(), args.c_str());
         } else if (name == "fileLoaded") {
 			std::string user;
 			findString(user, d, "user", "UNKNOWN_USER");
 
-			send_qpid010EvtFileLoaded_trap(user.c_str());
+			send_brokerEvtFileLoaded_trap(user.c_str());
         } else if (name == "fileLoadFailed") {
 			std::string user;
 			findString(user, d, "user", "UNKNOWN_USER");
 			std::string reason;
 			findString(reason, d, "reason", "UNKNOWN_REASON");
 
-			send_qpid010EvtFileLoadFailed_trap(user.c_str(), reason.c_str());
+			send_brokerEvtFileLoadFailed_trap(user.c_str(), reason.c_str());
         } else {
             printf("::%s unhandled event\n", d.getSchemaId().getName().c_str());
         }

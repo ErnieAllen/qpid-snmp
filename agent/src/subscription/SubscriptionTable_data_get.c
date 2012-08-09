@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010SubscriptionTable get routines.
- * TODO:240:M: Implement qpid010SubscriptionTable mapping routines (if any).
+ * TODO:230:M: Implement brokerSubscriptionTable get routines.
+ * TODO:240:M: Implement brokerSubscriptionTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SubscriptionTable
+ *** Table brokerSubscriptionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
+ * QPID-MESSAGING-MIB::brokerSubscriptionTable is subid 1 of brokerSubscriptions.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010SubscriptionTable data context functions.
+ * * TODO:200:r: Implement brokerSubscriptionTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010SubscriptionInternalIndex_val
+ * @param brokerSubscriptionInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,21 +63,21 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010SubscriptionTable_indexes_set_tbl_idx
-    (qpid010SubscriptionTable_mib_index * tbl_idx,
-     u_long qpid010SubscriptionInternalIndex_val)
+brokerSubscriptionTable_indexes_set_tbl_idx
+    (brokerSubscriptionTable_mib_index * tbl_idx,
+     u_long brokerSubscriptionInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010SubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerSubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010SubscriptionInternalIndex =
-        qpid010SubscriptionInternalIndex_val;
+    tbl_idx->brokerSubscriptionInternalIndex =
+        brokerSubscriptionInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionTable_indexes_set_tbl_idx */
+}                               /* brokerSubscriptionTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -93,34 +93,34 @@ qpid010SubscriptionTable_indexes_set_tbl_idx
  *  from the mib index.
  */
 int
-qpid010SubscriptionTable_indexes_set(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_indexes_set(brokerSubscriptionTable_rowreq_ctx *
                                     rowreq_ctx,
                                     u_long
-                                    qpid010SubscriptionInternalIndex_val)
+                                    brokerSubscriptionInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_indexes_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_indexes_set", "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010SubscriptionTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                                    qpid010SubscriptionInternalIndex_val))
+        brokerSubscriptionTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                                    brokerSubscriptionInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010SubscriptionTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerSubscriptionTable_index_to_oid(&rowreq_ctx->oid_idx,
                                                   &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionTable_indexes_set */
+}                               /* brokerSubscriptionTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionSessionRef
- * qpid010SubscriptionSessionRef is subid 1 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionSessionRef
+ * brokerSubscriptionSessionRef is subid 1 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.1
  * Description:
@@ -140,25 +140,25 @@ Subscription sessionRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010SubscriptionSessionRef data.
+ * Extract the current value of the brokerSubscriptionSessionRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionSessionRef_val_ptr_ptr
+ * @param brokerSubscriptionSessionRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010SubscriptionSessionRef_val_ptr_len_ptr
+ * @param brokerSubscriptionSessionRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010SubscriptionSessionRef.
+ *        pointed to by brokerSubscriptionSessionRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010SubscriptionSessionRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010SubscriptionSessionRef_val_ptr_ptr.
+ * @note If you need more than (*brokerSubscriptionSessionRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerSubscriptionSessionRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -168,61 +168,61 @@ Subscription sessionRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010SubscriptionSessionRef_get(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionSessionRef_get(brokerSubscriptionTable_rowreq_ctx *
                                  rowreq_ctx,
                                  char
-                                 **qpid010SubscriptionSessionRef_val_ptr_ptr,
+                                 **brokerSubscriptionSessionRef_val_ptr_ptr,
                                  size_t
-                                 *qpid010SubscriptionSessionRef_val_ptr_len_ptr)
+                                 *brokerSubscriptionSessionRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010SubscriptionSessionRef_val_ptr_ptr)
-                   && (NULL != *qpid010SubscriptionSessionRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010SubscriptionSessionRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerSubscriptionSessionRef_val_ptr_ptr)
+                   && (NULL != *brokerSubscriptionSessionRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerSubscriptionSessionRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionSessionRef_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionSessionRef_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SubscriptionSessionRef data.
-     * copy (* qpid010SubscriptionSessionRef_val_ptr_ptr ) data and (* qpid010SubscriptionSessionRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSubscriptionSessionRef data.
+     * copy (* brokerSubscriptionSessionRef_val_ptr_ptr ) data and (* brokerSubscriptionSessionRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010SubscriptionSessionRef data
+     * make sure there is enough space for brokerSubscriptionSessionRef data
      */
-    if ((NULL == (*qpid010SubscriptionSessionRef_val_ptr_ptr)) ||
-        ((*qpid010SubscriptionSessionRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010SubscriptionSessionRef_len *
-          sizeof(rowreq_ctx->data.qpid010SubscriptionSessionRef[0])))) {
+    if ((NULL == (*brokerSubscriptionSessionRef_val_ptr_ptr)) ||
+        ((*brokerSubscriptionSessionRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerSubscriptionSessionRef_len *
+          sizeof(rowreq_ctx->data.brokerSubscriptionSessionRef[0])))) {
         /*
-         * allocate space for qpid010SubscriptionSessionRef data
+         * allocate space for brokerSubscriptionSessionRef data
          */
-        (*qpid010SubscriptionSessionRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010SubscriptionSessionRef_len *
+        (*brokerSubscriptionSessionRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerSubscriptionSessionRef_len *
                    sizeof(rowreq_ctx->data.
-                          qpid010SubscriptionSessionRef[0]));
-        if (NULL == (*qpid010SubscriptionSessionRef_val_ptr_ptr)) {
+                          brokerSubscriptionSessionRef[0]));
+        if (NULL == (*brokerSubscriptionSessionRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010SubscriptionSessionRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerSubscriptionSessionRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010SubscriptionSessionRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010SubscriptionSessionRef_len *
-        sizeof(rowreq_ctx->data.qpid010SubscriptionSessionRef[0]);
-    memcpy((*qpid010SubscriptionSessionRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010SubscriptionSessionRef,
-           rowreq_ctx->data.qpid010SubscriptionSessionRef_len *
-           sizeof(rowreq_ctx->data.qpid010SubscriptionSessionRef[0]));
+    (*brokerSubscriptionSessionRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerSubscriptionSessionRef_len *
+        sizeof(rowreq_ctx->data.brokerSubscriptionSessionRef[0]);
+    memcpy((*brokerSubscriptionSessionRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerSubscriptionSessionRef,
+           rowreq_ctx->data.brokerSubscriptionSessionRef_len *
+           sizeof(rowreq_ctx->data.brokerSubscriptionSessionRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionSessionRef_get */
+}                               /* brokerSubscriptionSessionRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionQueueRef
- * qpid010SubscriptionQueueRef is subid 2 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionQueueRef
+ * brokerSubscriptionQueueRef is subid 2 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.2
  * Description:
@@ -242,25 +242,25 @@ Subscription queueRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010SubscriptionQueueRef data.
+ * Extract the current value of the brokerSubscriptionQueueRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionQueueRef_val_ptr_ptr
+ * @param brokerSubscriptionQueueRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010SubscriptionQueueRef_val_ptr_len_ptr
+ * @param brokerSubscriptionQueueRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010SubscriptionQueueRef.
+ *        pointed to by brokerSubscriptionQueueRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010SubscriptionQueueRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010SubscriptionQueueRef_val_ptr_ptr.
+ * @note If you need more than (*brokerSubscriptionQueueRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerSubscriptionQueueRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -270,60 +270,60 @@ Subscription queueRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010SubscriptionQueueRef_get(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionQueueRef_get(brokerSubscriptionTable_rowreq_ctx *
                                rowreq_ctx,
                                char
-                               **qpid010SubscriptionQueueRef_val_ptr_ptr,
+                               **brokerSubscriptionQueueRef_val_ptr_ptr,
                                size_t
-                               *qpid010SubscriptionQueueRef_val_ptr_len_ptr)
+                               *brokerSubscriptionQueueRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010SubscriptionQueueRef_val_ptr_ptr)
-                   && (NULL != *qpid010SubscriptionQueueRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010SubscriptionQueueRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerSubscriptionQueueRef_val_ptr_ptr)
+                   && (NULL != *brokerSubscriptionQueueRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerSubscriptionQueueRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionQueueRef_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionQueueRef_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SubscriptionQueueRef data.
-     * copy (* qpid010SubscriptionQueueRef_val_ptr_ptr ) data and (* qpid010SubscriptionQueueRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSubscriptionQueueRef data.
+     * copy (* brokerSubscriptionQueueRef_val_ptr_ptr ) data and (* brokerSubscriptionQueueRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010SubscriptionQueueRef data
+     * make sure there is enough space for brokerSubscriptionQueueRef data
      */
-    if ((NULL == (*qpid010SubscriptionQueueRef_val_ptr_ptr)) ||
-        ((*qpid010SubscriptionQueueRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010SubscriptionQueueRef_len *
-          sizeof(rowreq_ctx->data.qpid010SubscriptionQueueRef[0])))) {
+    if ((NULL == (*brokerSubscriptionQueueRef_val_ptr_ptr)) ||
+        ((*brokerSubscriptionQueueRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerSubscriptionQueueRef_len *
+          sizeof(rowreq_ctx->data.brokerSubscriptionQueueRef[0])))) {
         /*
-         * allocate space for qpid010SubscriptionQueueRef data
+         * allocate space for brokerSubscriptionQueueRef data
          */
-        (*qpid010SubscriptionQueueRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010SubscriptionQueueRef_len *
-                   sizeof(rowreq_ctx->data.qpid010SubscriptionQueueRef[0]));
-        if (NULL == (*qpid010SubscriptionQueueRef_val_ptr_ptr)) {
+        (*brokerSubscriptionQueueRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerSubscriptionQueueRef_len *
+                   sizeof(rowreq_ctx->data.brokerSubscriptionQueueRef[0]));
+        if (NULL == (*brokerSubscriptionQueueRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010SubscriptionQueueRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerSubscriptionQueueRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010SubscriptionQueueRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010SubscriptionQueueRef_len *
-        sizeof(rowreq_ctx->data.qpid010SubscriptionQueueRef[0]);
-    memcpy((*qpid010SubscriptionQueueRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010SubscriptionQueueRef,
-           rowreq_ctx->data.qpid010SubscriptionQueueRef_len *
-           sizeof(rowreq_ctx->data.qpid010SubscriptionQueueRef[0]));
+    (*brokerSubscriptionQueueRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerSubscriptionQueueRef_len *
+        sizeof(rowreq_ctx->data.brokerSubscriptionQueueRef[0]);
+    memcpy((*brokerSubscriptionQueueRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerSubscriptionQueueRef,
+           rowreq_ctx->data.brokerSubscriptionQueueRef_len *
+           sizeof(rowreq_ctx->data.brokerSubscriptionQueueRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionQueueRef_get */
+}                               /* brokerSubscriptionQueueRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionName
- * qpid010SubscriptionName is subid 3 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionName
+ * brokerSubscriptionName is subid 3 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.3
  * Description:
@@ -343,25 +343,25 @@ Subscription name
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010SubscriptionName data.
+ * Extract the current value of the brokerSubscriptionName data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionName_val_ptr_ptr
+ * @param brokerSubscriptionName_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010SubscriptionName_val_ptr_len_ptr
+ * @param brokerSubscriptionName_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010SubscriptionName.
+ *        pointed to by brokerSubscriptionName.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010SubscriptionName_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010SubscriptionName_val_ptr_ptr.
+ * @note If you need more than (*brokerSubscriptionName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerSubscriptionName_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -371,57 +371,57 @@ Subscription name
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010SubscriptionName_get(qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
-                           char **qpid010SubscriptionName_val_ptr_ptr,
-                           size_t *qpid010SubscriptionName_val_ptr_len_ptr)
+brokerSubscriptionName_get(brokerSubscriptionTable_rowreq_ctx * rowreq_ctx,
+                           char **brokerSubscriptionName_val_ptr_ptr,
+                           size_t *brokerSubscriptionName_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010SubscriptionName_val_ptr_ptr)
-                   && (NULL != *qpid010SubscriptionName_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010SubscriptionName_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerSubscriptionName_val_ptr_ptr)
+                   && (NULL != *brokerSubscriptionName_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerSubscriptionName_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionName_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionName_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SubscriptionName data.
-     * copy (* qpid010SubscriptionName_val_ptr_ptr ) data and (* qpid010SubscriptionName_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSubscriptionName data.
+     * copy (* brokerSubscriptionName_val_ptr_ptr ) data and (* brokerSubscriptionName_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010SubscriptionName data
+     * make sure there is enough space for brokerSubscriptionName data
      */
-    if ((NULL == (*qpid010SubscriptionName_val_ptr_ptr)) ||
-        ((*qpid010SubscriptionName_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010SubscriptionName_len *
-          sizeof(rowreq_ctx->data.qpid010SubscriptionName[0])))) {
+    if ((NULL == (*brokerSubscriptionName_val_ptr_ptr)) ||
+        ((*brokerSubscriptionName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerSubscriptionName_len *
+          sizeof(rowreq_ctx->data.brokerSubscriptionName[0])))) {
         /*
-         * allocate space for qpid010SubscriptionName data
+         * allocate space for brokerSubscriptionName data
          */
-        (*qpid010SubscriptionName_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010SubscriptionName_len *
-                   sizeof(rowreq_ctx->data.qpid010SubscriptionName[0]));
-        if (NULL == (*qpid010SubscriptionName_val_ptr_ptr)) {
+        (*brokerSubscriptionName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerSubscriptionName_len *
+                   sizeof(rowreq_ctx->data.brokerSubscriptionName[0]));
+        if (NULL == (*brokerSubscriptionName_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010SubscriptionName)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerSubscriptionName)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010SubscriptionName_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010SubscriptionName_len *
-        sizeof(rowreq_ctx->data.qpid010SubscriptionName[0]);
-    memcpy((*qpid010SubscriptionName_val_ptr_ptr),
-           rowreq_ctx->data.qpid010SubscriptionName,
-           rowreq_ctx->data.qpid010SubscriptionName_len *
-           sizeof(rowreq_ctx->data.qpid010SubscriptionName[0]));
+    (*brokerSubscriptionName_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerSubscriptionName_len *
+        sizeof(rowreq_ctx->data.brokerSubscriptionName[0]);
+    memcpy((*brokerSubscriptionName_val_ptr_ptr),
+           rowreq_ctx->data.brokerSubscriptionName,
+           rowreq_ctx->data.brokerSubscriptionName_len *
+           sizeof(rowreq_ctx->data.brokerSubscriptionName[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionName_get */
+}                               /* brokerSubscriptionName_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionBrowsing
- * qpid010SubscriptionBrowsing is subid 4 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionBrowsing
+ * brokerSubscriptionBrowsing is subid 4 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.4
  * Description:
@@ -439,13 +439,13 @@ Subscription browsing
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010SubscriptionBrowsing data.
+ * Extract the current value of the brokerSubscriptionBrowsing data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionBrowsing_val_ptr
+ * @param brokerSubscriptionBrowsing_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -453,31 +453,31 @@ Subscription browsing
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SubscriptionBrowsing_get(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionBrowsing_get(brokerSubscriptionTable_rowreq_ctx *
                                rowreq_ctx,
-                               u_long * qpid010SubscriptionBrowsing_val_ptr)
+                               u_long * brokerSubscriptionBrowsing_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SubscriptionBrowsing_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionBrowsing_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionBrowsing_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionBrowsing_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SubscriptionBrowsing data.
-     * copy (* qpid010SubscriptionBrowsing_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSubscriptionBrowsing data.
+     * copy (* brokerSubscriptionBrowsing_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SubscriptionBrowsing_val_ptr) =
-        rowreq_ctx->data.qpid010SubscriptionBrowsing;
+    (*brokerSubscriptionBrowsing_val_ptr) =
+        rowreq_ctx->data.brokerSubscriptionBrowsing;
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionBrowsing_get */
+}                               /* brokerSubscriptionBrowsing_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionAcknowledged
- * qpid010SubscriptionAcknowledged is subid 5 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionAcknowledged
+ * brokerSubscriptionAcknowledged is subid 5 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.5
  * Description:
@@ -495,13 +495,13 @@ Subscription acknowledged
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010SubscriptionAcknowledged data.
+ * Extract the current value of the brokerSubscriptionAcknowledged data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionAcknowledged_val_ptr
+ * @param brokerSubscriptionAcknowledged_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -509,32 +509,32 @@ Subscription acknowledged
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SubscriptionAcknowledged_get(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionAcknowledged_get(brokerSubscriptionTable_rowreq_ctx *
                                    rowreq_ctx,
                                    u_long *
-                                   qpid010SubscriptionAcknowledged_val_ptr)
+                                   brokerSubscriptionAcknowledged_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SubscriptionAcknowledged_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionAcknowledged_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionAcknowledged_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionAcknowledged_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SubscriptionAcknowledged data.
-     * copy (* qpid010SubscriptionAcknowledged_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSubscriptionAcknowledged data.
+     * copy (* brokerSubscriptionAcknowledged_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SubscriptionAcknowledged_val_ptr) =
-        rowreq_ctx->data.qpid010SubscriptionAcknowledged;
+    (*brokerSubscriptionAcknowledged_val_ptr) =
+        rowreq_ctx->data.brokerSubscriptionAcknowledged;
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionAcknowledged_get */
+}                               /* brokerSubscriptionAcknowledged_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionExclusive
- * qpid010SubscriptionExclusive is subid 6 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionExclusive
+ * brokerSubscriptionExclusive is subid 6 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.6
  * Description:
@@ -552,13 +552,13 @@ Subscription exclusive
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010SubscriptionExclusive data.
+ * Extract the current value of the brokerSubscriptionExclusive data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionExclusive_val_ptr
+ * @param brokerSubscriptionExclusive_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -566,32 +566,32 @@ Subscription exclusive
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SubscriptionExclusive_get(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionExclusive_get(brokerSubscriptionTable_rowreq_ctx *
                                 rowreq_ctx,
                                 u_long *
-                                qpid010SubscriptionExclusive_val_ptr)
+                                brokerSubscriptionExclusive_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SubscriptionExclusive_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionExclusive_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionExclusive_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionExclusive_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SubscriptionExclusive data.
-     * copy (* qpid010SubscriptionExclusive_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSubscriptionExclusive data.
+     * copy (* brokerSubscriptionExclusive_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010SubscriptionExclusive_val_ptr) =
-        rowreq_ctx->data.qpid010SubscriptionExclusive;
+    (*brokerSubscriptionExclusive_val_ptr) =
+        rowreq_ctx->data.brokerSubscriptionExclusive;
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionExclusive_get */
+}                               /* brokerSubscriptionExclusive_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionCreditMode
- * qpid010SubscriptionCreditMode is subid 7 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionCreditMode
+ * brokerSubscriptionCreditMode is subid 7 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.7
  * Description:
@@ -611,25 +611,25 @@ WINDOW or CREDIT
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010SubscriptionCreditMode data.
+ * Extract the current value of the brokerSubscriptionCreditMode data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionCreditMode_val_ptr_ptr
+ * @param brokerSubscriptionCreditMode_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010SubscriptionCreditMode_val_ptr_len_ptr
+ * @param brokerSubscriptionCreditMode_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010SubscriptionCreditMode.
+ *        pointed to by brokerSubscriptionCreditMode.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010SubscriptionCreditMode_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010SubscriptionCreditMode_val_ptr_ptr.
+ * @note If you need more than (*brokerSubscriptionCreditMode_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerSubscriptionCreditMode_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -639,61 +639,61 @@ WINDOW or CREDIT
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010SubscriptionCreditMode_get(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionCreditMode_get(brokerSubscriptionTable_rowreq_ctx *
                                  rowreq_ctx,
                                  char
-                                 **qpid010SubscriptionCreditMode_val_ptr_ptr,
+                                 **brokerSubscriptionCreditMode_val_ptr_ptr,
                                  size_t
-                                 *qpid010SubscriptionCreditMode_val_ptr_len_ptr)
+                                 *brokerSubscriptionCreditMode_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010SubscriptionCreditMode_val_ptr_ptr)
-                   && (NULL != *qpid010SubscriptionCreditMode_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010SubscriptionCreditMode_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerSubscriptionCreditMode_val_ptr_ptr)
+                   && (NULL != *brokerSubscriptionCreditMode_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerSubscriptionCreditMode_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionCreditMode_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionCreditMode_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SubscriptionCreditMode data.
-     * copy (* qpid010SubscriptionCreditMode_val_ptr_ptr ) data and (* qpid010SubscriptionCreditMode_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSubscriptionCreditMode data.
+     * copy (* brokerSubscriptionCreditMode_val_ptr_ptr ) data and (* brokerSubscriptionCreditMode_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010SubscriptionCreditMode data
+     * make sure there is enough space for brokerSubscriptionCreditMode data
      */
-    if ((NULL == (*qpid010SubscriptionCreditMode_val_ptr_ptr)) ||
-        ((*qpid010SubscriptionCreditMode_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010SubscriptionCreditMode_len *
-          sizeof(rowreq_ctx->data.qpid010SubscriptionCreditMode[0])))) {
+    if ((NULL == (*brokerSubscriptionCreditMode_val_ptr_ptr)) ||
+        ((*brokerSubscriptionCreditMode_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerSubscriptionCreditMode_len *
+          sizeof(rowreq_ctx->data.brokerSubscriptionCreditMode[0])))) {
         /*
-         * allocate space for qpid010SubscriptionCreditMode data
+         * allocate space for brokerSubscriptionCreditMode data
          */
-        (*qpid010SubscriptionCreditMode_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010SubscriptionCreditMode_len *
+        (*brokerSubscriptionCreditMode_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerSubscriptionCreditMode_len *
                    sizeof(rowreq_ctx->data.
-                          qpid010SubscriptionCreditMode[0]));
-        if (NULL == (*qpid010SubscriptionCreditMode_val_ptr_ptr)) {
+                          brokerSubscriptionCreditMode[0]));
+        if (NULL == (*brokerSubscriptionCreditMode_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010SubscriptionCreditMode)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerSubscriptionCreditMode)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010SubscriptionCreditMode_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010SubscriptionCreditMode_len *
-        sizeof(rowreq_ctx->data.qpid010SubscriptionCreditMode[0]);
-    memcpy((*qpid010SubscriptionCreditMode_val_ptr_ptr),
-           rowreq_ctx->data.qpid010SubscriptionCreditMode,
-           rowreq_ctx->data.qpid010SubscriptionCreditMode_len *
-           sizeof(rowreq_ctx->data.qpid010SubscriptionCreditMode[0]));
+    (*brokerSubscriptionCreditMode_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerSubscriptionCreditMode_len *
+        sizeof(rowreq_ctx->data.brokerSubscriptionCreditMode[0]);
+    memcpy((*brokerSubscriptionCreditMode_val_ptr_ptr),
+           rowreq_ctx->data.brokerSubscriptionCreditMode,
+           rowreq_ctx->data.brokerSubscriptionCreditMode_len *
+           sizeof(rowreq_ctx->data.brokerSubscriptionCreditMode[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionCreditMode_get */
+}                               /* brokerSubscriptionCreditMode_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionArguments
- * qpid010SubscriptionArguments is subid 8 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionArguments
+ * brokerSubscriptionArguments is subid 8 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.8
  * Description:
@@ -713,25 +713,25 @@ Subscription arguments
  * This data type requires a length.  (Max 65535)
  */
 /**
- * Extract the current value of the qpid010SubscriptionArguments data.
+ * Extract the current value of the brokerSubscriptionArguments data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionArguments_val_ptr_ptr
+ * @param brokerSubscriptionArguments_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010SubscriptionArguments_val_ptr_len_ptr
+ * @param brokerSubscriptionArguments_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010SubscriptionArguments.
+ *        pointed to by brokerSubscriptionArguments.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010SubscriptionArguments_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010SubscriptionArguments_val_ptr_ptr.
+ * @note If you need more than (*brokerSubscriptionArguments_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerSubscriptionArguments_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -741,61 +741,61 @@ Subscription arguments
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010SubscriptionArguments_get(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionArguments_get(brokerSubscriptionTable_rowreq_ctx *
                                 rowreq_ctx,
                                 char
-                                **qpid010SubscriptionArguments_val_ptr_ptr,
+                                **brokerSubscriptionArguments_val_ptr_ptr,
                                 size_t
-                                *qpid010SubscriptionArguments_val_ptr_len_ptr)
+                                *brokerSubscriptionArguments_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010SubscriptionArguments_val_ptr_ptr)
-                   && (NULL != *qpid010SubscriptionArguments_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010SubscriptionArguments_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerSubscriptionArguments_val_ptr_ptr)
+                   && (NULL != *brokerSubscriptionArguments_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerSubscriptionArguments_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionArguments_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionArguments_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010SubscriptionArguments data.
-     * copy (* qpid010SubscriptionArguments_val_ptr_ptr ) data and (* qpid010SubscriptionArguments_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSubscriptionArguments data.
+     * copy (* brokerSubscriptionArguments_val_ptr_ptr ) data and (* brokerSubscriptionArguments_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010SubscriptionArguments data
+     * make sure there is enough space for brokerSubscriptionArguments data
      */
-    if ((NULL == (*qpid010SubscriptionArguments_val_ptr_ptr)) ||
-        ((*qpid010SubscriptionArguments_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010SubscriptionArguments_len *
-          sizeof(rowreq_ctx->data.qpid010SubscriptionArguments[0])))) {
+    if ((NULL == (*brokerSubscriptionArguments_val_ptr_ptr)) ||
+        ((*brokerSubscriptionArguments_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerSubscriptionArguments_len *
+          sizeof(rowreq_ctx->data.brokerSubscriptionArguments[0])))) {
         /*
-         * allocate space for qpid010SubscriptionArguments data
+         * allocate space for brokerSubscriptionArguments data
          */
-        (*qpid010SubscriptionArguments_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010SubscriptionArguments_len *
+        (*brokerSubscriptionArguments_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerSubscriptionArguments_len *
                    sizeof(rowreq_ctx->data.
-                          qpid010SubscriptionArguments[0]));
-        if (NULL == (*qpid010SubscriptionArguments_val_ptr_ptr)) {
+                          brokerSubscriptionArguments[0]));
+        if (NULL == (*brokerSubscriptionArguments_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010SubscriptionArguments)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerSubscriptionArguments)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010SubscriptionArguments_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010SubscriptionArguments_len *
-        sizeof(rowreq_ctx->data.qpid010SubscriptionArguments[0]);
-    memcpy((*qpid010SubscriptionArguments_val_ptr_ptr),
-           rowreq_ctx->data.qpid010SubscriptionArguments,
-           rowreq_ctx->data.qpid010SubscriptionArguments_len *
-           sizeof(rowreq_ctx->data.qpid010SubscriptionArguments[0]));
+    (*brokerSubscriptionArguments_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerSubscriptionArguments_len *
+        sizeof(rowreq_ctx->data.brokerSubscriptionArguments[0]);
+    memcpy((*brokerSubscriptionArguments_val_ptr_ptr),
+           rowreq_ctx->data.brokerSubscriptionArguments,
+           rowreq_ctx->data.brokerSubscriptionArguments_len *
+           sizeof(rowreq_ctx->data.brokerSubscriptionArguments[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionArguments_get */
+}                               /* brokerSubscriptionArguments_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionDelivered
- * qpid010SubscriptionDelivered is subid 9 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionDelivered
+ * brokerSubscriptionDelivered is subid 9 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.9
  * Description:
@@ -812,13 +812,13 @@ Messages delivered
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010SubscriptionDelivered data.
+ * Extract the current value of the brokerSubscriptionDelivered data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionDelivered_val_ptr
+ * @param brokerSubscriptionDelivered_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -826,25 +826,25 @@ Messages delivered
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010SubscriptionDelivered_get(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionDelivered_get(brokerSubscriptionTable_rowreq_ctx *
                                 rowreq_ctx,
-                                U64 * qpid010SubscriptionDelivered_val_ptr)
+                                U64 * brokerSubscriptionDelivered_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010SubscriptionDelivered_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionDelivered_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010SubscriptionDelivered data.
-     * get (* qpid010SubscriptionDelivered_val_ptr ).low and (* qpid010SubscriptionDelivered_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerSubscriptionDelivered data.
+     * get (* brokerSubscriptionDelivered_val_ptr ).low and (* brokerSubscriptionDelivered_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010SubscriptionDelivered_val_ptr).high =
-        rowreq_ctx->data.qpid010SubscriptionDelivered.high;
-    (*qpid010SubscriptionDelivered_val_ptr).low =
-        rowreq_ctx->data.qpid010SubscriptionDelivered.low;
+    (*brokerSubscriptionDelivered_val_ptr).high =
+        rowreq_ctx->data.brokerSubscriptionDelivered.high;
+    (*brokerSubscriptionDelivered_val_ptr).low =
+        rowreq_ctx->data.brokerSubscriptionDelivered.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionDelivered_get */
+}                               /* brokerSubscriptionDelivered_get */
 
 
 

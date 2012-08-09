@@ -37,36 +37,36 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ConnectionTable
+ *** Table brokerConnectionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010ConnectionTable is subid 1 of qpid010Connections.
+ * QPID-MESSAGING-MIB::brokerConnectionTable is subid 1 of brokerConnections.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1, length: 12
  */
 
 /**
- * initialization for qpid010ConnectionTable data access
+ * initialization for brokerConnectionTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010ConnectionTable_reg
- *        Pointer to qpid010ConnectionTable_registration
+ * @param brokerConnectionTable_reg
+ *        Pointer to brokerConnectionTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010ConnectionTable_init_data(qpid010ConnectionTable_registration *
-                                qpid010ConnectionTable_reg)
+brokerConnectionTable_init_data(brokerConnectionTable_registration *
+                                brokerConnectionTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_init_data", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_init_data", "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010ConnectionTable data.
+     * TODO:303:o: Initialize brokerConnectionTable data.
      */
     /*
      ***************************************************
@@ -85,7 +85,7 @@ qpid010ConnectionTable_init_data(qpid010ConnectionTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionTable_init_data */
+}                               /* brokerConnectionTable_init_data */
 
 /**
  * container overview
@@ -119,15 +119,15 @@ qpid010ConnectionTable_init_data(qpid010ConnectionTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010ConnectionTable_container_init(netsnmp_container **
+brokerConnectionTable_container_init(netsnmp_container **
                                      container_ptr_ptr,
                                      netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_container_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_container_init", "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010ConnectionTable_container_init\n");
+                 "bad container param to brokerConnectionTable_container_init\n");
         return;
     }
 
@@ -139,21 +139,21 @@ qpid010ConnectionTable_container_init(netsnmp_container **
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010ConnectionTable_container_init\n");
+                 "bad cache param to brokerConnectionTable_container_init\n");
         return;
     }
 
     /*
-     * TODO:345:A: Set up qpid010ConnectionTable cache properties.
+     * TODO:345:A: Set up brokerConnectionTable cache properties.
      *
      * Also for advanced users, you can set parameters for the
      * cache. Do not change the magic pointer, as it is used
      * by the MFD helper. To completely disable caching, set
      * cache->enabled to 0.
      */
-    cache->timeout = qpid010CONNECTIONTABLE_CACHE_TIMEOUT;       /* seconds */
+    cache->timeout = brokerCONNECTIONTABLE_CACHE_TIMEOUT;       /* seconds */
     //cache->flags |= NETSNMP_CACHE_PRELOAD;
-}                               /* qpid010ConnectionTable_container_init */
+}                               /* brokerConnectionTable_container_init */
 
 /**
  * container shutdown
@@ -164,7 +164,7 @@ qpid010ConnectionTable_container_init(netsnmp_container **
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010ConnectionTable_container_free().
+ *  This function is called before brokerConnectionTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -172,22 +172,22 @@ qpid010ConnectionTable_container_init(netsnmp_container **
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010ConnectionTable_container_shutdown(netsnmp_container * container_ptr)
+brokerConnectionTable_container_shutdown(netsnmp_container * container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010ConnectionTable_container_shutdown\n");
+                 "bad params to brokerConnectionTable_container_shutdown\n");
         return;
     }
 
-}                               /* qpid010ConnectionTable_container_shutdown */
+}                               /* brokerConnectionTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010ConnectionTable data load
+ * TODO:350:M: Implement brokerConnectionTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -209,7 +209,7 @@ qpid010ConnectionTable_container_shutdown(netsnmp_container * container_ptr)
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010ConnectionTable_row_prep() for populating data.
+ *  brokerConnectionTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -218,19 +218,19 @@ qpid010ConnectionTable_container_shutdown(netsnmp_container * container_ptr)
  *
  */
 int
-qpid010ConnectionTable_container_load(netsnmp_container * container)
+brokerConnectionTable_container_load(netsnmp_container * container)
 {
-    qpid010ConnectionTable_rowreq_ctx *rowreq_ctx;
+    brokerConnectionTable_rowreq_ctx *rowreq_ctx;
     size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010ConnectionInternalIndex(21)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerConnectionInternalIndex(21)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010ConnectionInternalIndex;
-    qpid010ConnectionTable_data qmfData;
+    u_long          brokerConnectionInternalIndex;
+    brokerConnectionTable_data qmfData;
 
     uint64_t u64Data;
 
@@ -240,340 +240,340 @@ qpid010ConnectionTable_container_load(netsnmp_container * container)
     uint objects;
     objects = qpidGetCount(pEvent);
 
-    qpid010ConnectionInternalIndex = 0;
+    brokerConnectionInternalIndex = 0;
     for (index = 0; index < objects; ++index) {
 
     	void * pRow = qpidGetDataRow(pEvent, index);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010ConnectionVhostRef,
+        strncpy(qmfData.brokerConnectionVhostRef,
         		qpidGetString(pRow, "vhostRef"), 254);
-        qmfData.qpid010ConnectionVhostRef_len = strlen(qmfData.qpid010ConnectionVhostRef) + 1;
+        qmfData.brokerConnectionVhostRef_len = strlen(qmfData.brokerConnectionVhostRef) + 1;
 
-        strncpy(qmfData.qpid010ConnectionAddress,
+        strncpy(qmfData.brokerConnectionAddress,
         		qpidGetString(pRow, "address"), 254);
-        qmfData.qpid010ConnectionAddress_len = strlen(qmfData.qpid010ConnectionAddress) + 1;
+        qmfData.brokerConnectionAddress_len = strlen(qmfData.brokerConnectionAddress) + 1;
 
-        qmfData.qpid010ConnectionIncoming = qpidGetBool(pRow, "incoming");
-        qmfData.qpid010ConnectionSystemConnection = qpidGetBool(pRow, "systemConnection");
-        qmfData.qpid010ConnectionUserProxyAuth = qpidGetBool(pRow, "userProxyAuth");
-        qmfData.qpid010ConnectionFederationLink = qpidGetBool(pRow, "federationLink");
+        qmfData.brokerConnectionIncoming = qpidGetBool(pRow, "incoming");
+        qmfData.brokerConnectionSystemConnection = qpidGetBool(pRow, "systemConnection");
+        qmfData.brokerConnectionUserProxyAuth = qpidGetBool(pRow, "userProxyAuth");
+        qmfData.brokerConnectionFederationLink = qpidGetBool(pRow, "federationLink");
 
-        strncpy(qmfData.qpid010ConnectionAuthIdentity,
+        strncpy(qmfData.brokerConnectionAuthIdentity,
         		qpidGetString(pRow, "authIdentity"), 254);
-        qmfData.qpid010ConnectionAuthIdentity_len = strlen(qmfData.qpid010ConnectionAuthIdentity) + 1;
+        qmfData.brokerConnectionAuthIdentity_len = strlen(qmfData.brokerConnectionAuthIdentity) + 1;
 
-        strncpy(qmfData.qpid010ConnectionRemoteProcessName,
+        strncpy(qmfData.brokerConnectionRemoteProcessName,
         		qpidGetString(pRow, "remoteProcessName"), 65534);
-        qmfData.qpid010ConnectionRemoteProcessName_len = strlen(qmfData.qpid010ConnectionRemoteProcessName) + 1;
+        qmfData.brokerConnectionRemoteProcessName_len = strlen(qmfData.brokerConnectionRemoteProcessName) + 1;
 
-        qmfData.qpid010ConnectionRemotePid = qpidGetU32(pRow, "remotePid");
-        qmfData.qpid010ConnectionRemoteParentPid = qpidGetU32(pRow, "remoteParentPid");
+        qmfData.brokerConnectionRemotePid = qpidGetU32(pRow, "remotePid");
+        qmfData.brokerConnectionRemoteParentPid = qpidGetU32(pRow, "remoteParentPid");
 
-        qmfData.qpid010ConnectionShadow = qpidGetBool(pRow, "shadow");
+        qmfData.brokerConnectionShadow = qpidGetBool(pRow, "shadow");
 
-        strncpy(qmfData.qpid010ConnectionSaslMechanism,
+        strncpy(qmfData.brokerConnectionSaslMechanism,
         		qpidGetString(pRow, "saslMechanism"), 254);
-        qmfData.qpid010ConnectionSaslMechanism_len = strlen(qmfData.qpid010ConnectionSaslMechanism) + 1;
+        qmfData.brokerConnectionSaslMechanism_len = strlen(qmfData.brokerConnectionSaslMechanism) + 1;
 
-        qmfData.qpid010ConnectionSaslSsf = qpidGetU16(pRow, "saslSsf");
-        qmfData.qpid010ConnectionClosing = qpidGetBool(pRow, "closing");
+        qmfData.brokerConnectionSaslSsf = qpidGetU16(pRow, "saslSsf");
+        qmfData.brokerConnectionClosing = qpidGetBool(pRow, "closing");
 
         u64Data = qpidGetU64(pRow, "framesFromClient");
-        qmfData.qpid010ConnectionFramesFromClient.high = HIGHLONG(u64Data);
-        qmfData.qpid010ConnectionFramesFromClient.low = LOWLONG(u64Data);
+        qmfData.brokerConnectionFramesFromClient.high = HIGHLONG(u64Data);
+        qmfData.brokerConnectionFramesFromClient.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "framesToClient");
-        qmfData.qpid010ConnectionFramesToClient.high = HIGHLONG(u64Data);
-        qmfData.qpid010ConnectionFramesToClient.low = LOWLONG(u64Data);
+        qmfData.brokerConnectionFramesToClient.high = HIGHLONG(u64Data);
+        qmfData.brokerConnectionFramesToClient.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "bytesFromClient");
-        qmfData.qpid010ConnectionBytesFromClient.high = HIGHLONG(u64Data);
-        qmfData.qpid010ConnectionBytesFromClient.low = LOWLONG(u64Data);
+        qmfData.brokerConnectionBytesFromClient.high = HIGHLONG(u64Data);
+        qmfData.brokerConnectionBytesFromClient.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "bytesToClient");
-        qmfData.qpid010ConnectionBytesToClient.high = HIGHLONG(u64Data);
-        qmfData.qpid010ConnectionBytesToClient.low = LOWLONG(u64Data);
+        qmfData.brokerConnectionBytesToClient.high = HIGHLONG(u64Data);
+        qmfData.brokerConnectionBytesToClient.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgsFromClient");
-        qmfData.qpid010ConnectionMsgsFromClient.high = HIGHLONG(u64Data);
-        qmfData.qpid010ConnectionMsgsFromClient.low = LOWLONG(u64Data);
+        qmfData.brokerConnectionMsgsFromClient.high = HIGHLONG(u64Data);
+        qmfData.brokerConnectionMsgsFromClient.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgsToClient");
-        qmfData.qpid010ConnectionMsgsToClient.high = HIGHLONG(u64Data);
-        qmfData.qpid010ConnectionMsgsToClient.low = LOWLONG(u64Data);
+        qmfData.brokerConnectionMsgsToClient.high = HIGHLONG(u64Data);
+        qmfData.brokerConnectionMsgsToClient.low = LOWLONG(u64Data);
 
         /*
-         * TODO:352:M: |   |-> set indexes in new qpid010ConnectionTable rowreq context.
+         * TODO:352:M: |   |-> set indexes in new brokerConnectionTable rowreq context.
          * data context will be set from the param (unless NULL,
          *      in which case a new data context will be allocated)
          */
-        rowreq_ctx = qpid010ConnectionTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerConnectionTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010ConnectionTable_indexes_set(rowreq_ctx,
-                                              qpid010ConnectionInternalIndex))
+            brokerConnectionTable_indexes_set(rowreq_ctx,
+                                              brokerConnectionInternalIndex))
         {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010ConnectionTable data.\n");
-            qpid010ConnectionTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerConnectionTable data.\n");
+            brokerConnectionTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        qpid010ConnectionInternalIndex++;
+        brokerConnectionInternalIndex++;
 
         /*
-         * setup/save data for qpid010ConnectionVhostRef
-         * qpid010ConnectionVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerConnectionVhostRef
+         * brokerConnectionVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ConnectionVhostRef data
+         * make sure there is enough space for brokerConnectionVhostRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ConnectionVhostRef) ||
-            (rowreq_ctx->data.qpid010ConnectionVhostRef_len <
-             (qmfData.qpid010ConnectionVhostRef_len *
-              sizeof(qmfData.qpid010ConnectionVhostRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerConnectionVhostRef) ||
+            (rowreq_ctx->data.brokerConnectionVhostRef_len <
+             (qmfData.brokerConnectionVhostRef_len *
+              sizeof(qmfData.brokerConnectionVhostRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ConnectionVhostRef)\n");
+                     "not enough space for value (brokerConnectionVhostRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ConnectionVhostRef_len =
-        		qmfData.qpid010ConnectionVhostRef_len *
-            sizeof(qmfData.qpid010ConnectionVhostRef[0]);
-        memcpy(rowreq_ctx->data.qpid010ConnectionVhostRef,
-        		qmfData.qpid010ConnectionVhostRef,
-        		qmfData.qpid010ConnectionVhostRef_len *
-               sizeof(qmfData.qpid010ConnectionVhostRef[0]));
+        rowreq_ctx->data.brokerConnectionVhostRef_len =
+        		qmfData.brokerConnectionVhostRef_len *
+            sizeof(qmfData.brokerConnectionVhostRef[0]);
+        memcpy(rowreq_ctx->data.brokerConnectionVhostRef,
+        		qmfData.brokerConnectionVhostRef,
+        		qmfData.brokerConnectionVhostRef_len *
+               sizeof(qmfData.brokerConnectionVhostRef[0]));
 
         /*
-         * setup/save data for qpid010ConnectionAddress
-         * qpid010ConnectionAddress(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerConnectionAddress
+         * brokerConnectionAddress(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ConnectionAddress data
+         * make sure there is enough space for brokerConnectionAddress data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ConnectionAddress) ||
-            (rowreq_ctx->data.qpid010ConnectionAddress_len <
-             (qmfData.qpid010ConnectionAddress_len *
-              sizeof(qmfData.qpid010ConnectionAddress[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerConnectionAddress) ||
+            (rowreq_ctx->data.brokerConnectionAddress_len <
+             (qmfData.brokerConnectionAddress_len *
+              sizeof(qmfData.brokerConnectionAddress[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ConnectionAddress)\n");
+                     "not enough space for value (brokerConnectionAddress)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ConnectionAddress_len =
-        		qmfData.qpid010ConnectionAddress_len *
-            sizeof(qmfData.qpid010ConnectionAddress[0]);
-        memcpy(rowreq_ctx->data.qpid010ConnectionAddress,
-        		qmfData.qpid010ConnectionAddress,
-        		qmfData.qpid010ConnectionAddress_len *
-               sizeof(qmfData.qpid010ConnectionAddress[0]));
+        rowreq_ctx->data.brokerConnectionAddress_len =
+        		qmfData.brokerConnectionAddress_len *
+            sizeof(qmfData.brokerConnectionAddress[0]);
+        memcpy(rowreq_ctx->data.brokerConnectionAddress,
+        		qmfData.brokerConnectionAddress,
+        		qmfData.brokerConnectionAddress_len *
+               sizeof(qmfData.brokerConnectionAddress[0]));
 
         /*
-         * setup/save data for qpid010ConnectionIncoming
-         * qpid010ConnectionIncoming(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerConnectionIncoming
+         * brokerConnectionIncoming(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionIncoming =
-        		qmfData.qpid010ConnectionIncoming;
+        rowreq_ctx->data.brokerConnectionIncoming =
+        		qmfData.brokerConnectionIncoming;
 
         /*
-         * setup/save data for qpid010ConnectionSystemConnection
-         * qpid010ConnectionSystemConnection(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerConnectionSystemConnection
+         * brokerConnectionSystemConnection(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionSystemConnection =
-        		qmfData.qpid010ConnectionSystemConnection;
+        rowreq_ctx->data.brokerConnectionSystemConnection =
+        		qmfData.brokerConnectionSystemConnection;
 
         /*
-         * setup/save data for qpid010ConnectionUserProxyAuth
-         * qpid010ConnectionUserProxyAuth(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * setup/save data for brokerConnectionUserProxyAuth
+         * brokerConnectionUserProxyAuth(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionUserProxyAuth =
-        		qmfData.qpid010ConnectionUserProxyAuth;
+        rowreq_ctx->data.brokerConnectionUserProxyAuth =
+        		qmfData.brokerConnectionUserProxyAuth;
 
         /*
-         * setup/save data for qpid010ConnectionFederationLink
-         * qpid010ConnectionFederationLink(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * setup/save data for brokerConnectionFederationLink
+         * brokerConnectionFederationLink(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionFederationLink =
-        		qmfData.qpid010ConnectionFederationLink;
+        rowreq_ctx->data.brokerConnectionFederationLink =
+        		qmfData.brokerConnectionFederationLink;
 
         /*
-         * setup/save data for qpid010ConnectionAuthIdentity
-         * qpid010ConnectionAuthIdentity(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerConnectionAuthIdentity
+         * brokerConnectionAuthIdentity(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ConnectionAuthIdentity data
+         * make sure there is enough space for brokerConnectionAuthIdentity data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ConnectionAuthIdentity) ||
-            (rowreq_ctx->data.qpid010ConnectionAuthIdentity_len <
-             (qmfData.qpid010ConnectionAuthIdentity_len *
-              sizeof(qmfData.qpid010ConnectionAuthIdentity[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerConnectionAuthIdentity) ||
+            (rowreq_ctx->data.brokerConnectionAuthIdentity_len <
+             (qmfData.brokerConnectionAuthIdentity_len *
+              sizeof(qmfData.brokerConnectionAuthIdentity[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ConnectionAuthIdentity)\n");
+                     "not enough space for value (brokerConnectionAuthIdentity)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ConnectionAuthIdentity_len =
-        		qmfData.qpid010ConnectionAuthIdentity_len *
-            sizeof(qmfData.qpid010ConnectionAuthIdentity[0]);
-        memcpy(rowreq_ctx->data.qpid010ConnectionAuthIdentity,
-        		qmfData.qpid010ConnectionAuthIdentity,
-        		qmfData.qpid010ConnectionAuthIdentity_len *
-               sizeof(qmfData.qpid010ConnectionAuthIdentity[0]));
+        rowreq_ctx->data.brokerConnectionAuthIdentity_len =
+        		qmfData.brokerConnectionAuthIdentity_len *
+            sizeof(qmfData.brokerConnectionAuthIdentity[0]);
+        memcpy(rowreq_ctx->data.brokerConnectionAuthIdentity,
+        		qmfData.brokerConnectionAuthIdentity,
+        		qmfData.brokerConnectionAuthIdentity_len *
+               sizeof(qmfData.brokerConnectionAuthIdentity[0]));
 
         /*
-         * setup/save data for qpid010ConnectionRemoteProcessName
-         * qpid010ConnectionRemoteProcessName(8)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerConnectionRemoteProcessName
+         * brokerConnectionRemoteProcessName(8)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ConnectionRemoteProcessName data
+         * make sure there is enough space for brokerConnectionRemoteProcessName data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ConnectionRemoteProcessName) ||
-            (rowreq_ctx->data.qpid010ConnectionRemoteProcessName_len <
-             (qmfData.qpid010ConnectionRemoteProcessName_len *
-              sizeof(qmfData.qpid010ConnectionRemoteProcessName[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerConnectionRemoteProcessName) ||
+            (rowreq_ctx->data.brokerConnectionRemoteProcessName_len <
+             (qmfData.brokerConnectionRemoteProcessName_len *
+              sizeof(qmfData.brokerConnectionRemoteProcessName[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ConnectionRemoteProcessName)\n");
+                     "not enough space for value (brokerConnectionRemoteProcessName)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ConnectionRemoteProcessName_len =
-        		qmfData.qpid010ConnectionRemoteProcessName_len *
-            sizeof(qmfData.qpid010ConnectionRemoteProcessName[0]);
-        memcpy(rowreq_ctx->data.qpid010ConnectionRemoteProcessName,
-        		qmfData.qpid010ConnectionRemoteProcessName,
-        		qmfData.qpid010ConnectionRemoteProcessName_len *
-               sizeof(qmfData.qpid010ConnectionRemoteProcessName[0]));
+        rowreq_ctx->data.brokerConnectionRemoteProcessName_len =
+        		qmfData.brokerConnectionRemoteProcessName_len *
+            sizeof(qmfData.brokerConnectionRemoteProcessName[0]);
+        memcpy(rowreq_ctx->data.brokerConnectionRemoteProcessName,
+        		qmfData.brokerConnectionRemoteProcessName,
+        		qmfData.brokerConnectionRemoteProcessName_len *
+               sizeof(qmfData.brokerConnectionRemoteProcessName[0]));
 
         /*
-         * setup/save data for qpid010ConnectionRemotePid
-         * qpid010ConnectionRemotePid(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerConnectionRemotePid
+         * brokerConnectionRemotePid(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionRemotePid =
-        		qmfData.qpid010ConnectionRemotePid;
+        rowreq_ctx->data.brokerConnectionRemotePid =
+        		qmfData.brokerConnectionRemotePid;
 
         /*
-         * setup/save data for qpid010ConnectionRemoteParentPid
-         * qpid010ConnectionRemoteParentPid(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerConnectionRemoteParentPid
+         * brokerConnectionRemoteParentPid(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionRemoteParentPid =
-        		qmfData.qpid010ConnectionRemoteParentPid;
+        rowreq_ctx->data.brokerConnectionRemoteParentPid =
+        		qmfData.brokerConnectionRemoteParentPid;
 
         /*
-         * setup/save data for qpid010ConnectionShadow
-         * qpid010ConnectionShadow(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * setup/save data for brokerConnectionShadow
+         * brokerConnectionShadow(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionShadow = qmfData.qpid010ConnectionShadow;
+        rowreq_ctx->data.brokerConnectionShadow = qmfData.brokerConnectionShadow;
 
         /*
-         * setup/save data for qpid010ConnectionSaslMechanism
-         * qpid010ConnectionSaslMechanism(12)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerConnectionSaslMechanism
+         * brokerConnectionSaslMechanism(12)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ConnectionSaslMechanism data
+         * make sure there is enough space for brokerConnectionSaslMechanism data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ConnectionSaslMechanism) ||
-            (rowreq_ctx->data.qpid010ConnectionSaslMechanism_len <
-             (qmfData.qpid010ConnectionSaslMechanism_len *
-              sizeof(qmfData.qpid010ConnectionSaslMechanism[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerConnectionSaslMechanism) ||
+            (rowreq_ctx->data.brokerConnectionSaslMechanism_len <
+             (qmfData.brokerConnectionSaslMechanism_len *
+              sizeof(qmfData.brokerConnectionSaslMechanism[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ConnectionSaslMechanism)\n");
+                     "not enough space for value (brokerConnectionSaslMechanism)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ConnectionSaslMechanism_len =
-        		qmfData.qpid010ConnectionSaslMechanism_len *
-            sizeof(qmfData.qpid010ConnectionSaslMechanism[0]);
-        memcpy(rowreq_ctx->data.qpid010ConnectionSaslMechanism,
-        		qmfData.qpid010ConnectionSaslMechanism,
-        		qmfData.qpid010ConnectionSaslMechanism_len *
-               sizeof(qmfData.qpid010ConnectionSaslMechanism[0]));
+        rowreq_ctx->data.brokerConnectionSaslMechanism_len =
+        		qmfData.brokerConnectionSaslMechanism_len *
+            sizeof(qmfData.brokerConnectionSaslMechanism[0]);
+        memcpy(rowreq_ctx->data.brokerConnectionSaslMechanism,
+        		qmfData.brokerConnectionSaslMechanism,
+        		qmfData.brokerConnectionSaslMechanism_len *
+               sizeof(qmfData.brokerConnectionSaslMechanism[0]));
 
         /*
-         * setup/save data for qpid010ConnectionSaslSsf
-         * qpid010ConnectionSaslSsf(13)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerConnectionSaslSsf
+         * brokerConnectionSaslSsf(13)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionSaslSsf = qmfData.qpid010ConnectionSaslSsf;
+        rowreq_ctx->data.brokerConnectionSaslSsf = qmfData.brokerConnectionSaslSsf;
 
         /*
-         * setup/save data for qpid010ConnectionClosing
-         * qpid010ConnectionClosing(14)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * setup/save data for brokerConnectionClosing
+         * brokerConnectionClosing(14)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionClosing = qmfData.qpid010ConnectionClosing;
+        rowreq_ctx->data.brokerConnectionClosing = qmfData.brokerConnectionClosing;
 
         /*
-         * setup/save data for qpid010ConnectionFramesFromClient
-         * qpid010ConnectionFramesFromClient(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerConnectionFramesFromClient
+         * brokerConnectionFramesFromClient(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionFramesFromClient.high =
-        		qmfData.qpid010ConnectionFramesFromClient.high;
-        rowreq_ctx->data.qpid010ConnectionFramesFromClient.low =
-        		qmfData.qpid010ConnectionFramesFromClient.low;
+        rowreq_ctx->data.brokerConnectionFramesFromClient.high =
+        		qmfData.brokerConnectionFramesFromClient.high;
+        rowreq_ctx->data.brokerConnectionFramesFromClient.low =
+        		qmfData.brokerConnectionFramesFromClient.low;
 
         /*
-         * setup/save data for qpid010ConnectionFramesToClient
-         * qpid010ConnectionFramesToClient(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerConnectionFramesToClient
+         * brokerConnectionFramesToClient(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionFramesToClient.high =
-        		qmfData.qpid010ConnectionFramesToClient.high;
-        rowreq_ctx->data.qpid010ConnectionFramesToClient.low =
-        		qmfData.qpid010ConnectionFramesToClient.low;
+        rowreq_ctx->data.brokerConnectionFramesToClient.high =
+        		qmfData.brokerConnectionFramesToClient.high;
+        rowreq_ctx->data.brokerConnectionFramesToClient.low =
+        		qmfData.brokerConnectionFramesToClient.low;
 
         /*
-         * setup/save data for qpid010ConnectionBytesFromClient
-         * qpid010ConnectionBytesFromClient(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerConnectionBytesFromClient
+         * brokerConnectionBytesFromClient(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionBytesFromClient.high =
-        		qmfData.qpid010ConnectionBytesFromClient.high;
-        rowreq_ctx->data.qpid010ConnectionBytesFromClient.low =
-        		qmfData.qpid010ConnectionBytesFromClient.low;
+        rowreq_ctx->data.brokerConnectionBytesFromClient.high =
+        		qmfData.brokerConnectionBytesFromClient.high;
+        rowreq_ctx->data.brokerConnectionBytesFromClient.low =
+        		qmfData.brokerConnectionBytesFromClient.low;
 
         /*
-         * setup/save data for qpid010ConnectionBytesToClient
-         * qpid010ConnectionBytesToClient(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerConnectionBytesToClient
+         * brokerConnectionBytesToClient(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionBytesToClient.high =
-        		qmfData.qpid010ConnectionBytesToClient.high;
-        rowreq_ctx->data.qpid010ConnectionBytesToClient.low =
-        		qmfData.qpid010ConnectionBytesToClient.low;
+        rowreq_ctx->data.brokerConnectionBytesToClient.high =
+        		qmfData.brokerConnectionBytesToClient.high;
+        rowreq_ctx->data.brokerConnectionBytesToClient.low =
+        		qmfData.brokerConnectionBytesToClient.low;
 
         /*
-         * setup/save data for qpid010ConnectionMsgsFromClient
-         * qpid010ConnectionMsgsFromClient(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerConnectionMsgsFromClient
+         * brokerConnectionMsgsFromClient(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionMsgsFromClient.high =
-        		qmfData.qpid010ConnectionMsgsFromClient.high;
-        rowreq_ctx->data.qpid010ConnectionMsgsFromClient.low =
-        		qmfData.qpid010ConnectionMsgsFromClient.low;
+        rowreq_ctx->data.brokerConnectionMsgsFromClient.high =
+        		qmfData.brokerConnectionMsgsFromClient.high;
+        rowreq_ctx->data.brokerConnectionMsgsFromClient.low =
+        		qmfData.brokerConnectionMsgsFromClient.low;
 
         /*
-         * setup/save data for qpid010ConnectionMsgsToClient
-         * qpid010ConnectionMsgsToClient(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerConnectionMsgsToClient
+         * brokerConnectionMsgsToClient(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ConnectionMsgsToClient.high =
-        		qmfData.qpid010ConnectionMsgsToClient.high;
-        rowreq_ctx->data.qpid010ConnectionMsgsToClient.low =
-        		qmfData.qpid010ConnectionMsgsToClient.low;
+        rowreq_ctx->data.brokerConnectionMsgsToClient.high =
+        		qmfData.brokerConnectionMsgsToClient.high;
+        rowreq_ctx->data.brokerConnectionMsgsToClient.low =
+        		qmfData.brokerConnectionMsgsToClient.low;
 
 
         /*
@@ -587,10 +587,10 @@ qpid010ConnectionTable_container_load(netsnmp_container * container)
     }
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_container_load", "inserted %d records\n", count));
+    DEBUGMSGT(("verbose:brokerConnectionTable:brokerConnectionTable_container_load", "inserted %d records\n", count));
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionTable_container_load */
+}                               /* brokerConnectionTable_container_load */
 
 /**
  * container clean up
@@ -606,14 +606,14 @@ qpid010ConnectionTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010ConnectionTable_container_free(netsnmp_container * container)
+brokerConnectionTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_container_free", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_container_free", "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010ConnectionTable container data.
+     * TODO:380:M: Free brokerConnectionTable container data.
      */
-}                               /* qpid010ConnectionTable_container_free */
+}                               /* brokerConnectionTable_container_free */
 
 /**
  * prepare row for processing.
@@ -629,10 +629,10 @@ qpid010ConnectionTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010ConnectionTable_row_prep(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_row_prep(brokerConnectionTable_rowreq_ctx *
                                rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_row_prep", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_row_prep", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -643,14 +643,14 @@ qpid010ConnectionTable_row_prep(qpid010ConnectionTable_rowreq_ctx *
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionTable_row_prep */
+}                               /* brokerConnectionTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010ConnectionTable index validation.
+ * TODO:420:r: Implement brokerConnectionTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionInternalIndex
- * qpid010ConnectionInternalIndex is subid 21 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionInternalIndex
+ * brokerConnectionInternalIndex is subid 21 of brokerConnectionEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.21
  * Description:
@@ -667,19 +667,19 @@ Internal index for connection table
  *
  *
  *
- * NOTE: NODE qpid010ConnectionInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerConnectionInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010ConnectionInternalIndex index portion
+ * check validity of brokerConnectionInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010ConnectionTable_validate_index() function.
+ *       brokerConnectionTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -694,21 +694,21 @@ Internal index for connection table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010ConnectionInternalIndex_check_index(qpid010ConnectionTable_rowreq_ctx
+brokerConnectionInternalIndex_check_index(brokerConnectionTable_rowreq_ctx
                                           * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010ConnectionTable index qpid010ConnectionInternalIndex.
+     * TODO:426:M: |-> Check brokerConnectionTable index brokerConnectionInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010ConnectionInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerConnectionInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010ConnectionInternalIndex index ok */
-}                               /* qpid010ConnectionInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerConnectionInternalIndex index ok */
+}                               /* brokerConnectionInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -732,33 +732,33 @@ qpid010ConnectionInternalIndex_check_index(qpid010ConnectionTable_rowreq_ctx
  *       available then.
  *
  *
- * @param qpid010ConnectionTable_reg
+ * @param brokerConnectionTable_reg
  *        Pointer to the user registration data
- * @param qpid010ConnectionTable_rowreq_ctx
+ * @param brokerConnectionTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010ConnectionTable_validate_index(qpid010ConnectionTable_registration *
-                                     qpid010ConnectionTable_reg,
-                                     qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_validate_index(brokerConnectionTable_registration *
+                                     brokerConnectionTable_reg,
+                                     brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_validate_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_validate_index", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010ConnectionTable index.
+     * TODO:430:M: |-> Validate potential brokerConnectionTable index.
      */
     if (1) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010ConnectionTable table.\n");
+                 "brokerConnectionTable table.\n");
         /*
          * determine failure type.
          *
@@ -775,6 +775,6 @@ qpid010ConnectionTable_validate_index(qpid010ConnectionTable_registration *
     }
 
     return rc;
-}                               /* qpid010ConnectionTable_validate_index */
+}                               /* brokerConnectionTable_validate_index */
 
 /** @} */

@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef qpid010EXCHANGETABLE_INTERFACE_H
-#define qpid010EXCHANGETABLE_INTERFACE_H
+#ifndef brokerEXCHANGETABLE_INTERFACE_H
+#define brokerEXCHANGETABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,38 +53,38 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010ExchangeTable_initialize_interface
-        (qpid010ExchangeTable_registration * user_ctx, u_long flags);
+        _brokerExchangeTable_initialize_interface
+        (brokerExchangeTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010ExchangeTable_shutdown_interface
-        (qpid010ExchangeTable_registration * user_ctx);
+        _brokerExchangeTable_shutdown_interface
+        (brokerExchangeTable_registration * user_ctx);
 
-    qpid010ExchangeTable_registration
-        *qpid010ExchangeTable_registration_get(void);
+    brokerExchangeTable_registration
+        *brokerExchangeTable_registration_get(void);
 
-    qpid010ExchangeTable_registration
-        *qpid010ExchangeTable_registration_set
-        (qpid010ExchangeTable_registration * newreg);
+    brokerExchangeTable_registration
+        *brokerExchangeTable_registration_set
+        (brokerExchangeTable_registration * newreg);
 
-    netsnmp_container *qpid010ExchangeTable_container_get(void);
-    int             qpid010ExchangeTable_container_size(void);
+    netsnmp_container *brokerExchangeTable_container_get(void);
+    int             brokerExchangeTable_container_size(void);
 
-    u_int           qpid010ExchangeTable_dirty_get(void);
-    void            qpid010ExchangeTable_dirty_set(u_int status);
+    u_int           brokerExchangeTable_dirty_get(void);
+    void            brokerExchangeTable_dirty_set(u_int status);
 
-    qpid010ExchangeTable_rowreq_ctx
-        *qpid010ExchangeTable_allocate_rowreq_ctx(void *);
+    brokerExchangeTable_rowreq_ctx
+        *brokerExchangeTable_allocate_rowreq_ctx(void *);
     void           
-        qpid010ExchangeTable_release_rowreq_ctx
-        (qpid010ExchangeTable_rowreq_ctx * rowreq_ctx);
+        brokerExchangeTable_release_rowreq_ctx
+        (brokerExchangeTable_rowreq_ctx * rowreq_ctx);
 
-    int             qpid010ExchangeTable_index_to_oid(netsnmp_index *
+    int             brokerExchangeTable_index_to_oid(netsnmp_index *
                                                      oid_idx,
-                                                     qpid010ExchangeTable_mib_index
+                                                     brokerExchangeTable_mib_index
                                                      * mib_idx);
-    int             qpid010ExchangeTable_index_from_oid(netsnmp_index *
+    int             brokerExchangeTable_index_from_oid(netsnmp_index *
                                                        oid_idx,
-                                                       qpid010ExchangeTable_mib_index
+                                                       brokerExchangeTable_mib_index
                                                        * mib_idx);
 
     /*
@@ -97,22 +97,22 @@ extern          "C" {
 #define LINE_TERM_CHAR '$'
 
     void           
-        qpid010ExchangeTable_container_init_persistence(netsnmp_container *
+        brokerExchangeTable_container_init_persistence(netsnmp_container *
                                                        container);
     int            
-        qpid010ExchangeTable_container_should_save
-        (qpid010ExchangeTable_rowreq_ctx * rowreq_ctx);
+        brokerExchangeTable_container_should_save
+        (brokerExchangeTable_rowreq_ctx * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
     void           
-        qpid010ExchangeTable_valid_columns_set(netsnmp_column_info *vc);
+        brokerExchangeTable_valid_columns_set(netsnmp_column_info *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010EXCHANGETABLE_INTERFACE_H */
+#endif                          /* brokerEXCHANGETABLE_INTERFACE_H */
 /** @} */

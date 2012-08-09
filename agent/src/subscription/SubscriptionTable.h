@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010SUBSCRIPTIONTABLE_H
-#define qpid010SUBSCRIPTIONTABLE_H
+#ifndef brokerSUBSCRIPTIONTABLE_H
+#define brokerSUBSCRIPTIONTABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerSubscriptionTable/brokerSubscriptionTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerSubscriptionTable/brokerSubscriptionTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerSubscriptionTable/brokerSubscriptionTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerSubscriptionTable/brokerSubscriptionTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010SubscriptionTable 
+     * OID and column number definitions for brokerSubscriptionTable 
      */
 #include "SubscriptionTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTab
      * function declarations
      */
     void            init_SubscriptionTable(void);
-    void            shutdown_qpid010SubscriptionTable(void);
+    void            shutdown_brokerSubscriptionTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTab
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SubscriptionTable
+ *** Table brokerSubscriptionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
+     * QPID-MESSAGING-MIB::brokerSubscriptionTable is subid 1 of brokerSubscriptions.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
      */
@@ -71,121 +71,121 @@ config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTab
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010SubscriptionTable registration context.
+     * TODO:101:o: |-> Review brokerSubscriptionTable registration context.
      */
-    typedef netsnmp_data_list qpid010SubscriptionTable_registration;
+    typedef netsnmp_data_list brokerSubscriptionTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010SubscriptionTable data context structure.
-     * This structure is used to represent the data for qpid010SubscriptionTable.
+     * TODO:110:r: |-> Review brokerSubscriptionTable data context structure.
+     * This structure is used to represent the data for brokerSubscriptionTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010SubscriptionTable.
+     * brokerSubscriptionTable.
      */
-    typedef struct qpid010SubscriptionTable_data_s {
+    typedef struct brokerSubscriptionTable_data_s {
 
         /*
-         * qpid010SubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerSubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010SubscriptionSessionRef[255];
-        size_t          qpid010SubscriptionSessionRef_len;       /* # of char elements, not bytes */
+        char            brokerSubscriptionSessionRef[255];
+        size_t          brokerSubscriptionSessionRef_len;       /* # of char elements, not bytes */
 
         /*
-         * qpid010SubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerSubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010SubscriptionQueueRef[255];
-        size_t          qpid010SubscriptionQueueRef_len; /* # of char elements, not bytes */
+        char            brokerSubscriptionQueueRef[255];
+        size_t          brokerSubscriptionQueueRef_len; /* # of char elements, not bytes */
 
         /*
-         * qpid010SubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerSubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010SubscriptionName[255];
-        size_t          qpid010SubscriptionName_len;     /* # of char elements, not bytes */
+        char            brokerSubscriptionName[255];
+        size_t          brokerSubscriptionName_len;     /* # of char elements, not bytes */
 
         /*
-         * qpid010SubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerSubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010SubscriptionBrowsing;
+        u_long          brokerSubscriptionBrowsing;
 
         /*
-         * qpid010SubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerSubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010SubscriptionAcknowledged;
+        u_long          brokerSubscriptionAcknowledged;
 
         /*
-         * qpid010SubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerSubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010SubscriptionExclusive;
+        u_long          brokerSubscriptionExclusive;
 
         /*
-         * qpid010SubscriptionCreditMode(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerSubscriptionCreditMode(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010SubscriptionCreditMode[255];
-        size_t          qpid010SubscriptionCreditMode_len;       /* # of char elements, not bytes */
+        char            brokerSubscriptionCreditMode[255];
+        size_t          brokerSubscriptionCreditMode_len;       /* # of char elements, not bytes */
 
         /*
-         * qpid010SubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerSubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010SubscriptionArguments[65535];
-        size_t          qpid010SubscriptionArguments_len;        /* # of char elements, not bytes */
+        char            brokerSubscriptionArguments[65535];
+        size_t          brokerSubscriptionArguments_len;        /* # of char elements, not bytes */
 
         /*
-         * qpid010SubscriptionDelivered(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerSubscriptionDelivered(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010SubscriptionDelivered;
+        U64             brokerSubscriptionDelivered;
 
-    } qpid010SubscriptionTable_data;
+    } brokerSubscriptionTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010SubscriptionTable undo context.
+     * TODO:115:o: |-> Review brokerSubscriptionTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010SubscriptionTable_data qpid010SubscriptionTable_undo_data;
+    typedef brokerSubscriptionTable_data brokerSubscriptionTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010SubscriptionTable mib index.
-     * This structure is used to represent the index for qpid010SubscriptionTable.
+     * TODO:120:r: |-> Review brokerSubscriptionTable mib index.
+     * This structure is used to represent the index for brokerSubscriptionTable.
      */
-    typedef struct qpid010SubscriptionTable_mib_index_s {
+    typedef struct brokerSubscriptionTable_mib_index_s {
 
         /*
-         * qpid010SubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerSubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010SubscriptionInternalIndex;
+        u_long          brokerSubscriptionInternalIndex;
 
 
-    } qpid010SubscriptionTable_mib_index;
+    } brokerSubscriptionTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010SubscriptionTable max index length.
+     * TODO:121:r: |   |-> Review brokerSubscriptionTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010SubscriptionTable_IDX_LEN     1
+#define MAX_brokerSubscriptionTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010SubscriptionTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerSubscriptionTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010SubscriptionTable_rowreq_ctx pointer.
+     * brokerSubscriptionTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010SubscriptionTable_rowreq_ctx_s {
+    typedef struct brokerSubscriptionTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010SubscriptionTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerSubscriptionTable_IDX_LEN];
 
-        qpid010SubscriptionTable_mib_index tbl_idx;
+        brokerSubscriptionTable_mib_index tbl_idx;
 
-        qpid010SubscriptionTable_data data;
-        qpid010SubscriptionTable_undo_data *undo;
+        brokerSubscriptionTable_data data;
+        brokerSubscriptionTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -196,52 +196,52 @@ config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTab
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010SubscriptionTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerSubscriptionTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010SubscriptionTable_data_list;
+        netsnmp_data_list *brokerSubscriptionTable_data_list;
 
-    } qpid010SubscriptionTable_rowreq_ctx;
+    } brokerSubscriptionTable_rowreq_ctx;
 
-    typedef struct qpid010SubscriptionTable_ref_rowreq_ctx_s {
-        qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx;
-    } qpid010SubscriptionTable_ref_rowreq_ctx;
+    typedef struct brokerSubscriptionTable_ref_rowreq_ctx_s {
+        brokerSubscriptionTable_rowreq_ctx *rowreq_ctx;
+    } brokerSubscriptionTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010SubscriptionTable_pre_request
-        (qpid010SubscriptionTable_registration * user_context);
+        brokerSubscriptionTable_pre_request
+        (brokerSubscriptionTable_registration * user_context);
     int            
-        qpid010SubscriptionTable_post_request
-        (qpid010SubscriptionTable_registration * user_context, int rc);
+        brokerSubscriptionTable_post_request
+        (brokerSubscriptionTable_registration * user_context, int rc);
 
     int            
-        qpid010SubscriptionTable_rowreq_ctx_init
-        (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
+        brokerSubscriptionTable_rowreq_ctx_init
+        (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx,
          void *user_init_ctx);
     void           
-        qpid010SubscriptionTable_rowreq_ctx_cleanup
-        (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx);
+        brokerSubscriptionTable_rowreq_ctx_cleanup
+        (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010SubscriptionTable_check_dependencies
-        (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx);
+        brokerSubscriptionTable_check_dependencies
+        (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010SubscriptionTable_commit(qpid010SubscriptionTable_rowreq_ctx *
+        brokerSubscriptionTable_commit(brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx);
 
-    qpid010SubscriptionTable_rowreq_ctx
-        *qpid010SubscriptionTable_row_find_by_mib_index
-        (qpid010SubscriptionTable_mib_index * mib_idx);
+    brokerSubscriptionTable_rowreq_ctx
+        *brokerSubscriptionTable_row_find_by_mib_index
+        (brokerSubscriptionTable_mib_index * mib_idx);
 
-    extern const oid qpid010SubscriptionTable_oid[];
-    extern const int qpid010SubscriptionTable_oid_size;
+    extern const oid brokerSubscriptionTable_oid[];
+    extern const int brokerSubscriptionTable_oid_size;
 
 
 #include "SubscriptionTable_interface.h"
@@ -262,5 +262,5 @@ config_require(MRG-MESSAGING-MIB/qpid010SubscriptionTable/qpid010SubscriptionTab
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SUBSCRIPTIONTABLE_H */
+#endif                          /* brokerSUBSCRIPTIONTABLE_H */
 /** @} */

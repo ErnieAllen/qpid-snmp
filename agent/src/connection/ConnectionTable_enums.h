@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010CONNECTIONTABLE_ENUMS_H
-#define qpid010CONNECTIONTABLE_ENUMS_H
+#ifndef brokerCONNECTIONTABLE_ENUMS_H
+#define brokerCONNECTIONTABLE_ENUMS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -26,14 +26,14 @@ extern          "C" {
 /*************************************************************************
  *************************************************************************
  *
- * enum definitions for table qpid010ConnectionTable
+ * enum definitions for table brokerConnectionTable
  *
  *************************************************************************
  *************************************************************************/
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010ConnectionIncoming (TruthValue / ASN_INTEGER)
+ * brokerConnectionIncoming (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -49,7 +49,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010ConnectionSystemConnection (TruthValue / ASN_INTEGER)
+ * brokerConnectionSystemConnection (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -65,7 +65,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010ConnectionUserProxyAuth (TruthValue / ASN_INTEGER)
+ * brokerConnectionUserProxyAuth (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -81,7 +81,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010ConnectionFederationLink (TruthValue / ASN_INTEGER)
+ * brokerConnectionFederationLink (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -97,7 +97,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010ConnectionShadow (TruthValue / ASN_INTEGER)
+ * brokerConnectionShadow (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -113,7 +113,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010ConnectionClosing (TruthValue / ASN_INTEGER)
+ * brokerConnectionClosing (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -132,4 +132,4 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010CONNECTIONTABLE_ENUMS_H */
+#endif                          /* brokerCONNECTIONTABLE_ENUMS_H */

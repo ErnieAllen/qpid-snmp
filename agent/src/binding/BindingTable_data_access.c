@@ -33,37 +33,37 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BindingTable
+ *** Table brokerBindingTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010BindingTable is subid 1 of qpid010Bindings.
+ * QPID-MESSAGING-MIB::brokerBindingTable is subid 1 of brokerBindings.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1, length: 12
  */
 
 /**
- * initialization for qpid010BindingTable data access
+ * initialization for brokerBindingTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010BindingTable_reg
- *        Pointer to qpid010BindingTable_registration
+ * @param brokerBindingTable_reg
+ *        Pointer to brokerBindingTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010BindingTable_init_data(qpid010BindingTable_registration *
-                             qpid010BindingTable_reg)
+brokerBindingTable_init_data(brokerBindingTable_registration *
+                             brokerBindingTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_init_data",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_init_data",
                 "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010BindingTable data.
+     * TODO:303:o: Initialize brokerBindingTable data.
      */
     /*
      ***************************************************
@@ -82,7 +82,7 @@ qpid010BindingTable_init_data(qpid010BindingTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingTable_init_data */
+}                               /* brokerBindingTable_init_data */
 
 /**
  * container overview
@@ -116,14 +116,14 @@ qpid010BindingTable_init_data(qpid010BindingTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010BindingTable_container_init(netsnmp_container ** container_ptr_ptr,
+brokerBindingTable_container_init(netsnmp_container ** container_ptr_ptr,
                                   netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_container_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_container_init", "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010BindingTable_container_init\n");
+                 "bad container param to brokerBindingTable_container_init\n");
         return;
     }
 
@@ -135,25 +135,25 @@ qpid010BindingTable_container_init(netsnmp_container ** container_ptr_ptr,
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010BindingTable_container_init\n");
+                 "bad cache param to brokerBindingTable_container_init\n");
         return;
     }
 
     /*
-     * TODO:345:A: Set up qpid010BindingTable cache properties.
+     * TODO:345:A: Set up brokerBindingTable cache properties.
      *
      * Also for advanced users, you can set parameters for the
      * cache. Do not change the magic pointer, as it is used
      * by the MFD helper. To completely disable caching, set
      * cache->enabled to 0.
      */
-    cache->timeout = qpid010BINDINGTABLE_CACHE_TIMEOUT;  /* seconds */
+    cache->timeout = brokerBINDINGTABLE_CACHE_TIMEOUT;  /* seconds */
 
     /* **EA**
         * preload to assign initial index values
         */
 //       cache->flags |= NETSNMP_CACHE_PRELOAD;
-}                               /* qpid010BindingTable_container_init */
+}                               /* brokerBindingTable_container_init */
 
 /**
  * container shutdown
@@ -164,7 +164,7 @@ qpid010BindingTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010BindingTable_container_free().
+ *  This function is called before brokerBindingTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -172,22 +172,22 @@ qpid010BindingTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010BindingTable_container_shutdown(netsnmp_container * container_ptr)
+brokerBindingTable_container_shutdown(netsnmp_container * container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010BindingTable_container_shutdown\n");
+                 "bad params to brokerBindingTable_container_shutdown\n");
         return;
     }
 
-}                               /* qpid010BindingTable_container_shutdown */
+}                               /* brokerBindingTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010BindingTable data load
+ * TODO:350:M: Implement brokerBindingTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -209,7 +209,7 @@ qpid010BindingTable_container_shutdown(netsnmp_container * container_ptr)
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010BindingTable_row_prep() for populating data.
+ *  brokerBindingTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -218,26 +218,26 @@ qpid010BindingTable_container_shutdown(netsnmp_container * container_ptr)
  *
  */
 int
-qpid010BindingTable_container_load(netsnmp_container * container)
+brokerBindingTable_container_load(netsnmp_container * container)
 {
-    qpid010BindingTable_rowreq_ctx *rowreq_ctx;
+    brokerBindingTable_rowreq_ctx *rowreq_ctx;
     size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010BindingInternalIndex(7)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerBindingInternalIndex(7)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010BindingInternalIndex;
-    qpid010BindingTable_data qmfData;
+    u_long          brokerBindingInternalIndex;
+    brokerBindingTable_data qmfData;
 
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_container_load", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_container_load", "called\n"));
 
     /*
-     * Load/update data in the qpid010BindingTable container.
-     * loop over your qpid010BindingTable data, allocate a rowreq context,
+     * Load/update data in the brokerBindingTable container.
+     * loop over your brokerBindingTable data, allocate a rowreq context,
      * set the index(es) [and data, optionally] and insert into
      * the container.
      */
@@ -249,128 +249,128 @@ qpid010BindingTable_container_load(netsnmp_container * container)
     uint objects;
     objects = qpidGetCount(pEvent);
 
-    qpid010BindingInternalIndex = 0;
+    brokerBindingInternalIndex = 0;
     for (index = 0; index < objects; ++index) {
 
     	void * pRow = qpidGetDataRow(pEvent, index);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010BindingArguments,
+        strncpy(qmfData.brokerBindingArguments,
         		qpidGetString(pRow, "arguments"), 65534);
-        qmfData.qpid010BindingArguments_len = strlen(qmfData.qpid010BindingArguments) + 1;
+        qmfData.brokerBindingArguments_len = strlen(qmfData.brokerBindingArguments) + 1;
 
-        strncpy(qmfData.qpid010BindingBindingKey,
+        strncpy(qmfData.brokerBindingBindingKey,
         		qpidGetString(pRow, "bindingKey"), 65534);
-        qmfData.qpid010BindingBindingKey_len = strlen(qmfData.qpid010BindingBindingKey) + 1;
+        qmfData.brokerBindingBindingKey_len = strlen(qmfData.brokerBindingBindingKey) + 1;
 
-        strncpy(qmfData.qpid010BindingBindingKey,
+        strncpy(qmfData.brokerBindingBindingKey,
         		qpidGetString(pRow, "bindingKey"), 65534);
-        qmfData.qpid010BindingBindingKey_len = strlen(qmfData.qpid010BindingBindingKey) + 1;
+        qmfData.brokerBindingBindingKey_len = strlen(qmfData.brokerBindingBindingKey) + 1;
 
-        strncpy(qmfData.qpid010BindingExchangeRef,
+        strncpy(qmfData.brokerBindingExchangeRef,
         		qpidGetString(pRow, "exchangeRef"), 254);
-        qmfData.qpid010BindingExchangeRef_len = strlen(qmfData.qpid010BindingExchangeRef) + 1;
+        qmfData.brokerBindingExchangeRef_len = strlen(qmfData.brokerBindingExchangeRef) + 1;
 
-        strncpy(qmfData.qpid010BindingOrigin,
+        strncpy(qmfData.brokerBindingOrigin,
         		qpidGetString(pRow, "origin"), 254);
-        qmfData.qpid010BindingOrigin_len = strlen(qmfData.qpid010BindingOrigin) + 1;
+        qmfData.brokerBindingOrigin_len = strlen(qmfData.brokerBindingOrigin) + 1;
 
-        strncpy(qmfData.qpid010BindingQueueRef,
+        strncpy(qmfData.brokerBindingQueueRef,
         		qpidGetString(pRow, "queueRef"), 254);
-        qmfData.qpid010BindingQueueRef_len = strlen(qmfData.qpid010BindingQueueRef) + 1;
+        qmfData.brokerBindingQueueRef_len = strlen(qmfData.brokerBindingQueueRef) + 1;
 
         u64Data = qpidGetU64(pRow, "msgTotalEnqueues");
-        qmfData.qpid010BindingMsgMatched.high = HIGHLONG(u64Data);
-        qmfData.qpid010BindingMsgMatched.low = LOWLONG(u64Data);
+        qmfData.brokerBindingMsgMatched.high = HIGHLONG(u64Data);
+        qmfData.brokerBindingMsgMatched.low = LOWLONG(u64Data);
 
-        rowreq_ctx = qpid010BindingTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerBindingTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010BindingTable_indexes_set(rowreq_ctx,
-                                           qpid010BindingInternalIndex)) {
+            brokerBindingTable_indexes_set(rowreq_ctx,
+                                           brokerBindingInternalIndex)) {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010BindingTable data.\n");
-            qpid010BindingTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerBindingTable data.\n");
+            brokerBindingTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        qpid010BindingInternalIndex++;
+        brokerBindingInternalIndex++;
 
         /*
-         * setup/save data for qpid010BindingExchangeRef
-         * qpid010BindingExchangeRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBindingExchangeRef
+         * brokerBindingExchangeRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BindingExchangeRef_len =
-            qmfData.qpid010BindingExchangeRef_len *
-            sizeof(qmfData.qpid010BindingExchangeRef[0]);
-        memcpy(rowreq_ctx->data.qpid010BindingExchangeRef,
-               qmfData.qpid010BindingExchangeRef,
-               qmfData.qpid010BindingExchangeRef_len *
-               sizeof(qmfData.qpid010BindingExchangeRef[0]));
+        rowreq_ctx->data.brokerBindingExchangeRef_len =
+            qmfData.brokerBindingExchangeRef_len *
+            sizeof(qmfData.brokerBindingExchangeRef[0]);
+        memcpy(rowreq_ctx->data.brokerBindingExchangeRef,
+               qmfData.brokerBindingExchangeRef,
+               qmfData.brokerBindingExchangeRef_len *
+               sizeof(qmfData.brokerBindingExchangeRef[0]));
 
         /*
-         * setup/save data for qpid010BindingQueueRef
-         * qpid010BindingQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBindingQueueRef
+         * brokerBindingQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BindingQueueRef_len =
-        		qmfData.qpid010BindingQueueRef_len * sizeof(qmfData.qpid010BindingQueueRef[0]);
-        memcpy(rowreq_ctx->data.qpid010BindingQueueRef,
-        		qmfData.qpid010BindingQueueRef,
-        		qmfData.qpid010BindingQueueRef_len *
-               sizeof(qmfData.qpid010BindingQueueRef[0]));
+        rowreq_ctx->data.brokerBindingQueueRef_len =
+        		qmfData.brokerBindingQueueRef_len * sizeof(qmfData.brokerBindingQueueRef[0]);
+        memcpy(rowreq_ctx->data.brokerBindingQueueRef,
+        		qmfData.brokerBindingQueueRef,
+        		qmfData.brokerBindingQueueRef_len *
+               sizeof(qmfData.brokerBindingQueueRef[0]));
 
         /*
-         * setup/save data for qpid010BindingBindingKey
-         * qpid010BindingBindingKey(3)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBindingBindingKey
+         * brokerBindingBindingKey(3)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BindingBindingKey_len =
-        		qmfData.qpid010BindingBindingKey_len *
-            sizeof(qmfData.qpid010BindingBindingKey[0]);
-        memcpy(rowreq_ctx->data.qpid010BindingBindingKey,
-        		qmfData.qpid010BindingBindingKey,
-        		qmfData.qpid010BindingBindingKey_len *
-               sizeof(qmfData.qpid010BindingBindingKey[0]));
+        rowreq_ctx->data.brokerBindingBindingKey_len =
+        		qmfData.brokerBindingBindingKey_len *
+            sizeof(qmfData.brokerBindingBindingKey[0]);
+        memcpy(rowreq_ctx->data.brokerBindingBindingKey,
+        		qmfData.brokerBindingBindingKey,
+        		qmfData.brokerBindingBindingKey_len *
+               sizeof(qmfData.brokerBindingBindingKey[0]));
 
         /*
-         * setup/save data for qpid010BindingArguments
-         * qpid010BindingArguments(4)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBindingArguments
+         * brokerBindingArguments(4)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BindingArguments_len =
-        		qmfData.qpid010BindingArguments_len * sizeof(qmfData.qpid010BindingArguments[0]);
-        memcpy(rowreq_ctx->data.qpid010BindingArguments,
-        		qmfData.qpid010BindingArguments,
-        		qmfData.qpid010BindingArguments_len *
-               sizeof(qmfData.qpid010BindingArguments[0]));
+        rowreq_ctx->data.brokerBindingArguments_len =
+        		qmfData.brokerBindingArguments_len * sizeof(qmfData.brokerBindingArguments[0]);
+        memcpy(rowreq_ctx->data.brokerBindingArguments,
+        		qmfData.brokerBindingArguments,
+        		qmfData.brokerBindingArguments_len *
+               sizeof(qmfData.brokerBindingArguments[0]));
 
         /*
-         * setup/save data for qpid010BindingOrigin
-         * qpid010BindingOrigin(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerBindingOrigin
+         * brokerBindingOrigin(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BindingOrigin_len =
-        		qmfData.qpid010BindingOrigin_len * sizeof(qmfData.qpid010BindingOrigin[0]);
-        memcpy(rowreq_ctx->data.qpid010BindingOrigin,
-        		qmfData.qpid010BindingOrigin,
-        		qmfData.qpid010BindingOrigin_len *
-        		sizeof(qmfData.qpid010BindingOrigin[0]));
+        rowreq_ctx->data.brokerBindingOrigin_len =
+        		qmfData.brokerBindingOrigin_len * sizeof(qmfData.brokerBindingOrigin[0]);
+        memcpy(rowreq_ctx->data.brokerBindingOrigin,
+        		qmfData.brokerBindingOrigin,
+        		qmfData.brokerBindingOrigin_len *
+        		sizeof(qmfData.brokerBindingOrigin[0]));
 
         /*
-         * setup/save data for qpid010BindingMsgMatched
-         * qpid010BindingMsgMatched(6)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerBindingMsgMatched
+         * brokerBindingMsgMatched(6)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BindingMsgMatched.high =
-        		qmfData.qpid010BindingMsgMatched.high;
-        rowreq_ctx->data.qpid010BindingMsgMatched.low =
-        		qmfData.qpid010BindingMsgMatched.low;
+        rowreq_ctx->data.brokerBindingMsgMatched.high =
+        		qmfData.brokerBindingMsgMatched.high;
+        rowreq_ctx->data.brokerBindingMsgMatched.low =
+        		qmfData.brokerBindingMsgMatched.low;
 
 
         /*
@@ -383,10 +383,10 @@ qpid010BindingTable_container_load(netsnmp_container * container)
     qpidRelease(pEvent);
 
 
-    DEBUGMSGT(("verbose:qpid010BindingTable:qpid010BindingTable_container_load", "inserted %d records\n", count));
+    DEBUGMSGT(("verbose:brokerBindingTable:brokerBindingTable_container_load", "inserted %d records\n", count));
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingTable_container_load */
+}                               /* brokerBindingTable_container_load */
 
 /**
  * container clean up
@@ -402,14 +402,14 @@ qpid010BindingTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010BindingTable_container_free(netsnmp_container * container)
+brokerBindingTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_container_free", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_container_free", "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010BindingTable container data.
+     * TODO:380:M: Free brokerBindingTable container data.
      */
-}                               /* qpid010BindingTable_container_free */
+}                               /* brokerBindingTable_container_free */
 
 /**
  * prepare row for processing.
@@ -425,9 +425,9 @@ qpid010BindingTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010BindingTable_row_prep(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingTable_row_prep(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_row_prep",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_row_prep",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -439,14 +439,14 @@ qpid010BindingTable_row_prep(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingTable_row_prep */
+}                               /* brokerBindingTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010BindingTable index validation.
+ * TODO:420:r: Implement brokerBindingTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingInternalIndex
- * qpid010BindingInternalIndex is subid 7 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingInternalIndex
+ * brokerBindingInternalIndex is subid 7 of brokerBindingEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.7
  * Description:
@@ -463,19 +463,19 @@ Internal index for binding table
  *
  *
  *
- * NOTE: NODE qpid010BindingInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerBindingInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010BindingInternalIndex index portion
+ * check validity of brokerBindingInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010BindingTable_validate_index() function.
+ *       brokerBindingTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -490,21 +490,21 @@ Internal index for binding table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010BindingInternalIndex_check_index(qpid010BindingTable_rowreq_ctx *
+brokerBindingInternalIndex_check_index(brokerBindingTable_rowreq_ctx *
                                        rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010BindingTable index qpid010BindingInternalIndex.
+     * TODO:426:M: |-> Check brokerBindingTable index brokerBindingInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010BindingInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerBindingInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010BindingInternalIndex index ok */
-}                               /* qpid010BindingInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerBindingInternalIndex index ok */
+}                               /* brokerBindingInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -528,33 +528,33 @@ qpid010BindingInternalIndex_check_index(qpid010BindingTable_rowreq_ctx *
  *       available then.
  *
  *
- * @param qpid010BindingTable_reg
+ * @param brokerBindingTable_reg
  *        Pointer to the user registration data
- * @param qpid010BindingTable_rowreq_ctx
+ * @param brokerBindingTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010BindingTable_validate_index(qpid010BindingTable_registration *
-                                  qpid010BindingTable_reg,
-                                  qpid010BindingTable_rowreq_ctx *
+brokerBindingTable_validate_index(brokerBindingTable_registration *
+                                  brokerBindingTable_reg,
+                                  brokerBindingTable_rowreq_ctx *
                                   rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_validate_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_validate_index", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010BindingTable index.
+     * TODO:430:M: |-> Validate potential brokerBindingTable index.
      */
     if (1) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010BindingTable table.\n");
+                 "brokerBindingTable table.\n");
         /*
          * determine failure type.
          *
@@ -571,6 +571,6 @@ qpid010BindingTable_validate_index(qpid010BindingTable_registration *
     }
 
     return rc;
-}                               /* qpid010BindingTable_validate_index */
+}                               /* brokerBindingTable_validate_index */
 
 /** @} */

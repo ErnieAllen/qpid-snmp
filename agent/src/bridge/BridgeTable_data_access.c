@@ -37,37 +37,37 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BridgeTable
+ *** Table brokerBridgeTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
+ * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
  */
 
 /**
- * initialization for qpid010BridgeTable data access
+ * initialization for brokerBridgeTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010BridgeTable_reg
- *        Pointer to qpid010BridgeTable_registration
+ * @param brokerBridgeTable_reg
+ *        Pointer to brokerBridgeTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010BridgeTable_init_data(qpid010BridgeTable_registration *
-                            qpid010BridgeTable_reg)
+brokerBridgeTable_init_data(brokerBridgeTable_registration *
+                            brokerBridgeTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_init_data",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_init_data",
                 "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010BridgeTable data.
+     * TODO:303:o: Initialize brokerBridgeTable data.
      */
     /*
      ***************************************************
@@ -86,7 +86,7 @@ qpid010BridgeTable_init_data(qpid010BridgeTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTable_init_data */
+}                               /* brokerBridgeTable_init_data */
 
 /**
  * container overview
@@ -120,14 +120,14 @@ qpid010BridgeTable_init_data(qpid010BridgeTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010BridgeTable_container_init(netsnmp_container ** container_ptr_ptr,
+brokerBridgeTable_container_init(netsnmp_container ** container_ptr_ptr,
                                  netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_container_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_container_init", "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010BridgeTable_container_init\n");
+                 "bad container param to brokerBridgeTable_container_init\n");
         return;
     }
 
@@ -139,22 +139,22 @@ qpid010BridgeTable_container_init(netsnmp_container ** container_ptr_ptr,
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010BridgeTable_container_init\n");
+                 "bad cache param to brokerBridgeTable_container_init\n");
         return;
     }
 
     /*
-     * TODO:345:A: Set up qpid010BridgeTable cache properties.
+     * TODO:345:A: Set up brokerBridgeTable cache properties.
      *
      * Also for advanced users, you can set parameters for the
      * cache. Do not change the magic pointer, as it is used
      * by the MFD helper. To completely disable caching, set
      * cache->enabled to 0.
      */
-    cache->timeout = qpid010BRIDGETABLE_CACHE_TIMEOUT;   /* seconds */
+    cache->timeout = brokerBRIDGETABLE_CACHE_TIMEOUT;   /* seconds */
     //cache->flags |= NETSNMP_CACHE_PRELOAD;
 
-}                               /* qpid010BridgeTable_container_init */
+}                               /* brokerBridgeTable_container_init */
 
 /**
  * container shutdown
@@ -165,7 +165,7 @@ qpid010BridgeTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010BridgeTable_container_free().
+ *  This function is called before brokerBridgeTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -173,22 +173,22 @@ qpid010BridgeTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010BridgeTable_container_shutdown(netsnmp_container * container_ptr)
+brokerBridgeTable_container_shutdown(netsnmp_container * container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010BridgeTable_container_shutdown\n");
+                 "bad params to brokerBridgeTable_container_shutdown\n");
         return;
     }
 
-}                               /* qpid010BridgeTable_container_shutdown */
+}                               /* brokerBridgeTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010BridgeTable data load
+ * TODO:350:M: Implement brokerBridgeTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -210,7 +210,7 @@ qpid010BridgeTable_container_shutdown(netsnmp_container * container_ptr)
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010BridgeTable_row_prep() for populating data.
+ *  brokerBridgeTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -219,19 +219,19 @@ qpid010BridgeTable_container_shutdown(netsnmp_container * container_ptr)
  *
  */
 int
-qpid010BridgeTable_container_load(netsnmp_container * container)
+brokerBridgeTable_container_load(netsnmp_container * container)
 {
-    qpid010BridgeTable_rowreq_ctx *rowreq_ctx;
+    brokerBridgeTable_rowreq_ctx *rowreq_ctx;
     size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010BridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010BridgeInternalIndex;
-    qpid010BridgeTable_data qmfData;
+    u_long          brokerBridgeInternalIndex;
+    brokerBridgeTable_data qmfData;
 
     void *pEvent = qpidGet("session");
 
@@ -239,229 +239,229 @@ qpid010BridgeTable_container_load(netsnmp_container * container)
     uint objects;
     objects = qpidGetCount(pEvent);
 
-    qpid010BridgeInternalIndex = 0;
+    brokerBridgeInternalIndex = 0;
     for (index = 0; index < objects; ++index) {
 
     	void * pRow = qpidGetDataRow(pEvent, index);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010BridgeLinkRef,
+        strncpy(qmfData.brokerBridgeLinkRef,
         		qpidGetString(pRow, "linkRef"), 254);
-        qmfData.qpid010BridgeLinkRef_len = strlen(qmfData.qpid010BridgeLinkRef) + 1;
+        qmfData.brokerBridgeLinkRef_len = strlen(qmfData.brokerBridgeLinkRef) + 1;
 
-        qmfData.qpid010BridgeChannelId = qpidGetU16(pRow, "channelId");
-        qmfData.qpid010BridgeDurable = qpidGetBool(pRow, "durable");
+        qmfData.brokerBridgeChannelId = qpidGetU16(pRow, "channelId");
+        qmfData.brokerBridgeDurable = qpidGetBool(pRow, "durable");
 
-        strncpy(qmfData.qpid010BridgeSrc,
+        strncpy(qmfData.brokerBridgeSrc,
         		qpidGetString(pRow, "src"), 254);
-        qmfData.qpid010BridgeSrc_len = strlen(qmfData.qpid010BridgeSrc) + 1;
+        qmfData.brokerBridgeSrc_len = strlen(qmfData.brokerBridgeSrc) + 1;
 
-        strncpy(qmfData.qpid010BridgeDest,
+        strncpy(qmfData.brokerBridgeDest,
         		qpidGetString(pRow, "dest"), 254);
-        qmfData.qpid010BridgeDest_len = strlen(qmfData.qpid010BridgeDest) + 1;
+        qmfData.brokerBridgeDest_len = strlen(qmfData.brokerBridgeDest) + 1;
 
-        strncpy(qmfData.qpid010BridgeKey,
+        strncpy(qmfData.brokerBridgeKey,
         		qpidGetString(pRow, "key"), 65534);
-        qmfData.qpid010BridgeKey_len = strlen(qmfData.qpid010BridgeKey) + 1;
+        qmfData.brokerBridgeKey_len = strlen(qmfData.brokerBridgeKey) + 1;
 
-        qmfData.qpid010BridgeSrcIsQueue = qpidGetBool(pRow, "srcIsQueue");
-        qmfData.qpid010BridgeSrcIsLocal = qpidGetBool(pRow, "srcIsLocal");
+        qmfData.brokerBridgeSrcIsQueue = qpidGetBool(pRow, "srcIsQueue");
+        qmfData.brokerBridgeSrcIsLocal = qpidGetBool(pRow, "srcIsLocal");
 
-        strncpy(qmfData.qpid010BridgeTag,
+        strncpy(qmfData.brokerBridgeTag,
         		qpidGetString(pRow, "tag"), 254);
-        qmfData.qpid010BridgeTag_len = strlen(qmfData.qpid010BridgeTag) + 1;
+        qmfData.brokerBridgeTag_len = strlen(qmfData.brokerBridgeTag) + 1;
 
-        strncpy(qmfData.qpid010BridgeExcludes,
+        strncpy(qmfData.brokerBridgeExcludes,
         		qpidGetString(pRow, "excludes"), 254);
-        qmfData.qpid010BridgeExcludes_len = strlen(qmfData.qpid010BridgeExcludes) + 1;
+        qmfData.brokerBridgeExcludes_len = strlen(qmfData.brokerBridgeExcludes) + 1;
 
-        qmfData.qpid010BridgeDynamic = qpidGetBool(pRow, "dynamic");
-        qmfData.qpid010BridgeSync = qpidGetU16(pRow, "sync");
+        qmfData.brokerBridgeDynamic = qpidGetBool(pRow, "dynamic");
+        qmfData.brokerBridgeSync = qpidGetU16(pRow, "sync");
 
         /*
-         * TODO:352:M: |   |-> set indexes in new qpid010BridgeTable rowreq context.
+         * TODO:352:M: |   |-> set indexes in new brokerBridgeTable rowreq context.
          * data context will be set from the param (unless NULL,
          *      in which case a new data context will be allocated)
          */
-        rowreq_ctx = qpid010BridgeTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerBridgeTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010BridgeTable_indexes_set(rowreq_ctx,
-                                          qpid010BridgeInternalIndex)) {
+            brokerBridgeTable_indexes_set(rowreq_ctx,
+                                          brokerBridgeInternalIndex)) {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010BridgeTable data.\n");
-            qpid010BridgeTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerBridgeTable data.\n");
+            brokerBridgeTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        qpid010BridgeInternalIndex++;
+        brokerBridgeInternalIndex++;
 
         /*
-         * setup/save data for qpid010BridgeLinkRef
-         * qpid010BridgeLinkRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBridgeLinkRef
+         * brokerBridgeLinkRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010BridgeLinkRef data
+         * make sure there is enough space for brokerBridgeLinkRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010BridgeLinkRef) ||
-            (rowreq_ctx->data.qpid010BridgeLinkRef_len <
-             (qmfData.qpid010BridgeLinkRef_len * sizeof(qmfData.qpid010BridgeLinkRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerBridgeLinkRef) ||
+            (rowreq_ctx->data.brokerBridgeLinkRef_len <
+             (qmfData.brokerBridgeLinkRef_len * sizeof(qmfData.brokerBridgeLinkRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010BridgeLinkRef)\n");
+                     "not enough space for value (brokerBridgeLinkRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010BridgeLinkRef_len =
-        		qmfData.qpid010BridgeLinkRef_len * sizeof(qmfData.qpid010BridgeLinkRef[0]);
-        memcpy(rowreq_ctx->data.qpid010BridgeLinkRef, qmfData.qpid010BridgeLinkRef,
-        		qmfData.qpid010BridgeLinkRef_len * sizeof(qmfData.qpid010BridgeLinkRef[0]));
+        rowreq_ctx->data.brokerBridgeLinkRef_len =
+        		qmfData.brokerBridgeLinkRef_len * sizeof(qmfData.brokerBridgeLinkRef[0]);
+        memcpy(rowreq_ctx->data.brokerBridgeLinkRef, qmfData.brokerBridgeLinkRef,
+        		qmfData.brokerBridgeLinkRef_len * sizeof(qmfData.brokerBridgeLinkRef[0]));
 
         /*
-         * setup/save data for qpid010BridgeChannelId
-         * qpid010BridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * setup/save data for brokerBridgeChannelId
+         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BridgeChannelId = qmfData.qpid010BridgeChannelId;
+        rowreq_ctx->data.brokerBridgeChannelId = qmfData.brokerBridgeChannelId;
 
         /*
-         * setup/save data for qpid010BridgeDurable
-         * qpid010BridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerBridgeDurable
+         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BridgeDurable = qmfData.qpid010BridgeDurable;
+        rowreq_ctx->data.brokerBridgeDurable = qmfData.brokerBridgeDurable;
 
         /*
-         * setup/save data for qpid010BridgeSrc
-         * qpid010BridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBridgeSrc
+         * brokerBridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010BridgeSrc data
+         * make sure there is enough space for brokerBridgeSrc data
          */
-        if ((NULL == rowreq_ctx->data.qpid010BridgeSrc) ||
-            (rowreq_ctx->data.qpid010BridgeSrc_len <
-             (qmfData.qpid010BridgeSrc_len * sizeof(qmfData.qpid010BridgeSrc[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerBridgeSrc) ||
+            (rowreq_ctx->data.brokerBridgeSrc_len <
+             (qmfData.brokerBridgeSrc_len * sizeof(qmfData.brokerBridgeSrc[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010BridgeSrc)\n");
+                     "not enough space for value (brokerBridgeSrc)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010BridgeSrc_len =
-        		qmfData.qpid010BridgeSrc_len * sizeof(qmfData.qpid010BridgeSrc[0]);
-        memcpy(rowreq_ctx->data.qpid010BridgeSrc, qmfData.qpid010BridgeSrc,
-        		qmfData.qpid010BridgeSrc_len * sizeof(qmfData.qpid010BridgeSrc[0]));
+        rowreq_ctx->data.brokerBridgeSrc_len =
+        		qmfData.brokerBridgeSrc_len * sizeof(qmfData.brokerBridgeSrc[0]);
+        memcpy(rowreq_ctx->data.brokerBridgeSrc, qmfData.brokerBridgeSrc,
+        		qmfData.brokerBridgeSrc_len * sizeof(qmfData.brokerBridgeSrc[0]));
 
         /*
-         * setup/save data for qpid010BridgeDest
-         * qpid010BridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBridgeDest
+         * brokerBridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010BridgeDest data
+         * make sure there is enough space for brokerBridgeDest data
          */
-        if ((NULL == rowreq_ctx->data.qpid010BridgeDest) ||
-            (rowreq_ctx->data.qpid010BridgeDest_len <
-             (qmfData.qpid010BridgeDest_len * sizeof(qmfData.qpid010BridgeDest[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerBridgeDest) ||
+            (rowreq_ctx->data.brokerBridgeDest_len <
+             (qmfData.brokerBridgeDest_len * sizeof(qmfData.brokerBridgeDest[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010BridgeDest)\n");
+                     "not enough space for value (brokerBridgeDest)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010BridgeDest_len =
-        		qmfData.qpid010BridgeDest_len * sizeof(qmfData.qpid010BridgeDest[0]);
-        memcpy(rowreq_ctx->data.qpid010BridgeDest, qmfData.qpid010BridgeDest,
-        		qmfData.qpid010BridgeDest_len * sizeof(qmfData.qpid010BridgeDest[0]));
+        rowreq_ctx->data.brokerBridgeDest_len =
+        		qmfData.brokerBridgeDest_len * sizeof(qmfData.brokerBridgeDest[0]);
+        memcpy(rowreq_ctx->data.brokerBridgeDest, qmfData.brokerBridgeDest,
+        		qmfData.brokerBridgeDest_len * sizeof(qmfData.brokerBridgeDest[0]));
 
         /*
-         * setup/save data for qpid010BridgeKey
-         * qpid010BridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBridgeKey
+         * brokerBridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010BridgeKey data
+         * make sure there is enough space for brokerBridgeKey data
          */
-        if ((NULL == rowreq_ctx->data.qpid010BridgeKey) ||
-            (rowreq_ctx->data.qpid010BridgeKey_len <
-             (qmfData.qpid010BridgeKey_len * sizeof(qmfData.qpid010BridgeKey[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerBridgeKey) ||
+            (rowreq_ctx->data.brokerBridgeKey_len <
+             (qmfData.brokerBridgeKey_len * sizeof(qmfData.brokerBridgeKey[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010BridgeKey)\n");
+                     "not enough space for value (brokerBridgeKey)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010BridgeKey_len =
-        		qmfData.qpid010BridgeKey_len * sizeof(qmfData.qpid010BridgeKey[0]);
-        memcpy(rowreq_ctx->data.qpid010BridgeKey, qmfData.qpid010BridgeKey,
-        		qmfData.qpid010BridgeKey_len * sizeof(qmfData.qpid010BridgeKey[0]));
+        rowreq_ctx->data.brokerBridgeKey_len =
+        		qmfData.brokerBridgeKey_len * sizeof(qmfData.brokerBridgeKey[0]);
+        memcpy(rowreq_ctx->data.brokerBridgeKey, qmfData.brokerBridgeKey,
+        		qmfData.brokerBridgeKey_len * sizeof(qmfData.brokerBridgeKey[0]));
 
         /*
-         * setup/save data for qpid010BridgeSrcIsQueue
-         * qpid010BridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerBridgeSrcIsQueue
+         * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BridgeSrcIsQueue = qmfData.qpid010BridgeSrcIsQueue;
+        rowreq_ctx->data.brokerBridgeSrcIsQueue = qmfData.brokerBridgeSrcIsQueue;
 
         /*
-         * setup/save data for qpid010BridgeSrcIsLocal
-         * qpid010BridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerBridgeSrcIsLocal
+         * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BridgeSrcIsLocal = qmfData.qpid010BridgeSrcIsLocal;
+        rowreq_ctx->data.brokerBridgeSrcIsLocal = qmfData.brokerBridgeSrcIsLocal;
 
         /*
-         * setup/save data for qpid010BridgeTag
-         * qpid010BridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBridgeTag
+         * brokerBridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010BridgeTag data
+         * make sure there is enough space for brokerBridgeTag data
          */
-        if ((NULL == rowreq_ctx->data.qpid010BridgeTag) ||
-            (rowreq_ctx->data.qpid010BridgeTag_len <
-             (qmfData.qpid010BridgeTag_len * sizeof(qmfData.qpid010BridgeTag[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerBridgeTag) ||
+            (rowreq_ctx->data.brokerBridgeTag_len <
+             (qmfData.brokerBridgeTag_len * sizeof(qmfData.brokerBridgeTag[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010BridgeTag)\n");
+                     "not enough space for value (brokerBridgeTag)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010BridgeTag_len =
-        		qmfData.qpid010BridgeTag_len * sizeof(qmfData.qpid010BridgeTag[0]);
-        memcpy(rowreq_ctx->data.qpid010BridgeTag, qmfData.qpid010BridgeTag,
-        		qmfData.qpid010BridgeTag_len * sizeof(qmfData.qpid010BridgeTag[0]));
+        rowreq_ctx->data.brokerBridgeTag_len =
+        		qmfData.brokerBridgeTag_len * sizeof(qmfData.brokerBridgeTag[0]);
+        memcpy(rowreq_ctx->data.brokerBridgeTag, qmfData.brokerBridgeTag,
+        		qmfData.brokerBridgeTag_len * sizeof(qmfData.brokerBridgeTag[0]));
 
         /*
-         * setup/save data for qpid010BridgeExcludes
-         * qpid010BridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerBridgeExcludes
+         * brokerBridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010BridgeExcludes data
+         * make sure there is enough space for brokerBridgeExcludes data
          */
-        if ((NULL == rowreq_ctx->data.qpid010BridgeExcludes) ||
-            (rowreq_ctx->data.qpid010BridgeExcludes_len <
-             (qmfData.qpid010BridgeExcludes_len *
-              sizeof(qmfData.qpid010BridgeExcludes[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerBridgeExcludes) ||
+            (rowreq_ctx->data.brokerBridgeExcludes_len <
+             (qmfData.brokerBridgeExcludes_len *
+              sizeof(qmfData.brokerBridgeExcludes[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010BridgeExcludes)\n");
+                     "not enough space for value (brokerBridgeExcludes)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010BridgeExcludes_len =
-        		qmfData.qpid010BridgeExcludes_len * sizeof(qmfData.qpid010BridgeExcludes[0]);
-        memcpy(rowreq_ctx->data.qpid010BridgeExcludes, qmfData.qpid010BridgeExcludes,
-        		qmfData.qpid010BridgeExcludes_len * sizeof(qmfData.qpid010BridgeExcludes[0]));
+        rowreq_ctx->data.brokerBridgeExcludes_len =
+        		qmfData.brokerBridgeExcludes_len * sizeof(qmfData.brokerBridgeExcludes[0]);
+        memcpy(rowreq_ctx->data.brokerBridgeExcludes, qmfData.brokerBridgeExcludes,
+        		qmfData.brokerBridgeExcludes_len * sizeof(qmfData.brokerBridgeExcludes[0]));
 
         /*
-         * setup/save data for qpid010BridgeDynamic
-         * qpid010BridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerBridgeDynamic
+         * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BridgeDynamic = qmfData.qpid010BridgeDynamic;
+        rowreq_ctx->data.brokerBridgeDynamic = qmfData.brokerBridgeDynamic;
 
         /*
-         * setup/save data for qpid010BridgeSync
-         * qpid010BridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * setup/save data for brokerBridgeSync
+         * brokerBridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010BridgeSync = qmfData.qpid010BridgeSync;
+        rowreq_ctx->data.brokerBridgeSync = qmfData.brokerBridgeSync;
 
 
         /*
@@ -473,10 +473,10 @@ qpid010BridgeTable_container_load(netsnmp_container * container)
     }
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:qpid010BridgeTable:qpid010BridgeTable_container_load", "inserted %d records\n", count));
+    DEBUGMSGT(("verbose:brokerBridgeTable:brokerBridgeTable_container_load", "inserted %d records\n", count));
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTable_container_load */
+}                               /* brokerBridgeTable_container_load */
 
 /**
  * container clean up
@@ -492,14 +492,14 @@ qpid010BridgeTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010BridgeTable_container_free(netsnmp_container * container)
+brokerBridgeTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_container_free", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_container_free", "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010BridgeTable container data.
+     * TODO:380:M: Free brokerBridgeTable container data.
      */
-}                               /* qpid010BridgeTable_container_free */
+}                               /* brokerBridgeTable_container_free */
 
 /**
  * prepare row for processing.
@@ -515,9 +515,9 @@ qpid010BridgeTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010BridgeTable_row_prep(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTable_row_prep(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_row_prep",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_row_prep",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -529,14 +529,14 @@ qpid010BridgeTable_row_prep(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTable_row_prep */
+}                               /* brokerBridgeTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010BridgeTable index validation.
+ * TODO:420:r: Implement brokerBridgeTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeInternalIndex
- * qpid010BridgeInternalIndex is subid 13 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeInternalIndex
+ * brokerBridgeInternalIndex is subid 13 of brokerBridgeEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.13
  * Description:
@@ -553,19 +553,19 @@ Internal index for bridge table
  *
  *
  *
- * NOTE: NODE qpid010BridgeInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerBridgeInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010BridgeInternalIndex index portion
+ * check validity of brokerBridgeInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010BridgeTable_validate_index() function.
+ *       brokerBridgeTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -580,21 +580,21 @@ Internal index for bridge table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010BridgeInternalIndex_check_index(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeInternalIndex_check_index(brokerBridgeTable_rowreq_ctx *
                                       rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010BridgeTable index qpid010BridgeInternalIndex.
+     * TODO:426:M: |-> Check brokerBridgeTable index brokerBridgeInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010BridgeInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerBridgeInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeInternalIndex index ok */
-}                               /* qpid010BridgeInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerBridgeInternalIndex index ok */
+}                               /* brokerBridgeInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -618,32 +618,32 @@ qpid010BridgeInternalIndex_check_index(qpid010BridgeTable_rowreq_ctx *
  *       available then.
  *
  *
- * @param qpid010BridgeTable_reg
+ * @param brokerBridgeTable_reg
  *        Pointer to the user registration data
- * @param qpid010BridgeTable_rowreq_ctx
+ * @param brokerBridgeTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010BridgeTable_validate_index(qpid010BridgeTable_registration *
-                                 qpid010BridgeTable_reg,
-                                 qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTable_validate_index(brokerBridgeTable_registration *
+                                 brokerBridgeTable_reg,
+                                 brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_validate_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_validate_index", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010BridgeTable index.
+     * TODO:430:M: |-> Validate potential brokerBridgeTable index.
      */
     if (1) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010BridgeTable table.\n");
+                 "brokerBridgeTable table.\n");
         /*
          * determine failure type.
          *
@@ -660,6 +660,6 @@ qpid010BridgeTable_validate_index(qpid010BridgeTable_registration *
     }
 
     return rc;
-}                               /* qpid010BridgeTable_validate_index */
+}                               /* brokerBridgeTable_validate_index */
 
 /** @} */

@@ -31,37 +31,37 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010LinkTable
+ *** Table brokerLinkTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
+ * QPID-MESSAGING-MIB::brokerLinkTable is subid 1 of brokerLinks.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
  */
 
 /**
- * initialization for qpid010LinkTable data access
+ * initialization for brokerLinkTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010LinkTable_reg
- *        Pointer to qpid010LinkTable_registration
+ * @param brokerLinkTable_reg
+ *        Pointer to brokerLinkTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010LinkTable_init_data(qpid010LinkTable_registration *
-                           qpid010LinkTable_reg)
+brokerLinkTable_init_data(brokerLinkTable_registration *
+                           brokerLinkTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_init_data",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_init_data",
                 "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010LinkTable data.
+     * TODO:303:o: Initialize brokerLinkTable data.
      */
     /*
      ***************************************************
@@ -80,7 +80,7 @@ qpid010LinkTable_init_data(qpid010LinkTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTable_init_data */
+}                               /* brokerLinkTable_init_data */
 
 /**
  * container overview
@@ -114,15 +114,15 @@ qpid010LinkTable_init_data(qpid010LinkTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010LinkTable_container_init(netsnmp_container ** container_ptr_ptr,
+brokerLinkTable_container_init(netsnmp_container ** container_ptr_ptr,
                                 netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_container_init",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_container_init",
                 "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010LinkTable_container_init\n");
+                 "bad container param to brokerLinkTable_container_init\n");
         return;
     }
 
@@ -134,20 +134,20 @@ qpid010LinkTable_container_init(netsnmp_container ** container_ptr_ptr,
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010LinkTable_container_init\n");
+                 "bad cache param to brokerLinkTable_container_init\n");
         return;
     }
 
     /*
-     * TODO:345:A: Set up qpid010LinkTable cache properties.
+     * TODO:345:A: Set up brokerLinkTable cache properties.
      *
      * Also for advanced users, you can set parameters for the
      * cache. Do not change the magic pointer, as it is used
      * by the MFD helper. To completely disable caching, set
      * cache->enabled to 0.
      */
-    cache->timeout = QPID010LINKTABLE_CACHE_TIMEOUT;    /* seconds */
-}                               /* qpid010LinkTable_container_init */
+    cache->timeout = brokerLINKTABLE_CACHE_TIMEOUT;    /* seconds */
+}                               /* brokerLinkTable_container_init */
 
 /**
  * container shutdown
@@ -158,7 +158,7 @@ qpid010LinkTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010LinkTable_container_free().
+ *  This function is called before brokerLinkTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -166,22 +166,22 @@ qpid010LinkTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010LinkTable_container_shutdown(netsnmp_container * container_ptr)
+brokerLinkTable_container_shutdown(netsnmp_container * container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010LinkTable_container_shutdown\n");
+                 "bad params to brokerLinkTable_container_shutdown\n");
         return;
     }
 
-}                               /* qpid010LinkTable_container_shutdown */
+}                               /* brokerLinkTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010LinkTable data load
+ * TODO:350:M: Implement brokerLinkTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -203,7 +203,7 @@ qpid010LinkTable_container_shutdown(netsnmp_container * container_ptr)
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010LinkTable_row_prep() for populating data.
+ *  brokerLinkTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -212,27 +212,27 @@ qpid010LinkTable_container_shutdown(netsnmp_container * container_ptr)
  *
  */
 int
-qpid010LinkTable_container_load(netsnmp_container * container)
+brokerLinkTable_container_load(netsnmp_container * container)
 {
-    qpid010LinkTable_rowreq_ctx *rowreq_ctx;
+    brokerLinkTable_rowreq_ctx *rowreq_ctx;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerLinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010LinkInternalIndex;
-    qpid010LinkTable_data qmfData;
+    u_long          brokerLinkInternalIndex;
+    brokerLinkTable_data qmfData;
 
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_container_load",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_container_load",
                 "called\n"));
 
     /*
-     * Load/update data in the qpid010LinkTable container.
-     * loop over your qpid010LinkTable data, allocate a rowreq context,
+     * Load/update data in the brokerLinkTable container.
+     * loop over your brokerLinkTable data, allocate a rowreq context,
      * set the index(es) [and data, optionally] and insert into
      * the container.
      */
@@ -244,226 +244,226 @@ qpid010LinkTable_container_load(netsnmp_container * container)
     uint objects;
     objects = qpidGetCount(pEvent);
 
-    qpid010LinkInternalIndex = 0;
+    brokerLinkInternalIndex = 0;
     for (index = 0; index < objects; ++index) {
 
     	void * pRow = qpidGetDataRow(pEvent, index);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010LinkVhostRef,
+        strncpy(qmfData.brokerLinkVhostRef,
         		qpidGetString(pRow, "vhostRef"), 254);
-        qmfData.qpid010LinkVhostRef_len = strlen(qmfData.qpid010LinkVhostRef) + 1;
+        qmfData.brokerLinkVhostRef_len = strlen(qmfData.brokerLinkVhostRef) + 1;
 
-        strncpy(qmfData.qpid010LinkName,
+        strncpy(qmfData.brokerLinkName,
         		qpidGetString(pRow, "name"), 254);
-        qmfData.qpid010LinkName_len = strlen(qmfData.qpid010LinkName) + 1;
+        qmfData.brokerLinkName_len = strlen(qmfData.brokerLinkName) + 1;
 
-        strncpy(qmfData.qpid010LinkHost,
+        strncpy(qmfData.brokerLinkHost,
         		qpidGetString(pRow, "host"), 254);
-        qmfData.qpid010LinkHost_len = strlen(qmfData.qpid010LinkHost) + 1;
+        qmfData.brokerLinkHost_len = strlen(qmfData.brokerLinkHost) + 1;
 
-        strncpy(qmfData.qpid010LinkTransport,
+        strncpy(qmfData.brokerLinkTransport,
         		qpidGetString(pRow, "transport"), 254);
-        qmfData.qpid010LinkTransport_len = strlen(qmfData.qpid010LinkTransport) + 1;
+        qmfData.brokerLinkTransport_len = strlen(qmfData.brokerLinkTransport) + 1;
 
-        strncpy(qmfData.qpid010LinkConnectionRef,
+        strncpy(qmfData.brokerLinkConnectionRef,
         		qpidGetString(pRow, "connectionRef"), 254);
-        qmfData.qpid010LinkConnectionRef_len = strlen(qmfData.qpid010LinkConnectionRef) + 1;
+        qmfData.brokerLinkConnectionRef_len = strlen(qmfData.brokerLinkConnectionRef) + 1;
 
-        strncpy(qmfData.qpid010LinkState,
+        strncpy(qmfData.brokerLinkState,
         		qpidGetString(pRow, "linkState"), 254);
-        qmfData.qpid010LinkState_len = strlen(qmfData.qpid010LinkState) + 1;
+        qmfData.brokerLinkState_len = strlen(qmfData.brokerLinkState) + 1;
 
-        strncpy(qmfData.qpid010LinkLastError,
+        strncpy(qmfData.brokerLinkLastError,
         		qpidGetString(pRow, "lastError"), 65534);
-        qmfData.qpid010LinkLastError_len = strlen(qmfData.qpid010LinkLastError) + 1;
+        qmfData.brokerLinkLastError_len = strlen(qmfData.brokerLinkLastError) + 1;
 
-        qmfData.qpid010LinkDurable = qpidGetBool(pRow, "durable");
-        qmfData.qpid010LinkPort = qpidGetU32(pRow, "linkPort");
+        qmfData.brokerLinkDurable = qpidGetBool(pRow, "durable");
+        qmfData.brokerLinkPort = qpidGetU32(pRow, "linkPort");
 
         /*
-         * set indexes in new qpid010LinkTable rowreq context.
+         * set indexes in new brokerLinkTable rowreq context.
          * data context will be set from the param (unless NULL,
          *      in which case a new data context will be allocated)
          */
-        rowreq_ctx = qpid010LinkTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerLinkTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010LinkTable_indexes_set(rowreq_ctx,
-                                         qpid010LinkInternalIndex)) {
+            brokerLinkTable_indexes_set(rowreq_ctx,
+                                         brokerLinkInternalIndex)) {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010LinkTable data.\n");
-            qpid010LinkTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerLinkTable data.\n");
+            brokerLinkTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        ++qpid010LinkInternalIndex;
+        ++brokerLinkInternalIndex;
 
         /*
-         * setup/save data for qpid010LinkVhostRef
-         * qpid010LinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerLinkVhostRef
+         * brokerLinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010LinkVhostRef data
+         * make sure there is enough space for brokerLinkVhostRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010LinkVhostRef) ||
-            (rowreq_ctx->data.qpid010LinkVhostRef_len <
-             (qmfData.qpid010LinkVhostRef_len * sizeof(qmfData.qpid010LinkVhostRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerLinkVhostRef) ||
+            (rowreq_ctx->data.brokerLinkVhostRef_len <
+             (qmfData.brokerLinkVhostRef_len * sizeof(qmfData.brokerLinkVhostRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010LinkVhostRef)\n");
+                     "not enough space for value (brokerLinkVhostRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010LinkVhostRef_len =
-            qmfData.qpid010LinkVhostRef_len * sizeof(qmfData.qpid010LinkVhostRef[0]);
-        memcpy(rowreq_ctx->data.qpid010LinkVhostRef, qmfData.qpid010LinkVhostRef,
-        		qmfData.qpid010LinkVhostRef_len * sizeof(qmfData.qpid010LinkVhostRef[0]));
+        rowreq_ctx->data.brokerLinkVhostRef_len =
+            qmfData.brokerLinkVhostRef_len * sizeof(qmfData.brokerLinkVhostRef[0]);
+        memcpy(rowreq_ctx->data.brokerLinkVhostRef, qmfData.brokerLinkVhostRef,
+        		qmfData.brokerLinkVhostRef_len * sizeof(qmfData.brokerLinkVhostRef[0]));
 
         /*
-         * setup/save data for qpid010LinkName
-         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerLinkName
+         * brokerLinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010LinkName data
+         * make sure there is enough space for brokerLinkName data
          */
-        if ((NULL == rowreq_ctx->data.qpid010LinkName) ||
-            (rowreq_ctx->data.qpid010LinkName_len <
-             (qmfData.qpid010LinkName_len * sizeof(qmfData.qpid010LinkName[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerLinkName) ||
+            (rowreq_ctx->data.brokerLinkName_len <
+             (qmfData.brokerLinkName_len * sizeof(qmfData.brokerLinkName[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010LinkName)\n");
+                     "not enough space for value (brokerLinkName)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010LinkName_len =
-        		qmfData.qpid010LinkName_len * sizeof(qmfData.qpid010LinkName[0]);
-        memcpy(rowreq_ctx->data.qpid010LinkName, qmfData.qpid010LinkName,
-        		qmfData.qpid010LinkName_len * sizeof(qmfData.qpid010LinkName[0]));
+        rowreq_ctx->data.brokerLinkName_len =
+        		qmfData.brokerLinkName_len * sizeof(qmfData.brokerLinkName[0]);
+        memcpy(rowreq_ctx->data.brokerLinkName, qmfData.brokerLinkName,
+        		qmfData.brokerLinkName_len * sizeof(qmfData.brokerLinkName[0]));
 
         /*
-         * setup/save data for qpid010LinkHost
-         * qpid010LinkHost(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerLinkHost
+         * brokerLinkHost(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010LinkHost data
+         * make sure there is enough space for brokerLinkHost data
          */
-        if ((NULL == rowreq_ctx->data.qpid010LinkHost) ||
-            (rowreq_ctx->data.qpid010LinkHost_len <
-             (qmfData.qpid010LinkHost_len * sizeof(qmfData.qpid010LinkHost[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerLinkHost) ||
+            (rowreq_ctx->data.brokerLinkHost_len <
+             (qmfData.brokerLinkHost_len * sizeof(qmfData.brokerLinkHost[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010LinkHost)\n");
+                     "not enough space for value (brokerLinkHost)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010LinkHost_len =
-        		qmfData.qpid010LinkHost_len * sizeof(qmfData.qpid010LinkHost[0]);
-        memcpy(rowreq_ctx->data.qpid010LinkHost, qmfData.qpid010LinkHost,
-        		qmfData.qpid010LinkHost_len * sizeof(qmfData.qpid010LinkHost[0]));
+        rowreq_ctx->data.brokerLinkHost_len =
+        		qmfData.brokerLinkHost_len * sizeof(qmfData.brokerLinkHost[0]);
+        memcpy(rowreq_ctx->data.brokerLinkHost, qmfData.brokerLinkHost,
+        		qmfData.brokerLinkHost_len * sizeof(qmfData.brokerLinkHost[0]));
 
         /*
-         * setup/save data for qpid010LinkPort
-         * qpid010LinkPort(4)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerLinkPort
+         * brokerLinkPort(4)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010LinkPort = qmfData.qpid010LinkPort;
+        rowreq_ctx->data.brokerLinkPort = qmfData.brokerLinkPort;
 
         /*
-         * setup/save data for qpid010LinkTransport
-         * qpid010LinkTransport(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerLinkTransport
+         * brokerLinkTransport(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010LinkTransport data
+         * make sure there is enough space for brokerLinkTransport data
          */
-        if ((NULL == rowreq_ctx->data.qpid010LinkTransport) ||
-            (rowreq_ctx->data.qpid010LinkTransport_len <
-             (qmfData.qpid010LinkTransport_len *
-              sizeof(qmfData.qpid010LinkTransport[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerLinkTransport) ||
+            (rowreq_ctx->data.brokerLinkTransport_len <
+             (qmfData.brokerLinkTransport_len *
+              sizeof(qmfData.brokerLinkTransport[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010LinkTransport)\n");
+                     "not enough space for value (brokerLinkTransport)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010LinkTransport_len =
-        		qmfData.qpid010LinkTransport_len * sizeof(qmfData.qpid010LinkTransport[0]);
-        memcpy(rowreq_ctx->data.qpid010LinkTransport, qmfData.qpid010LinkTransport,
-        		qmfData.qpid010LinkTransport_len * sizeof(qmfData.qpid010LinkTransport[0]));
+        rowreq_ctx->data.brokerLinkTransport_len =
+        		qmfData.brokerLinkTransport_len * sizeof(qmfData.brokerLinkTransport[0]);
+        memcpy(rowreq_ctx->data.brokerLinkTransport, qmfData.brokerLinkTransport,
+        		qmfData.brokerLinkTransport_len * sizeof(qmfData.brokerLinkTransport[0]));
 
         /*
-         * setup/save data for qpid010LinkDurable
-         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerLinkDurable
+         * brokerLinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
 
-        if (qmfData.qpid010LinkDurable == 0)
-        	qmfData.qpid010LinkDurable = TRUTHVALUE_FALSE;
-        rowreq_ctx->data.qpid010LinkDurable = qmfData.qpid010LinkDurable;
+        if (qmfData.brokerLinkDurable == 0)
+        	qmfData.brokerLinkDurable = TRUTHVALUE_FALSE;
+        rowreq_ctx->data.brokerLinkDurable = qmfData.brokerLinkDurable;
 
         /*
-         * setup/save data for qpid010LinkConnectionRef
-         * qpid010LinkConnectionRef(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerLinkConnectionRef
+         * brokerLinkConnectionRef(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010LinkConnectionRef data
+         * make sure there is enough space for brokerLinkConnectionRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010LinkConnectionRef) ||
-            (rowreq_ctx->data.qpid010LinkConnectionRef_len <
-             (qmfData.qpid010LinkConnectionRef_len *
-              sizeof(qmfData.qpid010LinkConnectionRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerLinkConnectionRef) ||
+            (rowreq_ctx->data.brokerLinkConnectionRef_len <
+             (qmfData.brokerLinkConnectionRef_len *
+              sizeof(qmfData.brokerLinkConnectionRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010LinkConnectionRef)\n");
+                     "not enough space for value (brokerLinkConnectionRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010LinkConnectionRef_len =
-        		qmfData.qpid010LinkConnectionRef_len *
-            sizeof(qmfData.qpid010LinkConnectionRef[0]);
-        memcpy(rowreq_ctx->data.qpid010LinkConnectionRef,
-        		qmfData.qpid010LinkConnectionRef,
-        		qmfData.qpid010LinkConnectionRef_len *
-               sizeof(qmfData.qpid010LinkConnectionRef[0]));
+        rowreq_ctx->data.brokerLinkConnectionRef_len =
+        		qmfData.brokerLinkConnectionRef_len *
+            sizeof(qmfData.brokerLinkConnectionRef[0]);
+        memcpy(rowreq_ctx->data.brokerLinkConnectionRef,
+        		qmfData.brokerLinkConnectionRef,
+        		qmfData.brokerLinkConnectionRef_len *
+               sizeof(qmfData.brokerLinkConnectionRef[0]));
 
         /*
-         * setup/save data for qpid010LinkState
-         * qpid010LinkState(8)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerLinkState
+         * brokerLinkState(8)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010LinkState data
+         * make sure there is enough space for brokerLinkState data
          */
-        if ((NULL == rowreq_ctx->data.qpid010LinkState) ||
-            (rowreq_ctx->data.qpid010LinkState_len <
-             (qmfData.qpid010LinkState_len * sizeof(qmfData.qpid010LinkState[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerLinkState) ||
+            (rowreq_ctx->data.brokerLinkState_len <
+             (qmfData.brokerLinkState_len * sizeof(qmfData.brokerLinkState[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010LinkState)\n");
+                     "not enough space for value (brokerLinkState)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010LinkState_len =
-        		qmfData.qpid010LinkState_len * sizeof(qmfData.qpid010LinkState[0]);
-        memcpy(rowreq_ctx->data.qpid010LinkState, qmfData.qpid010LinkState,
-        		qmfData.qpid010LinkState_len * sizeof(qmfData.qpid010LinkState[0]));
+        rowreq_ctx->data.brokerLinkState_len =
+        		qmfData.brokerLinkState_len * sizeof(qmfData.brokerLinkState[0]);
+        memcpy(rowreq_ctx->data.brokerLinkState, qmfData.brokerLinkState,
+        		qmfData.brokerLinkState_len * sizeof(qmfData.brokerLinkState[0]));
 
         /*
-         * setup/save data for qpid010LinkLastError
-         * qpid010LinkLastError(9)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerLinkLastError
+         * brokerLinkLastError(9)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010LinkLastError data
+         * make sure there is enough space for brokerLinkLastError data
          */
-        if ((NULL == rowreq_ctx->data.qpid010LinkLastError) ||
-            (rowreq_ctx->data.qpid010LinkLastError_len <
-             (qmfData.qpid010LinkLastError_len *
-              sizeof(qmfData.qpid010LinkLastError[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerLinkLastError) ||
+            (rowreq_ctx->data.brokerLinkLastError_len <
+             (qmfData.brokerLinkLastError_len *
+              sizeof(qmfData.brokerLinkLastError[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010LinkLastError)\n");
+                     "not enough space for value (brokerLinkLastError)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010LinkLastError_len =
-        		qmfData.qpid010LinkLastError_len * sizeof(qmfData.qpid010LinkLastError[0]);
-        memcpy(rowreq_ctx->data.qpid010LinkLastError, qmfData.qpid010LinkLastError,
-        		qmfData.qpid010LinkLastError_len * sizeof(qmfData.qpid010LinkLastError[0]));
+        rowreq_ctx->data.brokerLinkLastError_len =
+        		qmfData.brokerLinkLastError_len * sizeof(qmfData.brokerLinkLastError[0]);
+        memcpy(rowreq_ctx->data.brokerLinkLastError, qmfData.brokerLinkLastError,
+        		qmfData.brokerLinkLastError_len * sizeof(qmfData.brokerLinkLastError[0]));
 
 
         /*
@@ -475,11 +475,11 @@ qpid010LinkTable_container_load(netsnmp_container * container)
 
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:qpid010LinkTable:qpid010LinkTable_container_load",
-               "inserted %d records\n", qpid010LinkInternalIndex));
+    DEBUGMSGT(("verbose:brokerLinkTable:brokerLinkTable_container_load",
+               "inserted %d records\n", brokerLinkInternalIndex));
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTable_container_load */
+}                               /* brokerLinkTable_container_load */
 
 
 /**
@@ -496,15 +496,15 @@ qpid010LinkTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010LinkTable_container_free(netsnmp_container * container)
+brokerLinkTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_container_free",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_container_free",
                 "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010LinkTable container data.
+     * TODO:380:M: Free brokerLinkTable container data.
      */
-}                               /* qpid010LinkTable_container_free */
+}                               /* brokerLinkTable_container_free */
 
 /**
  * prepare row for processing.
@@ -520,9 +520,9 @@ qpid010LinkTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010LinkTable_row_prep(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkTable_row_prep(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_row_prep",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_row_prep",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -534,14 +534,14 @@ qpid010LinkTable_row_prep(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTable_row_prep */
+}                               /* brokerLinkTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010LinkTable index validation.
+ * TODO:420:r: Implement brokerLinkTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkInternalIndex
- * qpid010LinkInternalIndex is subid 10 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkInternalIndex
+ * brokerLinkInternalIndex is subid 10 of brokerLinkEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.10
  * Description:
@@ -558,19 +558,19 @@ Internal index for link table
  *
  *
  *
- * NOTE: NODE qpid010LinkInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerLinkInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010LinkInternalIndex index portion
+ * check validity of brokerLinkInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010LinkTable_validate_index() function.
+ *       brokerLinkTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -585,21 +585,21 @@ Internal index for link table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010LinkInternalIndex_check_index(qpid010LinkTable_rowreq_ctx *
+brokerLinkInternalIndex_check_index(brokerLinkTable_rowreq_ctx *
                                      rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010LinkTable index qpid010LinkInternalIndex.
+     * TODO:426:M: |-> Check brokerLinkTable index brokerLinkInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010LinkInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerLinkInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010LinkInternalIndex index ok */
-}                               /* qpid010LinkInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerLinkInternalIndex index ok */
+}                               /* brokerLinkInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -623,33 +623,33 @@ qpid010LinkInternalIndex_check_index(qpid010LinkTable_rowreq_ctx *
  *       available then.
  *
  *
- * @param qpid010LinkTable_reg
+ * @param brokerLinkTable_reg
  *        Pointer to the user registration data
- * @param qpid010LinkTable_rowreq_ctx
+ * @param brokerLinkTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010LinkTable_validate_index(qpid010LinkTable_registration *
-                                qpid010LinkTable_reg,
-                                qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkTable_validate_index(brokerLinkTable_registration *
+                                brokerLinkTable_reg,
+                                brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_validate_index",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_validate_index",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010LinkTable index.
+     * TODO:430:M: |-> Validate potential brokerLinkTable index.
      */
     if (1) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010LinkTable table.\n");
+                 "brokerLinkTable table.\n");
         /*
          * determine failure type.
          *
@@ -666,6 +666,6 @@ qpid010LinkTable_validate_index(qpid010LinkTable_registration *
     }
 
     return rc;
-}                               /* qpid010LinkTable_validate_index */
+}                               /* brokerLinkTable_validate_index */
 
 /** @} */

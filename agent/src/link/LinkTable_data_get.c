@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010LinkTable get routines.
- * TODO:240:M: Implement qpid010LinkTable mapping routines (if any).
+ * TODO:230:M: Implement brokerLinkTable get routines.
+ * TODO:240:M: Implement brokerLinkTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010LinkTable
+ *** Table brokerLinkTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
+ * QPID-MESSAGING-MIB::brokerLinkTable is subid 1 of brokerLinks.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010LinkTable data context functions.
+ * * TODO:200:r: Implement brokerLinkTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010LinkInternalIndex_val
+ * @param brokerLinkInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,19 +63,19 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010LinkTable_indexes_set_tbl_idx(qpid010LinkTable_mib_index * tbl_idx,
-                                     u_long qpid010LinkInternalIndex_val)
+brokerLinkTable_indexes_set_tbl_idx(brokerLinkTable_mib_index * tbl_idx,
+                                     u_long brokerLinkInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerLinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010LinkInternalIndex = qpid010LinkInternalIndex_val;
+    tbl_idx->brokerLinkInternalIndex = brokerLinkInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTable_indexes_set_tbl_idx */
+}                               /* brokerLinkTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -91,33 +91,33 @@ qpid010LinkTable_indexes_set_tbl_idx(qpid010LinkTable_mib_index * tbl_idx,
  *  from the mib index.
  */
 int
-qpid010LinkTable_indexes_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                             u_long qpid010LinkInternalIndex_val)
+brokerLinkTable_indexes_set(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                             u_long brokerLinkInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_indexes_set",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_indexes_set",
                 "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010LinkTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                             qpid010LinkInternalIndex_val))
+        brokerLinkTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                             brokerLinkInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010LinkTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerLinkTable_index_to_oid(&rowreq_ctx->oid_idx,
                                            &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTable_indexes_set */
+}                               /* brokerLinkTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkVhostRef
- * qpid010LinkVhostRef is subid 1 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkVhostRef
+ * brokerLinkVhostRef is subid 1 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.1
  * Description:
@@ -137,25 +137,25 @@ Link vhostRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010LinkVhostRef data.
+ * Extract the current value of the brokerLinkVhostRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkVhostRef_val_ptr_ptr
+ * @param brokerLinkVhostRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010LinkVhostRef_val_ptr_len_ptr
+ * @param brokerLinkVhostRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010LinkVhostRef.
+ *        pointed to by brokerLinkVhostRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010LinkVhostRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010LinkVhostRef_val_ptr_ptr.
+ * @note If you need more than (*brokerLinkVhostRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerLinkVhostRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -165,58 +165,58 @@ Link vhostRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010LinkVhostRef_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                        char **qpid010LinkVhostRef_val_ptr_ptr,
-                        size_t *qpid010LinkVhostRef_val_ptr_len_ptr)
+brokerLinkVhostRef_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                        char **brokerLinkVhostRef_val_ptr_ptr,
+                        size_t *brokerLinkVhostRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010LinkVhostRef_val_ptr_ptr)
-                   && (NULL != *qpid010LinkVhostRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010LinkVhostRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerLinkVhostRef_val_ptr_ptr)
+                   && (NULL != *brokerLinkVhostRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerLinkVhostRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkVhostRef_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkVhostRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkVhostRef data.
-     * copy (* qpid010LinkVhostRef_val_ptr_ptr ) data and (* qpid010LinkVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkVhostRef data.
+     * copy (* brokerLinkVhostRef_val_ptr_ptr ) data and (* brokerLinkVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010LinkVhostRef data
+     * make sure there is enough space for brokerLinkVhostRef data
      */
-    if ((NULL == (*qpid010LinkVhostRef_val_ptr_ptr)) ||
-        ((*qpid010LinkVhostRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010LinkVhostRef_len *
-          sizeof(rowreq_ctx->data.qpid010LinkVhostRef[0])))) {
+    if ((NULL == (*brokerLinkVhostRef_val_ptr_ptr)) ||
+        ((*brokerLinkVhostRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerLinkVhostRef_len *
+          sizeof(rowreq_ctx->data.brokerLinkVhostRef[0])))) {
         /*
-         * allocate space for qpid010LinkVhostRef data
+         * allocate space for brokerLinkVhostRef data
          */
-        (*qpid010LinkVhostRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010LinkVhostRef_len *
-                   sizeof(rowreq_ctx->data.qpid010LinkVhostRef[0]));
-        if (NULL == (*qpid010LinkVhostRef_val_ptr_ptr)) {
+        (*brokerLinkVhostRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerLinkVhostRef_len *
+                   sizeof(rowreq_ctx->data.brokerLinkVhostRef[0]));
+        if (NULL == (*brokerLinkVhostRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010LinkVhostRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerLinkVhostRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010LinkVhostRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010LinkVhostRef_len *
-        sizeof(rowreq_ctx->data.qpid010LinkVhostRef[0]);
-    memcpy((*qpid010LinkVhostRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010LinkVhostRef,
-           rowreq_ctx->data.qpid010LinkVhostRef_len *
-           sizeof(rowreq_ctx->data.qpid010LinkVhostRef[0]));
+    (*brokerLinkVhostRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerLinkVhostRef_len *
+        sizeof(rowreq_ctx->data.brokerLinkVhostRef[0]);
+    memcpy((*brokerLinkVhostRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerLinkVhostRef,
+           rowreq_ctx->data.brokerLinkVhostRef_len *
+           sizeof(rowreq_ctx->data.brokerLinkVhostRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkVhostRef_get */
+}                               /* brokerLinkVhostRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkName
- * qpid010LinkName is subid 2 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkName
+ * brokerLinkName is subid 2 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.2
  * Description:
@@ -236,25 +236,25 @@ Link name
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010LinkName data.
+ * Extract the current value of the brokerLinkName data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkName_val_ptr_ptr
+ * @param brokerLinkName_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010LinkName_val_ptr_len_ptr
+ * @param brokerLinkName_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010LinkName.
+ *        pointed to by brokerLinkName.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010LinkName_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010LinkName_val_ptr_ptr.
+ * @note If you need more than (*brokerLinkName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerLinkName_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -264,58 +264,58 @@ Link name
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010LinkName_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                    char **qpid010LinkName_val_ptr_ptr,
-                    size_t *qpid010LinkName_val_ptr_len_ptr)
+brokerLinkName_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                    char **brokerLinkName_val_ptr_ptr,
+                    size_t *brokerLinkName_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010LinkName_val_ptr_ptr)
-                   && (NULL != *qpid010LinkName_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010LinkName_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerLinkName_val_ptr_ptr)
+                   && (NULL != *brokerLinkName_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerLinkName_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkName_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkName data.
-     * copy (* qpid010LinkName_val_ptr_ptr ) data and (* qpid010LinkName_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkName data.
+     * copy (* brokerLinkName_val_ptr_ptr ) data and (* brokerLinkName_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010LinkName data
+     * make sure there is enough space for brokerLinkName data
      */
-    if ((NULL == (*qpid010LinkName_val_ptr_ptr)) ||
-        ((*qpid010LinkName_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010LinkName_len *
-          sizeof(rowreq_ctx->data.qpid010LinkName[0])))) {
+    if ((NULL == (*brokerLinkName_val_ptr_ptr)) ||
+        ((*brokerLinkName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerLinkName_len *
+          sizeof(rowreq_ctx->data.brokerLinkName[0])))) {
         /*
-         * allocate space for qpid010LinkName data
+         * allocate space for brokerLinkName data
          */
-        (*qpid010LinkName_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010LinkName_len *
-                   sizeof(rowreq_ctx->data.qpid010LinkName[0]));
-        if (NULL == (*qpid010LinkName_val_ptr_ptr)) {
+        (*brokerLinkName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerLinkName_len *
+                   sizeof(rowreq_ctx->data.brokerLinkName[0]));
+        if (NULL == (*brokerLinkName_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010LinkName)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerLinkName)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010LinkName_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010LinkName_len *
-        sizeof(rowreq_ctx->data.qpid010LinkName[0]);
-    memcpy((*qpid010LinkName_val_ptr_ptr),
-           rowreq_ctx->data.qpid010LinkName,
-           rowreq_ctx->data.qpid010LinkName_len *
-           sizeof(rowreq_ctx->data.qpid010LinkName[0]));
+    (*brokerLinkName_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerLinkName_len *
+        sizeof(rowreq_ctx->data.brokerLinkName[0]);
+    memcpy((*brokerLinkName_val_ptr_ptr),
+           rowreq_ctx->data.brokerLinkName,
+           rowreq_ctx->data.brokerLinkName_len *
+           sizeof(rowreq_ctx->data.brokerLinkName[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkName_get */
+}                               /* brokerLinkName_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkHost
- * qpid010LinkHost is subid 3 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkHost
+ * brokerLinkHost is subid 3 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.3
  * Description:
@@ -335,25 +335,25 @@ Link host
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010LinkHost data.
+ * Extract the current value of the brokerLinkHost data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkHost_val_ptr_ptr
+ * @param brokerLinkHost_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010LinkHost_val_ptr_len_ptr
+ * @param brokerLinkHost_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010LinkHost.
+ *        pointed to by brokerLinkHost.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010LinkHost_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010LinkHost_val_ptr_ptr.
+ * @note If you need more than (*brokerLinkHost_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerLinkHost_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -363,58 +363,58 @@ Link host
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010LinkHost_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                    char **qpid010LinkHost_val_ptr_ptr,
-                    size_t *qpid010LinkHost_val_ptr_len_ptr)
+brokerLinkHost_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                    char **brokerLinkHost_val_ptr_ptr,
+                    size_t *brokerLinkHost_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010LinkHost_val_ptr_ptr)
-                   && (NULL != *qpid010LinkHost_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010LinkHost_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerLinkHost_val_ptr_ptr)
+                   && (NULL != *brokerLinkHost_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerLinkHost_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkHost_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkHost_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkHost data.
-     * copy (* qpid010LinkHost_val_ptr_ptr ) data and (* qpid010LinkHost_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkHost data.
+     * copy (* brokerLinkHost_val_ptr_ptr ) data and (* brokerLinkHost_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010LinkHost data
+     * make sure there is enough space for brokerLinkHost data
      */
-    if ((NULL == (*qpid010LinkHost_val_ptr_ptr)) ||
-        ((*qpid010LinkHost_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010LinkHost_len *
-          sizeof(rowreq_ctx->data.qpid010LinkHost[0])))) {
+    if ((NULL == (*brokerLinkHost_val_ptr_ptr)) ||
+        ((*brokerLinkHost_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerLinkHost_len *
+          sizeof(rowreq_ctx->data.brokerLinkHost[0])))) {
         /*
-         * allocate space for qpid010LinkHost data
+         * allocate space for brokerLinkHost data
          */
-        (*qpid010LinkHost_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010LinkHost_len *
-                   sizeof(rowreq_ctx->data.qpid010LinkHost[0]));
-        if (NULL == (*qpid010LinkHost_val_ptr_ptr)) {
+        (*brokerLinkHost_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerLinkHost_len *
+                   sizeof(rowreq_ctx->data.brokerLinkHost[0]));
+        if (NULL == (*brokerLinkHost_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010LinkHost)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerLinkHost)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010LinkHost_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010LinkHost_len *
-        sizeof(rowreq_ctx->data.qpid010LinkHost[0]);
-    memcpy((*qpid010LinkHost_val_ptr_ptr),
-           rowreq_ctx->data.qpid010LinkHost,
-           rowreq_ctx->data.qpid010LinkHost_len *
-           sizeof(rowreq_ctx->data.qpid010LinkHost[0]));
+    (*brokerLinkHost_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerLinkHost_len *
+        sizeof(rowreq_ctx->data.brokerLinkHost[0]);
+    memcpy((*brokerLinkHost_val_ptr_ptr),
+           rowreq_ctx->data.brokerLinkHost,
+           rowreq_ctx->data.brokerLinkHost_len *
+           sizeof(rowreq_ctx->data.brokerLinkHost[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkHost_get */
+}                               /* brokerLinkHost_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkPort
- * qpid010LinkPort is subid 4 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkPort
+ * brokerLinkPort is subid 4 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.4
  * Description:
@@ -432,13 +432,13 @@ Link port
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010LinkPort data.
+ * Extract the current value of the brokerLinkPort data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkPort_val_ptr
+ * @param brokerLinkPort_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -446,30 +446,30 @@ Link port
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010LinkPort_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                    long *qpid010LinkPort_val_ptr)
+brokerLinkPort_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                    long *brokerLinkPort_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010LinkPort_val_ptr);
+    netsnmp_assert(NULL != brokerLinkPort_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkPort_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkPort_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkPort data.
-     * copy (* qpid010LinkPort_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkPort data.
+     * copy (* brokerLinkPort_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010LinkPort_val_ptr) = rowreq_ctx->data.qpid010LinkPort;
+    (*brokerLinkPort_val_ptr) = rowreq_ctx->data.brokerLinkPort;
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkPort_get */
+}                               /* brokerLinkPort_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkTransport
- * qpid010LinkTransport is subid 5 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkTransport
+ * brokerLinkTransport is subid 5 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.5
  * Description:
@@ -489,25 +489,25 @@ Link transport
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010LinkTransport data.
+ * Extract the current value of the brokerLinkTransport data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkTransport_val_ptr_ptr
+ * @param brokerLinkTransport_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010LinkTransport_val_ptr_len_ptr
+ * @param brokerLinkTransport_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010LinkTransport.
+ *        pointed to by brokerLinkTransport.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010LinkTransport_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010LinkTransport_val_ptr_ptr.
+ * @note If you need more than (*brokerLinkTransport_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerLinkTransport_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -517,58 +517,58 @@ Link transport
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010LinkTransport_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                         char **qpid010LinkTransport_val_ptr_ptr,
-                         size_t *qpid010LinkTransport_val_ptr_len_ptr)
+brokerLinkTransport_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                         char **brokerLinkTransport_val_ptr_ptr,
+                         size_t *brokerLinkTransport_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010LinkTransport_val_ptr_ptr)
-                   && (NULL != *qpid010LinkTransport_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010LinkTransport_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerLinkTransport_val_ptr_ptr)
+                   && (NULL != *brokerLinkTransport_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerLinkTransport_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTransport_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTransport_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkTransport data.
-     * copy (* qpid010LinkTransport_val_ptr_ptr ) data and (* qpid010LinkTransport_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkTransport data.
+     * copy (* brokerLinkTransport_val_ptr_ptr ) data and (* brokerLinkTransport_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010LinkTransport data
+     * make sure there is enough space for brokerLinkTransport data
      */
-    if ((NULL == (*qpid010LinkTransport_val_ptr_ptr)) ||
-        ((*qpid010LinkTransport_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010LinkTransport_len *
-          sizeof(rowreq_ctx->data.qpid010LinkTransport[0])))) {
+    if ((NULL == (*brokerLinkTransport_val_ptr_ptr)) ||
+        ((*brokerLinkTransport_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerLinkTransport_len *
+          sizeof(rowreq_ctx->data.brokerLinkTransport[0])))) {
         /*
-         * allocate space for qpid010LinkTransport data
+         * allocate space for brokerLinkTransport data
          */
-        (*qpid010LinkTransport_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010LinkTransport_len *
-                   sizeof(rowreq_ctx->data.qpid010LinkTransport[0]));
-        if (NULL == (*qpid010LinkTransport_val_ptr_ptr)) {
+        (*brokerLinkTransport_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerLinkTransport_len *
+                   sizeof(rowreq_ctx->data.brokerLinkTransport[0]));
+        if (NULL == (*brokerLinkTransport_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010LinkTransport)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerLinkTransport)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010LinkTransport_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010LinkTransport_len *
-        sizeof(rowreq_ctx->data.qpid010LinkTransport[0]);
-    memcpy((*qpid010LinkTransport_val_ptr_ptr),
-           rowreq_ctx->data.qpid010LinkTransport,
-           rowreq_ctx->data.qpid010LinkTransport_len *
-           sizeof(rowreq_ctx->data.qpid010LinkTransport[0]));
+    (*brokerLinkTransport_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerLinkTransport_len *
+        sizeof(rowreq_ctx->data.brokerLinkTransport[0]);
+    memcpy((*brokerLinkTransport_val_ptr_ptr),
+           rowreq_ctx->data.brokerLinkTransport,
+           rowreq_ctx->data.brokerLinkTransport_len *
+           sizeof(rowreq_ctx->data.brokerLinkTransport[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTransport_get */
+}                               /* brokerLinkTransport_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkDurable
- * qpid010LinkDurable is subid 6 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkDurable
+ * brokerLinkDurable is subid 6 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.6
  * Description:
@@ -586,13 +586,13 @@ Link durable
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010LinkDurable data.
+ * Extract the current value of the brokerLinkDurable data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkDurable_val_ptr
+ * @param brokerLinkDurable_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -600,30 +600,30 @@ Link durable
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010LinkDurable_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                       u_long * qpid010LinkDurable_val_ptr)
+brokerLinkDurable_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                       u_long * brokerLinkDurable_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010LinkDurable_val_ptr);
+    netsnmp_assert(NULL != brokerLinkDurable_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkDurable_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkDurable_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkDurable data.
-     * copy (* qpid010LinkDurable_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkDurable data.
+     * copy (* brokerLinkDurable_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010LinkDurable_val_ptr) = rowreq_ctx->data.qpid010LinkDurable;
+    (*brokerLinkDurable_val_ptr) = rowreq_ctx->data.brokerLinkDurable;
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkDurable_get */
+}                               /* brokerLinkDurable_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkConnectionRef
- * qpid010LinkConnectionRef is subid 7 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkConnectionRef
+ * brokerLinkConnectionRef is subid 7 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.7
  * Description:
@@ -643,25 +643,25 @@ Link connectionRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010LinkConnectionRef data.
+ * Extract the current value of the brokerLinkConnectionRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkConnectionRef_val_ptr_ptr
+ * @param brokerLinkConnectionRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010LinkConnectionRef_val_ptr_len_ptr
+ * @param brokerLinkConnectionRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010LinkConnectionRef.
+ *        pointed to by brokerLinkConnectionRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010LinkConnectionRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010LinkConnectionRef_val_ptr_ptr.
+ * @note If you need more than (*brokerLinkConnectionRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerLinkConnectionRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -671,59 +671,59 @@ Link connectionRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010LinkConnectionRef_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                             char **qpid010LinkConnectionRef_val_ptr_ptr,
+brokerLinkConnectionRef_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                             char **brokerLinkConnectionRef_val_ptr_ptr,
                              size_t
-                             *qpid010LinkConnectionRef_val_ptr_len_ptr)
+                             *brokerLinkConnectionRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010LinkConnectionRef_val_ptr_ptr)
-                   && (NULL != *qpid010LinkConnectionRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010LinkConnectionRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerLinkConnectionRef_val_ptr_ptr)
+                   && (NULL != *brokerLinkConnectionRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerLinkConnectionRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkConnectionRef_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkConnectionRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkConnectionRef data.
-     * copy (* qpid010LinkConnectionRef_val_ptr_ptr ) data and (* qpid010LinkConnectionRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkConnectionRef data.
+     * copy (* brokerLinkConnectionRef_val_ptr_ptr ) data and (* brokerLinkConnectionRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010LinkConnectionRef data
+     * make sure there is enough space for brokerLinkConnectionRef data
      */
-    if ((NULL == (*qpid010LinkConnectionRef_val_ptr_ptr)) ||
-        ((*qpid010LinkConnectionRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010LinkConnectionRef_len *
-          sizeof(rowreq_ctx->data.qpid010LinkConnectionRef[0])))) {
+    if ((NULL == (*brokerLinkConnectionRef_val_ptr_ptr)) ||
+        ((*brokerLinkConnectionRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerLinkConnectionRef_len *
+          sizeof(rowreq_ctx->data.brokerLinkConnectionRef[0])))) {
         /*
-         * allocate space for qpid010LinkConnectionRef data
+         * allocate space for brokerLinkConnectionRef data
          */
-        (*qpid010LinkConnectionRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010LinkConnectionRef_len *
-                   sizeof(rowreq_ctx->data.qpid010LinkConnectionRef[0]));
-        if (NULL == (*qpid010LinkConnectionRef_val_ptr_ptr)) {
+        (*brokerLinkConnectionRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerLinkConnectionRef_len *
+                   sizeof(rowreq_ctx->data.brokerLinkConnectionRef[0]));
+        if (NULL == (*brokerLinkConnectionRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010LinkConnectionRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerLinkConnectionRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010LinkConnectionRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010LinkConnectionRef_len *
-        sizeof(rowreq_ctx->data.qpid010LinkConnectionRef[0]);
-    memcpy((*qpid010LinkConnectionRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010LinkConnectionRef,
-           rowreq_ctx->data.qpid010LinkConnectionRef_len *
-           sizeof(rowreq_ctx->data.qpid010LinkConnectionRef[0]));
+    (*brokerLinkConnectionRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerLinkConnectionRef_len *
+        sizeof(rowreq_ctx->data.brokerLinkConnectionRef[0]);
+    memcpy((*brokerLinkConnectionRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerLinkConnectionRef,
+           rowreq_ctx->data.brokerLinkConnectionRef_len *
+           sizeof(rowreq_ctx->data.brokerLinkConnectionRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkConnectionRef_get */
+}                               /* brokerLinkConnectionRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkState
- * qpid010LinkState is subid 8 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkState
+ * brokerLinkState is subid 8 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.8
  * Description:
@@ -743,25 +743,25 @@ Operational state of the link
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010LinkState data.
+ * Extract the current value of the brokerLinkState data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkState_val_ptr_ptr
+ * @param brokerLinkState_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010LinkState_val_ptr_len_ptr
+ * @param brokerLinkState_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010LinkState.
+ *        pointed to by brokerLinkState.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010LinkState_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010LinkState_val_ptr_ptr.
+ * @note If you need more than (*brokerLinkState_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerLinkState_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -771,58 +771,58 @@ Operational state of the link
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010LinkState_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                     char **qpid010LinkState_val_ptr_ptr,
-                     size_t *qpid010LinkState_val_ptr_len_ptr)
+brokerLinkState_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                     char **brokerLinkState_val_ptr_ptr,
+                     size_t *brokerLinkState_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010LinkState_val_ptr_ptr)
-                   && (NULL != *qpid010LinkState_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010LinkState_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerLinkState_val_ptr_ptr)
+                   && (NULL != *brokerLinkState_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerLinkState_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkState_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkState_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkState data.
-     * copy (* qpid010LinkState_val_ptr_ptr ) data and (* qpid010LinkState_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkState data.
+     * copy (* brokerLinkState_val_ptr_ptr ) data and (* brokerLinkState_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010LinkState data
+     * make sure there is enough space for brokerLinkState data
      */
-    if ((NULL == (*qpid010LinkState_val_ptr_ptr)) ||
-        ((*qpid010LinkState_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010LinkState_len *
-          sizeof(rowreq_ctx->data.qpid010LinkState[0])))) {
+    if ((NULL == (*brokerLinkState_val_ptr_ptr)) ||
+        ((*brokerLinkState_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerLinkState_len *
+          sizeof(rowreq_ctx->data.brokerLinkState[0])))) {
         /*
-         * allocate space for qpid010LinkState data
+         * allocate space for brokerLinkState data
          */
-        (*qpid010LinkState_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010LinkState_len *
-                   sizeof(rowreq_ctx->data.qpid010LinkState[0]));
-        if (NULL == (*qpid010LinkState_val_ptr_ptr)) {
+        (*brokerLinkState_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerLinkState_len *
+                   sizeof(rowreq_ctx->data.brokerLinkState[0]));
+        if (NULL == (*brokerLinkState_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010LinkState)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerLinkState)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010LinkState_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010LinkState_len *
-        sizeof(rowreq_ctx->data.qpid010LinkState[0]);
-    memcpy((*qpid010LinkState_val_ptr_ptr),
-           rowreq_ctx->data.qpid010LinkState,
-           rowreq_ctx->data.qpid010LinkState_len *
-           sizeof(rowreq_ctx->data.qpid010LinkState[0]));
+    (*brokerLinkState_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerLinkState_len *
+        sizeof(rowreq_ctx->data.brokerLinkState[0]);
+    memcpy((*brokerLinkState_val_ptr_ptr),
+           rowreq_ctx->data.brokerLinkState,
+           rowreq_ctx->data.brokerLinkState_len *
+           sizeof(rowreq_ctx->data.brokerLinkState[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkState_get */
+}                               /* brokerLinkState_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkLastError
- * qpid010LinkLastError is subid 9 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkLastError
+ * brokerLinkLastError is subid 9 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.9
  * Description:
@@ -842,25 +842,25 @@ Reason link is not operational
  * This data type requires a length.  (Max 65535)
  */
 /**
- * Extract the current value of the qpid010LinkLastError data.
+ * Extract the current value of the brokerLinkLastError data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkLastError_val_ptr_ptr
+ * @param brokerLinkLastError_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010LinkLastError_val_ptr_len_ptr
+ * @param brokerLinkLastError_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010LinkLastError.
+ *        pointed to by brokerLinkLastError.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010LinkLastError_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010LinkLastError_val_ptr_ptr.
+ * @note If you need more than (*brokerLinkLastError_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerLinkLastError_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -870,54 +870,54 @@ Reason link is not operational
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010LinkLastError_get(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                         char **qpid010LinkLastError_val_ptr_ptr,
-                         size_t *qpid010LinkLastError_val_ptr_len_ptr)
+brokerLinkLastError_get(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                         char **brokerLinkLastError_val_ptr_ptr,
+                         size_t *brokerLinkLastError_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010LinkLastError_val_ptr_ptr)
-                   && (NULL != *qpid010LinkLastError_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010LinkLastError_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerLinkLastError_val_ptr_ptr)
+                   && (NULL != *brokerLinkLastError_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerLinkLastError_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkLastError_get",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkLastError_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010LinkLastError data.
-     * copy (* qpid010LinkLastError_val_ptr_ptr ) data and (* qpid010LinkLastError_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerLinkLastError data.
+     * copy (* brokerLinkLastError_val_ptr_ptr ) data and (* brokerLinkLastError_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010LinkLastError data
+     * make sure there is enough space for brokerLinkLastError data
      */
-    if ((NULL == (*qpid010LinkLastError_val_ptr_ptr)) ||
-        ((*qpid010LinkLastError_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010LinkLastError_len *
-          sizeof(rowreq_ctx->data.qpid010LinkLastError[0])))) {
+    if ((NULL == (*brokerLinkLastError_val_ptr_ptr)) ||
+        ((*brokerLinkLastError_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerLinkLastError_len *
+          sizeof(rowreq_ctx->data.brokerLinkLastError[0])))) {
         /*
-         * allocate space for qpid010LinkLastError data
+         * allocate space for brokerLinkLastError data
          */
-        (*qpid010LinkLastError_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010LinkLastError_len *
-                   sizeof(rowreq_ctx->data.qpid010LinkLastError[0]));
-        if (NULL == (*qpid010LinkLastError_val_ptr_ptr)) {
+        (*brokerLinkLastError_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerLinkLastError_len *
+                   sizeof(rowreq_ctx->data.brokerLinkLastError[0]));
+        if (NULL == (*brokerLinkLastError_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010LinkLastError)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerLinkLastError)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010LinkLastError_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010LinkLastError_len *
-        sizeof(rowreq_ctx->data.qpid010LinkLastError[0]);
-    memcpy((*qpid010LinkLastError_val_ptr_ptr),
-           rowreq_ctx->data.qpid010LinkLastError,
-           rowreq_ctx->data.qpid010LinkLastError_len *
-           sizeof(rowreq_ctx->data.qpid010LinkLastError[0]));
+    (*brokerLinkLastError_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerLinkLastError_len *
+        sizeof(rowreq_ctx->data.brokerLinkLastError[0]);
+    memcpy((*brokerLinkLastError_val_ptr_ptr),
+           rowreq_ctx->data.brokerLinkLastError,
+           rowreq_ctx->data.brokerLinkLastError_len *
+           sizeof(rowreq_ctx->data.brokerLinkLastError[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkLastError_get */
+}                               /* brokerLinkLastError_get */
 
 
 

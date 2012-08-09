@@ -4,7 +4,7 @@
  *
  * $Id:$
  *
- * @file qpid010SubscriptionTable_data_get.h
+ * @file brokerSubscriptionTable_data_get.h
  *
  * @addtogroup get
  *
@@ -12,8 +12,8 @@
  *
  * @{
  */
-#ifndef qpid010SUBSCRIPTIONTABLE_DATA_GET_H
-#define qpid010SUBSCRIPTIONTABLE_DATA_GET_H
+#ifndef brokerSUBSCRIPTIONTABLE_DATA_GET_H
+#define brokerSUBSCRIPTIONTABLE_DATA_GET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -31,12 +31,12 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SubscriptionTable
+ *** Table brokerSubscriptionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
+     * QPID-MESSAGING-MIB::brokerSubscriptionTable is subid 1 of brokerSubscriptions.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
      */
@@ -45,69 +45,69 @@ extern          "C" {
      */
 
     int            
-        qpid010SubscriptionSessionRef_get(qpid010SubscriptionTable_rowreq_ctx
+        brokerSubscriptionSessionRef_get(brokerSubscriptionTable_rowreq_ctx
                                          * rowreq_ctx,
                                          char
-                                         **qpid010SubscriptionSessionRef_val_ptr_ptr,
+                                         **brokerSubscriptionSessionRef_val_ptr_ptr,
                                          size_t
-                                         *qpid010SubscriptionSessionRef_val_ptr_len_ptr);
+                                         *brokerSubscriptionSessionRef_val_ptr_len_ptr);
     int            
-        qpid010SubscriptionQueueRef_get(qpid010SubscriptionTable_rowreq_ctx *
+        brokerSubscriptionQueueRef_get(brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx,
                                        char
-                                       **qpid010SubscriptionQueueRef_val_ptr_ptr,
+                                       **brokerSubscriptionQueueRef_val_ptr_ptr,
                                        size_t
-                                       *qpid010SubscriptionQueueRef_val_ptr_len_ptr);
+                                       *brokerSubscriptionQueueRef_val_ptr_len_ptr);
     int            
-        qpid010SubscriptionName_get(qpid010SubscriptionTable_rowreq_ctx *
+        brokerSubscriptionName_get(brokerSubscriptionTable_rowreq_ctx *
                                    rowreq_ctx,
                                    char
-                                   **qpid010SubscriptionName_val_ptr_ptr,
+                                   **brokerSubscriptionName_val_ptr_ptr,
                                    size_t
-                                   *qpid010SubscriptionName_val_ptr_len_ptr);
+                                   *brokerSubscriptionName_val_ptr_len_ptr);
     int            
-        qpid010SubscriptionBrowsing_get(qpid010SubscriptionTable_rowreq_ctx *
+        brokerSubscriptionBrowsing_get(brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx,
                                        u_long *
-                                       qpid010SubscriptionBrowsing_val_ptr);
+                                       brokerSubscriptionBrowsing_val_ptr);
     int            
-        qpid010SubscriptionAcknowledged_get
-        (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
-         u_long * qpid010SubscriptionAcknowledged_val_ptr);
+        brokerSubscriptionAcknowledged_get
+        (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx,
+         u_long * brokerSubscriptionAcknowledged_val_ptr);
     int            
-        qpid010SubscriptionExclusive_get(qpid010SubscriptionTable_rowreq_ctx
+        brokerSubscriptionExclusive_get(brokerSubscriptionTable_rowreq_ctx
                                         * rowreq_ctx,
                                         u_long *
-                                        qpid010SubscriptionExclusive_val_ptr);
+                                        brokerSubscriptionExclusive_val_ptr);
     int            
-        qpid010SubscriptionCreditMode_get(qpid010SubscriptionTable_rowreq_ctx
+        brokerSubscriptionCreditMode_get(brokerSubscriptionTable_rowreq_ctx
                                          * rowreq_ctx,
                                          char
-                                         **qpid010SubscriptionCreditMode_val_ptr_ptr,
+                                         **brokerSubscriptionCreditMode_val_ptr_ptr,
                                          size_t
-                                         *qpid010SubscriptionCreditMode_val_ptr_len_ptr);
+                                         *brokerSubscriptionCreditMode_val_ptr_len_ptr);
     int            
-        qpid010SubscriptionArguments_get(qpid010SubscriptionTable_rowreq_ctx
+        brokerSubscriptionArguments_get(brokerSubscriptionTable_rowreq_ctx
                                         * rowreq_ctx,
                                         char
-                                        **qpid010SubscriptionArguments_val_ptr_ptr,
+                                        **brokerSubscriptionArguments_val_ptr_ptr,
                                         size_t
-                                        *qpid010SubscriptionArguments_val_ptr_len_ptr);
+                                        *brokerSubscriptionArguments_val_ptr_len_ptr);
     int            
-        qpid010SubscriptionDelivered_get(qpid010SubscriptionTable_rowreq_ctx
+        brokerSubscriptionDelivered_get(brokerSubscriptionTable_rowreq_ctx
                                         * rowreq_ctx,
                                         U64 *
-                                        qpid010SubscriptionDelivered_val_ptr);
+                                        brokerSubscriptionDelivered_val_ptr);
 
 
     int            
-        qpid010SubscriptionTable_indexes_set_tbl_idx
-        (qpid010SubscriptionTable_mib_index * tbl_idx,
-         u_long qpid010SubscriptionInternalIndex_val);
+        brokerSubscriptionTable_indexes_set_tbl_idx
+        (brokerSubscriptionTable_mib_index * tbl_idx,
+         u_long brokerSubscriptionInternalIndex_val);
     int            
-        qpid010SubscriptionTable_indexes_set
-        (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010SubscriptionInternalIndex_val);
+        brokerSubscriptionTable_indexes_set
+        (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerSubscriptionInternalIndex_val);
 
 
 
@@ -115,5 +115,5 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SUBSCRIPTIONTABLE_DATA_GET_H */
+#endif                          /* brokerSUBSCRIPTIONTABLE_DATA_GET_H */
 /** @} */

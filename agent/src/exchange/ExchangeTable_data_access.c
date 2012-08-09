@@ -32,36 +32,36 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ExchangeTable
+ *** Table brokerExchangeTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
+ * QPID-MESSAGING-MIB::brokerExchangeTable is subid 1 of brokerExchanges.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
  */
 
 /**
- * initialization for qpid010ExchangeTable data access
+ * initialization for brokerExchangeTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010ExchangeTable_reg
- *        Pointer to qpid010ExchangeTable_registration
+ * @param brokerExchangeTable_reg
+ *        Pointer to brokerExchangeTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010ExchangeTable_init_data(qpid010ExchangeTable_registration *
-                              qpid010ExchangeTable_reg)
+brokerExchangeTable_init_data(brokerExchangeTable_registration *
+                              brokerExchangeTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_init_data", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_init_data", "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010ExchangeTable data.
+     * TODO:303:o: Initialize brokerExchangeTable data.
      */
     /*
      ***************************************************
@@ -80,7 +80,7 @@ qpid010ExchangeTable_init_data(qpid010ExchangeTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeTable_init_data */
+}                               /* brokerExchangeTable_init_data */
 
 /**
  * container overview
@@ -114,14 +114,14 @@ qpid010ExchangeTable_init_data(qpid010ExchangeTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010ExchangeTable_container_init(netsnmp_container ** container_ptr_ptr,
+brokerExchangeTable_container_init(netsnmp_container ** container_ptr_ptr,
                                    netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_container_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_container_init", "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010ExchangeTable_container_init\n");
+                 "bad container param to brokerExchangeTable_container_init\n");
         return;
     }
 
@@ -133,20 +133,20 @@ qpid010ExchangeTable_container_init(netsnmp_container ** container_ptr_ptr,
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010ExchangeTable_container_init\n");
+                 "bad cache param to brokerExchangeTable_container_init\n");
         return;
     }
 
     /*
-     * TODO:345:A: Set up qpid010ExchangeTable cache properties.
+     * TODO:345:A: Set up brokerExchangeTable cache properties.
      *
      * Also for advanced users, you can set parameters for the
      * cache. Do not change the magic pointer, as it is used
      * by the MFD helper. To completely disable caching, set
      * cache->enabled to 0.
      */
-    cache->timeout = qpid010EXCHANGETABLE_CACHE_TIMEOUT; /* seconds */
-}                               /* qpid010ExchangeTable_container_init */
+    cache->timeout = brokerEXCHANGETABLE_CACHE_TIMEOUT; /* seconds */
+}                               /* brokerExchangeTable_container_init */
 
 /**
  * container shutdown
@@ -157,7 +157,7 @@ qpid010ExchangeTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010ExchangeTable_container_free().
+ *  This function is called before brokerExchangeTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -165,22 +165,22 @@ qpid010ExchangeTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010ExchangeTable_container_shutdown(netsnmp_container * container_ptr)
+brokerExchangeTable_container_shutdown(netsnmp_container * container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010ExchangeTable_container_shutdown\n");
+                 "bad params to brokerExchangeTable_container_shutdown\n");
         return;
     }
 
-}                               /* qpid010ExchangeTable_container_shutdown */
+}                               /* brokerExchangeTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010ExchangeTable data load
+ * TODO:350:M: Implement brokerExchangeTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -202,7 +202,7 @@ qpid010ExchangeTable_container_shutdown(netsnmp_container * container_ptr)
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010ExchangeTable_row_prep() for populating data.
+ *  brokerExchangeTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -211,21 +211,21 @@ qpid010ExchangeTable_container_shutdown(netsnmp_container * container_ptr)
  *
  */
 int
-qpid010ExchangeTable_container_load(netsnmp_container * container)
+brokerExchangeTable_container_load(netsnmp_container * container)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx;
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx;
     size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010ExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010ExchangeInternalIndex;
-    qpid010ExchangeTable_data qmfData;
+    u_long          brokerExchangeInternalIndex;
+    brokerExchangeTable_data qmfData;
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_container_load", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_container_load", "called\n"));
 
     /*
      ***************************************************
@@ -236,8 +236,8 @@ qpid010ExchangeTable_container_load(netsnmp_container * container)
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
     /*
-     * TODO:351:M: |-> Load/update data in the qpid010ExchangeTable container.
-     * loop over your qpid010ExchangeTable data, allocate a rowreq context,
+     * TODO:351:M: |-> Load/update data in the brokerExchangeTable container.
+     * loop over your brokerExchangeTable data, allocate a rowreq context,
      * set the index(es) [and data, optionally] and insert into
      * the container.
      */
@@ -251,88 +251,88 @@ qpid010ExchangeTable_container_load(netsnmp_container * container)
     uint exchanges;
     exchanges = qpidGetCount(pEvent);
 
-    qpid010ExchangeInternalIndex = 0;
+    brokerExchangeInternalIndex = 0;
     for (exchangeIndex = 0; exchangeIndex < exchanges; ++exchangeIndex) {
 
     	void * pRow = qpidGetDataRow(pEvent, exchangeIndex);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010ExchangeVhostRef,
+        strncpy(qmfData.brokerExchangeVhostRef,
         		qpidGetString(pRow, "vhostRef"), 254);
-        qmfData.qpid010ExchangeVhostRef_len = strlen(qmfData.qpid010ExchangeVhostRef) + 1;
+        qmfData.brokerExchangeVhostRef_len = strlen(qmfData.brokerExchangeVhostRef) + 1;
 
-        strncpy(qmfData.qpid010ExchangeName,
+        strncpy(qmfData.brokerExchangeName,
         		qpidGetString(pRow, "name"), 254);
-        qmfData.qpid010ExchangeName_len = strlen(qmfData.qpid010ExchangeName) + 1;
+        qmfData.brokerExchangeName_len = strlen(qmfData.brokerExchangeName) + 1;
 
-        strncpy(qmfData.qpid010ExchangeType,
+        strncpy(qmfData.brokerExchangeType,
         		qpidGetString(pRow, "type"), 254);
-        qmfData.qpid010ExchangeType_len = strlen(qmfData.qpid010ExchangeType) + 1;
+        qmfData.brokerExchangeType_len = strlen(qmfData.brokerExchangeType) + 1;
 
-        qmfData.qpid010ExchangeDurable = qpidGetBool(pRow, "durable");
-        qmfData.qpid010ExchangeAutoDelete = qpidGetBool(pRow, "autoDelete");
+        qmfData.brokerExchangeDurable = qpidGetBool(pRow, "durable");
+        qmfData.brokerExchangeAutoDelete = qpidGetBool(pRow, "autoDelete");
 
-        strncpy(qmfData.qpid010ExchangeAltExchange,
+        strncpy(qmfData.brokerExchangeAltExchange,
         		qpidGetString(pRow, "altExchange"), 254);
-        qmfData.qpid010ExchangeAltExchange_len = strlen(qmfData.qpid010ExchangeAltExchange) + 1;
+        qmfData.brokerExchangeAltExchange_len = strlen(qmfData.brokerExchangeAltExchange) + 1;
 
-        strncpy(qmfData.qpid010ExchangeArguments,
+        strncpy(qmfData.brokerExchangeArguments,
         		qpidGetString(pRow, "arguments"), 65534);
-        qmfData.qpid010ExchangeArguments_len = strlen(qmfData.qpid010ExchangeArguments) + 1;
+        qmfData.brokerExchangeArguments_len = strlen(qmfData.brokerExchangeArguments) + 1;
 
-        qmfData.qpid010ExchangeProducerCount = qpidGetU32(pRow, "producerCount");
-        qmfData.qpid010ExchangeProducerCountHi = qpidGetU32(pRow, "producerCountHi");
-        qmfData.qpid010ExchangeProducerCountLow = qpidGetU32(pRow, "producerCountLow");
+        qmfData.brokerExchangeProducerCount = qpidGetU32(pRow, "producerCount");
+        qmfData.brokerExchangeProducerCountHi = qpidGetU32(pRow, "producerCountHi");
+        qmfData.brokerExchangeProducerCountLow = qpidGetU32(pRow, "producerCountLow");
 
-        qmfData.qpid010ExchangeBindingCount = qpidGetU32(pRow, "bindingCount");
-        qmfData.qpid010ExchangeBindingCountHi = qpidGetU32(pRow, "bindingCountHi");
-        qmfData.qpid010ExchangeBindingCountLow = qpidGetU32(pRow, "bindingCountLow");
+        qmfData.brokerExchangeBindingCount = qpidGetU32(pRow, "bindingCount");
+        qmfData.brokerExchangeBindingCountHi = qpidGetU32(pRow, "bindingCountHi");
+        qmfData.brokerExchangeBindingCountLow = qpidGetU32(pRow, "bindingCountLow");
 
         u64Data = qpidGetU64(pRow, "msgReceives");
-        qmfData.qpid010ExchangeMsgReceives.high = HIGHLONG(u64Data);
-        qmfData.qpid010ExchangeMsgReceives.low = LOWLONG(u64Data);
+        qmfData.brokerExchangeMsgReceives.high = HIGHLONG(u64Data);
+        qmfData.brokerExchangeMsgReceives.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgDrops");
-        qmfData.qpid010ExchangeMsgDrops.high = HIGHLONG(u64Data);
-        qmfData.qpid010ExchangeMsgDrops.low = LOWLONG(u64Data);
+        qmfData.brokerExchangeMsgDrops.high = HIGHLONG(u64Data);
+        qmfData.brokerExchangeMsgDrops.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgRoutes");
-        qmfData.qpid010ExchangeMsgRoutes.high = HIGHLONG(u64Data);
-        qmfData.qpid010ExchangeMsgRoutes.low = LOWLONG(u64Data);
+        qmfData.brokerExchangeMsgRoutes.high = HIGHLONG(u64Data);
+        qmfData.brokerExchangeMsgRoutes.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteReceives");
-        qmfData.qpid010ExchangeByteReceives.high = HIGHLONG(u64Data);
-        qmfData.qpid010ExchangeByteReceives.low = LOWLONG(u64Data);
+        qmfData.brokerExchangeByteReceives.high = HIGHLONG(u64Data);
+        qmfData.brokerExchangeByteReceives.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteDrops");
-        qmfData.qpid010ExchangeByteDrops.high = HIGHLONG(u64Data);
-        qmfData.qpid010ExchangeByteDrops.low = LOWLONG(u64Data);
+        qmfData.brokerExchangeByteDrops.high = HIGHLONG(u64Data);
+        qmfData.brokerExchangeByteDrops.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteRoutes");
-        qmfData.qpid010ExchangeByteRoutes.high = HIGHLONG(u64Data);
-        qmfData.qpid010ExchangeByteRoutes.low = LOWLONG(u64Data);
+        qmfData.brokerExchangeByteRoutes.high = HIGHLONG(u64Data);
+        qmfData.brokerExchangeByteRoutes.low = LOWLONG(u64Data);
 
         /*
-         * set indexes in new qpid010ExchangeTable rowreq context.
+         * set indexes in new brokerExchangeTable rowreq context.
          * data context will be set from the param (unless NULL,
          *      in which case a new data context will be allocated)
          */
-        rowreq_ctx = qpid010ExchangeTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerExchangeTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010ExchangeTable_indexes_set(rowreq_ctx,
-                                            qpid010ExchangeInternalIndex)) {
+            brokerExchangeTable_indexes_set(rowreq_ctx,
+                                            brokerExchangeInternalIndex)) {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010ExchangeTable data.\n");
-            qpid010ExchangeTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerExchangeTable data.\n");
+            brokerExchangeTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        ++qpid010ExchangeInternalIndex;
+        ++brokerExchangeInternalIndex;
 
         /*
          * Populate data context here.
@@ -342,243 +342,243 @@ qpid010ExchangeTable_container_load(netsnmp_container * container)
          * copy data or save any info needed to do it in row_prep.
          */
         /*
-         * setup/save data for qpid010ExchangeVhostRef
-         * qpid010ExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerExchangeVhostRef
+         * brokerExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ExchangeVhostRef data
+         * make sure there is enough space for brokerExchangeVhostRef data
          */
-        if (NULL == rowreq_ctx->data.qpid010ExchangeVhostRef) {
+        if (NULL == rowreq_ctx->data.brokerExchangeVhostRef) {
             snmp_log(LOG_ERR,
-                     "qpid010ExchangeVhostRef is null\n");
+                     "brokerExchangeVhostRef is null\n");
         }
 
-        if (rowreq_ctx->data.qpid010ExchangeVhostRef_len <
-            		qmfData.qpid010ExchangeVhostRef_len *
-            		sizeof(qmfData.qpid010ExchangeVhostRef[0])) {
+        if (rowreq_ctx->data.brokerExchangeVhostRef_len <
+            		qmfData.brokerExchangeVhostRef_len *
+            		sizeof(qmfData.brokerExchangeVhostRef[0])) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ExchangeVhostRef)\n");
+                     "not enough space for value (brokerExchangeVhostRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ExchangeVhostRef_len =
-        		qmfData.qpid010ExchangeVhostRef_len * sizeof(qmfData.qpid010ExchangeVhostRef[0]);
-        memcpy(rowreq_ctx->data.qpid010ExchangeVhostRef,
-        		qmfData.qpid010ExchangeVhostRef,
-        		qmfData.qpid010ExchangeVhostRef_len *
-               sizeof(qmfData.qpid010ExchangeVhostRef[0]));
+        rowreq_ctx->data.brokerExchangeVhostRef_len =
+        		qmfData.brokerExchangeVhostRef_len * sizeof(qmfData.brokerExchangeVhostRef[0]);
+        memcpy(rowreq_ctx->data.brokerExchangeVhostRef,
+        		qmfData.brokerExchangeVhostRef,
+        		qmfData.brokerExchangeVhostRef_len *
+               sizeof(qmfData.brokerExchangeVhostRef[0]));
 
         /*
-         * setup/save data for qpid010ExchangeName
-         * qpid010ExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerExchangeName
+         * brokerExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ExchangeName data
+         * make sure there is enough space for brokerExchangeName data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ExchangeName) ||
-            (rowreq_ctx->data.qpid010ExchangeName_len <
-             (qmfData.qpid010ExchangeName_len * sizeof(qmfData.qpid010ExchangeName[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerExchangeName) ||
+            (rowreq_ctx->data.brokerExchangeName_len <
+             (qmfData.brokerExchangeName_len * sizeof(qmfData.brokerExchangeName[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ExchangeName)\n");
+                     "not enough space for value (brokerExchangeName)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ExchangeName_len =
-        		qmfData.qpid010ExchangeName_len * sizeof(qmfData.qpid010ExchangeName[0]);
-        memcpy(rowreq_ctx->data.qpid010ExchangeName, qmfData.qpid010ExchangeName,
-        		qmfData.qpid010ExchangeName_len * sizeof(qmfData.qpid010ExchangeName[0]));
+        rowreq_ctx->data.brokerExchangeName_len =
+        		qmfData.brokerExchangeName_len * sizeof(qmfData.brokerExchangeName[0]);
+        memcpy(rowreq_ctx->data.brokerExchangeName, qmfData.brokerExchangeName,
+        		qmfData.brokerExchangeName_len * sizeof(qmfData.brokerExchangeName[0]));
 
         /*
-         * setup/save data for qpid010ExchangeType
-         * qpid010ExchangeType(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerExchangeType
+         * brokerExchangeType(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ExchangeType data
+         * make sure there is enough space for brokerExchangeType data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ExchangeType) ||
-            (rowreq_ctx->data.qpid010ExchangeType_len <
-             (qmfData.qpid010ExchangeType_len * sizeof(qmfData.qpid010ExchangeType[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerExchangeType) ||
+            (rowreq_ctx->data.brokerExchangeType_len <
+             (qmfData.brokerExchangeType_len * sizeof(qmfData.brokerExchangeType[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ExchangeType)\n");
+                     "not enough space for value (brokerExchangeType)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ExchangeType_len =
-        		qmfData.qpid010ExchangeType_len * sizeof(qmfData.qpid010ExchangeType[0]);
-        memcpy(rowreq_ctx->data.qpid010ExchangeType, qmfData.qpid010ExchangeType,
-        		qmfData.qpid010ExchangeType_len * sizeof(qmfData.qpid010ExchangeType[0]));
+        rowreq_ctx->data.brokerExchangeType_len =
+        		qmfData.brokerExchangeType_len * sizeof(qmfData.brokerExchangeType[0]);
+        memcpy(rowreq_ctx->data.brokerExchangeType, qmfData.brokerExchangeType,
+        		qmfData.brokerExchangeType_len * sizeof(qmfData.brokerExchangeType[0]));
 
         /*
-         * setup/save data for qpid010ExchangeDurable
-         * qpid010ExchangeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * setup/save data for brokerExchangeDurable
+         * brokerExchangeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeDurable =
-        		qmfData.qpid010ExchangeDurable;
+        rowreq_ctx->data.brokerExchangeDurable =
+        		qmfData.brokerExchangeDurable;
 
         /*
-         * setup/save data for qpid010ExchangeAutoDelete
-         * qpid010ExchangeAutoDelete(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * setup/save data for brokerExchangeAutoDelete
+         * brokerExchangeAutoDelete(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeAutoDelete =
-        		qmfData.qpid010ExchangeAutoDelete;
+        rowreq_ctx->data.brokerExchangeAutoDelete =
+        		qmfData.brokerExchangeAutoDelete;
 
         /*
-         * setup/save data for qpid010ExchangeAltExchange
-         * qpid010ExchangeAltExchange(6)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerExchangeAltExchange
+         * brokerExchangeAltExchange(6)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ExchangeAltExchange data
+         * make sure there is enough space for brokerExchangeAltExchange data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ExchangeAltExchange) ||
-            (rowreq_ctx->data.qpid010ExchangeAltExchange_len <
-             (qmfData.qpid010ExchangeAltExchange_len *
-              sizeof(qmfData.qpid010ExchangeAltExchange[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerExchangeAltExchange) ||
+            (rowreq_ctx->data.brokerExchangeAltExchange_len <
+             (qmfData.brokerExchangeAltExchange_len *
+              sizeof(qmfData.brokerExchangeAltExchange[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ExchangeAltExchange)\n");
+                     "not enough space for value (brokerExchangeAltExchange)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ExchangeAltExchange_len =
-        		qmfData.qpid010ExchangeAltExchange_len *
-            sizeof(qmfData.qpid010ExchangeAltExchange[0]);
-        memcpy(rowreq_ctx->data.qpid010ExchangeAltExchange,
-        		qmfData.qpid010ExchangeAltExchange,
-        		qmfData.qpid010ExchangeAltExchange_len *
-               sizeof(qmfData.qpid010ExchangeAltExchange[0]));
+        rowreq_ctx->data.brokerExchangeAltExchange_len =
+        		qmfData.brokerExchangeAltExchange_len *
+            sizeof(qmfData.brokerExchangeAltExchange[0]);
+        memcpy(rowreq_ctx->data.brokerExchangeAltExchange,
+        		qmfData.brokerExchangeAltExchange,
+        		qmfData.brokerExchangeAltExchange_len *
+               sizeof(qmfData.brokerExchangeAltExchange[0]));
 
         /*
-         * setup/save data for qpid010ExchangeArguments
-         * qpid010ExchangeArguments(7)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerExchangeArguments
+         * brokerExchangeArguments(7)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010ExchangeArguments data
+         * make sure there is enough space for brokerExchangeArguments data
          */
-        if ((NULL == rowreq_ctx->data.qpid010ExchangeArguments) ||
-            (rowreq_ctx->data.qpid010ExchangeArguments_len <
-             (qmfData.qpid010ExchangeArguments_len *
-              sizeof(qmfData.qpid010ExchangeArguments[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerExchangeArguments) ||
+            (rowreq_ctx->data.brokerExchangeArguments_len <
+             (qmfData.brokerExchangeArguments_len *
+              sizeof(qmfData.brokerExchangeArguments[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010ExchangeArguments)\n");
+                     "not enough space for value (brokerExchangeArguments)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010ExchangeArguments_len =
-        		qmfData.qpid010ExchangeArguments_len *
-            sizeof(qmfData.qpid010ExchangeArguments[0]);
-        memcpy(rowreq_ctx->data.qpid010ExchangeArguments,
-        		qmfData.qpid010ExchangeArguments,
-        		qmfData.qpid010ExchangeArguments_len *
-               sizeof(qmfData.qpid010ExchangeArguments[0]));
+        rowreq_ctx->data.brokerExchangeArguments_len =
+        		qmfData.brokerExchangeArguments_len *
+            sizeof(qmfData.brokerExchangeArguments[0]);
+        memcpy(rowreq_ctx->data.brokerExchangeArguments,
+        		qmfData.brokerExchangeArguments,
+        		qmfData.brokerExchangeArguments_len *
+               sizeof(qmfData.brokerExchangeArguments[0]));
 
         /*
-         * setup/save data for qpid010ExchangeProducerCount
-         * qpid010ExchangeProducerCount(8)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerExchangeProducerCount
+         * brokerExchangeProducerCount(8)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeProducerCount =
-        		qmfData.qpid010ExchangeProducerCount;
+        rowreq_ctx->data.brokerExchangeProducerCount =
+        		qmfData.brokerExchangeProducerCount;
 
         /*
-         * setup/save data for qpid010ExchangeProducerCountHi
-         * qpid010ExchangeProducerCountHi(9)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerExchangeProducerCountHi
+         * brokerExchangeProducerCountHi(9)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeProducerCountHi =
-        		qmfData.qpid010ExchangeProducerCountHi;
+        rowreq_ctx->data.brokerExchangeProducerCountHi =
+        		qmfData.brokerExchangeProducerCountHi;
 
         /*
-         * setup/save data for qpid010ExchangeProducerCountLow
-         * qpid010ExchangeProducerCountLow(10)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerExchangeProducerCountLow
+         * brokerExchangeProducerCountLow(10)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeProducerCountLow =
-        		qmfData.qpid010ExchangeProducerCountLow;
+        rowreq_ctx->data.brokerExchangeProducerCountLow =
+        		qmfData.brokerExchangeProducerCountLow;
 
         /*
-         * setup/save data for qpid010ExchangeBindingCount
-         * qpid010ExchangeBindingCount(11)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerExchangeBindingCount
+         * brokerExchangeBindingCount(11)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeBindingCount =
-        		qmfData.qpid010ExchangeBindingCount;
+        rowreq_ctx->data.brokerExchangeBindingCount =
+        		qmfData.brokerExchangeBindingCount;
 
         /*
-         * setup/save data for qpid010ExchangeBindingCountHi
-         * qpid010ExchangeBindingCountHi(12)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerExchangeBindingCountHi
+         * brokerExchangeBindingCountHi(12)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeBindingCountHi =
-        		qmfData.qpid010ExchangeBindingCountHi;
+        rowreq_ctx->data.brokerExchangeBindingCountHi =
+        		qmfData.brokerExchangeBindingCountHi;
 
         /*
-         * setup/save data for qpid010ExchangeBindingCountLow
-         * qpid010ExchangeBindingCountLow(13)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerExchangeBindingCountLow
+         * brokerExchangeBindingCountLow(13)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeBindingCountLow =
-        		qmfData.qpid010ExchangeBindingCountLow;
+        rowreq_ctx->data.brokerExchangeBindingCountLow =
+        		qmfData.brokerExchangeBindingCountLow;
 
         /*
-         * setup/save data for qpid010ExchangeMsgReceives
-         * qpid010ExchangeMsgReceives(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerExchangeMsgReceives
+         * brokerExchangeMsgReceives(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeMsgReceives.high =
-        		qmfData.qpid010ExchangeMsgReceives.high;
-        rowreq_ctx->data.qpid010ExchangeMsgReceives.low =
-        		qmfData.qpid010ExchangeMsgReceives.low;
+        rowreq_ctx->data.brokerExchangeMsgReceives.high =
+        		qmfData.brokerExchangeMsgReceives.high;
+        rowreq_ctx->data.brokerExchangeMsgReceives.low =
+        		qmfData.brokerExchangeMsgReceives.low;
 
         /*
-         * setup/save data for qpid010ExchangeMsgDrops
-         * qpid010ExchangeMsgDrops(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerExchangeMsgDrops
+         * brokerExchangeMsgDrops(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeMsgDrops.high =
-        		qmfData.qpid010ExchangeMsgDrops.high;
-        rowreq_ctx->data.qpid010ExchangeMsgDrops.low =
-        		qmfData.qpid010ExchangeMsgDrops.low;
+        rowreq_ctx->data.brokerExchangeMsgDrops.high =
+        		qmfData.brokerExchangeMsgDrops.high;
+        rowreq_ctx->data.brokerExchangeMsgDrops.low =
+        		qmfData.brokerExchangeMsgDrops.low;
 
         /*
-         * setup/save data for qpid010ExchangeMsgRoutes
-         * qpid010ExchangeMsgRoutes(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerExchangeMsgRoutes
+         * brokerExchangeMsgRoutes(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeMsgRoutes.high =
-        		qmfData.qpid010ExchangeMsgRoutes.high;
-        rowreq_ctx->data.qpid010ExchangeMsgRoutes.low =
-        		qmfData.qpid010ExchangeMsgRoutes.low;
+        rowreq_ctx->data.brokerExchangeMsgRoutes.high =
+        		qmfData.brokerExchangeMsgRoutes.high;
+        rowreq_ctx->data.brokerExchangeMsgRoutes.low =
+        		qmfData.brokerExchangeMsgRoutes.low;
 
         /*
-         * setup/save data for qpid010ExchangeByteReceives
-         * qpid010ExchangeByteReceives(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerExchangeByteReceives
+         * brokerExchangeByteReceives(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeByteReceives.high =
-        		qmfData.qpid010ExchangeByteReceives.high;
-        rowreq_ctx->data.qpid010ExchangeByteReceives.low =
-        		qmfData.qpid010ExchangeByteReceives.low;
+        rowreq_ctx->data.brokerExchangeByteReceives.high =
+        		qmfData.brokerExchangeByteReceives.high;
+        rowreq_ctx->data.brokerExchangeByteReceives.low =
+        		qmfData.brokerExchangeByteReceives.low;
 
         /*
-         * setup/save data for qpid010ExchangeByteDrops
-         * qpid010ExchangeByteDrops(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerExchangeByteDrops
+         * brokerExchangeByteDrops(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeByteDrops.high =
-        		qmfData.qpid010ExchangeByteDrops.high;
-        rowreq_ctx->data.qpid010ExchangeByteDrops.low =
-        		qmfData.qpid010ExchangeByteDrops.low;
+        rowreq_ctx->data.brokerExchangeByteDrops.high =
+        		qmfData.brokerExchangeByteDrops.high;
+        rowreq_ctx->data.brokerExchangeByteDrops.low =
+        		qmfData.brokerExchangeByteDrops.low;
 
         /*
-         * setup/save data for qpid010ExchangeByteRoutes
-         * qpid010ExchangeByteRoutes(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerExchangeByteRoutes
+         * brokerExchangeByteRoutes(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010ExchangeByteRoutes.high =
-        		qmfData.qpid010ExchangeByteRoutes.high;
-        rowreq_ctx->data.qpid010ExchangeByteRoutes.low =
-        		qmfData.qpid010ExchangeByteRoutes.low;
+        rowreq_ctx->data.brokerExchangeByteRoutes.high =
+        		qmfData.brokerExchangeByteRoutes.high;
+        rowreq_ctx->data.brokerExchangeByteRoutes.low =
+        		qmfData.brokerExchangeByteRoutes.low;
 
 
         /*
@@ -592,10 +592,10 @@ qpid010ExchangeTable_container_load(netsnmp_container * container)
 
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_container_load", "inserted %d records\n", (int)count));
+    DEBUGMSGT(("verbose:brokerExchangeTable:brokerExchangeTable_container_load", "inserted %d records\n", (int)count));
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeTable_container_load */
+}                               /* brokerExchangeTable_container_load */
 
 /**
  * container clean up
@@ -611,14 +611,14 @@ qpid010ExchangeTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010ExchangeTable_container_free(netsnmp_container * container)
+brokerExchangeTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_container_free", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_container_free", "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010ExchangeTable container data.
+     * TODO:380:M: Free brokerExchangeTable container data.
      */
-}                               /* qpid010ExchangeTable_container_free */
+}                               /* brokerExchangeTable_container_free */
 
 /**
  * prepare row for processing.
@@ -634,9 +634,9 @@ qpid010ExchangeTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010ExchangeTable_row_prep(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
+brokerExchangeTable_row_prep(brokerExchangeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_row_prep",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_row_prep",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -648,14 +648,14 @@ qpid010ExchangeTable_row_prep(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeTable_row_prep */
+}                               /* brokerExchangeTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010ExchangeTable index validation.
+ * TODO:420:r: Implement brokerExchangeTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeInternalIndex
- * qpid010ExchangeInternalIndex is subid 20 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeInternalIndex
+ * brokerExchangeInternalIndex is subid 20 of brokerExchangeEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.20
  * Description:
@@ -672,19 +672,19 @@ Internal index for exchange table
  *
  *
  *
- * NOTE: NODE qpid010ExchangeInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerExchangeInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010ExchangeInternalIndex index portion
+ * check validity of brokerExchangeInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010ExchangeTable_validate_index() function.
+ *       brokerExchangeTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -699,21 +699,21 @@ Internal index for exchange table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010ExchangeInternalIndex_check_index(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeInternalIndex_check_index(brokerExchangeTable_rowreq_ctx *
                                         rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010ExchangeTable index qpid010ExchangeInternalIndex.
+     * TODO:426:M: |-> Check brokerExchangeTable index brokerExchangeInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010ExchangeInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerExchangeInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010ExchangeInternalIndex index ok */
-}                               /* qpid010ExchangeInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerExchangeInternalIndex index ok */
+}                               /* brokerExchangeInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -737,33 +737,33 @@ qpid010ExchangeInternalIndex_check_index(qpid010ExchangeTable_rowreq_ctx *
  *       available then.
  *
  *
- * @param qpid010ExchangeTable_reg
+ * @param brokerExchangeTable_reg
  *        Pointer to the user registration data
- * @param qpid010ExchangeTable_rowreq_ctx
+ * @param brokerExchangeTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010ExchangeTable_validate_index(qpid010ExchangeTable_registration *
-                                   qpid010ExchangeTable_reg,
-                                   qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_validate_index(brokerExchangeTable_registration *
+                                   brokerExchangeTable_reg,
+                                   brokerExchangeTable_rowreq_ctx *
                                    rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_validate_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_validate_index", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010ExchangeTable index.
+     * TODO:430:M: |-> Validate potential brokerExchangeTable index.
      */
     if (0) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010ExchangeTable table.\n");
+                 "brokerExchangeTable table.\n");
         /*
          * determine failure type.
          *
@@ -780,6 +780,6 @@ qpid010ExchangeTable_validate_index(qpid010ExchangeTable_registration *
     }
 
     return rc;
-}                               /* qpid010ExchangeTable_validate_index */
+}                               /* brokerExchangeTable_validate_index */
 
 /** @} */

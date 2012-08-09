@@ -10,372 +10,372 @@
 
 #include "../qpid_api.h"
 
-/** Initializes the qpid010Broker module */
+/** Initializes the brokerBroker module */
 void
 init_Broker(void)
 {
-    const oid       qpid010BrokerName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 1 };
-    const oid       qpid010BrokerSystemRef_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 2 };
-    const oid       qpid010BrokerPort_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 3 };
-    const oid       qpid010BrokerWorkerThreads_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 4 };
-    const oid       qpid010BrokerConnBacklog_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 5 };
-    const oid       qpid010BrokerStagingThreshold_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 6 };
-    const oid       qpid010BrokerMgmtPublish_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 7 };
-    const oid       qpid010BrokerMgmtPubInterval_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 8 };
-    const oid       qpid010BrokerVersion_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 9 };
-    const oid       qpid010BrokerDataDir_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 10 };
-    const oid       qpid010BrokerUptime_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 11 };
-    const oid       qpid010BrokerQueueCount_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 12 };
-    const oid       qpid010BrokerMsgTotalEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 13 };
-    const oid       qpid010BrokerMsgTotalDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 14 };
-    const oid       qpid010BrokerByteTotalEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 15 };
-    const oid       qpid010BrokerByteTotalDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 16 };
-    const oid       qpid010BrokerMsgDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 17 };
-    const oid       qpid010BrokerByteDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 18 };
-    const oid       qpid010BrokerMsgPersistEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 19 };
-    const oid       qpid010BrokerMsgPersistDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 20 };
-    const oid       qpid010BrokerBytePersistEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 21 };
-    const oid       qpid010BrokerBytePersistDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 22 };
-    const oid       qpid010BrokerMsgTxnEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 23 };
-    const oid       qpid010BrokerMsgTxnDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 24 };
-    const oid       qpid010BrokerByteTxnEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 25 };
-    const oid       qpid010BrokerByteTxnDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 26 };
-    const oid       qpid010BrokerMsgFtdEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 27 };
-    const oid       qpid010BrokerMsgFtdDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 28 };
-    const oid       qpid010BrokerByteFtdEnqueues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 29 };
-    const oid       qpid010BrokerByteFtdDequeues_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 30 };
-    const oid       qpid010BrokerMsgFtdDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 31 };
-    const oid       qpid010BrokerByteFtdDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 32 };
-    const oid       qpid010BrokerReleases_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 33 };
-    const oid       qpid010BrokerAcquires_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 34 };
-    const oid       qpid010BrokerDiscardsNoRoute_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 35 };
-    const oid       qpid010BrokerDiscardsTtl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 36 };
-    const oid       qpid010BrokerDiscardsRing_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 37 };
-    const oid       qpid010BrokerDiscardsLvq_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 38 };
-    const oid       qpid010BrokerDiscardsOverflow_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 39 };
-    const oid       qpid010BrokerDiscardsSubscriber_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 40 };
-    const oid       qpid010BrokerDiscardsPurge_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 41 };
-    const oid       qpid010BrokerReroutes_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 42 };
-    const oid       qpid010BrokerAbandoned_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 43 };
-    const oid       qpid010BrokerAbandonedViaAlt_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 3, 44 };
+    const oid       brokerBrokerName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 1 };
+    const oid       brokerBrokerSystemRef_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 2 };
+    const oid       brokerBrokerPort_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 3 };
+    const oid       brokerBrokerWorkerThreads_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 4 };
+    const oid       brokerBrokerConnBacklog_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 5 };
+    const oid       brokerBrokerStagingThreshold_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 6 };
+    const oid       brokerBrokerMgmtPublish_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 7 };
+    const oid       brokerBrokerMgmtPubInterval_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 8 };
+    const oid       brokerBrokerVersion_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 9 };
+    const oid       brokerBrokerDataDir_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 10 };
+    const oid       brokerBrokerUptime_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 11 };
+    const oid       brokerBrokerQueueCount_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 12 };
+    const oid       brokerBrokerMsgTotalEnqueues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 13 };
+    const oid       brokerBrokerMsgTotalDequeues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 14 };
+    const oid       brokerBrokerByteTotalEnqueues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 15 };
+    const oid       brokerBrokerByteTotalDequeues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 16 };
+    const oid       brokerBrokerMsgDepth_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 17 };
+    const oid       brokerBrokerByteDepth_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 18 };
+    const oid       brokerBrokerMsgPersistEnqueues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 19 };
+    const oid       brokerBrokerMsgPersistDequeues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 20 };
+    const oid       brokerBrokerBytePersistEnqueues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 21 };
+    const oid       brokerBrokerBytePersistDequeues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 22 };
+    const oid       brokerBrokerMsgTxnEnqueues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 23 };
+    const oid       brokerBrokerMsgTxnDequeues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 24 };
+    const oid       brokerBrokerByteTxnEnqueues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 25 };
+    const oid       brokerBrokerByteTxnDequeues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 26 };
+    const oid       brokerBrokerMsgFtdEnqueues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 27 };
+    const oid       brokerBrokerMsgFtdDequeues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 28 };
+    const oid       brokerBrokerByteFtdEnqueues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 29 };
+    const oid       brokerBrokerByteFtdDequeues_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 30 };
+    const oid       brokerBrokerMsgFtdDepth_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 31 };
+    const oid       brokerBrokerByteFtdDepth_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 32 };
+    const oid       brokerBrokerReleases_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 33 };
+    const oid       brokerBrokerAcquires_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 34 };
+    const oid       brokerBrokerDiscardsNoRoute_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 35 };
+    const oid       brokerBrokerDiscardsTtl_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 36 };
+    const oid       brokerBrokerDiscardsRing_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 37 };
+    const oid       brokerBrokerDiscardsLvq_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 38 };
+    const oid       brokerBrokerDiscardsOverflow_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 39 };
+    const oid       brokerBrokerDiscardsSubscriber_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 40 };
+    const oid       brokerBrokerDiscardsPurge_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 41 };
+    const oid       brokerBrokerReroutes_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 42 };
+    const oid       brokerBrokerAbandoned_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 43 };
+    const oid       brokerBrokerAbandonedViaAlt_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 3, 44 };
 
-    DEBUGMSGTL(("qpid010Broker", "Initializing\n"));
+    DEBUGMSGTL(("brokerBroker", "Initializing\n"));
 
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerName", handle_qpid010BrokerName,
-                             qpid010BrokerName_oid,
-                             OID_LENGTH(qpid010BrokerName_oid),
+                            ("brokerBrokerName", handle_brokerBrokerName,
+                             brokerBrokerName_oid,
+                             OID_LENGTH(brokerBrokerName_oid),
                              HANDLER_CAN_RWRITE));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerSystemRef",
-                             handle_qpid010BrokerSystemRef,
-                             qpid010BrokerSystemRef_oid,
-                             OID_LENGTH(qpid010BrokerSystemRef_oid),
+                            ("brokerBrokerSystemRef",
+                             handle_brokerBrokerSystemRef,
+                             brokerBrokerSystemRef_oid,
+                             OID_LENGTH(brokerBrokerSystemRef_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerPort", handle_qpid010BrokerPort,
-                             qpid010BrokerPort_oid,
-                             OID_LENGTH(qpid010BrokerPort_oid),
+                            ("brokerBrokerPort", handle_brokerBrokerPort,
+                             brokerBrokerPort_oid,
+                             OID_LENGTH(brokerBrokerPort_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerWorkerThreads",
-                             handle_qpid010BrokerWorkerThreads,
-                             qpid010BrokerWorkerThreads_oid,
-                             OID_LENGTH(qpid010BrokerWorkerThreads_oid),
+                            ("brokerBrokerWorkerThreads",
+                             handle_brokerBrokerWorkerThreads,
+                             brokerBrokerWorkerThreads_oid,
+                             OID_LENGTH(brokerBrokerWorkerThreads_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerConnBacklog",
-                             handle_qpid010BrokerConnBacklog,
-                             qpid010BrokerConnBacklog_oid,
-                             OID_LENGTH(qpid010BrokerConnBacklog_oid),
+                            ("brokerBrokerConnBacklog",
+                             handle_brokerBrokerConnBacklog,
+                             brokerBrokerConnBacklog_oid,
+                             OID_LENGTH(brokerBrokerConnBacklog_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerStagingThreshold",
-                             handle_qpid010BrokerStagingThreshold,
-                             qpid010BrokerStagingThreshold_oid,
-                             OID_LENGTH(qpid010BrokerStagingThreshold_oid),
+                            ("brokerBrokerStagingThreshold",
+                             handle_brokerBrokerStagingThreshold,
+                             brokerBrokerStagingThreshold_oid,
+                             OID_LENGTH(brokerBrokerStagingThreshold_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMgmtPublish",
-                             handle_qpid010BrokerMgmtPublish,
-                             qpid010BrokerMgmtPublish_oid,
-                             OID_LENGTH(qpid010BrokerMgmtPublish_oid),
+                            ("brokerBrokerMgmtPublish",
+                             handle_brokerBrokerMgmtPublish,
+                             brokerBrokerMgmtPublish_oid,
+                             OID_LENGTH(brokerBrokerMgmtPublish_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMgmtPubInterval",
-                             handle_qpid010BrokerMgmtPubInterval,
-                             qpid010BrokerMgmtPubInterval_oid,
-                             OID_LENGTH(qpid010BrokerMgmtPubInterval_oid),
+                            ("brokerBrokerMgmtPubInterval",
+                             handle_brokerBrokerMgmtPubInterval,
+                             brokerBrokerMgmtPubInterval_oid,
+                             OID_LENGTH(brokerBrokerMgmtPubInterval_oid),
                              HANDLER_CAN_RWRITE));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerVersion",
-                             handle_qpid010BrokerVersion,
-                             qpid010BrokerVersion_oid,
-                             OID_LENGTH(qpid010BrokerVersion_oid),
+                            ("brokerBrokerVersion",
+                             handle_brokerBrokerVersion,
+                             brokerBrokerVersion_oid,
+                             OID_LENGTH(brokerBrokerVersion_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerDataDir",
-                             handle_qpid010BrokerDataDir,
-                             qpid010BrokerDataDir_oid,
-                             OID_LENGTH(qpid010BrokerDataDir_oid),
+                            ("brokerBrokerDataDir",
+                             handle_brokerBrokerDataDir,
+                             brokerBrokerDataDir_oid,
+                             OID_LENGTH(brokerBrokerDataDir_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerUptime",
-                             handle_qpid010BrokerUptime,
-                             qpid010BrokerUptime_oid,
-                             OID_LENGTH(qpid010BrokerUptime_oid),
+                            ("brokerBrokerUptime",
+                             handle_brokerBrokerUptime,
+                             brokerBrokerUptime_oid,
+                             OID_LENGTH(brokerBrokerUptime_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerQueueCount",
-                             handle_qpid010BrokerQueueCount,
-                             qpid010BrokerQueueCount_oid,
-                             OID_LENGTH(qpid010BrokerQueueCount_oid),
+                            ("brokerBrokerQueueCount",
+                             handle_brokerBrokerQueueCount,
+                             brokerBrokerQueueCount_oid,
+                             OID_LENGTH(brokerBrokerQueueCount_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgTotalEnqueues",
-                             handle_qpid010BrokerMsgTotalEnqueues,
-                             qpid010BrokerMsgTotalEnqueues_oid,
-                             OID_LENGTH(qpid010BrokerMsgTotalEnqueues_oid),
+                            ("brokerBrokerMsgTotalEnqueues",
+                             handle_brokerBrokerMsgTotalEnqueues,
+                             brokerBrokerMsgTotalEnqueues_oid,
+                             OID_LENGTH(brokerBrokerMsgTotalEnqueues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgTotalDequeues",
-                             handle_qpid010BrokerMsgTotalDequeues,
-                             qpid010BrokerMsgTotalDequeues_oid,
-                             OID_LENGTH(qpid010BrokerMsgTotalDequeues_oid),
+                            ("brokerBrokerMsgTotalDequeues",
+                             handle_brokerBrokerMsgTotalDequeues,
+                             brokerBrokerMsgTotalDequeues_oid,
+                             OID_LENGTH(brokerBrokerMsgTotalDequeues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerByteTotalEnqueues",
-                             handle_qpid010BrokerByteTotalEnqueues,
-                             qpid010BrokerByteTotalEnqueues_oid,
-                             OID_LENGTH(qpid010BrokerByteTotalEnqueues_oid),
+                            ("brokerBrokerByteTotalEnqueues",
+                             handle_brokerBrokerByteTotalEnqueues,
+                             brokerBrokerByteTotalEnqueues_oid,
+                             OID_LENGTH(brokerBrokerByteTotalEnqueues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerByteTotalDequeues",
-                             handle_qpid010BrokerByteTotalDequeues,
-                             qpid010BrokerByteTotalDequeues_oid,
-                             OID_LENGTH(qpid010BrokerByteTotalDequeues_oid),
+                            ("brokerBrokerByteTotalDequeues",
+                             handle_brokerBrokerByteTotalDequeues,
+                             brokerBrokerByteTotalDequeues_oid,
+                             OID_LENGTH(brokerBrokerByteTotalDequeues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgDepth",
-                             handle_qpid010BrokerMsgDepth,
-                             qpid010BrokerMsgDepth_oid,
-                             OID_LENGTH(qpid010BrokerMsgDepth_oid),
+                            ("brokerBrokerMsgDepth",
+                             handle_brokerBrokerMsgDepth,
+                             brokerBrokerMsgDepth_oid,
+                             OID_LENGTH(brokerBrokerMsgDepth_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerByteDepth",
-                             handle_qpid010BrokerByteDepth,
-                             qpid010BrokerByteDepth_oid,
-                             OID_LENGTH(qpid010BrokerByteDepth_oid),
+                            ("brokerBrokerByteDepth",
+                             handle_brokerBrokerByteDepth,
+                             brokerBrokerByteDepth_oid,
+                             OID_LENGTH(brokerBrokerByteDepth_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgPersistEnqueues",
-                             handle_qpid010BrokerMsgPersistEnqueues,
-                             qpid010BrokerMsgPersistEnqueues_oid,
+                            ("brokerBrokerMsgPersistEnqueues",
+                             handle_brokerBrokerMsgPersistEnqueues,
+                             brokerBrokerMsgPersistEnqueues_oid,
                              OID_LENGTH
-                             (qpid010BrokerMsgPersistEnqueues_oid),
+                             (brokerBrokerMsgPersistEnqueues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgPersistDequeues",
-                             handle_qpid010BrokerMsgPersistDequeues,
-                             qpid010BrokerMsgPersistDequeues_oid,
+                            ("brokerBrokerMsgPersistDequeues",
+                             handle_brokerBrokerMsgPersistDequeues,
+                             brokerBrokerMsgPersistDequeues_oid,
                              OID_LENGTH
-                             (qpid010BrokerMsgPersistDequeues_oid),
+                             (brokerBrokerMsgPersistDequeues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerBytePersistEnqueues",
-                             handle_qpid010BrokerBytePersistEnqueues,
-                             qpid010BrokerBytePersistEnqueues_oid,
+                            ("brokerBrokerBytePersistEnqueues",
+                             handle_brokerBrokerBytePersistEnqueues,
+                             brokerBrokerBytePersistEnqueues_oid,
                              OID_LENGTH
-                             (qpid010BrokerBytePersistEnqueues_oid),
+                             (brokerBrokerBytePersistEnqueues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerBytePersistDequeues",
-                             handle_qpid010BrokerBytePersistDequeues,
-                             qpid010BrokerBytePersistDequeues_oid,
+                            ("brokerBrokerBytePersistDequeues",
+                             handle_brokerBrokerBytePersistDequeues,
+                             brokerBrokerBytePersistDequeues_oid,
                              OID_LENGTH
-                             (qpid010BrokerBytePersistDequeues_oid),
+                             (brokerBrokerBytePersistDequeues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgTxnEnqueues",
-                             handle_qpid010BrokerMsgTxnEnqueues,
-                             qpid010BrokerMsgTxnEnqueues_oid,
-                             OID_LENGTH(qpid010BrokerMsgTxnEnqueues_oid),
+                            ("brokerBrokerMsgTxnEnqueues",
+                             handle_brokerBrokerMsgTxnEnqueues,
+                             brokerBrokerMsgTxnEnqueues_oid,
+                             OID_LENGTH(brokerBrokerMsgTxnEnqueues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgTxnDequeues",
-                             handle_qpid010BrokerMsgTxnDequeues,
-                             qpid010BrokerMsgTxnDequeues_oid,
-                             OID_LENGTH(qpid010BrokerMsgTxnDequeues_oid),
+                            ("brokerBrokerMsgTxnDequeues",
+                             handle_brokerBrokerMsgTxnDequeues,
+                             brokerBrokerMsgTxnDequeues_oid,
+                             OID_LENGTH(brokerBrokerMsgTxnDequeues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerByteTxnEnqueues",
-                             handle_qpid010BrokerByteTxnEnqueues,
-                             qpid010BrokerByteTxnEnqueues_oid,
-                             OID_LENGTH(qpid010BrokerByteTxnEnqueues_oid),
+                            ("brokerBrokerByteTxnEnqueues",
+                             handle_brokerBrokerByteTxnEnqueues,
+                             brokerBrokerByteTxnEnqueues_oid,
+                             OID_LENGTH(brokerBrokerByteTxnEnqueues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerByteTxnDequeues",
-                             handle_qpid010BrokerByteTxnDequeues,
-                             qpid010BrokerByteTxnDequeues_oid,
-                             OID_LENGTH(qpid010BrokerByteTxnDequeues_oid),
+                            ("brokerBrokerByteTxnDequeues",
+                             handle_brokerBrokerByteTxnDequeues,
+                             brokerBrokerByteTxnDequeues_oid,
+                             OID_LENGTH(brokerBrokerByteTxnDequeues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgFtdEnqueues",
-                             handle_qpid010BrokerMsgFtdEnqueues,
-                             qpid010BrokerMsgFtdEnqueues_oid,
-                             OID_LENGTH(qpid010BrokerMsgFtdEnqueues_oid),
+                            ("brokerBrokerMsgFtdEnqueues",
+                             handle_brokerBrokerMsgFtdEnqueues,
+                             brokerBrokerMsgFtdEnqueues_oid,
+                             OID_LENGTH(brokerBrokerMsgFtdEnqueues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgFtdDequeues",
-                             handle_qpid010BrokerMsgFtdDequeues,
-                             qpid010BrokerMsgFtdDequeues_oid,
-                             OID_LENGTH(qpid010BrokerMsgFtdDequeues_oid),
+                            ("brokerBrokerMsgFtdDequeues",
+                             handle_brokerBrokerMsgFtdDequeues,
+                             brokerBrokerMsgFtdDequeues_oid,
+                             OID_LENGTH(brokerBrokerMsgFtdDequeues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerByteFtdEnqueues",
-                             handle_qpid010BrokerByteFtdEnqueues,
-                             qpid010BrokerByteFtdEnqueues_oid,
-                             OID_LENGTH(qpid010BrokerByteFtdEnqueues_oid),
+                            ("brokerBrokerByteFtdEnqueues",
+                             handle_brokerBrokerByteFtdEnqueues,
+                             brokerBrokerByteFtdEnqueues_oid,
+                             OID_LENGTH(brokerBrokerByteFtdEnqueues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerByteFtdDequeues",
-                             handle_qpid010BrokerByteFtdDequeues,
-                             qpid010BrokerByteFtdDequeues_oid,
-                             OID_LENGTH(qpid010BrokerByteFtdDequeues_oid),
+                            ("brokerBrokerByteFtdDequeues",
+                             handle_brokerBrokerByteFtdDequeues,
+                             brokerBrokerByteFtdDequeues_oid,
+                             OID_LENGTH(brokerBrokerByteFtdDequeues_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerMsgFtdDepth",
-                             handle_qpid010BrokerMsgFtdDepth,
-                             qpid010BrokerMsgFtdDepth_oid,
-                             OID_LENGTH(qpid010BrokerMsgFtdDepth_oid),
+                            ("brokerBrokerMsgFtdDepth",
+                             handle_brokerBrokerMsgFtdDepth,
+                             brokerBrokerMsgFtdDepth_oid,
+                             OID_LENGTH(brokerBrokerMsgFtdDepth_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerByteFtdDepth",
-                             handle_qpid010BrokerByteFtdDepth,
-                             qpid010BrokerByteFtdDepth_oid,
-                             OID_LENGTH(qpid010BrokerByteFtdDepth_oid),
+                            ("brokerBrokerByteFtdDepth",
+                             handle_brokerBrokerByteFtdDepth,
+                             brokerBrokerByteFtdDepth_oid,
+                             OID_LENGTH(brokerBrokerByteFtdDepth_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerReleases",
-                             handle_qpid010BrokerReleases,
-                             qpid010BrokerReleases_oid,
-                             OID_LENGTH(qpid010BrokerReleases_oid),
+                            ("brokerBrokerReleases",
+                             handle_brokerBrokerReleases,
+                             brokerBrokerReleases_oid,
+                             OID_LENGTH(brokerBrokerReleases_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerAcquires",
-                             handle_qpid010BrokerAcquires,
-                             qpid010BrokerAcquires_oid,
-                             OID_LENGTH(qpid010BrokerAcquires_oid),
+                            ("brokerBrokerAcquires",
+                             handle_brokerBrokerAcquires,
+                             brokerBrokerAcquires_oid,
+                             OID_LENGTH(brokerBrokerAcquires_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerDiscardsNoRoute",
-                             handle_qpid010BrokerDiscardsNoRoute,
-                             qpid010BrokerDiscardsNoRoute_oid,
-                             OID_LENGTH(qpid010BrokerDiscardsNoRoute_oid),
+                            ("brokerBrokerDiscardsNoRoute",
+                             handle_brokerBrokerDiscardsNoRoute,
+                             brokerBrokerDiscardsNoRoute_oid,
+                             OID_LENGTH(brokerBrokerDiscardsNoRoute_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerDiscardsTtl",
-                             handle_qpid010BrokerDiscardsTtl,
-                             qpid010BrokerDiscardsTtl_oid,
-                             OID_LENGTH(qpid010BrokerDiscardsTtl_oid),
+                            ("brokerBrokerDiscardsTtl",
+                             handle_brokerBrokerDiscardsTtl,
+                             brokerBrokerDiscardsTtl_oid,
+                             OID_LENGTH(brokerBrokerDiscardsTtl_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerDiscardsRing",
-                             handle_qpid010BrokerDiscardsRing,
-                             qpid010BrokerDiscardsRing_oid,
-                             OID_LENGTH(qpid010BrokerDiscardsRing_oid),
+                            ("brokerBrokerDiscardsRing",
+                             handle_brokerBrokerDiscardsRing,
+                             brokerBrokerDiscardsRing_oid,
+                             OID_LENGTH(brokerBrokerDiscardsRing_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerDiscardsLvq",
-                             handle_qpid010BrokerDiscardsLvq,
-                             qpid010BrokerDiscardsLvq_oid,
-                             OID_LENGTH(qpid010BrokerDiscardsLvq_oid),
+                            ("brokerBrokerDiscardsLvq",
+                             handle_brokerBrokerDiscardsLvq,
+                             brokerBrokerDiscardsLvq_oid,
+                             OID_LENGTH(brokerBrokerDiscardsLvq_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerDiscardsOverflow",
-                             handle_qpid010BrokerDiscardsOverflow,
-                             qpid010BrokerDiscardsOverflow_oid,
-                             OID_LENGTH(qpid010BrokerDiscardsOverflow_oid),
+                            ("brokerBrokerDiscardsOverflow",
+                             handle_brokerBrokerDiscardsOverflow,
+                             brokerBrokerDiscardsOverflow_oid,
+                             OID_LENGTH(brokerBrokerDiscardsOverflow_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerDiscardsSubscriber",
-                             handle_qpid010BrokerDiscardsSubscriber,
-                             qpid010BrokerDiscardsSubscriber_oid,
+                            ("brokerBrokerDiscardsSubscriber",
+                             handle_brokerBrokerDiscardsSubscriber,
+                             brokerBrokerDiscardsSubscriber_oid,
                              OID_LENGTH
-                             (qpid010BrokerDiscardsSubscriber_oid),
+                             (brokerBrokerDiscardsSubscriber_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerDiscardsPurge",
-                             handle_qpid010BrokerDiscardsPurge,
-                             qpid010BrokerDiscardsPurge_oid,
-                             OID_LENGTH(qpid010BrokerDiscardsPurge_oid),
+                            ("brokerBrokerDiscardsPurge",
+                             handle_brokerBrokerDiscardsPurge,
+                             brokerBrokerDiscardsPurge_oid,
+                             OID_LENGTH(brokerBrokerDiscardsPurge_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerReroutes",
-                             handle_qpid010BrokerReroutes,
-                             qpid010BrokerReroutes_oid,
-                             OID_LENGTH(qpid010BrokerReroutes_oid),
+                            ("brokerBrokerReroutes",
+                             handle_brokerBrokerReroutes,
+                             brokerBrokerReroutes_oid,
+                             OID_LENGTH(brokerBrokerReroutes_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerAbandoned",
-                             handle_qpid010BrokerAbandoned,
-                             qpid010BrokerAbandoned_oid,
-                             OID_LENGTH(qpid010BrokerAbandoned_oid),
+                            ("brokerBrokerAbandoned",
+                             handle_brokerBrokerAbandoned,
+                             brokerBrokerAbandoned_oid,
+                             OID_LENGTH(brokerBrokerAbandoned_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010BrokerAbandonedViaAlt",
-                             handle_qpid010BrokerAbandonedViaAlt,
-                             qpid010BrokerAbandonedViaAlt_oid,
-                             OID_LENGTH(qpid010BrokerAbandonedViaAlt_oid),
+                            ("brokerBrokerAbandonedViaAlt",
+                             handle_brokerBrokerAbandonedViaAlt,
+                             brokerBrokerAbandonedViaAlt_oid,
+                             OID_LENGTH(brokerBrokerAbandonedViaAlt_oid),
                              HANDLER_CAN_RONLY));
 }
 
 int
-handle_qpid010BrokerName(netsnmp_mib_handler *handler,
+handle_brokerBrokerName(netsnmp_mib_handler *handler,
                         netsnmp_handler_registration *reginfo,
                         netsnmp_agent_request_info *reqinfo,
                         netsnmp_request_info *requests)
@@ -473,7 +473,7 @@ handle_qpid010BrokerName(netsnmp_mib_handler *handler,
         /*
          * we should never get here, so this is a really bad error 
          */
-        snmp_log(LOG_ERR, "unknown mode (%d) in handle_qpid010BrokerName\n",
+        snmp_log(LOG_ERR, "unknown mode (%d) in handle_brokerBrokerName\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -482,7 +482,7 @@ handle_qpid010BrokerName(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerSystemRef(netsnmp_mib_handler *handler,
+handle_brokerBrokerSystemRef(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *reqinfo,
                              netsnmp_request_info *requests)
@@ -515,7 +515,7 @@ handle_qpid010BrokerSystemRef(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerSystemRef\n",
+                 "unknown mode (%d) in handle_brokerBrokerSystemRef\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -524,7 +524,7 @@ handle_qpid010BrokerSystemRef(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerPort(netsnmp_mib_handler *handler,
+handle_brokerBrokerPort(netsnmp_mib_handler *handler,
                         netsnmp_handler_registration *reginfo,
                         netsnmp_agent_request_info *reqinfo,
                         netsnmp_request_info *requests)
@@ -556,7 +556,7 @@ handle_qpid010BrokerPort(netsnmp_mib_handler *handler,
         /*
          * we should never get here, so this is a really bad error 
          */
-        snmp_log(LOG_ERR, "unknown mode (%d) in handle_qpid010BrokerPort\n",
+        snmp_log(LOG_ERR, "unknown mode (%d) in handle_brokerBrokerPort\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -565,7 +565,7 @@ handle_qpid010BrokerPort(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerWorkerThreads(netsnmp_mib_handler *handler,
+handle_brokerBrokerWorkerThreads(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *reqinfo,
                                  netsnmp_request_info *requests)
@@ -598,7 +598,7 @@ handle_qpid010BrokerWorkerThreads(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerWorkerThreads\n",
+                 "unknown mode (%d) in handle_brokerBrokerWorkerThreads\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -607,7 +607,7 @@ handle_qpid010BrokerWorkerThreads(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerConnBacklog(netsnmp_mib_handler *handler,
+handle_brokerBrokerConnBacklog(netsnmp_mib_handler *handler,
                                netsnmp_handler_registration *reginfo,
                                netsnmp_agent_request_info *reqinfo,
                                netsnmp_request_info *requests)
@@ -640,7 +640,7 @@ handle_qpid010BrokerConnBacklog(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerConnBacklog\n",
+                 "unknown mode (%d) in handle_brokerBrokerConnBacklog\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -649,7 +649,7 @@ handle_qpid010BrokerConnBacklog(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerStagingThreshold(netsnmp_mib_handler *handler,
+handle_brokerBrokerStagingThreshold(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info *reqinfo,
                                     netsnmp_request_info *requests)
@@ -682,7 +682,7 @@ handle_qpid010BrokerStagingThreshold(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerStagingThreshold\n",
+                 "unknown mode (%d) in handle_brokerBrokerStagingThreshold\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -691,7 +691,7 @@ handle_qpid010BrokerStagingThreshold(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMgmtPublish(netsnmp_mib_handler *handler,
+handle_brokerBrokerMgmtPublish(netsnmp_mib_handler *handler,
                                netsnmp_handler_registration *reginfo,
                                netsnmp_agent_request_info *reqinfo,
                                netsnmp_request_info *requests)
@@ -724,7 +724,7 @@ handle_qpid010BrokerMgmtPublish(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMgmtPublish\n",
+                 "unknown mode (%d) in handle_brokerBrokerMgmtPublish\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -733,7 +733,7 @@ handle_qpid010BrokerMgmtPublish(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
+handle_brokerBrokerMgmtPubInterval(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *reqinfo,
                                    netsnmp_request_info *requests)
@@ -755,7 +755,7 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
     switch (reqinfo->mode) {
 
     case MODE_GET:
-        DEBUGMSGTL(("qpid010Broker", "handle_qpid010BrokerMgmtPubInterval - Get\n"));
+        DEBUGMSGTL(("brokerBroker", "handle_brokerBrokerMgmtPubInterval - Get\n"));
         snmp_set_var_typed_value(requests->requestvb, ASN_INTEGER,
         		&u16,		// a pointer to the scalar's data
         		sizeof(u16)	// the length of the data in bytes
@@ -769,7 +769,7 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
          * http://www.net-snmp.org/tutorial-5/toolkit/mib_module/set-actions.jpg
          */
     case MODE_SET_RESERVE1:
-        DEBUGMSGTL(("qpid010Broker", "handle_qpid010BrokerMgmtPubInterval - SET_RESERVE1\n"));
+        DEBUGMSGTL(("brokerBroker", "handle_brokerBrokerMgmtPubInterval - SET_RESERVE1\n"));
         /*
          * or you could use netsnmp_check_vb_type_and_size instead 
          */
@@ -780,7 +780,7 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
         break;
 
     case MODE_SET_RESERVE2:
-        DEBUGMSGTL(("qpid010Broker", "handle_qpid010BrokerMgmtPubInterval - SET_RESERVE2\n"));
+        DEBUGMSGTL(("brokerBroker", "handle_brokerBrokerMgmtPubInterval - SET_RESERVE2\n"));
         /*
          * XXX malloc "undo" storage buffer 
          */
@@ -790,7 +790,7 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
         break;
 
     case MODE_SET_FREE:
-        DEBUGMSGTL(("qpid010Broker", "handle_qpid010BrokerMgmtPubInterval - SET_FREE\n"));
+        DEBUGMSGTL(("brokerBroker", "handle_brokerBrokerMgmtPubInterval - SET_FREE\n"));
         /*
          * XXX: free resources allocated in RESERVE1 and/or
          * RESERVE2.  Something failed somewhere, and the states
@@ -799,7 +799,7 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
         break;
 
     case MODE_SET_ACTION:
-        DEBUGMSGTL(("qpid010Broker", "handle_qpid010BrokerMgmtPubInterval - SET_ACTION\n"));
+        DEBUGMSGTL(("brokerBroker", "handle_brokerBrokerMgmtPubInterval - SET_ACTION\n"));
         /*
          * XXX: perform the value change here 
          */
@@ -809,7 +809,7 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
         break;
 
     case MODE_SET_COMMIT:
-        DEBUGMSGTL(("qpid010Broker", "handle_qpid010BrokerMgmtPubInterval - SET_COMMIT\n"));
+        DEBUGMSGTL(("brokerBroker", "handle_brokerBrokerMgmtPubInterval - SET_COMMIT\n"));
         /*
          * XXX: delete temporary storage 
          */
@@ -822,7 +822,7 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
         break;
 
     case MODE_SET_UNDO:
-        DEBUGMSGTL(("qpid010Broker", "handle_qpid010BrokerMgmtPubInterval - SET_UNDO\n"));
+        DEBUGMSGTL(("brokerBroker", "handle_brokerBrokerMgmtPubInterval - SET_UNDO\n"));
         /*
          * XXX: UNDO and return to previous value for the object 
          */
@@ -835,12 +835,12 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
         break;
 
     default:
-        DEBUGMSGTL(("qpid010Broker", "handle_qpid010BrokerMgmtPubInterval - DEFAULT!\n"));
+        DEBUGMSGTL(("brokerBroker", "handle_brokerBrokerMgmtPubInterval - DEFAULT!\n"));
         /*
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMgmtPubInterval\n",
+                 "unknown mode (%d) in handle_brokerBrokerMgmtPubInterval\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -849,7 +849,7 @@ handle_qpid010BrokerMgmtPubInterval(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerVersion(netsnmp_mib_handler *handler,
+handle_brokerBrokerVersion(netsnmp_mib_handler *handler,
                            netsnmp_handler_registration *reginfo,
                            netsnmp_agent_request_info *reqinfo,
                            netsnmp_request_info *requests)
@@ -882,7 +882,7 @@ handle_qpid010BrokerVersion(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerVersion\n",
+                 "unknown mode (%d) in handle_brokerBrokerVersion\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -891,7 +891,7 @@ handle_qpid010BrokerVersion(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerDataDir(netsnmp_mib_handler *handler,
+handle_brokerBrokerDataDir(netsnmp_mib_handler *handler,
                            netsnmp_handler_registration *reginfo,
                            netsnmp_agent_request_info *reqinfo,
                            netsnmp_request_info *requests)
@@ -924,7 +924,7 @@ handle_qpid010BrokerDataDir(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerDataDir\n",
+                 "unknown mode (%d) in handle_brokerBrokerDataDir\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -933,7 +933,7 @@ handle_qpid010BrokerDataDir(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerUptime(netsnmp_mib_handler *handler,
+handle_brokerBrokerUptime(netsnmp_mib_handler *handler,
                           netsnmp_handler_registration *reginfo,
                           netsnmp_agent_request_info *reqinfo,
                           netsnmp_request_info *requests)
@@ -969,7 +969,7 @@ handle_qpid010BrokerUptime(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerUptime\n",
+                 "unknown mode (%d) in handle_brokerBrokerUptime\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -978,7 +978,7 @@ handle_qpid010BrokerUptime(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerQueueCount(netsnmp_mib_handler *handler,
+handle_brokerBrokerQueueCount(netsnmp_mib_handler *handler,
                               netsnmp_handler_registration *reginfo,
                               netsnmp_agent_request_info *reqinfo,
                               netsnmp_request_info *requests)
@@ -1011,7 +1011,7 @@ handle_qpid010BrokerQueueCount(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerQueueCount\n",
+                 "unknown mode (%d) in handle_brokerBrokerQueueCount\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1020,7 +1020,7 @@ handle_qpid010BrokerQueueCount(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgTotalEnqueues(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgTotalEnqueues(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info *reqinfo,
                                     netsnmp_request_info *requests)
@@ -1053,7 +1053,7 @@ handle_qpid010BrokerMsgTotalEnqueues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgTotalEnqueues\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgTotalEnqueues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1062,7 +1062,7 @@ handle_qpid010BrokerMsgTotalEnqueues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgTotalDequeues(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgTotalDequeues(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info *reqinfo,
                                     netsnmp_request_info *requests)
@@ -1095,7 +1095,7 @@ handle_qpid010BrokerMsgTotalDequeues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgTotalDequeues\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgTotalDequeues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1104,7 +1104,7 @@ handle_qpid010BrokerMsgTotalDequeues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerByteTotalEnqueues(netsnmp_mib_handler *handler,
+handle_brokerBrokerByteTotalEnqueues(netsnmp_mib_handler *handler,
                                      netsnmp_handler_registration *reginfo,
                                      netsnmp_agent_request_info *reqinfo,
                                      netsnmp_request_info *requests)
@@ -1137,7 +1137,7 @@ handle_qpid010BrokerByteTotalEnqueues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerByteTotalEnqueues\n",
+                 "unknown mode (%d) in handle_brokerBrokerByteTotalEnqueues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1146,7 +1146,7 @@ handle_qpid010BrokerByteTotalEnqueues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerByteTotalDequeues(netsnmp_mib_handler *handler,
+handle_brokerBrokerByteTotalDequeues(netsnmp_mib_handler *handler,
                                      netsnmp_handler_registration *reginfo,
                                      netsnmp_agent_request_info *reqinfo,
                                      netsnmp_request_info *requests)
@@ -1179,7 +1179,7 @@ handle_qpid010BrokerByteTotalDequeues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerByteTotalDequeues\n",
+                 "unknown mode (%d) in handle_brokerBrokerByteTotalDequeues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1188,7 +1188,7 @@ handle_qpid010BrokerByteTotalDequeues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgDepth(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgDepth(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -1221,7 +1221,7 @@ handle_qpid010BrokerMsgDepth(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgDepth\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgDepth\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1230,7 +1230,7 @@ handle_qpid010BrokerMsgDepth(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerByteDepth(netsnmp_mib_handler *handler,
+handle_brokerBrokerByteDepth(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *reqinfo,
                              netsnmp_request_info *requests)
@@ -1263,7 +1263,7 @@ handle_qpid010BrokerByteDepth(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerByteDepth\n",
+                 "unknown mode (%d) in handle_brokerBrokerByteDepth\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1272,7 +1272,7 @@ handle_qpid010BrokerByteDepth(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgPersistEnqueues(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgPersistEnqueues(netsnmp_mib_handler *handler,
                                       netsnmp_handler_registration
                                       *reginfo,
                                       netsnmp_agent_request_info *reqinfo,
@@ -1306,7 +1306,7 @@ handle_qpid010BrokerMsgPersistEnqueues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgPersistEnqueues\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgPersistEnqueues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1315,7 +1315,7 @@ handle_qpid010BrokerMsgPersistEnqueues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgPersistDequeues(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgPersistDequeues(netsnmp_mib_handler *handler,
                                       netsnmp_handler_registration
                                       *reginfo,
                                       netsnmp_agent_request_info *reqinfo,
@@ -1349,7 +1349,7 @@ handle_qpid010BrokerMsgPersistDequeues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgPersistDequeues\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgPersistDequeues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1358,7 +1358,7 @@ handle_qpid010BrokerMsgPersistDequeues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerBytePersistEnqueues(netsnmp_mib_handler *handler,
+handle_brokerBrokerBytePersistEnqueues(netsnmp_mib_handler *handler,
                                        netsnmp_handler_registration
                                        *reginfo,
                                        netsnmp_agent_request_info *reqinfo,
@@ -1392,7 +1392,7 @@ handle_qpid010BrokerBytePersistEnqueues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerBytePersistEnqueues\n",
+                 "unknown mode (%d) in handle_brokerBrokerBytePersistEnqueues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1401,7 +1401,7 @@ handle_qpid010BrokerBytePersistEnqueues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerBytePersistDequeues(netsnmp_mib_handler *handler,
+handle_brokerBrokerBytePersistDequeues(netsnmp_mib_handler *handler,
                                        netsnmp_handler_registration
                                        *reginfo,
                                        netsnmp_agent_request_info *reqinfo,
@@ -1435,7 +1435,7 @@ handle_qpid010BrokerBytePersistDequeues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerBytePersistDequeues\n",
+                 "unknown mode (%d) in handle_brokerBrokerBytePersistDequeues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1444,7 +1444,7 @@ handle_qpid010BrokerBytePersistDequeues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgTxnEnqueues(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgTxnEnqueues(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *reqinfo,
                                   netsnmp_request_info *requests)
@@ -1477,7 +1477,7 @@ handle_qpid010BrokerMsgTxnEnqueues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgTxnEnqueues\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgTxnEnqueues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1486,7 +1486,7 @@ handle_qpid010BrokerMsgTxnEnqueues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgTxnDequeues(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgTxnDequeues(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *reqinfo,
                                   netsnmp_request_info *requests)
@@ -1519,7 +1519,7 @@ handle_qpid010BrokerMsgTxnDequeues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgTxnDequeues\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgTxnDequeues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1528,7 +1528,7 @@ handle_qpid010BrokerMsgTxnDequeues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerByteTxnEnqueues(netsnmp_mib_handler *handler,
+handle_brokerBrokerByteTxnEnqueues(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *reqinfo,
                                    netsnmp_request_info *requests)
@@ -1561,7 +1561,7 @@ handle_qpid010BrokerByteTxnEnqueues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerByteTxnEnqueues\n",
+                 "unknown mode (%d) in handle_brokerBrokerByteTxnEnqueues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1570,7 +1570,7 @@ handle_qpid010BrokerByteTxnEnqueues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerByteTxnDequeues(netsnmp_mib_handler *handler,
+handle_brokerBrokerByteTxnDequeues(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *reqinfo,
                                    netsnmp_request_info *requests)
@@ -1603,7 +1603,7 @@ handle_qpid010BrokerByteTxnDequeues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerByteTxnDequeues\n",
+                 "unknown mode (%d) in handle_brokerBrokerByteTxnDequeues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1612,7 +1612,7 @@ handle_qpid010BrokerByteTxnDequeues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgFtdEnqueues(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgFtdEnqueues(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *reqinfo,
                                   netsnmp_request_info *requests)
@@ -1645,7 +1645,7 @@ handle_qpid010BrokerMsgFtdEnqueues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgFtdEnqueues\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgFtdEnqueues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1654,7 +1654,7 @@ handle_qpid010BrokerMsgFtdEnqueues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgFtdDequeues(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgFtdDequeues(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *reqinfo,
                                   netsnmp_request_info *requests)
@@ -1687,7 +1687,7 @@ handle_qpid010BrokerMsgFtdDequeues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgFtdDequeues\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgFtdDequeues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1696,7 +1696,7 @@ handle_qpid010BrokerMsgFtdDequeues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerByteFtdEnqueues(netsnmp_mib_handler *handler,
+handle_brokerBrokerByteFtdEnqueues(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *reqinfo,
                                    netsnmp_request_info *requests)
@@ -1729,7 +1729,7 @@ handle_qpid010BrokerByteFtdEnqueues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerByteFtdEnqueues\n",
+                 "unknown mode (%d) in handle_brokerBrokerByteFtdEnqueues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1738,7 +1738,7 @@ handle_qpid010BrokerByteFtdEnqueues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerByteFtdDequeues(netsnmp_mib_handler *handler,
+handle_brokerBrokerByteFtdDequeues(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *reqinfo,
                                    netsnmp_request_info *requests)
@@ -1771,7 +1771,7 @@ handle_qpid010BrokerByteFtdDequeues(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerByteFtdDequeues\n",
+                 "unknown mode (%d) in handle_brokerBrokerByteFtdDequeues\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1780,7 +1780,7 @@ handle_qpid010BrokerByteFtdDequeues(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerMsgFtdDepth(netsnmp_mib_handler *handler,
+handle_brokerBrokerMsgFtdDepth(netsnmp_mib_handler *handler,
                                netsnmp_handler_registration *reginfo,
                                netsnmp_agent_request_info *reqinfo,
                                netsnmp_request_info *requests)
@@ -1813,7 +1813,7 @@ handle_qpid010BrokerMsgFtdDepth(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerMsgFtdDepth\n",
+                 "unknown mode (%d) in handle_brokerBrokerMsgFtdDepth\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1822,7 +1822,7 @@ handle_qpid010BrokerMsgFtdDepth(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerByteFtdDepth(netsnmp_mib_handler *handler,
+handle_brokerBrokerByteFtdDepth(netsnmp_mib_handler *handler,
                                 netsnmp_handler_registration *reginfo,
                                 netsnmp_agent_request_info *reqinfo,
                                 netsnmp_request_info *requests)
@@ -1855,7 +1855,7 @@ handle_qpid010BrokerByteFtdDepth(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerByteFtdDepth\n",
+                 "unknown mode (%d) in handle_brokerBrokerByteFtdDepth\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1864,7 +1864,7 @@ handle_qpid010BrokerByteFtdDepth(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerReleases(netsnmp_mib_handler *handler,
+handle_brokerBrokerReleases(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -1897,7 +1897,7 @@ handle_qpid010BrokerReleases(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerReleases\n",
+                 "unknown mode (%d) in handle_brokerBrokerReleases\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1906,7 +1906,7 @@ handle_qpid010BrokerReleases(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerAcquires(netsnmp_mib_handler *handler,
+handle_brokerBrokerAcquires(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -1939,7 +1939,7 @@ handle_qpid010BrokerAcquires(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerAcquires\n",
+                 "unknown mode (%d) in handle_brokerBrokerAcquires\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1948,7 +1948,7 @@ handle_qpid010BrokerAcquires(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerDiscardsNoRoute(netsnmp_mib_handler *handler,
+handle_brokerBrokerDiscardsNoRoute(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *reqinfo,
                                    netsnmp_request_info *requests)
@@ -1981,7 +1981,7 @@ handle_qpid010BrokerDiscardsNoRoute(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerDiscardsNoRoute\n",
+                 "unknown mode (%d) in handle_brokerBrokerDiscardsNoRoute\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -1990,7 +1990,7 @@ handle_qpid010BrokerDiscardsNoRoute(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerDiscardsTtl(netsnmp_mib_handler *handler,
+handle_brokerBrokerDiscardsTtl(netsnmp_mib_handler *handler,
                                netsnmp_handler_registration *reginfo,
                                netsnmp_agent_request_info *reqinfo,
                                netsnmp_request_info *requests)
@@ -2023,7 +2023,7 @@ handle_qpid010BrokerDiscardsTtl(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerDiscardsTtl\n",
+                 "unknown mode (%d) in handle_brokerBrokerDiscardsTtl\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -2032,7 +2032,7 @@ handle_qpid010BrokerDiscardsTtl(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerDiscardsRing(netsnmp_mib_handler *handler,
+handle_brokerBrokerDiscardsRing(netsnmp_mib_handler *handler,
                                 netsnmp_handler_registration *reginfo,
                                 netsnmp_agent_request_info *reqinfo,
                                 netsnmp_request_info *requests)
@@ -2065,7 +2065,7 @@ handle_qpid010BrokerDiscardsRing(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerDiscardsRing\n",
+                 "unknown mode (%d) in handle_brokerBrokerDiscardsRing\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -2074,7 +2074,7 @@ handle_qpid010BrokerDiscardsRing(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerDiscardsLvq(netsnmp_mib_handler *handler,
+handle_brokerBrokerDiscardsLvq(netsnmp_mib_handler *handler,
                                netsnmp_handler_registration *reginfo,
                                netsnmp_agent_request_info *reqinfo,
                                netsnmp_request_info *requests)
@@ -2107,7 +2107,7 @@ handle_qpid010BrokerDiscardsLvq(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerDiscardsLvq\n",
+                 "unknown mode (%d) in handle_brokerBrokerDiscardsLvq\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -2116,7 +2116,7 @@ handle_qpid010BrokerDiscardsLvq(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerDiscardsOverflow(netsnmp_mib_handler *handler,
+handle_brokerBrokerDiscardsOverflow(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info *reqinfo,
                                     netsnmp_request_info *requests)
@@ -2149,7 +2149,7 @@ handle_qpid010BrokerDiscardsOverflow(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerDiscardsOverflow\n",
+                 "unknown mode (%d) in handle_brokerBrokerDiscardsOverflow\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -2158,7 +2158,7 @@ handle_qpid010BrokerDiscardsOverflow(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerDiscardsSubscriber(netsnmp_mib_handler *handler,
+handle_brokerBrokerDiscardsSubscriber(netsnmp_mib_handler *handler,
                                       netsnmp_handler_registration
                                       *reginfo,
                                       netsnmp_agent_request_info *reqinfo,
@@ -2192,7 +2192,7 @@ handle_qpid010BrokerDiscardsSubscriber(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerDiscardsSubscriber\n",
+                 "unknown mode (%d) in handle_brokerBrokerDiscardsSubscriber\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -2201,7 +2201,7 @@ handle_qpid010BrokerDiscardsSubscriber(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerDiscardsPurge(netsnmp_mib_handler *handler,
+handle_brokerBrokerDiscardsPurge(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *reqinfo,
                                  netsnmp_request_info *requests)
@@ -2234,7 +2234,7 @@ handle_qpid010BrokerDiscardsPurge(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerDiscardsPurge\n",
+                 "unknown mode (%d) in handle_brokerBrokerDiscardsPurge\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -2243,7 +2243,7 @@ handle_qpid010BrokerDiscardsPurge(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerReroutes(netsnmp_mib_handler *handler,
+handle_brokerBrokerReroutes(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -2276,7 +2276,7 @@ handle_qpid010BrokerReroutes(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerReroutes\n",
+                 "unknown mode (%d) in handle_brokerBrokerReroutes\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -2285,7 +2285,7 @@ handle_qpid010BrokerReroutes(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerAbandoned(netsnmp_mib_handler *handler,
+handle_brokerBrokerAbandoned(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *reqinfo,
                              netsnmp_request_info *requests)
@@ -2318,7 +2318,7 @@ handle_qpid010BrokerAbandoned(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerAbandoned\n",
+                 "unknown mode (%d) in handle_brokerBrokerAbandoned\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -2327,7 +2327,7 @@ handle_qpid010BrokerAbandoned(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010BrokerAbandonedViaAlt(netsnmp_mib_handler *handler,
+handle_brokerBrokerAbandonedViaAlt(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *reqinfo,
                                    netsnmp_request_info *requests)
@@ -2360,7 +2360,7 @@ handle_qpid010BrokerAbandonedViaAlt(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010BrokerAbandonedViaAlt\n",
+                 "unknown mode (%d) in handle_brokerBrokerAbandonedViaAlt\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }

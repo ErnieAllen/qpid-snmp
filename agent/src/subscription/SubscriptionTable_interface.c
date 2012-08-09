@@ -52,21 +52,21 @@ netsnmp_feature_require(baby_steps)
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SubscriptionTable
+ *** Table brokerSubscriptionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
+     * QPID-MESSAGING-MIB::brokerSubscriptionTable is subid 1 of brokerSubscriptions.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
      */
-     typedef struct qpid010SubscriptionTable_interface_ctx_s {
+     typedef struct brokerSubscriptionTable_interface_ctx_s {
 
          netsnmp_container *container;
          netsnmp_cache  *cache;
 
-         qpid010SubscriptionTable_registration *user_ctx;
+         brokerSubscriptionTable_registration *user_ctx;
 
          netsnmp_table_registration_info tbl_info;
 
@@ -74,136 +74,136 @@ netsnmp_feature_require(baby_steps)
 
          u_int           table_dirty;
 
-     } qpid010SubscriptionTable_interface_ctx;
+     } brokerSubscriptionTable_interface_ctx;
 
-     static qpid010SubscriptionTable_interface_ctx
-         qpid010SubscriptionTable_if_ctx;
+     static brokerSubscriptionTable_interface_ctx
+         brokerSubscriptionTable_if_ctx;
 
      static void    
-         _qpid010SubscriptionTable_container_init
-         (qpid010SubscriptionTable_interface_ctx * if_ctx);
+         _brokerSubscriptionTable_container_init
+         (brokerSubscriptionTable_interface_ctx * if_ctx);
      static void    
-         _qpid010SubscriptionTable_container_shutdown
-         (qpid010SubscriptionTable_interface_ctx * if_ctx);
+         _brokerSubscriptionTable_container_shutdown
+         (brokerSubscriptionTable_interface_ctx * if_ctx);
 
 
-     netsnmp_container *qpid010SubscriptionTable_container_get(void)
+     netsnmp_container *brokerSubscriptionTable_container_get(void)
 {
-    return qpid010SubscriptionTable_if_ctx.container;
+    return brokerSubscriptionTable_if_ctx.container;
 }
 
-qpid010SubscriptionTable_registration *
-qpid010SubscriptionTable_registration_get(void)
+brokerSubscriptionTable_registration *
+brokerSubscriptionTable_registration_get(void)
 {
-    return qpid010SubscriptionTable_if_ctx.user_ctx;
+    return brokerSubscriptionTable_if_ctx.user_ctx;
 }
 
-qpid010SubscriptionTable_registration *
-qpid010SubscriptionTable_registration_set
-    (qpid010SubscriptionTable_registration * newreg)
+brokerSubscriptionTable_registration *
+brokerSubscriptionTable_registration_set
+    (brokerSubscriptionTable_registration * newreg)
 {
-    qpid010SubscriptionTable_registration *old =
-        qpid010SubscriptionTable_if_ctx.user_ctx;
-    qpid010SubscriptionTable_if_ctx.user_ctx = newreg;
+    brokerSubscriptionTable_registration *old =
+        brokerSubscriptionTable_if_ctx.user_ctx;
+    brokerSubscriptionTable_if_ctx.user_ctx = newreg;
     return old;
 }
 
 int
-qpid010SubscriptionTable_container_size(void)
+brokerSubscriptionTable_container_size(void)
 {
-    return CONTAINER_SIZE(qpid010SubscriptionTable_if_ctx.container);
+    return CONTAINER_SIZE(brokerSubscriptionTable_if_ctx.container);
 }
 
 u_int
-qpid010SubscriptionTable_dirty_get(void)
+brokerSubscriptionTable_dirty_get(void)
 {
-    return qpid010SubscriptionTable_if_ctx.table_dirty;
+    return brokerSubscriptionTable_if_ctx.table_dirty;
 }
 
 void
-qpid010SubscriptionTable_dirty_set(u_int status)
+brokerSubscriptionTable_dirty_set(u_int status)
 {
-    DEBUGMSGTL(("qpid010SubscriptionTable:qpid010SubscriptionTable_dirty_set", "called. was %d, now %d\n", qpid010SubscriptionTable_if_ctx.table_dirty, status));
-    qpid010SubscriptionTable_if_ctx.table_dirty = status;
+    DEBUGMSGTL(("brokerSubscriptionTable:brokerSubscriptionTable_dirty_set", "called. was %d, now %d\n", brokerSubscriptionTable_if_ctx.table_dirty, status));
+    brokerSubscriptionTable_if_ctx.table_dirty = status;
 }
 
 /*
  * mfd multiplexer modes
  */
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_pre_request;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_post_request;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_object_lookup;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_get_values;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_check_objects;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_undo_setup;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_set_values;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_undo_cleanup;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_undo_values;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_commit;
-static Netsnmp_Node_Handler _mfd_qpid010SubscriptionTable_undo_commit;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_pre_request;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_post_request;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_object_lookup;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_get_values;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_check_objects;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_undo_setup;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_set_values;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_undo_cleanup;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_undo_values;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_commit;
+static Netsnmp_Node_Handler _mfd_brokerSubscriptionTable_undo_commit;
 static Netsnmp_Node_Handler
-    _mfd_qpid010SubscriptionTable_irreversible_commit;
+    _mfd_brokerSubscriptionTable_irreversible_commit;
 static Netsnmp_Node_Handler
-    _mfd_qpid010SubscriptionTable_check_dependencies;
+    _mfd_brokerSubscriptionTable_check_dependencies;
 
-qpid010SubscriptionTable_data *qpid010SubscriptionTable_allocate_data(void);
+brokerSubscriptionTable_data *brokerSubscriptionTable_allocate_data(void);
 
 /**
  * @internal
- * Initialize the table qpid010SubscriptionTable 
+ * Initialize the table brokerSubscriptionTable 
  *    (Define its contents and how it's structured)
  */
 void
-_qpid010SubscriptionTable_initialize_interface
-    (qpid010SubscriptionTable_registration * reg_ptr, u_long flags)
+_brokerSubscriptionTable_initialize_interface
+    (brokerSubscriptionTable_registration * reg_ptr, u_long flags)
 {
     netsnmp_baby_steps_access_methods *access_multiplexer =
-        &qpid010SubscriptionTable_if_ctx.access_multiplexer;
+        &brokerSubscriptionTable_if_ctx.access_multiplexer;
     netsnmp_table_registration_info *tbl_info =
-        &qpid010SubscriptionTable_if_ctx.tbl_info;
+        &brokerSubscriptionTable_if_ctx.tbl_info;
     netsnmp_handler_registration *reginfo;
     netsnmp_mib_handler *handler;
     int             mfd_modes = 0;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_initialize_interface", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_initialize_interface", "called\n"));
 
 
     /*************************************************
      *
-     * save interface context for qpid010SubscriptionTable
+     * save interface context for brokerSubscriptionTable
      */
     /*
      * Setting up the table's definition
      */
     netsnmp_table_helper_add_indexes(tbl_info, ASN_UNSIGNED,
-                                                /** index: qpid010SubscriptionInternalIndex */
+                                                /** index: brokerSubscriptionInternalIndex */
                                      0);
 
     /*
      * Define the minimum and maximum accessible columns.  This
      * optimizes retrieval. 
      */
-    tbl_info->min_column = qpid010SUBSCRIPTIONTABLE_MIN_COL;
-    tbl_info->max_column = qpid010SUBSCRIPTIONTABLE_MAX_COL;
+    tbl_info->min_column = brokerSUBSCRIPTIONTABLE_MIN_COL;
+    tbl_info->max_column = brokerSUBSCRIPTIONTABLE_MAX_COL;
 
     /*
      * save users context
      */
-    qpid010SubscriptionTable_if_ctx.user_ctx = reg_ptr;
+    brokerSubscriptionTable_if_ctx.user_ctx = reg_ptr;
 
     /*
      * call data access initialization code
      */
-    qpid010SubscriptionTable_init_data(reg_ptr);
+    brokerSubscriptionTable_init_data(reg_ptr);
 
     /*
      * set up the container
      */
-    _qpid010SubscriptionTable_container_init
-        (&qpid010SubscriptionTable_if_ctx);
-    if (NULL == qpid010SubscriptionTable_if_ctx.container) {
+    _brokerSubscriptionTable_container_init
+        (&brokerSubscriptionTable_if_ctx);
+    if (NULL == brokerSubscriptionTable_if_ctx.container) {
         snmp_log(LOG_ERR,
-                 "could not initialize container for qpid010SubscriptionTable\n");
+                 "could not initialize container for brokerSubscriptionTable\n");
         return;
     }
 
@@ -211,69 +211,69 @@ _qpid010SubscriptionTable_initialize_interface
      * access_multiplexer: REQUIRED wrapper for get request handling
      */
     access_multiplexer->object_lookup =
-        _mfd_qpid010SubscriptionTable_object_lookup;
+        _mfd_brokerSubscriptionTable_object_lookup;
     access_multiplexer->get_values =
-        _mfd_qpid010SubscriptionTable_get_values;
+        _mfd_brokerSubscriptionTable_get_values;
 
     /*
      * no wrappers yet
      */
     access_multiplexer->pre_request =
-        _mfd_qpid010SubscriptionTable_pre_request;
+        _mfd_brokerSubscriptionTable_pre_request;
     access_multiplexer->post_request =
-        _mfd_qpid010SubscriptionTable_post_request;
+        _mfd_brokerSubscriptionTable_post_request;
 
 
     /*
      * REQUIRED wrappers for set request handling
      */
     access_multiplexer->object_syntax_checks =
-        _mfd_qpid010SubscriptionTable_check_objects;
+        _mfd_brokerSubscriptionTable_check_objects;
     access_multiplexer->undo_setup =
-        _mfd_qpid010SubscriptionTable_undo_setup;
+        _mfd_brokerSubscriptionTable_undo_setup;
     access_multiplexer->undo_cleanup =
-        _mfd_qpid010SubscriptionTable_undo_cleanup;
+        _mfd_brokerSubscriptionTable_undo_cleanup;
     access_multiplexer->set_values =
-        _mfd_qpid010SubscriptionTable_set_values;
+        _mfd_brokerSubscriptionTable_set_values;
     access_multiplexer->undo_sets =
-        _mfd_qpid010SubscriptionTable_undo_values;
+        _mfd_brokerSubscriptionTable_undo_values;
 
     /*
      * no wrappers yet
      */
-    access_multiplexer->commit = _mfd_qpid010SubscriptionTable_commit;
+    access_multiplexer->commit = _mfd_brokerSubscriptionTable_commit;
     access_multiplexer->undo_commit =
-        _mfd_qpid010SubscriptionTable_undo_commit;
+        _mfd_brokerSubscriptionTable_undo_commit;
     access_multiplexer->irreversible_commit =
-        _mfd_qpid010SubscriptionTable_irreversible_commit;
+        _mfd_brokerSubscriptionTable_irreversible_commit;
 
     /*
      * REQUIRED for tables with dependencies
      */
     access_multiplexer->consistency_checks =
-        _mfd_qpid010SubscriptionTable_check_dependencies;
+        _mfd_brokerSubscriptionTable_check_dependencies;
 
     /*************************************************
      *
      * Create a registration, save our reg data, register table.
      */
-    DEBUGMSGTL(("qpid010SubscriptionTable:init_SubscriptionTable",
-                "Registering qpid010SubscriptionTable as a mibs-for-dummies table.\n"));
+    DEBUGMSGTL(("brokerSubscriptionTable:init_SubscriptionTable",
+                "Registering brokerSubscriptionTable as a mibs-for-dummies table.\n"));
     handler =
         netsnmp_baby_steps_access_multiplexer_get(access_multiplexer);
     reginfo =
-        netsnmp_handler_registration_create("qpid010SubscriptionTable",
+        netsnmp_handler_registration_create("brokerSubscriptionTable",
                                             handler,
-                                            qpid010SubscriptionTable_oid,
-                                            qpid010SubscriptionTable_oid_size,
+                                            brokerSubscriptionTable_oid,
+                                            brokerSubscriptionTable_oid_size,
                                             HANDLER_CAN_BABY_STEP |
                                             HANDLER_CAN_RWRITE);
     if (NULL == reginfo) {
         snmp_log(LOG_ERR,
-                 "error registering table qpid010SubscriptionTable\n");
+                 "error registering table brokerSubscriptionTable\n");
         return;
     }
-    reginfo->my_reg_void = &qpid010SubscriptionTable_if_ctx;
+    reginfo->my_reg_void = &brokerSubscriptionTable_if_ctx;
 
     /*************************************************
      *
@@ -329,7 +329,7 @@ _qpid010SubscriptionTable_initialize_interface
      */
     handler =
         netsnmp_container_table_handler_get(tbl_info,
-                                            qpid010SubscriptionTable_if_ctx.
+                                            brokerSubscriptionTable_if_ctx.
                                             container,
                                             TABLE_CONTAINER_KEY_NETSNMP_INDEX);
     netsnmp_inject_handler(reginfo, handler);
@@ -338,9 +338,9 @@ _qpid010SubscriptionTable_initialize_interface
      *
      * inject cache helper
      */
-    if (NULL != qpid010SubscriptionTable_if_ctx.cache) {
+    if (NULL != brokerSubscriptionTable_if_ctx.cache) {
         handler =
-            netsnmp_cache_handler_get(qpid010SubscriptionTable_if_ctx.
+            netsnmp_cache_handler_get(brokerSubscriptionTable_if_ctx.
                                       cache);
         netsnmp_inject_handler(reginfo, handler);
     }
@@ -353,39 +353,39 @@ _qpid010SubscriptionTable_initialize_interface
     /*
      * register config/persistence callbacks
      */
-    qpid010SubscriptionTable_container_init_persistence
-        (qpid010SubscriptionTable_if_ctx.container);
+    brokerSubscriptionTable_container_init_persistence
+        (brokerSubscriptionTable_if_ctx.container);
 
-}                               /* _qpid010SubscriptionTable_initialize_interface */
+}                               /* _brokerSubscriptionTable_initialize_interface */
 
 /**
  * @internal
- * Shutdown the table qpid010SubscriptionTable
+ * Shutdown the table brokerSubscriptionTable
  */
 void
-_qpid010SubscriptionTable_shutdown_interface
-    (qpid010SubscriptionTable_registration * reg_ptr)
+_brokerSubscriptionTable_shutdown_interface
+    (brokerSubscriptionTable_registration * reg_ptr)
 {
     /*
      * shutdown the container
      */
-    _qpid010SubscriptionTable_container_shutdown
-        (&qpid010SubscriptionTable_if_ctx);
+    _brokerSubscriptionTable_container_shutdown
+        (&brokerSubscriptionTable_if_ctx);
 }
 
 void
-qpid010SubscriptionTable_valid_columns_set(netsnmp_column_info *vc)
+brokerSubscriptionTable_valid_columns_set(netsnmp_column_info *vc)
 {
-    qpid010SubscriptionTable_if_ctx.tbl_info.valid_columns = vc;
-}                               /* qpid010SubscriptionTable_valid_columns_set */
+    brokerSubscriptionTable_if_ctx.tbl_info.valid_columns = vc;
+}                               /* brokerSubscriptionTable_valid_columns_set */
 
 /**
  * @internal
  * convert the index component stored in the context to an oid
  */
 int
-qpid010SubscriptionTable_index_to_oid(netsnmp_index * oid_idx,
-                                     qpid010SubscriptionTable_mib_index *
+brokerSubscriptionTable_index_to_oid(netsnmp_index * oid_idx,
+                                     brokerSubscriptionTable_mib_index *
                                      mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
@@ -394,55 +394,55 @@ qpid010SubscriptionTable_index_to_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010SubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerSubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    netsnmp_variable_list var_qpid010SubscriptionInternalIndex;
+    netsnmp_variable_list var_brokerSubscriptionInternalIndex;
 
     /*
      * set up varbinds
      */
-    memset(&var_qpid010SubscriptionInternalIndex, 0x00,
-           sizeof(var_qpid010SubscriptionInternalIndex));
-    var_qpid010SubscriptionInternalIndex.type = ASN_UNSIGNED;
+    memset(&var_brokerSubscriptionInternalIndex, 0x00,
+           sizeof(var_brokerSubscriptionInternalIndex));
+    var_brokerSubscriptionInternalIndex.type = ASN_UNSIGNED;
 
     /*
      * chain temp index varbinds together
      */
-    var_qpid010SubscriptionInternalIndex.next_variable = NULL;
+    var_brokerSubscriptionInternalIndex.next_variable = NULL;
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_index_to_oid", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_index_to_oid", "called\n"));
 
     /*
-     * qpid010SubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerSubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    snmp_set_var_value(&var_qpid010SubscriptionInternalIndex,
-                       &mib_idx->qpid010SubscriptionInternalIndex,
-                       sizeof(mib_idx->qpid010SubscriptionInternalIndex));
+    snmp_set_var_value(&var_brokerSubscriptionInternalIndex,
+                       &mib_idx->brokerSubscriptionInternalIndex,
+                       sizeof(mib_idx->brokerSubscriptionInternalIndex));
 
 
     err = build_oid_noalloc(oid_idx->oids, oid_idx->len, &oid_idx->len,
-                            NULL, 0, &var_qpid010SubscriptionInternalIndex);
+                            NULL, 0, &var_brokerSubscriptionInternalIndex);
     if (err)
         snmp_log(LOG_ERR, "error %d converting index to oid\n", err);
 
     /*
      * parsing may have allocated memory. free it.
      */
-    snmp_reset_var_buffers(&var_qpid010SubscriptionInternalIndex);
+    snmp_reset_var_buffers(&var_brokerSubscriptionInternalIndex);
 
     return err;
-}                               /* qpid010SubscriptionTable_index_to_oid */
+}                               /* brokerSubscriptionTable_index_to_oid */
 
 /**
- * extract qpid010SubscriptionTable indexes from a netsnmp_index
+ * extract brokerSubscriptionTable indexes from a netsnmp_index
  *
  * @retval SNMP_ERR_NOERROR  : no error
  * @retval SNMP_ERR_GENERR   : error
  */
 int
-qpid010SubscriptionTable_index_from_oid(netsnmp_index * oid_idx,
-                                       qpid010SubscriptionTable_mib_index *
+brokerSubscriptionTable_index_from_oid(netsnmp_index * oid_idx,
+                                       brokerSubscriptionTable_mib_index *
                                        mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
@@ -451,36 +451,36 @@ qpid010SubscriptionTable_index_from_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010SubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerSubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    netsnmp_variable_list var_qpid010SubscriptionInternalIndex;
+    netsnmp_variable_list var_brokerSubscriptionInternalIndex;
 
     /*
      * set up varbinds
      */
-    memset(&var_qpid010SubscriptionInternalIndex, 0x00,
-           sizeof(var_qpid010SubscriptionInternalIndex));
-    var_qpid010SubscriptionInternalIndex.type = ASN_UNSIGNED;
+    memset(&var_brokerSubscriptionInternalIndex, 0x00,
+           sizeof(var_brokerSubscriptionInternalIndex));
+    var_brokerSubscriptionInternalIndex.type = ASN_UNSIGNED;
 
     /*
      * chain temp index varbinds together
      */
-    var_qpid010SubscriptionInternalIndex.next_variable = NULL;
+    var_brokerSubscriptionInternalIndex.next_variable = NULL;
 
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_index_from_oid", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_index_from_oid", "called\n"));
 
     /*
      * parse the oid into the individual index components
      */
     err = parse_oid_indexes(oid_idx->oids, oid_idx->len,
-                            &var_qpid010SubscriptionInternalIndex);
+                            &var_brokerSubscriptionInternalIndex);
     if (err == SNMP_ERR_NOERROR) {
         /*
          * copy out values
          */
-        mib_idx->qpid010SubscriptionInternalIndex =
-            *((u_long *) var_qpid010SubscriptionInternalIndex.val.string);
+        mib_idx->brokerSubscriptionInternalIndex =
+            *((u_long *) var_brokerSubscriptionInternalIndex.val.string);
 
 
     }
@@ -488,100 +488,100 @@ qpid010SubscriptionTable_index_from_oid(netsnmp_index * oid_idx,
     /*
      * parsing may have allocated memory. free it.
      */
-    snmp_reset_var_buffers(&var_qpid010SubscriptionInternalIndex);
+    snmp_reset_var_buffers(&var_brokerSubscriptionInternalIndex);
 
     return err;
-}                               /* qpid010SubscriptionTable_index_from_oid */
+}                               /* brokerSubscriptionTable_index_from_oid */
 
 
 /*
- * qpid010SubscriptionTable_allocate_data
+ * brokerSubscriptionTable_allocate_data
  *
- * Purpose: create new qpid010SubscriptionTable_data.
+ * Purpose: create new brokerSubscriptionTable_data.
  */
-qpid010SubscriptionTable_data *
-qpid010SubscriptionTable_allocate_data(void)
+brokerSubscriptionTable_data *
+brokerSubscriptionTable_allocate_data(void)
 {
-    qpid010SubscriptionTable_data *rtn =
-        SNMP_MALLOC_TYPEDEF(qpid010SubscriptionTable_data);
+    brokerSubscriptionTable_data *rtn =
+        SNMP_MALLOC_TYPEDEF(brokerSubscriptionTable_data);
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_allocate_data", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_allocate_data", "called\n"));
 
     if (NULL == rtn) {
         snmp_log(LOG_ERR, "unable to malloc memory for new "
-                 "qpid010SubscriptionTable_data.\n");
+                 "brokerSubscriptionTable_data.\n");
     }
 
     return rtn;
-}                               /* qpid010SubscriptionTable_allocate_data */
+}                               /* brokerSubscriptionTable_allocate_data */
 
 /*
- * qpid010SubscriptionTable_release_data
+ * brokerSubscriptionTable_release_data
  *
- * Purpose: release qpid010SubscriptionTable data.
+ * Purpose: release brokerSubscriptionTable data.
  */
 void
-qpid010SubscriptionTable_release_data(qpid010SubscriptionTable_data * data)
+brokerSubscriptionTable_release_data(brokerSubscriptionTable_data * data)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_release_data", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_release_data", "called\n"));
 
     free(data);
-}                               /* qpid010SubscriptionTable_release_data */
+}                               /* brokerSubscriptionTable_release_data */
 
 /*
  *********************************************************************
  * @internal
- * allocate resources for a qpid010SubscriptionTable_rowreq_ctx
+ * allocate resources for a brokerSubscriptionTable_rowreq_ctx
  */
-qpid010SubscriptionTable_rowreq_ctx *
-qpid010SubscriptionTable_allocate_rowreq_ctx(void *user_init_ctx)
+brokerSubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_allocate_rowreq_ctx(void *user_init_ctx)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        SNMP_MALLOC_TYPEDEF(qpid010SubscriptionTable_rowreq_ctx);
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        SNMP_MALLOC_TYPEDEF(brokerSubscriptionTable_rowreq_ctx);
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:qpid010SubscriptionTable_allocate_rowreq_ctx", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:brokerSubscriptionTable_allocate_rowreq_ctx", "called\n"));
 
     if (NULL == rowreq_ctx) {
         snmp_log(LOG_ERR, "Couldn't allocate memory for a "
-                 "qpid010SubscriptionTable_rowreq_ctx.\n");
+                 "brokerSubscriptionTable_rowreq_ctx.\n");
         return NULL;
     }
 
     rowreq_ctx->oid_idx.oids = rowreq_ctx->oid_tmp;
 
-    rowreq_ctx->qpid010SubscriptionTable_data_list = NULL;
+    rowreq_ctx->brokerSubscriptionTable_data_list = NULL;
 
     /*
      * if we allocated data, call init routine
      */
     if (!(rowreq_ctx->rowreq_flags & MFD_ROW_DATA_FROM_USER)) {
         if (SNMPERR_SUCCESS !=
-            qpid010SubscriptionTable_rowreq_ctx_init(rowreq_ctx,
+            brokerSubscriptionTable_rowreq_ctx_init(rowreq_ctx,
                                                     user_init_ctx)) {
-            qpid010SubscriptionTable_release_rowreq_ctx(rowreq_ctx);
+            brokerSubscriptionTable_release_rowreq_ctx(rowreq_ctx);
             rowreq_ctx = NULL;
         }
     }
 
     return rowreq_ctx;
-}                               /* qpid010SubscriptionTable_allocate_rowreq_ctx */
+}                               /* brokerSubscriptionTable_allocate_rowreq_ctx */
 
 /*
  * @internal
- * release resources for a qpid010SubscriptionTable_rowreq_ctx
+ * release resources for a brokerSubscriptionTable_rowreq_ctx
  */
 void
-qpid010SubscriptionTable_release_rowreq_ctx
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx)
+brokerSubscriptionTable_release_rowreq_ctx
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:qpid010SubscriptionTable_release_rowreq_ctx", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:brokerSubscriptionTable_release_rowreq_ctx", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    qpid010SubscriptionTable_rowreq_ctx_cleanup(rowreq_ctx);
+    brokerSubscriptionTable_rowreq_ctx_cleanup(rowreq_ctx);
 
     if (rowreq_ctx->undo)
-        qpid010SubscriptionTable_release_data(rowreq_ctx->undo);
+        brokerSubscriptionTable_release_data(rowreq_ctx->undo);
 
     /*
      * free index oid pointer
@@ -590,14 +590,14 @@ qpid010SubscriptionTable_release_rowreq_ctx
         free(rowreq_ctx->oid_idx.oids);
 
     SNMP_FREE(rowreq_ctx);
-}                               /* qpid010SubscriptionTable_release_rowreq_ctx */
+}                               /* brokerSubscriptionTable_release_rowreq_ctx */
 
 /**
  * @internal
  * wrapper
  */
 static int
-_mfd_qpid010SubscriptionTable_pre_request(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_pre_request(netsnmp_mib_handler *handler,
                                          netsnmp_handler_registration
                                          *reginfo,
                                          netsnmp_agent_request_info
@@ -606,103 +606,103 @@ _mfd_qpid010SubscriptionTable_pre_request(netsnmp_mib_handler *handler,
 {
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_pre_request", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_pre_request", "called\n"));
 
     if (1 != netsnmp_row_merge_status_first(reginfo, agtreq_info)) {
-        DEBUGMSGTL(("internal:qpid010SubscriptionTable",
+        DEBUGMSGTL(("internal:brokerSubscriptionTable",
                     "skipping additional pre_request\n"));
         return SNMP_ERR_NOERROR;
     }
 
-    rc = qpid010SubscriptionTable_pre_request
-        (qpid010SubscriptionTable_if_ctx.user_ctx);
+    rc = brokerSubscriptionTable_pre_request
+        (brokerSubscriptionTable_if_ctx.user_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010SubscriptionTable", "error %d from "
-                    "qpid010SubscriptionTable_pre_request\n", rc));
+        DEBUGMSGTL(("brokerSubscriptionTable", "error %d from "
+                    "brokerSubscriptionTable_pre_request\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_pre_request */
+}                               /* _mfd_brokerSubscriptionTable_pre_request */
 
 /**
  * @internal
  * wrapper
  */
 static int
-_mfd_qpid010SubscriptionTable_post_request(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_post_request(netsnmp_mib_handler *handler,
                                           netsnmp_handler_registration
                                           *reginfo,
                                           netsnmp_agent_request_info
                                           *agtreq_info,
                                           netsnmp_request_info *requests)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc, packet_rc;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_post_request", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_post_request", "called\n"));
 
     /*
      * release row context, if deleted
      */
     if (rowreq_ctx && (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED))
-        qpid010SubscriptionTable_release_rowreq_ctx(rowreq_ctx);
+        brokerSubscriptionTable_release_rowreq_ctx(rowreq_ctx);
 
     /*
      * wait for last call before calling user
      */
     if (1 != netsnmp_row_merge_status_last(reginfo, agtreq_info)) {
-        DEBUGMSGTL(("internal:qpid010SubscriptionTable",
+        DEBUGMSGTL(("internal:brokerSubscriptionTable",
                     "waiting for last post_request\n"));
         return SNMP_ERR_NOERROR;
     }
 
     packet_rc = netsnmp_check_all_requests_error(agtreq_info->asp, 0);
-    if ((MFD_SUCCESS != packet_rc) && qpid010SubscriptionTable_dirty_get()) {
+    if ((MFD_SUCCESS != packet_rc) && brokerSubscriptionTable_dirty_get()) {
         /*
          * we shouldn't get here. the undo steps should also clear
          * the dirty flags.
          */
         snmp_log(LOG_WARNING,
-                 "qpid010SubscriptionTable dirty flag set in post_request "
+                 "brokerSubscriptionTable dirty flag set in post_request "
                  "but status != SUCCESS.\n");
     }
 
-    rc = qpid010SubscriptionTable_post_request
-        (qpid010SubscriptionTable_if_ctx.user_ctx, packet_rc);
+    rc = brokerSubscriptionTable_post_request
+        (brokerSubscriptionTable_if_ctx.user_ctx, packet_rc);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010SubscriptionTable", "error %d from "
-                    "qpid010SubscriptionTable_post_request\n", rc));
+        DEBUGMSGTL(("brokerSubscriptionTable", "error %d from "
+                    "brokerSubscriptionTable_post_request\n", rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_post_request */
+}                               /* _mfd_brokerSubscriptionTable_post_request */
 
 NETSNMP_STATIC_INLINE int
-_qpid010SubscriptionTable_check_indexes(qpid010SubscriptionTable_rowreq_ctx *
+_brokerSubscriptionTable_check_indexes(brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_check_indexes", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_check_indexes", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
 
     /*
-     * (INDEX) qpid010SubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * (INDEX) brokerSubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     if (MFD_SUCCESS != rc)
         return rc;
-    rc = qpid010SubscriptionInternalIndex_check_index(rowreq_ctx);
+    rc = brokerSubscriptionInternalIndex_check_index(rowreq_ctx);
     if (MFD_SUCCESS != rc)
         return SNMP_ERR_NOCREATION;
 
@@ -710,23 +710,23 @@ _qpid010SubscriptionTable_check_indexes(qpid010SubscriptionTable_rowreq_ctx *
      * if individual parts look ok, check them as a whole
      */
     return
-        qpid010SubscriptionTable_validate_index
-        (qpid010SubscriptionTable_if_ctx.user_ctx, rowreq_ctx);
-}                               /* _qpid010SubscriptionTable_check_indexes */
+        brokerSubscriptionTable_validate_index
+        (brokerSubscriptionTable_if_ctx.user_ctx, rowreq_ctx);
+}                               /* _brokerSubscriptionTable_check_indexes */
 
 /**
  * @internal
  * wrapper
  */
-static qpid010SubscriptionTable_rowreq_ctx *
-_mfd_qpid010SubscriptionTable_rowreq_from_index(netsnmp_index * oid_idx,
+static brokerSubscriptionTable_rowreq_ctx *
+_mfd_brokerSubscriptionTable_rowreq_from_index(netsnmp_index * oid_idx,
                                                int *rc_ptr)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx;
-    qpid010SubscriptionTable_mib_index mib_idx;
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx;
+    brokerSubscriptionTable_mib_index mib_idx;
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_rowreq_from_index", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_rowreq_from_index", "called\n"));
 
     if (NULL == rc_ptr)
         rc_ptr = &rc;
@@ -737,16 +737,16 @@ _mfd_qpid010SubscriptionTable_rowreq_from_index(netsnmp_index * oid_idx,
     /*
      * try to parse oid
      */
-    *rc_ptr = qpid010SubscriptionTable_index_from_oid(oid_idx, &mib_idx);
+    *rc_ptr = brokerSubscriptionTable_index_from_oid(oid_idx, &mib_idx);
     if (MFD_SUCCESS != *rc_ptr) {
-        DEBUGMSGT(("qpid010SubscriptionTable", "error parsing index\n"));
+        DEBUGMSGT(("brokerSubscriptionTable", "error parsing index\n"));
         return NULL;
     }
 
     /*
      * allocate new context
      */
-    rowreq_ctx = qpid010SubscriptionTable_allocate_rowreq_ctx(NULL);
+    rowreq_ctx = brokerSubscriptionTable_allocate_rowreq_ctx(NULL);
     if (NULL == rowreq_ctx) {
         *rc_ptr = MFD_ERROR;
         return NULL;            /* msg already logged */
@@ -757,11 +757,11 @@ _mfd_qpid010SubscriptionTable_rowreq_from_index(netsnmp_index * oid_idx,
     /*
      * check indexes
      */
-    *rc_ptr = _qpid010SubscriptionTable_check_indexes(rowreq_ctx);
+    *rc_ptr = _brokerSubscriptionTable_check_indexes(rowreq_ctx);
     if (MFD_SUCCESS != *rc_ptr) {
         netsnmp_assert((*rc_ptr == SNMP_ERR_NOCREATION) ||
                        (*rc_ptr == SNMP_ERR_INCONSISTENTNAME));
-        qpid010SubscriptionTable_release_rowreq_ctx(rowreq_ctx);
+        brokerSubscriptionTable_release_rowreq_ctx(rowreq_ctx);
         return NULL;
     }
 
@@ -773,7 +773,7 @@ _mfd_qpid010SubscriptionTable_rowreq_from_index(netsnmp_index * oid_idx,
            oid_idx->len * sizeof(oid));
 
     return rowreq_ctx;
-}                               /* _mfd_qpid010SubscriptionTable_rowreq_from_index */
+}                               /* _mfd_brokerSubscriptionTable_rowreq_from_index */
 
 
 /**
@@ -781,7 +781,7 @@ _mfd_qpid010SubscriptionTable_rowreq_from_index(netsnmp_index * oid_idx,
  * wrapper
  */
 static int
-_mfd_qpid010SubscriptionTable_object_lookup(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_object_lookup(netsnmp_mib_handler *handler,
                                            netsnmp_handler_registration
                                            *reginfo,
                                            netsnmp_agent_request_info
@@ -789,16 +789,16 @@ _mfd_qpid010SubscriptionTable_object_lookup(netsnmp_mib_handler *handler,
                                            netsnmp_request_info *requests)
 {
     int             rc = SNMP_ERR_NOERROR;
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_object_lookup", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_object_lookup", "called\n"));
 
     /*
      * get our context from mfd
-     * qpid010SubscriptionTable_interface_ctx *if_ctx =
-     *             (qpid010SubscriptionTable_interface_ctx *)reginfo->my_reg_void;
+     * brokerSubscriptionTable_interface_ctx *if_ctx =
+     *             (brokerSubscriptionTable_interface_ctx *)reginfo->my_reg_void;
      */
 
     if (NULL == rowreq_ctx) {
@@ -808,10 +808,10 @@ _mfd_qpid010SubscriptionTable_object_lookup(netsnmp_mib_handler *handler,
     if (MFD_SUCCESS != rc)
         netsnmp_request_set_error_all(requests, rc);
     else
-        qpid010SubscriptionTable_row_prep(rowreq_ctx);
+        brokerSubscriptionTable_row_prep(rowreq_ctx);
 
     return SNMP_VALIDATE_ERR(rc);
-}                               /* _mfd_qpid010SubscriptionTable_object_lookup */
+}                               /* _mfd_brokerSubscriptionTable_object_lookup */
 
 /***********************************************************************
  *
@@ -823,14 +823,14 @@ _mfd_qpid010SubscriptionTable_object_lookup(netsnmp_mib_handler *handler,
  * Retrieve the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010SubscriptionTable_get_column(qpid010SubscriptionTable_rowreq_ctx *
+_brokerSubscriptionTable_get_column(brokerSubscriptionTable_rowreq_ctx *
                                     rowreq_ctx,
                                     netsnmp_variable_list * var,
                                     int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_get_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_get_column", "called for %d\n", column));
 
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -838,129 +838,129 @@ _qpid010SubscriptionTable_get_column(qpid010SubscriptionTable_rowreq_ctx *
     switch (column) {
 
         /*
-         * qpid010SubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONSESSIONREF:
+    case COLUMN_brokerSUBSCRIPTIONSESSIONREF:
         var->type = ASN_OCTET_STR;
-        rc = qpid010SubscriptionSessionRef_get(rowreq_ctx,
+        rc = brokerSubscriptionSessionRef_get(rowreq_ctx,
                                               (char **) &var->val.string,
                                               &var->val_len);
         break;
 
         /*
-         * qpid010SubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONQUEUEREF:
+    case COLUMN_brokerSUBSCRIPTIONQUEUEREF:
         var->type = ASN_OCTET_STR;
-        rc = qpid010SubscriptionQueueRef_get(rowreq_ctx,
+        rc = brokerSubscriptionQueueRef_get(rowreq_ctx,
                                             (char **) &var->val.string,
                                             &var->val_len);
         break;
 
         /*
-         * qpid010SubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONNAME:
+    case COLUMN_brokerSUBSCRIPTIONNAME:
         var->type = ASN_OCTET_STR;
-        rc = qpid010SubscriptionName_get(rowreq_ctx,
+        rc = brokerSubscriptionName_get(rowreq_ctx,
                                         (char **) &var->val.string,
                                         &var->val_len);
         break;
 
         /*
-         * qpid010SubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONBROWSING:
+    case COLUMN_brokerSUBSCRIPTIONBROWSING:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010SubscriptionBrowsing_get(rowreq_ctx,
+        rc = brokerSubscriptionBrowsing_get(rowreq_ctx,
                                             (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010SubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED:
+    case COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010SubscriptionAcknowledged_get(rowreq_ctx,
+        rc = brokerSubscriptionAcknowledged_get(rowreq_ctx,
                                                 (u_long *) var->val.
                                                 string);
         break;
 
         /*
-         * qpid010SubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE:
+    case COLUMN_brokerSUBSCRIPTIONEXCLUSIVE:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010SubscriptionExclusive_get(rowreq_ctx,
+        rc = brokerSubscriptionExclusive_get(rowreq_ctx,
                                              (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010SubscriptionCreditMode(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerSubscriptionCreditMode(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONCREDITMODE:
+    case COLUMN_brokerSUBSCRIPTIONCREDITMODE:
         var->type = ASN_OCTET_STR;
-        rc = qpid010SubscriptionCreditMode_get(rowreq_ctx,
+        rc = brokerSubscriptionCreditMode_get(rowreq_ctx,
                                               (char **) &var->val.string,
                                               &var->val_len);
         break;
 
         /*
-         * qpid010SubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONARGUMENTS:
+    case COLUMN_brokerSUBSCRIPTIONARGUMENTS:
         var->type = ASN_OCTET_STR;
-        rc = qpid010SubscriptionArguments_get(rowreq_ctx,
+        rc = brokerSubscriptionArguments_get(rowreq_ctx,
                                              (char **) &var->val.string,
                                              &var->val_len);
         break;
 
         /*
-         * qpid010SubscriptionDelivered(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerSubscriptionDelivered(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONDELIVERED:
+    case COLUMN_brokerSUBSCRIPTIONDELIVERED:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010SubscriptionDelivered_get(rowreq_ctx,
+        rc = brokerSubscriptionDelivered_get(rowreq_ctx,
                                              (U64 *) var->val.string);
         break;
 
     default:
-        if (qpid010SUBSCRIPTIONTABLE_MIN_COL <= column
-            && column <= qpid010SUBSCRIPTIONTABLE_MAX_COL) {
-            DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_get_column", "assume column %d is reserved\n", column));
+        if (brokerSUBSCRIPTIONTABLE_MIN_COL <= column
+            && column <= brokerSUBSCRIPTIONTABLE_MAX_COL) {
+            DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_get_column", "assume column %d is reserved\n", column));
             rc = MFD_SKIP;
         } else {
             snmp_log(LOG_ERR,
-                     "unknown column %d in _qpid010SubscriptionTable_get_column\n",
+                     "unknown column %d in _brokerSubscriptionTable_get_column\n",
                      column);
         }
         break;
     }
 
     return rc;
-}                               /* _qpid010SubscriptionTable_get_column */
+}                               /* _brokerSubscriptionTable_get_column */
 
 int
-_mfd_qpid010SubscriptionTable_get_values(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_get_values(netsnmp_mib_handler *handler,
                                         netsnmp_handler_registration
                                         *reginfo,
                                         netsnmp_agent_request_info
                                         *agtreq_info,
                                         netsnmp_request_info *requests)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     u_char         *old_string;
     void            (*dataFreeHook) (void *);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_get_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_get_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -989,7 +989,7 @@ _mfd_qpid010SubscriptionTable_get_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010SubscriptionTable_get_column(rowreq_ctx,
+        rc = _brokerSubscriptionTable_get_column(rowreq_ctx,
                                                  requests->requestvb,
                                                  tri->colnum);
         if (rc) {
@@ -1019,7 +1019,7 @@ _mfd_qpid010SubscriptionTable_get_values(netsnmp_mib_handler *handler,
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_get_values */
+}                               /* _mfd_brokerSubscriptionTable_get_values */
 
 /***********************************************************************
  *
@@ -1037,32 +1037,32 @@ _mfd_qpid010SubscriptionTable_get_values(netsnmp_mib_handler *handler,
  * Check the syntax for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
+_brokerSubscriptionTable_check_column(brokerSubscriptionTable_rowreq_ctx *
                                       rowreq_ctx,
                                       netsnmp_variable_list * var,
                                       int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_check_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_check_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
         /*
-         * (INDEX) qpid010SubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+         * (INDEX) brokerSubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONINTERNALINDEX:
+    case COLUMN_brokerSUBSCRIPTIONINTERNALINDEX:
         rc = SNMP_ERR_NOTWRITABLE;      /* can not change index of active row */
         break;
 
         /*
-         * qpid010SubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONSESSIONREF:
+    case COLUMN_brokerSUBSCRIPTIONSESSIONREF:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010SubscriptionSessionRef));
+                                                       brokerSubscriptionSessionRef));
         /*
          * check defined range(s). 
          */
@@ -1072,16 +1072,16 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010SubscriptionTable:_qpid010SubscriptionTable_check_column:qpid010SubscriptionSessionRef", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerSubscriptionTable:_brokerSubscriptionTable_check_column:brokerSubscriptionSessionRef", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010SubscriptionSessionRef_check_value(rowreq_ctx,
+            rc = brokerSubscriptionSessionRef_check_value(rowreq_ctx,
                                                           (char *) var->
                                                           val.string,
                                                           var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010SubscriptionSessionRef_check_value\n",
+                         "bad rc %d from brokerSubscriptionSessionRef_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1089,12 +1089,12 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010SubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONQUEUEREF:
+    case COLUMN_brokerSUBSCRIPTIONQUEUEREF:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010SubscriptionQueueRef));
+                                                       brokerSubscriptionQueueRef));
         /*
          * check defined range(s). 
          */
@@ -1104,16 +1104,16 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010SubscriptionTable:_qpid010SubscriptionTable_check_column:qpid010SubscriptionQueueRef", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerSubscriptionTable:_brokerSubscriptionTable_check_column:brokerSubscriptionQueueRef", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010SubscriptionQueueRef_check_value(rowreq_ctx,
+            rc = brokerSubscriptionQueueRef_check_value(rowreq_ctx,
                                                         (char *) var->val.
                                                         string,
                                                         var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010SubscriptionQueueRef_check_value\n",
+                         "bad rc %d from brokerSubscriptionQueueRef_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1121,12 +1121,12 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010SubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONNAME:
+    case COLUMN_brokerSUBSCRIPTIONNAME:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010SubscriptionName));
+                                                       brokerSubscriptionName));
         /*
          * check defined range(s). 
          */
@@ -1136,15 +1136,15 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010SubscriptionTable:_qpid010SubscriptionTable_check_column:qpid010SubscriptionName", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerSubscriptionTable:_brokerSubscriptionTable_check_column:brokerSubscriptionName", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010SubscriptionName_check_value(rowreq_ctx,
+            rc = brokerSubscriptionName_check_value(rowreq_ctx,
                                                     (char *) var->val.
                                                     string, var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010SubscriptionName_check_value\n",
+                         "bad rc %d from brokerSubscriptionName_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1152,12 +1152,12 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010SubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONBROWSING:
+    case COLUMN_brokerSUBSCRIPTIONBROWSING:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
                                             sizeof(rowreq_ctx->data.
-                                                   qpid010SubscriptionBrowsing));
+                                                   brokerSubscriptionBrowsing));
         /*
          * check that the value is one of defined enums 
          */
@@ -1168,15 +1168,15 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGVALUE;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010SubscriptionTable:_qpid010SubscriptionTable_check_column:qpid010SubscriptionBrowsing", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerSubscriptionTable:_brokerSubscriptionTable_check_column:brokerSubscriptionBrowsing", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010SubscriptionBrowsing_check_value(rowreq_ctx,
+            rc = brokerSubscriptionBrowsing_check_value(rowreq_ctx,
                                                         *((u_long *) var->
                                                           val.string));
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010SubscriptionBrowsing_check_value\n",
+                         "bad rc %d from brokerSubscriptionBrowsing_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1184,12 +1184,12 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010SubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED:
+    case COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
                                             sizeof(rowreq_ctx->data.
-                                                   qpid010SubscriptionAcknowledged));
+                                                   brokerSubscriptionAcknowledged));
         /*
          * check that the value is one of defined enums 
          */
@@ -1200,16 +1200,16 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGVALUE;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010SubscriptionTable:_qpid010SubscriptionTable_check_column:qpid010SubscriptionAcknowledged", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerSubscriptionTable:_brokerSubscriptionTable_check_column:brokerSubscriptionAcknowledged", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010SubscriptionAcknowledged_check_value(rowreq_ctx,
+            rc = brokerSubscriptionAcknowledged_check_value(rowreq_ctx,
                                                             *((u_long *)
                                                               var->val.
                                                               string));
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010SubscriptionAcknowledged_check_value\n",
+                         "bad rc %d from brokerSubscriptionAcknowledged_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1217,12 +1217,12 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010SubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE:
+    case COLUMN_brokerSUBSCRIPTIONEXCLUSIVE:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
                                             sizeof(rowreq_ctx->data.
-                                                   qpid010SubscriptionExclusive));
+                                                   brokerSubscriptionExclusive));
         /*
          * check that the value is one of defined enums 
          */
@@ -1233,15 +1233,15 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGVALUE;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010SubscriptionTable:_qpid010SubscriptionTable_check_column:qpid010SubscriptionExclusive", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerSubscriptionTable:_brokerSubscriptionTable_check_column:brokerSubscriptionExclusive", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010SubscriptionExclusive_check_value(rowreq_ctx,
+            rc = brokerSubscriptionExclusive_check_value(rowreq_ctx,
                                                          *((u_long *) var->
                                                            val.string));
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010SubscriptionExclusive_check_value\n",
+                         "bad rc %d from brokerSubscriptionExclusive_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1249,19 +1249,19 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010SubscriptionCreditMode(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerSubscriptionCreditMode(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONCREDITMODE:
+    case COLUMN_brokerSUBSCRIPTIONCREDITMODE:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010SubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONARGUMENTS:
+    case COLUMN_brokerSUBSCRIPTIONARGUMENTS:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010SubscriptionArguments));
+                                                       brokerSubscriptionArguments));
         /*
          * check defined range(s). 
          */
@@ -1271,16 +1271,16 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010SubscriptionTable:_qpid010SubscriptionTable_check_column:qpid010SubscriptionArguments", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerSubscriptionTable:_brokerSubscriptionTable_check_column:brokerSubscriptionArguments", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010SubscriptionArguments_check_value(rowreq_ctx,
+            rc = brokerSubscriptionArguments_check_value(rowreq_ctx,
                                                          (char *) var->val.
                                                          string,
                                                          var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010SubscriptionArguments_check_value\n",
+                         "bad rc %d from brokerSubscriptionArguments_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1288,37 +1288,37 @@ _qpid010SubscriptionTable_check_column(qpid010SubscriptionTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010SubscriptionDelivered(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerSubscriptionDelivered(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONDELIVERED:
+    case COLUMN_brokerSUBSCRIPTIONDELIVERED:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
     default:    /** We shouldn't get here */
         rc = SNMP_ERR_GENERR;
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010SubscriptionTable_check_column\n",
+                 "unknown column %d in _brokerSubscriptionTable_check_column\n",
                  column);
     }
 
     return rc;
-}                               /* _qpid010SubscriptionTable_check_column */
+}                               /* _brokerSubscriptionTable_check_column */
 
 int
-_mfd_qpid010SubscriptionTable_check_objects(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_check_objects(netsnmp_mib_handler *handler,
                                            netsnmp_handler_registration
                                            *reginfo,
                                            netsnmp_agent_request_info
                                            *agtreq_info,
                                            netsnmp_request_info *requests)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_check_objects", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_check_objects", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1331,7 +1331,7 @@ _mfd_qpid010SubscriptionTable_check_objects(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010SubscriptionTable_check_column(rowreq_ctx,
+        rc = _brokerSubscriptionTable_check_column(rowreq_ctx,
                                                    requests->requestvb,
                                                    tri->colnum);
         if (rc) {
@@ -1342,7 +1342,7 @@ _mfd_qpid010SubscriptionTable_check_objects(netsnmp_mib_handler *handler,
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_check_objects */
+}                               /* _mfd_brokerSubscriptionTable_check_objects */
 
 
 /*----------------------------------------------------------------------
@@ -1355,7 +1355,7 @@ _mfd_qpid010SubscriptionTable_check_objects(netsnmp_mib_handler *handler,
  * Check dependencies wrapper
  */
 static int
-_mfd_qpid010SubscriptionTable_check_dependencies(netsnmp_mib_handler
+_mfd_brokerSubscriptionTable_check_dependencies(netsnmp_mib_handler
                                                 *handler,
                                                 netsnmp_handler_registration
                                                 *reginfo,
@@ -1365,22 +1365,22 @@ _mfd_qpid010SubscriptionTable_check_dependencies(netsnmp_mib_handler
                                                 *requests)
 {
     int             rc;
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010SubscriptionTable_check_dependencies(rowreq_ctx);
+    rc = brokerSubscriptionTable_check_dependencies(rowreq_ctx);
     if (rc) {
-        DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                    "qpid010SubscriptionTable_check_dependencies\n", rc));
+        DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                    "brokerSubscriptionTable_check_dependencies\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_check_dependencies */
+}                               /* _mfd_brokerSubscriptionTable_check_dependencies */
 
 /*----------------------------------------------------------------------
  *
@@ -1392,88 +1392,88 @@ _mfd_qpid010SubscriptionTable_check_dependencies(netsnmp_mib_handler
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010SubscriptionTable_undo_setup_column
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx, int column)
+_brokerSubscriptionTable_undo_setup_column
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_undo_setup_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_undo_setup_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
 
         /*
-         * qpid010SubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONSESSIONREF:
+    case COLUMN_brokerSUBSCRIPTIONSESSIONREF:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONSESSIONREF_FLAG;
-        rc = qpid010SubscriptionSessionRef_undo_setup(rowreq_ctx);
+            COLUMN_brokerSUBSCRIPTIONSESSIONREF_FLAG;
+        rc = brokerSubscriptionSessionRef_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONQUEUEREF:
+    case COLUMN_brokerSUBSCRIPTIONQUEUEREF:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONQUEUEREF_FLAG;
-        rc = qpid010SubscriptionQueueRef_undo_setup(rowreq_ctx);
+            COLUMN_brokerSUBSCRIPTIONQUEUEREF_FLAG;
+        rc = brokerSubscriptionQueueRef_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONNAME:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010SUBSCRIPTIONNAME_FLAG;
-        rc = qpid010SubscriptionName_undo_setup(rowreq_ctx);
+    case COLUMN_brokerSUBSCRIPTIONNAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerSUBSCRIPTIONNAME_FLAG;
+        rc = brokerSubscriptionName_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONBROWSING:
+    case COLUMN_brokerSUBSCRIPTIONBROWSING:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONBROWSING_FLAG;
-        rc = qpid010SubscriptionBrowsing_undo_setup(rowreq_ctx);
+            COLUMN_brokerSUBSCRIPTIONBROWSING_FLAG;
+        rc = brokerSubscriptionBrowsing_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED:
+    case COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED_FLAG;
-        rc = qpid010SubscriptionAcknowledged_undo_setup(rowreq_ctx);
+            COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED_FLAG;
+        rc = brokerSubscriptionAcknowledged_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE:
+    case COLUMN_brokerSUBSCRIPTIONEXCLUSIVE:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE_FLAG;
-        rc = qpid010SubscriptionExclusive_undo_setup(rowreq_ctx);
+            COLUMN_brokerSUBSCRIPTIONEXCLUSIVE_FLAG;
+        rc = brokerSubscriptionExclusive_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONARGUMENTS:
+    case COLUMN_brokerSUBSCRIPTIONARGUMENTS:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONARGUMENTS_FLAG;
-        rc = qpid010SubscriptionArguments_undo_setup(rowreq_ctx);
+            COLUMN_brokerSUBSCRIPTIONARGUMENTS_FLAG;
+        rc = brokerSubscriptionArguments_undo_setup(rowreq_ctx);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010SubscriptionTable_undo_setup_column\n",
+                 "unknown column %d in _brokerSubscriptionTable_undo_setup_column\n",
                  column);
         break;
     }
 
     return rc;
-}                               /* _qpid010SubscriptionTable_undo_setup_column */
+}                               /* _brokerSubscriptionTable_undo_setup_column */
 
 
 /**
@@ -1481,7 +1481,7 @@ _qpid010SubscriptionTable_undo_setup_column
  * undo setup
  */
 int
-_mfd_qpid010SubscriptionTable_undo_setup(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_undo_setup(netsnmp_mib_handler *handler,
                                         netsnmp_handler_registration
                                         *reginfo,
                                         netsnmp_agent_request_info
@@ -1489,18 +1489,18 @@ _mfd_qpid010SubscriptionTable_undo_setup(netsnmp_mib_handler *handler,
                                         netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_undo_setup", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_undo_setup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
      * allocate undo context
      */
-    rowreq_ctx->undo = qpid010SubscriptionTable_allocate_data();
+    rowreq_ctx->undo = brokerSubscriptionTable_allocate_data();
     if (NULL == rowreq_ctx->undo) {
         /** msg already logged */
         netsnmp_request_set_error_all(requests,
@@ -1512,10 +1512,10 @@ _mfd_qpid010SubscriptionTable_undo_setup(netsnmp_mib_handler *handler,
      * row undo setup
      */
     rowreq_ctx->column_set_flags = 0;
-    rc = qpid010SubscriptionTable_undo_setup(rowreq_ctx);
+    rc = brokerSubscriptionTable_undo_setup(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
-        DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                    "qpid010SubscriptionTable_undo_setup\n", rc));
+        DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                    "brokerSubscriptionTable_undo_setup\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     } else {
         /*
@@ -1530,11 +1530,11 @@ _mfd_qpid010SubscriptionTable_undo_setup(netsnmp_mib_handler *handler,
             if (NULL == tri)
                 continue;
 
-            rc = _qpid010SubscriptionTable_undo_setup_column(rowreq_ctx,
+            rc = _brokerSubscriptionTable_undo_setup_column(rowreq_ctx,
                                                             tri->colnum);
             if (MFD_SUCCESS != rc) {
-                DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                            "qpid010SubscriptionTable_undo_setup_column\n",
+                DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                            "brokerSubscriptionTable_undo_setup_column\n",
                             rc));
                 netsnmp_set_request_error(agtreq_info, requests,
                                           SNMP_VALIDATE_ERR(rc));
@@ -1543,26 +1543,26 @@ _mfd_qpid010SubscriptionTable_undo_setup(netsnmp_mib_handler *handler,
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_undo_setup */
+}                               /* _mfd_brokerSubscriptionTable_undo_setup */
 
 /**
  * @internal
  * undo setup
  */
 int
-_mfd_qpid010SubscriptionTable_undo_cleanup(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_undo_cleanup(netsnmp_mib_handler *handler,
                                           netsnmp_handler_registration
                                           *reginfo,
                                           netsnmp_agent_request_info
                                           *agtreq_info,
                                           netsnmp_request_info *requests)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_undo_cleanup", "called\n"));
 
     /*
      * failed row create in early stages has no rowreq_ctx
@@ -1573,26 +1573,26 @@ _mfd_qpid010SubscriptionTable_undo_cleanup(netsnmp_mib_handler *handler,
     /*
      * call user cleanup
      */
-    rc = qpid010SubscriptionTable_undo_cleanup(rowreq_ctx);
+    rc = brokerSubscriptionTable_undo_cleanup(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                    "qpid010SubscriptionTable_undo_cleanup\n", rc));
+        DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                    "brokerSubscriptionTable_undo_cleanup\n", rc));
     }
 
     /*
      * release undo context, if needed
      */
     if (rowreq_ctx->undo) {
-        qpid010SubscriptionTable_release_data(rowreq_ctx->undo);
+        brokerSubscriptionTable_release_data(rowreq_ctx->undo);
         rowreq_ctx->undo = NULL;
     }
 
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_undo_cleanup */
+}                               /* _mfd_brokerSubscriptionTable_undo_cleanup */
 
 /*----------------------------------------------------------------------
  *
@@ -1604,120 +1604,120 @@ _mfd_qpid010SubscriptionTable_undo_cleanup(netsnmp_mib_handler *handler,
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010SubscriptionTable_set_column(qpid010SubscriptionTable_rowreq_ctx *
+_brokerSubscriptionTable_set_column(brokerSubscriptionTable_rowreq_ctx *
                                     rowreq_ctx,
                                     netsnmp_variable_list * var,
                                     int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_set_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_set_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
 
         /*
-         * qpid010SubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONSESSIONREF:
+    case COLUMN_brokerSUBSCRIPTIONSESSIONREF:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONSESSIONREF_FLAG;
-        rc = qpid010SubscriptionSessionRef_set(rowreq_ctx,
+            COLUMN_brokerSUBSCRIPTIONSESSIONREF_FLAG;
+        rc = brokerSubscriptionSessionRef_set(rowreq_ctx,
                                               (char *) var->val.string,
                                               var->val_len);
         break;
 
         /*
-         * qpid010SubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONQUEUEREF:
+    case COLUMN_brokerSUBSCRIPTIONQUEUEREF:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONQUEUEREF_FLAG;
-        rc = qpid010SubscriptionQueueRef_set(rowreq_ctx,
+            COLUMN_brokerSUBSCRIPTIONQUEUEREF_FLAG;
+        rc = brokerSubscriptionQueueRef_set(rowreq_ctx,
                                             (char *) var->val.string,
                                             var->val_len);
         break;
 
         /*
-         * qpid010SubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONNAME:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010SUBSCRIPTIONNAME_FLAG;
-        rc = qpid010SubscriptionName_set(rowreq_ctx,
+    case COLUMN_brokerSUBSCRIPTIONNAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerSUBSCRIPTIONNAME_FLAG;
+        rc = brokerSubscriptionName_set(rowreq_ctx,
                                         (char *) var->val.string,
                                         var->val_len);
         break;
 
         /*
-         * qpid010SubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONBROWSING:
+    case COLUMN_brokerSUBSCRIPTIONBROWSING:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONBROWSING_FLAG;
-        rc = qpid010SubscriptionBrowsing_set(rowreq_ctx,
+            COLUMN_brokerSUBSCRIPTIONBROWSING_FLAG;
+        rc = brokerSubscriptionBrowsing_set(rowreq_ctx,
                                             *((u_long *) var->val.string));
         break;
 
         /*
-         * qpid010SubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED:
+    case COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED_FLAG;
-        rc = qpid010SubscriptionAcknowledged_set(rowreq_ctx,
+            COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED_FLAG;
+        rc = brokerSubscriptionAcknowledged_set(rowreq_ctx,
                                                 *((u_long *) var->val.
                                                   string));
         break;
 
         /*
-         * qpid010SubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE:
+    case COLUMN_brokerSUBSCRIPTIONEXCLUSIVE:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE_FLAG;
-        rc = qpid010SubscriptionExclusive_set(rowreq_ctx,
+            COLUMN_brokerSUBSCRIPTIONEXCLUSIVE_FLAG;
+        rc = brokerSubscriptionExclusive_set(rowreq_ctx,
                                              *((u_long *) var->val.
                                                string));
         break;
 
         /*
-         * qpid010SubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONARGUMENTS:
+    case COLUMN_brokerSUBSCRIPTIONARGUMENTS:
         rowreq_ctx->column_set_flags |=
-            COLUMN_qpid010SUBSCRIPTIONARGUMENTS_FLAG;
-        rc = qpid010SubscriptionArguments_set(rowreq_ctx,
+            COLUMN_brokerSUBSCRIPTIONARGUMENTS_FLAG;
+        rc = brokerSubscriptionArguments_set(rowreq_ctx,
                                              (char *) var->val.string,
                                              var->val_len);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010SubscriptionTable_set_column\n",
+                 "unknown column %d in _brokerSubscriptionTable_set_column\n",
                  column);
         rc = SNMP_ERR_GENERR;
         break;
     }
 
     return rc;
-}                               /* _qpid010SubscriptionTable_set_column */
+}                               /* _brokerSubscriptionTable_set_column */
 
 int
-_mfd_qpid010SubscriptionTable_set_values(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_set_values(netsnmp_mib_handler *handler,
                                         netsnmp_handler_registration
                                         *reginfo,
                                         netsnmp_agent_request_info
                                         *agtreq_info,
                                         netsnmp_request_info *requests)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc = SNMP_ERR_NOERROR;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_set_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_set_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1730,19 +1730,19 @@ _mfd_qpid010SubscriptionTable_set_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010SubscriptionTable_set_column(rowreq_ctx,
+        rc = _brokerSubscriptionTable_set_column(rowreq_ctx,
                                                  requests->requestvb,
                                                  tri->colnum);
         if (MFD_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                        "qpid010SubscriptionTable_set_column\n", rc));
+            DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                        "brokerSubscriptionTable_set_column\n", rc));
             netsnmp_set_request_error(agtreq_info, requests,
                                       SNMP_VALIDATE_ERR(rc));
         }
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_set_values */
+}                               /* _mfd_brokerSubscriptionTable_set_values */
 
 /*----------------------------------------------------------------------
  *
@@ -1754,25 +1754,25 @@ _mfd_qpid010SubscriptionTable_set_values(netsnmp_mib_handler *handler,
  * commit the values
  */
 int
-_mfd_qpid010SubscriptionTable_commit(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_commit(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info
                                     *agtreq_info,
                                     netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010SubscriptionTable_commit(rowreq_ctx);
+    rc = brokerSubscriptionTable_commit(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
-        DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                    "qpid010SubscriptionTable_commit\n", rc));
+        DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                    "brokerSubscriptionTable_commit\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
@@ -1782,14 +1782,14 @@ _mfd_qpid010SubscriptionTable_commit(netsnmp_mib_handler *handler,
          * current value + 1 (i.e. dirty = # rows changed).
          * this is checked in post_request...
          */
-        qpid010SubscriptionTable_dirty_set(qpid010SubscriptionTable_dirty_get() + 1);     /* set table dirty flag */
+        brokerSubscriptionTable_dirty_set(brokerSubscriptionTable_dirty_get() + 1);     /* set table dirty flag */
     }
 
     return SNMP_ERR_NOERROR;
 }
 
 int
-_mfd_qpid010SubscriptionTable_undo_commit(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_undo_commit(netsnmp_mib_handler *handler,
                                          netsnmp_handler_registration
                                          *reginfo,
                                          netsnmp_agent_request_info
@@ -1797,39 +1797,39 @@ _mfd_qpid010SubscriptionTable_undo_commit(netsnmp_mib_handler *handler,
                                          netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_undo_commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DIRTY) {
-        u_int           d = qpid010SubscriptionTable_dirty_get();
+        u_int           d = brokerSubscriptionTable_dirty_get();
 
         netsnmp_assert(d != 0);
         if (d)
-            qpid010SubscriptionTable_dirty_set(d - 1);
+            brokerSubscriptionTable_dirty_set(d - 1);
     }
 
-    rc = qpid010SubscriptionTable_undo_commit(rowreq_ctx);
+    rc = brokerSubscriptionTable_undo_commit(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                    "qpid010SubscriptionTable_undo_commit\n", rc));
+        DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                    "brokerSubscriptionTable_undo_commit\n", rc));
     }
 
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DIRTY) {
         snmp_log(LOG_WARNING,
-                 "qpid010SubscriptionTable row dirty flag still set after undo_commit\n");
+                 "brokerSubscriptionTable row dirty flag still set after undo_commit\n");
         rowreq_ctx->rowreq_flags &= ~MFD_ROW_DIRTY;
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_commit */
+}                               /* _mfd_brokerSubscriptionTable_commit */
 
 /*----------------------------------------------------------------------
  *
@@ -1841,80 +1841,80 @@ _mfd_qpid010SubscriptionTable_undo_commit(netsnmp_mib_handler *handler,
  * undo the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010SubscriptionTable_undo_column(qpid010SubscriptionTable_rowreq_ctx *
+_brokerSubscriptionTable_undo_column(brokerSubscriptionTable_rowreq_ctx *
                                      rowreq_ctx,
                                      netsnmp_variable_list * var,
                                      int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_undo_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_undo_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
 
         /*
-         * qpid010SubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONSESSIONREF:
-        rc = qpid010SubscriptionSessionRef_undo(rowreq_ctx);
+    case COLUMN_brokerSUBSCRIPTIONSESSIONREF:
+        rc = brokerSubscriptionSessionRef_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONQUEUEREF:
-        rc = qpid010SubscriptionQueueRef_undo(rowreq_ctx);
+    case COLUMN_brokerSUBSCRIPTIONQUEUEREF:
+        rc = brokerSubscriptionQueueRef_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONNAME:
-        rc = qpid010SubscriptionName_undo(rowreq_ctx);
+    case COLUMN_brokerSUBSCRIPTIONNAME:
+        rc = brokerSubscriptionName_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONBROWSING:
-        rc = qpid010SubscriptionBrowsing_undo(rowreq_ctx);
+    case COLUMN_brokerSUBSCRIPTIONBROWSING:
+        rc = brokerSubscriptionBrowsing_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED:
-        rc = qpid010SubscriptionAcknowledged_undo(rowreq_ctx);
+    case COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED:
+        rc = brokerSubscriptionAcknowledged_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerSubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE:
-        rc = qpid010SubscriptionExclusive_undo(rowreq_ctx);
+    case COLUMN_brokerSUBSCRIPTIONEXCLUSIVE:
+        rc = brokerSubscriptionExclusive_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010SubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerSubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010SUBSCRIPTIONARGUMENTS:
-        rc = qpid010SubscriptionArguments_undo(rowreq_ctx);
+    case COLUMN_brokerSUBSCRIPTIONARGUMENTS:
+        rc = brokerSubscriptionArguments_undo(rowreq_ctx);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010SubscriptionTable_undo_column\n",
+                 "unknown column %d in _brokerSubscriptionTable_undo_column\n",
                  column);
         break;
     }
 
     return rc;
-}                               /* _qpid010SubscriptionTable_undo_column */
+}                               /* _brokerSubscriptionTable_undo_column */
 
 int
-_mfd_qpid010SubscriptionTable_undo_values(netsnmp_mib_handler *handler,
+_mfd_brokerSubscriptionTable_undo_values(netsnmp_mib_handler *handler,
                                          netsnmp_handler_registration
                                          *reginfo,
                                          netsnmp_agent_request_info
@@ -1922,22 +1922,22 @@ _mfd_qpid010SubscriptionTable_undo_values(netsnmp_mib_handler *handler,
                                          netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_undo_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_undo_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010SubscriptionTable_undo(rowreq_ctx);
+    rc = brokerSubscriptionTable_undo(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                    "qpid010SubscriptionTable_undo\n", rc));
+        DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                    "brokerSubscriptionTable_undo\n", rc));
     }
 
     for (; requests; requests = requests->next) {
@@ -1948,20 +1948,20 @@ _mfd_qpid010SubscriptionTable_undo_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010SubscriptionTable_undo_column(rowreq_ctx,
+        rc = _brokerSubscriptionTable_undo_column(rowreq_ctx,
                                                   requests->requestvb,
                                                   tri->colnum);
         if (MFD_SUCCESS != rc) {
             /*
              * nothing we can do about it but log it
              */
-            DEBUGMSGTL(("qpid010SubscriptionTable:mfd", "error %d from "
-                        "qpid010SubscriptionTable_undo_column\n", rc));
+            DEBUGMSGTL(("brokerSubscriptionTable:mfd", "error %d from "
+                        "brokerSubscriptionTable_undo_column\n", rc));
         }
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_undo_values */
+}                               /* _mfd_brokerSubscriptionTable_undo_values */
 
 /*----------------------------------------------------------------------
  *
@@ -1973,7 +1973,7 @@ _mfd_qpid010SubscriptionTable_undo_values(netsnmp_mib_handler *handler,
  * commit irreversible actions
  */
 int
-_mfd_qpid010SubscriptionTable_irreversible_commit(netsnmp_mib_handler
+_mfd_brokerSubscriptionTable_irreversible_commit(netsnmp_mib_handler
                                                  *handler,
                                                  netsnmp_handler_registration
                                                  *reginfo,
@@ -1982,11 +1982,11 @@ _mfd_qpid010SubscriptionTable_irreversible_commit(netsnmp_mib_handler
                                                  netsnmp_request_info
                                                  *requests)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx =
+        (brokerSubscriptionTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_mfd_qpid010SubscriptionTable_irreversible:commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_mfd_brokerSubscriptionTable_irreversible:commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1996,7 +1996,7 @@ _mfd_qpid010SubscriptionTable_irreversible_commit(netsnmp_mib_handler
      */
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED) {
         if (!(rowreq_ctx->rowreq_flags & MFD_ROW_CREATED))
-            CONTAINER_REMOVE(qpid010SubscriptionTable_if_ctx.container,
+            CONTAINER_REMOVE(brokerSubscriptionTable_if_ctx.container,
                              rowreq_ctx);
     } else {
         if (rowreq_ctx->column_set_flags) {
@@ -2005,7 +2005,7 @@ _mfd_qpid010SubscriptionTable_irreversible_commit(netsnmp_mib_handler
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010SubscriptionTable_irreversible_commit */
+}                               /* _mfd_brokerSubscriptionTable_irreversible_commit */
 
 /***********************************************************************
  *
@@ -2020,12 +2020,12 @@ static void     _container_free(netsnmp_container * container);
 static int
 _cache_load(netsnmp_cache * cache, void *vmagic)
 {
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_cache_load",
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_cache_load",
                 "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
         snmp_log(LOG_ERR,
-                 "invalid cache for qpid010SubscriptionTable_cache_load\n");
+                 "invalid cache for brokerSubscriptionTable_cache_load\n");
         return -1;
     }
 
@@ -2035,7 +2035,7 @@ _cache_load(netsnmp_cache * cache, void *vmagic)
     /*
      * call user code
      */
-    return qpid010SubscriptionTable_container_load((netsnmp_container *)
+    return brokerSubscriptionTable_container_load((netsnmp_container *)
                                                   cache->magic);
 }                               /* _cache_load */
 
@@ -2047,12 +2047,12 @@ _cache_free(netsnmp_cache * cache, void *magic)
 {
     netsnmp_container *container;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_cache_free",
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_cache_free",
                 "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
         snmp_log(LOG_ERR,
-                 "invalid cache in qpid010SubscriptionTable_cache_free\n");
+                 "invalid cache in brokerSubscriptionTable_cache_free\n");
         return;
     }
 
@@ -2065,16 +2065,16 @@ _cache_free(netsnmp_cache * cache, void *magic)
  * @internal
  */
 static void
-_container_item_free(qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
+_container_item_free(brokerSubscriptionTable_rowreq_ctx * rowreq_ctx,
                      void *context)
 {
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_container_item_free",
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_container_item_free",
                 "called\n"));
 
     if (NULL == rowreq_ctx)
         return;
 
-    qpid010SubscriptionTable_release_rowreq_ctx(rowreq_ctx);
+    brokerSubscriptionTable_release_rowreq_ctx(rowreq_ctx);
 }                               /* _container_item_free */
 
 /**
@@ -2083,19 +2083,19 @@ _container_item_free(qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
 static void
 _container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_container_free",
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_container_free",
                 "called\n"));
 
     if (NULL == container) {
         snmp_log(LOG_ERR,
-                 "invalid container in qpid010SubscriptionTable_container_free\n");
+                 "invalid container in brokerSubscriptionTable_container_free\n");
         return;
     }
 
     /*
      * call user code
      */
-    qpid010SubscriptionTable_container_free(container);
+    brokerSubscriptionTable_container_free(container);
 
     /*
      * free all items. inefficient, but easy.
@@ -2110,58 +2110,58 @@ _container_free(netsnmp_container * container)
  * initialize the container with functions or wrappers
  */
 void
-_qpid010SubscriptionTable_container_init
-    (qpid010SubscriptionTable_interface_ctx * if_ctx)
+_brokerSubscriptionTable_container_init
+    (brokerSubscriptionTable_interface_ctx * if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_container_init", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_container_init", "called\n"));
 
     /*
      * cache init
      */
     if_ctx->cache = netsnmp_cache_create(30,    /* timeout in seconds */
                                          _cache_load, _cache_free,
-                                         qpid010SubscriptionTable_oid,
-                                         qpid010SubscriptionTable_oid_size);
+                                         brokerSubscriptionTable_oid,
+                                         brokerSubscriptionTable_oid_size);
 
     if (NULL == if_ctx->cache) {
         snmp_log(LOG_ERR,
-                 "error creating cache for qpid010SubscriptionTable\n");
+                 "error creating cache for brokerSubscriptionTable\n");
         return;
     }
 
     if_ctx->cache->flags = NETSNMP_CACHE_DONT_INVALIDATE_ON_SET;
 
-    qpid010SubscriptionTable_container_init(&if_ctx->container,
+    brokerSubscriptionTable_container_init(&if_ctx->container,
                                            if_ctx->cache);
     if (NULL == if_ctx->container)
         if_ctx->container =
             netsnmp_container_find
-            ("qpid010SubscriptionTable:table_container");
+            ("brokerSubscriptionTable:table_container");
     if (NULL == if_ctx->container) {
         snmp_log(LOG_ERR, "error creating container in "
-                 "qpid010SubscriptionTable_container_init\n");
+                 "brokerSubscriptionTable_container_init\n");
         return;
     }
 
     if (NULL != if_ctx->cache)
         if_ctx->cache->magic = (void *) if_ctx->container;
-}                               /* _qpid010SubscriptionTable_container_init */
+}                               /* _brokerSubscriptionTable_container_init */
 
 /**
  * @internal
  * shutdown the container with functions or wrappers
  */
 void
-_qpid010SubscriptionTable_container_shutdown
-    (qpid010SubscriptionTable_interface_ctx * if_ctx)
+_brokerSubscriptionTable_container_shutdown
+    (brokerSubscriptionTable_interface_ctx * if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_container_shutdown", "called\n"));
 
-    qpid010SubscriptionTable_container_shutdown(if_ctx->container);
+    brokerSubscriptionTable_container_shutdown(if_ctx->container);
 
     _container_free(if_ctx->container);
 
-}                               /* _qpid010SubscriptionTable_container_shutdown */
+}                               /* _brokerSubscriptionTable_container_shutdown */
 
 /***********************************************************************
  *
@@ -2169,28 +2169,28 @@ _qpid010SubscriptionTable_container_shutdown
  *
  ***********************************************************************/
 
-static int      _qpid010SubscriptionTable_container_save_rows(int majorID,
+static int      _brokerSubscriptionTable_container_save_rows(int majorID,
                                                              int minorID,
                                                              void
                                                              *serverarg,
                                                              void
                                                              *clientarg);
-static void     _qpid010SubscriptionTable_container_row_restore(const char
+static void     _brokerSubscriptionTable_container_row_restore(const char
                                                                *token,
                                                                char *buf);
 static int     
-_qpid010SubscriptionTable_container_row_save
-(qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx, void *type);
+_brokerSubscriptionTable_container_row_save
+(brokerSubscriptionTable_rowreq_ctx * rowreq_ctx, void *type);
 static char   
-    *_qpid010SubscriptionTable_container_col_restore
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx, u_int col,
+    *_brokerSubscriptionTable_container_col_restore
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx, u_int col,
      char *buf);
 static char   
-    *_qpid010SubscriptionTable_container_col_save
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx, u_int col,
+    *_brokerSubscriptionTable_container_col_save
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx, u_int col,
      char *buf);
 
-static char     row_token[] = "qpid010SubscriptionTable";
+static char     row_token[] = "brokerSubscriptionTable";
 
 /************************************************************
  * *_init_persistence should be called from the main table
@@ -2202,33 +2202,33 @@ static char     row_token[] = "qpid010SubscriptionTable";
  * (and re-created) before the dependent rows.
  */
 void
-qpid010SubscriptionTable_container_init_persistence(netsnmp_container *
+brokerSubscriptionTable_container_init_persistence(netsnmp_container *
                                                    container)
 {
     int             rc;
 
     register_config_handler(NULL, row_token,
-                            _qpid010SubscriptionTable_container_row_restore,
+                            _brokerSubscriptionTable_container_row_restore,
                             NULL, NULL);
     rc = snmp_register_callback(SNMP_CALLBACK_LIBRARY,
                                 SNMP_CALLBACK_STORE_DATA,
-                                _qpid010SubscriptionTable_container_save_rows,
+                                _brokerSubscriptionTable_container_save_rows,
                                 container);
 
     if (rc != SNMP_ERR_NOERROR)
         snmp_log(LOG_ERR, "error registering for STORE_DATA callback "
-                 "in _qpid010SubscriptionTable_container_init_persistence\n");
+                 "in _brokerSubscriptionTable_container_init_persistence\n");
 }
 
 static int
-_qpid010SubscriptionTable_container_save_rows(int majorID, int minorID,
+_brokerSubscriptionTable_container_save_rows(int majorID, int minorID,
                                              void *serverarg,
                                              void *clientarg)
 {
     char            sep[] =
         "##############################################################";
     char            buf[] =
-        "#\n" "# qpid010SubscriptionTable persistent data\n" "#";
+        "#\n" "# brokerSubscriptionTable persistent data\n" "#";
     char           *type = netsnmp_ds_get_string(NETSNMP_DS_LIBRARY_ID,
                                                  NETSNMP_DS_LIB_APPTYPE);
 
@@ -2240,7 +2240,7 @@ _qpid010SubscriptionTable_container_save_rows(int majorID, int minorID,
      */
     CONTAINER_FOR_EACH((netsnmp_container *) clientarg,
                        (netsnmp_container_obj_func *)
-                       _qpid010SubscriptionTable_container_row_save, type);
+                       _brokerSubscriptionTable_container_row_save, type);
 
     read_config_store((char *) type, sep);
     read_config_store((char *) type, "\n");
@@ -2254,11 +2254,11 @@ _qpid010SubscriptionTable_container_save_rows(int majorID, int minorID,
 
 
 /************************************************************
- * _qpid010SubscriptionTable_container_row_save
+ * _brokerSubscriptionTable_container_row_save
  */
 static int
-_qpid010SubscriptionTable_container_row_save
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx, void *type)
+_brokerSubscriptionTable_container_row_save
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx, void *type)
 {
     /*
      * Allocate space for a line with all data for a row. An
@@ -2290,14 +2290,14 @@ _qpid010SubscriptionTable_container_row_save
      */
         /** xxx: add storage for external index(s)! */
 #define MAX_ROW_SIZE (sizeof(row_token) + 1 +  \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010SubscriptionSessionRef) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010SubscriptionQueueRef) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010SubscriptionName) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( 12 ) + /* ASN_INTEGER qpid010SubscriptionBrowsing */ \
-        ( 12 ) + /* ASN_INTEGER qpid010SubscriptionAcknowledged */ \
-        ( 12 ) + /* ASN_INTEGER qpid010SubscriptionExclusive */ \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010SubscriptionArguments) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( qpid010SUBSCRIPTIONTABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerSubscriptionSessionRef) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerSubscriptionQueueRef) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerSubscriptionName) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( 12 ) + /* ASN_INTEGER brokerSubscriptionBrowsing */ \
+        ( 12 ) + /* ASN_INTEGER brokerSubscriptionAcknowledged */ \
+        ( 12 ) + /* ASN_INTEGER brokerSubscriptionExclusive */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerSubscriptionArguments) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( brokerSUBSCRIPTIONTABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
     2 /* LINE_TERM_CHAR + \n */ )
 
     char            buf[MAX_ROW_SIZE], *pos = buf, *max =
@@ -2305,7 +2305,7 @@ _qpid010SubscriptionTable_container_row_save
     char           *tmp;
     int             i;
 
-    if (qpid010SubscriptionTable_container_should_save(rowreq_ctx) == 0) {
+    if (brokerSubscriptionTable_container_should_save(rowreq_ctx) == 0) {
         return SNMP_ERR_NOERROR;
     }
 
@@ -2316,13 +2316,13 @@ _qpid010SubscriptionTable_container_row_save
     pos = read_config_save_objid(pos, rowreq_ctx->oid_idx.oids,
                                  rowreq_ctx->oid_idx.len);
     if (NULL == pos) {
-        snmp_log(LOG_ERR, "error saving qpid010SubscriptionTable row "
+        snmp_log(LOG_ERR, "error saving brokerSubscriptionTable row "
                  "to persistent file\n");
         return SNMP_ERR_GENERR;
     }
     *pos++ = ' ';
     if (pos > max) {
-        snmp_log(LOG_ERR, "error saving qpid010SubscriptionTable row "
+        snmp_log(LOG_ERR, "error saving brokerSubscriptionTable row "
                  "to persistent file (too long)\n");
         return SNMP_ERR_GENERR;
     }
@@ -2330,22 +2330,22 @@ _qpid010SubscriptionTable_container_row_save
     /*
      * add each column
      */
-    for (i = qpid010SUBSCRIPTIONTABLE_MIN_COL;
-         i <= qpid010SUBSCRIPTIONTABLE_MAX_COL; ++i) {
+    for (i = brokerSUBSCRIPTIONTABLE_MIN_COL;
+         i <= brokerSUBSCRIPTIONTABLE_MAX_COL; ++i) {
 
-        if ((0x1 << (i - 1)) & ~qpid010SUBSCRIPTIONTABLE_SETTABLE_COLS)
+        if ((0x1 << (i - 1)) & ~brokerSUBSCRIPTIONTABLE_SETTABLE_COLS)
             continue;
 
         tmp = pos;
         pos =
-            _qpid010SubscriptionTable_container_col_save(rowreq_ctx, i,
+            _brokerSubscriptionTable_container_col_save(rowreq_ctx, i,
                                                         pos);
         if (NULL == pos)
             pos = tmp;
         else
             *pos++ = ' ';
         if (pos > max) {
-            snmp_log(LOG_ERR, "error saving qpid010SubscriptionTable row "
+            snmp_log(LOG_ERR, "error saving brokerSubscriptionTable row "
                      "to persistent file (too long)\n");
             return SNMP_ERR_GENERR;
         }
@@ -2361,34 +2361,34 @@ _qpid010SubscriptionTable_container_row_save
      */
     pos += sprintf(pos, "%c", LINE_TERM_CHAR);
     if (pos > max) {
-        snmp_log(LOG_ERR, "error saving qpid010SubscriptionTable row "
+        snmp_log(LOG_ERR, "error saving brokerSubscriptionTable row "
                  "to persistent file (too long)\n");
         return SNMP_ERR_GENERR;
     }
     read_config_store((char *) type, buf);
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_container_row_save", "saving line '%s'\n", buf));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_container_row_save", "saving line '%s'\n", buf));
 
     return SNMP_ERR_NOERROR;
 }
 
 static void
-_qpid010SubscriptionTable_container_row_restore(const char *token,
+_brokerSubscriptionTable_container_row_restore(const char *token,
                                                char *buf)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx;
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx;
     netsnmp_index   index;
-    oid             tmp_oid[MAX_qpid010SubscriptionTable_IDX_LEN];
+    oid             tmp_oid[MAX_brokerSubscriptionTable_IDX_LEN];
     u_int           col = 0, found = 0;
 
 
     if (strncmp(token, row_token, sizeof(row_token)) != 0) {
         snmp_log(LOG_ERR,
-                 "unknown token in _qpid010SubscriptionTable_container_row_restore\n");
+                 "unknown token in _brokerSubscriptionTable_container_row_restore\n");
         return;
     }
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_container_row_restore", "parsing line '%s'\n", buf));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_container_row_restore", "parsing line '%s'\n", buf));
 
     /*
      * pull out index and create default row
@@ -2398,14 +2398,14 @@ _qpid010SubscriptionTable_container_row_restore(const char *token,
     buf = read_config_read_objid(buf, &index.oids, &index.len);
     if (NULL == buf) {
         snmp_log(LOG_ERR, "error reading row index in "
-                 "_qpid010SubscriptionTable_container_row_restore\n");
+                 "_brokerSubscriptionTable_container_row_restore\n");
         return;
     }
     rowreq_ctx =
-        _mfd_qpid010SubscriptionTable_rowreq_from_index(&index, NULL);
+        _mfd_brokerSubscriptionTable_rowreq_from_index(&index, NULL);
     if (NULL == rowreq_ctx) {
         snmp_log(LOG_ERR, "error creating row index in "
-                 "_qpid010SubscriptionTable_container_row_restore\n");
+                 "_brokerSubscriptionTable_container_row_restore\n");
         return;
     }
 
@@ -2429,17 +2429,17 @@ _qpid010SubscriptionTable_container_row_restore(const char *token,
         /*
          * parse value
          */
-        DEBUGMSGTL(("_qpid010SubscriptionTable_container_row_restore",
+        DEBUGMSGTL(("_brokerSubscriptionTable_container_row_restore",
                     "parsing column %d\n", col));
         buf =
-            _qpid010SubscriptionTable_container_col_restore(rowreq_ctx, col,
+            _brokerSubscriptionTable_container_col_restore(rowreq_ctx, col,
                                                            buf);
         ++found;
     }
     if (0 == found) {
         snmp_log(LOG_ERR,
-                 "error parsing qpid010SubscriptionTable row; no columns found\n");
-        qpid010SubscriptionTable_release_rowreq_ctx(rowreq_ctx);
+                 "error parsing brokerSubscriptionTable row; no columns found\n");
+        brokerSubscriptionTable_release_rowreq_ctx(rowreq_ctx);
         return;
     }
 
@@ -2455,13 +2455,13 @@ _qpid010SubscriptionTable_container_row_restore(const char *token,
      */
     if ((buf == NULL) || (*buf != LINE_TERM_CHAR)) {
         snmp_log(LOG_ERR,
-                 "error parsing qpid010SubscriptionTable row around column %d\n",
+                 "error parsing brokerSubscriptionTable row around column %d\n",
                  col);
-        qpid010SubscriptionTable_release_rowreq_ctx(rowreq_ctx);
+        brokerSubscriptionTable_release_rowreq_ctx(rowreq_ctx);
         return;
     }
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_container_row_restore", "inserting row\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_container_row_restore", "inserting row\n"));
 
     /*
      * copy oid index and insert row
@@ -2469,23 +2469,23 @@ _qpid010SubscriptionTable_container_row_restore(const char *token,
     rowreq_ctx->oid_idx.len = index.len;
     memcpy(rowreq_ctx->oid_idx.oids, index.oids, index.len * sizeof(oid));
 
-    CONTAINER_INSERT(qpid010SubscriptionTable_if_ctx.container, rowreq_ctx);
+    CONTAINER_INSERT(brokerSubscriptionTable_if_ctx.container, rowreq_ctx);
 }
 
 /************************************************************
- * _qpid010SubscriptionTable_container_col_save
+ * _brokerSubscriptionTable_container_col_save
  */
 static char    *
-_qpid010SubscriptionTable_container_col_save
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx, u_int col, char *buf)
+_brokerSubscriptionTable_container_col_save
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx, u_int col, char *buf)
 {
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
-                 "_qpid010SubscriptionTable_container_col_save\n");
+                 "_brokerSubscriptionTable_container_col_save\n");
         return NULL;
     }
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:_qpid010SubscriptionTable_container_col_save", "processing column %d\n", col));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:_brokerSubscriptionTable_container_col_save", "processing column %d\n", col));
 
     /*
      * prefix with column number, so we don't ever depend on
@@ -2498,78 +2498,78 @@ _qpid010SubscriptionTable_container_col_save
      */
     switch (col) {
 
-    case COLUMN_qpid010SUBSCRIPTIONSESSIONREF:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_brokerSUBSCRIPTIONSESSIONREF:    /** ObjId = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionSessionRef,
+                                          brokerSubscriptionSessionRef,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionSessionRef_len);
+                                          brokerSubscriptionSessionRef_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONQUEUEREF:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_brokerSUBSCRIPTIONQUEUEREF:    /** ObjId = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionQueueRef,
+                                          brokerSubscriptionQueueRef,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionQueueRef_len);
+                                          brokerSubscriptionQueueRef_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONNAME:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_brokerSUBSCRIPTIONNAME:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionName,
+                                          brokerSubscriptionName,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionName_len);
+                                          brokerSubscriptionName_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONBROWSING:    /** TruthValue = ASN_INTEGER */
+    case COLUMN_brokerSUBSCRIPTIONBROWSING:    /** TruthValue = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010SubscriptionBrowsing);
+                    rowreq_ctx->data.brokerSubscriptionBrowsing);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED:    /** TruthValue = ASN_INTEGER */
+    case COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED:    /** TruthValue = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010SubscriptionAcknowledged);
+                    rowreq_ctx->data.brokerSubscriptionAcknowledged);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE:    /** TruthValue = ASN_INTEGER */
+    case COLUMN_brokerSUBSCRIPTIONEXCLUSIVE:    /** TruthValue = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010SubscriptionExclusive);
+                    rowreq_ctx->data.brokerSubscriptionExclusive);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONCREDITMODE:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_brokerSUBSCRIPTIONCREDITMODE:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionCreditMode,
+                                          brokerSubscriptionCreditMode,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionCreditMode_len);
+                                          brokerSubscriptionCreditMode_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONARGUMENTS:    /** Map = ASN_OCTET_STR */
+    case COLUMN_brokerSUBSCRIPTIONARGUMENTS:    /** Map = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionArguments,
+                                          brokerSubscriptionArguments,
                                           rowreq_ctx->data.
-                                          qpid010SubscriptionArguments_len);
+                                          brokerSubscriptionArguments_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONDELIVERED:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerSUBSCRIPTIONDELIVERED:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010SubscriptionDelivered);
+                    rowreq_ctx->data.brokerSubscriptionDelivered);
         break;
 
     default:/** We shouldn't get here */
         snmp_log(LOG_ERR, "unknown column %d in "
-                 "_qpid010SubscriptionTable_container_col_save\n", col);
+                 "_brokerSubscriptionTable_container_col_save\n", col);
         return NULL;
     }
 
@@ -2577,113 +2577,113 @@ _qpid010SubscriptionTable_container_col_save
 }
 
 /************************************************************
- * _qpid010SubscriptionTable_container_col_restore
+ * _brokerSubscriptionTable_container_col_restore
  */
 static char    *
-_qpid010SubscriptionTable_container_col_restore
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx, u_int col, char *buf)
+_brokerSubscriptionTable_container_col_restore
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx, u_int col, char *buf)
 {
     size_t          len;
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
-                 "_qpid010SubscriptionTable_container_col_restore\n");
+                 "_brokerSubscriptionTable_container_col_restore\n");
         return NULL;
     }
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:_qpid010SubscriptionTable_container_col_restore", "processing column %d\n", col));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:_brokerSubscriptionTable_container_col_restore", "processing column %d\n", col));
 
     /*
      * restore data for the column
      */
     switch (col) {
 
-    case COLUMN_qpid010SUBSCRIPTIONSESSIONREF:    /** ObjId = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010SubscriptionSessionRef_len =
-            sizeof(rowreq_ctx->data.qpid010SubscriptionSessionRef);
+    case COLUMN_brokerSUBSCRIPTIONSESSIONREF:    /** ObjId = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerSubscriptionSessionRef_len =
+            sizeof(rowreq_ctx->data.brokerSubscriptionSessionRef);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010SubscriptionSessionRef,
+                                    brokerSubscriptionSessionRef,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010SubscriptionSessionRef_len);
+                                    brokerSubscriptionSessionRef_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONQUEUEREF:    /** ObjId = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010SubscriptionQueueRef_len =
-            sizeof(rowreq_ctx->data.qpid010SubscriptionQueueRef);
+    case COLUMN_brokerSUBSCRIPTIONQUEUEREF:    /** ObjId = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerSubscriptionQueueRef_len =
+            sizeof(rowreq_ctx->data.brokerSubscriptionQueueRef);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010SubscriptionQueueRef,
+                                    brokerSubscriptionQueueRef,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010SubscriptionQueueRef_len);
+                                    brokerSubscriptionQueueRef_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONNAME:    /** Sstr = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010SubscriptionName_len =
-            sizeof(rowreq_ctx->data.qpid010SubscriptionName);
+    case COLUMN_brokerSUBSCRIPTIONNAME:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerSubscriptionName_len =
+            sizeof(rowreq_ctx->data.brokerSubscriptionName);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010SubscriptionName,
+                                    brokerSubscriptionName,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010SubscriptionName_len);
+                                    brokerSubscriptionName_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONBROWSING:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010SubscriptionBrowsing);
+    case COLUMN_brokerSUBSCRIPTIONBROWSING:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerSubscriptionBrowsing);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010SubscriptionBrowsing, &len);
+                                      brokerSubscriptionBrowsing, &len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010SubscriptionAcknowledged);
+    case COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerSubscriptionAcknowledged);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010SubscriptionAcknowledged,
+                                      brokerSubscriptionAcknowledged,
                                       &len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010SubscriptionExclusive);
+    case COLUMN_brokerSUBSCRIPTIONEXCLUSIVE:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerSubscriptionExclusive);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010SubscriptionExclusive, &len);
+                                      brokerSubscriptionExclusive, &len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONCREDITMODE:    /** Sstr = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010SubscriptionCreditMode_len =
-            sizeof(rowreq_ctx->data.qpid010SubscriptionCreditMode);
+    case COLUMN_brokerSUBSCRIPTIONCREDITMODE:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerSubscriptionCreditMode_len =
+            sizeof(rowreq_ctx->data.brokerSubscriptionCreditMode);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010SubscriptionCreditMode,
+                                    brokerSubscriptionCreditMode,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010SubscriptionCreditMode_len);
+                                    brokerSubscriptionCreditMode_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONARGUMENTS:    /** Map = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010SubscriptionArguments_len =
-            sizeof(rowreq_ctx->data.qpid010SubscriptionArguments);
+    case COLUMN_brokerSUBSCRIPTIONARGUMENTS:    /** Map = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerSubscriptionArguments_len =
+            sizeof(rowreq_ctx->data.brokerSubscriptionArguments);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010SubscriptionArguments,
+                                    brokerSubscriptionArguments,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010SubscriptionArguments_len);
+                                    brokerSubscriptionArguments_len);
         break;
 
-    case COLUMN_qpid010SUBSCRIPTIONDELIVERED:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010SubscriptionDelivered);
+    case COLUMN_brokerSUBSCRIPTIONDELIVERED:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerSubscriptionDelivered);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010SubscriptionDelivered, &len);
+                                      brokerSubscriptionDelivered, &len);
         break;
 
     default:/** We shouldn't get here */
         snmp_log(LOG_ERR, "unknown column %d in "
-                 "_qpid010SubscriptionTable_container_col_restore\n", col);
+                 "_brokerSubscriptionTable_container_col_restore\n", col);
         return NULL;
     }
 
@@ -2691,11 +2691,11 @@ _qpid010SubscriptionTable_container_col_restore
 }
 
 
-qpid010SubscriptionTable_rowreq_ctx *
-qpid010SubscriptionTable_row_find_by_mib_index
-    (qpid010SubscriptionTable_mib_index * mib_idx)
+brokerSubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_row_find_by_mib_index
+    (brokerSubscriptionTable_mib_index * mib_idx)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx;
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx;
     oid             oid_tmp[MAX_OID_LEN];
     netsnmp_index   oid_idx;
     int             rc;
@@ -2709,13 +2709,13 @@ qpid010SubscriptionTable_row_find_by_mib_index
     /*
      * convert
      */
-    rc = qpid010SubscriptionTable_index_to_oid(&oid_idx, mib_idx);
+    rc = brokerSubscriptionTable_index_to_oid(&oid_idx, mib_idx);
     if (MFD_SUCCESS != rc)
         return NULL;
 
     rowreq_ctx =
-        (qpid010SubscriptionTable_rowreq_ctx *)
-        CONTAINER_FIND(qpid010SubscriptionTable_if_ctx.container, &oid_idx);
+        (brokerSubscriptionTable_rowreq_ctx *)
+        CONTAINER_FIND(brokerSubscriptionTable_if_ctx.container, &oid_idx);
 
     return rowreq_ctx;
 }

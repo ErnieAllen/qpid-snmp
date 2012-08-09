@@ -52,21 +52,21 @@ netsnmp_feature_require(baby_steps)
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010QueueTable
+ *** Table brokerQueueTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
+     * QPID-MESSAGING-MIB::brokerQueueTable is subid 1 of brokerQueues.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
      */
-     typedef struct qpid010QueueTable_interface_ctx_s {
+     typedef struct brokerQueueTable_interface_ctx_s {
 
          netsnmp_container *container;
          netsnmp_cache  *cache;
 
-         qpid010QueueTable_registration *user_ctx;
+         brokerQueueTable_registration *user_ctx;
 
          netsnmp_table_registration_info tbl_info;
 
@@ -74,132 +74,132 @@ netsnmp_feature_require(baby_steps)
 
          u_int           table_dirty;
 
-     } qpid010QueueTable_interface_ctx;
+     } brokerQueueTable_interface_ctx;
 
-     static qpid010QueueTable_interface_ctx qpid010QueueTable_if_ctx;
+     static brokerQueueTable_interface_ctx brokerQueueTable_if_ctx;
 
      static void    
-         _qpid010QueueTable_container_init(qpid010QueueTable_interface_ctx *
+         _brokerQueueTable_container_init(brokerQueueTable_interface_ctx *
                                           if_ctx);
      static void    
-         _qpid010QueueTable_container_shutdown
-         (qpid010QueueTable_interface_ctx * if_ctx);
+         _brokerQueueTable_container_shutdown
+         (brokerQueueTable_interface_ctx * if_ctx);
 
 
-     netsnmp_container *qpid010QueueTable_container_get(void)
+     netsnmp_container *brokerQueueTable_container_get(void)
 {
-    return qpid010QueueTable_if_ctx.container;
+    return brokerQueueTable_if_ctx.container;
 }
 
-qpid010QueueTable_registration *
-qpid010QueueTable_registration_get(void)
+brokerQueueTable_registration *
+brokerQueueTable_registration_get(void)
 {
-    return qpid010QueueTable_if_ctx.user_ctx;
+    return brokerQueueTable_if_ctx.user_ctx;
 }
 
-qpid010QueueTable_registration *
-qpid010QueueTable_registration_set(qpid010QueueTable_registration * newreg)
+brokerQueueTable_registration *
+brokerQueueTable_registration_set(brokerQueueTable_registration * newreg)
 {
-    qpid010QueueTable_registration *old = qpid010QueueTable_if_ctx.user_ctx;
-    qpid010QueueTable_if_ctx.user_ctx = newreg;
+    brokerQueueTable_registration *old = brokerQueueTable_if_ctx.user_ctx;
+    brokerQueueTable_if_ctx.user_ctx = newreg;
     return old;
 }
 
 int
-qpid010QueueTable_container_size(void)
+brokerQueueTable_container_size(void)
 {
-    return CONTAINER_SIZE(qpid010QueueTable_if_ctx.container);
+    return CONTAINER_SIZE(brokerQueueTable_if_ctx.container);
 }
 
 u_int
-qpid010QueueTable_dirty_get(void)
+brokerQueueTable_dirty_get(void)
 {
-    return qpid010QueueTable_if_ctx.table_dirty;
+    return brokerQueueTable_if_ctx.table_dirty;
 }
 
 void
-qpid010QueueTable_dirty_set(u_int status)
+brokerQueueTable_dirty_set(u_int status)
 {
-    DEBUGMSGTL(("qpid010QueueTable:qpid010QueueTable_dirty_set",
+    DEBUGMSGTL(("brokerQueueTable:brokerQueueTable_dirty_set",
                 "called. was %d, now %d\n",
-                qpid010QueueTable_if_ctx.table_dirty, status));
-    qpid010QueueTable_if_ctx.table_dirty = status;
+                brokerQueueTable_if_ctx.table_dirty, status));
+    brokerQueueTable_if_ctx.table_dirty = status;
 }
 
 /*
  * mfd multiplexer modes
  */
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_pre_request;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_post_request;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_object_lookup;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_get_values;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_check_objects;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_undo_setup;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_set_values;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_undo_cleanup;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_undo_values;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_commit;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_undo_commit;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_irreversible_commit;
-static Netsnmp_Node_Handler _mfd_qpid010QueueTable_check_dependencies;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_pre_request;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_post_request;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_object_lookup;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_get_values;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_check_objects;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_undo_setup;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_set_values;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_undo_cleanup;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_undo_values;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_commit;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_undo_commit;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_irreversible_commit;
+static Netsnmp_Node_Handler _mfd_brokerQueueTable_check_dependencies;
 
-qpid010QueueTable_data *qpid010QueueTable_allocate_data(void);
+brokerQueueTable_data *brokerQueueTable_allocate_data(void);
 
 /**
  * @internal
- * Initialize the table qpid010QueueTable 
+ * Initialize the table brokerQueueTable 
  *    (Define its contents and how it's structured)
  */
 void
-_qpid010QueueTable_initialize_interface(qpid010QueueTable_registration *
+_brokerQueueTable_initialize_interface(brokerQueueTable_registration *
                                        reg_ptr, u_long flags)
 {
     netsnmp_baby_steps_access_methods *access_multiplexer =
-        &qpid010QueueTable_if_ctx.access_multiplexer;
+        &brokerQueueTable_if_ctx.access_multiplexer;
     netsnmp_table_registration_info *tbl_info =
-        &qpid010QueueTable_if_ctx.tbl_info;
+        &brokerQueueTable_if_ctx.tbl_info;
     netsnmp_handler_registration *reginfo;
     netsnmp_mib_handler *handler;
     int             mfd_modes = 0;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_initialize_interface", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_initialize_interface", "called\n"));
 
 
     /*************************************************
      *
-     * save interface context for qpid010QueueTable
+     * save interface context for brokerQueueTable
      */
     /*
      * Setting up the table's definition
      */
     netsnmp_table_helper_add_indexes(tbl_info, ASN_UNSIGNED,
-                                                /** index: qpid010QueueInternalIndex */
+                                                /** index: brokerQueueInternalIndex */
                                      0);
 
     /*
      * Define the minimum and maximum accessible columns.  This
      * optimizes retrieval. 
      */
-    tbl_info->min_column = qpid010QUEUETABLE_MIN_COL;
-    tbl_info->max_column = qpid010QUEUETABLE_MAX_COL;
+    tbl_info->min_column = brokerQUEUETABLE_MIN_COL;
+    tbl_info->max_column = brokerQUEUETABLE_MAX_COL;
 
     /*
      * save users context
      */
-    qpid010QueueTable_if_ctx.user_ctx = reg_ptr;
+    brokerQueueTable_if_ctx.user_ctx = reg_ptr;
 
     /*
      * call data access initialization code
      */
-    qpid010QueueTable_init_data(reg_ptr);
+    brokerQueueTable_init_data(reg_ptr);
 
     /*
      * set up the container
      */
-    _qpid010QueueTable_container_init(&qpid010QueueTable_if_ctx);
-    if (NULL == qpid010QueueTable_if_ctx.container) {
+    _brokerQueueTable_container_init(&brokerQueueTable_if_ctx);
+    if (NULL == brokerQueueTable_if_ctx.container) {
         snmp_log(LOG_ERR,
-                 "could not initialize container for qpid010QueueTable\n");
+                 "could not initialize container for brokerQueueTable\n");
         return;
     }
 
@@ -207,59 +207,59 @@ _qpid010QueueTable_initialize_interface(qpid010QueueTable_registration *
      * access_multiplexer: REQUIRED wrapper for get request handling
      */
     access_multiplexer->object_lookup =
-        _mfd_qpid010QueueTable_object_lookup;
-    access_multiplexer->get_values = _mfd_qpid010QueueTable_get_values;
+        _mfd_brokerQueueTable_object_lookup;
+    access_multiplexer->get_values = _mfd_brokerQueueTable_get_values;
 
     /*
      * no wrappers yet
      */
-    access_multiplexer->pre_request = _mfd_qpid010QueueTable_pre_request;
-    access_multiplexer->post_request = _mfd_qpid010QueueTable_post_request;
+    access_multiplexer->pre_request = _mfd_brokerQueueTable_pre_request;
+    access_multiplexer->post_request = _mfd_brokerQueueTable_post_request;
 
 
     /*
      * REQUIRED wrappers for set request handling
      */
     access_multiplexer->object_syntax_checks =
-        _mfd_qpid010QueueTable_check_objects;
-    access_multiplexer->undo_setup = _mfd_qpid010QueueTable_undo_setup;
-    access_multiplexer->undo_cleanup = _mfd_qpid010QueueTable_undo_cleanup;
-    access_multiplexer->set_values = _mfd_qpid010QueueTable_set_values;
-    access_multiplexer->undo_sets = _mfd_qpid010QueueTable_undo_values;
+        _mfd_brokerQueueTable_check_objects;
+    access_multiplexer->undo_setup = _mfd_brokerQueueTable_undo_setup;
+    access_multiplexer->undo_cleanup = _mfd_brokerQueueTable_undo_cleanup;
+    access_multiplexer->set_values = _mfd_brokerQueueTable_set_values;
+    access_multiplexer->undo_sets = _mfd_brokerQueueTable_undo_values;
 
     /*
      * no wrappers yet
      */
-    access_multiplexer->commit = _mfd_qpid010QueueTable_commit;
-    access_multiplexer->undo_commit = _mfd_qpid010QueueTable_undo_commit;
+    access_multiplexer->commit = _mfd_brokerQueueTable_commit;
+    access_multiplexer->undo_commit = _mfd_brokerQueueTable_undo_commit;
     access_multiplexer->irreversible_commit =
-        _mfd_qpid010QueueTable_irreversible_commit;
+        _mfd_brokerQueueTable_irreversible_commit;
 
     /*
      * REQUIRED for tables with dependencies
      */
     access_multiplexer->consistency_checks =
-        _mfd_qpid010QueueTable_check_dependencies;
+        _mfd_brokerQueueTable_check_dependencies;
 
     /*************************************************
      *
      * Create a registration, save our reg data, register table.
      */
-    DEBUGMSGTL(("qpid010QueueTable:init_QueueTable",
-                "Registering qpid010QueueTable as a mibs-for-dummies table.\n"));
+    DEBUGMSGTL(("brokerQueueTable:init_QueueTable",
+                "Registering brokerQueueTable as a mibs-for-dummies table.\n"));
     handler =
         netsnmp_baby_steps_access_multiplexer_get(access_multiplexer);
     reginfo =
-        netsnmp_handler_registration_create("qpid010QueueTable", handler,
-                                            qpid010QueueTable_oid,
-                                            qpid010QueueTable_oid_size,
+        netsnmp_handler_registration_create("brokerQueueTable", handler,
+                                            brokerQueueTable_oid,
+                                            brokerQueueTable_oid_size,
                                             HANDLER_CAN_BABY_STEP |
                                             HANDLER_CAN_RWRITE);
     if (NULL == reginfo) {
-        snmp_log(LOG_ERR, "error registering table qpid010QueueTable\n");
+        snmp_log(LOG_ERR, "error registering table brokerQueueTable\n");
         return;
     }
-    reginfo->my_reg_void = &qpid010QueueTable_if_ctx;
+    reginfo->my_reg_void = &brokerQueueTable_if_ctx;
 
     /*************************************************
      *
@@ -315,7 +315,7 @@ _qpid010QueueTable_initialize_interface(qpid010QueueTable_registration *
      */
     handler =
         netsnmp_container_table_handler_get(tbl_info,
-                                            qpid010QueueTable_if_ctx.
+                                            brokerQueueTable_if_ctx.
                                             container,
                                             TABLE_CONTAINER_KEY_NETSNMP_INDEX);
     netsnmp_inject_handler(reginfo, handler);
@@ -324,8 +324,8 @@ _qpid010QueueTable_initialize_interface(qpid010QueueTable_registration *
      *
      * inject cache helper
      */
-    if (NULL != qpid010QueueTable_if_ctx.cache) {
-        handler = netsnmp_cache_handler_get(qpid010QueueTable_if_ctx.cache);
+    if (NULL != brokerQueueTable_if_ctx.cache) {
+        handler = netsnmp_cache_handler_get(brokerQueueTable_if_ctx.cache);
         netsnmp_inject_handler(reginfo, handler);
     }
 
@@ -337,38 +337,38 @@ _qpid010QueueTable_initialize_interface(qpid010QueueTable_registration *
     /*
      * register config/persistence callbacks
      */
-    qpid010QueueTable_container_init_persistence(qpid010QueueTable_if_ctx.
+    brokerQueueTable_container_init_persistence(brokerQueueTable_if_ctx.
                                                 container);
 
-}                               /* _qpid010QueueTable_initialize_interface */
+}                               /* _brokerQueueTable_initialize_interface */
 
 /**
  * @internal
- * Shutdown the table qpid010QueueTable
+ * Shutdown the table brokerQueueTable
  */
 void
-_qpid010QueueTable_shutdown_interface(qpid010QueueTable_registration *
+_brokerQueueTable_shutdown_interface(brokerQueueTable_registration *
                                      reg_ptr)
 {
     /*
      * shutdown the container
      */
-    _qpid010QueueTable_container_shutdown(&qpid010QueueTable_if_ctx);
+    _brokerQueueTable_container_shutdown(&brokerQueueTable_if_ctx);
 }
 
 void
-qpid010QueueTable_valid_columns_set(netsnmp_column_info *vc)
+brokerQueueTable_valid_columns_set(netsnmp_column_info *vc)
 {
-    qpid010QueueTable_if_ctx.tbl_info.valid_columns = vc;
-}                               /* qpid010QueueTable_valid_columns_set */
+    brokerQueueTable_if_ctx.tbl_info.valid_columns = vc;
+}                               /* brokerQueueTable_valid_columns_set */
 
 /**
  * @internal
  * convert the index component stored in the context to an oid
  */
 int
-qpid010QueueTable_index_to_oid(netsnmp_index * oid_idx,
-                              qpid010QueueTable_mib_index * mib_idx)
+brokerQueueTable_index_to_oid(netsnmp_index * oid_idx,
+                              brokerQueueTable_mib_index * mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
 
@@ -376,56 +376,56 @@ qpid010QueueTable_index_to_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010QueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerQueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    netsnmp_variable_list var_qpid010QueueInternalIndex;
+    netsnmp_variable_list var_brokerQueueInternalIndex;
 
     /*
      * set up varbinds
      */
-    memset(&var_qpid010QueueInternalIndex, 0x00,
-           sizeof(var_qpid010QueueInternalIndex));
-    var_qpid010QueueInternalIndex.type = ASN_UNSIGNED;
+    memset(&var_brokerQueueInternalIndex, 0x00,
+           sizeof(var_brokerQueueInternalIndex));
+    var_brokerQueueInternalIndex.type = ASN_UNSIGNED;
 
     /*
      * chain temp index varbinds together
      */
-    var_qpid010QueueInternalIndex.next_variable = NULL;
+    var_brokerQueueInternalIndex.next_variable = NULL;
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_index_to_oid",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_index_to_oid",
                 "called\n"));
 
     /*
-     * qpid010QueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerQueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    snmp_set_var_value(&var_qpid010QueueInternalIndex,
-                       &mib_idx->qpid010QueueInternalIndex,
-                       sizeof(mib_idx->qpid010QueueInternalIndex));
+    snmp_set_var_value(&var_brokerQueueInternalIndex,
+                       &mib_idx->brokerQueueInternalIndex,
+                       sizeof(mib_idx->brokerQueueInternalIndex));
 
 
     err = build_oid_noalloc(oid_idx->oids, oid_idx->len, &oid_idx->len,
-                            NULL, 0, &var_qpid010QueueInternalIndex);
+                            NULL, 0, &var_brokerQueueInternalIndex);
     if (err)
         snmp_log(LOG_ERR, "error %d converting index to oid\n", err);
 
     /*
      * parsing may have allocated memory. free it.
      */
-    snmp_reset_var_buffers(&var_qpid010QueueInternalIndex);
+    snmp_reset_var_buffers(&var_brokerQueueInternalIndex);
 
     return err;
-}                               /* qpid010QueueTable_index_to_oid */
+}                               /* brokerQueueTable_index_to_oid */
 
 /**
- * extract qpid010QueueTable indexes from a netsnmp_index
+ * extract brokerQueueTable indexes from a netsnmp_index
  *
  * @retval SNMP_ERR_NOERROR  : no error
  * @retval SNMP_ERR_GENERR   : error
  */
 int
-qpid010QueueTable_index_from_oid(netsnmp_index * oid_idx,
-                                qpid010QueueTable_mib_index * mib_idx)
+brokerQueueTable_index_from_oid(netsnmp_index * oid_idx,
+                                brokerQueueTable_mib_index * mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
 
@@ -433,37 +433,37 @@ qpid010QueueTable_index_from_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010QueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerQueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    netsnmp_variable_list var_qpid010QueueInternalIndex;
+    netsnmp_variable_list var_brokerQueueInternalIndex;
 
     /*
      * set up varbinds
      */
-    memset(&var_qpid010QueueInternalIndex, 0x00,
-           sizeof(var_qpid010QueueInternalIndex));
-    var_qpid010QueueInternalIndex.type = ASN_UNSIGNED;
+    memset(&var_brokerQueueInternalIndex, 0x00,
+           sizeof(var_brokerQueueInternalIndex));
+    var_brokerQueueInternalIndex.type = ASN_UNSIGNED;
 
     /*
      * chain temp index varbinds together
      */
-    var_qpid010QueueInternalIndex.next_variable = NULL;
+    var_brokerQueueInternalIndex.next_variable = NULL;
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_index_from_oid",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_index_from_oid",
                 "called\n"));
 
     /*
      * parse the oid into the individual index components
      */
     err = parse_oid_indexes(oid_idx->oids, oid_idx->len,
-                            &var_qpid010QueueInternalIndex);
+                            &var_brokerQueueInternalIndex);
     if (err == SNMP_ERR_NOERROR) {
         /*
          * copy out values
          */
-        mib_idx->qpid010QueueInternalIndex =
-            *((u_long *) var_qpid010QueueInternalIndex.val.string);
+        mib_idx->brokerQueueInternalIndex =
+            *((u_long *) var_brokerQueueInternalIndex.val.string);
 
 
     }
@@ -471,101 +471,101 @@ qpid010QueueTable_index_from_oid(netsnmp_index * oid_idx,
     /*
      * parsing may have allocated memory. free it.
      */
-    snmp_reset_var_buffers(&var_qpid010QueueInternalIndex);
+    snmp_reset_var_buffers(&var_brokerQueueInternalIndex);
 
     return err;
-}                               /* qpid010QueueTable_index_from_oid */
+}                               /* brokerQueueTable_index_from_oid */
 
 
 /*
- * qpid010QueueTable_allocate_data
+ * brokerQueueTable_allocate_data
  *
- * Purpose: create new qpid010QueueTable_data.
+ * Purpose: create new brokerQueueTable_data.
  */
-qpid010QueueTable_data *
-qpid010QueueTable_allocate_data(void)
+brokerQueueTable_data *
+brokerQueueTable_allocate_data(void)
 {
-    qpid010QueueTable_data *rtn =
-        SNMP_MALLOC_TYPEDEF(qpid010QueueTable_data);
+    brokerQueueTable_data *rtn =
+        SNMP_MALLOC_TYPEDEF(brokerQueueTable_data);
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_allocate_data",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_allocate_data",
                 "called\n"));
 
     if (NULL == rtn) {
         snmp_log(LOG_ERR, "unable to malloc memory for new "
-                 "qpid010QueueTable_data.\n");
+                 "brokerQueueTable_data.\n");
     }
 
     return rtn;
-}                               /* qpid010QueueTable_allocate_data */
+}                               /* brokerQueueTable_allocate_data */
 
 /*
- * qpid010QueueTable_release_data
+ * brokerQueueTable_release_data
  *
- * Purpose: release qpid010QueueTable data.
+ * Purpose: release brokerQueueTable data.
  */
 void
-qpid010QueueTable_release_data(qpid010QueueTable_data * data)
+brokerQueueTable_release_data(brokerQueueTable_data * data)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_release_data",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_release_data",
                 "called\n"));
 
     free(data);
-}                               /* qpid010QueueTable_release_data */
+}                               /* brokerQueueTable_release_data */
 
 /*
  *********************************************************************
  * @internal
- * allocate resources for a qpid010QueueTable_rowreq_ctx
+ * allocate resources for a brokerQueueTable_rowreq_ctx
  */
-qpid010QueueTable_rowreq_ctx *
-qpid010QueueTable_allocate_rowreq_ctx(void *user_init_ctx)
+brokerQueueTable_rowreq_ctx *
+brokerQueueTable_allocate_rowreq_ctx(void *user_init_ctx)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        SNMP_MALLOC_TYPEDEF(qpid010QueueTable_rowreq_ctx);
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        SNMP_MALLOC_TYPEDEF(brokerQueueTable_rowreq_ctx);
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:qpid010QueueTable_allocate_rowreq_ctx", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:brokerQueueTable_allocate_rowreq_ctx", "called\n"));
 
     if (NULL == rowreq_ctx) {
         snmp_log(LOG_ERR, "Couldn't allocate memory for a "
-                 "qpid010QueueTable_rowreq_ctx.\n");
+                 "brokerQueueTable_rowreq_ctx.\n");
         return NULL;
     }
 
     rowreq_ctx->oid_idx.oids = rowreq_ctx->oid_tmp;
 
-    rowreq_ctx->qpid010QueueTable_data_list = NULL;
+    rowreq_ctx->brokerQueueTable_data_list = NULL;
 
     /*
      * if we allocated data, call init routine
      */
     if (!(rowreq_ctx->rowreq_flags & MFD_ROW_DATA_FROM_USER)) {
         if (SNMPERR_SUCCESS !=
-            qpid010QueueTable_rowreq_ctx_init(rowreq_ctx, user_init_ctx)) {
-            qpid010QueueTable_release_rowreq_ctx(rowreq_ctx);
+            brokerQueueTable_rowreq_ctx_init(rowreq_ctx, user_init_ctx)) {
+            brokerQueueTable_release_rowreq_ctx(rowreq_ctx);
             rowreq_ctx = NULL;
         }
     }
 
     return rowreq_ctx;
-}                               /* qpid010QueueTable_allocate_rowreq_ctx */
+}                               /* brokerQueueTable_allocate_rowreq_ctx */
 
 /*
  * @internal
- * release resources for a qpid010QueueTable_rowreq_ctx
+ * release resources for a brokerQueueTable_rowreq_ctx
  */
 void
-qpid010QueueTable_release_rowreq_ctx(qpid010QueueTable_rowreq_ctx *
+brokerQueueTable_release_rowreq_ctx(brokerQueueTable_rowreq_ctx *
                                     rowreq_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010QueueTable:qpid010QueueTable_release_rowreq_ctx", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:brokerQueueTable_release_rowreq_ctx", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    qpid010QueueTable_rowreq_ctx_cleanup(rowreq_ctx);
+    brokerQueueTable_rowreq_ctx_cleanup(rowreq_ctx);
 
     if (rowreq_ctx->undo)
-        qpid010QueueTable_release_data(rowreq_ctx->undo);
+        brokerQueueTable_release_data(rowreq_ctx->undo);
 
     /*
      * free index oid pointer
@@ -574,136 +574,136 @@ qpid010QueueTable_release_rowreq_ctx(qpid010QueueTable_rowreq_ctx *
         free(rowreq_ctx->oid_idx.oids);
 
     SNMP_FREE(rowreq_ctx);
-}                               /* qpid010QueueTable_release_rowreq_ctx */
+}                               /* brokerQueueTable_release_rowreq_ctx */
 
 /**
  * @internal
  * wrapper
  */
 static int
-_mfd_qpid010QueueTable_pre_request(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_pre_request(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *agtreq_info,
                                   netsnmp_request_info *requests)
 {
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_pre_request", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_pre_request", "called\n"));
 
     if (1 != netsnmp_row_merge_status_first(reginfo, agtreq_info)) {
-        DEBUGMSGTL(("internal:qpid010QueueTable",
+        DEBUGMSGTL(("internal:brokerQueueTable",
                     "skipping additional pre_request\n"));
         return SNMP_ERR_NOERROR;
     }
 
-    rc = qpid010QueueTable_pre_request(qpid010QueueTable_if_ctx.user_ctx);
+    rc = brokerQueueTable_pre_request(brokerQueueTable_if_ctx.user_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010QueueTable", "error %d from "
-                    "qpid010QueueTable_pre_request\n", rc));
+        DEBUGMSGTL(("brokerQueueTable", "error %d from "
+                    "brokerQueueTable_pre_request\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_pre_request */
+}                               /* _mfd_brokerQueueTable_pre_request */
 
 /**
  * @internal
  * wrapper
  */
 static int
-_mfd_qpid010QueueTable_post_request(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_post_request(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *agtreq_info,
                                    netsnmp_request_info *requests)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc, packet_rc;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_post_request", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_post_request", "called\n"));
 
     /*
      * release row context, if deleted
      */
     if (rowreq_ctx && (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED))
-        qpid010QueueTable_release_rowreq_ctx(rowreq_ctx);
+        brokerQueueTable_release_rowreq_ctx(rowreq_ctx);
 
     /*
      * wait for last call before calling user
      */
     if (1 != netsnmp_row_merge_status_last(reginfo, agtreq_info)) {
-        DEBUGMSGTL(("internal:qpid010QueueTable",
+        DEBUGMSGTL(("internal:brokerQueueTable",
                     "waiting for last post_request\n"));
         return SNMP_ERR_NOERROR;
     }
 
     packet_rc = netsnmp_check_all_requests_error(agtreq_info->asp, 0);
-    if ((MFD_SUCCESS != packet_rc) && qpid010QueueTable_dirty_get()) {
+    if ((MFD_SUCCESS != packet_rc) && brokerQueueTable_dirty_get()) {
         /*
          * we shouldn't get here. the undo steps should also clear
          * the dirty flags.
          */
         snmp_log(LOG_WARNING,
-                 "qpid010QueueTable dirty flag set in post_request "
+                 "brokerQueueTable dirty flag set in post_request "
                  "but status != SUCCESS.\n");
     }
 
-    rc = qpid010QueueTable_post_request(qpid010QueueTable_if_ctx.user_ctx,
+    rc = brokerQueueTable_post_request(brokerQueueTable_if_ctx.user_ctx,
                                        packet_rc);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010QueueTable", "error %d from "
-                    "qpid010QueueTable_post_request\n", rc));
+        DEBUGMSGTL(("brokerQueueTable", "error %d from "
+                    "brokerQueueTable_post_request\n", rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_post_request */
+}                               /* _mfd_brokerQueueTable_post_request */
 
 NETSNMP_STATIC_INLINE int
-_qpid010QueueTable_check_indexes(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+_brokerQueueTable_check_indexes(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_check_indexes", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_check_indexes", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
 
     /*
-     * (INDEX) qpid010QueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * (INDEX) brokerQueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     if (MFD_SUCCESS != rc)
         return rc;
-    rc = qpid010QueueInternalIndex_check_index(rowreq_ctx);
+    rc = brokerQueueInternalIndex_check_index(rowreq_ctx);
     if (MFD_SUCCESS != rc)
         return SNMP_ERR_NOCREATION;
 
     /*
      * if individual parts look ok, check them as a whole
      */
-    return qpid010QueueTable_validate_index(qpid010QueueTable_if_ctx.
+    return brokerQueueTable_validate_index(brokerQueueTable_if_ctx.
                                            user_ctx, rowreq_ctx);
-}                               /* _qpid010QueueTable_check_indexes */
+}                               /* _brokerQueueTable_check_indexes */
 
 /**
  * @internal
  * wrapper
  */
-static qpid010QueueTable_rowreq_ctx *
-_mfd_qpid010QueueTable_rowreq_from_index(netsnmp_index * oid_idx,
+static brokerQueueTable_rowreq_ctx *
+_mfd_brokerQueueTable_rowreq_from_index(netsnmp_index * oid_idx,
                                         int *rc_ptr)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx;
-    qpid010QueueTable_mib_index mib_idx;
+    brokerQueueTable_rowreq_ctx *rowreq_ctx;
+    brokerQueueTable_mib_index mib_idx;
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_rowreq_from_index", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_rowreq_from_index", "called\n"));
 
     if (NULL == rc_ptr)
         rc_ptr = &rc;
@@ -714,16 +714,16 @@ _mfd_qpid010QueueTable_rowreq_from_index(netsnmp_index * oid_idx,
     /*
      * try to parse oid
      */
-    *rc_ptr = qpid010QueueTable_index_from_oid(oid_idx, &mib_idx);
+    *rc_ptr = brokerQueueTable_index_from_oid(oid_idx, &mib_idx);
     if (MFD_SUCCESS != *rc_ptr) {
-        DEBUGMSGT(("qpid010QueueTable", "error parsing index\n"));
+        DEBUGMSGT(("brokerQueueTable", "error parsing index\n"));
         return NULL;
     }
 
     /*
      * allocate new context
      */
-    rowreq_ctx = qpid010QueueTable_allocate_rowreq_ctx(NULL);
+    rowreq_ctx = brokerQueueTable_allocate_rowreq_ctx(NULL);
     if (NULL == rowreq_ctx) {
         *rc_ptr = MFD_ERROR;
         return NULL;            /* msg already logged */
@@ -734,11 +734,11 @@ _mfd_qpid010QueueTable_rowreq_from_index(netsnmp_index * oid_idx,
     /*
      * check indexes
      */
-    *rc_ptr = _qpid010QueueTable_check_indexes(rowreq_ctx);
+    *rc_ptr = _brokerQueueTable_check_indexes(rowreq_ctx);
     if (MFD_SUCCESS != *rc_ptr) {
         netsnmp_assert((*rc_ptr == SNMP_ERR_NOCREATION) ||
                        (*rc_ptr == SNMP_ERR_INCONSISTENTNAME));
-        qpid010QueueTable_release_rowreq_ctx(rowreq_ctx);
+        brokerQueueTable_release_rowreq_ctx(rowreq_ctx);
         return NULL;
     }
 
@@ -750,7 +750,7 @@ _mfd_qpid010QueueTable_rowreq_from_index(netsnmp_index * oid_idx,
            oid_idx->len * sizeof(oid));
 
     return rowreq_ctx;
-}                               /* _mfd_qpid010QueueTable_rowreq_from_index */
+}                               /* _mfd_brokerQueueTable_rowreq_from_index */
 
 
 /**
@@ -758,23 +758,23 @@ _mfd_qpid010QueueTable_rowreq_from_index(netsnmp_index * oid_idx,
  * wrapper
  */
 static int
-_mfd_qpid010QueueTable_object_lookup(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_object_lookup(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info
                                     *agtreq_info,
                                     netsnmp_request_info *requests)
 {
     int             rc = SNMP_ERR_NOERROR;
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_object_lookup", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_object_lookup", "called\n"));
 
     /*
      * get our context from mfd
-     * qpid010QueueTable_interface_ctx *if_ctx =
-     *             (qpid010QueueTable_interface_ctx *)reginfo->my_reg_void;
+     * brokerQueueTable_interface_ctx *if_ctx =
+     *             (brokerQueueTable_interface_ctx *)reginfo->my_reg_void;
      */
 
     if (NULL == rowreq_ctx) {
@@ -784,10 +784,10 @@ _mfd_qpid010QueueTable_object_lookup(netsnmp_mib_handler *handler,
     if (MFD_SUCCESS != rc)
         netsnmp_request_set_error_all(requests, rc);
     else
-        qpid010QueueTable_row_prep(rowreq_ctx);
+        brokerQueueTable_row_prep(rowreq_ctx);
 
     return SNMP_VALIDATE_ERR(rc);
-}                               /* _mfd_qpid010QueueTable_object_lookup */
+}                               /* _mfd_brokerQueueTable_object_lookup */
 
 /***********************************************************************
  *
@@ -799,12 +799,12 @@ _mfd_qpid010QueueTable_object_lookup(netsnmp_mib_handler *handler,
  * Retrieve the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010QueueTable_get_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+_brokerQueueTable_get_column(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                              netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_get_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_get_column", "called for %d\n", column));
 
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -812,510 +812,510 @@ _qpid010QueueTable_get_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
     switch (column) {
 
         /*
-         * qpid010QueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEVHOSTREF:
+    case COLUMN_brokerQUEUEVHOSTREF:
         var->type = ASN_OCTET_STR;
-        rc = qpid010QueueVhostRef_get(rowreq_ctx,
+        rc = brokerQueueVhostRef_get(rowreq_ctx,
                                      (char **) &var->val.string,
                                      &var->val_len);
         break;
 
         /*
-         * qpid010QueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUENAME:
+    case COLUMN_brokerQUEUENAME:
         var->type = ASN_OCTET_STR;
-        rc = qpid010QueueName_get(rowreq_ctx, (char **) &var->val.string,
+        rc = brokerQueueName_get(rowreq_ctx, (char **) &var->val.string,
                                  &var->val_len);
         break;
 
         /*
-         * qpid010QueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDURABLE:
+    case COLUMN_brokerQUEUEDURABLE:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueDurable_get(rowreq_ctx,
+        rc = brokerQueueDurable_get(rowreq_ctx,
                                     (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEAUTODELETE:
+    case COLUMN_brokerQUEUEAUTODELETE:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueAutoDelete_get(rowreq_ctx,
+        rc = brokerQueueAutoDelete_get(rowreq_ctx,
                                        (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEEXCLUSIVE:
+    case COLUMN_brokerQUEUEEXCLUSIVE:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueExclusive_get(rowreq_ctx,
+        rc = brokerQueueExclusive_get(rowreq_ctx,
                                       (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueArguments(6)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerQueueArguments(6)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEARGUMENTS:
+    case COLUMN_brokerQUEUEARGUMENTS:
         var->type = ASN_OCTET_STR;
-        rc = qpid010QueueArguments_get(rowreq_ctx,
+        rc = brokerQueueArguments_get(rowreq_ctx,
                                       (char **) &var->val.string,
                                       &var->val_len);
         break;
 
         /*
-         * qpid010QueueAltExchange(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerQueueAltExchange(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEALTEXCHANGE:
+    case COLUMN_brokerQUEUEALTEXCHANGE:
         var->type = ASN_OCTET_STR;
-        rc = qpid010QueueAltExchange_get(rowreq_ctx,
+        rc = brokerQueueAltExchange_get(rowreq_ctx,
                                         (char **) &var->val.string,
                                         &var->val_len);
         break;
 
         /*
-         * qpid010QueueMsgTotalEnqueues(8)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgTotalEnqueues(8)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGTOTALENQUEUES:
+    case COLUMN_brokerQUEUEMSGTOTALENQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgTotalEnqueues_get(rowreq_ctx,
+        rc = brokerQueueMsgTotalEnqueues_get(rowreq_ctx,
                                              (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgTotalDequeues(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgTotalDequeues(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGTOTALDEQUEUES:
+    case COLUMN_brokerQUEUEMSGTOTALDEQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgTotalDequeues_get(rowreq_ctx,
+        rc = brokerQueueMsgTotalDequeues_get(rowreq_ctx,
                                              (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgTxnEnqueues(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgTxnEnqueues(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGTXNENQUEUES:
+    case COLUMN_brokerQUEUEMSGTXNENQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgTxnEnqueues_get(rowreq_ctx,
+        rc = brokerQueueMsgTxnEnqueues_get(rowreq_ctx,
                                            (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgTxnDequeues(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgTxnDequeues(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGTXNDEQUEUES:
+    case COLUMN_brokerQUEUEMSGTXNDEQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgTxnDequeues_get(rowreq_ctx,
+        rc = brokerQueueMsgTxnDequeues_get(rowreq_ctx,
                                            (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgPersistEnqueues(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgPersistEnqueues(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGPERSISTENQUEUES:
+    case COLUMN_brokerQUEUEMSGPERSISTENQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgPersistEnqueues_get(rowreq_ctx,
+        rc = brokerQueueMsgPersistEnqueues_get(rowreq_ctx,
                                                (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgPersistDequeues(13)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgPersistDequeues(13)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGPERSISTDEQUEUES:
+    case COLUMN_brokerQUEUEMSGPERSISTDEQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgPersistDequeues_get(rowreq_ctx,
+        rc = brokerQueueMsgPersistDequeues_get(rowreq_ctx,
                                                (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgDepth(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgDepth(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGDEPTH:
+    case COLUMN_brokerQUEUEMSGDEPTH:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgDepth_get(rowreq_ctx, (U64 *) var->val.string);
+        rc = brokerQueueMsgDepth_get(rowreq_ctx, (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueByteDepth(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteDepth(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEDEPTH:
+    case COLUMN_brokerQUEUEBYTEDEPTH:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueByteDepth_get(rowreq_ctx, (U64 *) var->val.string);
+        rc = brokerQueueByteDepth_get(rowreq_ctx, (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueByteTotalEnqueues(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteTotalEnqueues(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTETOTALENQUEUES:
+    case COLUMN_brokerQUEUEBYTETOTALENQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueByteTotalEnqueues_get(rowreq_ctx,
+        rc = brokerQueueByteTotalEnqueues_get(rowreq_ctx,
                                               (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueByteTotalDequeues(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteTotalDequeues(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTETOTALDEQUEUES:
+    case COLUMN_brokerQUEUEBYTETOTALDEQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueByteTotalDequeues_get(rowreq_ctx,
+        rc = brokerQueueByteTotalDequeues_get(rowreq_ctx,
                                               (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueByteTxnEnqueues(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteTxnEnqueues(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTETXNENQUEUES:
+    case COLUMN_brokerQUEUEBYTETXNENQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueByteTxnEnqueues_get(rowreq_ctx,
+        rc = brokerQueueByteTxnEnqueues_get(rowreq_ctx,
                                             (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueByteTxnDequeues(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteTxnDequeues(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTETXNDEQUEUES:
+    case COLUMN_brokerQUEUEBYTETXNDEQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueByteTxnDequeues_get(rowreq_ctx,
+        rc = brokerQueueByteTxnDequeues_get(rowreq_ctx,
                                             (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueBytePersistEnqueues(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueBytePersistEnqueues(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEPERSISTENQUEUES:
+    case COLUMN_brokerQUEUEBYTEPERSISTENQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueBytePersistEnqueues_get(rowreq_ctx,
+        rc = brokerQueueBytePersistEnqueues_get(rowreq_ctx,
                                                 (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueBytePersistDequeues(21)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueBytePersistDequeues(21)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEPERSISTDEQUEUES:
+    case COLUMN_brokerQUEUEBYTEPERSISTDEQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueBytePersistDequeues_get(rowreq_ctx,
+        rc = brokerQueueBytePersistDequeues_get(rowreq_ctx,
                                                 (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgFtdEnqueues(22)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgFtdEnqueues(22)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGFTDENQUEUES:
+    case COLUMN_brokerQUEUEMSGFTDENQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgFtdEnqueues_get(rowreq_ctx,
+        rc = brokerQueueMsgFtdEnqueues_get(rowreq_ctx,
                                            (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgFtdDequeues(23)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgFtdDequeues(23)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGFTDDEQUEUES:
+    case COLUMN_brokerQUEUEMSGFTDDEQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgFtdDequeues_get(rowreq_ctx,
+        rc = brokerQueueMsgFtdDequeues_get(rowreq_ctx,
                                            (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueByteFtdEnqueues(24)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteFtdEnqueues(24)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEFTDENQUEUES:
+    case COLUMN_brokerQUEUEBYTEFTDENQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueByteFtdEnqueues_get(rowreq_ctx,
+        rc = brokerQueueByteFtdEnqueues_get(rowreq_ctx,
                                             (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueByteFtdDequeues(25)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteFtdDequeues(25)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEFTDDEQUEUES:
+    case COLUMN_brokerQUEUEBYTEFTDDEQUEUES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueByteFtdDequeues_get(rowreq_ctx,
+        rc = brokerQueueByteFtdDequeues_get(rowreq_ctx,
                                             (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMsgFtdDepth(26)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgFtdDepth(26)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGFTDDEPTH:
+    case COLUMN_brokerQUEUEMSGFTDDEPTH:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueMsgFtdDepth_get(rowreq_ctx,
+        rc = brokerQueueMsgFtdDepth_get(rowreq_ctx,
                                         (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueByteFtdDepth(27)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteFtdDepth(27)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEFTDDEPTH:
+    case COLUMN_brokerQUEUEBYTEFTDDEPTH:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueByteFtdDepth_get(rowreq_ctx,
+        rc = brokerQueueByteFtdDepth_get(rowreq_ctx,
                                          (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueReleases(28)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueReleases(28)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUERELEASES:
+    case COLUMN_brokerQUEUERELEASES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueReleases_get(rowreq_ctx, (U64 *) var->val.string);
+        rc = brokerQueueReleases_get(rowreq_ctx, (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueAcquires(29)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueAcquires(29)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEACQUIRES:
+    case COLUMN_brokerQUEUEACQUIRES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueAcquires_get(rowreq_ctx, (U64 *) var->val.string);
+        rc = brokerQueueAcquires_get(rowreq_ctx, (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueDiscardsTtl(30)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsTtl(30)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSTTL:
+    case COLUMN_brokerQUEUEDISCARDSTTL:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueDiscardsTtl_get(rowreq_ctx,
+        rc = brokerQueueDiscardsTtl_get(rowreq_ctx,
                                         (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueDiscardsRing(31)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsRing(31)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSRING:
+    case COLUMN_brokerQUEUEDISCARDSRING:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueDiscardsRing_get(rowreq_ctx,
+        rc = brokerQueueDiscardsRing_get(rowreq_ctx,
                                          (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueDiscardsLvq(32)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsLvq(32)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSLVQ:
+    case COLUMN_brokerQUEUEDISCARDSLVQ:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueDiscardsLvq_get(rowreq_ctx,
+        rc = brokerQueueDiscardsLvq_get(rowreq_ctx,
                                         (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueDiscardsOverflow(33)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsOverflow(33)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSOVERFLOW:
+    case COLUMN_brokerQUEUEDISCARDSOVERFLOW:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueDiscardsOverflow_get(rowreq_ctx,
+        rc = brokerQueueDiscardsOverflow_get(rowreq_ctx,
                                              (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueDiscardsSubscriber(34)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsSubscriber(34)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSSUBSCRIBER:
+    case COLUMN_brokerQUEUEDISCARDSSUBSCRIBER:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueDiscardsSubscriber_get(rowreq_ctx,
+        rc = brokerQueueDiscardsSubscriber_get(rowreq_ctx,
                                                (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueDiscardsPurge(35)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsPurge(35)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSPURGE:
+    case COLUMN_brokerQUEUEDISCARDSPURGE:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueDiscardsPurge_get(rowreq_ctx,
+        rc = brokerQueueDiscardsPurge_get(rowreq_ctx,
                                           (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueReroutes(36)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueReroutes(36)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEREROUTES:
+    case COLUMN_brokerQUEUEREROUTES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010QueueReroutes_get(rowreq_ctx, (U64 *) var->val.string);
+        rc = brokerQueueReroutes_get(rowreq_ctx, (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010QueueConsumerCount(37)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueConsumerCount(37)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUECONSUMERCOUNT:
+    case COLUMN_brokerQUEUECONSUMERCOUNT:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueConsumerCount_get(rowreq_ctx,
+        rc = brokerQueueConsumerCount_get(rowreq_ctx,
                                           (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueConsumerCountHi(38)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueConsumerCountHi(38)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUECONSUMERCOUNTHI:
+    case COLUMN_brokerQUEUECONSUMERCOUNTHI:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueConsumerCountHi_get(rowreq_ctx,
+        rc = brokerQueueConsumerCountHi_get(rowreq_ctx,
                                             (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueConsumerCountLow(39)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueConsumerCountLow(39)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUECONSUMERCOUNTLOW:
+    case COLUMN_brokerQUEUECONSUMERCOUNTLOW:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueConsumerCountLow_get(rowreq_ctx,
+        rc = brokerQueueConsumerCountLow_get(rowreq_ctx,
                                              (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueBindingCount(40)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueBindingCount(40)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEBINDINGCOUNT:
+    case COLUMN_brokerQUEUEBINDINGCOUNT:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueBindingCount_get(rowreq_ctx,
+        rc = brokerQueueBindingCount_get(rowreq_ctx,
                                          (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueBindingCountHi(41)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueBindingCountHi(41)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEBINDINGCOUNTHI:
+    case COLUMN_brokerQUEUEBINDINGCOUNTHI:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueBindingCountHi_get(rowreq_ctx,
+        rc = brokerQueueBindingCountHi_get(rowreq_ctx,
                                            (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueBindingCountLow(42)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueBindingCountLow(42)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEBINDINGCOUNTLOW:
+    case COLUMN_brokerQUEUEBINDINGCOUNTLOW:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueBindingCountLow_get(rowreq_ctx,
+        rc = brokerQueueBindingCountLow_get(rowreq_ctx,
                                             (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueUnackedMessages(43)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueUnackedMessages(43)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGES:
+    case COLUMN_brokerQUEUEUNACKEDMESSAGES:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueUnackedMessages_get(rowreq_ctx,
+        rc = brokerQueueUnackedMessages_get(rowreq_ctx,
                                             (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueUnackedMessagesHi(44)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueUnackedMessagesHi(44)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGESHI:
+    case COLUMN_brokerQUEUEUNACKEDMESSAGESHI:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueUnackedMessagesHi_get(rowreq_ctx,
+        rc = brokerQueueUnackedMessagesHi_get(rowreq_ctx,
                                               (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueUnackedMessagesLow(45)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueUnackedMessagesLow(45)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGESLOW:
+    case COLUMN_brokerQUEUEUNACKEDMESSAGESLOW:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueUnackedMessagesLow_get(rowreq_ctx,
+        rc = brokerQueueUnackedMessagesLow_get(rowreq_ctx,
                                                (long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueMessageLatency(46)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h 
+         * brokerQueueMessageLatency(46)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMESSAGELATENCY:
+    case COLUMN_brokerQUEUEMESSAGELATENCY:
         var->val_len = sizeof(u_long);
         var->type = ASN_TIMETICKS;
-        rc = qpid010QueueMessageLatency_get(rowreq_ctx,
+        rc = brokerQueueMessageLatency_get(rowreq_ctx,
                                            (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueFlowStopped(47)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
+         * brokerQueueFlowStopped(47)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEFLOWSTOPPED:
+    case COLUMN_brokerQUEUEFLOWSTOPPED:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010QueueFlowStopped_get(rowreq_ctx,
+        rc = brokerQueueFlowStopped_get(rowreq_ctx,
                                         (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010QueueFlowStoppedCount(48)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h 
+         * brokerQueueFlowStoppedCount(48)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEFLOWSTOPPEDCOUNT:
+    case COLUMN_brokerQUEUEFLOWSTOPPEDCOUNT:
         var->val_len = sizeof(u_long);
         var->type = ASN_COUNTER;
-        rc = qpid010QueueFlowStoppedCount_get(rowreq_ctx,
+        rc = brokerQueueFlowStoppedCount_get(rowreq_ctx,
                                              (u_long *) var->val.string);
         break;
 
     default:
-        if (qpid010QUEUETABLE_MIN_COL <= column
-            && column <= qpid010QUEUETABLE_MAX_COL) {
-            DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_get_column", "assume column %d is reserved\n", column));
+        if (brokerQUEUETABLE_MIN_COL <= column
+            && column <= brokerQUEUETABLE_MAX_COL) {
+            DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_get_column", "assume column %d is reserved\n", column));
             rc = MFD_SKIP;
         } else {
             snmp_log(LOG_ERR,
-                     "unknown column %d in _qpid010QueueTable_get_column\n",
+                     "unknown column %d in _brokerQueueTable_get_column\n",
                      column);
         }
         break;
     }
 
     return rc;
-}                               /* _qpid010QueueTable_get_column */
+}                               /* _brokerQueueTable_get_column */
 
 int
-_mfd_qpid010QueueTable_get_values(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_get_values(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *agtreq_info,
                                  netsnmp_request_info *requests)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     u_char         *old_string;
     void            (*dataFreeHook) (void *);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_get_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_get_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1344,7 +1344,7 @@ _mfd_qpid010QueueTable_get_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010QueueTable_get_column(rowreq_ctx, requests->requestvb,
+        rc = _brokerQueueTable_get_column(rowreq_ctx, requests->requestvb,
                                           tri->colnum);
         if (rc) {
             if (MFD_SKIP == rc) {
@@ -1373,7 +1373,7 @@ _mfd_qpid010QueueTable_get_values(netsnmp_mib_handler *handler,
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_get_values */
+}                               /* _mfd_brokerQueueTable_get_values */
 
 /***********************************************************************
  *
@@ -1391,31 +1391,31 @@ _mfd_qpid010QueueTable_get_values(netsnmp_mib_handler *handler,
  * Check the syntax for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+_brokerQueueTable_check_column(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_check_column",
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_check_column",
                 "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
         /*
-         * (INDEX) qpid010QueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+         * (INDEX) brokerQueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEINTERNALINDEX:
+    case COLUMN_brokerQUEUEINTERNALINDEX:
         rc = SNMP_ERR_NOTWRITABLE;      /* can not change index of active row */
         break;
 
         /*
-         * qpid010QueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEVHOSTREF:
+    case COLUMN_brokerQUEUEVHOSTREF:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010QueueVhostRef));
+                                                       brokerQueueVhostRef));
         /*
          * check defined range(s). 
          */
@@ -1425,15 +1425,15 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010QueueTable:_qpid010QueueTable_check_column:qpid010QueueVhostRef", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerQueueTable:_brokerQueueTable_check_column:brokerQueueVhostRef", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010QueueVhostRef_check_value(rowreq_ctx,
+            rc = brokerQueueVhostRef_check_value(rowreq_ctx,
                                                  (char *) var->val.string,
                                                  var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010QueueVhostRef_check_value\n",
+                         "bad rc %d from brokerQueueVhostRef_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1441,12 +1441,12 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010QueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUENAME:
+    case COLUMN_brokerQUEUENAME:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010QueueName));
+                                                       brokerQueueName));
         /*
          * check defined range(s). 
          */
@@ -1456,15 +1456,15 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010QueueTable:_qpid010QueueTable_check_column:qpid010QueueName", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerQueueTable:_brokerQueueTable_check_column:brokerQueueName", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010QueueName_check_value(rowreq_ctx,
+            rc = brokerQueueName_check_value(rowreq_ctx,
                                              (char *) var->val.string,
                                              var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010QueueName_check_value\n",
+                         "bad rc %d from brokerQueueName_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1472,12 +1472,12 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010QueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDURABLE:
+    case COLUMN_brokerQUEUEDURABLE:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
                                             sizeof(rowreq_ctx->data.
-                                                   qpid010QueueDurable));
+                                                   brokerQueueDurable));
         /*
          * check that the value is one of defined enums 
          */
@@ -1488,15 +1488,15 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
             rc = SNMP_ERR_WRONGVALUE;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010QueueTable:_qpid010QueueTable_check_column:qpid010QueueDurable", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerQueueTable:_brokerQueueTable_check_column:brokerQueueDurable", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010QueueDurable_check_value(rowreq_ctx,
+            rc = brokerQueueDurable_check_value(rowreq_ctx,
                                                 *((u_long *) var->val.
                                                   string));
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010QueueDurable_check_value\n",
+                         "bad rc %d from brokerQueueDurable_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1504,12 +1504,12 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010QueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEAUTODELETE:
+    case COLUMN_brokerQUEUEAUTODELETE:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
                                             sizeof(rowreq_ctx->data.
-                                                   qpid010QueueAutoDelete));
+                                                   brokerQueueAutoDelete));
         /*
          * check that the value is one of defined enums 
          */
@@ -1520,15 +1520,15 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
             rc = SNMP_ERR_WRONGVALUE;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010QueueTable:_qpid010QueueTable_check_column:qpid010QueueAutoDelete", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerQueueTable:_brokerQueueTable_check_column:brokerQueueAutoDelete", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010QueueAutoDelete_check_value(rowreq_ctx,
+            rc = brokerQueueAutoDelete_check_value(rowreq_ctx,
                                                    *((u_long *) var->val.
                                                      string));
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010QueueAutoDelete_check_value\n",
+                         "bad rc %d from brokerQueueAutoDelete_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1536,12 +1536,12 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010QueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEEXCLUSIVE:
+    case COLUMN_brokerQUEUEEXCLUSIVE:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
                                             sizeof(rowreq_ctx->data.
-                                                   qpid010QueueExclusive));
+                                                   brokerQueueExclusive));
         /*
          * check that the value is one of defined enums 
          */
@@ -1552,15 +1552,15 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
             rc = SNMP_ERR_WRONGVALUE;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010QueueTable:_qpid010QueueTable_check_column:qpid010QueueExclusive", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerQueueTable:_brokerQueueTable_check_column:brokerQueueExclusive", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010QueueExclusive_check_value(rowreq_ctx,
+            rc = brokerQueueExclusive_check_value(rowreq_ctx,
                                                   *((u_long *) var->val.
                                                     string));
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010QueueExclusive_check_value\n",
+                         "bad rc %d from brokerQueueExclusive_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1568,330 +1568,330 @@ _qpid010QueueTable_check_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * qpid010QueueArguments(6)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerQueueArguments(6)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEARGUMENTS:
+    case COLUMN_brokerQUEUEARGUMENTS:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueAltExchange(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerQueueAltExchange(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEALTEXCHANGE:
+    case COLUMN_brokerQUEUEALTEXCHANGE:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgTotalEnqueues(8)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgTotalEnqueues(8)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGTOTALENQUEUES:
+    case COLUMN_brokerQUEUEMSGTOTALENQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgTotalDequeues(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgTotalDequeues(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGTOTALDEQUEUES:
+    case COLUMN_brokerQUEUEMSGTOTALDEQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgTxnEnqueues(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgTxnEnqueues(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGTXNENQUEUES:
+    case COLUMN_brokerQUEUEMSGTXNENQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgTxnDequeues(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgTxnDequeues(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGTXNDEQUEUES:
+    case COLUMN_brokerQUEUEMSGTXNDEQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgPersistEnqueues(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgPersistEnqueues(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGPERSISTENQUEUES:
+    case COLUMN_brokerQUEUEMSGPERSISTENQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgPersistDequeues(13)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgPersistDequeues(13)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGPERSISTDEQUEUES:
+    case COLUMN_brokerQUEUEMSGPERSISTDEQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgDepth(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgDepth(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGDEPTH:
+    case COLUMN_brokerQUEUEMSGDEPTH:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueByteDepth(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteDepth(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEDEPTH:
+    case COLUMN_brokerQUEUEBYTEDEPTH:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueByteTotalEnqueues(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteTotalEnqueues(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTETOTALENQUEUES:
+    case COLUMN_brokerQUEUEBYTETOTALENQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueByteTotalDequeues(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteTotalDequeues(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTETOTALDEQUEUES:
+    case COLUMN_brokerQUEUEBYTETOTALDEQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueByteTxnEnqueues(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteTxnEnqueues(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTETXNENQUEUES:
+    case COLUMN_brokerQUEUEBYTETXNENQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueByteTxnDequeues(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteTxnDequeues(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTETXNDEQUEUES:
+    case COLUMN_brokerQUEUEBYTETXNDEQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueBytePersistEnqueues(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueBytePersistEnqueues(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEPERSISTENQUEUES:
+    case COLUMN_brokerQUEUEBYTEPERSISTENQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueBytePersistDequeues(21)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueBytePersistDequeues(21)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEPERSISTDEQUEUES:
+    case COLUMN_brokerQUEUEBYTEPERSISTDEQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgFtdEnqueues(22)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgFtdEnqueues(22)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGFTDENQUEUES:
+    case COLUMN_brokerQUEUEMSGFTDENQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgFtdDequeues(23)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgFtdDequeues(23)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGFTDDEQUEUES:
+    case COLUMN_brokerQUEUEMSGFTDDEQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueByteFtdEnqueues(24)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteFtdEnqueues(24)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEFTDENQUEUES:
+    case COLUMN_brokerQUEUEBYTEFTDENQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueByteFtdDequeues(25)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteFtdDequeues(25)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEFTDDEQUEUES:
+    case COLUMN_brokerQUEUEBYTEFTDDEQUEUES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMsgFtdDepth(26)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueMsgFtdDepth(26)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMSGFTDDEPTH:
+    case COLUMN_brokerQUEUEMSGFTDDEPTH:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueByteFtdDepth(27)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueByteFtdDepth(27)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEBYTEFTDDEPTH:
+    case COLUMN_brokerQUEUEBYTEFTDDEPTH:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueReleases(28)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueReleases(28)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUERELEASES:
+    case COLUMN_brokerQUEUERELEASES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueAcquires(29)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueAcquires(29)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEACQUIRES:
+    case COLUMN_brokerQUEUEACQUIRES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueDiscardsTtl(30)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsTtl(30)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSTTL:
+    case COLUMN_brokerQUEUEDISCARDSTTL:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueDiscardsRing(31)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsRing(31)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSRING:
+    case COLUMN_brokerQUEUEDISCARDSRING:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueDiscardsLvq(32)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsLvq(32)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSLVQ:
+    case COLUMN_brokerQUEUEDISCARDSLVQ:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueDiscardsOverflow(33)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsOverflow(33)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSOVERFLOW:
+    case COLUMN_brokerQUEUEDISCARDSOVERFLOW:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueDiscardsSubscriber(34)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsSubscriber(34)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSSUBSCRIBER:
+    case COLUMN_brokerQUEUEDISCARDSSUBSCRIBER:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueDiscardsPurge(35)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueDiscardsPurge(35)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDISCARDSPURGE:
+    case COLUMN_brokerQUEUEDISCARDSPURGE:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueReroutes(36)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerQueueReroutes(36)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEREROUTES:
+    case COLUMN_brokerQUEUEREROUTES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueConsumerCount(37)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueConsumerCount(37)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUECONSUMERCOUNT:
+    case COLUMN_brokerQUEUECONSUMERCOUNT:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueConsumerCountHi(38)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueConsumerCountHi(38)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUECONSUMERCOUNTHI:
+    case COLUMN_brokerQUEUECONSUMERCOUNTHI:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueConsumerCountLow(39)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueConsumerCountLow(39)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUECONSUMERCOUNTLOW:
+    case COLUMN_brokerQUEUECONSUMERCOUNTLOW:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueBindingCount(40)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueBindingCount(40)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEBINDINGCOUNT:
+    case COLUMN_brokerQUEUEBINDINGCOUNT:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueBindingCountHi(41)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueBindingCountHi(41)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEBINDINGCOUNTHI:
+    case COLUMN_brokerQUEUEBINDINGCOUNTHI:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueBindingCountLow(42)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueBindingCountLow(42)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEBINDINGCOUNTLOW:
+    case COLUMN_brokerQUEUEBINDINGCOUNTLOW:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueUnackedMessages(43)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueUnackedMessages(43)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGES:
+    case COLUMN_brokerQUEUEUNACKEDMESSAGES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueUnackedMessagesHi(44)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueUnackedMessagesHi(44)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGESHI:
+    case COLUMN_brokerQUEUEUNACKEDMESSAGESHI:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueUnackedMessagesLow(45)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerQueueUnackedMessagesLow(45)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGESLOW:
+    case COLUMN_brokerQUEUEUNACKEDMESSAGESLOW:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueMessageLatency(46)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h 
+         * brokerQueueMessageLatency(46)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEMESSAGELATENCY:
+    case COLUMN_brokerQUEUEMESSAGELATENCY:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueFlowStopped(47)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
+         * brokerQueueFlowStopped(47)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEFLOWSTOPPED:
+    case COLUMN_brokerQUEUEFLOWSTOPPED:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010QueueFlowStoppedCount(48)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h 
+         * brokerQueueFlowStoppedCount(48)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010QUEUEFLOWSTOPPEDCOUNT:
+    case COLUMN_brokerQUEUEFLOWSTOPPEDCOUNT:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
     default:    /** We shouldn't get here */
         rc = SNMP_ERR_GENERR;
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010QueueTable_check_column\n",
+                 "unknown column %d in _brokerQueueTable_check_column\n",
                  column);
     }
 
     return rc;
-}                               /* _qpid010QueueTable_check_column */
+}                               /* _brokerQueueTable_check_column */
 
 int
-_mfd_qpid010QueueTable_check_objects(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_check_objects(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info
                                     *agtreq_info,
                                     netsnmp_request_info *requests)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_check_objects", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_check_objects", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1904,7 +1904,7 @@ _mfd_qpid010QueueTable_check_objects(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010QueueTable_check_column(rowreq_ctx,
+        rc = _brokerQueueTable_check_column(rowreq_ctx,
                                             requests->requestvb,
                                             tri->colnum);
         if (rc) {
@@ -1915,7 +1915,7 @@ _mfd_qpid010QueueTable_check_objects(netsnmp_mib_handler *handler,
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_check_objects */
+}                               /* _mfd_brokerQueueTable_check_objects */
 
 
 /*----------------------------------------------------------------------
@@ -1928,7 +1928,7 @@ _mfd_qpid010QueueTable_check_objects(netsnmp_mib_handler *handler,
  * Check dependencies wrapper
  */
 static int
-_mfd_qpid010QueueTable_check_dependencies(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_check_dependencies(netsnmp_mib_handler *handler,
                                          netsnmp_handler_registration
                                          *reginfo,
                                          netsnmp_agent_request_info
@@ -1936,22 +1936,22 @@ _mfd_qpid010QueueTable_check_dependencies(netsnmp_mib_handler *handler,
                                          netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010QueueTable_check_dependencies(rowreq_ctx);
+    rc = brokerQueueTable_check_dependencies(rowreq_ctx);
     if (rc) {
-        DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                    "qpid010QueueTable_check_dependencies\n", rc));
+        DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                    "brokerQueueTable_check_dependencies\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_check_dependencies */
+}                               /* _mfd_brokerQueueTable_check_dependencies */
 
 /*----------------------------------------------------------------------
  *
@@ -1963,66 +1963,66 @@ _mfd_qpid010QueueTable_check_dependencies(netsnmp_mib_handler *handler,
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010QueueTable_undo_setup_column(qpid010QueueTable_rowreq_ctx *
+_brokerQueueTable_undo_setup_column(brokerQueueTable_rowreq_ctx *
                                     rowreq_ctx, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_undo_setup_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_undo_setup_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
 
         /*
-         * qpid010QueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEVHOSTREF:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEVHOSTREF_FLAG;
-        rc = qpid010QueueVhostRef_undo_setup(rowreq_ctx);
+    case COLUMN_brokerQUEUEVHOSTREF:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEVHOSTREF_FLAG;
+        rc = brokerQueueVhostRef_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010QueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUENAME:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUENAME_FLAG;
-        rc = qpid010QueueName_undo_setup(rowreq_ctx);
+    case COLUMN_brokerQUEUENAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUENAME_FLAG;
+        rc = brokerQueueName_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010QueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDURABLE:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEDURABLE_FLAG;
-        rc = qpid010QueueDurable_undo_setup(rowreq_ctx);
+    case COLUMN_brokerQUEUEDURABLE:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEDURABLE_FLAG;
+        rc = brokerQueueDurable_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010QueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEAUTODELETE:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEAUTODELETE_FLAG;
-        rc = qpid010QueueAutoDelete_undo_setup(rowreq_ctx);
+    case COLUMN_brokerQUEUEAUTODELETE:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEAUTODELETE_FLAG;
+        rc = brokerQueueAutoDelete_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010QueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEEXCLUSIVE:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEEXCLUSIVE_FLAG;
-        rc = qpid010QueueExclusive_undo_setup(rowreq_ctx);
+    case COLUMN_brokerQUEUEEXCLUSIVE:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEEXCLUSIVE_FLAG;
+        rc = brokerQueueExclusive_undo_setup(rowreq_ctx);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010QueueTable_undo_setup_column\n",
+                 "unknown column %d in _brokerQueueTable_undo_setup_column\n",
                  column);
         break;
     }
 
     return rc;
-}                               /* _qpid010QueueTable_undo_setup_column */
+}                               /* _brokerQueueTable_undo_setup_column */
 
 
 /**
@@ -2030,24 +2030,24 @@ _qpid010QueueTable_undo_setup_column(qpid010QueueTable_rowreq_ctx *
  * undo setup
  */
 int
-_mfd_qpid010QueueTable_undo_setup(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_undo_setup(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *agtreq_info,
                                  netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_undo_setup", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_undo_setup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
      * allocate undo context
      */
-    rowreq_ctx->undo = qpid010QueueTable_allocate_data();
+    rowreq_ctx->undo = brokerQueueTable_allocate_data();
     if (NULL == rowreq_ctx->undo) {
         /** msg already logged */
         netsnmp_request_set_error_all(requests,
@@ -2059,10 +2059,10 @@ _mfd_qpid010QueueTable_undo_setup(netsnmp_mib_handler *handler,
      * row undo setup
      */
     rowreq_ctx->column_set_flags = 0;
-    rc = qpid010QueueTable_undo_setup(rowreq_ctx);
+    rc = brokerQueueTable_undo_setup(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
-        DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                    "qpid010QueueTable_undo_setup\n", rc));
+        DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                    "brokerQueueTable_undo_setup\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     } else {
         /*
@@ -2077,11 +2077,11 @@ _mfd_qpid010QueueTable_undo_setup(netsnmp_mib_handler *handler,
             if (NULL == tri)
                 continue;
 
-            rc = _qpid010QueueTable_undo_setup_column(rowreq_ctx,
+            rc = _brokerQueueTable_undo_setup_column(rowreq_ctx,
                                                      tri->colnum);
             if (MFD_SUCCESS != rc) {
-                DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                            "qpid010QueueTable_undo_setup_column\n", rc));
+                DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                            "brokerQueueTable_undo_setup_column\n", rc));
                 netsnmp_set_request_error(agtreq_info, requests,
                                           SNMP_VALIDATE_ERR(rc));
             }
@@ -2089,24 +2089,24 @@ _mfd_qpid010QueueTable_undo_setup(netsnmp_mib_handler *handler,
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_undo_setup */
+}                               /* _mfd_brokerQueueTable_undo_setup */
 
 /**
  * @internal
  * undo setup
  */
 int
-_mfd_qpid010QueueTable_undo_cleanup(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_undo_cleanup(netsnmp_mib_handler *handler,
                                    netsnmp_handler_registration *reginfo,
                                    netsnmp_agent_request_info *agtreq_info,
                                    netsnmp_request_info *requests)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_undo_cleanup", "called\n"));
 
     /*
      * failed row create in early stages has no rowreq_ctx
@@ -2117,26 +2117,26 @@ _mfd_qpid010QueueTable_undo_cleanup(netsnmp_mib_handler *handler,
     /*
      * call user cleanup
      */
-    rc = qpid010QueueTable_undo_cleanup(rowreq_ctx);
+    rc = brokerQueueTable_undo_cleanup(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                    "qpid010QueueTable_undo_cleanup\n", rc));
+        DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                    "brokerQueueTable_undo_cleanup\n", rc));
     }
 
     /*
      * release undo context, if needed
      */
     if (rowreq_ctx->undo) {
-        qpid010QueueTable_release_data(rowreq_ctx->undo);
+        brokerQueueTable_release_data(rowreq_ctx->undo);
         rowreq_ctx->undo = NULL;
     }
 
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_undo_cleanup */
+}                               /* _mfd_brokerQueueTable_undo_cleanup */
 
 /*----------------------------------------------------------------------
  *
@@ -2148,12 +2148,12 @@ _mfd_qpid010QueueTable_undo_cleanup(netsnmp_mib_handler *handler,
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010QueueTable_set_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+_brokerQueueTable_set_column(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                              netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_set_column",
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_set_column",
                 "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -2161,74 +2161,74 @@ _qpid010QueueTable_set_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
     switch (column) {
 
         /*
-         * qpid010QueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEVHOSTREF:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEVHOSTREF_FLAG;
-        rc = qpid010QueueVhostRef_set(rowreq_ctx, (char *) var->val.string,
+    case COLUMN_brokerQUEUEVHOSTREF:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEVHOSTREF_FLAG;
+        rc = brokerQueueVhostRef_set(rowreq_ctx, (char *) var->val.string,
                                      var->val_len);
         break;
 
         /*
-         * qpid010QueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUENAME:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUENAME_FLAG;
-        rc = qpid010QueueName_set(rowreq_ctx, (char *) var->val.string,
+    case COLUMN_brokerQUEUENAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUENAME_FLAG;
+        rc = brokerQueueName_set(rowreq_ctx, (char *) var->val.string,
                                  var->val_len);
         break;
 
         /*
-         * qpid010QueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDURABLE:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEDURABLE_FLAG;
-        rc = qpid010QueueDurable_set(rowreq_ctx,
+    case COLUMN_brokerQUEUEDURABLE:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEDURABLE_FLAG;
+        rc = brokerQueueDurable_set(rowreq_ctx,
                                     *((u_long *) var->val.string));
         break;
 
         /*
-         * qpid010QueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEAUTODELETE:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEAUTODELETE_FLAG;
-        rc = qpid010QueueAutoDelete_set(rowreq_ctx,
+    case COLUMN_brokerQUEUEAUTODELETE:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEAUTODELETE_FLAG;
+        rc = brokerQueueAutoDelete_set(rowreq_ctx,
                                        *((u_long *) var->val.string));
         break;
 
         /*
-         * qpid010QueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEEXCLUSIVE:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010QUEUEEXCLUSIVE_FLAG;
-        rc = qpid010QueueExclusive_set(rowreq_ctx,
+    case COLUMN_brokerQUEUEEXCLUSIVE:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerQUEUEEXCLUSIVE_FLAG;
+        rc = brokerQueueExclusive_set(rowreq_ctx,
                                       *((u_long *) var->val.string));
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010QueueTable_set_column\n",
+                 "unknown column %d in _brokerQueueTable_set_column\n",
                  column);
         rc = SNMP_ERR_GENERR;
         break;
     }
 
     return rc;
-}                               /* _qpid010QueueTable_set_column */
+}                               /* _brokerQueueTable_set_column */
 
 int
-_mfd_qpid010QueueTable_set_values(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_set_values(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *agtreq_info,
                                  netsnmp_request_info *requests)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc = SNMP_ERR_NOERROR;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_set_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_set_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -2241,19 +2241,19 @@ _mfd_qpid010QueueTable_set_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010QueueTable_set_column(rowreq_ctx,
+        rc = _brokerQueueTable_set_column(rowreq_ctx,
                                           requests->requestvb,
                                           tri->colnum);
         if (MFD_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                        "qpid010QueueTable_set_column\n", rc));
+            DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                        "brokerQueueTable_set_column\n", rc));
             netsnmp_set_request_error(agtreq_info, requests,
                                       SNMP_VALIDATE_ERR(rc));
         }
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_set_values */
+}                               /* _mfd_brokerQueueTable_set_values */
 
 /*----------------------------------------------------------------------
  *
@@ -2265,25 +2265,25 @@ _mfd_qpid010QueueTable_set_values(netsnmp_mib_handler *handler,
  * commit the values
  */
 int
-_mfd_qpid010QueueTable_commit(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_commit(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *agtreq_info,
                              netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_commit",
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_commit",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010QueueTable_commit(rowreq_ctx);
+    rc = brokerQueueTable_commit(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
-        DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                    "qpid010QueueTable_commit\n", rc));
+        DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                    "brokerQueueTable_commit\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
@@ -2293,52 +2293,52 @@ _mfd_qpid010QueueTable_commit(netsnmp_mib_handler *handler,
          * current value + 1 (i.e. dirty = # rows changed).
          * this is checked in post_request...
          */
-        qpid010QueueTable_dirty_set(qpid010QueueTable_dirty_get() + 1);   /* set table dirty flag */
+        brokerQueueTable_dirty_set(brokerQueueTable_dirty_get() + 1);   /* set table dirty flag */
     }
 
     return SNMP_ERR_NOERROR;
 }
 
 int
-_mfd_qpid010QueueTable_undo_commit(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_undo_commit(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *agtreq_info,
                                   netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_undo_commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DIRTY) {
-        u_int           d = qpid010QueueTable_dirty_get();
+        u_int           d = brokerQueueTable_dirty_get();
 
         netsnmp_assert(d != 0);
         if (d)
-            qpid010QueueTable_dirty_set(d - 1);
+            brokerQueueTable_dirty_set(d - 1);
     }
 
-    rc = qpid010QueueTable_undo_commit(rowreq_ctx);
+    rc = brokerQueueTable_undo_commit(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                    "qpid010QueueTable_undo_commit\n", rc));
+        DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                    "brokerQueueTable_undo_commit\n", rc));
     }
 
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DIRTY) {
         snmp_log(LOG_WARNING,
-                 "qpid010QueueTable row dirty flag still set after undo_commit\n");
+                 "brokerQueueTable row dirty flag still set after undo_commit\n");
         rowreq_ctx->rowreq_flags &= ~MFD_ROW_DIRTY;
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_commit */
+}                               /* _mfd_brokerQueueTable_commit */
 
 /*----------------------------------------------------------------------
  *
@@ -2350,12 +2350,12 @@ _mfd_qpid010QueueTable_undo_commit(netsnmp_mib_handler *handler,
  * undo the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010QueueTable_undo_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+_brokerQueueTable_undo_column(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                               netsnmp_variable_list * var, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_undo_column",
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_undo_column",
                 "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -2363,73 +2363,73 @@ _qpid010QueueTable_undo_column(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
     switch (column) {
 
         /*
-         * qpid010QueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUEVHOSTREF:
-        rc = qpid010QueueVhostRef_undo(rowreq_ctx);
+    case COLUMN_brokerQUEUEVHOSTREF:
+        rc = brokerQueueVhostRef_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010QueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerQueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010QUEUENAME:
-        rc = qpid010QueueName_undo(rowreq_ctx);
+    case COLUMN_brokerQUEUENAME:
+        rc = brokerQueueName_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010QueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEDURABLE:
-        rc = qpid010QueueDurable_undo(rowreq_ctx);
+    case COLUMN_brokerQUEUEDURABLE:
+        rc = brokerQueueDurable_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010QueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEAUTODELETE:
-        rc = qpid010QueueAutoDelete_undo(rowreq_ctx);
+    case COLUMN_brokerQUEUEAUTODELETE:
+        rc = brokerQueueAutoDelete_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010QueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerQueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
-    case COLUMN_qpid010QUEUEEXCLUSIVE:
-        rc = qpid010QueueExclusive_undo(rowreq_ctx);
+    case COLUMN_brokerQUEUEEXCLUSIVE:
+        rc = brokerQueueExclusive_undo(rowreq_ctx);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010QueueTable_undo_column\n",
+                 "unknown column %d in _brokerQueueTable_undo_column\n",
                  column);
         break;
     }
 
     return rc;
-}                               /* _qpid010QueueTable_undo_column */
+}                               /* _brokerQueueTable_undo_column */
 
 int
-_mfd_qpid010QueueTable_undo_values(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_undo_values(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *agtreq_info,
                                   netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_undo_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_undo_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010QueueTable_undo(rowreq_ctx);
+    rc = brokerQueueTable_undo(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                    "qpid010QueueTable_undo\n", rc));
+        DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                    "brokerQueueTable_undo\n", rc));
     }
 
     for (; requests; requests = requests->next) {
@@ -2440,19 +2440,19 @@ _mfd_qpid010QueueTable_undo_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010QueueTable_undo_column(rowreq_ctx, requests->requestvb,
+        rc = _brokerQueueTable_undo_column(rowreq_ctx, requests->requestvb,
                                            tri->colnum);
         if (MFD_SUCCESS != rc) {
             /*
              * nothing we can do about it but log it
              */
-            DEBUGMSGTL(("qpid010QueueTable:mfd", "error %d from "
-                        "qpid010QueueTable_undo_column\n", rc));
+            DEBUGMSGTL(("brokerQueueTable:mfd", "error %d from "
+                        "brokerQueueTable_undo_column\n", rc));
         }
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_undo_values */
+}                               /* _mfd_brokerQueueTable_undo_values */
 
 /*----------------------------------------------------------------------
  *
@@ -2464,18 +2464,18 @@ _mfd_qpid010QueueTable_undo_values(netsnmp_mib_handler *handler,
  * commit irreversible actions
  */
 int
-_mfd_qpid010QueueTable_irreversible_commit(netsnmp_mib_handler *handler,
+_mfd_brokerQueueTable_irreversible_commit(netsnmp_mib_handler *handler,
                                           netsnmp_handler_registration
                                           *reginfo,
                                           netsnmp_agent_request_info
                                           *agtreq_info,
                                           netsnmp_request_info *requests)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
+    brokerQueueTable_rowreq_ctx *rowreq_ctx =
+        (brokerQueueTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_mfd_qpid010QueueTable_irreversible:commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_mfd_brokerQueueTable_irreversible:commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -2485,7 +2485,7 @@ _mfd_qpid010QueueTable_irreversible_commit(netsnmp_mib_handler *handler,
      */
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED) {
         if (!(rowreq_ctx->rowreq_flags & MFD_ROW_CREATED))
-            CONTAINER_REMOVE(qpid010QueueTable_if_ctx.container,
+            CONTAINER_REMOVE(brokerQueueTable_if_ctx.container,
                              rowreq_ctx);
     } else {
         if (rowreq_ctx->column_set_flags) {
@@ -2494,7 +2494,7 @@ _mfd_qpid010QueueTable_irreversible_commit(netsnmp_mib_handler *handler,
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010QueueTable_irreversible_commit */
+}                               /* _mfd_brokerQueueTable_irreversible_commit */
 
 /***********************************************************************
  *
@@ -2509,11 +2509,11 @@ static void     _container_free(netsnmp_container * container);
 static int
 _cache_load(netsnmp_cache * cache, void *vmagic)
 {
-    DEBUGMSGTL(("internal:qpid010QueueTable:_cache_load", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_cache_load", "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
         snmp_log(LOG_ERR,
-                 "invalid cache for qpid010QueueTable_cache_load\n");
+                 "invalid cache for brokerQueueTable_cache_load\n");
         return -1;
     }
 
@@ -2523,7 +2523,7 @@ _cache_load(netsnmp_cache * cache, void *vmagic)
     /*
      * call user code
      */
-    return qpid010QueueTable_container_load((netsnmp_container *) cache->
+    return brokerQueueTable_container_load((netsnmp_container *) cache->
                                            magic);
 }                               /* _cache_load */
 
@@ -2535,11 +2535,11 @@ _cache_free(netsnmp_cache * cache, void *magic)
 {
     netsnmp_container *container;
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_cache_free", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_cache_free", "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
         snmp_log(LOG_ERR,
-                 "invalid cache in qpid010QueueTable_cache_free\n");
+                 "invalid cache in brokerQueueTable_cache_free\n");
         return;
     }
 
@@ -2552,16 +2552,16 @@ _cache_free(netsnmp_cache * cache, void *magic)
  * @internal
  */
 static void
-_container_item_free(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+_container_item_free(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                      void *context)
 {
-    DEBUGMSGTL(("internal:qpid010QueueTable:_container_item_free",
+    DEBUGMSGTL(("internal:brokerQueueTable:_container_item_free",
                 "called\n"));
 
     if (NULL == rowreq_ctx)
         return;
 
-    qpid010QueueTable_release_rowreq_ctx(rowreq_ctx);
+    brokerQueueTable_release_rowreq_ctx(rowreq_ctx);
 }                               /* _container_item_free */
 
 /**
@@ -2570,18 +2570,18 @@ _container_item_free(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
 static void
 _container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("internal:qpid010QueueTable:_container_free", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_container_free", "called\n"));
 
     if (NULL == container) {
         snmp_log(LOG_ERR,
-                 "invalid container in qpid010QueueTable_container_free\n");
+                 "invalid container in brokerQueueTable_container_free\n");
         return;
     }
 
     /*
      * call user code
      */
-    qpid010QueueTable_container_free(container);
+    brokerQueueTable_container_free(container);
 
     /*
      * free all items. inefficient, but easy.
@@ -2596,54 +2596,54 @@ _container_free(netsnmp_container * container)
  * initialize the container with functions or wrappers
  */
 void
-_qpid010QueueTable_container_init(qpid010QueueTable_interface_ctx * if_ctx)
+_brokerQueueTable_container_init(brokerQueueTable_interface_ctx * if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_container_init", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_container_init", "called\n"));
 
     /*
      * cache init
      */
     if_ctx->cache = netsnmp_cache_create(30,    /* timeout in seconds */
                                          _cache_load, _cache_free,
-                                         qpid010QueueTable_oid,
-                                         qpid010QueueTable_oid_size);
+                                         brokerQueueTable_oid,
+                                         brokerQueueTable_oid_size);
 
     if (NULL == if_ctx->cache) {
-        snmp_log(LOG_ERR, "error creating cache for qpid010QueueTable\n");
+        snmp_log(LOG_ERR, "error creating cache for brokerQueueTable\n");
         return;
     }
 
     if_ctx->cache->flags = NETSNMP_CACHE_DONT_INVALIDATE_ON_SET;
 
-    qpid010QueueTable_container_init(&if_ctx->container, if_ctx->cache);
+    brokerQueueTable_container_init(&if_ctx->container, if_ctx->cache);
     if (NULL == if_ctx->container)
         if_ctx->container =
-            netsnmp_container_find("qpid010QueueTable:table_container");
+            netsnmp_container_find("brokerQueueTable:table_container");
     if (NULL == if_ctx->container) {
         snmp_log(LOG_ERR, "error creating container in "
-                 "qpid010QueueTable_container_init\n");
+                 "brokerQueueTable_container_init\n");
         return;
     }
 
     if (NULL != if_ctx->cache)
         if_ctx->cache->magic = (void *) if_ctx->container;
-}                               /* _qpid010QueueTable_container_init */
+}                               /* _brokerQueueTable_container_init */
 
 /**
  * @internal
  * shutdown the container with functions or wrappers
  */
 void
-_qpid010QueueTable_container_shutdown(qpid010QueueTable_interface_ctx *
+_brokerQueueTable_container_shutdown(brokerQueueTable_interface_ctx *
                                      if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_container_shutdown", "called\n"));
 
-    qpid010QueueTable_container_shutdown(if_ctx->container);
+    brokerQueueTable_container_shutdown(if_ctx->container);
 
     _container_free(if_ctx->container);
 
-}                               /* _qpid010QueueTable_container_shutdown */
+}                               /* _brokerQueueTable_container_shutdown */
 
 /***********************************************************************
  *
@@ -2651,25 +2651,25 @@ _qpid010QueueTable_container_shutdown(qpid010QueueTable_interface_ctx *
  *
  ***********************************************************************/
 
-static int      _qpid010QueueTable_container_save_rows(int majorID,
+static int      _brokerQueueTable_container_save_rows(int majorID,
                                                       int minorID,
                                                       void *serverarg,
                                                       void *clientarg);
-static void     _qpid010QueueTable_container_row_restore(const char *token,
+static void     _brokerQueueTable_container_row_restore(const char *token,
                                                         char *buf);
 static int     
-_qpid010QueueTable_container_row_save(qpid010QueueTable_rowreq_ctx *
+_brokerQueueTable_container_row_save(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx, void *type);
 static char   
-    *_qpid010QueueTable_container_col_restore(qpid010QueueTable_rowreq_ctx *
+    *_brokerQueueTable_container_col_restore(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx, u_int col,
                                              char *buf);
 static char   
-    *_qpid010QueueTable_container_col_save(qpid010QueueTable_rowreq_ctx *
+    *_brokerQueueTable_container_col_save(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx, u_int col,
                                           char *buf);
 
-static char     row_token[] = "qpid010QueueTable";
+static char     row_token[] = "brokerQueueTable";
 
 /************************************************************
  * *_init_persistence should be called from the main table
@@ -2681,31 +2681,31 @@ static char     row_token[] = "qpid010QueueTable";
  * (and re-created) before the dependent rows.
  */
 void
-qpid010QueueTable_container_init_persistence(netsnmp_container * container)
+brokerQueueTable_container_init_persistence(netsnmp_container * container)
 {
     int             rc;
 
     register_config_handler(NULL, row_token,
-                            _qpid010QueueTable_container_row_restore, NULL,
+                            _brokerQueueTable_container_row_restore, NULL,
                             NULL);
     rc = snmp_register_callback(SNMP_CALLBACK_LIBRARY,
                                 SNMP_CALLBACK_STORE_DATA,
-                                _qpid010QueueTable_container_save_rows,
+                                _brokerQueueTable_container_save_rows,
                                 container);
 
     if (rc != SNMP_ERR_NOERROR)
         snmp_log(LOG_ERR, "error registering for STORE_DATA callback "
-                 "in _qpid010QueueTable_container_init_persistence\n");
+                 "in _brokerQueueTable_container_init_persistence\n");
 }
 
 static int
-_qpid010QueueTable_container_save_rows(int majorID, int minorID,
+_brokerQueueTable_container_save_rows(int majorID, int minorID,
                                       void *serverarg, void *clientarg)
 {
     char            sep[] =
         "##############################################################";
     char            buf[] =
-        "#\n" "# qpid010QueueTable persistent data\n" "#";
+        "#\n" "# brokerQueueTable persistent data\n" "#";
     char           *type = netsnmp_ds_get_string(NETSNMP_DS_LIBRARY_ID,
                                                  NETSNMP_DS_LIB_APPTYPE);
 
@@ -2717,7 +2717,7 @@ _qpid010QueueTable_container_save_rows(int majorID, int minorID,
      */
     CONTAINER_FOR_EACH((netsnmp_container *) clientarg,
                        (netsnmp_container_obj_func *)
-                       _qpid010QueueTable_container_row_save, type);
+                       _brokerQueueTable_container_row_save, type);
 
     read_config_store((char *) type, sep);
     read_config_store((char *) type, "\n");
@@ -2731,10 +2731,10 @@ _qpid010QueueTable_container_save_rows(int majorID, int minorID,
 
 
 /************************************************************
- * _qpid010QueueTable_container_row_save
+ * _brokerQueueTable_container_row_save
  */
 static int
-_qpid010QueueTable_container_row_save(qpid010QueueTable_rowreq_ctx *
+_brokerQueueTable_container_row_save(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx, void *type)
 {
     /*
@@ -2767,12 +2767,12 @@ _qpid010QueueTable_container_row_save(qpid010QueueTable_rowreq_ctx *
      */
         /** xxx: add storage for external index(s)! */
 #define MAX_ROW_SIZE (sizeof(row_token) + 1 +  \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010QueueVhostRef) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010QueueName) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( 12 ) + /* ASN_INTEGER qpid010QueueDurable */ \
-        ( 12 ) + /* ASN_INTEGER qpid010QueueAutoDelete */ \
-        ( 12 ) + /* ASN_INTEGER qpid010QueueExclusive */ \
-        ( qpid010QUEUETABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerQueueVhostRef) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerQueueName) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( 12 ) + /* ASN_INTEGER brokerQueueDurable */ \
+        ( 12 ) + /* ASN_INTEGER brokerQueueAutoDelete */ \
+        ( 12 ) + /* ASN_INTEGER brokerQueueExclusive */ \
+        ( brokerQUEUETABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
     2 /* LINE_TERM_CHAR + \n */ )
 
     char            buf[MAX_ROW_SIZE], *pos = buf, *max =
@@ -2780,7 +2780,7 @@ _qpid010QueueTable_container_row_save(qpid010QueueTable_rowreq_ctx *
     char           *tmp;
     int             i;
 
-    if (qpid010QueueTable_container_should_save(rowreq_ctx) == 0) {
+    if (brokerQueueTable_container_should_save(rowreq_ctx) == 0) {
         return SNMP_ERR_NOERROR;
     }
 
@@ -2791,13 +2791,13 @@ _qpid010QueueTable_container_row_save(qpid010QueueTable_rowreq_ctx *
     pos = read_config_save_objid(pos, rowreq_ctx->oid_idx.oids,
                                  rowreq_ctx->oid_idx.len);
     if (NULL == pos) {
-        snmp_log(LOG_ERR, "error saving qpid010QueueTable row "
+        snmp_log(LOG_ERR, "error saving brokerQueueTable row "
                  "to persistent file\n");
         return SNMP_ERR_GENERR;
     }
     *pos++ = ' ';
     if (pos > max) {
-        snmp_log(LOG_ERR, "error saving qpid010QueueTable row "
+        snmp_log(LOG_ERR, "error saving brokerQueueTable row "
                  "to persistent file (too long)\n");
         return SNMP_ERR_GENERR;
     }
@@ -2805,19 +2805,19 @@ _qpid010QueueTable_container_row_save(qpid010QueueTable_rowreq_ctx *
     /*
      * add each column
      */
-    for (i = qpid010QUEUETABLE_MIN_COL; i <= qpid010QUEUETABLE_MAX_COL; ++i) {
+    for (i = brokerQUEUETABLE_MIN_COL; i <= brokerQUEUETABLE_MAX_COL; ++i) {
 
-        if ((0x1 << (i - 1)) & ~qpid010QUEUETABLE_SETTABLE_COLS)
+        if ((0x1 << (i - 1)) & ~brokerQUEUETABLE_SETTABLE_COLS)
             continue;
 
         tmp = pos;
-        pos = _qpid010QueueTable_container_col_save(rowreq_ctx, i, pos);
+        pos = _brokerQueueTable_container_col_save(rowreq_ctx, i, pos);
         if (NULL == pos)
             pos = tmp;
         else
             *pos++ = ' ';
         if (pos > max) {
-            snmp_log(LOG_ERR, "error saving qpid010QueueTable row "
+            snmp_log(LOG_ERR, "error saving brokerQueueTable row "
                      "to persistent file (too long)\n");
             return SNMP_ERR_GENERR;
         }
@@ -2833,33 +2833,33 @@ _qpid010QueueTable_container_row_save(qpid010QueueTable_rowreq_ctx *
      */
     pos += sprintf(pos, "%c", LINE_TERM_CHAR);
     if (pos > max) {
-        snmp_log(LOG_ERR, "error saving qpid010QueueTable row "
+        snmp_log(LOG_ERR, "error saving brokerQueueTable row "
                  "to persistent file (too long)\n");
         return SNMP_ERR_GENERR;
     }
     read_config_store((char *) type, buf);
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_container_row_save", "saving line '%s'\n", buf));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_container_row_save", "saving line '%s'\n", buf));
 
     return SNMP_ERR_NOERROR;
 }
 
 static void
-_qpid010QueueTable_container_row_restore(const char *token, char *buf)
+_brokerQueueTable_container_row_restore(const char *token, char *buf)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx;
+    brokerQueueTable_rowreq_ctx *rowreq_ctx;
     netsnmp_index   index;
-    oid             tmp_oid[MAX_qpid010QueueTable_IDX_LEN];
+    oid             tmp_oid[MAX_brokerQueueTable_IDX_LEN];
     u_int           col = 0, found = 0;
 
 
     if (strncmp(token, row_token, sizeof(row_token)) != 0) {
         snmp_log(LOG_ERR,
-                 "unknown token in _qpid010QueueTable_container_row_restore\n");
+                 "unknown token in _brokerQueueTable_container_row_restore\n");
         return;
     }
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_container_row_restore", "parsing line '%s'\n", buf));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_container_row_restore", "parsing line '%s'\n", buf));
 
     /*
      * pull out index and create default row
@@ -2869,13 +2869,13 @@ _qpid010QueueTable_container_row_restore(const char *token, char *buf)
     buf = read_config_read_objid(buf, &index.oids, &index.len);
     if (NULL == buf) {
         snmp_log(LOG_ERR, "error reading row index in "
-                 "_qpid010QueueTable_container_row_restore\n");
+                 "_brokerQueueTable_container_row_restore\n");
         return;
     }
-    rowreq_ctx = _mfd_qpid010QueueTable_rowreq_from_index(&index, NULL);
+    rowreq_ctx = _mfd_brokerQueueTable_rowreq_from_index(&index, NULL);
     if (NULL == rowreq_ctx) {
         snmp_log(LOG_ERR, "error creating row index in "
-                 "_qpid010QueueTable_container_row_restore\n");
+                 "_brokerQueueTable_container_row_restore\n");
         return;
     }
 
@@ -2899,16 +2899,16 @@ _qpid010QueueTable_container_row_restore(const char *token, char *buf)
         /*
          * parse value
          */
-        DEBUGMSGTL(("_qpid010QueueTable_container_row_restore",
+        DEBUGMSGTL(("_brokerQueueTable_container_row_restore",
                     "parsing column %d\n", col));
         buf =
-            _qpid010QueueTable_container_col_restore(rowreq_ctx, col, buf);
+            _brokerQueueTable_container_col_restore(rowreq_ctx, col, buf);
         ++found;
     }
     if (0 == found) {
         snmp_log(LOG_ERR,
-                 "error parsing qpid010QueueTable row; no columns found\n");
-        qpid010QueueTable_release_rowreq_ctx(rowreq_ctx);
+                 "error parsing brokerQueueTable row; no columns found\n");
+        brokerQueueTable_release_rowreq_ctx(rowreq_ctx);
         return;
     }
 
@@ -2924,13 +2924,13 @@ _qpid010QueueTable_container_row_restore(const char *token, char *buf)
      */
     if ((buf == NULL) || (*buf != LINE_TERM_CHAR)) {
         snmp_log(LOG_ERR,
-                 "error parsing qpid010QueueTable row around column %d\n",
+                 "error parsing brokerQueueTable row around column %d\n",
                  col);
-        qpid010QueueTable_release_rowreq_ctx(rowreq_ctx);
+        brokerQueueTable_release_rowreq_ctx(rowreq_ctx);
         return;
     }
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_container_row_restore", "inserting row\n"));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_container_row_restore", "inserting row\n"));
 
     /*
      * copy oid index and insert row
@@ -2938,23 +2938,23 @@ _qpid010QueueTable_container_row_restore(const char *token, char *buf)
     rowreq_ctx->oid_idx.len = index.len;
     memcpy(rowreq_ctx->oid_idx.oids, index.oids, index.len * sizeof(oid));
 
-    CONTAINER_INSERT(qpid010QueueTable_if_ctx.container, rowreq_ctx);
+    CONTAINER_INSERT(brokerQueueTable_if_ctx.container, rowreq_ctx);
 }
 
 /************************************************************
- * _qpid010QueueTable_container_col_save
+ * _brokerQueueTable_container_col_save
  */
 static char    *
-_qpid010QueueTable_container_col_save(qpid010QueueTable_rowreq_ctx *
+_brokerQueueTable_container_col_save(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx, u_int col, char *buf)
 {
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
-                 "_qpid010QueueTable_container_col_save\n");
+                 "_brokerQueueTable_container_col_save\n");
         return NULL;
     }
 
-    DEBUGMSGTL(("internal:qpid010QueueTable:_qpid010QueueTable_container_col_save", "processing column %d\n", col));
+    DEBUGMSGTL(("internal:brokerQueueTable:_brokerQueueTable_container_col_save", "processing column %d\n", col));
 
     /*
      * prefix with column number, so we don't ever depend on
@@ -2967,283 +2967,283 @@ _qpid010QueueTable_container_col_save(qpid010QueueTable_rowreq_ctx *
      */
     switch (col) {
 
-    case COLUMN_qpid010QUEUEVHOSTREF:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_brokerQUEUEVHOSTREF:    /** ObjId = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010QueueVhostRef,
+                                          brokerQueueVhostRef,
                                           rowreq_ctx->data.
-                                          qpid010QueueVhostRef_len);
+                                          brokerQueueVhostRef_len);
         break;
 
-    case COLUMN_qpid010QUEUENAME:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_brokerQUEUENAME:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
-                                          rowreq_ctx->data.qpid010QueueName,
+                                          rowreq_ctx->data.brokerQueueName,
                                           rowreq_ctx->data.
-                                          qpid010QueueName_len);
+                                          brokerQueueName_len);
         break;
 
-    case COLUMN_qpid010QUEUEDURABLE:    /** TruthValue = ASN_INTEGER */
-        buf += sprintf(buf, "%ld", rowreq_ctx->data.qpid010QueueDurable);
+    case COLUMN_brokerQUEUEDURABLE:    /** TruthValue = ASN_INTEGER */
+        buf += sprintf(buf, "%ld", rowreq_ctx->data.brokerQueueDurable);
         break;
 
-    case COLUMN_qpid010QUEUEAUTODELETE:    /** TruthValue = ASN_INTEGER */
-        buf += sprintf(buf, "%ld", rowreq_ctx->data.qpid010QueueAutoDelete);
+    case COLUMN_brokerQUEUEAUTODELETE:    /** TruthValue = ASN_INTEGER */
+        buf += sprintf(buf, "%ld", rowreq_ctx->data.brokerQueueAutoDelete);
         break;
 
-    case COLUMN_qpid010QUEUEEXCLUSIVE:    /** TruthValue = ASN_INTEGER */
-        buf += sprintf(buf, "%ld", rowreq_ctx->data.qpid010QueueExclusive);
+    case COLUMN_brokerQUEUEEXCLUSIVE:    /** TruthValue = ASN_INTEGER */
+        buf += sprintf(buf, "%ld", rowreq_ctx->data.brokerQueueExclusive);
         break;
 
-    case COLUMN_qpid010QUEUEARGUMENTS:    /** Map = ASN_OCTET_STR */
-        buf =
-            read_config_save_octet_string(buf,
-                                          rowreq_ctx->data.
-                                          qpid010QueueArguments,
-                                          rowreq_ctx->data.
-                                          qpid010QueueArguments_len);
-        break;
-
-    case COLUMN_qpid010QUEUEALTEXCHANGE:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_brokerQUEUEARGUMENTS:    /** Map = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010QueueAltExchange,
+                                          brokerQueueArguments,
                                           rowreq_ctx->data.
-                                          qpid010QueueAltExchange_len);
+                                          brokerQueueArguments_len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGTOTALENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEALTEXCHANGE:    /** ObjId = ASN_OCTET_STR */
+        buf =
+            read_config_save_octet_string(buf,
+                                          rowreq_ctx->data.
+                                          brokerQueueAltExchange,
+                                          rowreq_ctx->data.
+                                          brokerQueueAltExchange_len);
+        break;
+
+    case COLUMN_brokerQUEUEMSGTOTALENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMsgTotalEnqueues);
+                    rowreq_ctx->data.brokerQueueMsgTotalEnqueues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGTOTALDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEMSGTOTALDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMsgTotalDequeues);
+                    rowreq_ctx->data.brokerQueueMsgTotalDequeues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGTXNENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEMSGTXNENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMsgTxnEnqueues);
+                    rowreq_ctx->data.brokerQueueMsgTxnEnqueues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGTXNDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEMSGTXNDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMsgTxnDequeues);
+                    rowreq_ctx->data.brokerQueueMsgTxnDequeues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGPERSISTENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEMSGPERSISTENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMsgPersistEnqueues);
+                    rowreq_ctx->data.brokerQueueMsgPersistEnqueues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGPERSISTDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEMSGPERSISTDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMsgPersistDequeues);
+                    rowreq_ctx->data.brokerQueueMsgPersistDequeues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
-        buf += sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueMsgDepth);
+    case COLUMN_brokerQUEUEMSGDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
+        buf += sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueMsgDepth);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
-        buf += sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueByteDepth);
+    case COLUMN_brokerQUEUEBYTEDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
+        buf += sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueByteDepth);
         break;
 
-    case COLUMN_qpid010QUEUEBYTETOTALENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTETOTALENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueByteTotalEnqueues);
+                    rowreq_ctx->data.brokerQueueByteTotalEnqueues);
         break;
 
-    case COLUMN_qpid010QUEUEBYTETOTALDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTETOTALDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueByteTotalDequeues);
+                    rowreq_ctx->data.brokerQueueByteTotalDequeues);
         break;
 
-    case COLUMN_qpid010QUEUEBYTETXNENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTETXNENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueByteTxnEnqueues);
+                    rowreq_ctx->data.brokerQueueByteTxnEnqueues);
         break;
 
-    case COLUMN_qpid010QUEUEBYTETXNDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTETXNDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueByteTxnDequeues);
+                    rowreq_ctx->data.brokerQueueByteTxnDequeues);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEPERSISTENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTEPERSISTENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueBytePersistEnqueues);
+                    rowreq_ctx->data.brokerQueueBytePersistEnqueues);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEPERSISTDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTEPERSISTDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueBytePersistDequeues);
+                    rowreq_ctx->data.brokerQueueBytePersistDequeues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGFTDENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEMSGFTDENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMsgFtdEnqueues);
+                    rowreq_ctx->data.brokerQueueMsgFtdEnqueues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGFTDDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEMSGFTDDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMsgFtdDequeues);
+                    rowreq_ctx->data.brokerQueueMsgFtdDequeues);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEFTDENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTEFTDENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueByteFtdEnqueues);
+                    rowreq_ctx->data.brokerQueueByteFtdEnqueues);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEFTDDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTEFTDDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueByteFtdDequeues);
+                    rowreq_ctx->data.brokerQueueByteFtdDequeues);
         break;
 
-    case COLUMN_qpid010QUEUEMSGFTDDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEMSGFTDDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueMsgFtdDepth);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueMsgFtdDepth);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEFTDDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEBYTEFTDDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueByteFtdDepth);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueByteFtdDepth);
         break;
 
-    case COLUMN_qpid010QUEUERELEASES:    /** COUNTER64 = ASN_COUNTER64 */
-        buf += sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueReleases);
+    case COLUMN_brokerQUEUERELEASES:    /** COUNTER64 = ASN_COUNTER64 */
+        buf += sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueReleases);
         break;
 
-    case COLUMN_qpid010QUEUEACQUIRES:    /** COUNTER64 = ASN_COUNTER64 */
-        buf += sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueAcquires);
+    case COLUMN_brokerQUEUEACQUIRES:    /** COUNTER64 = ASN_COUNTER64 */
+        buf += sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueAcquires);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSTTL:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEDISCARDSTTL:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueDiscardsTtl);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueDiscardsTtl);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSRING:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEDISCARDSRING:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueDiscardsRing);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueDiscardsRing);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSLVQ:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEDISCARDSLVQ:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueDiscardsLvq);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueDiscardsLvq);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSOVERFLOW:    /** COUNTER64 = ASN_COUNTER64 */
-        buf +=
-            sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueDiscardsOverflow);
-        break;
-
-    case COLUMN_qpid010QUEUEDISCARDSSUBSCRIBER:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEDISCARDSOVERFLOW:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueDiscardsSubscriber);
+                    rowreq_ctx->data.brokerQueueDiscardsOverflow);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSPURGE:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerQUEUEDISCARDSSUBSCRIBER:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueDiscardsPurge);
+            sprintf(buf, "%lu",
+                    rowreq_ctx->data.brokerQueueDiscardsSubscriber);
         break;
 
-    case COLUMN_qpid010QUEUEREROUTES:    /** COUNTER64 = ASN_COUNTER64 */
-        buf += sprintf(buf, "%lu", rowreq_ctx->data.qpid010QueueReroutes);
-        break;
-
-    case COLUMN_qpid010QUEUECONSUMERCOUNT:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerQUEUEDISCARDSPURGE:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%ld", rowreq_ctx->data.qpid010QueueConsumerCount);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueDiscardsPurge);
         break;
 
-    case COLUMN_qpid010QUEUECONSUMERCOUNTHI:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerQUEUEREROUTES:    /** COUNTER64 = ASN_COUNTER64 */
+        buf += sprintf(buf, "%lu", rowreq_ctx->data.brokerQueueReroutes);
+        break;
+
+    case COLUMN_brokerQUEUECONSUMERCOUNT:    /** Hilo32 = ASN_INTEGER */
+        buf +=
+            sprintf(buf, "%ld", rowreq_ctx->data.brokerQueueConsumerCount);
+        break;
+
+    case COLUMN_brokerQUEUECONSUMERCOUNTHI:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010QueueConsumerCountHi);
+                    rowreq_ctx->data.brokerQueueConsumerCountHi);
         break;
 
-    case COLUMN_qpid010QUEUECONSUMERCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerQUEUECONSUMERCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010QueueConsumerCountLow);
+                    rowreq_ctx->data.brokerQueueConsumerCountLow);
         break;
 
-    case COLUMN_qpid010QUEUEBINDINGCOUNT:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerQUEUEBINDINGCOUNT:    /** Hilo32 = ASN_INTEGER */
         buf +=
-            sprintf(buf, "%ld", rowreq_ctx->data.qpid010QueueBindingCount);
+            sprintf(buf, "%ld", rowreq_ctx->data.brokerQueueBindingCount);
         break;
 
-    case COLUMN_qpid010QUEUEBINDINGCOUNTHI:    /** Hilo32 = ASN_INTEGER */
-        buf +=
-            sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010QueueBindingCountHi);
-        break;
-
-    case COLUMN_qpid010QUEUEBINDINGCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerQUEUEBINDINGCOUNTHI:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010QueueBindingCountLow);
+                    rowreq_ctx->data.brokerQueueBindingCountHi);
         break;
 
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGES:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerQUEUEBINDINGCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010QueueUnackedMessages);
+                    rowreq_ctx->data.brokerQueueBindingCountLow);
         break;
 
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGESHI:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerQUEUEUNACKEDMESSAGES:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010QueueUnackedMessagesHi);
+                    rowreq_ctx->data.brokerQueueUnackedMessages);
         break;
 
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGESLOW:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerQUEUEUNACKEDMESSAGESHI:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010QueueUnackedMessagesLow);
+                    rowreq_ctx->data.brokerQueueUnackedMessagesHi);
         break;
 
-    case COLUMN_qpid010QUEUEMESSAGELATENCY:    /** TICKS = ASN_TIMETICKS */
+    case COLUMN_brokerQUEUEUNACKEDMESSAGESLOW:    /** Hilo32 = ASN_INTEGER */
+        buf +=
+            sprintf(buf, "%ld",
+                    rowreq_ctx->data.brokerQueueUnackedMessagesLow);
+        break;
+
+    case COLUMN_brokerQUEUEMESSAGELATENCY:    /** TICKS = ASN_TIMETICKS */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueMessageLatency);
+                    rowreq_ctx->data.brokerQueueMessageLatency);
         break;
 
-    case COLUMN_qpid010QUEUEFLOWSTOPPED:    /** TruthValue = ASN_INTEGER */
+    case COLUMN_brokerQUEUEFLOWSTOPPED:    /** TruthValue = ASN_INTEGER */
         buf +=
-            sprintf(buf, "%ld", rowreq_ctx->data.qpid010QueueFlowStopped);
+            sprintf(buf, "%ld", rowreq_ctx->data.brokerQueueFlowStopped);
         break;
 
-    case COLUMN_qpid010QUEUEFLOWSTOPPEDCOUNT:    /** COUNTER = ASN_COUNTER */
+    case COLUMN_brokerQUEUEFLOWSTOPPEDCOUNT:    /** COUNTER = ASN_COUNTER */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010QueueFlowStoppedCount);
+                    rowreq_ctx->data.brokerQueueFlowStoppedCount);
         break;
 
     default:/** We shouldn't get here */
         snmp_log(LOG_ERR, "unknown column %d in "
-                 "_qpid010QueueTable_container_col_save\n", col);
+                 "_brokerQueueTable_container_col_save\n", col);
         return NULL;
     }
 
@@ -3251,383 +3251,383 @@ _qpid010QueueTable_container_col_save(qpid010QueueTable_rowreq_ctx *
 }
 
 /************************************************************
- * _qpid010QueueTable_container_col_restore
+ * _brokerQueueTable_container_col_restore
  */
 static char    *
-_qpid010QueueTable_container_col_restore(qpid010QueueTable_rowreq_ctx *
+_brokerQueueTable_container_col_restore(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx, u_int col, char *buf)
 {
     size_t          len;
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
-                 "_qpid010QueueTable_container_col_restore\n");
+                 "_brokerQueueTable_container_col_restore\n");
         return NULL;
     }
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:_qpid010QueueTable_container_col_restore", "processing column %d\n", col));
+    DEBUGMSGTL(("verbose:brokerQueueTable:_brokerQueueTable_container_col_restore", "processing column %d\n", col));
 
     /*
      * restore data for the column
      */
     switch (col) {
 
-    case COLUMN_qpid010QUEUEVHOSTREF:    /** ObjId = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010QueueVhostRef_len =
-            sizeof(rowreq_ctx->data.qpid010QueueVhostRef);
+    case COLUMN_brokerQUEUEVHOSTREF:    /** ObjId = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerQueueVhostRef_len =
+            sizeof(rowreq_ctx->data.brokerQueueVhostRef);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010QueueVhostRef,
+                                    brokerQueueVhostRef,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010QueueVhostRef_len);
+                                    brokerQueueVhostRef_len);
         break;
 
-    case COLUMN_qpid010QUEUENAME:    /** Sstr = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010QueueName_len =
-            sizeof(rowreq_ctx->data.qpid010QueueName);
+    case COLUMN_brokerQUEUENAME:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerQueueName_len =
+            sizeof(rowreq_ctx->data.brokerQueueName);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010QueueName,
+                                    brokerQueueName,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010QueueName_len);
+                                    brokerQueueName_len);
         break;
 
-    case COLUMN_qpid010QUEUEDURABLE:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueDurable);
+    case COLUMN_brokerQUEUEDURABLE:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueDurable);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueDurable, &len);
+                                      brokerQueueDurable, &len);
         break;
 
-    case COLUMN_qpid010QUEUEAUTODELETE:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueAutoDelete);
+    case COLUMN_brokerQUEUEAUTODELETE:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueAutoDelete);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueAutoDelete, &len);
+                                      brokerQueueAutoDelete, &len);
         break;
 
-    case COLUMN_qpid010QUEUEEXCLUSIVE:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueExclusive);
+    case COLUMN_brokerQUEUEEXCLUSIVE:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueExclusive);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueExclusive, &len);
+                                      brokerQueueExclusive, &len);
         break;
 
-    case COLUMN_qpid010QUEUEARGUMENTS:    /** Map = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010QueueArguments_len =
-            sizeof(rowreq_ctx->data.qpid010QueueArguments);
+    case COLUMN_brokerQUEUEARGUMENTS:    /** Map = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerQueueArguments_len =
+            sizeof(rowreq_ctx->data.brokerQueueArguments);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010QueueArguments,
+                                    brokerQueueArguments,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010QueueArguments_len);
+                                    brokerQueueArguments_len);
         break;
 
-    case COLUMN_qpid010QUEUEALTEXCHANGE:    /** ObjId = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010QueueAltExchange_len =
-            sizeof(rowreq_ctx->data.qpid010QueueAltExchange);
+    case COLUMN_brokerQUEUEALTEXCHANGE:    /** ObjId = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerQueueAltExchange_len =
+            sizeof(rowreq_ctx->data.brokerQueueAltExchange);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010QueueAltExchange,
+                                    brokerQueueAltExchange,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010QueueAltExchange_len);
+                                    brokerQueueAltExchange_len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGTOTALENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgTotalEnqueues);
+    case COLUMN_brokerQUEUEMSGTOTALENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgTotalEnqueues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgTotalEnqueues, &len);
+                                      brokerQueueMsgTotalEnqueues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGTOTALDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgTotalDequeues);
+    case COLUMN_brokerQUEUEMSGTOTALDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgTotalDequeues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgTotalDequeues, &len);
+                                      brokerQueueMsgTotalDequeues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGTXNENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgTxnEnqueues);
+    case COLUMN_brokerQUEUEMSGTXNENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgTxnEnqueues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgTxnEnqueues, &len);
+                                      brokerQueueMsgTxnEnqueues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGTXNDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgTxnDequeues);
+    case COLUMN_brokerQUEUEMSGTXNDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgTxnDequeues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgTxnDequeues, &len);
+                                      brokerQueueMsgTxnDequeues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGPERSISTENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgPersistEnqueues);
+    case COLUMN_brokerQUEUEMSGPERSISTENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgPersistEnqueues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgPersistEnqueues, &len);
+                                      brokerQueueMsgPersistEnqueues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGPERSISTDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgPersistDequeues);
+    case COLUMN_brokerQUEUEMSGPERSISTDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgPersistDequeues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgPersistDequeues, &len);
+                                      brokerQueueMsgPersistDequeues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgDepth);
+    case COLUMN_brokerQUEUEMSGDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgDepth);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgDepth, &len);
+                                      brokerQueueMsgDepth, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueByteDepth);
+    case COLUMN_brokerQUEUEBYTEDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueByteDepth);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueByteDepth, &len);
+                                      brokerQueueByteDepth, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTETOTALENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueByteTotalEnqueues);
+    case COLUMN_brokerQUEUEBYTETOTALENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueByteTotalEnqueues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueByteTotalEnqueues, &len);
+                                      brokerQueueByteTotalEnqueues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTETOTALDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueByteTotalDequeues);
+    case COLUMN_brokerQUEUEBYTETOTALDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueByteTotalDequeues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueByteTotalDequeues, &len);
+                                      brokerQueueByteTotalDequeues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTETXNENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueByteTxnEnqueues);
+    case COLUMN_brokerQUEUEBYTETXNENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueByteTxnEnqueues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueByteTxnEnqueues, &len);
+                                      brokerQueueByteTxnEnqueues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTETXNDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueByteTxnDequeues);
+    case COLUMN_brokerQUEUEBYTETXNDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueByteTxnDequeues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueByteTxnDequeues, &len);
+                                      brokerQueueByteTxnDequeues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEPERSISTENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueBytePersistEnqueues);
+    case COLUMN_brokerQUEUEBYTEPERSISTENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueBytePersistEnqueues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueBytePersistEnqueues,
+                                      brokerQueueBytePersistEnqueues,
                                       &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEPERSISTDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueBytePersistDequeues);
+    case COLUMN_brokerQUEUEBYTEPERSISTDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueBytePersistDequeues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueBytePersistDequeues,
+                                      brokerQueueBytePersistDequeues,
                                       &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGFTDENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgFtdEnqueues);
+    case COLUMN_brokerQUEUEMSGFTDENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgFtdEnqueues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgFtdEnqueues, &len);
+                                      brokerQueueMsgFtdEnqueues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGFTDDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgFtdDequeues);
+    case COLUMN_brokerQUEUEMSGFTDDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgFtdDequeues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgFtdDequeues, &len);
+                                      brokerQueueMsgFtdDequeues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEFTDENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueByteFtdEnqueues);
+    case COLUMN_brokerQUEUEBYTEFTDENQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueByteFtdEnqueues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueByteFtdEnqueues, &len);
+                                      brokerQueueByteFtdEnqueues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEFTDDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueByteFtdDequeues);
+    case COLUMN_brokerQUEUEBYTEFTDDEQUEUES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueByteFtdDequeues);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueByteFtdDequeues, &len);
+                                      brokerQueueByteFtdDequeues, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMSGFTDDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMsgFtdDepth);
+    case COLUMN_brokerQUEUEMSGFTDDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueMsgFtdDepth);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMsgFtdDepth, &len);
+                                      brokerQueueMsgFtdDepth, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBYTEFTDDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueByteFtdDepth);
+    case COLUMN_brokerQUEUEBYTEFTDDEPTH:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueByteFtdDepth);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueByteFtdDepth, &len);
+                                      brokerQueueByteFtdDepth, &len);
         break;
 
-    case COLUMN_qpid010QUEUERELEASES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueReleases);
+    case COLUMN_brokerQUEUERELEASES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueReleases);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueReleases, &len);
+                                      brokerQueueReleases, &len);
         break;
 
-    case COLUMN_qpid010QUEUEACQUIRES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueAcquires);
+    case COLUMN_brokerQUEUEACQUIRES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueAcquires);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueAcquires, &len);
+                                      brokerQueueAcquires, &len);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSTTL:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueDiscardsTtl);
+    case COLUMN_brokerQUEUEDISCARDSTTL:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueDiscardsTtl);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueDiscardsTtl, &len);
+                                      brokerQueueDiscardsTtl, &len);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSRING:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueDiscardsRing);
+    case COLUMN_brokerQUEUEDISCARDSRING:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueDiscardsRing);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueDiscardsRing, &len);
+                                      brokerQueueDiscardsRing, &len);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSLVQ:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueDiscardsLvq);
+    case COLUMN_brokerQUEUEDISCARDSLVQ:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueDiscardsLvq);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueDiscardsLvq, &len);
+                                      brokerQueueDiscardsLvq, &len);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSOVERFLOW:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueDiscardsOverflow);
+    case COLUMN_brokerQUEUEDISCARDSOVERFLOW:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueDiscardsOverflow);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueDiscardsOverflow, &len);
+                                      brokerQueueDiscardsOverflow, &len);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSSUBSCRIBER:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueDiscardsSubscriber);
+    case COLUMN_brokerQUEUEDISCARDSSUBSCRIBER:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueDiscardsSubscriber);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueDiscardsSubscriber, &len);
+                                      brokerQueueDiscardsSubscriber, &len);
         break;
 
-    case COLUMN_qpid010QUEUEDISCARDSPURGE:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueDiscardsPurge);
+    case COLUMN_brokerQUEUEDISCARDSPURGE:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueDiscardsPurge);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueDiscardsPurge, &len);
+                                      brokerQueueDiscardsPurge, &len);
         break;
 
-    case COLUMN_qpid010QUEUEREROUTES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010QueueReroutes);
+    case COLUMN_brokerQUEUEREROUTES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerQueueReroutes);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueReroutes, &len);
+                                      brokerQueueReroutes, &len);
         break;
 
-    case COLUMN_qpid010QUEUECONSUMERCOUNT:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueConsumerCount);
+    case COLUMN_brokerQUEUECONSUMERCOUNT:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueConsumerCount);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueConsumerCount, &len);
+                                      brokerQueueConsumerCount, &len);
         break;
 
-    case COLUMN_qpid010QUEUECONSUMERCOUNTHI:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueConsumerCountHi);
+    case COLUMN_brokerQUEUECONSUMERCOUNTHI:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueConsumerCountHi);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueConsumerCountHi, &len);
+                                      brokerQueueConsumerCountHi, &len);
         break;
 
-    case COLUMN_qpid010QUEUECONSUMERCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueConsumerCountLow);
+    case COLUMN_brokerQUEUECONSUMERCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueConsumerCountLow);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueConsumerCountLow, &len);
+                                      brokerQueueConsumerCountLow, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBINDINGCOUNT:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueBindingCount);
+    case COLUMN_brokerQUEUEBINDINGCOUNT:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueBindingCount);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueBindingCount, &len);
+                                      brokerQueueBindingCount, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBINDINGCOUNTHI:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueBindingCountHi);
+    case COLUMN_brokerQUEUEBINDINGCOUNTHI:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueBindingCountHi);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueBindingCountHi, &len);
+                                      brokerQueueBindingCountHi, &len);
         break;
 
-    case COLUMN_qpid010QUEUEBINDINGCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueBindingCountLow);
+    case COLUMN_brokerQUEUEBINDINGCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueBindingCountLow);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueBindingCountLow, &len);
+                                      brokerQueueBindingCountLow, &len);
         break;
 
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGES:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueUnackedMessages);
+    case COLUMN_brokerQUEUEUNACKEDMESSAGES:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueUnackedMessages);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueUnackedMessages, &len);
+                                      brokerQueueUnackedMessages, &len);
         break;
 
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGESHI:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueUnackedMessagesHi);
+    case COLUMN_brokerQUEUEUNACKEDMESSAGESHI:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueUnackedMessagesHi);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueUnackedMessagesHi, &len);
+                                      brokerQueueUnackedMessagesHi, &len);
         break;
 
-    case COLUMN_qpid010QUEUEUNACKEDMESSAGESLOW:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueUnackedMessagesLow);
+    case COLUMN_brokerQUEUEUNACKEDMESSAGESLOW:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueUnackedMessagesLow);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueUnackedMessagesLow, &len);
+                                      brokerQueueUnackedMessagesLow, &len);
         break;
 
-    case COLUMN_qpid010QUEUEMESSAGELATENCY:    /** TICKS = ASN_TIMETICKS */
-        len = sizeof(rowreq_ctx->data.qpid010QueueMessageLatency);
+    case COLUMN_brokerQUEUEMESSAGELATENCY:    /** TICKS = ASN_TIMETICKS */
+        len = sizeof(rowreq_ctx->data.brokerQueueMessageLatency);
         buf = read_config_read_memory(ASN_TIMETICKS, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueMessageLatency, &len);
+                                      brokerQueueMessageLatency, &len);
         break;
 
-    case COLUMN_qpid010QUEUEFLOWSTOPPED:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueFlowStopped);
+    case COLUMN_brokerQUEUEFLOWSTOPPED:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerQueueFlowStopped);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueFlowStopped, &len);
+                                      brokerQueueFlowStopped, &len);
         break;
 
-    case COLUMN_qpid010QUEUEFLOWSTOPPEDCOUNT:    /** COUNTER = ASN_COUNTER */
-        len = sizeof(rowreq_ctx->data.qpid010QueueFlowStoppedCount);
+    case COLUMN_brokerQUEUEFLOWSTOPPEDCOUNT:    /** COUNTER = ASN_COUNTER */
+        len = sizeof(rowreq_ctx->data.brokerQueueFlowStoppedCount);
         buf = read_config_read_memory(ASN_COUNTER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010QueueFlowStoppedCount, &len);
+                                      brokerQueueFlowStoppedCount, &len);
         break;
 
     default:/** We shouldn't get here */
         snmp_log(LOG_ERR, "unknown column %d in "
-                 "_qpid010QueueTable_container_col_restore\n", col);
+                 "_brokerQueueTable_container_col_restore\n", col);
         return NULL;
     }
 
@@ -3635,11 +3635,11 @@ _qpid010QueueTable_container_col_restore(qpid010QueueTable_rowreq_ctx *
 }
 
 
-qpid010QueueTable_rowreq_ctx *
-qpid010QueueTable_row_find_by_mib_index(qpid010QueueTable_mib_index *
+brokerQueueTable_rowreq_ctx *
+brokerQueueTable_row_find_by_mib_index(brokerQueueTable_mib_index *
                                        mib_idx)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx;
+    brokerQueueTable_rowreq_ctx *rowreq_ctx;
     oid             oid_tmp[MAX_OID_LEN];
     netsnmp_index   oid_idx;
     int             rc;
@@ -3653,13 +3653,13 @@ qpid010QueueTable_row_find_by_mib_index(qpid010QueueTable_mib_index *
     /*
      * convert
      */
-    rc = qpid010QueueTable_index_to_oid(&oid_idx, mib_idx);
+    rc = brokerQueueTable_index_to_oid(&oid_idx, mib_idx);
     if (MFD_SUCCESS != rc)
         return NULL;
 
     rowreq_ctx =
-        (qpid010QueueTable_rowreq_ctx *)
-        CONTAINER_FIND(qpid010QueueTable_if_ctx.container, &oid_idx);
+        (brokerQueueTable_rowreq_ctx *)
+        CONTAINER_FIND(brokerQueueTable_if_ctx.container, &oid_idx);
 
     return rowreq_ctx;
 }

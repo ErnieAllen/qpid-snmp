@@ -4,7 +4,7 @@
  *
  * $Id:$
  *
- * @file qpid010BridgeTable_data_get.h
+ * @file brokerBridgeTable_data_get.h
  *
  * @addtogroup get
  *
@@ -12,8 +12,8 @@
  *
  * @{
  */
-#ifndef qpid010BRIDGETABLE_DATA_GET_H
-#define qpid010BRIDGETABLE_DATA_GET_H
+#ifndef brokerBRIDGETABLE_DATA_GET_H
+#define brokerBRIDGETABLE_DATA_GET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -31,12 +31,12 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BridgeTable
+ *** Table brokerBridgeTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
+     * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
      */
@@ -44,74 +44,74 @@ extern          "C" {
      * indexes
      */
 
-    int             qpid010BridgeLinkRef_get(qpid010BridgeTable_rowreq_ctx *
+    int             brokerBridgeLinkRef_get(brokerBridgeTable_rowreq_ctx *
                                             rowreq_ctx,
                                             char
-                                            **qpid010BridgeLinkRef_val_ptr_ptr,
+                                            **brokerBridgeLinkRef_val_ptr_ptr,
                                             size_t
-                                            *qpid010BridgeLinkRef_val_ptr_len_ptr);
-    int             qpid010BridgeChannelId_get(qpid010BridgeTable_rowreq_ctx
+                                            *brokerBridgeLinkRef_val_ptr_len_ptr);
+    int             brokerBridgeChannelId_get(brokerBridgeTable_rowreq_ctx
                                               * rowreq_ctx,
                                               long
-                                              *qpid010BridgeChannelId_val_ptr);
-    int             qpid010BridgeDurable_get(qpid010BridgeTable_rowreq_ctx *
+                                              *brokerBridgeChannelId_val_ptr);
+    int             brokerBridgeDurable_get(brokerBridgeTable_rowreq_ctx *
                                             rowreq_ctx,
                                             u_long *
-                                            qpid010BridgeDurable_val_ptr);
-    int             qpid010BridgeSrc_get(qpid010BridgeTable_rowreq_ctx *
+                                            brokerBridgeDurable_val_ptr);
+    int             brokerBridgeSrc_get(brokerBridgeTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char **qpid010BridgeSrc_val_ptr_ptr,
+                                        char **brokerBridgeSrc_val_ptr_ptr,
                                         size_t
-                                        *qpid010BridgeSrc_val_ptr_len_ptr);
-    int             qpid010BridgeDest_get(qpid010BridgeTable_rowreq_ctx *
+                                        *brokerBridgeSrc_val_ptr_len_ptr);
+    int             brokerBridgeDest_get(brokerBridgeTable_rowreq_ctx *
                                          rowreq_ctx,
                                          char
-                                         **qpid010BridgeDest_val_ptr_ptr,
+                                         **brokerBridgeDest_val_ptr_ptr,
                                          size_t
-                                         *qpid010BridgeDest_val_ptr_len_ptr);
-    int             qpid010BridgeKey_get(qpid010BridgeTable_rowreq_ctx *
+                                         *brokerBridgeDest_val_ptr_len_ptr);
+    int             brokerBridgeKey_get(brokerBridgeTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char **qpid010BridgeKey_val_ptr_ptr,
+                                        char **brokerBridgeKey_val_ptr_ptr,
                                         size_t
-                                        *qpid010BridgeKey_val_ptr_len_ptr);
-    int             qpid010BridgeSrcIsQueue_get(qpid010BridgeTable_rowreq_ctx
+                                        *brokerBridgeKey_val_ptr_len_ptr);
+    int             brokerBridgeSrcIsQueue_get(brokerBridgeTable_rowreq_ctx
                                                * rowreq_ctx,
                                                u_long *
-                                               qpid010BridgeSrcIsQueue_val_ptr);
-    int             qpid010BridgeSrcIsLocal_get(qpid010BridgeTable_rowreq_ctx
+                                               brokerBridgeSrcIsQueue_val_ptr);
+    int             brokerBridgeSrcIsLocal_get(brokerBridgeTable_rowreq_ctx
                                                * rowreq_ctx,
                                                u_long *
-                                               qpid010BridgeSrcIsLocal_val_ptr);
-    int             qpid010BridgeTag_get(qpid010BridgeTable_rowreq_ctx *
+                                               brokerBridgeSrcIsLocal_val_ptr);
+    int             brokerBridgeTag_get(brokerBridgeTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char **qpid010BridgeTag_val_ptr_ptr,
+                                        char **brokerBridgeTag_val_ptr_ptr,
                                         size_t
-                                        *qpid010BridgeTag_val_ptr_len_ptr);
-    int             qpid010BridgeExcludes_get(qpid010BridgeTable_rowreq_ctx *
+                                        *brokerBridgeTag_val_ptr_len_ptr);
+    int             brokerBridgeExcludes_get(brokerBridgeTable_rowreq_ctx *
                                              rowreq_ctx,
                                              char
-                                             **qpid010BridgeExcludes_val_ptr_ptr,
+                                             **brokerBridgeExcludes_val_ptr_ptr,
                                              size_t
-                                             *qpid010BridgeExcludes_val_ptr_len_ptr);
-    int             qpid010BridgeDynamic_get(qpid010BridgeTable_rowreq_ctx *
+                                             *brokerBridgeExcludes_val_ptr_len_ptr);
+    int             brokerBridgeDynamic_get(brokerBridgeTable_rowreq_ctx *
                                             rowreq_ctx,
                                             u_long *
-                                            qpid010BridgeDynamic_val_ptr);
-    int             qpid010BridgeSync_get(qpid010BridgeTable_rowreq_ctx *
+                                            brokerBridgeDynamic_val_ptr);
+    int             brokerBridgeSync_get(brokerBridgeTable_rowreq_ctx *
                                          rowreq_ctx,
-                                         long *qpid010BridgeSync_val_ptr);
+                                         long *brokerBridgeSync_val_ptr);
 
 
     int            
-        qpid010BridgeTable_indexes_set_tbl_idx(qpid010BridgeTable_mib_index *
+        brokerBridgeTable_indexes_set_tbl_idx(brokerBridgeTable_mib_index *
                                               tbl_idx,
                                               u_long
-                                              qpid010BridgeInternalIndex_val);
+                                              brokerBridgeInternalIndex_val);
     int            
-        qpid010BridgeTable_indexes_set(qpid010BridgeTable_rowreq_ctx *
+        brokerBridgeTable_indexes_set(brokerBridgeTable_rowreq_ctx *
                                       rowreq_ctx,
                                       u_long
-                                      qpid010BridgeInternalIndex_val);
+                                      brokerBridgeInternalIndex_val);
 
 
 
@@ -119,5 +119,5 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BRIDGETABLE_DATA_GET_H */
+#endif                          /* brokerBRIDGETABLE_DATA_GET_H */
 /** @} */

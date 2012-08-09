@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010LinkTable
+/** \page MFD helper for brokerLinkTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -27,67 +27,67 @@
 
 #include "LinkTable_interface.h"
 
-const oid       qpid010LinkTable_oid[] = { QPID010LINKTABLE_OID };
+const oid       brokerLinkTable_oid[] = { brokerLINKTABLE_OID };
 
-const int       qpid010LinkTable_oid_size =
-OID_LENGTH(qpid010LinkTable_oid);
+const int       brokerLinkTable_oid_size =
+OID_LENGTH(brokerLinkTable_oid);
 
-qpid010LinkTable_registration qpid010LinkTable_user_context;
+brokerLinkTable_registration brokerLinkTable_user_context;
 
-void            initialize_table_qpid010LinkTable(void);
-void            shutdown_table_qpid010LinkTable(void);
+void            initialize_table_brokerLinkTable(void);
+void            shutdown_table_brokerLinkTable(void);
 
 
 /**
- * Initializes the qpid010LinkTable module
+ * Initializes the brokerLinkTable module
  */
 void
 init_LinkTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:init_qpid010LinkTable",
+    DEBUGMSGTL(("verbose:brokerLinkTable:init_brokerLinkTable",
                 "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010LinkTable one-time module initialization.
+     * TODO:300:o: Perform brokerLinkTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010LinkTable"))
-        initialize_table_qpid010LinkTable();
+    if (should_init("brokerLinkTable"))
+        initialize_table_brokerLinkTable();
 
-}                               /* init_qpid010LinkTable */
+}                               /* init_brokerLinkTable */
 
 /**
- * Shut-down the qpid010LinkTable module (agent is exiting)
+ * Shut-down the brokerLinkTable module (agent is exiting)
  */
 void
-shutdown_qpid010LinkTable(void)
+shutdown_brokerLinkTable(void)
 {
-    if (should_init("qpid010LinkTable"))
-        shutdown_table_qpid010LinkTable();
+    if (should_init("brokerLinkTable"))
+        shutdown_table_brokerLinkTable();
 
 }
 
 /**
- * Initialize the table qpid010LinkTable 
+ * Initialize the table brokerLinkTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010LinkTable(void)
+initialize_table_brokerLinkTable(void)
 {
-    qpid010LinkTable_registration *user_context;
+    brokerLinkTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:initialize_table_qpid010LinkTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerLinkTable:initialize_table_brokerLinkTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010LinkTable one-time table initialization.
+     * TODO:301:o: Perform brokerLinkTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010LinkTable user context
+     * TODO:302:o: |->Initialize brokerLinkTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -96,7 +96,7 @@ initialize_table_qpid010LinkTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010LinkTable", NULL, NULL);
+        netsnmp_create_data_list("brokerLinkTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -107,19 +107,19 @@ initialize_table_qpid010LinkTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010LinkTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010LinkTable */
+    _brokerLinkTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerLinkTable */
 
 /**
- * Shutdown the table qpid010LinkTable 
+ * Shutdown the table brokerLinkTable 
  */
 void
-shutdown_table_qpid010LinkTable(void)
+shutdown_table_brokerLinkTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010LinkTable_shutdown_interface(&qpid010LinkTable_user_context);
+    _brokerLinkTable_shutdown_interface(&brokerLinkTable_user_context);
 }
 
 /**
@@ -132,44 +132,44 @@ shutdown_table_qpid010LinkTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010LinkTable_rowreq_ctx_init(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
+brokerLinkTable_rowreq_ctx_init(brokerLinkTable_rowreq_ctx * rowreq_ctx,
                                  void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:210:o: |-> Perform extra qpid010LinkTable rowreq initialization. (eg DEFVALS)
+     * TODO:210:o: |-> Perform extra brokerLinkTable rowreq initialization. (eg DEFVALS)
      */
 
-    rowreq_ctx->data.qpid010LinkVhostRef_len = 255;
-    rowreq_ctx->data.qpid010LinkName_len = 255;
-    rowreq_ctx->data.qpid010LinkHost_len = 255;
-    rowreq_ctx->data.qpid010LinkTransport_len = 255;
-    rowreq_ctx->data.qpid010LinkConnectionRef_len = 255;
-    rowreq_ctx->data.qpid010LinkState_len = 255;
-    rowreq_ctx->data.qpid010LinkLastError_len = 65535;
+    rowreq_ctx->data.brokerLinkVhostRef_len = 255;
+    rowreq_ctx->data.brokerLinkName_len = 255;
+    rowreq_ctx->data.brokerLinkHost_len = 255;
+    rowreq_ctx->data.brokerLinkTransport_len = 255;
+    rowreq_ctx->data.brokerLinkConnectionRef_len = 255;
+    rowreq_ctx->data.brokerLinkState_len = 255;
+    rowreq_ctx->data.brokerLinkLastError_len = 65535;
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTable_rowreq_ctx_init */
+}                               /* brokerLinkTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010LinkTable_rowreq_ctx_cleanup(qpid010LinkTable_rowreq_ctx *
+brokerLinkTable_rowreq_ctx_cleanup(brokerLinkTable_rowreq_ctx *
                                     rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010LinkTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerLinkTable rowreq cleanup.
      */
-}                               /* qpid010LinkTable_rowreq_ctx_cleanup */
+}                               /* brokerLinkTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -183,7 +183,7 @@ qpid010LinkTable_rowreq_ctx_cleanup(qpid010LinkTable_rowreq_ctx *
  * return 0 if the row should not be stored
  */
 int
-qpid010LinkTable_container_should_save(qpid010LinkTable_rowreq_ctx *
+brokerLinkTable_container_should_save(brokerLinkTable_rowreq_ctx *
                                        rowreq_ctx)
 {
 
@@ -198,17 +198,17 @@ qpid010LinkTable_container_should_save(qpid010LinkTable_rowreq_ctx *
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010LinkTable_pre_request(qpid010LinkTable_registration * user_context)
+brokerLinkTable_pre_request(brokerLinkTable_registration * user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_pre_request",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_pre_request",
                 "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010LinkTable pre-request actions.
+     * TODO:510:o: Perform brokerLinkTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTable_pre_request */
+}                               /* brokerLinkTable_pre_request */
 
 /**
  * post-request callback
@@ -225,20 +225,20 @@ qpid010LinkTable_pre_request(qpid010LinkTable_registration * user_context)
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010LinkTable_post_request(qpid010LinkTable_registration * user_context,
+brokerLinkTable_post_request(brokerLinkTable_registration * user_context,
                               int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_post_request",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_post_request",
                 "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010LinkTable post-request actions.
+     * TODO:511:o: Perform brokerLinkTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010LinkTable_dirty_get()) {
+    if (brokerLinkTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -251,11 +251,11 @@ qpid010LinkTable_post_request(qpid010LinkTable_registration * user_context,
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010LinkTable_dirty_set(0);  /* clear table dirty flag */
+        brokerLinkTable_dirty_set(0);  /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkTable_post_request */
+}                               /* brokerLinkTable_post_request */
 
 
 /** @{ */

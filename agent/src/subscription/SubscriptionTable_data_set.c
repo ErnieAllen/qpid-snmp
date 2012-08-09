@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SubscriptionTable
+ *** Table brokerSubscriptionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
+ * QPID-MESSAGING-MIB::brokerSubscriptionTable is subid 1 of brokerSubscriptions.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010SubscriptionTable_allocate_data(), but may need extra
+ * brokerSubscriptionTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010SubscriptionTable_rowreq_ctx_init().
+ * brokerSubscriptionTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,30 +125,30 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010SubscriptionTable_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_undo_setup(brokerSubscriptionTable_rowreq_ctx *
                                    rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_undo_setup", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010SubscriptionTable undo.
-     * set up qpid010SubscriptionTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010SubscriptionDelivered_val_ptr )*
+     * TODO:451:M: |-> Setup brokerSubscriptionTable undo.
+     * set up brokerSubscriptionTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerSubscriptionDelivered_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010SubscriptionTable_undo_setup */
+}                               /* brokerSubscriptionTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -165,30 +165,30 @@ qpid010SubscriptionTable_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010SubscriptionTable_undo(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_undo(brokerSubscriptionTable_rowreq_ctx *
                              rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_undo", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010SubscriptionTable undo.
-     * qpid010SubscriptionTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010SubscriptionDelivered_val_ptr )*
+     * TODO:451:M: |-> brokerSubscriptionTable undo.
+     * brokerSubscriptionTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerSubscriptionDelivered_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010SubscriptionTable_undo_setup */
+}                               /* brokerSubscriptionTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -202,29 +202,29 @@ qpid010SubscriptionTable_undo(qpid010SubscriptionTable_rowreq_ctx *
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010SubscriptionTable_undo_cleanup(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_undo_cleanup(brokerSubscriptionTable_rowreq_ctx *
                                      rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_undo_cleanup", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010SubscriptionTable undo.
-     * Undo storage is in (* qpid010SubscriptionDelivered_val_ptr )*
+     * TODO:452:M: |-> Cleanup brokerSubscriptionTable undo.
+     * Undo storage is in (* brokerSubscriptionDelivered_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010SubscriptionTable_undo_cleanup */
+}                               /* brokerSubscriptionTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -235,23 +235,23 @@ qpid010SubscriptionTable_undo_cleanup(qpid010SubscriptionTable_rowreq_ctx *
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010SubscriptionTable_oids.h.
+ * brokerSubscriptionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010SubscriptionTable_rowreq_ctx
+ * @param brokerSubscriptionTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010SubscriptionTable_commit(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_commit(brokerSubscriptionTable_rowreq_ctx *
                                rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_commit", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_commit", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
@@ -263,135 +263,135 @@ qpid010SubscriptionTable_commit(qpid010SubscriptionTable_rowreq_ctx *
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010SubscriptionTable data
+     * commit brokerSubscriptionTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010SUBSCRIPTIONSESSIONREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010SUBSCRIPTIONSESSIONREF_FLAG;        /* clear qpid010SubscriptionSessionRef */
+    if (save_flags & COLUMN_brokerSUBSCRIPTIONSESSIONREF_FLAG) {
+        save_flags &= ~COLUMN_brokerSUBSCRIPTIONSESSIONREF_FLAG;        /* clear brokerSubscriptionSessionRef */
         /*
-         * TODO:482:o: |-> commit column qpid010SubscriptionSessionRef.
+         * TODO:482:o: |-> commit column brokerSubscriptionSessionRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SubscriptionTable column qpid010SubscriptionSessionRef commit failed\n");
+                     "brokerSubscriptionTable column brokerSubscriptionSessionRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SubscriptionSessionRef
+             * set flag, in case we need to undo brokerSubscriptionSessionRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010SUBSCRIPTIONSESSIONREF_FLAG;
+                COLUMN_brokerSUBSCRIPTIONSESSIONREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010SUBSCRIPTIONQUEUEREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010SUBSCRIPTIONQUEUEREF_FLAG;  /* clear qpid010SubscriptionQueueRef */
+    if (save_flags & COLUMN_brokerSUBSCRIPTIONQUEUEREF_FLAG) {
+        save_flags &= ~COLUMN_brokerSUBSCRIPTIONQUEUEREF_FLAG;  /* clear brokerSubscriptionQueueRef */
         /*
-         * TODO:482:o: |-> commit column qpid010SubscriptionQueueRef.
+         * TODO:482:o: |-> commit column brokerSubscriptionQueueRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SubscriptionTable column qpid010SubscriptionQueueRef commit failed\n");
+                     "brokerSubscriptionTable column brokerSubscriptionQueueRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SubscriptionQueueRef
+             * set flag, in case we need to undo brokerSubscriptionQueueRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010SUBSCRIPTIONQUEUEREF_FLAG;
+                COLUMN_brokerSUBSCRIPTIONQUEUEREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010SUBSCRIPTIONNAME_FLAG) {
-        save_flags &= ~COLUMN_qpid010SUBSCRIPTIONNAME_FLAG;      /* clear qpid010SubscriptionName */
+    if (save_flags & COLUMN_brokerSUBSCRIPTIONNAME_FLAG) {
+        save_flags &= ~COLUMN_brokerSUBSCRIPTIONNAME_FLAG;      /* clear brokerSubscriptionName */
         /*
-         * TODO:482:o: |-> commit column qpid010SubscriptionName.
+         * TODO:482:o: |-> commit column brokerSubscriptionName.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SubscriptionTable column qpid010SubscriptionName commit failed\n");
+                     "brokerSubscriptionTable column brokerSubscriptionName commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SubscriptionName
+             * set flag, in case we need to undo brokerSubscriptionName
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010SUBSCRIPTIONNAME_FLAG;
+                COLUMN_brokerSUBSCRIPTIONNAME_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010SUBSCRIPTIONBROWSING_FLAG) {
-        save_flags &= ~COLUMN_qpid010SUBSCRIPTIONBROWSING_FLAG;  /* clear qpid010SubscriptionBrowsing */
+    if (save_flags & COLUMN_brokerSUBSCRIPTIONBROWSING_FLAG) {
+        save_flags &= ~COLUMN_brokerSUBSCRIPTIONBROWSING_FLAG;  /* clear brokerSubscriptionBrowsing */
         /*
-         * TODO:482:o: |-> commit column qpid010SubscriptionBrowsing.
+         * TODO:482:o: |-> commit column brokerSubscriptionBrowsing.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SubscriptionTable column qpid010SubscriptionBrowsing commit failed\n");
+                     "brokerSubscriptionTable column brokerSubscriptionBrowsing commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SubscriptionBrowsing
+             * set flag, in case we need to undo brokerSubscriptionBrowsing
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010SUBSCRIPTIONBROWSING_FLAG;
+                COLUMN_brokerSUBSCRIPTIONBROWSING_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED_FLAG) {
-        save_flags &= ~COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED_FLAG;      /* clear qpid010SubscriptionAcknowledged */
+    if (save_flags & COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED_FLAG) {
+        save_flags &= ~COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED_FLAG;      /* clear brokerSubscriptionAcknowledged */
         /*
-         * TODO:482:o: |-> commit column qpid010SubscriptionAcknowledged.
+         * TODO:482:o: |-> commit column brokerSubscriptionAcknowledged.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SubscriptionTable column qpid010SubscriptionAcknowledged commit failed\n");
+                     "brokerSubscriptionTable column brokerSubscriptionAcknowledged commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SubscriptionAcknowledged
+             * set flag, in case we need to undo brokerSubscriptionAcknowledged
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010SUBSCRIPTIONACKNOWLEDGED_FLAG;
+                COLUMN_brokerSUBSCRIPTIONACKNOWLEDGED_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE_FLAG) {
-        save_flags &= ~COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE_FLAG; /* clear qpid010SubscriptionExclusive */
+    if (save_flags & COLUMN_brokerSUBSCRIPTIONEXCLUSIVE_FLAG) {
+        save_flags &= ~COLUMN_brokerSUBSCRIPTIONEXCLUSIVE_FLAG; /* clear brokerSubscriptionExclusive */
         /*
-         * TODO:482:o: |-> commit column qpid010SubscriptionExclusive.
+         * TODO:482:o: |-> commit column brokerSubscriptionExclusive.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SubscriptionTable column qpid010SubscriptionExclusive commit failed\n");
+                     "brokerSubscriptionTable column brokerSubscriptionExclusive commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SubscriptionExclusive
+             * set flag, in case we need to undo brokerSubscriptionExclusive
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010SUBSCRIPTIONEXCLUSIVE_FLAG;
+                COLUMN_brokerSUBSCRIPTIONEXCLUSIVE_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010SUBSCRIPTIONARGUMENTS_FLAG) {
-        save_flags &= ~COLUMN_qpid010SUBSCRIPTIONARGUMENTS_FLAG; /* clear qpid010SubscriptionArguments */
+    if (save_flags & COLUMN_brokerSUBSCRIPTIONARGUMENTS_FLAG) {
+        save_flags &= ~COLUMN_brokerSUBSCRIPTIONARGUMENTS_FLAG; /* clear brokerSubscriptionArguments */
         /*
-         * TODO:482:o: |-> commit column qpid010SubscriptionArguments.
+         * TODO:482:o: |-> commit column brokerSubscriptionArguments.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SubscriptionTable column qpid010SubscriptionArguments commit failed\n");
+                     "brokerSubscriptionTable column brokerSubscriptionArguments commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SubscriptionArguments
+             * set flag, in case we need to undo brokerSubscriptionArguments
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010SUBSCRIPTIONARGUMENTS_FLAG;
+                COLUMN_brokerSUBSCRIPTIONARGUMENTS_FLAG;
         }
     }
 
@@ -409,7 +409,7 @@ qpid010SubscriptionTable_commit(qpid010SubscriptionTable_rowreq_ctx *
     }
 
     return rc;
-}                               /* qpid010SubscriptionTable_commit */
+}                               /* brokerSubscriptionTable_commit */
 
 /**
  * undo commit new values.
@@ -417,28 +417,28 @@ qpid010SubscriptionTable_commit(qpid010SubscriptionTable_rowreq_ctx *
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010SubscriptionTable_oids.h.
+ * brokerSubscriptionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010SubscriptionTable_rowreq_ctx
+ * @param brokerSubscriptionTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010SubscriptionTable_undo_commit(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_undo_commit(brokerSubscriptionTable_rowreq_ctx *
                                     rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_undo_commit", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010SubscriptionTable commit.
+     * TODO:485:M: |-> Undo brokerSubscriptionTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -454,17 +454,17 @@ qpid010SubscriptionTable_undo_commit(qpid010SubscriptionTable_rowreq_ctx *
     }
 
     return rc;
-}                               /* qpid010SubscriptionTable_undo_commit */
+}                               /* brokerSubscriptionTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010SubscriptionTable node value checks.
- * TODO:450:M: Implement qpid010SubscriptionTable undo functions.
- * TODO:460:M: Implement qpid010SubscriptionTable set functions.
- * TODO:480:M: Implement qpid010SubscriptionTable commit functions.
+ * TODO:440:M: Implement brokerSubscriptionTable node value checks.
+ * TODO:450:M: Implement brokerSubscriptionTable undo functions.
+ * TODO:460:M: Implement brokerSubscriptionTable set functions.
+ * TODO:480:M: Implement brokerSubscriptionTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionSessionRef
- * qpid010SubscriptionSessionRef is subid 1 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionSessionRef
+ * brokerSubscriptionSessionRef is subid 1 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.1
  * Description:
@@ -488,10 +488,10 @@ Subscription sessionRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionSessionRef_val_ptr
+ * @param brokerSubscriptionSessionRef_val_ptr
  *        A char containing the new value.
- * @param qpid010SubscriptionSessionRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SubscriptionSessionRef_val_ptr
+ * @param brokerSubscriptionSessionRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSubscriptionSessionRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -514,48 +514,48 @@ Subscription sessionRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SubscriptionTable_check_dependencies() function.
+ * brokerSubscriptionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010SubscriptionSessionRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerSubscriptionSessionRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010SubscriptionSessionRef_check_value(qpid010SubscriptionTable_rowreq_ctx
+brokerSubscriptionSessionRef_check_value(brokerSubscriptionTable_rowreq_ctx
                                          * rowreq_ctx,
                                          char
-                                         *qpid010SubscriptionSessionRef_val_ptr,
+                                         *brokerSubscriptionSessionRef_val_ptr,
                                          size_t
-                                         qpid010SubscriptionSessionRef_val_ptr_len)
+                                         brokerSubscriptionSessionRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionSessionRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionSessionRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SubscriptionSessionRef_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionSessionRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SubscriptionSessionRef value.
+     * TODO:441:o: |-> Check for valid brokerSubscriptionSessionRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SubscriptionSessionRef value not illegal */
-}                               /* qpid010SubscriptionSessionRef_check_value */
+    return MFD_SUCCESS;         /* brokerSubscriptionSessionRef value not illegal */
+}                               /* brokerSubscriptionSessionRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SubscriptionTable_undo_setup has been called.
+ * brokerSubscriptionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -565,31 +565,31 @@ qpid010SubscriptionSessionRef_check_value(qpid010SubscriptionTable_rowreq_ctx
  * won't be done unless it is necessary.
  */
 int
-qpid010SubscriptionSessionRef_undo_setup(qpid010SubscriptionTable_rowreq_ctx
+brokerSubscriptionSessionRef_undo_setup(brokerSubscriptionTable_rowreq_ctx
                                         * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionSessionRef_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionSessionRef_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SubscriptionSessionRef undo.
+     * TODO:455:o: |-> Setup brokerSubscriptionSessionRef undo.
      */
     /*
-     * copy qpid010SubscriptionSessionRef and qpid010SubscriptionSessionRef_len data
-     * set rowreq_ctx->undo->qpid010SubscriptionSessionRef from rowreq_ctx->data.qpid010SubscriptionSessionRef
+     * copy brokerSubscriptionSessionRef and brokerSubscriptionSessionRef_len data
+     * set rowreq_ctx->undo->brokerSubscriptionSessionRef from rowreq_ctx->data.brokerSubscriptionSessionRef
      */
-    memcpy(rowreq_ctx->undo->qpid010SubscriptionSessionRef,
-           rowreq_ctx->data.qpid010SubscriptionSessionRef,
-           (rowreq_ctx->data.qpid010SubscriptionSessionRef_len *
-            sizeof(rowreq_ctx->undo->qpid010SubscriptionSessionRef[0])));
-    rowreq_ctx->undo->qpid010SubscriptionSessionRef_len =
-        rowreq_ctx->data.qpid010SubscriptionSessionRef_len;
+    memcpy(rowreq_ctx->undo->brokerSubscriptionSessionRef,
+           rowreq_ctx->data.brokerSubscriptionSessionRef,
+           (rowreq_ctx->data.brokerSubscriptionSessionRef_len *
+            sizeof(rowreq_ctx->undo->brokerSubscriptionSessionRef[0])));
+    rowreq_ctx->undo->brokerSubscriptionSessionRef_len =
+        rowreq_ctx->data.brokerSubscriptionSessionRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionSessionRef_undo_setup */
+}                               /* brokerSubscriptionSessionRef_undo_setup */
 
 /**
  * Set the new value.
@@ -597,40 +597,40 @@ qpid010SubscriptionSessionRef_undo_setup(qpid010SubscriptionTable_rowreq_ctx
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SubscriptionSessionRef_val_ptr
+ * @param brokerSubscriptionSessionRef_val_ptr
  *        A char containing the new value.
- * @param qpid010SubscriptionSessionRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SubscriptionSessionRef_val_ptr
+ * @param brokerSubscriptionSessionRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSubscriptionSessionRef_val_ptr
  */
 int
-qpid010SubscriptionSessionRef_set(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionSessionRef_set(brokerSubscriptionTable_rowreq_ctx *
                                  rowreq_ctx,
                                  char
-                                 *qpid010SubscriptionSessionRef_val_ptr,
+                                 *brokerSubscriptionSessionRef_val_ptr,
                                  size_t
-                                 qpid010SubscriptionSessionRef_val_ptr_len)
+                                 brokerSubscriptionSessionRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionSessionRef_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionSessionRef_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SubscriptionSessionRef_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionSessionRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010SubscriptionSessionRef value.
-     * set qpid010SubscriptionSessionRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSubscriptionSessionRef value.
+     * set brokerSubscriptionSessionRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010SubscriptionSessionRef,
-           qpid010SubscriptionSessionRef_val_ptr,
-           qpid010SubscriptionSessionRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerSubscriptionSessionRef,
+           brokerSubscriptionSessionRef_val_ptr,
+           brokerSubscriptionSessionRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010SubscriptionSessionRef_len =
-        qpid010SubscriptionSessionRef_val_ptr_len /
-        sizeof(qpid010SubscriptionSessionRef_val_ptr[0]);
+    rowreq_ctx->data.brokerSubscriptionSessionRef_len =
+        brokerSubscriptionSessionRef_val_ptr_len /
+        sizeof(brokerSubscriptionSessionRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionSessionRef_set */
+}                               /* brokerSubscriptionSessionRef_set */
 
 /**
  * undo the previous set.
@@ -639,35 +639,35 @@ qpid010SubscriptionSessionRef_set(qpid010SubscriptionTable_rowreq_ctx *
  *        Pointer to the users context.
  */
 int
-qpid010SubscriptionSessionRef_undo(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionSessionRef_undo(brokerSubscriptionTable_rowreq_ctx *
                                   rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionSessionRef_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionSessionRef_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SubscriptionSessionRef undo.
+     * TODO:456:o: |-> Clean up brokerSubscriptionSessionRef undo.
      */
     /*
-     * copy qpid010SubscriptionSessionRef and qpid010SubscriptionSessionRef_len data
-     * set rowreq_ctx->data.qpid010SubscriptionSessionRef from rowreq_ctx->undo->qpid010SubscriptionSessionRef
+     * copy brokerSubscriptionSessionRef and brokerSubscriptionSessionRef_len data
+     * set rowreq_ctx->data.brokerSubscriptionSessionRef from rowreq_ctx->undo->brokerSubscriptionSessionRef
      */
-    memcpy(rowreq_ctx->data.qpid010SubscriptionSessionRef,
-           rowreq_ctx->undo->qpid010SubscriptionSessionRef,
-           (rowreq_ctx->undo->qpid010SubscriptionSessionRef_len *
-            sizeof(rowreq_ctx->data.qpid010SubscriptionSessionRef[0])));
-    rowreq_ctx->data.qpid010SubscriptionSessionRef_len =
-        rowreq_ctx->undo->qpid010SubscriptionSessionRef_len;
+    memcpy(rowreq_ctx->data.brokerSubscriptionSessionRef,
+           rowreq_ctx->undo->brokerSubscriptionSessionRef,
+           (rowreq_ctx->undo->brokerSubscriptionSessionRef_len *
+            sizeof(rowreq_ctx->data.brokerSubscriptionSessionRef[0])));
+    rowreq_ctx->data.brokerSubscriptionSessionRef_len =
+        rowreq_ctx->undo->brokerSubscriptionSessionRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionSessionRef_undo */
+}                               /* brokerSubscriptionSessionRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionQueueRef
- * qpid010SubscriptionQueueRef is subid 2 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionQueueRef
+ * brokerSubscriptionQueueRef is subid 2 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.2
  * Description:
@@ -691,10 +691,10 @@ Subscription queueRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionQueueRef_val_ptr
+ * @param brokerSubscriptionQueueRef_val_ptr
  *        A char containing the new value.
- * @param qpid010SubscriptionQueueRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SubscriptionQueueRef_val_ptr
+ * @param brokerSubscriptionQueueRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSubscriptionQueueRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -717,48 +717,48 @@ Subscription queueRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SubscriptionTable_check_dependencies() function.
+ * brokerSubscriptionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010SubscriptionQueueRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerSubscriptionQueueRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010SubscriptionQueueRef_check_value(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionQueueRef_check_value(brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx,
                                        char
-                                       *qpid010SubscriptionQueueRef_val_ptr,
+                                       *brokerSubscriptionQueueRef_val_ptr,
                                        size_t
-                                       qpid010SubscriptionQueueRef_val_ptr_len)
+                                       brokerSubscriptionQueueRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionQueueRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionQueueRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SubscriptionQueueRef_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionQueueRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SubscriptionQueueRef value.
+     * TODO:441:o: |-> Check for valid brokerSubscriptionQueueRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SubscriptionQueueRef value not illegal */
-}                               /* qpid010SubscriptionQueueRef_check_value */
+    return MFD_SUCCESS;         /* brokerSubscriptionQueueRef value not illegal */
+}                               /* brokerSubscriptionQueueRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SubscriptionTable_undo_setup has been called.
+ * brokerSubscriptionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -768,31 +768,31 @@ qpid010SubscriptionQueueRef_check_value(qpid010SubscriptionTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010SubscriptionQueueRef_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionQueueRef_undo_setup(brokerSubscriptionTable_rowreq_ctx *
                                       rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionQueueRef_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionQueueRef_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SubscriptionQueueRef undo.
+     * TODO:455:o: |-> Setup brokerSubscriptionQueueRef undo.
      */
     /*
-     * copy qpid010SubscriptionQueueRef and qpid010SubscriptionQueueRef_len data
-     * set rowreq_ctx->undo->qpid010SubscriptionQueueRef from rowreq_ctx->data.qpid010SubscriptionQueueRef
+     * copy brokerSubscriptionQueueRef and brokerSubscriptionQueueRef_len data
+     * set rowreq_ctx->undo->brokerSubscriptionQueueRef from rowreq_ctx->data.brokerSubscriptionQueueRef
      */
-    memcpy(rowreq_ctx->undo->qpid010SubscriptionQueueRef,
-           rowreq_ctx->data.qpid010SubscriptionQueueRef,
-           (rowreq_ctx->data.qpid010SubscriptionQueueRef_len *
-            sizeof(rowreq_ctx->undo->qpid010SubscriptionQueueRef[0])));
-    rowreq_ctx->undo->qpid010SubscriptionQueueRef_len =
-        rowreq_ctx->data.qpid010SubscriptionQueueRef_len;
+    memcpy(rowreq_ctx->undo->brokerSubscriptionQueueRef,
+           rowreq_ctx->data.brokerSubscriptionQueueRef,
+           (rowreq_ctx->data.brokerSubscriptionQueueRef_len *
+            sizeof(rowreq_ctx->undo->brokerSubscriptionQueueRef[0])));
+    rowreq_ctx->undo->brokerSubscriptionQueueRef_len =
+        rowreq_ctx->data.brokerSubscriptionQueueRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionQueueRef_undo_setup */
+}                               /* brokerSubscriptionQueueRef_undo_setup */
 
 /**
  * Set the new value.
@@ -800,39 +800,39 @@ qpid010SubscriptionQueueRef_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SubscriptionQueueRef_val_ptr
+ * @param brokerSubscriptionQueueRef_val_ptr
  *        A char containing the new value.
- * @param qpid010SubscriptionQueueRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SubscriptionQueueRef_val_ptr
+ * @param brokerSubscriptionQueueRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSubscriptionQueueRef_val_ptr
  */
 int
-qpid010SubscriptionQueueRef_set(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionQueueRef_set(brokerSubscriptionTable_rowreq_ctx *
                                rowreq_ctx,
-                               char *qpid010SubscriptionQueueRef_val_ptr,
+                               char *brokerSubscriptionQueueRef_val_ptr,
                                size_t
-                               qpid010SubscriptionQueueRef_val_ptr_len)
+                               brokerSubscriptionQueueRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionQueueRef_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionQueueRef_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SubscriptionQueueRef_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionQueueRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010SubscriptionQueueRef value.
-     * set qpid010SubscriptionQueueRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSubscriptionQueueRef value.
+     * set brokerSubscriptionQueueRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010SubscriptionQueueRef,
-           qpid010SubscriptionQueueRef_val_ptr,
-           qpid010SubscriptionQueueRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerSubscriptionQueueRef,
+           brokerSubscriptionQueueRef_val_ptr,
+           brokerSubscriptionQueueRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010SubscriptionQueueRef_len =
-        qpid010SubscriptionQueueRef_val_ptr_len /
-        sizeof(qpid010SubscriptionQueueRef_val_ptr[0]);
+    rowreq_ctx->data.brokerSubscriptionQueueRef_len =
+        brokerSubscriptionQueueRef_val_ptr_len /
+        sizeof(brokerSubscriptionQueueRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionQueueRef_set */
+}                               /* brokerSubscriptionQueueRef_set */
 
 /**
  * undo the previous set.
@@ -841,35 +841,35 @@ qpid010SubscriptionQueueRef_set(qpid010SubscriptionTable_rowreq_ctx *
  *        Pointer to the users context.
  */
 int
-qpid010SubscriptionQueueRef_undo(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionQueueRef_undo(brokerSubscriptionTable_rowreq_ctx *
                                 rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionQueueRef_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionQueueRef_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SubscriptionQueueRef undo.
+     * TODO:456:o: |-> Clean up brokerSubscriptionQueueRef undo.
      */
     /*
-     * copy qpid010SubscriptionQueueRef and qpid010SubscriptionQueueRef_len data
-     * set rowreq_ctx->data.qpid010SubscriptionQueueRef from rowreq_ctx->undo->qpid010SubscriptionQueueRef
+     * copy brokerSubscriptionQueueRef and brokerSubscriptionQueueRef_len data
+     * set rowreq_ctx->data.brokerSubscriptionQueueRef from rowreq_ctx->undo->brokerSubscriptionQueueRef
      */
-    memcpy(rowreq_ctx->data.qpid010SubscriptionQueueRef,
-           rowreq_ctx->undo->qpid010SubscriptionQueueRef,
-           (rowreq_ctx->undo->qpid010SubscriptionQueueRef_len *
-            sizeof(rowreq_ctx->data.qpid010SubscriptionQueueRef[0])));
-    rowreq_ctx->data.qpid010SubscriptionQueueRef_len =
-        rowreq_ctx->undo->qpid010SubscriptionQueueRef_len;
+    memcpy(rowreq_ctx->data.brokerSubscriptionQueueRef,
+           rowreq_ctx->undo->brokerSubscriptionQueueRef,
+           (rowreq_ctx->undo->brokerSubscriptionQueueRef_len *
+            sizeof(rowreq_ctx->data.brokerSubscriptionQueueRef[0])));
+    rowreq_ctx->data.brokerSubscriptionQueueRef_len =
+        rowreq_ctx->undo->brokerSubscriptionQueueRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionQueueRef_undo */
+}                               /* brokerSubscriptionQueueRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionName
- * qpid010SubscriptionName is subid 3 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionName
+ * brokerSubscriptionName is subid 3 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.3
  * Description:
@@ -893,10 +893,10 @@ Subscription name
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionName_val_ptr
+ * @param brokerSubscriptionName_val_ptr
  *        A char containing the new value.
- * @param qpid010SubscriptionName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SubscriptionName_val_ptr
+ * @param brokerSubscriptionName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSubscriptionName_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -919,47 +919,47 @@ Subscription name
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SubscriptionTable_check_dependencies() function.
+ * brokerSubscriptionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010SubscriptionName).
+ *    The length is < sizeof(rowreq_ctx->data.brokerSubscriptionName).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010SubscriptionName_check_value(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionName_check_value(brokerSubscriptionTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   char *qpid010SubscriptionName_val_ptr,
+                                   char *brokerSubscriptionName_val_ptr,
                                    size_t
-                                   qpid010SubscriptionName_val_ptr_len)
+                                   brokerSubscriptionName_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionName_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionName_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SubscriptionName_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionName_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SubscriptionName value.
+     * TODO:441:o: |-> Check for valid brokerSubscriptionName value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SubscriptionName value not illegal */
-}                               /* qpid010SubscriptionName_check_value */
+    return MFD_SUCCESS;         /* brokerSubscriptionName value not illegal */
+}                               /* brokerSubscriptionName_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SubscriptionTable_undo_setup has been called.
+ * brokerSubscriptionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -969,31 +969,31 @@ qpid010SubscriptionName_check_value(qpid010SubscriptionTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010SubscriptionName_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionName_undo_setup(brokerSubscriptionTable_rowreq_ctx *
                                   rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionName_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionName_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SubscriptionName undo.
+     * TODO:455:o: |-> Setup brokerSubscriptionName undo.
      */
     /*
-     * copy qpid010SubscriptionName and qpid010SubscriptionName_len data
-     * set rowreq_ctx->undo->qpid010SubscriptionName from rowreq_ctx->data.qpid010SubscriptionName
+     * copy brokerSubscriptionName and brokerSubscriptionName_len data
+     * set rowreq_ctx->undo->brokerSubscriptionName from rowreq_ctx->data.brokerSubscriptionName
      */
-    memcpy(rowreq_ctx->undo->qpid010SubscriptionName,
-           rowreq_ctx->data.qpid010SubscriptionName,
-           (rowreq_ctx->data.qpid010SubscriptionName_len *
-            sizeof(rowreq_ctx->undo->qpid010SubscriptionName[0])));
-    rowreq_ctx->undo->qpid010SubscriptionName_len =
-        rowreq_ctx->data.qpid010SubscriptionName_len;
+    memcpy(rowreq_ctx->undo->brokerSubscriptionName,
+           rowreq_ctx->data.brokerSubscriptionName,
+           (rowreq_ctx->data.brokerSubscriptionName_len *
+            sizeof(rowreq_ctx->undo->brokerSubscriptionName[0])));
+    rowreq_ctx->undo->brokerSubscriptionName_len =
+        rowreq_ctx->data.brokerSubscriptionName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionName_undo_setup */
+}                               /* brokerSubscriptionName_undo_setup */
 
 /**
  * Set the new value.
@@ -1001,37 +1001,37 @@ qpid010SubscriptionName_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SubscriptionName_val_ptr
+ * @param brokerSubscriptionName_val_ptr
  *        A char containing the new value.
- * @param qpid010SubscriptionName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SubscriptionName_val_ptr
+ * @param brokerSubscriptionName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSubscriptionName_val_ptr
  */
 int
-qpid010SubscriptionName_set(qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
-                           char *qpid010SubscriptionName_val_ptr,
-                           size_t qpid010SubscriptionName_val_ptr_len)
+brokerSubscriptionName_set(brokerSubscriptionTable_rowreq_ctx * rowreq_ctx,
+                           char *brokerSubscriptionName_val_ptr,
+                           size_t brokerSubscriptionName_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionName_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionName_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SubscriptionName_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionName_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010SubscriptionName value.
-     * set qpid010SubscriptionName value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSubscriptionName value.
+     * set brokerSubscriptionName value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010SubscriptionName,
-           qpid010SubscriptionName_val_ptr,
-           qpid010SubscriptionName_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerSubscriptionName,
+           brokerSubscriptionName_val_ptr,
+           brokerSubscriptionName_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010SubscriptionName_len =
-        qpid010SubscriptionName_val_ptr_len /
-        sizeof(qpid010SubscriptionName_val_ptr[0]);
+    rowreq_ctx->data.brokerSubscriptionName_len =
+        brokerSubscriptionName_val_ptr_len /
+        sizeof(brokerSubscriptionName_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionName_set */
+}                               /* brokerSubscriptionName_set */
 
 /**
  * undo the previous set.
@@ -1040,35 +1040,35 @@ qpid010SubscriptionName_set(qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010SubscriptionName_undo(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionName_undo(brokerSubscriptionTable_rowreq_ctx *
                             rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionName_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionName_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SubscriptionName undo.
+     * TODO:456:o: |-> Clean up brokerSubscriptionName undo.
      */
     /*
-     * copy qpid010SubscriptionName and qpid010SubscriptionName_len data
-     * set rowreq_ctx->data.qpid010SubscriptionName from rowreq_ctx->undo->qpid010SubscriptionName
+     * copy brokerSubscriptionName and brokerSubscriptionName_len data
+     * set rowreq_ctx->data.brokerSubscriptionName from rowreq_ctx->undo->brokerSubscriptionName
      */
-    memcpy(rowreq_ctx->data.qpid010SubscriptionName,
-           rowreq_ctx->undo->qpid010SubscriptionName,
-           (rowreq_ctx->undo->qpid010SubscriptionName_len *
-            sizeof(rowreq_ctx->data.qpid010SubscriptionName[0])));
-    rowreq_ctx->data.qpid010SubscriptionName_len =
-        rowreq_ctx->undo->qpid010SubscriptionName_len;
+    memcpy(rowreq_ctx->data.brokerSubscriptionName,
+           rowreq_ctx->undo->brokerSubscriptionName,
+           (rowreq_ctx->undo->brokerSubscriptionName_len *
+            sizeof(rowreq_ctx->data.brokerSubscriptionName[0])));
+    rowreq_ctx->data.brokerSubscriptionName_len =
+        rowreq_ctx->undo->brokerSubscriptionName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionName_undo */
+}                               /* brokerSubscriptionName_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionBrowsing
- * qpid010SubscriptionBrowsing is subid 4 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionBrowsing
+ * brokerSubscriptionBrowsing is subid 4 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.4
  * Description:
@@ -1090,7 +1090,7 @@ Subscription browsing
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionBrowsing_val
+ * @param brokerSubscriptionBrowsing_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -1114,7 +1114,7 @@ Subscription browsing
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SubscriptionTable_check_dependencies() function.
+ * brokerSubscriptionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -1124,34 +1124,34 @@ Subscription browsing
  *
  */
 int
-qpid010SubscriptionBrowsing_check_value(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionBrowsing_check_value(brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx,
                                        u_long
-                                       qpid010SubscriptionBrowsing_val)
+                                       brokerSubscriptionBrowsing_val)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionBrowsing_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionBrowsing_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SubscriptionBrowsing value.
+     * TODO:441:o: |-> Check for valid brokerSubscriptionBrowsing value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SubscriptionBrowsing value not illegal */
-}                               /* qpid010SubscriptionBrowsing_check_value */
+    return MFD_SUCCESS;         /* brokerSubscriptionBrowsing value not illegal */
+}                               /* brokerSubscriptionBrowsing_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SubscriptionTable_undo_setup has been called.
+ * brokerSubscriptionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1161,27 +1161,27 @@ qpid010SubscriptionBrowsing_check_value(qpid010SubscriptionTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010SubscriptionBrowsing_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionBrowsing_undo_setup(brokerSubscriptionTable_rowreq_ctx *
                                       rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionBrowsing_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionBrowsing_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SubscriptionBrowsing undo.
+     * TODO:455:o: |-> Setup brokerSubscriptionBrowsing undo.
      */
     /*
-     * copy qpid010SubscriptionBrowsing data
-     * set rowreq_ctx->undo->qpid010SubscriptionBrowsing from rowreq_ctx->data.qpid010SubscriptionBrowsing
+     * copy brokerSubscriptionBrowsing data
+     * set rowreq_ctx->undo->brokerSubscriptionBrowsing from rowreq_ctx->data.brokerSubscriptionBrowsing
      */
-    rowreq_ctx->undo->qpid010SubscriptionBrowsing =
-        rowreq_ctx->data.qpid010SubscriptionBrowsing;
+    rowreq_ctx->undo->brokerSubscriptionBrowsing =
+        rowreq_ctx->data.brokerSubscriptionBrowsing;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionBrowsing_undo_setup */
+}                               /* brokerSubscriptionBrowsing_undo_setup */
 
 /**
  * Set the new value.
@@ -1189,29 +1189,29 @@ qpid010SubscriptionBrowsing_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SubscriptionBrowsing_val
+ * @param brokerSubscriptionBrowsing_val
  *        A long containing the new value.
  */
 int
-qpid010SubscriptionBrowsing_set(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionBrowsing_set(brokerSubscriptionTable_rowreq_ctx *
                                rowreq_ctx,
-                               u_long qpid010SubscriptionBrowsing_val)
+                               u_long brokerSubscriptionBrowsing_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionBrowsing_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionBrowsing_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010SubscriptionBrowsing value.
-     * set qpid010SubscriptionBrowsing value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSubscriptionBrowsing value.
+     * set brokerSubscriptionBrowsing value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010SubscriptionBrowsing =
-        qpid010SubscriptionBrowsing_val;
+    rowreq_ctx->data.brokerSubscriptionBrowsing =
+        brokerSubscriptionBrowsing_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionBrowsing_set */
+}                               /* brokerSubscriptionBrowsing_set */
 
 /**
  * undo the previous set.
@@ -1220,31 +1220,31 @@ qpid010SubscriptionBrowsing_set(qpid010SubscriptionTable_rowreq_ctx *
  *        Pointer to the users context.
  */
 int
-qpid010SubscriptionBrowsing_undo(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionBrowsing_undo(brokerSubscriptionTable_rowreq_ctx *
                                 rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionBrowsing_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionBrowsing_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SubscriptionBrowsing undo.
+     * TODO:456:o: |-> Clean up brokerSubscriptionBrowsing undo.
      */
     /*
-     * copy qpid010SubscriptionBrowsing data
-     * set rowreq_ctx->data.qpid010SubscriptionBrowsing from rowreq_ctx->undo->qpid010SubscriptionBrowsing
+     * copy brokerSubscriptionBrowsing data
+     * set rowreq_ctx->data.brokerSubscriptionBrowsing from rowreq_ctx->undo->brokerSubscriptionBrowsing
      */
-    rowreq_ctx->data.qpid010SubscriptionBrowsing =
-        rowreq_ctx->undo->qpid010SubscriptionBrowsing;
+    rowreq_ctx->data.brokerSubscriptionBrowsing =
+        rowreq_ctx->undo->brokerSubscriptionBrowsing;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionBrowsing_undo */
+}                               /* brokerSubscriptionBrowsing_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionAcknowledged
- * qpid010SubscriptionAcknowledged is subid 5 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionAcknowledged
+ * brokerSubscriptionAcknowledged is subid 5 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.5
  * Description:
@@ -1266,7 +1266,7 @@ Subscription acknowledged
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionAcknowledged_val
+ * @param brokerSubscriptionAcknowledged_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -1290,7 +1290,7 @@ Subscription acknowledged
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SubscriptionTable_check_dependencies() function.
+ * brokerSubscriptionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -1300,33 +1300,33 @@ Subscription acknowledged
  *
  */
 int
-qpid010SubscriptionAcknowledged_check_value
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx,
-     u_long qpid010SubscriptionAcknowledged_val)
+brokerSubscriptionAcknowledged_check_value
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx,
+     u_long brokerSubscriptionAcknowledged_val)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionAcknowledged_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionAcknowledged_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SubscriptionAcknowledged value.
+     * TODO:441:o: |-> Check for valid brokerSubscriptionAcknowledged value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SubscriptionAcknowledged value not illegal */
-}                               /* qpid010SubscriptionAcknowledged_check_value */
+    return MFD_SUCCESS;         /* brokerSubscriptionAcknowledged value not illegal */
+}                               /* brokerSubscriptionAcknowledged_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SubscriptionTable_undo_setup has been called.
+ * brokerSubscriptionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1336,27 +1336,27 @@ qpid010SubscriptionAcknowledged_check_value
  * won't be done unless it is necessary.
  */
 int
-qpid010SubscriptionAcknowledged_undo_setup
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx)
+brokerSubscriptionAcknowledged_undo_setup
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionAcknowledged_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionAcknowledged_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SubscriptionAcknowledged undo.
+     * TODO:455:o: |-> Setup brokerSubscriptionAcknowledged undo.
      */
     /*
-     * copy qpid010SubscriptionAcknowledged data
-     * set rowreq_ctx->undo->qpid010SubscriptionAcknowledged from rowreq_ctx->data.qpid010SubscriptionAcknowledged
+     * copy brokerSubscriptionAcknowledged data
+     * set rowreq_ctx->undo->brokerSubscriptionAcknowledged from rowreq_ctx->data.brokerSubscriptionAcknowledged
      */
-    rowreq_ctx->undo->qpid010SubscriptionAcknowledged =
-        rowreq_ctx->data.qpid010SubscriptionAcknowledged;
+    rowreq_ctx->undo->brokerSubscriptionAcknowledged =
+        rowreq_ctx->data.brokerSubscriptionAcknowledged;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionAcknowledged_undo_setup */
+}                               /* brokerSubscriptionAcknowledged_undo_setup */
 
 /**
  * Set the new value.
@@ -1364,30 +1364,30 @@ qpid010SubscriptionAcknowledged_undo_setup
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SubscriptionAcknowledged_val
+ * @param brokerSubscriptionAcknowledged_val
  *        A long containing the new value.
  */
 int
-qpid010SubscriptionAcknowledged_set(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionAcknowledged_set(brokerSubscriptionTable_rowreq_ctx *
                                    rowreq_ctx,
                                    u_long
-                                   qpid010SubscriptionAcknowledged_val)
+                                   brokerSubscriptionAcknowledged_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionAcknowledged_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionAcknowledged_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010SubscriptionAcknowledged value.
-     * set qpid010SubscriptionAcknowledged value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSubscriptionAcknowledged value.
+     * set brokerSubscriptionAcknowledged value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010SubscriptionAcknowledged =
-        qpid010SubscriptionAcknowledged_val;
+    rowreq_ctx->data.brokerSubscriptionAcknowledged =
+        brokerSubscriptionAcknowledged_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionAcknowledged_set */
+}                               /* brokerSubscriptionAcknowledged_set */
 
 /**
  * undo the previous set.
@@ -1396,31 +1396,31 @@ qpid010SubscriptionAcknowledged_set(qpid010SubscriptionTable_rowreq_ctx *
  *        Pointer to the users context.
  */
 int
-qpid010SubscriptionAcknowledged_undo(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionAcknowledged_undo(brokerSubscriptionTable_rowreq_ctx *
                                     rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionAcknowledged_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionAcknowledged_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SubscriptionAcknowledged undo.
+     * TODO:456:o: |-> Clean up brokerSubscriptionAcknowledged undo.
      */
     /*
-     * copy qpid010SubscriptionAcknowledged data
-     * set rowreq_ctx->data.qpid010SubscriptionAcknowledged from rowreq_ctx->undo->qpid010SubscriptionAcknowledged
+     * copy brokerSubscriptionAcknowledged data
+     * set rowreq_ctx->data.brokerSubscriptionAcknowledged from rowreq_ctx->undo->brokerSubscriptionAcknowledged
      */
-    rowreq_ctx->data.qpid010SubscriptionAcknowledged =
-        rowreq_ctx->undo->qpid010SubscriptionAcknowledged;
+    rowreq_ctx->data.brokerSubscriptionAcknowledged =
+        rowreq_ctx->undo->brokerSubscriptionAcknowledged;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionAcknowledged_undo */
+}                               /* brokerSubscriptionAcknowledged_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionExclusive
- * qpid010SubscriptionExclusive is subid 6 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionExclusive
+ * brokerSubscriptionExclusive is subid 6 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.6
  * Description:
@@ -1442,7 +1442,7 @@ Subscription exclusive
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionExclusive_val
+ * @param brokerSubscriptionExclusive_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -1466,7 +1466,7 @@ Subscription exclusive
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SubscriptionTable_check_dependencies() function.
+ * brokerSubscriptionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -1476,34 +1476,34 @@ Subscription exclusive
  *
  */
 int
-qpid010SubscriptionExclusive_check_value(qpid010SubscriptionTable_rowreq_ctx
+brokerSubscriptionExclusive_check_value(brokerSubscriptionTable_rowreq_ctx
                                         * rowreq_ctx,
                                         u_long
-                                        qpid010SubscriptionExclusive_val)
+                                        brokerSubscriptionExclusive_val)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionExclusive_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionExclusive_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SubscriptionExclusive value.
+     * TODO:441:o: |-> Check for valid brokerSubscriptionExclusive value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SubscriptionExclusive value not illegal */
-}                               /* qpid010SubscriptionExclusive_check_value */
+    return MFD_SUCCESS;         /* brokerSubscriptionExclusive value not illegal */
+}                               /* brokerSubscriptionExclusive_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SubscriptionTable_undo_setup has been called.
+ * brokerSubscriptionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1513,27 +1513,27 @@ qpid010SubscriptionExclusive_check_value(qpid010SubscriptionTable_rowreq_ctx
  * won't be done unless it is necessary.
  */
 int
-qpid010SubscriptionExclusive_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionExclusive_undo_setup(brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionExclusive_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionExclusive_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SubscriptionExclusive undo.
+     * TODO:455:o: |-> Setup brokerSubscriptionExclusive undo.
      */
     /*
-     * copy qpid010SubscriptionExclusive data
-     * set rowreq_ctx->undo->qpid010SubscriptionExclusive from rowreq_ctx->data.qpid010SubscriptionExclusive
+     * copy brokerSubscriptionExclusive data
+     * set rowreq_ctx->undo->brokerSubscriptionExclusive from rowreq_ctx->data.brokerSubscriptionExclusive
      */
-    rowreq_ctx->undo->qpid010SubscriptionExclusive =
-        rowreq_ctx->data.qpid010SubscriptionExclusive;
+    rowreq_ctx->undo->brokerSubscriptionExclusive =
+        rowreq_ctx->data.brokerSubscriptionExclusive;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionExclusive_undo_setup */
+}                               /* brokerSubscriptionExclusive_undo_setup */
 
 /**
  * Set the new value.
@@ -1541,29 +1541,29 @@ qpid010SubscriptionExclusive_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SubscriptionExclusive_val
+ * @param brokerSubscriptionExclusive_val
  *        A long containing the new value.
  */
 int
-qpid010SubscriptionExclusive_set(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionExclusive_set(brokerSubscriptionTable_rowreq_ctx *
                                 rowreq_ctx,
-                                u_long qpid010SubscriptionExclusive_val)
+                                u_long brokerSubscriptionExclusive_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionExclusive_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionExclusive_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010SubscriptionExclusive value.
-     * set qpid010SubscriptionExclusive value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSubscriptionExclusive value.
+     * set brokerSubscriptionExclusive value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010SubscriptionExclusive =
-        qpid010SubscriptionExclusive_val;
+    rowreq_ctx->data.brokerSubscriptionExclusive =
+        brokerSubscriptionExclusive_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionExclusive_set */
+}                               /* brokerSubscriptionExclusive_set */
 
 /**
  * undo the previous set.
@@ -1572,31 +1572,31 @@ qpid010SubscriptionExclusive_set(qpid010SubscriptionTable_rowreq_ctx *
  *        Pointer to the users context.
  */
 int
-qpid010SubscriptionExclusive_undo(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionExclusive_undo(brokerSubscriptionTable_rowreq_ctx *
                                  rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionExclusive_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionExclusive_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SubscriptionExclusive undo.
+     * TODO:456:o: |-> Clean up brokerSubscriptionExclusive undo.
      */
     /*
-     * copy qpid010SubscriptionExclusive data
-     * set rowreq_ctx->data.qpid010SubscriptionExclusive from rowreq_ctx->undo->qpid010SubscriptionExclusive
+     * copy brokerSubscriptionExclusive data
+     * set rowreq_ctx->data.brokerSubscriptionExclusive from rowreq_ctx->undo->brokerSubscriptionExclusive
      */
-    rowreq_ctx->data.qpid010SubscriptionExclusive =
-        rowreq_ctx->undo->qpid010SubscriptionExclusive;
+    rowreq_ctx->data.brokerSubscriptionExclusive =
+        rowreq_ctx->undo->brokerSubscriptionExclusive;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionExclusive_undo */
+}                               /* brokerSubscriptionExclusive_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionArguments
- * qpid010SubscriptionArguments is subid 8 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionArguments
+ * brokerSubscriptionArguments is subid 8 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.8
  * Description:
@@ -1620,10 +1620,10 @@ Subscription arguments
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SubscriptionArguments_val_ptr
+ * @param brokerSubscriptionArguments_val_ptr
  *        A char containing the new value.
- * @param qpid010SubscriptionArguments_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SubscriptionArguments_val_ptr
+ * @param brokerSubscriptionArguments_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSubscriptionArguments_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -1646,48 +1646,48 @@ Subscription arguments
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SubscriptionTable_check_dependencies() function.
+ * brokerSubscriptionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010SubscriptionArguments).
+ *    The length is < sizeof(rowreq_ctx->data.brokerSubscriptionArguments).
  *    The length is in (one of) the range set(s):  0 - 65535
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010SubscriptionArguments_check_value(qpid010SubscriptionTable_rowreq_ctx
+brokerSubscriptionArguments_check_value(brokerSubscriptionTable_rowreq_ctx
                                         * rowreq_ctx,
                                         char
-                                        *qpid010SubscriptionArguments_val_ptr,
+                                        *brokerSubscriptionArguments_val_ptr,
                                         size_t
-                                        qpid010SubscriptionArguments_val_ptr_len)
+                                        brokerSubscriptionArguments_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionArguments_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionArguments_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SubscriptionArguments_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionArguments_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SubscriptionArguments value.
+     * TODO:441:o: |-> Check for valid brokerSubscriptionArguments value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SubscriptionArguments value not illegal */
-}                               /* qpid010SubscriptionArguments_check_value */
+    return MFD_SUCCESS;         /* brokerSubscriptionArguments value not illegal */
+}                               /* brokerSubscriptionArguments_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SubscriptionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSubscriptionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SubscriptionTable_undo_setup has been called.
+ * brokerSubscriptionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1697,31 +1697,31 @@ qpid010SubscriptionArguments_check_value(qpid010SubscriptionTable_rowreq_ctx
  * won't be done unless it is necessary.
  */
 int
-qpid010SubscriptionArguments_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionArguments_undo_setup(brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionArguments_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionArguments_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SubscriptionArguments undo.
+     * TODO:455:o: |-> Setup brokerSubscriptionArguments undo.
      */
     /*
-     * copy qpid010SubscriptionArguments and qpid010SubscriptionArguments_len data
-     * set rowreq_ctx->undo->qpid010SubscriptionArguments from rowreq_ctx->data.qpid010SubscriptionArguments
+     * copy brokerSubscriptionArguments and brokerSubscriptionArguments_len data
+     * set rowreq_ctx->undo->brokerSubscriptionArguments from rowreq_ctx->data.brokerSubscriptionArguments
      */
-    memcpy(rowreq_ctx->undo->qpid010SubscriptionArguments,
-           rowreq_ctx->data.qpid010SubscriptionArguments,
-           (rowreq_ctx->data.qpid010SubscriptionArguments_len *
-            sizeof(rowreq_ctx->undo->qpid010SubscriptionArguments[0])));
-    rowreq_ctx->undo->qpid010SubscriptionArguments_len =
-        rowreq_ctx->data.qpid010SubscriptionArguments_len;
+    memcpy(rowreq_ctx->undo->brokerSubscriptionArguments,
+           rowreq_ctx->data.brokerSubscriptionArguments,
+           (rowreq_ctx->data.brokerSubscriptionArguments_len *
+            sizeof(rowreq_ctx->undo->brokerSubscriptionArguments[0])));
+    rowreq_ctx->undo->brokerSubscriptionArguments_len =
+        rowreq_ctx->data.brokerSubscriptionArguments_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionArguments_undo_setup */
+}                               /* brokerSubscriptionArguments_undo_setup */
 
 /**
  * Set the new value.
@@ -1729,39 +1729,39 @@ qpid010SubscriptionArguments_undo_setup(qpid010SubscriptionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SubscriptionArguments_val_ptr
+ * @param brokerSubscriptionArguments_val_ptr
  *        A char containing the new value.
- * @param qpid010SubscriptionArguments_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SubscriptionArguments_val_ptr
+ * @param brokerSubscriptionArguments_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSubscriptionArguments_val_ptr
  */
 int
-qpid010SubscriptionArguments_set(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionArguments_set(brokerSubscriptionTable_rowreq_ctx *
                                 rowreq_ctx,
-                                char *qpid010SubscriptionArguments_val_ptr,
+                                char *brokerSubscriptionArguments_val_ptr,
                                 size_t
-                                qpid010SubscriptionArguments_val_ptr_len)
+                                brokerSubscriptionArguments_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionArguments_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionArguments_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SubscriptionArguments_val_ptr);
+    netsnmp_assert(NULL != brokerSubscriptionArguments_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010SubscriptionArguments value.
-     * set qpid010SubscriptionArguments value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSubscriptionArguments value.
+     * set brokerSubscriptionArguments value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010SubscriptionArguments,
-           qpid010SubscriptionArguments_val_ptr,
-           qpid010SubscriptionArguments_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerSubscriptionArguments,
+           brokerSubscriptionArguments_val_ptr,
+           brokerSubscriptionArguments_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010SubscriptionArguments_len =
-        qpid010SubscriptionArguments_val_ptr_len /
-        sizeof(qpid010SubscriptionArguments_val_ptr[0]);
+    rowreq_ctx->data.brokerSubscriptionArguments_len =
+        brokerSubscriptionArguments_val_ptr_len /
+        sizeof(brokerSubscriptionArguments_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionArguments_set */
+}                               /* brokerSubscriptionArguments_set */
 
 /**
  * undo the previous set.
@@ -1770,31 +1770,31 @@ qpid010SubscriptionArguments_set(qpid010SubscriptionTable_rowreq_ctx *
  *        Pointer to the users context.
  */
 int
-qpid010SubscriptionArguments_undo(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionArguments_undo(brokerSubscriptionTable_rowreq_ctx *
                                  rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionArguments_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionArguments_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SubscriptionArguments undo.
+     * TODO:456:o: |-> Clean up brokerSubscriptionArguments undo.
      */
     /*
-     * copy qpid010SubscriptionArguments and qpid010SubscriptionArguments_len data
-     * set rowreq_ctx->data.qpid010SubscriptionArguments from rowreq_ctx->undo->qpid010SubscriptionArguments
+     * copy brokerSubscriptionArguments and brokerSubscriptionArguments_len data
+     * set rowreq_ctx->data.brokerSubscriptionArguments from rowreq_ctx->undo->brokerSubscriptionArguments
      */
-    memcpy(rowreq_ctx->data.qpid010SubscriptionArguments,
-           rowreq_ctx->undo->qpid010SubscriptionArguments,
-           (rowreq_ctx->undo->qpid010SubscriptionArguments_len *
-            sizeof(rowreq_ctx->data.qpid010SubscriptionArguments[0])));
-    rowreq_ctx->data.qpid010SubscriptionArguments_len =
-        rowreq_ctx->undo->qpid010SubscriptionArguments_len;
+    memcpy(rowreq_ctx->data.brokerSubscriptionArguments,
+           rowreq_ctx->undo->brokerSubscriptionArguments,
+           (rowreq_ctx->undo->brokerSubscriptionArguments_len *
+            sizeof(rowreq_ctx->data.brokerSubscriptionArguments[0])));
+    rowreq_ctx->data.brokerSubscriptionArguments_len =
+        rowreq_ctx->undo->brokerSubscriptionArguments_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionArguments_undo */
+}                               /* brokerSubscriptionArguments_undo */
 
 /**
  * check dependencies
@@ -1806,29 +1806,29 @@ qpid010SubscriptionArguments_undo(qpid010SubscriptionTable_rowreq_ctx *
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010SubscriptionTable_oids.h.
+ * brokerSubscriptionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010SubscriptionTable if you don't have dependencies)
+ * (see README-table-brokerSubscriptionTable if you don't have dependencies)
  */
 int
-qpid010SubscriptionTable_check_dependencies
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx)
+brokerSubscriptionTable_check_dependencies
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010SubscriptionTable:qpid010SubscriptionTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerSubscriptionTable:brokerSubscriptionTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010SubscriptionTable row dependencies.
+     * TODO:470:o: Check brokerSubscriptionTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010SubscriptionTable_check_dependencies */
+}                               /* brokerSubscriptionTable_check_dependencies */
 
 /** @} */

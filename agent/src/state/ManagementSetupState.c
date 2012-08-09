@@ -10,35 +10,35 @@
 
 #include "../qpid_api.h"
 
-/** Initializes the qpid010ManagementSetupState module */
+/** Initializes the brokerManagementSetupState module */
 void
 init_ManagementSetupState(void)
 {
-    const oid       qpid010ManagementSetupStateObjectNum_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 14, 1 };
-    const oid       qpid010ManagementSetupStateBootSequence_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 14, 2 };
+    const oid       brokerManagementSetupStateObjectNum_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 14, 1 };
+    const oid       brokerManagementSetupStateBootSequence_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 14, 2 };
 
-    DEBUGMSGTL(("qpid010ManagementSetupState", "Initializing\n"));
+    DEBUGMSGTL(("brokerManagementSetupState", "Initializing\n"));
 
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ManagementSetupStateObjectNum",
-                             handle_qpid010ManagementSetupStateObjectNum,
-                             qpid010ManagementSetupStateObjectNum_oid,
+                            ("brokerManagementSetupStateObjectNum",
+                             handle_brokerManagementSetupStateObjectNum,
+                             brokerManagementSetupStateObjectNum_oid,
                              OID_LENGTH
-                             (qpid010ManagementSetupStateObjectNum_oid),
+                             (brokerManagementSetupStateObjectNum_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ManagementSetupStateBootSequence",
-                             handle_qpid010ManagementSetupStateBootSequence,
-                             qpid010ManagementSetupStateBootSequence_oid,
+                            ("brokerManagementSetupStateBootSequence",
+                             handle_brokerManagementSetupStateBootSequence,
+                             brokerManagementSetupStateBootSequence_oid,
                              OID_LENGTH
-                             (qpid010ManagementSetupStateBootSequence_oid),
+                             (brokerManagementSetupStateBootSequence_oid),
                              HANDLER_CAN_RONLY));
 }
 
 int
-handle_qpid010ManagementSetupStateObjectNum(netsnmp_mib_handler *handler,
+handle_brokerManagementSetupStateObjectNum(netsnmp_mib_handler *handler,
                                            netsnmp_handler_registration
                                            *reginfo,
                                            netsnmp_agent_request_info
@@ -73,7 +73,7 @@ handle_qpid010ManagementSetupStateObjectNum(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ManagementSetupStateObjectNum\n",
+                 "unknown mode (%d) in handle_brokerManagementSetupStateObjectNum\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -82,7 +82,7 @@ handle_qpid010ManagementSetupStateObjectNum(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ManagementSetupStateBootSequence(netsnmp_mib_handler *handler,
+handle_brokerManagementSetupStateBootSequence(netsnmp_mib_handler *handler,
                                               netsnmp_handler_registration
                                               *reginfo,
                                               netsnmp_agent_request_info
@@ -118,7 +118,7 @@ handle_qpid010ManagementSetupStateBootSequence(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ManagementSetupStateBootSequence\n",
+                 "unknown mode (%d) in handle_brokerManagementSetupStateBootSequence\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }

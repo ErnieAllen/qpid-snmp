@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef qpid010BRIDGETABLE_INTERFACE_H
-#define qpid010BRIDGETABLE_INTERFACE_H
+#ifndef brokerBRIDGETABLE_INTERFACE_H
+#define brokerBRIDGETABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,37 +53,37 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010BridgeTable_initialize_interface
-        (qpid010BridgeTable_registration * user_ctx, u_long flags);
+        _brokerBridgeTable_initialize_interface
+        (brokerBridgeTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010BridgeTable_shutdown_interface
-        (qpid010BridgeTable_registration * user_ctx);
+        _brokerBridgeTable_shutdown_interface
+        (brokerBridgeTable_registration * user_ctx);
 
-    qpid010BridgeTable_registration
-        *qpid010BridgeTable_registration_get(void);
+    brokerBridgeTable_registration
+        *brokerBridgeTable_registration_get(void);
 
-    qpid010BridgeTable_registration
-        *qpid010BridgeTable_registration_set(qpid010BridgeTable_registration
+    brokerBridgeTable_registration
+        *brokerBridgeTable_registration_set(brokerBridgeTable_registration
                                             * newreg);
 
-    netsnmp_container *qpid010BridgeTable_container_get(void);
-    int             qpid010BridgeTable_container_size(void);
+    netsnmp_container *brokerBridgeTable_container_get(void);
+    int             brokerBridgeTable_container_size(void);
 
-    u_int           qpid010BridgeTable_dirty_get(void);
-    void            qpid010BridgeTable_dirty_set(u_int status);
+    u_int           brokerBridgeTable_dirty_get(void);
+    void            brokerBridgeTable_dirty_set(u_int status);
 
-    qpid010BridgeTable_rowreq_ctx
-        *qpid010BridgeTable_allocate_rowreq_ctx(void *);
+    brokerBridgeTable_rowreq_ctx
+        *brokerBridgeTable_allocate_rowreq_ctx(void *);
     void           
-        qpid010BridgeTable_release_rowreq_ctx(qpid010BridgeTable_rowreq_ctx *
+        brokerBridgeTable_release_rowreq_ctx(brokerBridgeTable_rowreq_ctx *
                                              rowreq_ctx);
 
-    int             qpid010BridgeTable_index_to_oid(netsnmp_index * oid_idx,
-                                                   qpid010BridgeTable_mib_index
+    int             brokerBridgeTable_index_to_oid(netsnmp_index * oid_idx,
+                                                   brokerBridgeTable_mib_index
                                                    * mib_idx);
-    int             qpid010BridgeTable_index_from_oid(netsnmp_index *
+    int             brokerBridgeTable_index_from_oid(netsnmp_index *
                                                      oid_idx,
-                                                     qpid010BridgeTable_mib_index
+                                                     brokerBridgeTable_mib_index
                                                      * mib_idx);
 
     /*
@@ -96,22 +96,22 @@ extern          "C" {
 #define LINE_TERM_CHAR '$'
 
     void           
-        qpid010BridgeTable_container_init_persistence(netsnmp_container *
+        brokerBridgeTable_container_init_persistence(netsnmp_container *
                                                      container);
     int            
-        qpid010BridgeTable_container_should_save
-        (qpid010BridgeTable_rowreq_ctx * rowreq_ctx);
+        brokerBridgeTable_container_should_save
+        (brokerBridgeTable_rowreq_ctx * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
-    void            qpid010BridgeTable_valid_columns_set(netsnmp_column_info
+    void            brokerBridgeTable_valid_columns_set(netsnmp_column_info
                                                         *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BRIDGETABLE_INTERFACE_H */
+#endif                          /* brokerBRIDGETABLE_INTERFACE_H */
 /** @} */

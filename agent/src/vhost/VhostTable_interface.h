@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef qpid010VHOSTTABLE_INTERFACE_H
-#define qpid010VHOSTTABLE_INTERFACE_H
+#ifndef brokerVHOSTTABLE_INTERFACE_H
+#define brokerVHOSTTABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,36 +53,36 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010VhostTable_initialize_interface
-        (qpid010VhostTable_registration * user_ctx, u_long flags);
+        _brokerVhostTable_initialize_interface
+        (brokerVhostTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010VhostTable_shutdown_interface(qpid010VhostTable_registration
+        _brokerVhostTable_shutdown_interface(brokerVhostTable_registration
                                              * user_ctx);
 
-    qpid010VhostTable_registration *qpid010VhostTable_registration_get(void);
+    brokerVhostTable_registration *brokerVhostTable_registration_get(void);
 
-    qpid010VhostTable_registration
-        *qpid010VhostTable_registration_set(qpid010VhostTable_registration *
+    brokerVhostTable_registration
+        *brokerVhostTable_registration_set(brokerVhostTable_registration *
                                            newreg);
 
-    netsnmp_container *qpid010VhostTable_container_get(void);
-    int             qpid010VhostTable_container_size(void);
+    netsnmp_container *brokerVhostTable_container_get(void);
+    int             brokerVhostTable_container_size(void);
 
-    u_int           qpid010VhostTable_dirty_get(void);
-    void            qpid010VhostTable_dirty_set(u_int status);
+    u_int           brokerVhostTable_dirty_get(void);
+    void            brokerVhostTable_dirty_set(u_int status);
 
-    qpid010VhostTable_rowreq_ctx *qpid010VhostTable_allocate_rowreq_ctx(void
+    brokerVhostTable_rowreq_ctx *brokerVhostTable_allocate_rowreq_ctx(void
                                                                       *);
     void           
-        qpid010VhostTable_release_rowreq_ctx(qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_release_rowreq_ctx(brokerVhostTable_rowreq_ctx *
                                             rowreq_ctx);
 
-    int             qpid010VhostTable_index_to_oid(netsnmp_index * oid_idx,
-                                                  qpid010VhostTable_mib_index
+    int             brokerVhostTable_index_to_oid(netsnmp_index * oid_idx,
+                                                  brokerVhostTable_mib_index
                                                   * mib_idx);
-    int             qpid010VhostTable_index_from_oid(netsnmp_index *
+    int             brokerVhostTable_index_from_oid(netsnmp_index *
                                                     oid_idx,
-                                                    qpid010VhostTable_mib_index
+                                                    brokerVhostTable_mib_index
                                                     * mib_idx);
 
     /*
@@ -95,22 +95,22 @@ extern          "C" {
 #define LINE_TERM_CHAR '$'
 
     void           
-        qpid010VhostTable_container_init_persistence(netsnmp_container *
+        brokerVhostTable_container_init_persistence(netsnmp_container *
                                                     container);
     int            
-        qpid010VhostTable_container_should_save(qpid010VhostTable_rowreq_ctx
+        brokerVhostTable_container_should_save(brokerVhostTable_rowreq_ctx
                                                * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
-    void            qpid010VhostTable_valid_columns_set(netsnmp_column_info
+    void            brokerVhostTable_valid_columns_set(netsnmp_column_info
                                                        *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010VHOSTTABLE_INTERFACE_H */
+#endif                          /* brokerVHOSTTABLE_INTERFACE_H */
 /** @} */

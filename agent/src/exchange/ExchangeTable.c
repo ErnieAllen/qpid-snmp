@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010ExchangeTable
+/** \page MFD helper for brokerExchangeTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -27,67 +27,67 @@
 
 #include "ExchangeTable_interface.h"
 
-const oid       qpid010ExchangeTable_oid[] = { qpid010EXCHANGETABLE_OID };
+const oid       brokerExchangeTable_oid[] = { brokerEXCHANGETABLE_OID };
 
-const int       qpid010ExchangeTable_oid_size =
-OID_LENGTH(qpid010ExchangeTable_oid);
+const int       brokerExchangeTable_oid_size =
+OID_LENGTH(brokerExchangeTable_oid);
 
-qpid010ExchangeTable_registration qpid010ExchangeTable_user_context;
+brokerExchangeTable_registration brokerExchangeTable_user_context;
 
-void            initialize_table_qpid010ExchangeTable(void);
-void            shutdown_table_qpid010ExchangeTable(void);
+void            initialize_table_brokerExchangeTable(void);
+void            shutdown_table_brokerExchangeTable(void);
 
 
 /**
- * Initializes the qpid010ExchangeTable module
+ * Initializes the brokerExchangeTable module
  */
 void
 init_ExchangeTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:init_ExchangeTable",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:init_ExchangeTable",
                 "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010ExchangeTable one-time module initialization.
+     * TODO:300:o: Perform brokerExchangeTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010ExchangeTable"))
-        initialize_table_qpid010ExchangeTable();
+    if (should_init("brokerExchangeTable"))
+        initialize_table_brokerExchangeTable();
 
 }                               /* init_ExchangeTable */
 
 /**
- * Shut-down the qpid010ExchangeTable module (agent is exiting)
+ * Shut-down the brokerExchangeTable module (agent is exiting)
  */
 void
-shutdown_qpid010ExchangeTable(void)
+shutdown_brokerExchangeTable(void)
 {
-    if (should_init("qpid010ExchangeTable"))
-        shutdown_table_qpid010ExchangeTable();
+    if (should_init("brokerExchangeTable"))
+        shutdown_table_brokerExchangeTable();
 
 }
 
 /**
- * Initialize the table qpid010ExchangeTable 
+ * Initialize the table brokerExchangeTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010ExchangeTable(void)
+initialize_table_brokerExchangeTable(void)
 {
-    qpid010ExchangeTable_registration *user_context;
+    brokerExchangeTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:initialize_table_qpid010ExchangeTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:initialize_table_brokerExchangeTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010ExchangeTable one-time table initialization.
+     * TODO:301:o: Perform brokerExchangeTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010ExchangeTable user context
+     * TODO:302:o: |->Initialize brokerExchangeTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -96,7 +96,7 @@ initialize_table_qpid010ExchangeTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010ExchangeTable", NULL, NULL);
+        netsnmp_create_data_list("brokerExchangeTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -107,20 +107,20 @@ initialize_table_qpid010ExchangeTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010ExchangeTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010ExchangeTable */
+    _brokerExchangeTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerExchangeTable */
 
 /**
- * Shutdown the table qpid010ExchangeTable 
+ * Shutdown the table brokerExchangeTable 
  */
 void
-shutdown_table_qpid010ExchangeTable(void)
+shutdown_table_brokerExchangeTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010ExchangeTable_shutdown_interface
-        (&qpid010ExchangeTable_user_context);
+    _brokerExchangeTable_shutdown_interface
+        (&brokerExchangeTable_user_context);
 }
 
 /**
@@ -133,41 +133,41 @@ shutdown_table_qpid010ExchangeTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010ExchangeTable_rowreq_ctx_init(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_rowreq_ctx_init(brokerExchangeTable_rowreq_ctx *
                                     rowreq_ctx, void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * Perform extra qpid010ExchangeTable rowreq initialization. (eg DEFVALS)
+     * Perform extra brokerExchangeTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010ExchangeVhostRef_len = 255;
-    rowreq_ctx->data.qpid010ExchangeName_len = 255;
-    rowreq_ctx->data.qpid010ExchangeType_len = 255;
-    rowreq_ctx->data.qpid010ExchangeArguments_len = 65535;
-    rowreq_ctx->data.qpid010ExchangeAltExchange_len = 255;
+    rowreq_ctx->data.brokerExchangeVhostRef_len = 255;
+    rowreq_ctx->data.brokerExchangeName_len = 255;
+    rowreq_ctx->data.brokerExchangeType_len = 255;
+    rowreq_ctx->data.brokerExchangeArguments_len = 65535;
+    rowreq_ctx->data.brokerExchangeAltExchange_len = 255;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeTable_rowreq_ctx_init */
+}                               /* brokerExchangeTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010ExchangeTable_rowreq_ctx_cleanup(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_rowreq_ctx_cleanup(brokerExchangeTable_rowreq_ctx *
                                        rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010ExchangeTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerExchangeTable rowreq cleanup.
      */
-}                               /* qpid010ExchangeTable_rowreq_ctx_cleanup */
+}                               /* brokerExchangeTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -181,7 +181,7 @@ qpid010ExchangeTable_rowreq_ctx_cleanup(qpid010ExchangeTable_rowreq_ctx *
  * return 0 if the row should not be stored
  */
 int
-qpid010ExchangeTable_container_should_save(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_container_should_save(brokerExchangeTable_rowreq_ctx *
                                           rowreq_ctx)
 {
 
@@ -196,17 +196,17 @@ qpid010ExchangeTable_container_should_save(qpid010ExchangeTable_rowreq_ctx *
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010ExchangeTable_pre_request(qpid010ExchangeTable_registration *
+brokerExchangeTable_pre_request(brokerExchangeTable_registration *
                                 user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_pre_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_pre_request", "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010ExchangeTable pre-request actions.
+     * TODO:510:o: Perform brokerExchangeTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeTable_pre_request */
+}                               /* brokerExchangeTable_pre_request */
 
 /**
  * post-request callback
@@ -223,19 +223,19 @@ qpid010ExchangeTable_pre_request(qpid010ExchangeTable_registration *
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010ExchangeTable_post_request(qpid010ExchangeTable_registration *
+brokerExchangeTable_post_request(brokerExchangeTable_registration *
                                  user_context, int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_post_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_post_request", "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010ExchangeTable post-request actions.
+     * TODO:511:o: Perform brokerExchangeTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010ExchangeTable_dirty_get()) {
+    if (brokerExchangeTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -248,11 +248,11 @@ qpid010ExchangeTable_post_request(qpid010ExchangeTable_registration *
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010ExchangeTable_dirty_set(0);       /* clear table dirty flag */
+        brokerExchangeTable_dirty_set(0);       /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeTable_post_request */
+}                               /* brokerExchangeTable_post_request */
 
 
 /** @{ */

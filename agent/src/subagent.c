@@ -84,7 +84,7 @@ usage(void)
     exit(0);
 }
 
-// called by init_snmp("qpid010")
+// called by init_snmp("broker")
 // called
 void
 set_broker_config_params(const char *name, char * value)

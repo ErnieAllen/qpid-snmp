@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BindingTable
+ *** Table brokerBindingTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010BindingTable is subid 1 of qpid010Bindings.
+ * QPID-MESSAGING-MIB::brokerBindingTable is subid 1 of brokerBindings.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010BindingTable_allocate_data(), but may need extra
+ * brokerBindingTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010BindingTable_rowreq_ctx_init().
+ * brokerBindingTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,30 +125,30 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BindingTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBindingTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010BindingTable_undo_setup(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingTable_undo_setup(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_undo_setup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010BindingTable undo.
-     * set up qpid010BindingTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010BindingMsgMatched_val_ptr )*
+     * TODO:451:M: |-> Setup brokerBindingTable undo.
+     * set up brokerBindingTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerBindingMsgMatched_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010BindingTable_undo_setup */
+}                               /* brokerBindingTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -165,30 +165,30 @@ qpid010BindingTable_undo_setup(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BindingTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBindingTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010BindingTable_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingTable_undo(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_undo",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_undo",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010BindingTable undo.
-     * qpid010BindingTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010BindingMsgMatched_val_ptr )*
+     * TODO:451:M: |-> brokerBindingTable undo.
+     * brokerBindingTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerBindingMsgMatched_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010BindingTable_undo_setup */
+}                               /* brokerBindingTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -202,28 +202,28 @@ qpid010BindingTable_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BindingTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBindingTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010BindingTable_undo_cleanup(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingTable_undo_cleanup(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_undo_cleanup", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010BindingTable undo.
-     * Undo storage is in (* qpid010BindingMsgMatched_val_ptr )*
+     * TODO:452:M: |-> Cleanup brokerBindingTable undo.
+     * Undo storage is in (* brokerBindingMsgMatched_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010BindingTable_undo_cleanup */
+}                               /* brokerBindingTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -234,22 +234,22 @@ qpid010BindingTable_undo_cleanup(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010BindingTable_oids.h.
+ * brokerBindingTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010BindingTable_rowreq_ctx
+ * @param brokerBindingTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010BindingTable_commit(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingTable_commit(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_commit",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
@@ -262,81 +262,81 @@ qpid010BindingTable_commit(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010BindingTable data
+     * commit brokerBindingTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010BINDINGEXCHANGEREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010BINDINGEXCHANGEREF_FLAG;    /* clear qpid010BindingExchangeRef */
+    if (save_flags & COLUMN_brokerBINDINGEXCHANGEREF_FLAG) {
+        save_flags &= ~COLUMN_brokerBINDINGEXCHANGEREF_FLAG;    /* clear brokerBindingExchangeRef */
         /*
-         * TODO:482:o: |-> commit column qpid010BindingExchangeRef.
+         * TODO:482:o: |-> commit column brokerBindingExchangeRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BindingTable column qpid010BindingExchangeRef commit failed\n");
+                     "brokerBindingTable column brokerBindingExchangeRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BindingExchangeRef
+             * set flag, in case we need to undo brokerBindingExchangeRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BINDINGEXCHANGEREF_FLAG;
+                COLUMN_brokerBINDINGEXCHANGEREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BINDINGQUEUEREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010BINDINGQUEUEREF_FLAG;       /* clear qpid010BindingQueueRef */
+    if (save_flags & COLUMN_brokerBINDINGQUEUEREF_FLAG) {
+        save_flags &= ~COLUMN_brokerBINDINGQUEUEREF_FLAG;       /* clear brokerBindingQueueRef */
         /*
-         * TODO:482:o: |-> commit column qpid010BindingQueueRef.
+         * TODO:482:o: |-> commit column brokerBindingQueueRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BindingTable column qpid010BindingQueueRef commit failed\n");
+                     "brokerBindingTable column brokerBindingQueueRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BindingQueueRef
+             * set flag, in case we need to undo brokerBindingQueueRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BINDINGQUEUEREF_FLAG;
+                COLUMN_brokerBINDINGQUEUEREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BINDINGBINDINGKEY_FLAG) {
-        save_flags &= ~COLUMN_qpid010BINDINGBINDINGKEY_FLAG;     /* clear qpid010BindingBindingKey */
+    if (save_flags & COLUMN_brokerBINDINGBINDINGKEY_FLAG) {
+        save_flags &= ~COLUMN_brokerBINDINGBINDINGKEY_FLAG;     /* clear brokerBindingBindingKey */
         /*
-         * TODO:482:o: |-> commit column qpid010BindingBindingKey.
+         * TODO:482:o: |-> commit column brokerBindingBindingKey.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BindingTable column qpid010BindingBindingKey commit failed\n");
+                     "brokerBindingTable column brokerBindingBindingKey commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BindingBindingKey
+             * set flag, in case we need to undo brokerBindingBindingKey
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BINDINGBINDINGKEY_FLAG;
+                COLUMN_brokerBINDINGBINDINGKEY_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BINDINGARGUMENTS_FLAG) {
-        save_flags &= ~COLUMN_qpid010BINDINGARGUMENTS_FLAG;      /* clear qpid010BindingArguments */
+    if (save_flags & COLUMN_brokerBINDINGARGUMENTS_FLAG) {
+        save_flags &= ~COLUMN_brokerBINDINGARGUMENTS_FLAG;      /* clear brokerBindingArguments */
         /*
-         * TODO:482:o: |-> commit column qpid010BindingArguments.
+         * TODO:482:o: |-> commit column brokerBindingArguments.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BindingTable column qpid010BindingArguments commit failed\n");
+                     "brokerBindingTable column brokerBindingArguments commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BindingArguments
+             * set flag, in case we need to undo brokerBindingArguments
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BINDINGARGUMENTS_FLAG;
+                COLUMN_brokerBINDINGARGUMENTS_FLAG;
         }
     }
 
@@ -354,7 +354,7 @@ qpid010BindingTable_commit(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010BindingTable_commit */
+}                               /* brokerBindingTable_commit */
 
 /**
  * undo commit new values.
@@ -362,27 +362,27 @@ qpid010BindingTable_commit(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010BindingTable_oids.h.
+ * brokerBindingTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010BindingTable_rowreq_ctx
+ * @param brokerBindingTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010BindingTable_undo_commit(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingTable_undo_commit(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_undo_commit", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010BindingTable commit.
+     * TODO:485:M: |-> Undo brokerBindingTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -398,17 +398,17 @@ qpid010BindingTable_undo_commit(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010BindingTable_undo_commit */
+}                               /* brokerBindingTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010BindingTable node value checks.
- * TODO:450:M: Implement qpid010BindingTable undo functions.
- * TODO:460:M: Implement qpid010BindingTable set functions.
- * TODO:480:M: Implement qpid010BindingTable commit functions.
+ * TODO:440:M: Implement brokerBindingTable node value checks.
+ * TODO:450:M: Implement brokerBindingTable undo functions.
+ * TODO:460:M: Implement brokerBindingTable set functions.
+ * TODO:480:M: Implement brokerBindingTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingExchangeRef
- * qpid010BindingExchangeRef is subid 1 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingExchangeRef
+ * brokerBindingExchangeRef is subid 1 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.1
  * Description:
@@ -432,10 +432,10 @@ Binding exchangeRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingExchangeRef_val_ptr
+ * @param brokerBindingExchangeRef_val_ptr
  *        A char containing the new value.
- * @param qpid010BindingExchangeRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BindingExchangeRef_val_ptr
+ * @param brokerBindingExchangeRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBindingExchangeRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -458,48 +458,48 @@ Binding exchangeRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BindingTable_check_dependencies() function.
+ * brokerBindingTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BindingExchangeRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBindingExchangeRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BindingExchangeRef_check_value(qpid010BindingTable_rowreq_ctx *
+brokerBindingExchangeRef_check_value(brokerBindingTable_rowreq_ctx *
                                      rowreq_ctx,
                                      char
-                                     *qpid010BindingExchangeRef_val_ptr,
+                                     *brokerBindingExchangeRef_val_ptr,
                                      size_t
-                                     qpid010BindingExchangeRef_val_ptr_len)
+                                     brokerBindingExchangeRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingExchangeRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingExchangeRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BindingExchangeRef_val_ptr);
+    netsnmp_assert(NULL != brokerBindingExchangeRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BindingExchangeRef value.
+     * TODO:441:o: |-> Check for valid brokerBindingExchangeRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BindingExchangeRef value not illegal */
-}                               /* qpid010BindingExchangeRef_check_value */
+    return MFD_SUCCESS;         /* brokerBindingExchangeRef value not illegal */
+}                               /* brokerBindingExchangeRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BindingTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBindingTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BindingTable_undo_setup has been called.
+ * brokerBindingTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -509,31 +509,31 @@ qpid010BindingExchangeRef_check_value(qpid010BindingTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010BindingExchangeRef_undo_setup(qpid010BindingTable_rowreq_ctx *
+brokerBindingExchangeRef_undo_setup(brokerBindingTable_rowreq_ctx *
                                     rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingExchangeRef_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingExchangeRef_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BindingExchangeRef undo.
+     * TODO:455:o: |-> Setup brokerBindingExchangeRef undo.
      */
     /*
-     * copy qpid010BindingExchangeRef and qpid010BindingExchangeRef_len data
-     * set rowreq_ctx->undo->qpid010BindingExchangeRef from rowreq_ctx->data.qpid010BindingExchangeRef
+     * copy brokerBindingExchangeRef and brokerBindingExchangeRef_len data
+     * set rowreq_ctx->undo->brokerBindingExchangeRef from rowreq_ctx->data.brokerBindingExchangeRef
      */
-    memcpy(rowreq_ctx->undo->qpid010BindingExchangeRef,
-           rowreq_ctx->data.qpid010BindingExchangeRef,
-           (rowreq_ctx->data.qpid010BindingExchangeRef_len *
-            sizeof(rowreq_ctx->undo->qpid010BindingExchangeRef[0])));
-    rowreq_ctx->undo->qpid010BindingExchangeRef_len =
-        rowreq_ctx->data.qpid010BindingExchangeRef_len;
+    memcpy(rowreq_ctx->undo->brokerBindingExchangeRef,
+           rowreq_ctx->data.brokerBindingExchangeRef,
+           (rowreq_ctx->data.brokerBindingExchangeRef_len *
+            sizeof(rowreq_ctx->undo->brokerBindingExchangeRef[0])));
+    rowreq_ctx->undo->brokerBindingExchangeRef_len =
+        rowreq_ctx->data.brokerBindingExchangeRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingExchangeRef_undo_setup */
+}                               /* brokerBindingExchangeRef_undo_setup */
 
 /**
  * Set the new value.
@@ -541,38 +541,38 @@ qpid010BindingExchangeRef_undo_setup(qpid010BindingTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BindingExchangeRef_val_ptr
+ * @param brokerBindingExchangeRef_val_ptr
  *        A char containing the new value.
- * @param qpid010BindingExchangeRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BindingExchangeRef_val_ptr
+ * @param brokerBindingExchangeRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBindingExchangeRef_val_ptr
  */
 int
-qpid010BindingExchangeRef_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                             char *qpid010BindingExchangeRef_val_ptr,
-                             size_t qpid010BindingExchangeRef_val_ptr_len)
+brokerBindingExchangeRef_set(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                             char *brokerBindingExchangeRef_val_ptr,
+                             size_t brokerBindingExchangeRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingExchangeRef_set",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingExchangeRef_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BindingExchangeRef_val_ptr);
+    netsnmp_assert(NULL != brokerBindingExchangeRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BindingExchangeRef value.
-     * set qpid010BindingExchangeRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBindingExchangeRef value.
+     * set brokerBindingExchangeRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BindingExchangeRef,
-           qpid010BindingExchangeRef_val_ptr,
-           qpid010BindingExchangeRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBindingExchangeRef,
+           brokerBindingExchangeRef_val_ptr,
+           brokerBindingExchangeRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BindingExchangeRef_len =
-        qpid010BindingExchangeRef_val_ptr_len /
-        sizeof(qpid010BindingExchangeRef_val_ptr[0]);
+    rowreq_ctx->data.brokerBindingExchangeRef_len =
+        brokerBindingExchangeRef_val_ptr_len /
+        sizeof(brokerBindingExchangeRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingExchangeRef_set */
+}                               /* brokerBindingExchangeRef_set */
 
 /**
  * undo the previous set.
@@ -581,35 +581,35 @@ qpid010BindingExchangeRef_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BindingExchangeRef_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingExchangeRef_undo(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingExchangeRef_undo",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingExchangeRef_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BindingExchangeRef undo.
+     * TODO:456:o: |-> Clean up brokerBindingExchangeRef undo.
      */
     /*
-     * copy qpid010BindingExchangeRef and qpid010BindingExchangeRef_len data
-     * set rowreq_ctx->data.qpid010BindingExchangeRef from rowreq_ctx->undo->qpid010BindingExchangeRef
+     * copy brokerBindingExchangeRef and brokerBindingExchangeRef_len data
+     * set rowreq_ctx->data.brokerBindingExchangeRef from rowreq_ctx->undo->brokerBindingExchangeRef
      */
-    memcpy(rowreq_ctx->data.qpid010BindingExchangeRef,
-           rowreq_ctx->undo->qpid010BindingExchangeRef,
-           (rowreq_ctx->undo->qpid010BindingExchangeRef_len *
-            sizeof(rowreq_ctx->data.qpid010BindingExchangeRef[0])));
-    rowreq_ctx->data.qpid010BindingExchangeRef_len =
-        rowreq_ctx->undo->qpid010BindingExchangeRef_len;
+    memcpy(rowreq_ctx->data.brokerBindingExchangeRef,
+           rowreq_ctx->undo->brokerBindingExchangeRef,
+           (rowreq_ctx->undo->brokerBindingExchangeRef_len *
+            sizeof(rowreq_ctx->data.brokerBindingExchangeRef[0])));
+    rowreq_ctx->data.brokerBindingExchangeRef_len =
+        rowreq_ctx->undo->brokerBindingExchangeRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingExchangeRef_undo */
+}                               /* brokerBindingExchangeRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingQueueRef
- * qpid010BindingQueueRef is subid 2 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingQueueRef
+ * brokerBindingQueueRef is subid 2 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.2
  * Description:
@@ -633,10 +633,10 @@ Binding queueRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingQueueRef_val_ptr
+ * @param brokerBindingQueueRef_val_ptr
  *        A char containing the new value.
- * @param qpid010BindingQueueRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BindingQueueRef_val_ptr
+ * @param brokerBindingQueueRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBindingQueueRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -659,46 +659,46 @@ Binding queueRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BindingTable_check_dependencies() function.
+ * brokerBindingTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BindingQueueRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBindingQueueRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BindingQueueRef_check_value(qpid010BindingTable_rowreq_ctx *
+brokerBindingQueueRef_check_value(brokerBindingTable_rowreq_ctx *
                                   rowreq_ctx,
-                                  char *qpid010BindingQueueRef_val_ptr,
-                                  size_t qpid010BindingQueueRef_val_ptr_len)
+                                  char *brokerBindingQueueRef_val_ptr,
+                                  size_t brokerBindingQueueRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingQueueRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingQueueRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BindingQueueRef_val_ptr);
+    netsnmp_assert(NULL != brokerBindingQueueRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BindingQueueRef value.
+     * TODO:441:o: |-> Check for valid brokerBindingQueueRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BindingQueueRef value not illegal */
-}                               /* qpid010BindingQueueRef_check_value */
+    return MFD_SUCCESS;         /* brokerBindingQueueRef value not illegal */
+}                               /* brokerBindingQueueRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BindingTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBindingTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BindingTable_undo_setup has been called.
+ * brokerBindingTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -708,31 +708,31 @@ qpid010BindingQueueRef_check_value(qpid010BindingTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010BindingQueueRef_undo_setup(qpid010BindingTable_rowreq_ctx *
+brokerBindingQueueRef_undo_setup(brokerBindingTable_rowreq_ctx *
                                  rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingQueueRef_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingQueueRef_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BindingQueueRef undo.
+     * TODO:455:o: |-> Setup brokerBindingQueueRef undo.
      */
     /*
-     * copy qpid010BindingQueueRef and qpid010BindingQueueRef_len data
-     * set rowreq_ctx->undo->qpid010BindingQueueRef from rowreq_ctx->data.qpid010BindingQueueRef
+     * copy brokerBindingQueueRef and brokerBindingQueueRef_len data
+     * set rowreq_ctx->undo->brokerBindingQueueRef from rowreq_ctx->data.brokerBindingQueueRef
      */
-    memcpy(rowreq_ctx->undo->qpid010BindingQueueRef,
-           rowreq_ctx->data.qpid010BindingQueueRef,
-           (rowreq_ctx->data.qpid010BindingQueueRef_len *
-            sizeof(rowreq_ctx->undo->qpid010BindingQueueRef[0])));
-    rowreq_ctx->undo->qpid010BindingQueueRef_len =
-        rowreq_ctx->data.qpid010BindingQueueRef_len;
+    memcpy(rowreq_ctx->undo->brokerBindingQueueRef,
+           rowreq_ctx->data.brokerBindingQueueRef,
+           (rowreq_ctx->data.brokerBindingQueueRef_len *
+            sizeof(rowreq_ctx->undo->brokerBindingQueueRef[0])));
+    rowreq_ctx->undo->brokerBindingQueueRef_len =
+        rowreq_ctx->data.brokerBindingQueueRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingQueueRef_undo_setup */
+}                               /* brokerBindingQueueRef_undo_setup */
 
 /**
  * Set the new value.
@@ -740,38 +740,38 @@ qpid010BindingQueueRef_undo_setup(qpid010BindingTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BindingQueueRef_val_ptr
+ * @param brokerBindingQueueRef_val_ptr
  *        A char containing the new value.
- * @param qpid010BindingQueueRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BindingQueueRef_val_ptr
+ * @param brokerBindingQueueRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBindingQueueRef_val_ptr
  */
 int
-qpid010BindingQueueRef_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                          char *qpid010BindingQueueRef_val_ptr,
-                          size_t qpid010BindingQueueRef_val_ptr_len)
+brokerBindingQueueRef_set(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                          char *brokerBindingQueueRef_val_ptr,
+                          size_t brokerBindingQueueRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingQueueRef_set",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingQueueRef_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BindingQueueRef_val_ptr);
+    netsnmp_assert(NULL != brokerBindingQueueRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BindingQueueRef value.
-     * set qpid010BindingQueueRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBindingQueueRef value.
+     * set brokerBindingQueueRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BindingQueueRef,
-           qpid010BindingQueueRef_val_ptr,
-           qpid010BindingQueueRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBindingQueueRef,
+           brokerBindingQueueRef_val_ptr,
+           brokerBindingQueueRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BindingQueueRef_len =
-        qpid010BindingQueueRef_val_ptr_len /
-        sizeof(qpid010BindingQueueRef_val_ptr[0]);
+    rowreq_ctx->data.brokerBindingQueueRef_len =
+        brokerBindingQueueRef_val_ptr_len /
+        sizeof(brokerBindingQueueRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingQueueRef_set */
+}                               /* brokerBindingQueueRef_set */
 
 /**
  * undo the previous set.
@@ -780,35 +780,35 @@ qpid010BindingQueueRef_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BindingQueueRef_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingQueueRef_undo(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingQueueRef_undo",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingQueueRef_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BindingQueueRef undo.
+     * TODO:456:o: |-> Clean up brokerBindingQueueRef undo.
      */
     /*
-     * copy qpid010BindingQueueRef and qpid010BindingQueueRef_len data
-     * set rowreq_ctx->data.qpid010BindingQueueRef from rowreq_ctx->undo->qpid010BindingQueueRef
+     * copy brokerBindingQueueRef and brokerBindingQueueRef_len data
+     * set rowreq_ctx->data.brokerBindingQueueRef from rowreq_ctx->undo->brokerBindingQueueRef
      */
-    memcpy(rowreq_ctx->data.qpid010BindingQueueRef,
-           rowreq_ctx->undo->qpid010BindingQueueRef,
-           (rowreq_ctx->undo->qpid010BindingQueueRef_len *
-            sizeof(rowreq_ctx->data.qpid010BindingQueueRef[0])));
-    rowreq_ctx->data.qpid010BindingQueueRef_len =
-        rowreq_ctx->undo->qpid010BindingQueueRef_len;
+    memcpy(rowreq_ctx->data.brokerBindingQueueRef,
+           rowreq_ctx->undo->brokerBindingQueueRef,
+           (rowreq_ctx->undo->brokerBindingQueueRef_len *
+            sizeof(rowreq_ctx->data.brokerBindingQueueRef[0])));
+    rowreq_ctx->data.brokerBindingQueueRef_len =
+        rowreq_ctx->undo->brokerBindingQueueRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingQueueRef_undo */
+}                               /* brokerBindingQueueRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingBindingKey
- * qpid010BindingBindingKey is subid 3 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingBindingKey
+ * brokerBindingBindingKey is subid 3 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.3
  * Description:
@@ -832,10 +832,10 @@ Binding bindingKey
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingBindingKey_val_ptr
+ * @param brokerBindingBindingKey_val_ptr
  *        A char containing the new value.
- * @param qpid010BindingBindingKey_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BindingBindingKey_val_ptr
+ * @param brokerBindingBindingKey_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBindingBindingKey_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -858,47 +858,47 @@ Binding bindingKey
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BindingTable_check_dependencies() function.
+ * brokerBindingTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BindingBindingKey).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBindingBindingKey).
  *    The length is in (one of) the range set(s):  0 - 65535
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BindingBindingKey_check_value(qpid010BindingTable_rowreq_ctx *
+brokerBindingBindingKey_check_value(brokerBindingTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    char *qpid010BindingBindingKey_val_ptr,
+                                    char *brokerBindingBindingKey_val_ptr,
                                     size_t
-                                    qpid010BindingBindingKey_val_ptr_len)
+                                    brokerBindingBindingKey_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingBindingKey_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingBindingKey_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BindingBindingKey_val_ptr);
+    netsnmp_assert(NULL != brokerBindingBindingKey_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BindingBindingKey value.
+     * TODO:441:o: |-> Check for valid brokerBindingBindingKey value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BindingBindingKey value not illegal */
-}                               /* qpid010BindingBindingKey_check_value */
+    return MFD_SUCCESS;         /* brokerBindingBindingKey value not illegal */
+}                               /* brokerBindingBindingKey_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BindingTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBindingTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BindingTable_undo_setup has been called.
+ * brokerBindingTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -908,31 +908,31 @@ qpid010BindingBindingKey_check_value(qpid010BindingTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010BindingBindingKey_undo_setup(qpid010BindingTable_rowreq_ctx *
+brokerBindingBindingKey_undo_setup(brokerBindingTable_rowreq_ctx *
                                    rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingBindingKey_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingBindingKey_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BindingBindingKey undo.
+     * TODO:455:o: |-> Setup brokerBindingBindingKey undo.
      */
     /*
-     * copy qpid010BindingBindingKey and qpid010BindingBindingKey_len data
-     * set rowreq_ctx->undo->qpid010BindingBindingKey from rowreq_ctx->data.qpid010BindingBindingKey
+     * copy brokerBindingBindingKey and brokerBindingBindingKey_len data
+     * set rowreq_ctx->undo->brokerBindingBindingKey from rowreq_ctx->data.brokerBindingBindingKey
      */
-    memcpy(rowreq_ctx->undo->qpid010BindingBindingKey,
-           rowreq_ctx->data.qpid010BindingBindingKey,
-           (rowreq_ctx->data.qpid010BindingBindingKey_len *
-            sizeof(rowreq_ctx->undo->qpid010BindingBindingKey[0])));
-    rowreq_ctx->undo->qpid010BindingBindingKey_len =
-        rowreq_ctx->data.qpid010BindingBindingKey_len;
+    memcpy(rowreq_ctx->undo->brokerBindingBindingKey,
+           rowreq_ctx->data.brokerBindingBindingKey,
+           (rowreq_ctx->data.brokerBindingBindingKey_len *
+            sizeof(rowreq_ctx->undo->brokerBindingBindingKey[0])));
+    rowreq_ctx->undo->brokerBindingBindingKey_len =
+        rowreq_ctx->data.brokerBindingBindingKey_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingBindingKey_undo_setup */
+}                               /* brokerBindingBindingKey_undo_setup */
 
 /**
  * Set the new value.
@@ -940,38 +940,38 @@ qpid010BindingBindingKey_undo_setup(qpid010BindingTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BindingBindingKey_val_ptr
+ * @param brokerBindingBindingKey_val_ptr
  *        A char containing the new value.
- * @param qpid010BindingBindingKey_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BindingBindingKey_val_ptr
+ * @param brokerBindingBindingKey_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBindingBindingKey_val_ptr
  */
 int
-qpid010BindingBindingKey_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                            char *qpid010BindingBindingKey_val_ptr,
-                            size_t qpid010BindingBindingKey_val_ptr_len)
+brokerBindingBindingKey_set(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                            char *brokerBindingBindingKey_val_ptr,
+                            size_t brokerBindingBindingKey_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingBindingKey_set",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingBindingKey_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BindingBindingKey_val_ptr);
+    netsnmp_assert(NULL != brokerBindingBindingKey_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BindingBindingKey value.
-     * set qpid010BindingBindingKey value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBindingBindingKey value.
+     * set brokerBindingBindingKey value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BindingBindingKey,
-           qpid010BindingBindingKey_val_ptr,
-           qpid010BindingBindingKey_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBindingBindingKey,
+           brokerBindingBindingKey_val_ptr,
+           brokerBindingBindingKey_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BindingBindingKey_len =
-        qpid010BindingBindingKey_val_ptr_len /
-        sizeof(qpid010BindingBindingKey_val_ptr[0]);
+    rowreq_ctx->data.brokerBindingBindingKey_len =
+        brokerBindingBindingKey_val_ptr_len /
+        sizeof(brokerBindingBindingKey_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingBindingKey_set */
+}                               /* brokerBindingBindingKey_set */
 
 /**
  * undo the previous set.
@@ -980,35 +980,35 @@ qpid010BindingBindingKey_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BindingBindingKey_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingBindingKey_undo(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingBindingKey_undo",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingBindingKey_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BindingBindingKey undo.
+     * TODO:456:o: |-> Clean up brokerBindingBindingKey undo.
      */
     /*
-     * copy qpid010BindingBindingKey and qpid010BindingBindingKey_len data
-     * set rowreq_ctx->data.qpid010BindingBindingKey from rowreq_ctx->undo->qpid010BindingBindingKey
+     * copy brokerBindingBindingKey and brokerBindingBindingKey_len data
+     * set rowreq_ctx->data.brokerBindingBindingKey from rowreq_ctx->undo->brokerBindingBindingKey
      */
-    memcpy(rowreq_ctx->data.qpid010BindingBindingKey,
-           rowreq_ctx->undo->qpid010BindingBindingKey,
-           (rowreq_ctx->undo->qpid010BindingBindingKey_len *
-            sizeof(rowreq_ctx->data.qpid010BindingBindingKey[0])));
-    rowreq_ctx->data.qpid010BindingBindingKey_len =
-        rowreq_ctx->undo->qpid010BindingBindingKey_len;
+    memcpy(rowreq_ctx->data.brokerBindingBindingKey,
+           rowreq_ctx->undo->brokerBindingBindingKey,
+           (rowreq_ctx->undo->brokerBindingBindingKey_len *
+            sizeof(rowreq_ctx->data.brokerBindingBindingKey[0])));
+    rowreq_ctx->data.brokerBindingBindingKey_len =
+        rowreq_ctx->undo->brokerBindingBindingKey_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingBindingKey_undo */
+}                               /* brokerBindingBindingKey_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingArguments
- * qpid010BindingArguments is subid 4 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingArguments
+ * brokerBindingArguments is subid 4 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.4
  * Description:
@@ -1032,10 +1032,10 @@ Binding arguments
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingArguments_val_ptr
+ * @param brokerBindingArguments_val_ptr
  *        A char containing the new value.
- * @param qpid010BindingArguments_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BindingArguments_val_ptr
+ * @param brokerBindingArguments_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBindingArguments_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -1058,47 +1058,47 @@ Binding arguments
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BindingTable_check_dependencies() function.
+ * brokerBindingTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BindingArguments).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBindingArguments).
  *    The length is in (one of) the range set(s):  0 - 65535
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BindingArguments_check_value(qpid010BindingTable_rowreq_ctx *
+brokerBindingArguments_check_value(brokerBindingTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   char *qpid010BindingArguments_val_ptr,
+                                   char *brokerBindingArguments_val_ptr,
                                    size_t
-                                   qpid010BindingArguments_val_ptr_len)
+                                   brokerBindingArguments_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingArguments_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingArguments_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BindingArguments_val_ptr);
+    netsnmp_assert(NULL != brokerBindingArguments_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BindingArguments value.
+     * TODO:441:o: |-> Check for valid brokerBindingArguments value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BindingArguments value not illegal */
-}                               /* qpid010BindingArguments_check_value */
+    return MFD_SUCCESS;         /* brokerBindingArguments value not illegal */
+}                               /* brokerBindingArguments_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BindingTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBindingTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BindingTable_undo_setup has been called.
+ * brokerBindingTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1108,31 +1108,31 @@ qpid010BindingArguments_check_value(qpid010BindingTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010BindingArguments_undo_setup(qpid010BindingTable_rowreq_ctx *
+brokerBindingArguments_undo_setup(brokerBindingTable_rowreq_ctx *
                                   rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingArguments_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingArguments_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BindingArguments undo.
+     * TODO:455:o: |-> Setup brokerBindingArguments undo.
      */
     /*
-     * copy qpid010BindingArguments and qpid010BindingArguments_len data
-     * set rowreq_ctx->undo->qpid010BindingArguments from rowreq_ctx->data.qpid010BindingArguments
+     * copy brokerBindingArguments and brokerBindingArguments_len data
+     * set rowreq_ctx->undo->brokerBindingArguments from rowreq_ctx->data.brokerBindingArguments
      */
-    memcpy(rowreq_ctx->undo->qpid010BindingArguments,
-           rowreq_ctx->data.qpid010BindingArguments,
-           (rowreq_ctx->data.qpid010BindingArguments_len *
-            sizeof(rowreq_ctx->undo->qpid010BindingArguments[0])));
-    rowreq_ctx->undo->qpid010BindingArguments_len =
-        rowreq_ctx->data.qpid010BindingArguments_len;
+    memcpy(rowreq_ctx->undo->brokerBindingArguments,
+           rowreq_ctx->data.brokerBindingArguments,
+           (rowreq_ctx->data.brokerBindingArguments_len *
+            sizeof(rowreq_ctx->undo->brokerBindingArguments[0])));
+    rowreq_ctx->undo->brokerBindingArguments_len =
+        rowreq_ctx->data.brokerBindingArguments_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingArguments_undo_setup */
+}                               /* brokerBindingArguments_undo_setup */
 
 /**
  * Set the new value.
@@ -1140,38 +1140,38 @@ qpid010BindingArguments_undo_setup(qpid010BindingTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BindingArguments_val_ptr
+ * @param brokerBindingArguments_val_ptr
  *        A char containing the new value.
- * @param qpid010BindingArguments_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BindingArguments_val_ptr
+ * @param brokerBindingArguments_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBindingArguments_val_ptr
  */
 int
-qpid010BindingArguments_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                           char *qpid010BindingArguments_val_ptr,
-                           size_t qpid010BindingArguments_val_ptr_len)
+brokerBindingArguments_set(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                           char *brokerBindingArguments_val_ptr,
+                           size_t brokerBindingArguments_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingArguments_set",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingArguments_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BindingArguments_val_ptr);
+    netsnmp_assert(NULL != brokerBindingArguments_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BindingArguments value.
-     * set qpid010BindingArguments value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBindingArguments value.
+     * set brokerBindingArguments value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BindingArguments,
-           qpid010BindingArguments_val_ptr,
-           qpid010BindingArguments_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBindingArguments,
+           brokerBindingArguments_val_ptr,
+           brokerBindingArguments_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BindingArguments_len =
-        qpid010BindingArguments_val_ptr_len /
-        sizeof(qpid010BindingArguments_val_ptr[0]);
+    rowreq_ctx->data.brokerBindingArguments_len =
+        brokerBindingArguments_val_ptr_len /
+        sizeof(brokerBindingArguments_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingArguments_set */
+}                               /* brokerBindingArguments_set */
 
 /**
  * undo the previous set.
@@ -1180,31 +1180,31 @@ qpid010BindingArguments_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BindingArguments_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
+brokerBindingArguments_undo(brokerBindingTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingArguments_undo",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingArguments_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BindingArguments undo.
+     * TODO:456:o: |-> Clean up brokerBindingArguments undo.
      */
     /*
-     * copy qpid010BindingArguments and qpid010BindingArguments_len data
-     * set rowreq_ctx->data.qpid010BindingArguments from rowreq_ctx->undo->qpid010BindingArguments
+     * copy brokerBindingArguments and brokerBindingArguments_len data
+     * set rowreq_ctx->data.brokerBindingArguments from rowreq_ctx->undo->brokerBindingArguments
      */
-    memcpy(rowreq_ctx->data.qpid010BindingArguments,
-           rowreq_ctx->undo->qpid010BindingArguments,
-           (rowreq_ctx->undo->qpid010BindingArguments_len *
-            sizeof(rowreq_ctx->data.qpid010BindingArguments[0])));
-    rowreq_ctx->data.qpid010BindingArguments_len =
-        rowreq_ctx->undo->qpid010BindingArguments_len;
+    memcpy(rowreq_ctx->data.brokerBindingArguments,
+           rowreq_ctx->undo->brokerBindingArguments,
+           (rowreq_ctx->undo->brokerBindingArguments_len *
+            sizeof(rowreq_ctx->data.brokerBindingArguments[0])));
+    rowreq_ctx->data.brokerBindingArguments_len =
+        rowreq_ctx->undo->brokerBindingArguments_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingArguments_undo */
+}                               /* brokerBindingArguments_undo */
 
 /**
  * check dependencies
@@ -1216,29 +1216,29 @@ qpid010BindingArguments_undo(qpid010BindingTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010BindingTable_oids.h.
+ * brokerBindingTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010BindingTable if you don't have dependencies)
+ * (see README-table-brokerBindingTable if you don't have dependencies)
  */
 int
-qpid010BindingTable_check_dependencies(qpid010BindingTable_rowreq_ctx *
+brokerBindingTable_check_dependencies(brokerBindingTable_rowreq_ctx *
                                       rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010BindingTable:qpid010BindingTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerBindingTable:brokerBindingTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010BindingTable row dependencies.
+     * TODO:470:o: Check brokerBindingTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010BindingTable_check_dependencies */
+}                               /* brokerBindingTable_check_dependencies */
 
 /** @} */

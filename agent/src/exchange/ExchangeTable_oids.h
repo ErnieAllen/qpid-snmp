@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010EXCHANGETABLE_OIDS_H
-#define qpid010EXCHANGETABLE_OIDS_H
+#ifndef brokerEXCHANGETABLE_OIDS_H
+#define brokerEXCHANGETABLE_OIDS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -13,65 +13,65 @@ extern          "C" {
 
 
     /*
-     * column number definitions for table qpid010ExchangeTable 
+     * column number definitions for table brokerExchangeTable 
      */
-#define qpid010EXCHANGETABLE_OID              1,3,6,1,4,1,18060,5672,1,1,7,1
+#define brokerEXCHANGETABLE_OID              1,3,6,1,4,1,18060,5672,1,7,1
 
 
-#define COLUMN_qpid010EXCHANGEVHOSTREF         1
-#define COLUMN_qpid010EXCHANGEVHOSTREF_FLAG    (0x1 << 0)
+#define COLUMN_brokerEXCHANGEVHOSTREF         1
+#define COLUMN_brokerEXCHANGEVHOSTREF_FLAG    (0x1 << 0)
 
-#define COLUMN_qpid010EXCHANGENAME         2
-#define COLUMN_qpid010EXCHANGENAME_FLAG    (0x1 << 1)
+#define COLUMN_brokerEXCHANGENAME         2
+#define COLUMN_brokerEXCHANGENAME_FLAG    (0x1 << 1)
 
-#define COLUMN_qpid010EXCHANGETYPE         3
+#define COLUMN_brokerEXCHANGETYPE         3
 
-#define COLUMN_qpid010EXCHANGEDURABLE         4
+#define COLUMN_brokerEXCHANGEDURABLE         4
 
-#define COLUMN_qpid010EXCHANGEAUTODELETE         5
+#define COLUMN_brokerEXCHANGEAUTODELETE         5
 
-#define COLUMN_qpid010EXCHANGEALTEXCHANGE         6
+#define COLUMN_brokerEXCHANGEALTEXCHANGE         6
 
-#define COLUMN_qpid010EXCHANGEARGUMENTS         7
+#define COLUMN_brokerEXCHANGEARGUMENTS         7
 
-#define COLUMN_qpid010EXCHANGEPRODUCERCOUNT         8
+#define COLUMN_brokerEXCHANGEPRODUCERCOUNT         8
 
-#define COLUMN_qpid010EXCHANGEPRODUCERCOUNTHI         9
+#define COLUMN_brokerEXCHANGEPRODUCERCOUNTHI         9
 
-#define COLUMN_qpid010EXCHANGEPRODUCERCOUNTLOW         10
+#define COLUMN_brokerEXCHANGEPRODUCERCOUNTLOW         10
 
-#define COLUMN_qpid010EXCHANGEBINDINGCOUNT         11
+#define COLUMN_brokerEXCHANGEBINDINGCOUNT         11
 
-#define COLUMN_qpid010EXCHANGEBINDINGCOUNTHI         12
+#define COLUMN_brokerEXCHANGEBINDINGCOUNTHI         12
 
-#define COLUMN_qpid010EXCHANGEBINDINGCOUNTLOW         13
+#define COLUMN_brokerEXCHANGEBINDINGCOUNTLOW         13
 
-#define COLUMN_qpid010EXCHANGEMSGRECEIVES         14
+#define COLUMN_brokerEXCHANGEMSGRECEIVES         14
 
-#define COLUMN_qpid010EXCHANGEMSGDROPS         15
+#define COLUMN_brokerEXCHANGEMSGDROPS         15
 
-#define COLUMN_qpid010EXCHANGEMSGROUTES         16
+#define COLUMN_brokerEXCHANGEMSGROUTES         16
 
-#define COLUMN_qpid010EXCHANGEBYTERECEIVES         17
+#define COLUMN_brokerEXCHANGEBYTERECEIVES         17
 
-#define COLUMN_qpid010EXCHANGEBYTEDROPS         18
+#define COLUMN_brokerEXCHANGEBYTEDROPS         18
 
-#define COLUMN_qpid010EXCHANGEBYTEROUTES         19
+#define COLUMN_brokerEXCHANGEBYTEROUTES         19
 
-#define COLUMN_qpid010EXCHANGEINTERNALINDEX         20
+#define COLUMN_brokerEXCHANGEINTERNALINDEX         20
 
 
-#define qpid010EXCHANGETABLE_MIN_COL   COLUMN_qpid010EXCHANGEVHOSTREF
-#define qpid010EXCHANGETABLE_MAX_COL   COLUMN_qpid010EXCHANGEBYTEROUTES
+#define brokerEXCHANGETABLE_MIN_COL   COLUMN_brokerEXCHANGEVHOSTREF
+#define brokerEXCHANGETABLE_MAX_COL   COLUMN_brokerEXCHANGEBYTEROUTES
 
 
     /*
-     * TODO:405:r: Review qpid010EXCHANGETABLE_SETTABLE_COLS macro.
+     * TODO:405:r: Review brokerEXCHANGETABLE_SETTABLE_COLS macro.
      * OR together all the writable cols.
      */
-#define qpid010EXCHANGETABLE_SETTABLE_COLS (COLUMN_qpid010EXCHANGEVHOSTREF_FLAG | COLUMN_qpid010EXCHANGENAME_FLAG)
+#define brokerEXCHANGETABLE_SETTABLE_COLS (COLUMN_brokerEXCHANGEVHOSTREF_FLAG | COLUMN_brokerEXCHANGENAME_FLAG)
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010EXCHANGETABLE_OIDS_H */
+#endif                          /* brokerEXCHANGETABLE_OIDS_H */

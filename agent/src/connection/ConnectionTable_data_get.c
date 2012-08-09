@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010ConnectionTable get routines.
- * TODO:240:M: Implement qpid010ConnectionTable mapping routines (if any).
+ * TODO:230:M: Implement brokerConnectionTable get routines.
+ * TODO:240:M: Implement brokerConnectionTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ConnectionTable
+ *** Table brokerConnectionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010ConnectionTable is subid 1 of qpid010Connections.
+ * QPID-MESSAGING-MIB::brokerConnectionTable is subid 1 of brokerConnections.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010ConnectionTable data context functions.
+ * * TODO:200:r: Implement brokerConnectionTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010ConnectionInternalIndex_val
+ * @param brokerConnectionInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,22 +63,22 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010ConnectionTable_indexes_set_tbl_idx(qpid010ConnectionTable_mib_index *
+brokerConnectionTable_indexes_set_tbl_idx(brokerConnectionTable_mib_index *
                                           tbl_idx,
                                           u_long
-                                          qpid010ConnectionInternalIndex_val)
+                                          brokerConnectionInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010ConnectionInternalIndex(21)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerConnectionInternalIndex(21)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010ConnectionInternalIndex =
-        qpid010ConnectionInternalIndex_val;
+    tbl_idx->brokerConnectionInternalIndex =
+        brokerConnectionInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionTable_indexes_set_tbl_idx */
+}                               /* brokerConnectionTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -94,33 +94,33 @@ qpid010ConnectionTable_indexes_set_tbl_idx(qpid010ConnectionTable_mib_index *
  *  from the mib index.
  */
 int
-qpid010ConnectionTable_indexes_set(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_indexes_set(brokerConnectionTable_rowreq_ctx *
                                   rowreq_ctx,
-                                  u_long qpid010ConnectionInternalIndex_val)
+                                  u_long brokerConnectionInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_indexes_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_indexes_set", "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010ConnectionTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                                  qpid010ConnectionInternalIndex_val))
+        brokerConnectionTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                                  brokerConnectionInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010ConnectionTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerConnectionTable_index_to_oid(&rowreq_ctx->oid_idx,
                                                 &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionTable_indexes_set */
+}                               /* brokerConnectionTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionVhostRef
- * qpid010ConnectionVhostRef is subid 1 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionVhostRef
+ * brokerConnectionVhostRef is subid 1 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.1
  * Description:
@@ -140,25 +140,25 @@ Connection vhostRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010ConnectionVhostRef data.
+ * Extract the current value of the brokerConnectionVhostRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionVhostRef_val_ptr_ptr
+ * @param brokerConnectionVhostRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ConnectionVhostRef_val_ptr_len_ptr
+ * @param brokerConnectionVhostRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ConnectionVhostRef.
+ *        pointed to by brokerConnectionVhostRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ConnectionVhostRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ConnectionVhostRef_val_ptr_ptr.
+ * @note If you need more than (*brokerConnectionVhostRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerConnectionVhostRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -168,58 +168,58 @@ Connection vhostRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ConnectionVhostRef_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                             char **qpid010ConnectionVhostRef_val_ptr_ptr,
+brokerConnectionVhostRef_get(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                             char **brokerConnectionVhostRef_val_ptr_ptr,
                              size_t
-                             *qpid010ConnectionVhostRef_val_ptr_len_ptr)
+                             *brokerConnectionVhostRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ConnectionVhostRef_val_ptr_ptr)
-                   && (NULL != *qpid010ConnectionVhostRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ConnectionVhostRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerConnectionVhostRef_val_ptr_ptr)
+                   && (NULL != *brokerConnectionVhostRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerConnectionVhostRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionVhostRef_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionVhostRef_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionVhostRef data.
-     * copy (* qpid010ConnectionVhostRef_val_ptr_ptr ) data and (* qpid010ConnectionVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionVhostRef data.
+     * copy (* brokerConnectionVhostRef_val_ptr_ptr ) data and (* brokerConnectionVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ConnectionVhostRef data
+     * make sure there is enough space for brokerConnectionVhostRef data
      */
-    if ((NULL == (*qpid010ConnectionVhostRef_val_ptr_ptr)) ||
-        ((*qpid010ConnectionVhostRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ConnectionVhostRef_len *
-          sizeof(rowreq_ctx->data.qpid010ConnectionVhostRef[0])))) {
+    if ((NULL == (*brokerConnectionVhostRef_val_ptr_ptr)) ||
+        ((*brokerConnectionVhostRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerConnectionVhostRef_len *
+          sizeof(rowreq_ctx->data.brokerConnectionVhostRef[0])))) {
         /*
-         * allocate space for qpid010ConnectionVhostRef data
+         * allocate space for brokerConnectionVhostRef data
          */
-        (*qpid010ConnectionVhostRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ConnectionVhostRef_len *
-                   sizeof(rowreq_ctx->data.qpid010ConnectionVhostRef[0]));
-        if (NULL == (*qpid010ConnectionVhostRef_val_ptr_ptr)) {
+        (*brokerConnectionVhostRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerConnectionVhostRef_len *
+                   sizeof(rowreq_ctx->data.brokerConnectionVhostRef[0]));
+        if (NULL == (*brokerConnectionVhostRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ConnectionVhostRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerConnectionVhostRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ConnectionVhostRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ConnectionVhostRef_len *
-        sizeof(rowreq_ctx->data.qpid010ConnectionVhostRef[0]);
-    memcpy((*qpid010ConnectionVhostRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ConnectionVhostRef,
-           rowreq_ctx->data.qpid010ConnectionVhostRef_len *
-           sizeof(rowreq_ctx->data.qpid010ConnectionVhostRef[0]));
+    (*brokerConnectionVhostRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerConnectionVhostRef_len *
+        sizeof(rowreq_ctx->data.brokerConnectionVhostRef[0]);
+    memcpy((*brokerConnectionVhostRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerConnectionVhostRef,
+           rowreq_ctx->data.brokerConnectionVhostRef_len *
+           sizeof(rowreq_ctx->data.brokerConnectionVhostRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionVhostRef_get */
+}                               /* brokerConnectionVhostRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionAddress
- * qpid010ConnectionAddress is subid 2 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionAddress
+ * brokerConnectionAddress is subid 2 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.2
  * Description:
@@ -239,25 +239,25 @@ Connection address
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010ConnectionAddress data.
+ * Extract the current value of the brokerConnectionAddress data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionAddress_val_ptr_ptr
+ * @param brokerConnectionAddress_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ConnectionAddress_val_ptr_len_ptr
+ * @param brokerConnectionAddress_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ConnectionAddress.
+ *        pointed to by brokerConnectionAddress.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ConnectionAddress_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ConnectionAddress_val_ptr_ptr.
+ * @note If you need more than (*brokerConnectionAddress_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerConnectionAddress_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -267,58 +267,58 @@ Connection address
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ConnectionAddress_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                            char **qpid010ConnectionAddress_val_ptr_ptr,
+brokerConnectionAddress_get(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                            char **brokerConnectionAddress_val_ptr_ptr,
                             size_t
-                            *qpid010ConnectionAddress_val_ptr_len_ptr)
+                            *brokerConnectionAddress_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ConnectionAddress_val_ptr_ptr)
-                   && (NULL != *qpid010ConnectionAddress_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ConnectionAddress_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerConnectionAddress_val_ptr_ptr)
+                   && (NULL != *brokerConnectionAddress_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerConnectionAddress_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionAddress_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionAddress_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionAddress data.
-     * copy (* qpid010ConnectionAddress_val_ptr_ptr ) data and (* qpid010ConnectionAddress_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionAddress data.
+     * copy (* brokerConnectionAddress_val_ptr_ptr ) data and (* brokerConnectionAddress_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ConnectionAddress data
+     * make sure there is enough space for brokerConnectionAddress data
      */
-    if ((NULL == (*qpid010ConnectionAddress_val_ptr_ptr)) ||
-        ((*qpid010ConnectionAddress_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ConnectionAddress_len *
-          sizeof(rowreq_ctx->data.qpid010ConnectionAddress[0])))) {
+    if ((NULL == (*brokerConnectionAddress_val_ptr_ptr)) ||
+        ((*brokerConnectionAddress_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerConnectionAddress_len *
+          sizeof(rowreq_ctx->data.brokerConnectionAddress[0])))) {
         /*
-         * allocate space for qpid010ConnectionAddress data
+         * allocate space for brokerConnectionAddress data
          */
-        (*qpid010ConnectionAddress_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ConnectionAddress_len *
-                   sizeof(rowreq_ctx->data.qpid010ConnectionAddress[0]));
-        if (NULL == (*qpid010ConnectionAddress_val_ptr_ptr)) {
+        (*brokerConnectionAddress_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerConnectionAddress_len *
+                   sizeof(rowreq_ctx->data.brokerConnectionAddress[0]));
+        if (NULL == (*brokerConnectionAddress_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ConnectionAddress)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerConnectionAddress)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ConnectionAddress_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ConnectionAddress_len *
-        sizeof(rowreq_ctx->data.qpid010ConnectionAddress[0]);
-    memcpy((*qpid010ConnectionAddress_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ConnectionAddress,
-           rowreq_ctx->data.qpid010ConnectionAddress_len *
-           sizeof(rowreq_ctx->data.qpid010ConnectionAddress[0]));
+    (*brokerConnectionAddress_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerConnectionAddress_len *
+        sizeof(rowreq_ctx->data.brokerConnectionAddress[0]);
+    memcpy((*brokerConnectionAddress_val_ptr_ptr),
+           rowreq_ctx->data.brokerConnectionAddress,
+           rowreq_ctx->data.brokerConnectionAddress_len *
+           sizeof(rowreq_ctx->data.brokerConnectionAddress[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionAddress_get */
+}                               /* brokerConnectionAddress_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionIncoming
- * qpid010ConnectionIncoming is subid 3 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionIncoming
+ * brokerConnectionIncoming is subid 3 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.3
  * Description:
@@ -336,13 +336,13 @@ Connection incoming
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010ConnectionIncoming data.
+ * Extract the current value of the brokerConnectionIncoming data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionIncoming_val_ptr
+ * @param brokerConnectionIncoming_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -350,30 +350,30 @@ Connection incoming
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionIncoming_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                             u_long * qpid010ConnectionIncoming_val_ptr)
+brokerConnectionIncoming_get(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                             u_long * brokerConnectionIncoming_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionIncoming_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionIncoming_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionIncoming_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionIncoming_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionIncoming data.
-     * copy (* qpid010ConnectionIncoming_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionIncoming data.
+     * copy (* brokerConnectionIncoming_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionIncoming_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionIncoming;
+    (*brokerConnectionIncoming_val_ptr) =
+        rowreq_ctx->data.brokerConnectionIncoming;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionIncoming_get */
+}                               /* brokerConnectionIncoming_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionSystemConnection
- * qpid010ConnectionSystemConnection is subid 4 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionSystemConnection
+ * brokerConnectionSystemConnection is subid 4 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.4
  * Description:
@@ -391,13 +391,13 @@ Infrastructure/ Inter-system connection (Cluster, Federation, ...)
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010ConnectionSystemConnection data.
+ * Extract the current value of the brokerConnectionSystemConnection data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionSystemConnection_val_ptr
+ * @param brokerConnectionSystemConnection_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -405,32 +405,32 @@ Infrastructure/ Inter-system connection (Cluster, Federation, ...)
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionSystemConnection_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionSystemConnection_get(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx,
                                      u_long *
-                                     qpid010ConnectionSystemConnection_val_ptr)
+                                     brokerConnectionSystemConnection_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionSystemConnection_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionSystemConnection_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionSystemConnection_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionSystemConnection_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionSystemConnection data.
-     * copy (* qpid010ConnectionSystemConnection_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionSystemConnection data.
+     * copy (* brokerConnectionSystemConnection_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionSystemConnection_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionSystemConnection;
+    (*brokerConnectionSystemConnection_val_ptr) =
+        rowreq_ctx->data.brokerConnectionSystemConnection;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionSystemConnection_get */
+}                               /* brokerConnectionSystemConnection_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionUserProxyAuth
- * qpid010ConnectionUserProxyAuth is subid 5 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionUserProxyAuth
+ * brokerConnectionUserProxyAuth is subid 5 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.5
  * Description:
@@ -448,13 +448,13 @@ Authorization to proxy for users not on broker
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010ConnectionUserProxyAuth data.
+ * Extract the current value of the brokerConnectionUserProxyAuth data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionUserProxyAuth_val_ptr
+ * @param brokerConnectionUserProxyAuth_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -462,32 +462,32 @@ Authorization to proxy for users not on broker
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionUserProxyAuth_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionUserProxyAuth_get(brokerConnectionTable_rowreq_ctx *
                                   rowreq_ctx,
                                   u_long *
-                                  qpid010ConnectionUserProxyAuth_val_ptr)
+                                  brokerConnectionUserProxyAuth_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionUserProxyAuth_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionUserProxyAuth_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionUserProxyAuth_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionUserProxyAuth_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionUserProxyAuth data.
-     * copy (* qpid010ConnectionUserProxyAuth_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionUserProxyAuth data.
+     * copy (* brokerConnectionUserProxyAuth_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionUserProxyAuth_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionUserProxyAuth;
+    (*brokerConnectionUserProxyAuth_val_ptr) =
+        rowreq_ctx->data.brokerConnectionUserProxyAuth;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionUserProxyAuth_get */
+}                               /* brokerConnectionUserProxyAuth_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionFederationLink
- * qpid010ConnectionFederationLink is subid 6 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionFederationLink
+ * brokerConnectionFederationLink is subid 6 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.6
  * Description:
@@ -505,13 +505,13 @@ Is this a federation link
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010ConnectionFederationLink data.
+ * Extract the current value of the brokerConnectionFederationLink data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionFederationLink_val_ptr
+ * @param brokerConnectionFederationLink_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -519,32 +519,32 @@ Is this a federation link
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionFederationLink_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionFederationLink_get(brokerConnectionTable_rowreq_ctx *
                                    rowreq_ctx,
                                    u_long *
-                                   qpid010ConnectionFederationLink_val_ptr)
+                                   brokerConnectionFederationLink_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionFederationLink_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionFederationLink_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionFederationLink_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionFederationLink_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionFederationLink data.
-     * copy (* qpid010ConnectionFederationLink_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionFederationLink data.
+     * copy (* brokerConnectionFederationLink_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionFederationLink_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionFederationLink;
+    (*brokerConnectionFederationLink_val_ptr) =
+        rowreq_ctx->data.brokerConnectionFederationLink;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionFederationLink_get */
+}                               /* brokerConnectionFederationLink_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionAuthIdentity
- * qpid010ConnectionAuthIdentity is subid 7 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionAuthIdentity
+ * brokerConnectionAuthIdentity is subid 7 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.7
  * Description:
@@ -564,25 +564,25 @@ authId of connection if authentication enabled
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010ConnectionAuthIdentity data.
+ * Extract the current value of the brokerConnectionAuthIdentity data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionAuthIdentity_val_ptr_ptr
+ * @param brokerConnectionAuthIdentity_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ConnectionAuthIdentity_val_ptr_len_ptr
+ * @param brokerConnectionAuthIdentity_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ConnectionAuthIdentity.
+ *        pointed to by brokerConnectionAuthIdentity.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ConnectionAuthIdentity_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ConnectionAuthIdentity_val_ptr_ptr.
+ * @note If you need more than (*brokerConnectionAuthIdentity_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerConnectionAuthIdentity_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -592,61 +592,61 @@ authId of connection if authentication enabled
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ConnectionAuthIdentity_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionAuthIdentity_get(brokerConnectionTable_rowreq_ctx *
                                  rowreq_ctx,
                                  char
-                                 **qpid010ConnectionAuthIdentity_val_ptr_ptr,
+                                 **brokerConnectionAuthIdentity_val_ptr_ptr,
                                  size_t
-                                 *qpid010ConnectionAuthIdentity_val_ptr_len_ptr)
+                                 *brokerConnectionAuthIdentity_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ConnectionAuthIdentity_val_ptr_ptr)
-                   && (NULL != *qpid010ConnectionAuthIdentity_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ConnectionAuthIdentity_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerConnectionAuthIdentity_val_ptr_ptr)
+                   && (NULL != *brokerConnectionAuthIdentity_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerConnectionAuthIdentity_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionAuthIdentity_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionAuthIdentity_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionAuthIdentity data.
-     * copy (* qpid010ConnectionAuthIdentity_val_ptr_ptr ) data and (* qpid010ConnectionAuthIdentity_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionAuthIdentity data.
+     * copy (* brokerConnectionAuthIdentity_val_ptr_ptr ) data and (* brokerConnectionAuthIdentity_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ConnectionAuthIdentity data
+     * make sure there is enough space for brokerConnectionAuthIdentity data
      */
-    if ((NULL == (*qpid010ConnectionAuthIdentity_val_ptr_ptr)) ||
-        ((*qpid010ConnectionAuthIdentity_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ConnectionAuthIdentity_len *
-          sizeof(rowreq_ctx->data.qpid010ConnectionAuthIdentity[0])))) {
+    if ((NULL == (*brokerConnectionAuthIdentity_val_ptr_ptr)) ||
+        ((*brokerConnectionAuthIdentity_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerConnectionAuthIdentity_len *
+          sizeof(rowreq_ctx->data.brokerConnectionAuthIdentity[0])))) {
         /*
-         * allocate space for qpid010ConnectionAuthIdentity data
+         * allocate space for brokerConnectionAuthIdentity data
          */
-        (*qpid010ConnectionAuthIdentity_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ConnectionAuthIdentity_len *
+        (*brokerConnectionAuthIdentity_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerConnectionAuthIdentity_len *
                    sizeof(rowreq_ctx->data.
-                          qpid010ConnectionAuthIdentity[0]));
-        if (NULL == (*qpid010ConnectionAuthIdentity_val_ptr_ptr)) {
+                          brokerConnectionAuthIdentity[0]));
+        if (NULL == (*brokerConnectionAuthIdentity_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ConnectionAuthIdentity)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerConnectionAuthIdentity)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ConnectionAuthIdentity_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ConnectionAuthIdentity_len *
-        sizeof(rowreq_ctx->data.qpid010ConnectionAuthIdentity[0]);
-    memcpy((*qpid010ConnectionAuthIdentity_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ConnectionAuthIdentity,
-           rowreq_ctx->data.qpid010ConnectionAuthIdentity_len *
-           sizeof(rowreq_ctx->data.qpid010ConnectionAuthIdentity[0]));
+    (*brokerConnectionAuthIdentity_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerConnectionAuthIdentity_len *
+        sizeof(rowreq_ctx->data.brokerConnectionAuthIdentity[0]);
+    memcpy((*brokerConnectionAuthIdentity_val_ptr_ptr),
+           rowreq_ctx->data.brokerConnectionAuthIdentity,
+           rowreq_ctx->data.brokerConnectionAuthIdentity_len *
+           sizeof(rowreq_ctx->data.brokerConnectionAuthIdentity[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionAuthIdentity_get */
+}                               /* brokerConnectionAuthIdentity_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionRemoteProcessName
- * qpid010ConnectionRemoteProcessName is subid 8 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionRemoteProcessName
+ * brokerConnectionRemoteProcessName is subid 8 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.8
  * Description:
@@ -666,25 +666,25 @@ Name of executable running as remote client
  * This data type requires a length.  (Max 65535)
  */
 /**
- * Extract the current value of the qpid010ConnectionRemoteProcessName data.
+ * Extract the current value of the brokerConnectionRemoteProcessName data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionRemoteProcessName_val_ptr_ptr
+ * @param brokerConnectionRemoteProcessName_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ConnectionRemoteProcessName_val_ptr_len_ptr
+ * @param brokerConnectionRemoteProcessName_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ConnectionRemoteProcessName.
+ *        pointed to by brokerConnectionRemoteProcessName.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ConnectionRemoteProcessName_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ConnectionRemoteProcessName_val_ptr_ptr.
+ * @note If you need more than (*brokerConnectionRemoteProcessName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerConnectionRemoteProcessName_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -694,64 +694,64 @@ Name of executable running as remote client
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ConnectionRemoteProcessName_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionRemoteProcessName_get(brokerConnectionTable_rowreq_ctx *
                                       rowreq_ctx,
                                       char
-                                      **qpid010ConnectionRemoteProcessName_val_ptr_ptr,
+                                      **brokerConnectionRemoteProcessName_val_ptr_ptr,
                                       size_t
-                                      *qpid010ConnectionRemoteProcessName_val_ptr_len_ptr)
+                                      *brokerConnectionRemoteProcessName_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ConnectionRemoteProcessName_val_ptr_ptr)
+    netsnmp_assert((NULL != brokerConnectionRemoteProcessName_val_ptr_ptr)
                    && (NULL !=
-                       *qpid010ConnectionRemoteProcessName_val_ptr_ptr));
+                       *brokerConnectionRemoteProcessName_val_ptr_ptr));
     netsnmp_assert(NULL !=
-                   qpid010ConnectionRemoteProcessName_val_ptr_len_ptr);
+                   brokerConnectionRemoteProcessName_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionRemoteProcessName_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionRemoteProcessName_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionRemoteProcessName data.
-     * copy (* qpid010ConnectionRemoteProcessName_val_ptr_ptr ) data and (* qpid010ConnectionRemoteProcessName_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionRemoteProcessName data.
+     * copy (* brokerConnectionRemoteProcessName_val_ptr_ptr ) data and (* brokerConnectionRemoteProcessName_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ConnectionRemoteProcessName data
+     * make sure there is enough space for brokerConnectionRemoteProcessName data
      */
-    if ((NULL == (*qpid010ConnectionRemoteProcessName_val_ptr_ptr)) ||
-        ((*qpid010ConnectionRemoteProcessName_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ConnectionRemoteProcessName_len *
+    if ((NULL == (*brokerConnectionRemoteProcessName_val_ptr_ptr)) ||
+        ((*brokerConnectionRemoteProcessName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerConnectionRemoteProcessName_len *
           sizeof(rowreq_ctx->data.
-                 qpid010ConnectionRemoteProcessName[0])))) {
+                 brokerConnectionRemoteProcessName[0])))) {
         /*
-         * allocate space for qpid010ConnectionRemoteProcessName data
+         * allocate space for brokerConnectionRemoteProcessName data
          */
-        (*qpid010ConnectionRemoteProcessName_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ConnectionRemoteProcessName_len *
+        (*brokerConnectionRemoteProcessName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerConnectionRemoteProcessName_len *
                    sizeof(rowreq_ctx->data.
-                          qpid010ConnectionRemoteProcessName[0]));
-        if (NULL == (*qpid010ConnectionRemoteProcessName_val_ptr_ptr)) {
+                          brokerConnectionRemoteProcessName[0]));
+        if (NULL == (*brokerConnectionRemoteProcessName_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ConnectionRemoteProcessName)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerConnectionRemoteProcessName)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ConnectionRemoteProcessName_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ConnectionRemoteProcessName_len *
-        sizeof(rowreq_ctx->data.qpid010ConnectionRemoteProcessName[0]);
-    memcpy((*qpid010ConnectionRemoteProcessName_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ConnectionRemoteProcessName,
-           rowreq_ctx->data.qpid010ConnectionRemoteProcessName_len *
-           sizeof(rowreq_ctx->data.qpid010ConnectionRemoteProcessName[0]));
+    (*brokerConnectionRemoteProcessName_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerConnectionRemoteProcessName_len *
+        sizeof(rowreq_ctx->data.brokerConnectionRemoteProcessName[0]);
+    memcpy((*brokerConnectionRemoteProcessName_val_ptr_ptr),
+           rowreq_ctx->data.brokerConnectionRemoteProcessName,
+           rowreq_ctx->data.brokerConnectionRemoteProcessName_len *
+           sizeof(rowreq_ctx->data.brokerConnectionRemoteProcessName[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionRemoteProcessName_get */
+}                               /* brokerConnectionRemoteProcessName_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionRemotePid
- * qpid010ConnectionRemotePid is subid 9 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionRemotePid
+ * brokerConnectionRemotePid is subid 9 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.9
  * Description:
@@ -768,13 +768,13 @@ Process ID of remote client
  * The net-snmp type is ASN_UNSIGNED. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010ConnectionRemotePid data.
+ * Extract the current value of the brokerConnectionRemotePid data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionRemotePid_val_ptr
+ * @param brokerConnectionRemotePid_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -782,31 +782,31 @@ Process ID of remote client
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionRemotePid_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionRemotePid_get(brokerConnectionTable_rowreq_ctx *
                               rowreq_ctx,
-                              u_long * qpid010ConnectionRemotePid_val_ptr)
+                              u_long * brokerConnectionRemotePid_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionRemotePid_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionRemotePid_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionRemotePid_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionRemotePid_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionRemotePid data.
-     * copy (* qpid010ConnectionRemotePid_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionRemotePid data.
+     * copy (* brokerConnectionRemotePid_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionRemotePid_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionRemotePid;
+    (*brokerConnectionRemotePid_val_ptr) =
+        rowreq_ctx->data.brokerConnectionRemotePid;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionRemotePid_get */
+}                               /* brokerConnectionRemotePid_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionRemoteParentPid
- * qpid010ConnectionRemoteParentPid is subid 10 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionRemoteParentPid
+ * brokerConnectionRemoteParentPid is subid 10 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.10
  * Description:
@@ -823,13 +823,13 @@ Parent Process ID of remote client
  * The net-snmp type is ASN_UNSIGNED. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010ConnectionRemoteParentPid data.
+ * Extract the current value of the brokerConnectionRemoteParentPid data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionRemoteParentPid_val_ptr
+ * @param brokerConnectionRemoteParentPid_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -837,32 +837,32 @@ Parent Process ID of remote client
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionRemoteParentPid_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionRemoteParentPid_get(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx,
                                     u_long *
-                                    qpid010ConnectionRemoteParentPid_val_ptr)
+                                    brokerConnectionRemoteParentPid_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionRemoteParentPid_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionRemoteParentPid_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionRemoteParentPid_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionRemoteParentPid_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionRemoteParentPid data.
-     * copy (* qpid010ConnectionRemoteParentPid_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionRemoteParentPid data.
+     * copy (* brokerConnectionRemoteParentPid_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionRemoteParentPid_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionRemoteParentPid;
+    (*brokerConnectionRemoteParentPid_val_ptr) =
+        rowreq_ctx->data.brokerConnectionRemoteParentPid;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionRemoteParentPid_get */
+}                               /* brokerConnectionRemoteParentPid_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionShadow
- * qpid010ConnectionShadow is subid 11 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionShadow
+ * brokerConnectionShadow is subid 11 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.11
  * Description:
@@ -880,13 +880,13 @@ True for shadow connections
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010ConnectionShadow data.
+ * Extract the current value of the brokerConnectionShadow data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionShadow_val_ptr
+ * @param brokerConnectionShadow_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -894,31 +894,31 @@ True for shadow connections
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionShadow_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                           u_long * qpid010ConnectionShadow_val_ptr)
+brokerConnectionShadow_get(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                           u_long * brokerConnectionShadow_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionShadow_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionShadow_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionShadow_get",
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionShadow_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionShadow data.
-     * copy (* qpid010ConnectionShadow_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionShadow data.
+     * copy (* brokerConnectionShadow_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionShadow_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionShadow;
+    (*brokerConnectionShadow_val_ptr) =
+        rowreq_ctx->data.brokerConnectionShadow;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionShadow_get */
+}                               /* brokerConnectionShadow_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionSaslMechanism
- * qpid010ConnectionSaslMechanism is subid 12 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionSaslMechanism
+ * brokerConnectionSaslMechanism is subid 12 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.12
  * Description:
@@ -938,25 +938,25 @@ SASL mechanism
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010ConnectionSaslMechanism data.
+ * Extract the current value of the brokerConnectionSaslMechanism data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionSaslMechanism_val_ptr_ptr
+ * @param brokerConnectionSaslMechanism_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ConnectionSaslMechanism_val_ptr_len_ptr
+ * @param brokerConnectionSaslMechanism_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ConnectionSaslMechanism.
+ *        pointed to by brokerConnectionSaslMechanism.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ConnectionSaslMechanism_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ConnectionSaslMechanism_val_ptr_ptr.
+ * @note If you need more than (*brokerConnectionSaslMechanism_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerConnectionSaslMechanism_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -966,62 +966,62 @@ SASL mechanism
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ConnectionSaslMechanism_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionSaslMechanism_get(brokerConnectionTable_rowreq_ctx *
                                   rowreq_ctx,
                                   char
-                                  **qpid010ConnectionSaslMechanism_val_ptr_ptr,
+                                  **brokerConnectionSaslMechanism_val_ptr_ptr,
                                   size_t
-                                  *qpid010ConnectionSaslMechanism_val_ptr_len_ptr)
+                                  *brokerConnectionSaslMechanism_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ConnectionSaslMechanism_val_ptr_ptr)
+    netsnmp_assert((NULL != brokerConnectionSaslMechanism_val_ptr_ptr)
                    && (NULL !=
-                       *qpid010ConnectionSaslMechanism_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ConnectionSaslMechanism_val_ptr_len_ptr);
+                       *brokerConnectionSaslMechanism_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerConnectionSaslMechanism_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionSaslMechanism_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionSaslMechanism_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionSaslMechanism data.
-     * copy (* qpid010ConnectionSaslMechanism_val_ptr_ptr ) data and (* qpid010ConnectionSaslMechanism_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionSaslMechanism data.
+     * copy (* brokerConnectionSaslMechanism_val_ptr_ptr ) data and (* brokerConnectionSaslMechanism_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ConnectionSaslMechanism data
+     * make sure there is enough space for brokerConnectionSaslMechanism data
      */
-    if ((NULL == (*qpid010ConnectionSaslMechanism_val_ptr_ptr)) ||
-        ((*qpid010ConnectionSaslMechanism_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ConnectionSaslMechanism_len *
-          sizeof(rowreq_ctx->data.qpid010ConnectionSaslMechanism[0])))) {
+    if ((NULL == (*brokerConnectionSaslMechanism_val_ptr_ptr)) ||
+        ((*brokerConnectionSaslMechanism_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerConnectionSaslMechanism_len *
+          sizeof(rowreq_ctx->data.brokerConnectionSaslMechanism[0])))) {
         /*
-         * allocate space for qpid010ConnectionSaslMechanism data
+         * allocate space for brokerConnectionSaslMechanism data
          */
-        (*qpid010ConnectionSaslMechanism_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ConnectionSaslMechanism_len *
+        (*brokerConnectionSaslMechanism_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerConnectionSaslMechanism_len *
                    sizeof(rowreq_ctx->data.
-                          qpid010ConnectionSaslMechanism[0]));
-        if (NULL == (*qpid010ConnectionSaslMechanism_val_ptr_ptr)) {
+                          brokerConnectionSaslMechanism[0]));
+        if (NULL == (*brokerConnectionSaslMechanism_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ConnectionSaslMechanism)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerConnectionSaslMechanism)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ConnectionSaslMechanism_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ConnectionSaslMechanism_len *
-        sizeof(rowreq_ctx->data.qpid010ConnectionSaslMechanism[0]);
-    memcpy((*qpid010ConnectionSaslMechanism_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ConnectionSaslMechanism,
-           rowreq_ctx->data.qpid010ConnectionSaslMechanism_len *
-           sizeof(rowreq_ctx->data.qpid010ConnectionSaslMechanism[0]));
+    (*brokerConnectionSaslMechanism_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerConnectionSaslMechanism_len *
+        sizeof(rowreq_ctx->data.brokerConnectionSaslMechanism[0]);
+    memcpy((*brokerConnectionSaslMechanism_val_ptr_ptr),
+           rowreq_ctx->data.brokerConnectionSaslMechanism,
+           rowreq_ctx->data.brokerConnectionSaslMechanism_len *
+           sizeof(rowreq_ctx->data.brokerConnectionSaslMechanism[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionSaslMechanism_get */
+}                               /* brokerConnectionSaslMechanism_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionSaslSsf
- * qpid010ConnectionSaslSsf is subid 13 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionSaslSsf
+ * brokerConnectionSaslSsf is subid 13 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.13
  * Description:
@@ -1039,13 +1039,13 @@ SASL security strength factor
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010ConnectionSaslSsf data.
+ * Extract the current value of the brokerConnectionSaslSsf data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionSaslSsf_val_ptr
+ * @param brokerConnectionSaslSsf_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1053,30 +1053,30 @@ SASL security strength factor
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionSaslSsf_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                            long *qpid010ConnectionSaslSsf_val_ptr)
+brokerConnectionSaslSsf_get(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                            long *brokerConnectionSaslSsf_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionSaslSsf_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionSaslSsf_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionSaslSsf_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionSaslSsf_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionSaslSsf data.
-     * copy (* qpid010ConnectionSaslSsf_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionSaslSsf data.
+     * copy (* brokerConnectionSaslSsf_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionSaslSsf_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionSaslSsf;
+    (*brokerConnectionSaslSsf_val_ptr) =
+        rowreq_ctx->data.brokerConnectionSaslSsf;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionSaslSsf_get */
+}                               /* brokerConnectionSaslSsf_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionClosing
- * qpid010ConnectionClosing is subid 14 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionClosing
+ * brokerConnectionClosing is subid 14 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.14
  * Description:
@@ -1094,13 +1094,13 @@ This client is closing by management request
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010ConnectionClosing data.
+ * Extract the current value of the brokerConnectionClosing data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionClosing_val_ptr
+ * @param brokerConnectionClosing_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1108,30 +1108,30 @@ This client is closing by management request
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionClosing_get(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                            u_long * qpid010ConnectionClosing_val_ptr)
+brokerConnectionClosing_get(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                            u_long * brokerConnectionClosing_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionClosing_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionClosing_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionClosing_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionClosing_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ConnectionClosing data.
-     * copy (* qpid010ConnectionClosing_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerConnectionClosing data.
+     * copy (* brokerConnectionClosing_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ConnectionClosing_val_ptr) =
-        rowreq_ctx->data.qpid010ConnectionClosing;
+    (*brokerConnectionClosing_val_ptr) =
+        rowreq_ctx->data.brokerConnectionClosing;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionClosing_get */
+}                               /* brokerConnectionClosing_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionFramesFromClient
- * qpid010ConnectionFramesFromClient is subid 15 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionFramesFromClient
+ * brokerConnectionFramesFromClient is subid 15 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.15
  * Description:
@@ -1148,13 +1148,13 @@ Connection framesFromClient
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ConnectionFramesFromClient data.
+ * Extract the current value of the brokerConnectionFramesFromClient data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionFramesFromClient_val_ptr
+ * @param brokerConnectionFramesFromClient_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1162,30 +1162,30 @@ Connection framesFromClient
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionFramesFromClient_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionFramesFromClient_get(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx,
                                      U64 *
-                                     qpid010ConnectionFramesFromClient_val_ptr)
+                                     brokerConnectionFramesFromClient_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionFramesFromClient_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionFramesFromClient_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ConnectionFramesFromClient data.
-     * get (* qpid010ConnectionFramesFromClient_val_ptr ).low and (* qpid010ConnectionFramesFromClient_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerConnectionFramesFromClient data.
+     * get (* brokerConnectionFramesFromClient_val_ptr ).low and (* brokerConnectionFramesFromClient_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ConnectionFramesFromClient_val_ptr).high =
-        rowreq_ctx->data.qpid010ConnectionFramesFromClient.high;
-    (*qpid010ConnectionFramesFromClient_val_ptr).low =
-        rowreq_ctx->data.qpid010ConnectionFramesFromClient.low;
+    (*brokerConnectionFramesFromClient_val_ptr).high =
+        rowreq_ctx->data.brokerConnectionFramesFromClient.high;
+    (*brokerConnectionFramesFromClient_val_ptr).low =
+        rowreq_ctx->data.brokerConnectionFramesFromClient.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionFramesFromClient_get */
+}                               /* brokerConnectionFramesFromClient_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionFramesToClient
- * qpid010ConnectionFramesToClient is subid 16 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionFramesToClient
+ * brokerConnectionFramesToClient is subid 16 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.16
  * Description:
@@ -1202,13 +1202,13 @@ Connection framesToClient
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ConnectionFramesToClient data.
+ * Extract the current value of the brokerConnectionFramesToClient data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionFramesToClient_val_ptr
+ * @param brokerConnectionFramesToClient_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1216,30 +1216,30 @@ Connection framesToClient
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionFramesToClient_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionFramesToClient_get(brokerConnectionTable_rowreq_ctx *
                                    rowreq_ctx,
                                    U64 *
-                                   qpid010ConnectionFramesToClient_val_ptr)
+                                   brokerConnectionFramesToClient_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionFramesToClient_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionFramesToClient_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ConnectionFramesToClient data.
-     * get (* qpid010ConnectionFramesToClient_val_ptr ).low and (* qpid010ConnectionFramesToClient_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerConnectionFramesToClient data.
+     * get (* brokerConnectionFramesToClient_val_ptr ).low and (* brokerConnectionFramesToClient_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ConnectionFramesToClient_val_ptr).high =
-        rowreq_ctx->data.qpid010ConnectionFramesToClient.high;
-    (*qpid010ConnectionFramesToClient_val_ptr).low =
-        rowreq_ctx->data.qpid010ConnectionFramesToClient.low;
+    (*brokerConnectionFramesToClient_val_ptr).high =
+        rowreq_ctx->data.brokerConnectionFramesToClient.high;
+    (*brokerConnectionFramesToClient_val_ptr).low =
+        rowreq_ctx->data.brokerConnectionFramesToClient.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionFramesToClient_get */
+}                               /* brokerConnectionFramesToClient_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionBytesFromClient
- * qpid010ConnectionBytesFromClient is subid 17 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionBytesFromClient
+ * brokerConnectionBytesFromClient is subid 17 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.17
  * Description:
@@ -1256,13 +1256,13 @@ Connection bytesFromClient
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ConnectionBytesFromClient data.
+ * Extract the current value of the brokerConnectionBytesFromClient data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionBytesFromClient_val_ptr
+ * @param brokerConnectionBytesFromClient_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1270,30 +1270,30 @@ Connection bytesFromClient
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionBytesFromClient_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionBytesFromClient_get(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx,
                                     U64 *
-                                    qpid010ConnectionBytesFromClient_val_ptr)
+                                    brokerConnectionBytesFromClient_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionBytesFromClient_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionBytesFromClient_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ConnectionBytesFromClient data.
-     * get (* qpid010ConnectionBytesFromClient_val_ptr ).low and (* qpid010ConnectionBytesFromClient_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerConnectionBytesFromClient data.
+     * get (* brokerConnectionBytesFromClient_val_ptr ).low and (* brokerConnectionBytesFromClient_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ConnectionBytesFromClient_val_ptr).high =
-        rowreq_ctx->data.qpid010ConnectionBytesFromClient.high;
-    (*qpid010ConnectionBytesFromClient_val_ptr).low =
-        rowreq_ctx->data.qpid010ConnectionBytesFromClient.low;
+    (*brokerConnectionBytesFromClient_val_ptr).high =
+        rowreq_ctx->data.brokerConnectionBytesFromClient.high;
+    (*brokerConnectionBytesFromClient_val_ptr).low =
+        rowreq_ctx->data.brokerConnectionBytesFromClient.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionBytesFromClient_get */
+}                               /* brokerConnectionBytesFromClient_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionBytesToClient
- * qpid010ConnectionBytesToClient is subid 18 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionBytesToClient
+ * brokerConnectionBytesToClient is subid 18 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.18
  * Description:
@@ -1310,13 +1310,13 @@ Connection bytesToClient
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ConnectionBytesToClient data.
+ * Extract the current value of the brokerConnectionBytesToClient data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionBytesToClient_val_ptr
+ * @param brokerConnectionBytesToClient_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1324,30 +1324,30 @@ Connection bytesToClient
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionBytesToClient_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionBytesToClient_get(brokerConnectionTable_rowreq_ctx *
                                   rowreq_ctx,
                                   U64 *
-                                  qpid010ConnectionBytesToClient_val_ptr)
+                                  brokerConnectionBytesToClient_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionBytesToClient_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionBytesToClient_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ConnectionBytesToClient data.
-     * get (* qpid010ConnectionBytesToClient_val_ptr ).low and (* qpid010ConnectionBytesToClient_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerConnectionBytesToClient data.
+     * get (* brokerConnectionBytesToClient_val_ptr ).low and (* brokerConnectionBytesToClient_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ConnectionBytesToClient_val_ptr).high =
-        rowreq_ctx->data.qpid010ConnectionBytesToClient.high;
-    (*qpid010ConnectionBytesToClient_val_ptr).low =
-        rowreq_ctx->data.qpid010ConnectionBytesToClient.low;
+    (*brokerConnectionBytesToClient_val_ptr).high =
+        rowreq_ctx->data.brokerConnectionBytesToClient.high;
+    (*brokerConnectionBytesToClient_val_ptr).low =
+        rowreq_ctx->data.brokerConnectionBytesToClient.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionBytesToClient_get */
+}                               /* brokerConnectionBytesToClient_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionMsgsFromClient
- * qpid010ConnectionMsgsFromClient is subid 19 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionMsgsFromClient
+ * brokerConnectionMsgsFromClient is subid 19 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.19
  * Description:
@@ -1364,13 +1364,13 @@ Connection msgsFromClient
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ConnectionMsgsFromClient data.
+ * Extract the current value of the brokerConnectionMsgsFromClient data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionMsgsFromClient_val_ptr
+ * @param brokerConnectionMsgsFromClient_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1378,30 +1378,30 @@ Connection msgsFromClient
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionMsgsFromClient_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionMsgsFromClient_get(brokerConnectionTable_rowreq_ctx *
                                    rowreq_ctx,
                                    U64 *
-                                   qpid010ConnectionMsgsFromClient_val_ptr)
+                                   brokerConnectionMsgsFromClient_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionMsgsFromClient_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionMsgsFromClient_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ConnectionMsgsFromClient data.
-     * get (* qpid010ConnectionMsgsFromClient_val_ptr ).low and (* qpid010ConnectionMsgsFromClient_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerConnectionMsgsFromClient data.
+     * get (* brokerConnectionMsgsFromClient_val_ptr ).low and (* brokerConnectionMsgsFromClient_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ConnectionMsgsFromClient_val_ptr).high =
-        rowreq_ctx->data.qpid010ConnectionMsgsFromClient.high;
-    (*qpid010ConnectionMsgsFromClient_val_ptr).low =
-        rowreq_ctx->data.qpid010ConnectionMsgsFromClient.low;
+    (*brokerConnectionMsgsFromClient_val_ptr).high =
+        rowreq_ctx->data.brokerConnectionMsgsFromClient.high;
+    (*brokerConnectionMsgsFromClient_val_ptr).low =
+        rowreq_ctx->data.brokerConnectionMsgsFromClient.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionMsgsFromClient_get */
+}                               /* brokerConnectionMsgsFromClient_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionMsgsToClient
- * qpid010ConnectionMsgsToClient is subid 20 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionMsgsToClient
+ * brokerConnectionMsgsToClient is subid 20 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.20
  * Description:
@@ -1418,13 +1418,13 @@ Connection msgsToClient
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ConnectionMsgsToClient data.
+ * Extract the current value of the brokerConnectionMsgsToClient data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionMsgsToClient_val_ptr
+ * @param brokerConnectionMsgsToClient_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1432,26 +1432,26 @@ Connection msgsToClient
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ConnectionMsgsToClient_get(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionMsgsToClient_get(brokerConnectionTable_rowreq_ctx *
                                  rowreq_ctx,
                                  U64 *
-                                 qpid010ConnectionMsgsToClient_val_ptr)
+                                 brokerConnectionMsgsToClient_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ConnectionMsgsToClient_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionMsgsToClient_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ConnectionMsgsToClient data.
-     * get (* qpid010ConnectionMsgsToClient_val_ptr ).low and (* qpid010ConnectionMsgsToClient_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerConnectionMsgsToClient data.
+     * get (* brokerConnectionMsgsToClient_val_ptr ).low and (* brokerConnectionMsgsToClient_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ConnectionMsgsToClient_val_ptr).high =
-        rowreq_ctx->data.qpid010ConnectionMsgsToClient.high;
-    (*qpid010ConnectionMsgsToClient_val_ptr).low =
-        rowreq_ctx->data.qpid010ConnectionMsgsToClient.low;
+    (*brokerConnectionMsgsToClient_val_ptr).high =
+        rowreq_ctx->data.brokerConnectionMsgsToClient.high;
+    (*brokerConnectionMsgsToClient_val_ptr).low =
+        rowreq_ctx->data.brokerConnectionMsgsToClient.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionMsgsToClient_get */
+}                               /* brokerConnectionMsgsToClient_get */
 
 
 

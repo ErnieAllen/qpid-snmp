@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010SESSIONTABLE_H
-#define qpid010SESSIONTABLE_H
+#ifndef brokerSESSIONTABLE_H
+#define brokerSESSIONTABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerSessionTable/brokerSessionTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerSessionTable/brokerSessionTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerSessionTable/brokerSessionTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerSessionTable/brokerSessionTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010SessionTable 
+     * OID and column number definitions for brokerSessionTable 
      */
 #include "SessionTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_data_se
      * function declarations
      */
     void            init_SessionTable(void);
-    void            shutdown_qpid010SessionTable(void);
+    void            shutdown_brokerSessionTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_data_se
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SessionTable
+ *** Table brokerSessionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
+     * QPID-MESSAGING-MIB::brokerSessionTable is subid 1 of brokerSessions.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
      */
@@ -71,144 +71,144 @@ config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_data_se
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010SessionTable registration context.
+     * TODO:101:o: |-> Review brokerSessionTable registration context.
      */
-    typedef netsnmp_data_list qpid010SessionTable_registration;
+    typedef netsnmp_data_list brokerSessionTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010SessionTable data context structure.
-     * This structure is used to represent the data for qpid010SessionTable.
+     * TODO:110:r: |-> Review brokerSessionTable data context structure.
+     * This structure is used to represent the data for brokerSessionTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010SessionTable.
+     * brokerSessionTable.
      */
-    typedef struct qpid010SessionTable_data_s {
+    typedef struct brokerSessionTable_data_s {
 
         /*
-         * qpid010SessionVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerSessionVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010SessionVhostRef[255];
-        size_t          qpid010SessionVhostRef_len;      /* # of char elements, not bytes */
+        char            brokerSessionVhostRef[255];
+        size_t          brokerSessionVhostRef_len;      /* # of char elements, not bytes */
 
         /*
-         * qpid010SessionName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerSessionName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010SessionName[255];
-        size_t          qpid010SessionName_len;  /* # of char elements, not bytes */
+        char            brokerSessionName[255];
+        size_t          brokerSessionName_len;  /* # of char elements, not bytes */
 
         /*
-         * qpid010SessionChannelId(3)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerSessionChannelId(3)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010SessionChannelId;
+        long            brokerSessionChannelId;
 
         /*
-         * qpid010SessionConnectionRef(4)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerSessionConnectionRef(4)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010SessionConnectionRef[255];
-        size_t          qpid010SessionConnectionRef_len; /* # of char elements, not bytes */
+        char            brokerSessionConnectionRef[255];
+        size_t          brokerSessionConnectionRef_len; /* # of char elements, not bytes */
 
         /*
-         * qpid010SessionDetachedLifespan(5)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerSessionDetachedLifespan(5)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010SessionDetachedLifespan;
+        u_long          brokerSessionDetachedLifespan;
 
         /*
-         * qpid010SessionAttached(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * brokerSessionAttached(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
-        u_long          qpid010SessionAttached;
+        u_long          brokerSessionAttached;
 
         /*
-         * qpid010SessionExpireTime(7)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerSessionExpireTime(7)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010SessionExpireTime;
+        u_long          brokerSessionExpireTime;
 
         /*
-         * qpid010SessionMaxClientRate(8)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerSessionMaxClientRate(8)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010SessionMaxClientRate;
+        u_long          brokerSessionMaxClientRate;
 
         /*
-         * qpid010SessionFramesOutstanding(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerSessionFramesOutstanding(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010SessionFramesOutstanding;
+        u_long          brokerSessionFramesOutstanding;
 
         /*
-         * qpid010SessionTxnStarts(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerSessionTxnStarts(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010SessionTxnStarts;
+        U64             brokerSessionTxnStarts;
 
         /*
-         * qpid010SessionTxnCommits(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerSessionTxnCommits(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010SessionTxnCommits;
+        U64             brokerSessionTxnCommits;
 
         /*
-         * qpid010SessionTxnRejects(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerSessionTxnRejects(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010SessionTxnRejects;
+        U64             brokerSessionTxnRejects;
 
         /*
-         * qpid010SessionTxnCount(13)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerSessionTxnCount(13)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010SessionTxnCount;
+        u_long          brokerSessionTxnCount;
 
         /*
-         * qpid010SessionClientCredit(14)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerSessionClientCredit(14)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010SessionClientCredit;
+        u_long          brokerSessionClientCredit;
 
-    } qpid010SessionTable_data;
+    } brokerSessionTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010SessionTable undo context.
+     * TODO:115:o: |-> Review brokerSessionTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010SessionTable_data qpid010SessionTable_undo_data;
+    typedef brokerSessionTable_data brokerSessionTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010SessionTable mib index.
-     * This structure is used to represent the index for qpid010SessionTable.
+     * TODO:120:r: |-> Review brokerSessionTable mib index.
+     * This structure is used to represent the index for brokerSessionTable.
      */
-    typedef struct qpid010SessionTable_mib_index_s {
+    typedef struct brokerSessionTable_mib_index_s {
 
         /*
-         * qpid010SessionInternalIndex(15)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerSessionInternalIndex(15)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010SessionInternalIndex;
+        u_long          brokerSessionInternalIndex;
 
 
-    } qpid010SessionTable_mib_index;
+    } brokerSessionTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010SessionTable max index length.
+     * TODO:121:r: |   |-> Review brokerSessionTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010SessionTable_IDX_LEN     1
+#define MAX_brokerSessionTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010SessionTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerSessionTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010SessionTable_rowreq_ctx pointer.
+     * brokerSessionTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010SessionTable_rowreq_ctx_s {
+    typedef struct brokerSessionTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010SessionTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerSessionTable_IDX_LEN];
 
-        qpid010SessionTable_mib_index tbl_idx;
+        brokerSessionTable_mib_index tbl_idx;
 
-        qpid010SessionTable_data data;
-        qpid010SessionTable_undo_data *undo;
+        brokerSessionTable_data data;
+        brokerSessionTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -219,51 +219,51 @@ config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_data_se
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010SessionTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerSessionTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010SessionTable_data_list;
+        netsnmp_data_list *brokerSessionTable_data_list;
 
-    } qpid010SessionTable_rowreq_ctx;
+    } brokerSessionTable_rowreq_ctx;
 
-    typedef struct qpid010SessionTable_ref_rowreq_ctx_s {
-        qpid010SessionTable_rowreq_ctx *rowreq_ctx;
-    } qpid010SessionTable_ref_rowreq_ctx;
+    typedef struct brokerSessionTable_ref_rowreq_ctx_s {
+        brokerSessionTable_rowreq_ctx *rowreq_ctx;
+    } brokerSessionTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010SessionTable_pre_request(qpid010SessionTable_registration *
+        brokerSessionTable_pre_request(brokerSessionTable_registration *
                                        user_context);
     int            
-        qpid010SessionTable_post_request(qpid010SessionTable_registration *
+        brokerSessionTable_post_request(brokerSessionTable_registration *
                                         user_context, int rc);
 
     int            
-        qpid010SessionTable_rowreq_ctx_init(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTable_rowreq_ctx_init(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx,
                                            void *user_init_ctx);
     void           
-        qpid010SessionTable_rowreq_ctx_cleanup(qpid010SessionTable_rowreq_ctx
+        brokerSessionTable_rowreq_ctx_cleanup(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx);
 
     int            
-        qpid010SessionTable_check_dependencies(qpid010SessionTable_rowreq_ctx
+        brokerSessionTable_check_dependencies(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx);
-    int             qpid010SessionTable_commit(qpid010SessionTable_rowreq_ctx
+    int             brokerSessionTable_commit(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx);
 
-    qpid010SessionTable_rowreq_ctx
-        *qpid010SessionTable_row_find_by_mib_index
-        (qpid010SessionTable_mib_index * mib_idx);
+    brokerSessionTable_rowreq_ctx
+        *brokerSessionTable_row_find_by_mib_index
+        (brokerSessionTable_mib_index * mib_idx);
 
-    extern const oid qpid010SessionTable_oid[];
-    extern const int qpid010SessionTable_oid_size;
+    extern const oid brokerSessionTable_oid[];
+    extern const int brokerSessionTable_oid_size;
 
 
 #include "SessionTable_interface.h"
@@ -284,5 +284,5 @@ config_require(MRG-MESSAGING-MIB/qpid010SessionTable/qpid010SessionTable_data_se
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SESSIONTABLE_H */
+#endif                          /* brokerSESSIONTABLE_H */
 /** @} */

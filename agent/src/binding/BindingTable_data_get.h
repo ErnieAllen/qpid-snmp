@@ -4,7 +4,7 @@
  *
  * $Id:$
  *
- * @file qpid010BindingTable_data_get.h
+ * @file brokerBindingTable_data_get.h
  *
  * @addtogroup get
  *
@@ -12,8 +12,8 @@
  *
  * @{
  */
-#ifndef qpid010BINDINGTABLE_DATA_GET_H
-#define qpid010BINDINGTABLE_DATA_GET_H
+#ifndef brokerBINDINGTABLE_DATA_GET_H
+#define brokerBINDINGTABLE_DATA_GET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -31,12 +31,12 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BindingTable
+ *** Table brokerBindingTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010BindingTable is subid 1 of qpid010Bindings.
+     * QPID-MESSAGING-MIB::brokerBindingTable is subid 1 of brokerBindings.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1, length: 12
      */
@@ -45,54 +45,54 @@ extern          "C" {
      */
 
     int            
-        qpid010BindingExchangeRef_get(qpid010BindingTable_rowreq_ctx *
+        brokerBindingExchangeRef_get(brokerBindingTable_rowreq_ctx *
                                      rowreq_ctx,
                                      char
-                                     **qpid010BindingExchangeRef_val_ptr_ptr,
+                                     **brokerBindingExchangeRef_val_ptr_ptr,
                                      size_t
-                                     *qpid010BindingExchangeRef_val_ptr_len_ptr);
-    int             qpid010BindingQueueRef_get(qpid010BindingTable_rowreq_ctx
+                                     *brokerBindingExchangeRef_val_ptr_len_ptr);
+    int             brokerBindingQueueRef_get(brokerBindingTable_rowreq_ctx
                                               * rowreq_ctx,
                                               char
-                                              **qpid010BindingQueueRef_val_ptr_ptr,
+                                              **brokerBindingQueueRef_val_ptr_ptr,
                                               size_t
-                                              *qpid010BindingQueueRef_val_ptr_len_ptr);
+                                              *brokerBindingQueueRef_val_ptr_len_ptr);
     int            
-        qpid010BindingBindingKey_get(qpid010BindingTable_rowreq_ctx *
+        brokerBindingBindingKey_get(brokerBindingTable_rowreq_ctx *
                                     rowreq_ctx,
                                     char
-                                    **qpid010BindingBindingKey_val_ptr_ptr,
+                                    **brokerBindingBindingKey_val_ptr_ptr,
                                     size_t
-                                    *qpid010BindingBindingKey_val_ptr_len_ptr);
+                                    *brokerBindingBindingKey_val_ptr_len_ptr);
     int            
-        qpid010BindingArguments_get(qpid010BindingTable_rowreq_ctx *
+        brokerBindingArguments_get(brokerBindingTable_rowreq_ctx *
                                    rowreq_ctx,
                                    char
-                                   **qpid010BindingArguments_val_ptr_ptr,
+                                   **brokerBindingArguments_val_ptr_ptr,
                                    size_t
-                                   *qpid010BindingArguments_val_ptr_len_ptr);
-    int             qpid010BindingOrigin_get(qpid010BindingTable_rowreq_ctx *
+                                   *brokerBindingArguments_val_ptr_len_ptr);
+    int             brokerBindingOrigin_get(brokerBindingTable_rowreq_ctx *
                                             rowreq_ctx,
                                             char
-                                            **qpid010BindingOrigin_val_ptr_ptr,
+                                            **brokerBindingOrigin_val_ptr_ptr,
                                             size_t
-                                            *qpid010BindingOrigin_val_ptr_len_ptr);
+                                            *brokerBindingOrigin_val_ptr_len_ptr);
     int            
-        qpid010BindingMsgMatched_get(qpid010BindingTable_rowreq_ctx *
+        brokerBindingMsgMatched_get(brokerBindingTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    U64 * qpid010BindingMsgMatched_val_ptr);
+                                    U64 * brokerBindingMsgMatched_val_ptr);
 
 
     int            
-        qpid010BindingTable_indexes_set_tbl_idx(qpid010BindingTable_mib_index
+        brokerBindingTable_indexes_set_tbl_idx(brokerBindingTable_mib_index
                                                * tbl_idx,
                                                u_long
-                                               qpid010BindingInternalIndex_val);
+                                               brokerBindingInternalIndex_val);
     int            
-        qpid010BindingTable_indexes_set(qpid010BindingTable_rowreq_ctx *
+        brokerBindingTable_indexes_set(brokerBindingTable_rowreq_ctx *
                                        rowreq_ctx,
                                        u_long
-                                       qpid010BindingInternalIndex_val);
+                                       brokerBindingInternalIndex_val);
 
 
 
@@ -100,5 +100,5 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BINDINGTABLE_DATA_GET_H */
+#endif                          /* brokerBINDINGTABLE_DATA_GET_H */
 /** @} */

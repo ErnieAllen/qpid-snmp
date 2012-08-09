@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010LinkTable
+ *** Table brokerLinkTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
+ * QPID-MESSAGING-MIB::brokerLinkTable is subid 1 of brokerLinks.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010LinkTable_allocate_data(), but may need extra
+ * brokerLinkTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010LinkTable_rowreq_ctx_init().
+ * brokerLinkTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,30 +125,30 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010LinkTable_rowreq_ctx)
+ *        Pointer to the table context (brokerLinkTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010LinkTable_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkTable_undo_setup(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_undo_setup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010LinkTable undo.
-     * set up qpid010LinkTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010LinkLastError_val_ptr_ptr )*
+     * TODO:451:M: |-> Setup brokerLinkTable undo.
+     * set up brokerLinkTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerLinkLastError_val_ptr_ptr )*
      */
 
     return rc;
-}                               /* qpid010LinkTable_undo_setup */
+}                               /* brokerLinkTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -165,30 +165,30 @@ qpid010LinkTable_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010LinkTable_rowreq_ctx)
+ *        Pointer to the table context (brokerLinkTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010LinkTable_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkTable_undo(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_undo",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_undo",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010LinkTable undo.
-     * qpid010LinkTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010LinkLastError_val_ptr_ptr )*
+     * TODO:451:M: |-> brokerLinkTable undo.
+     * brokerLinkTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerLinkLastError_val_ptr_ptr )*
      */
 
     return rc;
-}                               /* qpid010LinkTable_undo_setup */
+}                               /* brokerLinkTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -202,29 +202,29 @@ qpid010LinkTable_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010LinkTable_rowreq_ctx)
+ *        Pointer to the table context (brokerLinkTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010LinkTable_undo_cleanup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkTable_undo_cleanup(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_undo_cleanup",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_undo_cleanup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010LinkTable undo.
-     * Undo storage is in (* qpid010LinkLastError_val_ptr_ptr )*
+     * TODO:452:M: |-> Cleanup brokerLinkTable undo.
+     * Undo storage is in (* brokerLinkLastError_val_ptr_ptr )*
      */
 
     return rc;
-}                               /* qpid010LinkTable_undo_cleanup */
+}                               /* brokerLinkTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -235,22 +235,22 @@ qpid010LinkTable_undo_cleanup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010LinkTable_oids.h.
+ * brokerLinkTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010LinkTable_rowreq_ctx
+ * @param brokerLinkTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkTable_commit(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_commit",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
@@ -263,61 +263,61 @@ qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010LinkTable data
+     * commit brokerLinkTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_QPID010LINKVHOSTREF_FLAG) {
-        save_flags &= ~COLUMN_QPID010LINKVHOSTREF_FLAG; /* clear qpid010LinkVhostRef */
+    if (save_flags & COLUMN_brokerLINKVHOSTREF_FLAG) {
+        save_flags &= ~COLUMN_brokerLINKVHOSTREF_FLAG; /* clear brokerLinkVhostRef */
         /*
-         * TODO:482:o: |-> commit column qpid010LinkVhostRef.
+         * TODO:482:o: |-> commit column brokerLinkVhostRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010LinkTable column qpid010LinkVhostRef commit failed\n");
+                     "brokerLinkTable column brokerLinkVhostRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010LinkVhostRef
+             * set flag, in case we need to undo brokerLinkVhostRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_QPID010LINKVHOSTREF_FLAG;
+                COLUMN_brokerLINKVHOSTREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_QPID010LINKNAME_FLAG) {
-        save_flags &= ~COLUMN_QPID010LINKNAME_FLAG;     /* clear qpid010LinkName */
+    if (save_flags & COLUMN_brokerLINKNAME_FLAG) {
+        save_flags &= ~COLUMN_brokerLINKNAME_FLAG;     /* clear brokerLinkName */
         /*
-         * TODO:482:o: |-> commit column qpid010LinkName.
+         * TODO:482:o: |-> commit column brokerLinkName.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010LinkTable column qpid010LinkName commit failed\n");
+                     "brokerLinkTable column brokerLinkName commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010LinkName
+             * set flag, in case we need to undo brokerLinkName
              */
-            rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKNAME_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerLINKNAME_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_QPID010LINKDURABLE_FLAG) {
-        save_flags &= ~COLUMN_QPID010LINKDURABLE_FLAG;  /* clear qpid010LinkDurable */
+    if (save_flags & COLUMN_brokerLINKDURABLE_FLAG) {
+        save_flags &= ~COLUMN_brokerLINKDURABLE_FLAG;  /* clear brokerLinkDurable */
         /*
-         * TODO:482:o: |-> commit column qpid010LinkDurable.
+         * TODO:482:o: |-> commit column brokerLinkDurable.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010LinkTable column qpid010LinkDurable commit failed\n");
+                     "brokerLinkTable column brokerLinkDurable commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010LinkDurable
+             * set flag, in case we need to undo brokerLinkDurable
              */
-            rowreq_ctx->column_set_flags |= COLUMN_QPID010LINKDURABLE_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerLINKDURABLE_FLAG;
         }
     }
 
@@ -335,7 +335,7 @@ qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010LinkTable_commit */
+}                               /* brokerLinkTable_commit */
 
 /**
  * undo commit new values.
@@ -343,28 +343,28 @@ qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010LinkTable_oids.h.
+ * brokerLinkTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010LinkTable_rowreq_ctx
+ * @param brokerLinkTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010LinkTable_undo_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkTable_undo_commit(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkTable_undo_commit",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkTable_undo_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010LinkTable commit.
+     * TODO:485:M: |-> Undo brokerLinkTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -380,17 +380,17 @@ qpid010LinkTable_undo_commit(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010LinkTable_undo_commit */
+}                               /* brokerLinkTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010LinkTable node value checks.
- * TODO:450:M: Implement qpid010LinkTable undo functions.
- * TODO:460:M: Implement qpid010LinkTable set functions.
- * TODO:480:M: Implement qpid010LinkTable commit functions.
+ * TODO:440:M: Implement brokerLinkTable node value checks.
+ * TODO:450:M: Implement brokerLinkTable undo functions.
+ * TODO:460:M: Implement brokerLinkTable set functions.
+ * TODO:480:M: Implement brokerLinkTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkVhostRef
- * qpid010LinkVhostRef is subid 1 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkVhostRef
+ * brokerLinkVhostRef is subid 1 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.1
  * Description:
@@ -414,10 +414,10 @@ Link vhostRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkVhostRef_val_ptr
+ * @param brokerLinkVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010LinkVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010LinkVhostRef_val_ptr
+ * @param brokerLinkVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerLinkVhostRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -440,46 +440,46 @@ Link vhostRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010LinkTable_check_dependencies() function.
+ * brokerLinkTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010LinkVhostRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerLinkVhostRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010LinkVhostRef_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                                char *qpid010LinkVhostRef_val_ptr,
-                                size_t qpid010LinkVhostRef_val_ptr_len)
+brokerLinkVhostRef_check_value(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                                char *brokerLinkVhostRef_val_ptr,
+                                size_t brokerLinkVhostRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkVhostRef_check_value",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkVhostRef_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010LinkVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerLinkVhostRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010LinkVhostRef value.
+     * TODO:441:o: |-> Check for valid brokerLinkVhostRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010LinkVhostRef value not illegal */
-}                               /* qpid010LinkVhostRef_check_value */
+    return MFD_SUCCESS;         /* brokerLinkVhostRef value not illegal */
+}                               /* brokerLinkVhostRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010LinkTable_rowreq_ctx)
+ *        Pointer to the table context (brokerLinkTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010LinkTable_undo_setup has been called.
+ * brokerLinkTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -489,31 +489,31 @@ qpid010LinkVhostRef_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010LinkVhostRef_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkVhostRef_undo_setup(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkVhostRef_undo_setup",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkVhostRef_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010LinkVhostRef undo.
+     * TODO:455:o: |-> Setup brokerLinkVhostRef undo.
      */
     /*
-     * copy qpid010LinkVhostRef and qpid010LinkVhostRef_len data
-     * set rowreq_ctx->undo->qpid010LinkVhostRef from rowreq_ctx->data.qpid010LinkVhostRef
+     * copy brokerLinkVhostRef and brokerLinkVhostRef_len data
+     * set rowreq_ctx->undo->brokerLinkVhostRef from rowreq_ctx->data.brokerLinkVhostRef
      */
-    memcpy(rowreq_ctx->undo->qpid010LinkVhostRef,
-           rowreq_ctx->data.qpid010LinkVhostRef,
-           (rowreq_ctx->data.qpid010LinkVhostRef_len *
-            sizeof(rowreq_ctx->undo->qpid010LinkVhostRef[0])));
-    rowreq_ctx->undo->qpid010LinkVhostRef_len =
-        rowreq_ctx->data.qpid010LinkVhostRef_len;
+    memcpy(rowreq_ctx->undo->brokerLinkVhostRef,
+           rowreq_ctx->data.brokerLinkVhostRef,
+           (rowreq_ctx->data.brokerLinkVhostRef_len *
+            sizeof(rowreq_ctx->undo->brokerLinkVhostRef[0])));
+    rowreq_ctx->undo->brokerLinkVhostRef_len =
+        rowreq_ctx->data.brokerLinkVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkVhostRef_undo_setup */
+}                               /* brokerLinkVhostRef_undo_setup */
 
 /**
  * Set the new value.
@@ -521,37 +521,37 @@ qpid010LinkVhostRef_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010LinkVhostRef_val_ptr
+ * @param brokerLinkVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010LinkVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010LinkVhostRef_val_ptr
+ * @param brokerLinkVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerLinkVhostRef_val_ptr
  */
 int
-qpid010LinkVhostRef_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                        char *qpid010LinkVhostRef_val_ptr,
-                        size_t qpid010LinkVhostRef_val_ptr_len)
+brokerLinkVhostRef_set(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                        char *brokerLinkVhostRef_val_ptr,
+                        size_t brokerLinkVhostRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkVhostRef_set",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkVhostRef_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010LinkVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerLinkVhostRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010LinkVhostRef value.
-     * set qpid010LinkVhostRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerLinkVhostRef value.
+     * set brokerLinkVhostRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010LinkVhostRef,
-           qpid010LinkVhostRef_val_ptr, qpid010LinkVhostRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerLinkVhostRef,
+           brokerLinkVhostRef_val_ptr, brokerLinkVhostRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010LinkVhostRef_len =
-        qpid010LinkVhostRef_val_ptr_len /
-        sizeof(qpid010LinkVhostRef_val_ptr[0]);
+    rowreq_ctx->data.brokerLinkVhostRef_len =
+        brokerLinkVhostRef_val_ptr_len /
+        sizeof(brokerLinkVhostRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkVhostRef_set */
+}                               /* brokerLinkVhostRef_set */
 
 /**
  * undo the previous set.
@@ -560,35 +560,35 @@ qpid010LinkVhostRef_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010LinkVhostRef_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkVhostRef_undo(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkVhostRef_undo",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkVhostRef_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010LinkVhostRef undo.
+     * TODO:456:o: |-> Clean up brokerLinkVhostRef undo.
      */
     /*
-     * copy qpid010LinkVhostRef and qpid010LinkVhostRef_len data
-     * set rowreq_ctx->data.qpid010LinkVhostRef from rowreq_ctx->undo->qpid010LinkVhostRef
+     * copy brokerLinkVhostRef and brokerLinkVhostRef_len data
+     * set rowreq_ctx->data.brokerLinkVhostRef from rowreq_ctx->undo->brokerLinkVhostRef
      */
-    memcpy(rowreq_ctx->data.qpid010LinkVhostRef,
-           rowreq_ctx->undo->qpid010LinkVhostRef,
-           (rowreq_ctx->undo->qpid010LinkVhostRef_len *
-            sizeof(rowreq_ctx->data.qpid010LinkVhostRef[0])));
-    rowreq_ctx->data.qpid010LinkVhostRef_len =
-        rowreq_ctx->undo->qpid010LinkVhostRef_len;
+    memcpy(rowreq_ctx->data.brokerLinkVhostRef,
+           rowreq_ctx->undo->brokerLinkVhostRef,
+           (rowreq_ctx->undo->brokerLinkVhostRef_len *
+            sizeof(rowreq_ctx->data.brokerLinkVhostRef[0])));
+    rowreq_ctx->data.brokerLinkVhostRef_len =
+        rowreq_ctx->undo->brokerLinkVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkVhostRef_undo */
+}                               /* brokerLinkVhostRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkName
- * qpid010LinkName is subid 2 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkName
+ * brokerLinkName is subid 2 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.2
  * Description:
@@ -612,10 +612,10 @@ Link name
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkName_val_ptr
+ * @param brokerLinkName_val_ptr
  *        A char containing the new value.
- * @param qpid010LinkName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010LinkName_val_ptr
+ * @param brokerLinkName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerLinkName_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -638,46 +638,46 @@ Link name
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010LinkTable_check_dependencies() function.
+ * brokerLinkTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010LinkName).
+ *    The length is < sizeof(rowreq_ctx->data.brokerLinkName).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010LinkName_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                            char *qpid010LinkName_val_ptr,
-                            size_t qpid010LinkName_val_ptr_len)
+brokerLinkName_check_value(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                            char *brokerLinkName_val_ptr,
+                            size_t brokerLinkName_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_check_value",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkName_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010LinkName_val_ptr);
+    netsnmp_assert(NULL != brokerLinkName_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010LinkName value.
+     * TODO:441:o: |-> Check for valid brokerLinkName value.
      */
 
-    return MFD_SUCCESS;         /* qpid010LinkName value not illegal */
-}                               /* qpid010LinkName_check_value */
+    return MFD_SUCCESS;         /* brokerLinkName value not illegal */
+}                               /* brokerLinkName_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010LinkTable_rowreq_ctx)
+ *        Pointer to the table context (brokerLinkTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010LinkTable_undo_setup has been called.
+ * brokerLinkTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -687,31 +687,31 @@ qpid010LinkName_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010LinkName_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkName_undo_setup(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_undo_setup",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkName_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010LinkName undo.
+     * TODO:455:o: |-> Setup brokerLinkName undo.
      */
     /*
-     * copy qpid010LinkName and qpid010LinkName_len data
-     * set rowreq_ctx->undo->qpid010LinkName from rowreq_ctx->data.qpid010LinkName
+     * copy brokerLinkName and brokerLinkName_len data
+     * set rowreq_ctx->undo->brokerLinkName from rowreq_ctx->data.brokerLinkName
      */
-    memcpy(rowreq_ctx->undo->qpid010LinkName,
-           rowreq_ctx->data.qpid010LinkName,
-           (rowreq_ctx->data.qpid010LinkName_len *
-            sizeof(rowreq_ctx->undo->qpid010LinkName[0])));
-    rowreq_ctx->undo->qpid010LinkName_len =
-        rowreq_ctx->data.qpid010LinkName_len;
+    memcpy(rowreq_ctx->undo->brokerLinkName,
+           rowreq_ctx->data.brokerLinkName,
+           (rowreq_ctx->data.brokerLinkName_len *
+            sizeof(rowreq_ctx->undo->brokerLinkName[0])));
+    rowreq_ctx->undo->brokerLinkName_len =
+        rowreq_ctx->data.brokerLinkName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkName_undo_setup */
+}                               /* brokerLinkName_undo_setup */
 
 /**
  * Set the new value.
@@ -719,36 +719,36 @@ qpid010LinkName_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010LinkName_val_ptr
+ * @param brokerLinkName_val_ptr
  *        A char containing the new value.
- * @param qpid010LinkName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010LinkName_val_ptr
+ * @param brokerLinkName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerLinkName_val_ptr
  */
 int
-qpid010LinkName_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                    char *qpid010LinkName_val_ptr,
-                    size_t qpid010LinkName_val_ptr_len)
+brokerLinkName_set(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                    char *brokerLinkName_val_ptr,
+                    size_t brokerLinkName_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_set",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkName_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010LinkName_val_ptr);
+    netsnmp_assert(NULL != brokerLinkName_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010LinkName value.
-     * set qpid010LinkName value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerLinkName value.
+     * set brokerLinkName value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010LinkName, qpid010LinkName_val_ptr,
-           qpid010LinkName_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerLinkName, brokerLinkName_val_ptr,
+           brokerLinkName_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010LinkName_len =
-        qpid010LinkName_val_ptr_len / sizeof(qpid010LinkName_val_ptr[0]);
+    rowreq_ctx->data.brokerLinkName_len =
+        brokerLinkName_val_ptr_len / sizeof(brokerLinkName_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkName_set */
+}                               /* brokerLinkName_set */
 
 /**
  * undo the previous set.
@@ -757,35 +757,35 @@ qpid010LinkName_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010LinkName_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkName_undo(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkName_undo",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkName_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010LinkName undo.
+     * TODO:456:o: |-> Clean up brokerLinkName undo.
      */
     /*
-     * copy qpid010LinkName and qpid010LinkName_len data
-     * set rowreq_ctx->data.qpid010LinkName from rowreq_ctx->undo->qpid010LinkName
+     * copy brokerLinkName and brokerLinkName_len data
+     * set rowreq_ctx->data.brokerLinkName from rowreq_ctx->undo->brokerLinkName
      */
-    memcpy(rowreq_ctx->data.qpid010LinkName,
-           rowreq_ctx->undo->qpid010LinkName,
-           (rowreq_ctx->undo->qpid010LinkName_len *
-            sizeof(rowreq_ctx->data.qpid010LinkName[0])));
-    rowreq_ctx->data.qpid010LinkName_len =
-        rowreq_ctx->undo->qpid010LinkName_len;
+    memcpy(rowreq_ctx->data.brokerLinkName,
+           rowreq_ctx->undo->brokerLinkName,
+           (rowreq_ctx->undo->brokerLinkName_len *
+            sizeof(rowreq_ctx->data.brokerLinkName[0])));
+    rowreq_ctx->data.brokerLinkName_len =
+        rowreq_ctx->undo->brokerLinkName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkName_undo */
+}                               /* brokerLinkName_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010LinkEntry.qpid010LinkDurable
- * qpid010LinkDurable is subid 6 of qpid010LinkEntry.
+ * QPID-MESSAGING-MIB::brokerLinkEntry.brokerLinkDurable
+ * brokerLinkDurable is subid 6 of brokerLinkEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1.1.6
  * Description:
@@ -807,7 +807,7 @@ Link durable
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010LinkDurable_val
+ * @param brokerLinkDurable_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -831,7 +831,7 @@ Link durable
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010LinkTable_check_dependencies() function.
+ * brokerLinkTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -841,33 +841,33 @@ Link durable
  *
  */
 int
-qpid010LinkDurable_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                               u_long qpid010LinkDurable_val)
+brokerLinkDurable_check_value(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                               u_long brokerLinkDurable_val)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkDurable_check_value",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkDurable_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010LinkDurable value.
+     * TODO:441:o: |-> Check for valid brokerLinkDurable value.
      */
 
-    return MFD_SUCCESS;         /* qpid010LinkDurable value not illegal */
-}                               /* qpid010LinkDurable_check_value */
+    return MFD_SUCCESS;         /* brokerLinkDurable value not illegal */
+}                               /* brokerLinkDurable_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010LinkTable_rowreq_ctx)
+ *        Pointer to the table context (brokerLinkTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010LinkTable_undo_setup has been called.
+ * brokerLinkTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -877,27 +877,27 @@ qpid010LinkDurable_check_value(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010LinkDurable_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkDurable_undo_setup(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkDurable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkDurable_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010LinkDurable undo.
+     * TODO:455:o: |-> Setup brokerLinkDurable undo.
      */
     /*
-     * copy qpid010LinkDurable data
-     * set rowreq_ctx->undo->qpid010LinkDurable from rowreq_ctx->data.qpid010LinkDurable
+     * copy brokerLinkDurable data
+     * set rowreq_ctx->undo->brokerLinkDurable from rowreq_ctx->data.brokerLinkDurable
      */
-    rowreq_ctx->undo->qpid010LinkDurable =
-        rowreq_ctx->data.qpid010LinkDurable;
+    rowreq_ctx->undo->brokerLinkDurable =
+        rowreq_ctx->data.brokerLinkDurable;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkDurable_undo_setup */
+}                               /* brokerLinkDurable_undo_setup */
 
 /**
  * Set the new value.
@@ -905,28 +905,28 @@ qpid010LinkDurable_undo_setup(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010LinkDurable_val
+ * @param brokerLinkDurable_val
  *        A long containing the new value.
  */
 int
-qpid010LinkDurable_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
-                       u_long qpid010LinkDurable_val)
+brokerLinkDurable_set(brokerLinkTable_rowreq_ctx * rowreq_ctx,
+                       u_long brokerLinkDurable_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkDurable_set",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkDurable_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010LinkDurable value.
-     * set qpid010LinkDurable value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerLinkDurable value.
+     * set brokerLinkDurable value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010LinkDurable = qpid010LinkDurable_val;
+    rowreq_ctx->data.brokerLinkDurable = brokerLinkDurable_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkDurable_set */
+}                               /* brokerLinkDurable_set */
 
 /**
  * undo the previous set.
@@ -935,27 +935,27 @@ qpid010LinkDurable_set(qpid010LinkTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010LinkDurable_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
+brokerLinkDurable_undo(brokerLinkTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010LinkTable:qpid010LinkDurable_undo",
+    DEBUGMSGTL(("verbose:brokerLinkTable:brokerLinkDurable_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010LinkDurable undo.
+     * TODO:456:o: |-> Clean up brokerLinkDurable undo.
      */
     /*
-     * copy qpid010LinkDurable data
-     * set rowreq_ctx->data.qpid010LinkDurable from rowreq_ctx->undo->qpid010LinkDurable
+     * copy brokerLinkDurable data
+     * set rowreq_ctx->data.brokerLinkDurable from rowreq_ctx->undo->brokerLinkDurable
      */
-    rowreq_ctx->data.qpid010LinkDurable =
-        rowreq_ctx->undo->qpid010LinkDurable;
+    rowreq_ctx->data.brokerLinkDurable =
+        rowreq_ctx->undo->brokerLinkDurable;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010LinkDurable_undo */
+}                               /* brokerLinkDurable_undo */
 
 /**
  * check dependencies
@@ -967,29 +967,29 @@ qpid010LinkDurable_undo(qpid010LinkTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010LinkTable_oids.h.
+ * brokerLinkTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010LinkTable if you don't have dependencies)
+ * (see README-table-brokerLinkTable if you don't have dependencies)
  */
 int
-qpid010LinkTable_check_dependencies(qpid010LinkTable_rowreq_ctx *
+brokerLinkTable_check_dependencies(brokerLinkTable_rowreq_ctx *
                                     rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010LinkTable:qpid010LinkTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerLinkTable:brokerLinkTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010LinkTable row dependencies.
+     * TODO:470:o: Check brokerLinkTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010LinkTable_check_dependencies */
+}                               /* brokerLinkTable_check_dependencies */
 
 /** @} */

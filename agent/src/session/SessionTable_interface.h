@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef qpid010SESSIONTABLE_INTERFACE_H
-#define qpid010SESSIONTABLE_INTERFACE_H
+#ifndef brokerSESSIONTABLE_INTERFACE_H
+#define brokerSESSIONTABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,38 +53,38 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010SessionTable_initialize_interface
-        (qpid010SessionTable_registration * user_ctx, u_long flags);
+        _brokerSessionTable_initialize_interface
+        (brokerSessionTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010SessionTable_shutdown_interface
-        (qpid010SessionTable_registration * user_ctx);
+        _brokerSessionTable_shutdown_interface
+        (brokerSessionTable_registration * user_ctx);
 
-    qpid010SessionTable_registration
-        *qpid010SessionTable_registration_get(void);
+    brokerSessionTable_registration
+        *brokerSessionTable_registration_get(void);
 
-    qpid010SessionTable_registration
-        *qpid010SessionTable_registration_set
-        (qpid010SessionTable_registration * newreg);
+    brokerSessionTable_registration
+        *brokerSessionTable_registration_set
+        (brokerSessionTable_registration * newreg);
 
-    netsnmp_container *qpid010SessionTable_container_get(void);
-    int             qpid010SessionTable_container_size(void);
+    netsnmp_container *brokerSessionTable_container_get(void);
+    int             brokerSessionTable_container_size(void);
 
-    u_int           qpid010SessionTable_dirty_get(void);
-    void            qpid010SessionTable_dirty_set(u_int status);
+    u_int           brokerSessionTable_dirty_get(void);
+    void            brokerSessionTable_dirty_set(u_int status);
 
-    qpid010SessionTable_rowreq_ctx
-        *qpid010SessionTable_allocate_rowreq_ctx(void *);
+    brokerSessionTable_rowreq_ctx
+        *brokerSessionTable_allocate_rowreq_ctx(void *);
     void           
-        qpid010SessionTable_release_rowreq_ctx(qpid010SessionTable_rowreq_ctx
+        brokerSessionTable_release_rowreq_ctx(brokerSessionTable_rowreq_ctx
                                               * rowreq_ctx);
 
-    int             qpid010SessionTable_index_to_oid(netsnmp_index *
+    int             brokerSessionTable_index_to_oid(netsnmp_index *
                                                     oid_idx,
-                                                    qpid010SessionTable_mib_index
+                                                    brokerSessionTable_mib_index
                                                     * mib_idx);
-    int             qpid010SessionTable_index_from_oid(netsnmp_index *
+    int             brokerSessionTable_index_from_oid(netsnmp_index *
                                                       oid_idx,
-                                                      qpid010SessionTable_mib_index
+                                                      brokerSessionTable_mib_index
                                                       * mib_idx);
 
     /*
@@ -97,22 +97,22 @@ extern          "C" {
 #define LINE_TERM_CHAR '$'
 
     void           
-        qpid010SessionTable_container_init_persistence(netsnmp_container *
+        brokerSessionTable_container_init_persistence(netsnmp_container *
                                                       container);
     int            
-        qpid010SessionTable_container_should_save
-        (qpid010SessionTable_rowreq_ctx * rowreq_ctx);
+        brokerSessionTable_container_should_save
+        (brokerSessionTable_rowreq_ctx * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
     void           
-        qpid010SessionTable_valid_columns_set(netsnmp_column_info *vc);
+        brokerSessionTable_valid_columns_set(netsnmp_column_info *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SESSIONTABLE_INTERFACE_H */
+#endif                          /* brokerSESSIONTABLE_INTERFACE_H */
 /** @} */

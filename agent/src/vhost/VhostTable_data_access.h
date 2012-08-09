@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010VHOSTTABLE_DATA_ACCESS_H
-#define qpid010VHOSTTABLE_DATA_ACCESS_H
+#ifndef brokerVHOSTTABLE_DATA_ACCESS_H
+#define brokerVHOSTTABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -24,42 +24,42 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010VhostTable
+ *** Table brokerVhostTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
+     * QPID-MESSAGING-MIB::brokerVhostTable is subid 1 of brokerVhosts.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
      */
 
 
     int            
-        qpid010VhostTable_init_data(qpid010VhostTable_registration *
-                                   qpid010VhostTable_reg);
+        brokerVhostTable_init_data(brokerVhostTable_registration *
+                                   brokerVhostTable_reg);
 
 
     /*
-     * TODO:180:o: Review qpid010VhostTable cache timeout.
+     * TODO:180:o: Review brokerVhostTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define qpid010VHOSTTABLE_CACHE_TIMEOUT   60
+#define brokerVHOSTTABLE_CACHE_TIMEOUT   60
 
-    void            qpid010VhostTable_container_init(netsnmp_container **
+    void            brokerVhostTable_container_init(netsnmp_container **
                                                     container_ptr_ptr,
                                                     netsnmp_cache * cache);
-    void            qpid010VhostTable_container_shutdown(netsnmp_container *
+    void            brokerVhostTable_container_shutdown(netsnmp_container *
                                                         container_ptr);
 
-    int             qpid010VhostTable_container_load(netsnmp_container *
+    int             brokerVhostTable_container_load(netsnmp_container *
                                                     container);
-    void            qpid010VhostTable_container_free(netsnmp_container *
+    void            brokerVhostTable_container_free(netsnmp_container *
                                                     container);
 
-    int             qpid010VhostTable_cache_load(netsnmp_container *
+    int             brokerVhostTable_cache_load(netsnmp_container *
                                                 container);
-    void            qpid010VhostTable_cache_free(netsnmp_container *
+    void            brokerVhostTable_cache_free(netsnmp_container *
                                                 container);
 
     /*
@@ -76,18 +76,18 @@ extern          "C" {
      ***---------------------------------------------***
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
-    int             qpid010VhostTable_row_prep(qpid010VhostTable_rowreq_ctx *
+    int             brokerVhostTable_row_prep(brokerVhostTable_rowreq_ctx *
                                               rowreq_ctx);
 
     int            
-        qpid010VhostTable_validate_index(qpid010VhostTable_registration *
-                                        qpid010VhostTable_reg,
-                                        qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_validate_index(brokerVhostTable_registration *
+                                        brokerVhostTable_reg,
+                                        brokerVhostTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010VhostInternalIndex_check_index(qpid010VhostTable_rowreq_ctx * rowreq_ctx);     /* internal */
+    int             brokerVhostInternalIndex_check_index(brokerVhostTable_rowreq_ctx * rowreq_ctx);     /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010VHOSTTABLE_DATA_ACCESS_H */
+#endif                          /* brokerVHOSTTABLE_DATA_ACCESS_H */

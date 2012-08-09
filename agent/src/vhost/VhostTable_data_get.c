@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010VhostTable get routines.
- * TODO:240:M: Implement qpid010VhostTable mapping routines (if any).
+ * TODO:230:M: Implement brokerVhostTable get routines.
+ * TODO:240:M: Implement brokerVhostTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010VhostTable
+ *** Table brokerVhostTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
+ * QPID-MESSAGING-MIB::brokerVhostTable is subid 1 of brokerVhosts.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010VhostTable data context functions.
+ * * TODO:200:r: Implement brokerVhostTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010VhostInternalIndex_val
+ * @param brokerVhostInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,19 +63,19 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010VhostTable_indexes_set_tbl_idx(qpid010VhostTable_mib_index * tbl_idx,
-                                     u_long qpid010VhostInternalIndex_val)
+brokerVhostTable_indexes_set_tbl_idx(brokerVhostTable_mib_index * tbl_idx,
+                                     u_long brokerVhostInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010VhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerVhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010VhostInternalIndex = qpid010VhostInternalIndex_val;
+    tbl_idx->brokerVhostInternalIndex = brokerVhostInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostTable_indexes_set_tbl_idx */
+}                               /* brokerVhostTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -91,33 +91,33 @@ qpid010VhostTable_indexes_set_tbl_idx(qpid010VhostTable_mib_index * tbl_idx,
  *  from the mib index.
  */
 int
-qpid010VhostTable_indexes_set(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
-                             u_long qpid010VhostInternalIndex_val)
+brokerVhostTable_indexes_set(brokerVhostTable_rowreq_ctx * rowreq_ctx,
+                             u_long brokerVhostInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_indexes_set",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_indexes_set",
                 "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010VhostTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                             qpid010VhostInternalIndex_val))
+        brokerVhostTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                             brokerVhostInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010VhostTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerVhostTable_index_to_oid(&rowreq_ctx->oid_idx,
                                            &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostTable_indexes_set */
+}                               /* brokerVhostTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostBrokerRef
- * qpid010VhostBrokerRef is subid 1 of qpid010VhostEntry.
+ * QPID-MESSAGING-MIB::brokerVhostEntry.brokerVhostBrokerRef
+ * brokerVhostBrokerRef is subid 1 of brokerVhostEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.1
  * Description:
@@ -137,25 +137,25 @@ Vhost brokerRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010VhostBrokerRef data.
+ * Extract the current value of the brokerVhostBrokerRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010VhostBrokerRef_val_ptr_ptr
+ * @param brokerVhostBrokerRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010VhostBrokerRef_val_ptr_len_ptr
+ * @param brokerVhostBrokerRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010VhostBrokerRef.
+ *        pointed to by brokerVhostBrokerRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010VhostBrokerRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010VhostBrokerRef_val_ptr_ptr.
+ * @note If you need more than (*brokerVhostBrokerRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerVhostBrokerRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -165,58 +165,58 @@ Vhost brokerRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010VhostBrokerRef_get(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
-                         char **qpid010VhostBrokerRef_val_ptr_ptr,
-                         size_t *qpid010VhostBrokerRef_val_ptr_len_ptr)
+brokerVhostBrokerRef_get(brokerVhostTable_rowreq_ctx * rowreq_ctx,
+                         char **brokerVhostBrokerRef_val_ptr_ptr,
+                         size_t *brokerVhostBrokerRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010VhostBrokerRef_val_ptr_ptr)
-                   && (NULL != *qpid010VhostBrokerRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010VhostBrokerRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerVhostBrokerRef_val_ptr_ptr)
+                   && (NULL != *brokerVhostBrokerRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerVhostBrokerRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostBrokerRef_get",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostBrokerRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010VhostBrokerRef data.
-     * copy (* qpid010VhostBrokerRef_val_ptr_ptr ) data and (* qpid010VhostBrokerRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerVhostBrokerRef data.
+     * copy (* brokerVhostBrokerRef_val_ptr_ptr ) data and (* brokerVhostBrokerRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010VhostBrokerRef data
+     * make sure there is enough space for brokerVhostBrokerRef data
      */
-    if ((NULL == (*qpid010VhostBrokerRef_val_ptr_ptr)) ||
-        ((*qpid010VhostBrokerRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010VhostBrokerRef_len *
-          sizeof(rowreq_ctx->data.qpid010VhostBrokerRef[0])))) {
+    if ((NULL == (*brokerVhostBrokerRef_val_ptr_ptr)) ||
+        ((*brokerVhostBrokerRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerVhostBrokerRef_len *
+          sizeof(rowreq_ctx->data.brokerVhostBrokerRef[0])))) {
         /*
-         * allocate space for qpid010VhostBrokerRef data
+         * allocate space for brokerVhostBrokerRef data
          */
-        (*qpid010VhostBrokerRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010VhostBrokerRef_len *
-                   sizeof(rowreq_ctx->data.qpid010VhostBrokerRef[0]));
-        if (NULL == (*qpid010VhostBrokerRef_val_ptr_ptr)) {
+        (*brokerVhostBrokerRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerVhostBrokerRef_len *
+                   sizeof(rowreq_ctx->data.brokerVhostBrokerRef[0]));
+        if (NULL == (*brokerVhostBrokerRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010VhostBrokerRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerVhostBrokerRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010VhostBrokerRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010VhostBrokerRef_len *
-        sizeof(rowreq_ctx->data.qpid010VhostBrokerRef[0]);
-    memcpy((*qpid010VhostBrokerRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010VhostBrokerRef,
-           rowreq_ctx->data.qpid010VhostBrokerRef_len *
-           sizeof(rowreq_ctx->data.qpid010VhostBrokerRef[0]));
+    (*brokerVhostBrokerRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerVhostBrokerRef_len *
+        sizeof(rowreq_ctx->data.brokerVhostBrokerRef[0]);
+    memcpy((*brokerVhostBrokerRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerVhostBrokerRef,
+           rowreq_ctx->data.brokerVhostBrokerRef_len *
+           sizeof(rowreq_ctx->data.brokerVhostBrokerRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostBrokerRef_get */
+}                               /* brokerVhostBrokerRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostName
- * qpid010VhostName is subid 2 of qpid010VhostEntry.
+ * QPID-MESSAGING-MIB::brokerVhostEntry.brokerVhostName
+ * brokerVhostName is subid 2 of brokerVhostEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.2
  * Description:
@@ -236,25 +236,25 @@ Vhost name
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010VhostName data.
+ * Extract the current value of the brokerVhostName data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010VhostName_val_ptr_ptr
+ * @param brokerVhostName_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010VhostName_val_ptr_len_ptr
+ * @param brokerVhostName_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010VhostName.
+ *        pointed to by brokerVhostName.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010VhostName_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010VhostName_val_ptr_ptr.
+ * @note If you need more than (*brokerVhostName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerVhostName_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -264,58 +264,58 @@ Vhost name
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010VhostName_get(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
-                    char **qpid010VhostName_val_ptr_ptr,
-                    size_t *qpid010VhostName_val_ptr_len_ptr)
+brokerVhostName_get(brokerVhostTable_rowreq_ctx * rowreq_ctx,
+                    char **brokerVhostName_val_ptr_ptr,
+                    size_t *brokerVhostName_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010VhostName_val_ptr_ptr)
-                   && (NULL != *qpid010VhostName_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010VhostName_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerVhostName_val_ptr_ptr)
+                   && (NULL != *brokerVhostName_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerVhostName_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostName_get",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostName_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010VhostName data.
-     * copy (* qpid010VhostName_val_ptr_ptr ) data and (* qpid010VhostName_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerVhostName data.
+     * copy (* brokerVhostName_val_ptr_ptr ) data and (* brokerVhostName_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010VhostName data
+     * make sure there is enough space for brokerVhostName data
      */
-    if ((NULL == (*qpid010VhostName_val_ptr_ptr)) ||
-        ((*qpid010VhostName_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010VhostName_len *
-          sizeof(rowreq_ctx->data.qpid010VhostName[0])))) {
+    if ((NULL == (*brokerVhostName_val_ptr_ptr)) ||
+        ((*brokerVhostName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerVhostName_len *
+          sizeof(rowreq_ctx->data.brokerVhostName[0])))) {
         /*
-         * allocate space for qpid010VhostName data
+         * allocate space for brokerVhostName data
          */
-        (*qpid010VhostName_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010VhostName_len *
-                   sizeof(rowreq_ctx->data.qpid010VhostName[0]));
-        if (NULL == (*qpid010VhostName_val_ptr_ptr)) {
+        (*brokerVhostName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerVhostName_len *
+                   sizeof(rowreq_ctx->data.brokerVhostName[0]));
+        if (NULL == (*brokerVhostName_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010VhostName)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerVhostName)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010VhostName_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010VhostName_len *
-        sizeof(rowreq_ctx->data.qpid010VhostName[0]);
-    memcpy((*qpid010VhostName_val_ptr_ptr),
-           rowreq_ctx->data.qpid010VhostName,
-           rowreq_ctx->data.qpid010VhostName_len *
-           sizeof(rowreq_ctx->data.qpid010VhostName[0]));
+    (*brokerVhostName_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerVhostName_len *
+        sizeof(rowreq_ctx->data.brokerVhostName[0]);
+    memcpy((*brokerVhostName_val_ptr_ptr),
+           rowreq_ctx->data.brokerVhostName,
+           rowreq_ctx->data.brokerVhostName_len *
+           sizeof(rowreq_ctx->data.brokerVhostName[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostName_get */
+}                               /* brokerVhostName_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostFederationTag
- * qpid010VhostFederationTag is subid 3 of qpid010VhostEntry.
+ * QPID-MESSAGING-MIB::brokerVhostEntry.brokerVhostFederationTag
+ * brokerVhostFederationTag is subid 3 of brokerVhostEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.3
  * Description:
@@ -335,25 +335,25 @@ Vhost federationTag
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010VhostFederationTag data.
+ * Extract the current value of the brokerVhostFederationTag data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010VhostFederationTag_val_ptr_ptr
+ * @param brokerVhostFederationTag_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010VhostFederationTag_val_ptr_len_ptr
+ * @param brokerVhostFederationTag_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010VhostFederationTag.
+ *        pointed to by brokerVhostFederationTag.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010VhostFederationTag_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010VhostFederationTag_val_ptr_ptr.
+ * @note If you need more than (*brokerVhostFederationTag_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerVhostFederationTag_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -363,55 +363,55 @@ Vhost federationTag
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010VhostFederationTag_get(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
-                             char **qpid010VhostFederationTag_val_ptr_ptr,
+brokerVhostFederationTag_get(brokerVhostTable_rowreq_ctx * rowreq_ctx,
+                             char **brokerVhostFederationTag_val_ptr_ptr,
                              size_t
-                             *qpid010VhostFederationTag_val_ptr_len_ptr)
+                             *brokerVhostFederationTag_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010VhostFederationTag_val_ptr_ptr)
-                   && (NULL != *qpid010VhostFederationTag_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010VhostFederationTag_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerVhostFederationTag_val_ptr_ptr)
+                   && (NULL != *brokerVhostFederationTag_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerVhostFederationTag_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostFederationTag_get",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostFederationTag_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010VhostFederationTag data.
-     * copy (* qpid010VhostFederationTag_val_ptr_ptr ) data and (* qpid010VhostFederationTag_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerVhostFederationTag data.
+     * copy (* brokerVhostFederationTag_val_ptr_ptr ) data and (* brokerVhostFederationTag_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010VhostFederationTag data
+     * make sure there is enough space for brokerVhostFederationTag data
      */
-    if ((NULL == (*qpid010VhostFederationTag_val_ptr_ptr)) ||
-        ((*qpid010VhostFederationTag_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010VhostFederationTag_len *
-          sizeof(rowreq_ctx->data.qpid010VhostFederationTag[0])))) {
+    if ((NULL == (*brokerVhostFederationTag_val_ptr_ptr)) ||
+        ((*brokerVhostFederationTag_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerVhostFederationTag_len *
+          sizeof(rowreq_ctx->data.brokerVhostFederationTag[0])))) {
         /*
-         * allocate space for qpid010VhostFederationTag data
+         * allocate space for brokerVhostFederationTag data
          */
-        (*qpid010VhostFederationTag_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010VhostFederationTag_len *
-                   sizeof(rowreq_ctx->data.qpid010VhostFederationTag[0]));
-        if (NULL == (*qpid010VhostFederationTag_val_ptr_ptr)) {
+        (*brokerVhostFederationTag_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerVhostFederationTag_len *
+                   sizeof(rowreq_ctx->data.brokerVhostFederationTag[0]));
+        if (NULL == (*brokerVhostFederationTag_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010VhostFederationTag)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerVhostFederationTag)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010VhostFederationTag_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010VhostFederationTag_len *
-        sizeof(rowreq_ctx->data.qpid010VhostFederationTag[0]);
-    memcpy((*qpid010VhostFederationTag_val_ptr_ptr),
-           rowreq_ctx->data.qpid010VhostFederationTag,
-           rowreq_ctx->data.qpid010VhostFederationTag_len *
-           sizeof(rowreq_ctx->data.qpid010VhostFederationTag[0]));
+    (*brokerVhostFederationTag_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerVhostFederationTag_len *
+        sizeof(rowreq_ctx->data.brokerVhostFederationTag[0]);
+    memcpy((*brokerVhostFederationTag_val_ptr_ptr),
+           rowreq_ctx->data.brokerVhostFederationTag,
+           rowreq_ctx->data.brokerVhostFederationTag_len *
+           sizeof(rowreq_ctx->data.brokerVhostFederationTag[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostFederationTag_get */
+}                               /* brokerVhostFederationTag_get */
 
 
 

@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef QPID010LINKTABLE_INTERFACE_H
-#define QPID010LINKTABLE_INTERFACE_H
+#ifndef brokerLINKTABLE_INTERFACE_H
+#define brokerLINKTABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,36 +53,36 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010LinkTable_initialize_interface
-        (qpid010LinkTable_registration * user_ctx, u_long flags);
+        _brokerLinkTable_initialize_interface
+        (brokerLinkTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010LinkTable_shutdown_interface(qpid010LinkTable_registration
+        _brokerLinkTable_shutdown_interface(brokerLinkTable_registration
                                              * user_ctx);
 
-    qpid010LinkTable_registration *qpid010LinkTable_registration_get(void);
+    brokerLinkTable_registration *brokerLinkTable_registration_get(void);
 
-    qpid010LinkTable_registration
-        *qpid010LinkTable_registration_set(qpid010LinkTable_registration *
+    brokerLinkTable_registration
+        *brokerLinkTable_registration_set(brokerLinkTable_registration *
                                            newreg);
 
-    netsnmp_container *qpid010LinkTable_container_get(void);
-    int             qpid010LinkTable_container_size(void);
+    netsnmp_container *brokerLinkTable_container_get(void);
+    int             brokerLinkTable_container_size(void);
 
-    u_int           qpid010LinkTable_dirty_get(void);
-    void            qpid010LinkTable_dirty_set(u_int status);
+    u_int           brokerLinkTable_dirty_get(void);
+    void            brokerLinkTable_dirty_set(u_int status);
 
-    qpid010LinkTable_rowreq_ctx *qpid010LinkTable_allocate_rowreq_ctx(void
+    brokerLinkTable_rowreq_ctx *brokerLinkTable_allocate_rowreq_ctx(void
                                                                       *);
     void           
-        qpid010LinkTable_release_rowreq_ctx(qpid010LinkTable_rowreq_ctx *
+        brokerLinkTable_release_rowreq_ctx(brokerLinkTable_rowreq_ctx *
                                             rowreq_ctx);
 
-    int             qpid010LinkTable_index_to_oid(netsnmp_index * oid_idx,
-                                                  qpid010LinkTable_mib_index
+    int             brokerLinkTable_index_to_oid(netsnmp_index * oid_idx,
+                                                  brokerLinkTable_mib_index
                                                   * mib_idx);
-    int             qpid010LinkTable_index_from_oid(netsnmp_index *
+    int             brokerLinkTable_index_from_oid(netsnmp_index *
                                                     oid_idx,
-                                                    qpid010LinkTable_mib_index
+                                                    brokerLinkTable_mib_index
                                                     * mib_idx);
 
     /*
@@ -95,22 +95,22 @@ extern          "C" {
 #define LINE_TERM_CHAR '$'
 
     void           
-        qpid010LinkTable_container_init_persistence(netsnmp_container *
+        brokerLinkTable_container_init_persistence(netsnmp_container *
                                                     container);
     int            
-        qpid010LinkTable_container_should_save(qpid010LinkTable_rowreq_ctx
+        brokerLinkTable_container_should_save(brokerLinkTable_rowreq_ctx
                                                * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
-    void            qpid010LinkTable_valid_columns_set(netsnmp_column_info
+    void            brokerLinkTable_valid_columns_set(netsnmp_column_info
                                                        *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* QPID010LINKTABLE_INTERFACE_H */
+#endif                          /* brokerLINKTABLE_INTERFACE_H */
 /** @} */

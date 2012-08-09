@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010ConnectionTable
+/** \page MFD helper for brokerConnectionTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -27,67 +27,67 @@
 
 #include "ConnectionTable_interface.h"
 
-const oid       qpid010ConnectionTable_oid[] =
-    { qpid010CONNECTIONTABLE_OID };
-const int       qpid010ConnectionTable_oid_size =
-OID_LENGTH(qpid010ConnectionTable_oid);
+const oid       brokerConnectionTable_oid[] =
+    { brokerCONNECTIONTABLE_OID };
+const int       brokerConnectionTable_oid_size =
+OID_LENGTH(brokerConnectionTable_oid);
 
-qpid010ConnectionTable_registration qpid010ConnectionTable_user_context;
+brokerConnectionTable_registration brokerConnectionTable_user_context;
 
-void            initialize_table_qpid010ConnectionTable(void);
-void            shutdown_table_qpid010ConnectionTable(void);
+void            initialize_table_brokerConnectionTable(void);
+void            shutdown_table_brokerConnectionTable(void);
 
 
 /**
- * Initializes the qpid010ConnectionTable module
+ * Initializes the brokerConnectionTable module
  */
 void
 init_ConnectionTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:init_ConnectionTable",
+    DEBUGMSGTL(("verbose:brokerConnectionTable:init_ConnectionTable",
                 "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010ConnectionTable one-time module initialization.
+     * TODO:300:o: Perform brokerConnectionTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010ConnectionTable"))
-        initialize_table_qpid010ConnectionTable();
+    if (should_init("brokerConnectionTable"))
+        initialize_table_brokerConnectionTable();
 
 }                               /* init_ConnectionTable */
 
 /**
- * Shut-down the qpid010ConnectionTable module (agent is exiting)
+ * Shut-down the brokerConnectionTable module (agent is exiting)
  */
 void
-shutdown_qpid010ConnectionTable(void)
+shutdown_brokerConnectionTable(void)
 {
-    if (should_init("qpid010ConnectionTable"))
-        shutdown_table_qpid010ConnectionTable();
+    if (should_init("brokerConnectionTable"))
+        shutdown_table_brokerConnectionTable();
 
 }
 
 /**
- * Initialize the table qpid010ConnectionTable 
+ * Initialize the table brokerConnectionTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010ConnectionTable(void)
+initialize_table_brokerConnectionTable(void)
 {
-    qpid010ConnectionTable_registration *user_context;
+    brokerConnectionTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:initialize_table_qpid010ConnectionTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:initialize_table_brokerConnectionTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010ConnectionTable one-time table initialization.
+     * TODO:301:o: Perform brokerConnectionTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010ConnectionTable user context
+     * TODO:302:o: |->Initialize brokerConnectionTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -96,7 +96,7 @@ initialize_table_qpid010ConnectionTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010ConnectionTable", NULL, NULL);
+        netsnmp_create_data_list("brokerConnectionTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -107,20 +107,20 @@ initialize_table_qpid010ConnectionTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010ConnectionTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010ConnectionTable */
+    _brokerConnectionTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerConnectionTable */
 
 /**
- * Shutdown the table qpid010ConnectionTable 
+ * Shutdown the table brokerConnectionTable 
  */
 void
-shutdown_table_qpid010ConnectionTable(void)
+shutdown_table_brokerConnectionTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010ConnectionTable_shutdown_interface
-        (&qpid010ConnectionTable_user_context);
+    _brokerConnectionTable_shutdown_interface
+        (&brokerConnectionTable_user_context);
 }
 
 /**
@@ -133,41 +133,41 @@ shutdown_table_qpid010ConnectionTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010ConnectionTable_rowreq_ctx_init(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_rowreq_ctx_init(brokerConnectionTable_rowreq_ctx *
                                       rowreq_ctx, void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * Perform extra qpid010ConnectionTable rowreq initialization. (eg DEFVALS)
+     * Perform extra brokerConnectionTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010ConnectionVhostRef_len = 255;   /* # of char elements, not bytes */
-    rowreq_ctx->data.qpid010ConnectionAddress_len = 255;
-    rowreq_ctx->data.qpid010ConnectionAuthIdentity_len= 255;
-    rowreq_ctx->data.qpid010ConnectionRemoteProcessName_len = 65535;
-    rowreq_ctx->data.qpid010ConnectionSaslMechanism_len = 255;
+    rowreq_ctx->data.brokerConnectionVhostRef_len = 255;   /* # of char elements, not bytes */
+    rowreq_ctx->data.brokerConnectionAddress_len = 255;
+    rowreq_ctx->data.brokerConnectionAuthIdentity_len= 255;
+    rowreq_ctx->data.brokerConnectionRemoteProcessName_len = 65535;
+    rowreq_ctx->data.brokerConnectionSaslMechanism_len = 255;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionTable_rowreq_ctx_init */
+}                               /* brokerConnectionTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010ConnectionTable_rowreq_ctx_cleanup(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_rowreq_ctx_cleanup(brokerConnectionTable_rowreq_ctx *
                                          rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010ConnectionTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerConnectionTable rowreq cleanup.
      */
-}                               /* qpid010ConnectionTable_rowreq_ctx_cleanup */
+}                               /* brokerConnectionTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -181,8 +181,8 @@ qpid010ConnectionTable_rowreq_ctx_cleanup(qpid010ConnectionTable_rowreq_ctx *
  * return 0 if the row should not be stored
  */
 int
-qpid010ConnectionTable_container_should_save
-    (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
+brokerConnectionTable_container_should_save
+    (brokerConnectionTable_rowreq_ctx * rowreq_ctx)
 {
 
     return 1;                   /* save the row */
@@ -196,17 +196,17 @@ qpid010ConnectionTable_container_should_save
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010ConnectionTable_pre_request(qpid010ConnectionTable_registration *
+brokerConnectionTable_pre_request(brokerConnectionTable_registration *
                                   user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_pre_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_pre_request", "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010ConnectionTable pre-request actions.
+     * TODO:510:o: Perform brokerConnectionTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionTable_pre_request */
+}                               /* brokerConnectionTable_pre_request */
 
 /**
  * post-request callback
@@ -223,19 +223,19 @@ qpid010ConnectionTable_pre_request(qpid010ConnectionTable_registration *
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010ConnectionTable_post_request(qpid010ConnectionTable_registration *
+brokerConnectionTable_post_request(brokerConnectionTable_registration *
                                    user_context, int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_post_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_post_request", "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010ConnectionTable post-request actions.
+     * TODO:511:o: Perform brokerConnectionTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010ConnectionTable_dirty_get()) {
+    if (brokerConnectionTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -248,11 +248,11 @@ qpid010ConnectionTable_post_request(qpid010ConnectionTable_registration *
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010ConnectionTable_dirty_set(0);     /* clear table dirty flag */
+        brokerConnectionTable_dirty_set(0);     /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionTable_post_request */
+}                               /* brokerConnectionTable_post_request */
 
 
 /** @{ */

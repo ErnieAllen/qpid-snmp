@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010BindingTable
+/** \page MFD helper for brokerBindingTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -27,67 +27,67 @@
 
 #include "BindingTable_interface.h"
 
-const oid       qpid010BindingTable_oid[] = { qpid010BINDINGTABLE_OID };
+const oid       brokerBindingTable_oid[] = { brokerBINDINGTABLE_OID };
 
-const int       qpid010BindingTable_oid_size =
-OID_LENGTH(qpid010BindingTable_oid);
+const int       brokerBindingTable_oid_size =
+OID_LENGTH(brokerBindingTable_oid);
 
-qpid010BindingTable_registration qpid010BindingTable_user_context;
+brokerBindingTable_registration brokerBindingTable_user_context;
 
-void            initialize_table_qpid010BindingTable(void);
-void            shutdown_table_qpid010BindingTable(void);
+void            initialize_table_brokerBindingTable(void);
+void            shutdown_table_brokerBindingTable(void);
 
 
 /**
- * Initializes the qpid010BindingTable module
+ * Initializes the brokerBindingTable module
  */
 void
 init_BindingTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:init_BindingTable",
+    DEBUGMSGTL(("verbose:brokerBindingTable:init_BindingTable",
                 "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010BindingTable one-time module initialization.
+     * TODO:300:o: Perform brokerBindingTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010BindingTable"))
-        initialize_table_qpid010BindingTable();
+    if (should_init("brokerBindingTable"))
+        initialize_table_brokerBindingTable();
 
 }                               /* init_BindingTable */
 
 /**
- * Shut-down the qpid010BindingTable module (agent is exiting)
+ * Shut-down the brokerBindingTable module (agent is exiting)
  */
 void
-shutdown_qpid010BindingTable(void)
+shutdown_brokerBindingTable(void)
 {
-    if (should_init("qpid010BindingTable"))
-        shutdown_table_qpid010BindingTable();
+    if (should_init("brokerBindingTable"))
+        shutdown_table_brokerBindingTable();
 
 }
 
 /**
- * Initialize the table qpid010BindingTable 
+ * Initialize the table brokerBindingTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010BindingTable(void)
+initialize_table_brokerBindingTable(void)
 {
-    qpid010BindingTable_registration *user_context;
+    brokerBindingTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:initialize_table_qpid010BindingTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:initialize_table_brokerBindingTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010BindingTable one-time table initialization.
+     * TODO:301:o: Perform brokerBindingTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010BindingTable user context
+     * TODO:302:o: |->Initialize brokerBindingTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -96,7 +96,7 @@ initialize_table_qpid010BindingTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010BindingTable", NULL, NULL);
+        netsnmp_create_data_list("brokerBindingTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -107,20 +107,20 @@ initialize_table_qpid010BindingTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010BindingTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010BindingTable */
+    _brokerBindingTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerBindingTable */
 
 /**
- * Shutdown the table qpid010BindingTable 
+ * Shutdown the table brokerBindingTable 
  */
 void
-shutdown_table_qpid010BindingTable(void)
+shutdown_table_brokerBindingTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010BindingTable_shutdown_interface
-        (&qpid010BindingTable_user_context);
+    _brokerBindingTable_shutdown_interface
+        (&brokerBindingTable_user_context);
 }
 
 /**
@@ -133,41 +133,41 @@ shutdown_table_qpid010BindingTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010BindingTable_rowreq_ctx_init(qpid010BindingTable_rowreq_ctx *
+brokerBindingTable_rowreq_ctx_init(brokerBindingTable_rowreq_ctx *
                                    rowreq_ctx, void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * Perform extra qpid010BindingTable rowreq initialization. (eg DEFVALS)
+     * Perform extra brokerBindingTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010BindingExchangeRef_len = 255;
-    rowreq_ctx->data.qpid010BindingQueueRef_len = 255;
-    rowreq_ctx->data.qpid010BindingBindingKey_len = 65535;
-    rowreq_ctx->data.qpid010BindingArguments_len = 65535;
-    rowreq_ctx->data.qpid010BindingOrigin_len = 255;
+    rowreq_ctx->data.brokerBindingExchangeRef_len = 255;
+    rowreq_ctx->data.brokerBindingQueueRef_len = 255;
+    rowreq_ctx->data.brokerBindingBindingKey_len = 65535;
+    rowreq_ctx->data.brokerBindingArguments_len = 65535;
+    rowreq_ctx->data.brokerBindingOrigin_len = 255;
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingTable_rowreq_ctx_init */
+}                               /* brokerBindingTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010BindingTable_rowreq_ctx_cleanup(qpid010BindingTable_rowreq_ctx *
+brokerBindingTable_rowreq_ctx_cleanup(brokerBindingTable_rowreq_ctx *
                                       rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010BindingTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerBindingTable rowreq cleanup.
      */
-}                               /* qpid010BindingTable_rowreq_ctx_cleanup */
+}                               /* brokerBindingTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -181,7 +181,7 @@ qpid010BindingTable_rowreq_ctx_cleanup(qpid010BindingTable_rowreq_ctx *
  * return 0 if the row should not be stored
  */
 int
-qpid010BindingTable_container_should_save(qpid010BindingTable_rowreq_ctx *
+brokerBindingTable_container_should_save(brokerBindingTable_rowreq_ctx *
                                          rowreq_ctx)
 {
 
@@ -196,17 +196,17 @@ qpid010BindingTable_container_should_save(qpid010BindingTable_rowreq_ctx *
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010BindingTable_pre_request(qpid010BindingTable_registration *
+brokerBindingTable_pre_request(brokerBindingTable_registration *
                                user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_pre_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_pre_request", "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010BindingTable pre-request actions.
+     * TODO:510:o: Perform brokerBindingTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingTable_pre_request */
+}                               /* brokerBindingTable_pre_request */
 
 /**
  * post-request callback
@@ -223,19 +223,19 @@ qpid010BindingTable_pre_request(qpid010BindingTable_registration *
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010BindingTable_post_request(qpid010BindingTable_registration *
+brokerBindingTable_post_request(brokerBindingTable_registration *
                                 user_context, int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_post_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_post_request", "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010BindingTable post-request actions.
+     * TODO:511:o: Perform brokerBindingTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010BindingTable_dirty_get()) {
+    if (brokerBindingTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -248,11 +248,11 @@ qpid010BindingTable_post_request(qpid010BindingTable_registration *
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010BindingTable_dirty_set(0);        /* clear table dirty flag */
+        brokerBindingTable_dirty_set(0);        /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingTable_post_request */
+}                               /* brokerBindingTable_post_request */
 
 
 /** @{ */

@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010BINDINGTABLE_DATA_ACCESS_H
-#define qpid010BINDINGTABLE_DATA_ACCESS_H
+#ifndef brokerBINDINGTABLE_DATA_ACCESS_H
+#define brokerBINDINGTABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -24,43 +24,43 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BindingTable
+ *** Table brokerBindingTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010BindingTable is subid 1 of qpid010Bindings.
+     * QPID-MESSAGING-MIB::brokerBindingTable is subid 1 of brokerBindings.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1, length: 12
      */
 
 
     int            
-        qpid010BindingTable_init_data(qpid010BindingTable_registration *
-                                     qpid010BindingTable_reg);
+        brokerBindingTable_init_data(brokerBindingTable_registration *
+                                     brokerBindingTable_reg);
 
 
     /*
-     * TODO:180:o: Review qpid010BindingTable cache timeout.
+     * TODO:180:o: Review brokerBindingTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define qpid010BINDINGTABLE_CACHE_TIMEOUT   60
+#define brokerBINDINGTABLE_CACHE_TIMEOUT   60
 
-    void            qpid010BindingTable_container_init(netsnmp_container **
+    void            brokerBindingTable_container_init(netsnmp_container **
                                                       container_ptr_ptr,
                                                       netsnmp_cache *
                                                       cache);
-    void            qpid010BindingTable_container_shutdown(netsnmp_container
+    void            brokerBindingTable_container_shutdown(netsnmp_container
                                                           * container_ptr);
 
-    int             qpid010BindingTable_container_load(netsnmp_container *
+    int             brokerBindingTable_container_load(netsnmp_container *
                                                       container);
-    void            qpid010BindingTable_container_free(netsnmp_container *
+    void            brokerBindingTable_container_free(netsnmp_container *
                                                       container);
 
-    int             qpid010BindingTable_cache_load(netsnmp_container *
+    int             brokerBindingTable_cache_load(netsnmp_container *
                                                   container);
-    void            qpid010BindingTable_cache_free(netsnmp_container *
+    void            brokerBindingTable_cache_free(netsnmp_container *
                                                   container);
 
     /*
@@ -78,18 +78,18 @@ extern          "C" {
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
     int            
-        qpid010BindingTable_row_prep(qpid010BindingTable_rowreq_ctx *
+        brokerBindingTable_row_prep(brokerBindingTable_rowreq_ctx *
                                     rowreq_ctx);
 
     int            
-        qpid010BindingTable_validate_index(qpid010BindingTable_registration *
-                                          qpid010BindingTable_reg,
-                                          qpid010BindingTable_rowreq_ctx *
+        brokerBindingTable_validate_index(brokerBindingTable_registration *
+                                          brokerBindingTable_reg,
+                                          brokerBindingTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010BindingInternalIndex_check_index(qpid010BindingTable_rowreq_ctx * rowreq_ctx); /* internal */
+    int             brokerBindingInternalIndex_check_index(brokerBindingTable_rowreq_ctx * rowreq_ctx); /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BINDINGTABLE_DATA_ACCESS_H */
+#endif                          /* brokerBINDINGTABLE_DATA_ACCESS_H */

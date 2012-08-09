@@ -52,21 +52,21 @@ netsnmp_feature_require(baby_steps)
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ExchangeTable
+ *** Table brokerExchangeTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
+     * QPID-MESSAGING-MIB::brokerExchangeTable is subid 1 of brokerExchanges.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
      */
-     typedef struct qpid010ExchangeTable_interface_ctx_s {
+     typedef struct brokerExchangeTable_interface_ctx_s {
 
          netsnmp_container *container;
          netsnmp_cache  *cache;
 
-         qpid010ExchangeTable_registration *user_ctx;
+         brokerExchangeTable_registration *user_ctx;
 
          netsnmp_table_registration_info tbl_info;
 
@@ -74,134 +74,134 @@ netsnmp_feature_require(baby_steps)
 
          u_int           table_dirty;
 
-     } qpid010ExchangeTable_interface_ctx;
+     } brokerExchangeTable_interface_ctx;
 
-     static qpid010ExchangeTable_interface_ctx qpid010ExchangeTable_if_ctx;
+     static brokerExchangeTable_interface_ctx brokerExchangeTable_if_ctx;
 
      static void    
-         _qpid010ExchangeTable_container_init
-         (qpid010ExchangeTable_interface_ctx * if_ctx);
+         _brokerExchangeTable_container_init
+         (brokerExchangeTable_interface_ctx * if_ctx);
      static void    
-         _qpid010ExchangeTable_container_shutdown
-         (qpid010ExchangeTable_interface_ctx * if_ctx);
+         _brokerExchangeTable_container_shutdown
+         (brokerExchangeTable_interface_ctx * if_ctx);
 
 
-     netsnmp_container *qpid010ExchangeTable_container_get(void)
+     netsnmp_container *brokerExchangeTable_container_get(void)
 {
-    return qpid010ExchangeTable_if_ctx.container;
+    return brokerExchangeTable_if_ctx.container;
 }
 
-qpid010ExchangeTable_registration *
-qpid010ExchangeTable_registration_get(void)
+brokerExchangeTable_registration *
+brokerExchangeTable_registration_get(void)
 {
-    return qpid010ExchangeTable_if_ctx.user_ctx;
+    return brokerExchangeTable_if_ctx.user_ctx;
 }
 
-qpid010ExchangeTable_registration *
-qpid010ExchangeTable_registration_set(qpid010ExchangeTable_registration *
+brokerExchangeTable_registration *
+brokerExchangeTable_registration_set(brokerExchangeTable_registration *
                                      newreg)
 {
-    qpid010ExchangeTable_registration *old =
-        qpid010ExchangeTable_if_ctx.user_ctx;
-    qpid010ExchangeTable_if_ctx.user_ctx = newreg;
+    brokerExchangeTable_registration *old =
+        brokerExchangeTable_if_ctx.user_ctx;
+    brokerExchangeTable_if_ctx.user_ctx = newreg;
     return old;
 }
 
 int
-qpid010ExchangeTable_container_size(void)
+brokerExchangeTable_container_size(void)
 {
-    return CONTAINER_SIZE(qpid010ExchangeTable_if_ctx.container);
+    return CONTAINER_SIZE(brokerExchangeTable_if_ctx.container);
 }
 
 u_int
-qpid010ExchangeTable_dirty_get(void)
+brokerExchangeTable_dirty_get(void)
 {
-    return qpid010ExchangeTable_if_ctx.table_dirty;
+    return brokerExchangeTable_if_ctx.table_dirty;
 }
 
 void
-qpid010ExchangeTable_dirty_set(u_int status)
+brokerExchangeTable_dirty_set(u_int status)
 {
-    DEBUGMSGTL(("qpid010ExchangeTable:qpid010ExchangeTable_dirty_set",
+    DEBUGMSGTL(("brokerExchangeTable:brokerExchangeTable_dirty_set",
                 "called. was %d, now %d\n",
-                qpid010ExchangeTable_if_ctx.table_dirty, status));
-    qpid010ExchangeTable_if_ctx.table_dirty = status;
+                brokerExchangeTable_if_ctx.table_dirty, status));
+    brokerExchangeTable_if_ctx.table_dirty = status;
 }
 
 /*
  * mfd multiplexer modes
  */
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_pre_request;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_post_request;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_object_lookup;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_get_values;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_check_objects;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_undo_setup;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_set_values;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_undo_cleanup;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_undo_values;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_commit;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_undo_commit;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_irreversible_commit;
-static Netsnmp_Node_Handler _mfd_qpid010ExchangeTable_check_dependencies;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_pre_request;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_post_request;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_object_lookup;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_get_values;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_check_objects;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_undo_setup;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_set_values;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_undo_cleanup;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_undo_values;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_commit;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_undo_commit;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_irreversible_commit;
+static Netsnmp_Node_Handler _mfd_brokerExchangeTable_check_dependencies;
 
-qpid010ExchangeTable_data *qpid010ExchangeTable_allocate_data(void);
+brokerExchangeTable_data *brokerExchangeTable_allocate_data(void);
 
 /**
  * @internal
- * Initialize the table qpid010ExchangeTable 
+ * Initialize the table brokerExchangeTable 
  *    (Define its contents and how it's structured)
  */
 void
-_qpid010ExchangeTable_initialize_interface(qpid010ExchangeTable_registration
+_brokerExchangeTable_initialize_interface(brokerExchangeTable_registration
                                           * reg_ptr, u_long flags)
 {
     netsnmp_baby_steps_access_methods *access_multiplexer =
-        &qpid010ExchangeTable_if_ctx.access_multiplexer;
+        &brokerExchangeTable_if_ctx.access_multiplexer;
     netsnmp_table_registration_info *tbl_info =
-        &qpid010ExchangeTable_if_ctx.tbl_info;
+        &brokerExchangeTable_if_ctx.tbl_info;
     netsnmp_handler_registration *reginfo;
     netsnmp_mib_handler *handler;
     int             mfd_modes = 0;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_initialize_interface", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_initialize_interface", "called\n"));
 
 
     /*************************************************
      *
-     * save interface context for qpid010ExchangeTable
+     * save interface context for brokerExchangeTable
      */
     /*
      * Setting up the table's definition
      */
     netsnmp_table_helper_add_indexes(tbl_info, ASN_UNSIGNED,
-                                                /** index: qpid010ExchangeInternalIndex */
+                                                /** index: brokerExchangeInternalIndex */
                                      0);
 
     /*
      * Define the minimum and maximum accessible columns.  This
      * optimizes retrieval. 
      */
-    tbl_info->min_column = qpid010EXCHANGETABLE_MIN_COL;
-    tbl_info->max_column = qpid010EXCHANGETABLE_MAX_COL;
+    tbl_info->min_column = brokerEXCHANGETABLE_MIN_COL;
+    tbl_info->max_column = brokerEXCHANGETABLE_MAX_COL;
 
     /*
      * save users context
      */
-    qpid010ExchangeTable_if_ctx.user_ctx = reg_ptr;
+    brokerExchangeTable_if_ctx.user_ctx = reg_ptr;
 
     /*
      * call data access initialization code
      */
-    qpid010ExchangeTable_init_data(reg_ptr);
+    brokerExchangeTable_init_data(reg_ptr);
 
     /*
      * set up the container
      */
-    _qpid010ExchangeTable_container_init(&qpid010ExchangeTable_if_ctx);
-    if (NULL == qpid010ExchangeTable_if_ctx.container) {
+    _brokerExchangeTable_container_init(&brokerExchangeTable_if_ctx);
+    if (NULL == brokerExchangeTable_if_ctx.container) {
         snmp_log(LOG_ERR,
-                 "could not initialize container for qpid010ExchangeTable\n");
+                 "could not initialize container for brokerExchangeTable\n");
         return;
     }
 
@@ -209,61 +209,61 @@ _qpid010ExchangeTable_initialize_interface(qpid010ExchangeTable_registration
      * access_multiplexer: REQUIRED wrapper for get request handling
      */
     access_multiplexer->object_lookup =
-        _mfd_qpid010ExchangeTable_object_lookup;
-    access_multiplexer->get_values = _mfd_qpid010ExchangeTable_get_values;
+        _mfd_brokerExchangeTable_object_lookup;
+    access_multiplexer->get_values = _mfd_brokerExchangeTable_get_values;
 
     /*
      * no wrappers yet
      */
-    access_multiplexer->pre_request = _mfd_qpid010ExchangeTable_pre_request;
+    access_multiplexer->pre_request = _mfd_brokerExchangeTable_pre_request;
     access_multiplexer->post_request =
-        _mfd_qpid010ExchangeTable_post_request;
+        _mfd_brokerExchangeTable_post_request;
 
 
     /*
      * REQUIRED wrappers for set request handling
      */
     access_multiplexer->object_syntax_checks =
-        _mfd_qpid010ExchangeTable_check_objects;
-    access_multiplexer->undo_setup = _mfd_qpid010ExchangeTable_undo_setup;
+        _mfd_brokerExchangeTable_check_objects;
+    access_multiplexer->undo_setup = _mfd_brokerExchangeTable_undo_setup;
     access_multiplexer->undo_cleanup =
-        _mfd_qpid010ExchangeTable_undo_cleanup;
-    access_multiplexer->set_values = _mfd_qpid010ExchangeTable_set_values;
-    access_multiplexer->undo_sets = _mfd_qpid010ExchangeTable_undo_values;
+        _mfd_brokerExchangeTable_undo_cleanup;
+    access_multiplexer->set_values = _mfd_brokerExchangeTable_set_values;
+    access_multiplexer->undo_sets = _mfd_brokerExchangeTable_undo_values;
 
     /*
      * no wrappers yet
      */
-    access_multiplexer->commit = _mfd_qpid010ExchangeTable_commit;
-    access_multiplexer->undo_commit = _mfd_qpid010ExchangeTable_undo_commit;
+    access_multiplexer->commit = _mfd_brokerExchangeTable_commit;
+    access_multiplexer->undo_commit = _mfd_brokerExchangeTable_undo_commit;
     access_multiplexer->irreversible_commit =
-        _mfd_qpid010ExchangeTable_irreversible_commit;
+        _mfd_brokerExchangeTable_irreversible_commit;
 
     /*
      * REQUIRED for tables with dependencies
      */
     access_multiplexer->consistency_checks =
-        _mfd_qpid010ExchangeTable_check_dependencies;
+        _mfd_brokerExchangeTable_check_dependencies;
 
     /*************************************************
      *
      * Create a registration, save our reg data, register table.
      */
-    DEBUGMSGTL(("qpid010ExchangeTable:init_ExchangeTable",
-                "Registering qpid010ExchangeTable as a mibs-for-dummies table.\n"));
+    DEBUGMSGTL(("brokerExchangeTable:init_ExchangeTable",
+                "Registering brokerExchangeTable as a mibs-for-dummies table.\n"));
     handler =
         netsnmp_baby_steps_access_multiplexer_get(access_multiplexer);
     reginfo =
-        netsnmp_handler_registration_create("qpid010ExchangeTable", handler,
-                                            qpid010ExchangeTable_oid,
-                                            qpid010ExchangeTable_oid_size,
+        netsnmp_handler_registration_create("brokerExchangeTable", handler,
+                                            brokerExchangeTable_oid,
+                                            brokerExchangeTable_oid_size,
                                             HANDLER_CAN_BABY_STEP |
                                             HANDLER_CAN_RWRITE);
     if (NULL == reginfo) {
-        snmp_log(LOG_ERR, "error registering table qpid010ExchangeTable\n");
+        snmp_log(LOG_ERR, "error registering table brokerExchangeTable\n");
         return;
     }
-    reginfo->my_reg_void = &qpid010ExchangeTable_if_ctx;
+    reginfo->my_reg_void = &brokerExchangeTable_if_ctx;
 
     /*************************************************
      *
@@ -319,7 +319,7 @@ _qpid010ExchangeTable_initialize_interface(qpid010ExchangeTable_registration
      */
     handler =
         netsnmp_container_table_handler_get(tbl_info,
-                                            qpid010ExchangeTable_if_ctx.
+                                            brokerExchangeTable_if_ctx.
                                             container,
                                             TABLE_CONTAINER_KEY_NETSNMP_INDEX);
     netsnmp_inject_handler(reginfo, handler);
@@ -328,9 +328,9 @@ _qpid010ExchangeTable_initialize_interface(qpid010ExchangeTable_registration
      *
      * inject cache helper
      */
-    if (NULL != qpid010ExchangeTable_if_ctx.cache) {
+    if (NULL != brokerExchangeTable_if_ctx.cache) {
         handler =
-            netsnmp_cache_handler_get(qpid010ExchangeTable_if_ctx.cache);
+            netsnmp_cache_handler_get(brokerExchangeTable_if_ctx.cache);
         netsnmp_inject_handler(reginfo, handler);
     }
 
@@ -342,38 +342,38 @@ _qpid010ExchangeTable_initialize_interface(qpid010ExchangeTable_registration
     /*
      * register config/persistence callbacks
      */
-    qpid010ExchangeTable_container_init_persistence
-        (qpid010ExchangeTable_if_ctx.container);
+    brokerExchangeTable_container_init_persistence
+        (brokerExchangeTable_if_ctx.container);
 
-}                               /* _qpid010ExchangeTable_initialize_interface */
+}                               /* _brokerExchangeTable_initialize_interface */
 
 /**
  * @internal
- * Shutdown the table qpid010ExchangeTable
+ * Shutdown the table brokerExchangeTable
  */
 void
-_qpid010ExchangeTable_shutdown_interface(qpid010ExchangeTable_registration *
+_brokerExchangeTable_shutdown_interface(brokerExchangeTable_registration *
                                         reg_ptr)
 {
     /*
      * shutdown the container
      */
-    _qpid010ExchangeTable_container_shutdown(&qpid010ExchangeTable_if_ctx);
+    _brokerExchangeTable_container_shutdown(&brokerExchangeTable_if_ctx);
 }
 
 void
-qpid010ExchangeTable_valid_columns_set(netsnmp_column_info *vc)
+brokerExchangeTable_valid_columns_set(netsnmp_column_info *vc)
 {
-    qpid010ExchangeTable_if_ctx.tbl_info.valid_columns = vc;
-}                               /* qpid010ExchangeTable_valid_columns_set */
+    brokerExchangeTable_if_ctx.tbl_info.valid_columns = vc;
+}                               /* brokerExchangeTable_valid_columns_set */
 
 /**
  * @internal
  * convert the index component stored in the context to an oid
  */
 int
-qpid010ExchangeTable_index_to_oid(netsnmp_index * oid_idx,
-                                 qpid010ExchangeTable_mib_index * mib_idx)
+brokerExchangeTable_index_to_oid(netsnmp_index * oid_idx,
+                                 brokerExchangeTable_mib_index * mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
 
@@ -381,55 +381,55 @@ qpid010ExchangeTable_index_to_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010ExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    netsnmp_variable_list var_qpid010ExchangeInternalIndex;
+    netsnmp_variable_list var_brokerExchangeInternalIndex;
 
     /*
      * set up varbinds
      */
-    memset(&var_qpid010ExchangeInternalIndex, 0x00,
-           sizeof(var_qpid010ExchangeInternalIndex));
-    var_qpid010ExchangeInternalIndex.type = ASN_UNSIGNED;
+    memset(&var_brokerExchangeInternalIndex, 0x00,
+           sizeof(var_brokerExchangeInternalIndex));
+    var_brokerExchangeInternalIndex.type = ASN_UNSIGNED;
 
     /*
      * chain temp index varbinds together
      */
-    var_qpid010ExchangeInternalIndex.next_variable = NULL;
+    var_brokerExchangeInternalIndex.next_variable = NULL;
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_index_to_oid", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_index_to_oid", "called\n"));
 
     /*
-     * qpid010ExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    snmp_set_var_value(&var_qpid010ExchangeInternalIndex,
-                       &mib_idx->qpid010ExchangeInternalIndex,
-                       sizeof(mib_idx->qpid010ExchangeInternalIndex));
+    snmp_set_var_value(&var_brokerExchangeInternalIndex,
+                       &mib_idx->brokerExchangeInternalIndex,
+                       sizeof(mib_idx->brokerExchangeInternalIndex));
 
 
     err = build_oid_noalloc(oid_idx->oids, oid_idx->len, &oid_idx->len,
-                            NULL, 0, &var_qpid010ExchangeInternalIndex);
+                            NULL, 0, &var_brokerExchangeInternalIndex);
     if (err)
         snmp_log(LOG_ERR, "error %d converting index to oid\n", err);
 
     /*
      * parsing may have allocated memory. free it.
      */
-    snmp_reset_var_buffers(&var_qpid010ExchangeInternalIndex);
+    snmp_reset_var_buffers(&var_brokerExchangeInternalIndex);
 
     return err;
-}                               /* qpid010ExchangeTable_index_to_oid */
+}                               /* brokerExchangeTable_index_to_oid */
 
 /**
- * extract qpid010ExchangeTable indexes from a netsnmp_index
+ * extract brokerExchangeTable indexes from a netsnmp_index
  *
  * @retval SNMP_ERR_NOERROR  : no error
  * @retval SNMP_ERR_GENERR   : error
  */
 int
-qpid010ExchangeTable_index_from_oid(netsnmp_index * oid_idx,
-                                   qpid010ExchangeTable_mib_index * mib_idx)
+brokerExchangeTable_index_from_oid(netsnmp_index * oid_idx,
+                                   brokerExchangeTable_mib_index * mib_idx)
 {
     int             err = SNMP_ERR_NOERROR;
 
@@ -437,36 +437,36 @@ qpid010ExchangeTable_index_from_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * qpid010ExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    netsnmp_variable_list var_qpid010ExchangeInternalIndex;
+    netsnmp_variable_list var_brokerExchangeInternalIndex;
 
     /*
      * set up varbinds
      */
-    memset(&var_qpid010ExchangeInternalIndex, 0x00,
-           sizeof(var_qpid010ExchangeInternalIndex));
-    var_qpid010ExchangeInternalIndex.type = ASN_UNSIGNED;
+    memset(&var_brokerExchangeInternalIndex, 0x00,
+           sizeof(var_brokerExchangeInternalIndex));
+    var_brokerExchangeInternalIndex.type = ASN_UNSIGNED;
 
     /*
      * chain temp index varbinds together
      */
-    var_qpid010ExchangeInternalIndex.next_variable = NULL;
+    var_brokerExchangeInternalIndex.next_variable = NULL;
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_index_from_oid", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_index_from_oid", "called\n"));
 
     /*
      * parse the oid into the individual index components
      */
     err = parse_oid_indexes(oid_idx->oids, oid_idx->len,
-                            &var_qpid010ExchangeInternalIndex);
+                            &var_brokerExchangeInternalIndex);
     if (err == SNMP_ERR_NOERROR) {
         /*
          * copy out values
          */
-        mib_idx->qpid010ExchangeInternalIndex =
-            *((u_long *) var_qpid010ExchangeInternalIndex.val.string);
+        mib_idx->brokerExchangeInternalIndex =
+            *((u_long *) var_brokerExchangeInternalIndex.val.string);
 
 
     }
@@ -474,100 +474,100 @@ qpid010ExchangeTable_index_from_oid(netsnmp_index * oid_idx,
     /*
      * parsing may have allocated memory. free it.
      */
-    snmp_reset_var_buffers(&var_qpid010ExchangeInternalIndex);
+    snmp_reset_var_buffers(&var_brokerExchangeInternalIndex);
 
     return err;
-}                               /* qpid010ExchangeTable_index_from_oid */
+}                               /* brokerExchangeTable_index_from_oid */
 
 
 /*
- * qpid010ExchangeTable_allocate_data
+ * brokerExchangeTable_allocate_data
  *
- * Purpose: create new qpid010ExchangeTable_data.
+ * Purpose: create new brokerExchangeTable_data.
  */
-qpid010ExchangeTable_data *
-qpid010ExchangeTable_allocate_data(void)
+brokerExchangeTable_data *
+brokerExchangeTable_allocate_data(void)
 {
-    qpid010ExchangeTable_data *rtn =
-        SNMP_MALLOC_TYPEDEF(qpid010ExchangeTable_data);
+    brokerExchangeTable_data *rtn =
+        SNMP_MALLOC_TYPEDEF(brokerExchangeTable_data);
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_allocate_data", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_allocate_data", "called\n"));
 
     if (NULL == rtn) {
         snmp_log(LOG_ERR, "unable to malloc memory for new "
-                 "qpid010ExchangeTable_data.\n");
+                 "brokerExchangeTable_data.\n");
     }
 
     return rtn;
-}                               /* qpid010ExchangeTable_allocate_data */
+}                               /* brokerExchangeTable_allocate_data */
 
 /*
- * qpid010ExchangeTable_release_data
+ * brokerExchangeTable_release_data
  *
- * Purpose: release qpid010ExchangeTable data.
+ * Purpose: release brokerExchangeTable data.
  */
 void
-qpid010ExchangeTable_release_data(qpid010ExchangeTable_data * data)
+brokerExchangeTable_release_data(brokerExchangeTable_data * data)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_release_data", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_release_data", "called\n"));
 
     free(data);
-}                               /* qpid010ExchangeTable_release_data */
+}                               /* brokerExchangeTable_release_data */
 
 /*
  *********************************************************************
  * @internal
- * allocate resources for a qpid010ExchangeTable_rowreq_ctx
+ * allocate resources for a brokerExchangeTable_rowreq_ctx
  */
-qpid010ExchangeTable_rowreq_ctx *
-qpid010ExchangeTable_allocate_rowreq_ctx(void *user_init_ctx)
+brokerExchangeTable_rowreq_ctx *
+brokerExchangeTable_allocate_rowreq_ctx(void *user_init_ctx)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        SNMP_MALLOC_TYPEDEF(qpid010ExchangeTable_rowreq_ctx);
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        SNMP_MALLOC_TYPEDEF(brokerExchangeTable_rowreq_ctx);
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:qpid010ExchangeTable_allocate_rowreq_ctx", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:brokerExchangeTable_allocate_rowreq_ctx", "called\n"));
 
     if (NULL == rowreq_ctx) {
         snmp_log(LOG_ERR, "Couldn't allocate memory for a "
-                 "qpid010ExchangeTable_rowreq_ctx.\n");
+                 "brokerExchangeTable_rowreq_ctx.\n");
         return NULL;
     }
 
     rowreq_ctx->oid_idx.oids = rowreq_ctx->oid_tmp;
 
-    rowreq_ctx->qpid010ExchangeTable_data_list = NULL;
+    rowreq_ctx->brokerExchangeTable_data_list = NULL;
 
     /*
      * if we allocated data, call init routine
      */
     if (!(rowreq_ctx->rowreq_flags & MFD_ROW_DATA_FROM_USER)) {
         if (SNMPERR_SUCCESS !=
-            qpid010ExchangeTable_rowreq_ctx_init(rowreq_ctx,
+            brokerExchangeTable_rowreq_ctx_init(rowreq_ctx,
                                                 user_init_ctx)) {
-            qpid010ExchangeTable_release_rowreq_ctx(rowreq_ctx);
+            brokerExchangeTable_release_rowreq_ctx(rowreq_ctx);
             rowreq_ctx = NULL;
         }
     }
 
     return rowreq_ctx;
-}                               /* qpid010ExchangeTable_allocate_rowreq_ctx */
+}                               /* brokerExchangeTable_allocate_rowreq_ctx */
 
 /*
  * @internal
- * release resources for a qpid010ExchangeTable_rowreq_ctx
+ * release resources for a brokerExchangeTable_rowreq_ctx
  */
 void
-qpid010ExchangeTable_release_rowreq_ctx(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_release_rowreq_ctx(brokerExchangeTable_rowreq_ctx *
                                        rowreq_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:qpid010ExchangeTable_release_rowreq_ctx", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:brokerExchangeTable_release_rowreq_ctx", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    qpid010ExchangeTable_rowreq_ctx_cleanup(rowreq_ctx);
+    brokerExchangeTable_rowreq_ctx_cleanup(rowreq_ctx);
 
     if (rowreq_ctx->undo)
-        qpid010ExchangeTable_release_data(rowreq_ctx->undo);
+        brokerExchangeTable_release_data(rowreq_ctx->undo);
 
     /*
      * free index oid pointer
@@ -576,14 +576,14 @@ qpid010ExchangeTable_release_rowreq_ctx(qpid010ExchangeTable_rowreq_ctx *
         free(rowreq_ctx->oid_idx.oids);
 
     SNMP_FREE(rowreq_ctx);
-}                               /* qpid010ExchangeTable_release_rowreq_ctx */
+}                               /* brokerExchangeTable_release_rowreq_ctx */
 
 /**
  * @internal
  * wrapper
  */
 static int
-_mfd_qpid010ExchangeTable_pre_request(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_pre_request(netsnmp_mib_handler *handler,
                                      netsnmp_handler_registration *reginfo,
                                      netsnmp_agent_request_info
                                      *agtreq_info,
@@ -591,126 +591,126 @@ _mfd_qpid010ExchangeTable_pre_request(netsnmp_mib_handler *handler,
 {
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_pre_request", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_pre_request", "called\n"));
 
     if (1 != netsnmp_row_merge_status_first(reginfo, agtreq_info)) {
-        DEBUGMSGTL(("internal:qpid010ExchangeTable",
+        DEBUGMSGTL(("internal:brokerExchangeTable",
                     "skipping additional pre_request\n"));
         return SNMP_ERR_NOERROR;
     }
 
-    rc = qpid010ExchangeTable_pre_request(qpid010ExchangeTable_if_ctx.
+    rc = brokerExchangeTable_pre_request(brokerExchangeTable_if_ctx.
                                          user_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010ExchangeTable", "error %d from "
-                    "qpid010ExchangeTable_pre_request\n", rc));
+        DEBUGMSGTL(("brokerExchangeTable", "error %d from "
+                    "brokerExchangeTable_pre_request\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_pre_request */
+}                               /* _mfd_brokerExchangeTable_pre_request */
 
 /**
  * @internal
  * wrapper
  */
 static int
-_mfd_qpid010ExchangeTable_post_request(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_post_request(netsnmp_mib_handler *handler,
                                       netsnmp_handler_registration
                                       *reginfo,
                                       netsnmp_agent_request_info
                                       *agtreq_info,
                                       netsnmp_request_info *requests)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc, packet_rc;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_post_request", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_post_request", "called\n"));
 
     /*
      * release row context, if deleted
      */
     if (rowreq_ctx && (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED))
-        qpid010ExchangeTable_release_rowreq_ctx(rowreq_ctx);
+        brokerExchangeTable_release_rowreq_ctx(rowreq_ctx);
 
     /*
      * wait for last call before calling user
      */
     if (1 != netsnmp_row_merge_status_last(reginfo, agtreq_info)) {
-        DEBUGMSGTL(("internal:qpid010ExchangeTable",
+        DEBUGMSGTL(("internal:brokerExchangeTable",
                     "waiting for last post_request\n"));
         return SNMP_ERR_NOERROR;
     }
 
     packet_rc = netsnmp_check_all_requests_error(agtreq_info->asp, 0);
-    if ((MFD_SUCCESS != packet_rc) && qpid010ExchangeTable_dirty_get()) {
+    if ((MFD_SUCCESS != packet_rc) && brokerExchangeTable_dirty_get()) {
         /*
          * we shouldn't get here. the undo steps should also clear
          * the dirty flags.
          */
         snmp_log(LOG_WARNING,
-                 "qpid010ExchangeTable dirty flag set in post_request "
+                 "brokerExchangeTable dirty flag set in post_request "
                  "but status != SUCCESS.\n");
     }
 
-    rc = qpid010ExchangeTable_post_request(qpid010ExchangeTable_if_ctx.
+    rc = brokerExchangeTable_post_request(brokerExchangeTable_if_ctx.
                                           user_ctx, packet_rc);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010ExchangeTable", "error %d from "
-                    "qpid010ExchangeTable_post_request\n", rc));
+        DEBUGMSGTL(("brokerExchangeTable", "error %d from "
+                    "brokerExchangeTable_post_request\n", rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_post_request */
+}                               /* _mfd_brokerExchangeTable_post_request */
 
 NETSNMP_STATIC_INLINE int
-_qpid010ExchangeTable_check_indexes(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_check_indexes(brokerExchangeTable_rowreq_ctx *
                                    rowreq_ctx)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_check_indexes", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_check_indexes", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
 
     /*
-     * (INDEX) qpid010ExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * (INDEX) brokerExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     if (MFD_SUCCESS != rc)
         return rc;
-    rc = qpid010ExchangeInternalIndex_check_index(rowreq_ctx);
+    rc = brokerExchangeInternalIndex_check_index(rowreq_ctx);
     if (MFD_SUCCESS != rc)
         return SNMP_ERR_NOCREATION;
 
     /*
      * if individual parts look ok, check them as a whole
      */
-    return qpid010ExchangeTable_validate_index(qpid010ExchangeTable_if_ctx.
+    return brokerExchangeTable_validate_index(brokerExchangeTable_if_ctx.
                                               user_ctx, rowreq_ctx);
-}                               /* _qpid010ExchangeTable_check_indexes */
+}                               /* _brokerExchangeTable_check_indexes */
 
 /**
  * @internal
  * wrapper
  */
-static qpid010ExchangeTable_rowreq_ctx *
-_mfd_qpid010ExchangeTable_rowreq_from_index(netsnmp_index * oid_idx,
+static brokerExchangeTable_rowreq_ctx *
+_mfd_brokerExchangeTable_rowreq_from_index(netsnmp_index * oid_idx,
                                            int *rc_ptr)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx;
-    qpid010ExchangeTable_mib_index mib_idx;
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx;
+    brokerExchangeTable_mib_index mib_idx;
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_rowreq_from_index", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_rowreq_from_index", "called\n"));
 
     if (NULL == rc_ptr)
         rc_ptr = &rc;
@@ -721,16 +721,16 @@ _mfd_qpid010ExchangeTable_rowreq_from_index(netsnmp_index * oid_idx,
     /*
      * try to parse oid
      */
-    *rc_ptr = qpid010ExchangeTable_index_from_oid(oid_idx, &mib_idx);
+    *rc_ptr = brokerExchangeTable_index_from_oid(oid_idx, &mib_idx);
     if (MFD_SUCCESS != *rc_ptr) {
-        DEBUGMSGT(("qpid010ExchangeTable", "error parsing index\n"));
+        DEBUGMSGT(("brokerExchangeTable", "error parsing index\n"));
         return NULL;
     }
 
     /*
      * allocate new context
      */
-    rowreq_ctx = qpid010ExchangeTable_allocate_rowreq_ctx(NULL);
+    rowreq_ctx = brokerExchangeTable_allocate_rowreq_ctx(NULL);
     if (NULL == rowreq_ctx) {
         *rc_ptr = MFD_ERROR;
         return NULL;            /* msg already logged */
@@ -741,11 +741,11 @@ _mfd_qpid010ExchangeTable_rowreq_from_index(netsnmp_index * oid_idx,
     /*
      * check indexes
      */
-    *rc_ptr = _qpid010ExchangeTable_check_indexes(rowreq_ctx);
+    *rc_ptr = _brokerExchangeTable_check_indexes(rowreq_ctx);
     if (MFD_SUCCESS != *rc_ptr) {
         netsnmp_assert((*rc_ptr == SNMP_ERR_NOCREATION) ||
                        (*rc_ptr == SNMP_ERR_INCONSISTENTNAME));
-        qpid010ExchangeTable_release_rowreq_ctx(rowreq_ctx);
+        brokerExchangeTable_release_rowreq_ctx(rowreq_ctx);
         return NULL;
     }
 
@@ -757,7 +757,7 @@ _mfd_qpid010ExchangeTable_rowreq_from_index(netsnmp_index * oid_idx,
            oid_idx->len * sizeof(oid));
 
     return rowreq_ctx;
-}                               /* _mfd_qpid010ExchangeTable_rowreq_from_index */
+}                               /* _mfd_brokerExchangeTable_rowreq_from_index */
 
 
 /**
@@ -765,7 +765,7 @@ _mfd_qpid010ExchangeTable_rowreq_from_index(netsnmp_index * oid_idx,
  * wrapper
  */
 static int
-_mfd_qpid010ExchangeTable_object_lookup(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_object_lookup(netsnmp_mib_handler *handler,
                                        netsnmp_handler_registration
                                        *reginfo,
                                        netsnmp_agent_request_info
@@ -773,16 +773,16 @@ _mfd_qpid010ExchangeTable_object_lookup(netsnmp_mib_handler *handler,
                                        netsnmp_request_info *requests)
 {
     int             rc = SNMP_ERR_NOERROR;
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_object_lookup", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_object_lookup", "called\n"));
 
     /*
      * get our context from mfd
-     * qpid010ExchangeTable_interface_ctx *if_ctx =
-     *             (qpid010ExchangeTable_interface_ctx *)reginfo->my_reg_void;
+     * brokerExchangeTable_interface_ctx *if_ctx =
+     *             (brokerExchangeTable_interface_ctx *)reginfo->my_reg_void;
      */
 
     if (NULL == rowreq_ctx) {
@@ -792,10 +792,10 @@ _mfd_qpid010ExchangeTable_object_lookup(netsnmp_mib_handler *handler,
     if (MFD_SUCCESS != rc)
         netsnmp_request_set_error_all(requests, rc);
     else
-        qpid010ExchangeTable_row_prep(rowreq_ctx);
+        brokerExchangeTable_row_prep(rowreq_ctx);
 
     return SNMP_VALIDATE_ERR(rc);
-}                               /* _mfd_qpid010ExchangeTable_object_lookup */
+}                               /* _mfd_brokerExchangeTable_object_lookup */
 
 /***********************************************************************
  *
@@ -807,13 +807,13 @@ _mfd_qpid010ExchangeTable_object_lookup(netsnmp_mib_handler *handler,
  * Retrieve the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010ExchangeTable_get_column(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_get_column(brokerExchangeTable_rowreq_ctx *
                                 rowreq_ctx, netsnmp_variable_list * var,
                                 int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_get_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_get_column", "called for %d\n", column));
 
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -821,225 +821,225 @@ _qpid010ExchangeTable_get_column(qpid010ExchangeTable_rowreq_ctx *
     switch (column) {
 
         /*
-         * qpid010ExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEVHOSTREF:
+    case COLUMN_brokerEXCHANGEVHOSTREF:
         var->type = ASN_OCTET_STR;
-        rc = qpid010ExchangeVhostRef_get(rowreq_ctx,
+        rc = brokerExchangeVhostRef_get(rowreq_ctx,
                                         (char **) &var->val.string,
                                         &var->val_len);
         break;
 
         /*
-         * qpid010ExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGENAME:
+    case COLUMN_brokerEXCHANGENAME:
         var->type = ASN_OCTET_STR;
-        rc = qpid010ExchangeName_get(rowreq_ctx, (char **) &var->val.string,
+        rc = brokerExchangeName_get(rowreq_ctx, (char **) &var->val.string,
                                     &var->val_len);
         break;
 
         /*
-         * qpid010ExchangeType(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerExchangeType(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGETYPE:
+    case COLUMN_brokerEXCHANGETYPE:
         var->type = ASN_OCTET_STR;
-        rc = qpid010ExchangeType_get(rowreq_ctx, (char **) &var->val.string,
+        rc = brokerExchangeType_get(rowreq_ctx, (char **) &var->val.string,
                                     &var->val_len);
         break;
 
         /*
-         * qpid010ExchangeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
+         * brokerExchangeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEDURABLE:
+    case COLUMN_brokerEXCHANGEDURABLE:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010ExchangeDurable_get(rowreq_ctx,
+        rc = brokerExchangeDurable_get(rowreq_ctx,
                                        (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeAutoDelete(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
+         * brokerExchangeAutoDelete(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEAUTODELETE:
+    case COLUMN_brokerEXCHANGEAUTODELETE:
         var->val_len = sizeof(u_long);
         var->type = ASN_INTEGER;
-        rc = qpid010ExchangeAutoDelete_get(rowreq_ctx,
+        rc = brokerExchangeAutoDelete_get(rowreq_ctx,
                                           (u_long *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeAltExchange(6)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerExchangeAltExchange(6)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEALTEXCHANGE:
+    case COLUMN_brokerEXCHANGEALTEXCHANGE:
         var->type = ASN_OCTET_STR;
-        rc = qpid010ExchangeAltExchange_get(rowreq_ctx,
+        rc = brokerExchangeAltExchange_get(rowreq_ctx,
                                            (char **) &var->val.string,
                                            &var->val_len);
         break;
 
         /*
-         * qpid010ExchangeArguments(7)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerExchangeArguments(7)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEARGUMENTS:
+    case COLUMN_brokerEXCHANGEARGUMENTS:
         var->type = ASN_OCTET_STR;
-        rc = qpid010ExchangeArguments_get(rowreq_ctx,
+        rc = brokerExchangeArguments_get(rowreq_ctx,
                                          (char **) &var->val.string,
                                          &var->val_len);
         break;
 
         /*
-         * qpid010ExchangeProducerCount(8)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeProducerCount(8)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNT:
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNT:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010ExchangeProducerCount_get(rowreq_ctx,
+        rc = brokerExchangeProducerCount_get(rowreq_ctx,
                                              (long *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeProducerCountHi(9)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeProducerCountHi(9)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNTHI:
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNTHI:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010ExchangeProducerCountHi_get(rowreq_ctx,
+        rc = brokerExchangeProducerCountHi_get(rowreq_ctx,
                                                (long *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeProducerCountLow(10)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeProducerCountLow(10)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNTLOW:
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNTLOW:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010ExchangeProducerCountLow_get(rowreq_ctx,
+        rc = brokerExchangeProducerCountLow_get(rowreq_ctx,
                                                 (long *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeBindingCount(11)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeBindingCount(11)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNT:
+    case COLUMN_brokerEXCHANGEBINDINGCOUNT:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010ExchangeBindingCount_get(rowreq_ctx,
+        rc = brokerExchangeBindingCount_get(rowreq_ctx,
                                             (long *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeBindingCountHi(12)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeBindingCountHi(12)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNTHI:
+    case COLUMN_brokerEXCHANGEBINDINGCOUNTHI:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010ExchangeBindingCountHi_get(rowreq_ctx,
+        rc = brokerExchangeBindingCountHi_get(rowreq_ctx,
                                               (long *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeBindingCountLow(13)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeBindingCountLow(13)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNTLOW:
+    case COLUMN_brokerEXCHANGEBINDINGCOUNTLOW:
         var->val_len = sizeof(long);
         var->type = ASN_INTEGER;
-        rc = qpid010ExchangeBindingCountLow_get(rowreq_ctx,
+        rc = brokerExchangeBindingCountLow_get(rowreq_ctx,
                                                (long *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeMsgReceives(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeMsgReceives(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEMSGRECEIVES:
+    case COLUMN_brokerEXCHANGEMSGRECEIVES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010ExchangeMsgReceives_get(rowreq_ctx,
+        rc = brokerExchangeMsgReceives_get(rowreq_ctx,
                                            (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeMsgDrops(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeMsgDrops(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEMSGDROPS:
+    case COLUMN_brokerEXCHANGEMSGDROPS:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010ExchangeMsgDrops_get(rowreq_ctx,
+        rc = brokerExchangeMsgDrops_get(rowreq_ctx,
                                         (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeMsgRoutes(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeMsgRoutes(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEMSGROUTES:
+    case COLUMN_brokerEXCHANGEMSGROUTES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010ExchangeMsgRoutes_get(rowreq_ctx,
+        rc = brokerExchangeMsgRoutes_get(rowreq_ctx,
                                          (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeByteReceives(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeByteReceives(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEBYTERECEIVES:
+    case COLUMN_brokerEXCHANGEBYTERECEIVES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010ExchangeByteReceives_get(rowreq_ctx,
+        rc = brokerExchangeByteReceives_get(rowreq_ctx,
                                             (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeByteDrops(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeByteDrops(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEBYTEDROPS:
+    case COLUMN_brokerEXCHANGEBYTEDROPS:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010ExchangeByteDrops_get(rowreq_ctx,
+        rc = brokerExchangeByteDrops_get(rowreq_ctx,
                                          (U64 *) var->val.string);
         break;
 
         /*
-         * qpid010ExchangeByteRoutes(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeByteRoutes(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEBYTEROUTES:
+    case COLUMN_brokerEXCHANGEBYTEROUTES:
         var->val_len = sizeof(U64);
         var->type = ASN_COUNTER64;
-        rc = qpid010ExchangeByteRoutes_get(rowreq_ctx,
+        rc = brokerExchangeByteRoutes_get(rowreq_ctx,
                                           (U64 *) var->val.string);
         break;
 
     default:
-        if (qpid010EXCHANGETABLE_MIN_COL <= column
-            && column <= qpid010EXCHANGETABLE_MAX_COL) {
-            DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_get_column", "assume column %d is reserved\n", column));
+        if (brokerEXCHANGETABLE_MIN_COL <= column
+            && column <= brokerEXCHANGETABLE_MAX_COL) {
+            DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_get_column", "assume column %d is reserved\n", column));
             rc = MFD_SKIP;
         } else {
             snmp_log(LOG_ERR,
-                     "unknown column %d in _qpid010ExchangeTable_get_column\n",
+                     "unknown column %d in _brokerExchangeTable_get_column\n",
                      column);
         }
         break;
     }
 
     return rc;
-}                               /* _qpid010ExchangeTable_get_column */
+}                               /* _brokerExchangeTable_get_column */
 
 int
-_mfd_qpid010ExchangeTable_get_values(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_get_values(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info
                                     *agtreq_info,
                                     netsnmp_request_info *requests)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     u_char         *old_string;
     void            (*dataFreeHook) (void *);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_get_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_get_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1068,7 +1068,7 @@ _mfd_qpid010ExchangeTable_get_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010ExchangeTable_get_column(rowreq_ctx,
+        rc = _brokerExchangeTable_get_column(rowreq_ctx,
                                              requests->requestvb,
                                              tri->colnum);
         if (rc) {
@@ -1098,7 +1098,7 @@ _mfd_qpid010ExchangeTable_get_values(netsnmp_mib_handler *handler,
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_get_values */
+}                               /* _mfd_brokerExchangeTable_get_values */
 
 /***********************************************************************
  *
@@ -1116,31 +1116,31 @@ _mfd_qpid010ExchangeTable_get_values(netsnmp_mib_handler *handler,
  * Check the syntax for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010ExchangeTable_check_column(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_check_column(brokerExchangeTable_rowreq_ctx *
                                   rowreq_ctx, netsnmp_variable_list * var,
                                   int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_check_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_check_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
         /*
-         * (INDEX) qpid010ExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+         * (INDEX) brokerExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEINTERNALINDEX:
+    case COLUMN_brokerEXCHANGEINTERNALINDEX:
         rc = SNMP_ERR_NOTWRITABLE;      /* can not change index of active row */
         break;
 
         /*
-         * qpid010ExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEVHOSTREF:
+    case COLUMN_brokerEXCHANGEVHOSTREF:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010ExchangeVhostRef));
+                                                       brokerExchangeVhostRef));
         /*
          * check defined range(s). 
          */
@@ -1150,15 +1150,15 @@ _qpid010ExchangeTable_check_column(qpid010ExchangeTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010ExchangeTable:_qpid010ExchangeTable_check_column:qpid010ExchangeVhostRef", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerExchangeTable:_brokerExchangeTable_check_column:brokerExchangeVhostRef", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010ExchangeVhostRef_check_value(rowreq_ctx,
+            rc = brokerExchangeVhostRef_check_value(rowreq_ctx,
                                                     (char *) var->val.
                                                     string, var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010ExchangeVhostRef_check_value\n",
+                         "bad rc %d from brokerExchangeVhostRef_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1166,12 +1166,12 @@ _qpid010ExchangeTable_check_column(qpid010ExchangeTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010ExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGENAME:
+    case COLUMN_brokerEXCHANGENAME:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
                                                 sizeof(rowreq_ctx->data.
-                                                       qpid010ExchangeName));
+                                                       brokerExchangeName));
         /*
          * check defined range(s). 
          */
@@ -1181,15 +1181,15 @@ _qpid010ExchangeTable_check_column(qpid010ExchangeTable_rowreq_ctx *
             rc = SNMP_ERR_WRONGLENGTH;
         }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010ExchangeTable:_qpid010ExchangeTable_check_column:qpid010ExchangeName", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerExchangeTable:_brokerExchangeTable_check_column:brokerExchangeName", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = qpid010ExchangeName_check_value(rowreq_ctx,
+            rc = brokerExchangeName_check_value(rowreq_ctx,
                                                 (char *) var->val.string,
                                                 var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from qpid010ExchangeName_check_value\n",
+                         "bad rc %d from brokerExchangeName_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1197,149 +1197,149 @@ _qpid010ExchangeTable_check_column(qpid010ExchangeTable_rowreq_ctx *
         break;
 
         /*
-         * qpid010ExchangeType(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerExchangeType(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGETYPE:
+    case COLUMN_brokerEXCHANGETYPE:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
+         * brokerExchangeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEDURABLE:
+    case COLUMN_brokerEXCHANGEDURABLE:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeAutoDelete(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
+         * brokerExchangeAutoDelete(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEAUTODELETE:
+    case COLUMN_brokerEXCHANGEAUTODELETE:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeAltExchange(6)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerExchangeAltExchange(6)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEALTEXCHANGE:
+    case COLUMN_brokerEXCHANGEALTEXCHANGE:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeArguments(7)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
+         * brokerExchangeArguments(7)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEARGUMENTS:
+    case COLUMN_brokerEXCHANGEARGUMENTS:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeProducerCount(8)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeProducerCount(8)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNT:
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNT:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeProducerCountHi(9)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeProducerCountHi(9)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNTHI:
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNTHI:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeProducerCountLow(10)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeProducerCountLow(10)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNTLOW:
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNTLOW:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeBindingCount(11)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeBindingCount(11)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNT:
+    case COLUMN_brokerEXCHANGEBINDINGCOUNT:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeBindingCountHi(12)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeBindingCountHi(12)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNTHI:
+    case COLUMN_brokerEXCHANGEBINDINGCOUNTHI:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeBindingCountLow(13)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         * brokerExchangeBindingCountLow(13)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNTLOW:
+    case COLUMN_brokerEXCHANGEBINDINGCOUNTLOW:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeMsgReceives(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeMsgReceives(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEMSGRECEIVES:
+    case COLUMN_brokerEXCHANGEMSGRECEIVES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeMsgDrops(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeMsgDrops(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEMSGDROPS:
+    case COLUMN_brokerEXCHANGEMSGDROPS:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeMsgRoutes(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeMsgRoutes(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEMSGROUTES:
+    case COLUMN_brokerEXCHANGEMSGROUTES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeByteReceives(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeByteReceives(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEBYTERECEIVES:
+    case COLUMN_brokerEXCHANGEBYTERECEIVES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeByteDrops(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeByteDrops(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEBYTEDROPS:
+    case COLUMN_brokerEXCHANGEBYTEDROPS:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
         /*
-         * qpid010ExchangeByteRoutes(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
+         * brokerExchangeByteRoutes(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h 
          */
-    case COLUMN_qpid010EXCHANGEBYTEROUTES:
+    case COLUMN_brokerEXCHANGEBYTEROUTES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
     default:    /** We shouldn't get here */
         rc = SNMP_ERR_GENERR;
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010ExchangeTable_check_column\n",
+                 "unknown column %d in _brokerExchangeTable_check_column\n",
                  column);
     }
 
     return rc;
-}                               /* _qpid010ExchangeTable_check_column */
+}                               /* _brokerExchangeTable_check_column */
 
 int
-_mfd_qpid010ExchangeTable_check_objects(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_check_objects(netsnmp_mib_handler *handler,
                                        netsnmp_handler_registration
                                        *reginfo,
                                        netsnmp_agent_request_info
                                        *agtreq_info,
                                        netsnmp_request_info *requests)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_check_objects", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_check_objects", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1352,7 +1352,7 @@ _mfd_qpid010ExchangeTable_check_objects(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010ExchangeTable_check_column(rowreq_ctx,
+        rc = _brokerExchangeTable_check_column(rowreq_ctx,
                                                requests->requestvb,
                                                tri->colnum);
         if (rc) {
@@ -1363,7 +1363,7 @@ _mfd_qpid010ExchangeTable_check_objects(netsnmp_mib_handler *handler,
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_check_objects */
+}                               /* _mfd_brokerExchangeTable_check_objects */
 
 
 /*----------------------------------------------------------------------
@@ -1376,7 +1376,7 @@ _mfd_qpid010ExchangeTable_check_objects(netsnmp_mib_handler *handler,
  * Check dependencies wrapper
  */
 static int
-_mfd_qpid010ExchangeTable_check_dependencies(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_check_dependencies(netsnmp_mib_handler *handler,
                                             netsnmp_handler_registration
                                             *reginfo,
                                             netsnmp_agent_request_info
@@ -1384,22 +1384,22 @@ _mfd_qpid010ExchangeTable_check_dependencies(netsnmp_mib_handler *handler,
                                             netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010ExchangeTable_check_dependencies(rowreq_ctx);
+    rc = brokerExchangeTable_check_dependencies(rowreq_ctx);
     if (rc) {
-        DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                    "qpid010ExchangeTable_check_dependencies\n", rc));
+        DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                    "brokerExchangeTable_check_dependencies\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_check_dependencies */
+}                               /* _mfd_brokerExchangeTable_check_dependencies */
 
 /*----------------------------------------------------------------------
  *
@@ -1411,42 +1411,42 @@ _mfd_qpid010ExchangeTable_check_dependencies(netsnmp_mib_handler *handler,
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010ExchangeTable_undo_setup_column(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_undo_setup_column(brokerExchangeTable_rowreq_ctx *
                                        rowreq_ctx, int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_undo_setup_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_undo_setup_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
 
         /*
-         * qpid010ExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEVHOSTREF:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010EXCHANGEVHOSTREF_FLAG;
-        rc = qpid010ExchangeVhostRef_undo_setup(rowreq_ctx);
+    case COLUMN_brokerEXCHANGEVHOSTREF:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerEXCHANGEVHOSTREF_FLAG;
+        rc = brokerExchangeVhostRef_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * qpid010ExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGENAME:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010EXCHANGENAME_FLAG;
-        rc = qpid010ExchangeName_undo_setup(rowreq_ctx);
+    case COLUMN_brokerEXCHANGENAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerEXCHANGENAME_FLAG;
+        rc = brokerExchangeName_undo_setup(rowreq_ctx);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010ExchangeTable_undo_setup_column\n",
+                 "unknown column %d in _brokerExchangeTable_undo_setup_column\n",
                  column);
         break;
     }
 
     return rc;
-}                               /* _qpid010ExchangeTable_undo_setup_column */
+}                               /* _brokerExchangeTable_undo_setup_column */
 
 
 /**
@@ -1454,25 +1454,25 @@ _qpid010ExchangeTable_undo_setup_column(qpid010ExchangeTable_rowreq_ctx *
  * undo setup
  */
 int
-_mfd_qpid010ExchangeTable_undo_setup(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_undo_setup(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info
                                     *agtreq_info,
                                     netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_undo_setup", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_undo_setup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
      * allocate undo context
      */
-    rowreq_ctx->undo = qpid010ExchangeTable_allocate_data();
+    rowreq_ctx->undo = brokerExchangeTable_allocate_data();
     if (NULL == rowreq_ctx->undo) {
         /** msg already logged */
         netsnmp_request_set_error_all(requests,
@@ -1484,10 +1484,10 @@ _mfd_qpid010ExchangeTable_undo_setup(netsnmp_mib_handler *handler,
      * row undo setup
      */
     rowreq_ctx->column_set_flags = 0;
-    rc = qpid010ExchangeTable_undo_setup(rowreq_ctx);
+    rc = brokerExchangeTable_undo_setup(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
-        DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                    "qpid010ExchangeTable_undo_setup\n", rc));
+        DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                    "brokerExchangeTable_undo_setup\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     } else {
         /*
@@ -1502,11 +1502,11 @@ _mfd_qpid010ExchangeTable_undo_setup(netsnmp_mib_handler *handler,
             if (NULL == tri)
                 continue;
 
-            rc = _qpid010ExchangeTable_undo_setup_column(rowreq_ctx,
+            rc = _brokerExchangeTable_undo_setup_column(rowreq_ctx,
                                                         tri->colnum);
             if (MFD_SUCCESS != rc) {
-                DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                            "qpid010ExchangeTable_undo_setup_column\n",
+                DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                            "brokerExchangeTable_undo_setup_column\n",
                             rc));
                 netsnmp_set_request_error(agtreq_info, requests,
                                           SNMP_VALIDATE_ERR(rc));
@@ -1515,26 +1515,26 @@ _mfd_qpid010ExchangeTable_undo_setup(netsnmp_mib_handler *handler,
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_undo_setup */
+}                               /* _mfd_brokerExchangeTable_undo_setup */
 
 /**
  * @internal
  * undo setup
  */
 int
-_mfd_qpid010ExchangeTable_undo_cleanup(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_undo_cleanup(netsnmp_mib_handler *handler,
                                       netsnmp_handler_registration
                                       *reginfo,
                                       netsnmp_agent_request_info
                                       *agtreq_info,
                                       netsnmp_request_info *requests)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     int             rc;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_undo_cleanup", "called\n"));
 
     /*
      * failed row create in early stages has no rowreq_ctx
@@ -1545,26 +1545,26 @@ _mfd_qpid010ExchangeTable_undo_cleanup(netsnmp_mib_handler *handler,
     /*
      * call user cleanup
      */
-    rc = qpid010ExchangeTable_undo_cleanup(rowreq_ctx);
+    rc = brokerExchangeTable_undo_cleanup(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                    "qpid010ExchangeTable_undo_cleanup\n", rc));
+        DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                    "brokerExchangeTable_undo_cleanup\n", rc));
     }
 
     /*
      * release undo context, if needed
      */
     if (rowreq_ctx->undo) {
-        qpid010ExchangeTable_release_data(rowreq_ctx->undo);
+        brokerExchangeTable_release_data(rowreq_ctx->undo);
         rowreq_ctx->undo = NULL;
     }
 
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_undo_cleanup */
+}                               /* _mfd_brokerExchangeTable_undo_cleanup */
 
 /*----------------------------------------------------------------------
  *
@@ -1576,62 +1576,62 @@ _mfd_qpid010ExchangeTable_undo_cleanup(netsnmp_mib_handler *handler,
  * Set the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010ExchangeTable_set_column(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_set_column(brokerExchangeTable_rowreq_ctx *
                                 rowreq_ctx, netsnmp_variable_list * var,
                                 int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_set_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_set_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
 
         /*
-         * qpid010ExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEVHOSTREF:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010EXCHANGEVHOSTREF_FLAG;
-        rc = qpid010ExchangeVhostRef_set(rowreq_ctx,
+    case COLUMN_brokerEXCHANGEVHOSTREF:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerEXCHANGEVHOSTREF_FLAG;
+        rc = brokerExchangeVhostRef_set(rowreq_ctx,
                                         (char *) var->val.string,
                                         var->val_len);
         break;
 
         /*
-         * qpid010ExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGENAME:
-        rowreq_ctx->column_set_flags |= COLUMN_qpid010EXCHANGENAME_FLAG;
-        rc = qpid010ExchangeName_set(rowreq_ctx, (char *) var->val.string,
+    case COLUMN_brokerEXCHANGENAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerEXCHANGENAME_FLAG;
+        rc = brokerExchangeName_set(rowreq_ctx, (char *) var->val.string,
                                     var->val_len);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010ExchangeTable_set_column\n",
+                 "unknown column %d in _brokerExchangeTable_set_column\n",
                  column);
         rc = SNMP_ERR_GENERR;
         break;
     }
 
     return rc;
-}                               /* _qpid010ExchangeTable_set_column */
+}                               /* _brokerExchangeTable_set_column */
 
 int
-_mfd_qpid010ExchangeTable_set_values(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_set_values(netsnmp_mib_handler *handler,
                                     netsnmp_handler_registration *reginfo,
                                     netsnmp_agent_request_info
                                     *agtreq_info,
                                     netsnmp_request_info *requests)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
     int             rc = SNMP_ERR_NOERROR;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_set_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_set_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1644,19 +1644,19 @@ _mfd_qpid010ExchangeTable_set_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010ExchangeTable_set_column(rowreq_ctx,
+        rc = _brokerExchangeTable_set_column(rowreq_ctx,
                                              requests->requestvb,
                                              tri->colnum);
         if (MFD_SUCCESS != rc) {
-            DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                        "qpid010ExchangeTable_set_column\n", rc));
+            DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                        "brokerExchangeTable_set_column\n", rc));
             netsnmp_set_request_error(agtreq_info, requests,
                                       SNMP_VALIDATE_ERR(rc));
         }
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_set_values */
+}                               /* _mfd_brokerExchangeTable_set_values */
 
 /*----------------------------------------------------------------------
  *
@@ -1668,24 +1668,24 @@ _mfd_qpid010ExchangeTable_set_values(netsnmp_mib_handler *handler,
  * commit the values
  */
 int
-_mfd_qpid010ExchangeTable_commit(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_commit(netsnmp_mib_handler *handler,
                                 netsnmp_handler_registration *reginfo,
                                 netsnmp_agent_request_info *agtreq_info,
                                 netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010ExchangeTable_commit(rowreq_ctx);
+    rc = brokerExchangeTable_commit(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
-        DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                    "qpid010ExchangeTable_commit\n", rc));
+        DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                    "brokerExchangeTable_commit\n", rc));
         netsnmp_request_set_error_all(requests, SNMP_VALIDATE_ERR(rc));
     }
 
@@ -1695,53 +1695,53 @@ _mfd_qpid010ExchangeTable_commit(netsnmp_mib_handler *handler,
          * current value + 1 (i.e. dirty = # rows changed).
          * this is checked in post_request...
          */
-        qpid010ExchangeTable_dirty_set(qpid010ExchangeTable_dirty_get() + 1);     /* set table dirty flag */
+        brokerExchangeTable_dirty_set(brokerExchangeTable_dirty_get() + 1);     /* set table dirty flag */
     }
 
     return SNMP_ERR_NOERROR;
 }
 
 int
-_mfd_qpid010ExchangeTable_undo_commit(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_undo_commit(netsnmp_mib_handler *handler,
                                      netsnmp_handler_registration *reginfo,
                                      netsnmp_agent_request_info
                                      *agtreq_info,
                                      netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_undo_commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DIRTY) {
-        u_int           d = qpid010ExchangeTable_dirty_get();
+        u_int           d = brokerExchangeTable_dirty_get();
 
         netsnmp_assert(d != 0);
         if (d)
-            qpid010ExchangeTable_dirty_set(d - 1);
+            brokerExchangeTable_dirty_set(d - 1);
     }
 
-    rc = qpid010ExchangeTable_undo_commit(rowreq_ctx);
+    rc = brokerExchangeTable_undo_commit(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                    "qpid010ExchangeTable_undo_commit\n", rc));
+        DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                    "brokerExchangeTable_undo_commit\n", rc));
     }
 
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DIRTY) {
         snmp_log(LOG_WARNING,
-                 "qpid010ExchangeTable row dirty flag still set after undo_commit\n");
+                 "brokerExchangeTable row dirty flag still set after undo_commit\n");
         rowreq_ctx->rowreq_flags &= ~MFD_ROW_DIRTY;
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_commit */
+}                               /* _mfd_brokerExchangeTable_commit */
 
 /*----------------------------------------------------------------------
  *
@@ -1753,66 +1753,66 @@ _mfd_qpid010ExchangeTable_undo_commit(netsnmp_mib_handler *handler,
  * undo the value for a particular column
  */
 NETSNMP_STATIC_INLINE int
-_qpid010ExchangeTable_undo_column(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_undo_column(brokerExchangeTable_rowreq_ctx *
                                  rowreq_ctx, netsnmp_variable_list * var,
                                  int column)
 {
     int             rc = SNMPERR_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_undo_column", "called for %d\n", column));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_undo_column", "called for %d\n", column));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     switch (column) {
 
         /*
-         * qpid010ExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGEVHOSTREF:
-        rc = qpid010ExchangeVhostRef_undo(rowreq_ctx);
+    case COLUMN_brokerEXCHANGEVHOSTREF:
+        rc = brokerExchangeVhostRef_undo(rowreq_ctx);
         break;
 
         /*
-         * qpid010ExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_qpid010EXCHANGENAME:
-        rc = qpid010ExchangeName_undo(rowreq_ctx);
+    case COLUMN_brokerEXCHANGENAME:
+        rc = brokerExchangeName_undo(rowreq_ctx);
         break;
 
     default:
         snmp_log(LOG_ERR,
-                 "unknown column %d in _qpid010ExchangeTable_undo_column\n",
+                 "unknown column %d in _brokerExchangeTable_undo_column\n",
                  column);
         break;
     }
 
     return rc;
-}                               /* _qpid010ExchangeTable_undo_column */
+}                               /* _brokerExchangeTable_undo_column */
 
 int
-_mfd_qpid010ExchangeTable_undo_values(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_undo_values(netsnmp_mib_handler *handler,
                                      netsnmp_handler_registration *reginfo,
                                      netsnmp_agent_request_info
                                      *agtreq_info,
                                      netsnmp_request_info *requests)
 {
     int             rc;
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
     netsnmp_table_request_info *tri;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_undo_values", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_undo_values", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
-    rc = qpid010ExchangeTable_undo(rowreq_ctx);
+    rc = brokerExchangeTable_undo(rowreq_ctx);
     if (MFD_SUCCESS != rc) {
         /*
          * nothing we can do about it but log it
          */
-        DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                    "qpid010ExchangeTable_undo\n", rc));
+        DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                    "brokerExchangeTable_undo\n", rc));
     }
 
     for (; requests; requests = requests->next) {
@@ -1823,20 +1823,20 @@ _mfd_qpid010ExchangeTable_undo_values(netsnmp_mib_handler *handler,
         if (NULL == tri)
             continue;
 
-        rc = _qpid010ExchangeTable_undo_column(rowreq_ctx,
+        rc = _brokerExchangeTable_undo_column(rowreq_ctx,
                                               requests->requestvb,
                                               tri->colnum);
         if (MFD_SUCCESS != rc) {
             /*
              * nothing we can do about it but log it
              */
-            DEBUGMSGTL(("qpid010ExchangeTable:mfd", "error %d from "
-                        "qpid010ExchangeTable_undo_column\n", rc));
+            DEBUGMSGTL(("brokerExchangeTable:mfd", "error %d from "
+                        "brokerExchangeTable_undo_column\n", rc));
         }
     }                           /* for results */
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_undo_values */
+}                               /* _mfd_brokerExchangeTable_undo_values */
 
 /*----------------------------------------------------------------------
  *
@@ -1848,7 +1848,7 @@ _mfd_qpid010ExchangeTable_undo_values(netsnmp_mib_handler *handler,
  * commit irreversible actions
  */
 int
-_mfd_qpid010ExchangeTable_irreversible_commit(netsnmp_mib_handler *handler,
+_mfd_brokerExchangeTable_irreversible_commit(netsnmp_mib_handler *handler,
                                              netsnmp_handler_registration
                                              *reginfo,
                                              netsnmp_agent_request_info
@@ -1856,11 +1856,11 @@ _mfd_qpid010ExchangeTable_irreversible_commit(netsnmp_mib_handler *handler,
                                              netsnmp_request_info
                                              *requests)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx =
+        (brokerExchangeTable_rowreq_ctx *)
         netsnmp_container_table_row_extract(requests);
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_mfd_qpid010ExchangeTable_irreversible:commit", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_mfd_brokerExchangeTable_irreversible:commit", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -1870,7 +1870,7 @@ _mfd_qpid010ExchangeTable_irreversible_commit(netsnmp_mib_handler *handler,
      */
     if (rowreq_ctx->rowreq_flags & MFD_ROW_DELETED) {
         if (!(rowreq_ctx->rowreq_flags & MFD_ROW_CREATED))
-            CONTAINER_REMOVE(qpid010ExchangeTable_if_ctx.container,
+            CONTAINER_REMOVE(brokerExchangeTable_if_ctx.container,
                              rowreq_ctx);
     } else {
         if (rowreq_ctx->column_set_flags) {
@@ -1879,7 +1879,7 @@ _mfd_qpid010ExchangeTable_irreversible_commit(netsnmp_mib_handler *handler,
     }
 
     return SNMP_ERR_NOERROR;
-}                               /* _mfd_qpid010ExchangeTable_irreversible_commit */
+}                               /* _mfd_brokerExchangeTable_irreversible_commit */
 
 /***********************************************************************
  *
@@ -1894,11 +1894,11 @@ static void     _container_free(netsnmp_container * container);
 static int
 _cache_load(netsnmp_cache * cache, void *vmagic)
 {
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_cache_load", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_cache_load", "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
         snmp_log(LOG_ERR,
-                 "invalid cache for qpid010ExchangeTable_cache_load\n");
+                 "invalid cache for brokerExchangeTable_cache_load\n");
         return -1;
     }
 
@@ -1908,7 +1908,7 @@ _cache_load(netsnmp_cache * cache, void *vmagic)
     /*
      * call user code
      */
-    return qpid010ExchangeTable_container_load((netsnmp_container *) cache->
+    return brokerExchangeTable_container_load((netsnmp_container *) cache->
                                               magic);
 }                               /* _cache_load */
 
@@ -1920,11 +1920,11 @@ _cache_free(netsnmp_cache * cache, void *magic)
 {
     netsnmp_container *container;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_cache_free", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_cache_free", "called\n"));
 
     if ((NULL == cache) || (NULL == cache->magic)) {
         snmp_log(LOG_ERR,
-                 "invalid cache in qpid010ExchangeTable_cache_free\n");
+                 "invalid cache in brokerExchangeTable_cache_free\n");
         return;
     }
 
@@ -1937,16 +1937,16 @@ _cache_free(netsnmp_cache * cache, void *magic)
  * @internal
  */
 static void
-_container_item_free(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
+_container_item_free(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
                      void *context)
 {
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_container_item_free",
+    DEBUGMSGTL(("internal:brokerExchangeTable:_container_item_free",
                 "called\n"));
 
     if (NULL == rowreq_ctx)
         return;
 
-    qpid010ExchangeTable_release_rowreq_ctx(rowreq_ctx);
+    brokerExchangeTable_release_rowreq_ctx(rowreq_ctx);
 }                               /* _container_item_free */
 
 /**
@@ -1955,19 +1955,19 @@ _container_item_free(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
 static void
 _container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_container_free",
+    DEBUGMSGTL(("internal:brokerExchangeTable:_container_free",
                 "called\n"));
 
     if (NULL == container) {
         snmp_log(LOG_ERR,
-                 "invalid container in qpid010ExchangeTable_container_free\n");
+                 "invalid container in brokerExchangeTable_container_free\n");
         return;
     }
 
     /*
      * call user code
      */
-    qpid010ExchangeTable_container_free(container);
+    brokerExchangeTable_container_free(container);
 
     /*
      * free all items. inefficient, but easy.
@@ -1982,56 +1982,56 @@ _container_free(netsnmp_container * container)
  * initialize the container with functions or wrappers
  */
 void
-_qpid010ExchangeTable_container_init(qpid010ExchangeTable_interface_ctx *
+_brokerExchangeTable_container_init(brokerExchangeTable_interface_ctx *
                                     if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_container_init", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_container_init", "called\n"));
 
     /*
      * cache init
      */
     if_ctx->cache = netsnmp_cache_create(30,    /* timeout in seconds */
                                          _cache_load, _cache_free,
-                                         qpid010ExchangeTable_oid,
-                                         qpid010ExchangeTable_oid_size);
+                                         brokerExchangeTable_oid,
+                                         brokerExchangeTable_oid_size);
 
     if (NULL == if_ctx->cache) {
         snmp_log(LOG_ERR,
-                 "error creating cache for qpid010ExchangeTable\n");
+                 "error creating cache for brokerExchangeTable\n");
         return;
     }
 
     if_ctx->cache->flags = NETSNMP_CACHE_DONT_INVALIDATE_ON_SET;
 
-    qpid010ExchangeTable_container_init(&if_ctx->container, if_ctx->cache);
+    brokerExchangeTable_container_init(&if_ctx->container, if_ctx->cache);
     if (NULL == if_ctx->container)
         if_ctx->container =
-            netsnmp_container_find("qpid010ExchangeTable:table_container");
+            netsnmp_container_find("brokerExchangeTable:table_container");
     if (NULL == if_ctx->container) {
         snmp_log(LOG_ERR, "error creating container in "
-                 "qpid010ExchangeTable_container_init\n");
+                 "brokerExchangeTable_container_init\n");
         return;
     }
 
     if (NULL != if_ctx->cache)
         if_ctx->cache->magic = (void *) if_ctx->container;
-}                               /* _qpid010ExchangeTable_container_init */
+}                               /* _brokerExchangeTable_container_init */
 
 /**
  * @internal
  * shutdown the container with functions or wrappers
  */
 void
-_qpid010ExchangeTable_container_shutdown(qpid010ExchangeTable_interface_ctx *
+_brokerExchangeTable_container_shutdown(brokerExchangeTable_interface_ctx *
                                         if_ctx)
 {
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_container_shutdown", "called\n"));
 
-    qpid010ExchangeTable_container_shutdown(if_ctx->container);
+    brokerExchangeTable_container_shutdown(if_ctx->container);
 
     _container_free(if_ctx->container);
 
-}                               /* _qpid010ExchangeTable_container_shutdown */
+}                               /* _brokerExchangeTable_container_shutdown */
 
 /***********************************************************************
  *
@@ -2039,25 +2039,25 @@ _qpid010ExchangeTable_container_shutdown(qpid010ExchangeTable_interface_ctx *
  *
  ***********************************************************************/
 
-static int      _qpid010ExchangeTable_container_save_rows(int majorID,
+static int      _brokerExchangeTable_container_save_rows(int majorID,
                                                          int minorID,
                                                          void *serverarg,
                                                          void *clientarg);
-static void     _qpid010ExchangeTable_container_row_restore(const char
+static void     _brokerExchangeTable_container_row_restore(const char
                                                            *token,
                                                            char *buf);
 static int     
-_qpid010ExchangeTable_container_row_save(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_container_row_save(brokerExchangeTable_rowreq_ctx *
                                         rowreq_ctx, void *type);
 static char   
-    *_qpid010ExchangeTable_container_col_restore
-    (qpid010ExchangeTable_rowreq_ctx * rowreq_ctx, u_int col, char *buf);
+    *_brokerExchangeTable_container_col_restore
+    (brokerExchangeTable_rowreq_ctx * rowreq_ctx, u_int col, char *buf);
 static char   
-    *_qpid010ExchangeTable_container_col_save(qpid010ExchangeTable_rowreq_ctx
+    *_brokerExchangeTable_container_col_save(brokerExchangeTable_rowreq_ctx
                                              * rowreq_ctx, u_int col,
                                              char *buf);
 
-static char     row_token[] = "qpid010ExchangeTable";
+static char     row_token[] = "brokerExchangeTable";
 
 /************************************************************
  * *_init_persistence should be called from the main table
@@ -2069,32 +2069,32 @@ static char     row_token[] = "qpid010ExchangeTable";
  * (and re-created) before the dependent rows.
  */
 void
-qpid010ExchangeTable_container_init_persistence(netsnmp_container *
+brokerExchangeTable_container_init_persistence(netsnmp_container *
                                                container)
 {
     int             rc;
 
     register_config_handler(NULL, row_token,
-                            _qpid010ExchangeTable_container_row_restore,
+                            _brokerExchangeTable_container_row_restore,
                             NULL, NULL);
     rc = snmp_register_callback(SNMP_CALLBACK_LIBRARY,
                                 SNMP_CALLBACK_STORE_DATA,
-                                _qpid010ExchangeTable_container_save_rows,
+                                _brokerExchangeTable_container_save_rows,
                                 container);
 
     if (rc != SNMP_ERR_NOERROR)
         snmp_log(LOG_ERR, "error registering for STORE_DATA callback "
-                 "in _qpid010ExchangeTable_container_init_persistence\n");
+                 "in _brokerExchangeTable_container_init_persistence\n");
 }
 
 static int
-_qpid010ExchangeTable_container_save_rows(int majorID, int minorID,
+_brokerExchangeTable_container_save_rows(int majorID, int minorID,
                                          void *serverarg, void *clientarg)
 {
     char            sep[] =
         "##############################################################";
     char            buf[] =
-        "#\n" "# qpid010ExchangeTable persistent data\n" "#";
+        "#\n" "# brokerExchangeTable persistent data\n" "#";
     char           *type = netsnmp_ds_get_string(NETSNMP_DS_LIBRARY_ID,
                                                  NETSNMP_DS_LIB_APPTYPE);
 
@@ -2106,7 +2106,7 @@ _qpid010ExchangeTable_container_save_rows(int majorID, int minorID,
      */
     CONTAINER_FOR_EACH((netsnmp_container *) clientarg,
                        (netsnmp_container_obj_func *)
-                       _qpid010ExchangeTable_container_row_save, type);
+                       _brokerExchangeTable_container_row_save, type);
 
     read_config_store((char *) type, sep);
     read_config_store((char *) type, "\n");
@@ -2120,10 +2120,10 @@ _qpid010ExchangeTable_container_save_rows(int majorID, int minorID,
 
 
 /************************************************************
- * _qpid010ExchangeTable_container_row_save
+ * _brokerExchangeTable_container_row_save
  */
 static int
-_qpid010ExchangeTable_container_row_save(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_container_row_save(brokerExchangeTable_rowreq_ctx *
                                         rowreq_ctx, void *type)
 {
     /*
@@ -2156,9 +2156,9 @@ _qpid010ExchangeTable_container_row_save(qpid010ExchangeTable_rowreq_ctx *
      */
         /** xxx: add storage for external index(s)! */
 #define MAX_ROW_SIZE (sizeof(row_token) + 1 +  \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010ExchangeVhostRef) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( ( 2 * sizeof(rowreq_ctx->data.qpid010ExchangeName) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( qpid010EXCHANGETABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerExchangeVhostRef) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerExchangeName) ) + 3 ) + /* ASN_OCTET_STR */ \
+        ( brokerEXCHANGETABLE_MAX_COL * 12 ) + /* column num prefix + : */ \
     2 /* LINE_TERM_CHAR + \n */ )
 
     char            buf[MAX_ROW_SIZE], *pos = buf, *max =
@@ -2166,7 +2166,7 @@ _qpid010ExchangeTable_container_row_save(qpid010ExchangeTable_rowreq_ctx *
     char           *tmp;
     int             i;
 
-    if (qpid010ExchangeTable_container_should_save(rowreq_ctx) == 0) {
+    if (brokerExchangeTable_container_should_save(rowreq_ctx) == 0) {
         return SNMP_ERR_NOERROR;
     }
 
@@ -2177,13 +2177,13 @@ _qpid010ExchangeTable_container_row_save(qpid010ExchangeTable_rowreq_ctx *
     pos = read_config_save_objid(pos, rowreq_ctx->oid_idx.oids,
                                  rowreq_ctx->oid_idx.len);
     if (NULL == pos) {
-        snmp_log(LOG_ERR, "error saving qpid010ExchangeTable row "
+        snmp_log(LOG_ERR, "error saving brokerExchangeTable row "
                  "to persistent file\n");
         return SNMP_ERR_GENERR;
     }
     *pos++ = ' ';
     if (pos > max) {
-        snmp_log(LOG_ERR, "error saving qpid010ExchangeTable row "
+        snmp_log(LOG_ERR, "error saving brokerExchangeTable row "
                  "to persistent file (too long)\n");
         return SNMP_ERR_GENERR;
     }
@@ -2191,20 +2191,20 @@ _qpid010ExchangeTable_container_row_save(qpid010ExchangeTable_rowreq_ctx *
     /*
      * add each column
      */
-    for (i = qpid010EXCHANGETABLE_MIN_COL; i <= qpid010EXCHANGETABLE_MAX_COL;
+    for (i = brokerEXCHANGETABLE_MIN_COL; i <= brokerEXCHANGETABLE_MAX_COL;
          ++i) {
 
-        if ((0x1 << (i - 1)) & ~qpid010EXCHANGETABLE_SETTABLE_COLS)
+        if ((0x1 << (i - 1)) & ~brokerEXCHANGETABLE_SETTABLE_COLS)
             continue;
 
         tmp = pos;
-        pos = _qpid010ExchangeTable_container_col_save(rowreq_ctx, i, pos);
+        pos = _brokerExchangeTable_container_col_save(rowreq_ctx, i, pos);
         if (NULL == pos)
             pos = tmp;
         else
             *pos++ = ' ';
         if (pos > max) {
-            snmp_log(LOG_ERR, "error saving qpid010ExchangeTable row "
+            snmp_log(LOG_ERR, "error saving brokerExchangeTable row "
                      "to persistent file (too long)\n");
             return SNMP_ERR_GENERR;
         }
@@ -2220,33 +2220,33 @@ _qpid010ExchangeTable_container_row_save(qpid010ExchangeTable_rowreq_ctx *
      */
     pos += sprintf(pos, "%c", LINE_TERM_CHAR);
     if (pos > max) {
-        snmp_log(LOG_ERR, "error saving qpid010ExchangeTable row "
+        snmp_log(LOG_ERR, "error saving brokerExchangeTable row "
                  "to persistent file (too long)\n");
         return SNMP_ERR_GENERR;
     }
     read_config_store((char *) type, buf);
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_container_row_save", "saving line '%s'\n", buf));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_container_row_save", "saving line '%s'\n", buf));
 
     return SNMP_ERR_NOERROR;
 }
 
 static void
-_qpid010ExchangeTable_container_row_restore(const char *token, char *buf)
+_brokerExchangeTable_container_row_restore(const char *token, char *buf)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx;
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx;
     netsnmp_index   index;
-    oid             tmp_oid[MAX_qpid010ExchangeTable_IDX_LEN];
+    oid             tmp_oid[MAX_brokerExchangeTable_IDX_LEN];
     u_int           col = 0, found = 0;
 
 
     if (strncmp(token, row_token, sizeof(row_token)) != 0) {
         snmp_log(LOG_ERR,
-                 "unknown token in _qpid010ExchangeTable_container_row_restore\n");
+                 "unknown token in _brokerExchangeTable_container_row_restore\n");
         return;
     }
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_container_row_restore", "parsing line '%s'\n", buf));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_container_row_restore", "parsing line '%s'\n", buf));
 
     /*
      * pull out index and create default row
@@ -2256,13 +2256,13 @@ _qpid010ExchangeTable_container_row_restore(const char *token, char *buf)
     buf = read_config_read_objid(buf, &index.oids, &index.len);
     if (NULL == buf) {
         snmp_log(LOG_ERR, "error reading row index in "
-                 "_qpid010ExchangeTable_container_row_restore\n");
+                 "_brokerExchangeTable_container_row_restore\n");
         return;
     }
-    rowreq_ctx = _mfd_qpid010ExchangeTable_rowreq_from_index(&index, NULL);
+    rowreq_ctx = _mfd_brokerExchangeTable_rowreq_from_index(&index, NULL);
     if (NULL == rowreq_ctx) {
         snmp_log(LOG_ERR, "error creating row index in "
-                 "_qpid010ExchangeTable_container_row_restore\n");
+                 "_brokerExchangeTable_container_row_restore\n");
         return;
     }
 
@@ -2286,17 +2286,17 @@ _qpid010ExchangeTable_container_row_restore(const char *token, char *buf)
         /*
          * parse value
          */
-        DEBUGMSGTL(("_qpid010ExchangeTable_container_row_restore",
+        DEBUGMSGTL(("_brokerExchangeTable_container_row_restore",
                     "parsing column %d\n", col));
         buf =
-            _qpid010ExchangeTable_container_col_restore(rowreq_ctx, col,
+            _brokerExchangeTable_container_col_restore(rowreq_ctx, col,
                                                        buf);
         ++found;
     }
     if (0 == found) {
         snmp_log(LOG_ERR,
-                 "error parsing qpid010ExchangeTable row; no columns found\n");
-        qpid010ExchangeTable_release_rowreq_ctx(rowreq_ctx);
+                 "error parsing brokerExchangeTable row; no columns found\n");
+        brokerExchangeTable_release_rowreq_ctx(rowreq_ctx);
         return;
     }
 
@@ -2312,13 +2312,13 @@ _qpid010ExchangeTable_container_row_restore(const char *token, char *buf)
      */
     if ((buf == NULL) || (*buf != LINE_TERM_CHAR)) {
         snmp_log(LOG_ERR,
-                 "error parsing qpid010ExchangeTable row around column %d\n",
+                 "error parsing brokerExchangeTable row around column %d\n",
                  col);
-        qpid010ExchangeTable_release_rowreq_ctx(rowreq_ctx);
+        brokerExchangeTable_release_rowreq_ctx(rowreq_ctx);
         return;
     }
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_container_row_restore", "inserting row\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_container_row_restore", "inserting row\n"));
 
     /*
      * copy oid index and insert row
@@ -2326,23 +2326,23 @@ _qpid010ExchangeTable_container_row_restore(const char *token, char *buf)
     rowreq_ctx->oid_idx.len = index.len;
     memcpy(rowreq_ctx->oid_idx.oids, index.oids, index.len * sizeof(oid));
 
-    CONTAINER_INSERT(qpid010ExchangeTable_if_ctx.container, rowreq_ctx);
+    CONTAINER_INSERT(brokerExchangeTable_if_ctx.container, rowreq_ctx);
 }
 
 /************************************************************
- * _qpid010ExchangeTable_container_col_save
+ * _brokerExchangeTable_container_col_save
  */
 static char    *
-_qpid010ExchangeTable_container_col_save(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_container_col_save(brokerExchangeTable_rowreq_ctx *
                                         rowreq_ctx, u_int col, char *buf)
 {
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
-                 "_qpid010ExchangeTable_container_col_save\n");
+                 "_brokerExchangeTable_container_col_save\n");
         return NULL;
     }
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:_qpid010ExchangeTable_container_col_save", "processing column %d\n", col));
+    DEBUGMSGTL(("internal:brokerExchangeTable:_brokerExchangeTable_container_col_save", "processing column %d\n", col));
 
     /*
      * prefix with column number, so we don't ever depend on
@@ -2355,131 +2355,131 @@ _qpid010ExchangeTable_container_col_save(qpid010ExchangeTable_rowreq_ctx *
      */
     switch (col) {
 
-    case COLUMN_qpid010EXCHANGEVHOSTREF:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_brokerEXCHANGEVHOSTREF:    /** ObjId = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeVhostRef,
+                                          brokerExchangeVhostRef,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeVhostRef_len);
+                                          brokerExchangeVhostRef_len);
         break;
 
-    case COLUMN_qpid010EXCHANGENAME:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_brokerEXCHANGENAME:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeName,
+                                          brokerExchangeName,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeName_len);
+                                          brokerExchangeName_len);
         break;
 
-    case COLUMN_qpid010EXCHANGETYPE:    /** Sstr = ASN_OCTET_STR */
+    case COLUMN_brokerEXCHANGETYPE:    /** Sstr = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeType,
+                                          brokerExchangeType,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeType_len);
+                                          brokerExchangeType_len);
         break;
 
-    case COLUMN_qpid010EXCHANGEDURABLE:    /** TruthValue = ASN_INTEGER */
-        buf += sprintf(buf, "%ld", rowreq_ctx->data.qpid010ExchangeDurable);
+    case COLUMN_brokerEXCHANGEDURABLE:    /** TruthValue = ASN_INTEGER */
+        buf += sprintf(buf, "%ld", rowreq_ctx->data.brokerExchangeDurable);
         break;
 
-    case COLUMN_qpid010EXCHANGEAUTODELETE:    /** TruthValue = ASN_INTEGER */
+    case COLUMN_brokerEXCHANGEAUTODELETE:    /** TruthValue = ASN_INTEGER */
         buf +=
-            sprintf(buf, "%ld", rowreq_ctx->data.qpid010ExchangeAutoDelete);
+            sprintf(buf, "%ld", rowreq_ctx->data.brokerExchangeAutoDelete);
         break;
 
-    case COLUMN_qpid010EXCHANGEALTEXCHANGE:    /** ObjId = ASN_OCTET_STR */
+    case COLUMN_brokerEXCHANGEALTEXCHANGE:    /** ObjId = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeAltExchange,
+                                          brokerExchangeAltExchange,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeAltExchange_len);
+                                          brokerExchangeAltExchange_len);
         break;
 
-    case COLUMN_qpid010EXCHANGEARGUMENTS:    /** Map = ASN_OCTET_STR */
+    case COLUMN_brokerEXCHANGEARGUMENTS:    /** Map = ASN_OCTET_STR */
         buf =
             read_config_save_octet_string(buf,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeArguments,
+                                          brokerExchangeArguments,
                                           rowreq_ctx->data.
-                                          qpid010ExchangeArguments_len);
+                                          brokerExchangeArguments_len);
         break;
 
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNT:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNT:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010ExchangeProducerCount);
+                    rowreq_ctx->data.brokerExchangeProducerCount);
         break;
 
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNTHI:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNTHI:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010ExchangeProducerCountHi);
+                    rowreq_ctx->data.brokerExchangeProducerCountHi);
         break;
 
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010ExchangeProducerCountLow);
+                    rowreq_ctx->data.brokerExchangeProducerCountLow);
         break;
 
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNT:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerEXCHANGEBINDINGCOUNT:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010ExchangeBindingCount);
+                    rowreq_ctx->data.brokerExchangeBindingCount);
         break;
 
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNTHI:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerEXCHANGEBINDINGCOUNTHI:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010ExchangeBindingCountHi);
+                    rowreq_ctx->data.brokerExchangeBindingCountHi);
         break;
 
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
+    case COLUMN_brokerEXCHANGEBINDINGCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
         buf +=
             sprintf(buf, "%ld",
-                    rowreq_ctx->data.qpid010ExchangeBindingCountLow);
+                    rowreq_ctx->data.brokerExchangeBindingCountLow);
         break;
 
-    case COLUMN_qpid010EXCHANGEMSGRECEIVES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerEXCHANGEMSGRECEIVES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010ExchangeMsgReceives);
+                    rowreq_ctx->data.brokerExchangeMsgReceives);
         break;
 
-    case COLUMN_qpid010EXCHANGEMSGDROPS:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerEXCHANGEMSGDROPS:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010ExchangeMsgDrops);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerExchangeMsgDrops);
         break;
 
-    case COLUMN_qpid010EXCHANGEMSGROUTES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerEXCHANGEMSGROUTES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010ExchangeMsgRoutes);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerExchangeMsgRoutes);
         break;
 
-    case COLUMN_qpid010EXCHANGEBYTERECEIVES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerEXCHANGEBYTERECEIVES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
             sprintf(buf, "%lu",
-                    rowreq_ctx->data.qpid010ExchangeByteReceives);
+                    rowreq_ctx->data.brokerExchangeByteReceives);
         break;
 
-    case COLUMN_qpid010EXCHANGEBYTEDROPS:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerEXCHANGEBYTEDROPS:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010ExchangeByteDrops);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerExchangeByteDrops);
         break;
 
-    case COLUMN_qpid010EXCHANGEBYTEROUTES:    /** COUNTER64 = ASN_COUNTER64 */
+    case COLUMN_brokerEXCHANGEBYTEROUTES:    /** COUNTER64 = ASN_COUNTER64 */
         buf +=
-            sprintf(buf, "%lu", rowreq_ctx->data.qpid010ExchangeByteRoutes);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerExchangeByteRoutes);
         break;
 
     default:/** We shouldn't get here */
         snmp_log(LOG_ERR, "unknown column %d in "
-                 "_qpid010ExchangeTable_container_col_save\n", col);
+                 "_brokerExchangeTable_container_col_save\n", col);
         return NULL;
     }
 
@@ -2487,184 +2487,184 @@ _qpid010ExchangeTable_container_col_save(qpid010ExchangeTable_rowreq_ctx *
 }
 
 /************************************************************
- * _qpid010ExchangeTable_container_col_restore
+ * _brokerExchangeTable_container_col_restore
  */
 static char    *
-_qpid010ExchangeTable_container_col_restore(qpid010ExchangeTable_rowreq_ctx *
+_brokerExchangeTable_container_col_restore(brokerExchangeTable_rowreq_ctx *
                                            rowreq_ctx, u_int col,
                                            char *buf)
 {
     size_t          len;
     if ((NULL == rowreq_ctx) || (NULL == buf)) {
         snmp_log(LOG_ERR, "bad parameter in "
-                 "_qpid010ExchangeTable_container_col_restore\n");
+                 "_brokerExchangeTable_container_col_restore\n");
         return NULL;
     }
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:_qpid010ExchangeTable_container_col_restore", "processing column %d\n", col));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:_brokerExchangeTable_container_col_restore", "processing column %d\n", col));
 
     /*
      * restore data for the column
      */
     switch (col) {
 
-    case COLUMN_qpid010EXCHANGEVHOSTREF:    /** ObjId = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010ExchangeVhostRef_len =
-            sizeof(rowreq_ctx->data.qpid010ExchangeVhostRef);
+    case COLUMN_brokerEXCHANGEVHOSTREF:    /** ObjId = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerExchangeVhostRef_len =
+            sizeof(rowreq_ctx->data.brokerExchangeVhostRef);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010ExchangeVhostRef,
+                                    brokerExchangeVhostRef,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010ExchangeVhostRef_len);
+                                    brokerExchangeVhostRef_len);
         break;
 
-    case COLUMN_qpid010EXCHANGENAME:    /** Sstr = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010ExchangeName_len =
-            sizeof(rowreq_ctx->data.qpid010ExchangeName);
+    case COLUMN_brokerEXCHANGENAME:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerExchangeName_len =
+            sizeof(rowreq_ctx->data.brokerExchangeName);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010ExchangeName,
+                                    brokerExchangeName,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010ExchangeName_len);
+                                    brokerExchangeName_len);
         break;
 
-    case COLUMN_qpid010EXCHANGETYPE:    /** Sstr = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010ExchangeType_len =
-            sizeof(rowreq_ctx->data.qpid010ExchangeType);
+    case COLUMN_brokerEXCHANGETYPE:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerExchangeType_len =
+            sizeof(rowreq_ctx->data.brokerExchangeType);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010ExchangeType,
+                                    brokerExchangeType,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010ExchangeType_len);
+                                    brokerExchangeType_len);
         break;
 
-    case COLUMN_qpid010EXCHANGEDURABLE:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeDurable);
+    case COLUMN_brokerEXCHANGEDURABLE:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerExchangeDurable);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeDurable, &len);
+                                      brokerExchangeDurable, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEAUTODELETE:    /** TruthValue = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeAutoDelete);
+    case COLUMN_brokerEXCHANGEAUTODELETE:    /** TruthValue = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerExchangeAutoDelete);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeAutoDelete, &len);
+                                      brokerExchangeAutoDelete, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEALTEXCHANGE:    /** ObjId = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010ExchangeAltExchange_len =
-            sizeof(rowreq_ctx->data.qpid010ExchangeAltExchange);
+    case COLUMN_brokerEXCHANGEALTEXCHANGE:    /** ObjId = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerExchangeAltExchange_len =
+            sizeof(rowreq_ctx->data.brokerExchangeAltExchange);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010ExchangeAltExchange,
+                                    brokerExchangeAltExchange,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010ExchangeAltExchange_len);
+                                    brokerExchangeAltExchange_len);
         break;
 
-    case COLUMN_qpid010EXCHANGEARGUMENTS:    /** Map = ASN_OCTET_STR */
-        rowreq_ctx->data.qpid010ExchangeArguments_len =
-            sizeof(rowreq_ctx->data.qpid010ExchangeArguments);
+    case COLUMN_brokerEXCHANGEARGUMENTS:    /** Map = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerExchangeArguments_len =
+            sizeof(rowreq_ctx->data.brokerExchangeArguments);
         buf =
             read_config_read_memory(ASN_OCTET_STR, buf,
                                     (char *) &rowreq_ctx->data.
-                                    qpid010ExchangeArguments,
+                                    brokerExchangeArguments,
                                     (size_t *) &rowreq_ctx->data.
-                                    qpid010ExchangeArguments_len);
+                                    brokerExchangeArguments_len);
         break;
 
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNT:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeProducerCount);
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNT:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerExchangeProducerCount);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeProducerCount, &len);
+                                      brokerExchangeProducerCount, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNTHI:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeProducerCountHi);
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNTHI:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerExchangeProducerCountHi);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeProducerCountHi, &len);
+                                      brokerExchangeProducerCountHi, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEPRODUCERCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeProducerCountLow);
+    case COLUMN_brokerEXCHANGEPRODUCERCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerExchangeProducerCountLow);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeProducerCountLow,
+                                      brokerExchangeProducerCountLow,
                                       &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNT:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeBindingCount);
+    case COLUMN_brokerEXCHANGEBINDINGCOUNT:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerExchangeBindingCount);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeBindingCount, &len);
+                                      brokerExchangeBindingCount, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNTHI:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeBindingCountHi);
+    case COLUMN_brokerEXCHANGEBINDINGCOUNTHI:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerExchangeBindingCountHi);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeBindingCountHi, &len);
+                                      brokerExchangeBindingCountHi, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEBINDINGCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeBindingCountLow);
+    case COLUMN_brokerEXCHANGEBINDINGCOUNTLOW:    /** Hilo32 = ASN_INTEGER */
+        len = sizeof(rowreq_ctx->data.brokerExchangeBindingCountLow);
         buf = read_config_read_memory(ASN_INTEGER, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeBindingCountLow, &len);
+                                      brokerExchangeBindingCountLow, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEMSGRECEIVES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeMsgReceives);
+    case COLUMN_brokerEXCHANGEMSGRECEIVES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerExchangeMsgReceives);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeMsgReceives, &len);
+                                      brokerExchangeMsgReceives, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEMSGDROPS:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeMsgDrops);
+    case COLUMN_brokerEXCHANGEMSGDROPS:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerExchangeMsgDrops);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeMsgDrops, &len);
+                                      brokerExchangeMsgDrops, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEMSGROUTES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeMsgRoutes);
+    case COLUMN_brokerEXCHANGEMSGROUTES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerExchangeMsgRoutes);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeMsgRoutes, &len);
+                                      brokerExchangeMsgRoutes, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEBYTERECEIVES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeByteReceives);
+    case COLUMN_brokerEXCHANGEBYTERECEIVES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerExchangeByteReceives);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeByteReceives, &len);
+                                      brokerExchangeByteReceives, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEBYTEDROPS:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeByteDrops);
+    case COLUMN_brokerEXCHANGEBYTEDROPS:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerExchangeByteDrops);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeByteDrops, &len);
+                                      brokerExchangeByteDrops, &len);
         break;
 
-    case COLUMN_qpid010EXCHANGEBYTEROUTES:    /** COUNTER64 = ASN_COUNTER64 */
-        len = sizeof(rowreq_ctx->data.qpid010ExchangeByteRoutes);
+    case COLUMN_brokerEXCHANGEBYTEROUTES:    /** COUNTER64 = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerExchangeByteRoutes);
         buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      qpid010ExchangeByteRoutes, &len);
+                                      brokerExchangeByteRoutes, &len);
         break;
 
     default:/** We shouldn't get here */
         snmp_log(LOG_ERR, "unknown column %d in "
-                 "_qpid010ExchangeTable_container_col_restore\n", col);
+                 "_brokerExchangeTable_container_col_restore\n", col);
         return NULL;
     }
 
@@ -2672,11 +2672,11 @@ _qpid010ExchangeTable_container_col_restore(qpid010ExchangeTable_rowreq_ctx *
 }
 
 
-qpid010ExchangeTable_rowreq_ctx *
-qpid010ExchangeTable_row_find_by_mib_index(qpid010ExchangeTable_mib_index *
+brokerExchangeTable_rowreq_ctx *
+brokerExchangeTable_row_find_by_mib_index(brokerExchangeTable_mib_index *
                                           mib_idx)
 {
-    qpid010ExchangeTable_rowreq_ctx *rowreq_ctx;
+    brokerExchangeTable_rowreq_ctx *rowreq_ctx;
     oid             oid_tmp[MAX_OID_LEN];
     netsnmp_index   oid_idx;
     int             rc;
@@ -2690,13 +2690,13 @@ qpid010ExchangeTable_row_find_by_mib_index(qpid010ExchangeTable_mib_index *
     /*
      * convert
      */
-    rc = qpid010ExchangeTable_index_to_oid(&oid_idx, mib_idx);
+    rc = brokerExchangeTable_index_to_oid(&oid_idx, mib_idx);
     if (MFD_SUCCESS != rc)
         return NULL;
 
     rowreq_ctx =
-        (qpid010ExchangeTable_rowreq_ctx *)
-        CONTAINER_FIND(qpid010ExchangeTable_if_ctx.container, &oid_idx);
+        (brokerExchangeTable_rowreq_ctx *)
+        CONTAINER_FIND(brokerExchangeTable_if_ctx.container, &oid_idx);
 
     return rowreq_ctx;
 }

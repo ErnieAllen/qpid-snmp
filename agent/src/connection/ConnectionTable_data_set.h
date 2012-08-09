@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010CONNECTIONTABLE_DATA_SET_H
-#define qpid010CONNECTIONTABLE_DATA_SET_H
+#ifndef brokerCONNECTIONTABLE_DATA_SET_H
+#define brokerCONNECTIONTABLE_DATA_SET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -23,366 +23,366 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ConnectionTable
+ *** Table brokerConnectionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010ConnectionTable is subid 1 of qpid010Connections.
+     * QPID-MESSAGING-MIB::brokerConnectionTable is subid 1 of brokerConnections.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1, length: 12
      */
 
 
     int            
-        qpid010ConnectionTable_undo_setup(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionTable_undo_setup(brokerConnectionTable_rowreq_ctx *
                                          rowreq_ctx);
     int            
-        qpid010ConnectionTable_undo_cleanup(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionTable_undo_cleanup(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx);
     int            
-        qpid010ConnectionTable_undo(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionTable_undo(brokerConnectionTable_rowreq_ctx *
                                    rowreq_ctx);
     int            
-        qpid010ConnectionTable_commit(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionTable_commit(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx);
     int            
-        qpid010ConnectionTable_undo_commit(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionTable_undo_commit(brokerConnectionTable_rowreq_ctx
                                           * rowreq_ctx);
 
 
     int            
-        qpid010ConnectionVhostRef_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         char *qpid010ConnectionVhostRef_val_ptr,
-         size_t qpid010ConnectionVhostRef_val_ptr_len);
+        brokerConnectionVhostRef_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         char *brokerConnectionVhostRef_val_ptr,
+         size_t brokerConnectionVhostRef_val_ptr_len);
     int            
-        qpid010ConnectionVhostRef_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionVhostRef_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionVhostRef_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionVhostRef_set(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx,
                                      char
-                                     *qpid010ConnectionVhostRef_val_ptr,
+                                     *brokerConnectionVhostRef_val_ptr,
                                      size_t
-                                     qpid010ConnectionVhostRef_val_ptr_len);
+                                     brokerConnectionVhostRef_val_ptr_len);
     int            
-        qpid010ConnectionVhostRef_undo(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionVhostRef_undo(brokerConnectionTable_rowreq_ctx *
                                       rowreq_ctx);
 
     int            
-        qpid010ConnectionAddress_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         char *qpid010ConnectionAddress_val_ptr,
-         size_t qpid010ConnectionAddress_val_ptr_len);
+        brokerConnectionAddress_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         char *brokerConnectionAddress_val_ptr,
+         size_t brokerConnectionAddress_val_ptr_len);
     int            
-        qpid010ConnectionAddress_undo_setup(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionAddress_undo_setup(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx);
     int            
-        qpid010ConnectionAddress_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionAddress_set(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    char *qpid010ConnectionAddress_val_ptr,
+                                    char *brokerConnectionAddress_val_ptr,
                                     size_t
-                                    qpid010ConnectionAddress_val_ptr_len);
+                                    brokerConnectionAddress_val_ptr_len);
     int            
-        qpid010ConnectionAddress_undo(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionAddress_undo(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010ConnectionIncoming_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionIncoming_val);
+        brokerConnectionIncoming_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionIncoming_val);
     int            
-        qpid010ConnectionIncoming_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionIncoming_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionIncoming_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionIncoming_set(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx,
-                                     u_long qpid010ConnectionIncoming_val);
+                                     u_long brokerConnectionIncoming_val);
     int            
-        qpid010ConnectionIncoming_undo(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionIncoming_undo(brokerConnectionTable_rowreq_ctx *
                                       rowreq_ctx);
 
     int            
-        qpid010ConnectionSystemConnection_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionSystemConnection_val);
+        brokerConnectionSystemConnection_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionSystemConnection_val);
     int            
-        qpid010ConnectionSystemConnection_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionSystemConnection_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionSystemConnection_set
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionSystemConnection_val);
+        brokerConnectionSystemConnection_set
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionSystemConnection_val);
     int            
-        qpid010ConnectionSystemConnection_undo
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionSystemConnection_undo
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionUserProxyAuth_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionUserProxyAuth_val);
+        brokerConnectionUserProxyAuth_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionUserProxyAuth_val);
     int            
-        qpid010ConnectionUserProxyAuth_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionUserProxyAuth_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionUserProxyAuth_set(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionUserProxyAuth_set(brokerConnectionTable_rowreq_ctx
                                           * rowreq_ctx,
                                           u_long
-                                          qpid010ConnectionUserProxyAuth_val);
+                                          brokerConnectionUserProxyAuth_val);
     int            
-        qpid010ConnectionUserProxyAuth_undo(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionUserProxyAuth_undo(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx);
 
     int            
-        qpid010ConnectionFederationLink_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionFederationLink_val);
+        brokerConnectionFederationLink_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionFederationLink_val);
     int            
-        qpid010ConnectionFederationLink_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionFederationLink_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionFederationLink_set(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionFederationLink_set(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx,
                                            u_long
-                                           qpid010ConnectionFederationLink_val);
+                                           brokerConnectionFederationLink_val);
     int            
-        qpid010ConnectionFederationLink_undo
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionFederationLink_undo
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionAuthIdentity_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         char *qpid010ConnectionAuthIdentity_val_ptr,
-         size_t qpid010ConnectionAuthIdentity_val_ptr_len);
+        brokerConnectionAuthIdentity_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         char *brokerConnectionAuthIdentity_val_ptr,
+         size_t brokerConnectionAuthIdentity_val_ptr_len);
     int            
-        qpid010ConnectionAuthIdentity_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionAuthIdentity_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionAuthIdentity_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionAuthIdentity_set(brokerConnectionTable_rowreq_ctx *
                                          rowreq_ctx,
                                          char
-                                         *qpid010ConnectionAuthIdentity_val_ptr,
+                                         *brokerConnectionAuthIdentity_val_ptr,
                                          size_t
-                                         qpid010ConnectionAuthIdentity_val_ptr_len);
+                                         brokerConnectionAuthIdentity_val_ptr_len);
     int            
-        qpid010ConnectionAuthIdentity_undo(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionAuthIdentity_undo(brokerConnectionTable_rowreq_ctx
                                           * rowreq_ctx);
 
     int            
-        qpid010ConnectionRemoteProcessName_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         char *qpid010ConnectionRemoteProcessName_val_ptr,
-         size_t qpid010ConnectionRemoteProcessName_val_ptr_len);
+        brokerConnectionRemoteProcessName_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         char *brokerConnectionRemoteProcessName_val_ptr,
+         size_t brokerConnectionRemoteProcessName_val_ptr_len);
     int            
-        qpid010ConnectionRemoteProcessName_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionRemoteProcessName_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionRemoteProcessName_set
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         char *qpid010ConnectionRemoteProcessName_val_ptr,
-         size_t qpid010ConnectionRemoteProcessName_val_ptr_len);
+        brokerConnectionRemoteProcessName_set
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         char *brokerConnectionRemoteProcessName_val_ptr,
+         size_t brokerConnectionRemoteProcessName_val_ptr_len);
     int            
-        qpid010ConnectionRemoteProcessName_undo
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionRemoteProcessName_undo
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionRemotePid_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionRemotePid_val);
+        brokerConnectionRemotePid_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionRemotePid_val);
     int            
-        qpid010ConnectionRemotePid_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionRemotePid_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionRemotePid_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionRemotePid_set(brokerConnectionTable_rowreq_ctx *
                                       rowreq_ctx,
                                       u_long
-                                      qpid010ConnectionRemotePid_val);
+                                      brokerConnectionRemotePid_val);
     int            
-        qpid010ConnectionRemotePid_undo(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionRemotePid_undo(brokerConnectionTable_rowreq_ctx *
                                        rowreq_ctx);
 
     int            
-        qpid010ConnectionRemoteParentPid_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionRemoteParentPid_val);
+        brokerConnectionRemoteParentPid_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionRemoteParentPid_val);
     int            
-        qpid010ConnectionRemoteParentPid_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionRemoteParentPid_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionRemoteParentPid_set
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionRemoteParentPid_val);
+        brokerConnectionRemoteParentPid_set
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionRemoteParentPid_val);
     int            
-        qpid010ConnectionRemoteParentPid_undo
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionRemoteParentPid_undo
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionShadow_check_value(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionShadow_check_value(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx,
                                            u_long
-                                           qpid010ConnectionShadow_val);
+                                           brokerConnectionShadow_val);
     int            
-        qpid010ConnectionShadow_undo_setup(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionShadow_undo_setup(brokerConnectionTable_rowreq_ctx
                                           * rowreq_ctx);
     int            
-        qpid010ConnectionShadow_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionShadow_set(brokerConnectionTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   u_long qpid010ConnectionShadow_val);
+                                   u_long brokerConnectionShadow_val);
     int            
-        qpid010ConnectionShadow_undo(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionShadow_undo(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx);
 
     int            
-        qpid010ConnectionSaslMechanism_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         char *qpid010ConnectionSaslMechanism_val_ptr,
-         size_t qpid010ConnectionSaslMechanism_val_ptr_len);
+        brokerConnectionSaslMechanism_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         char *brokerConnectionSaslMechanism_val_ptr,
+         size_t brokerConnectionSaslMechanism_val_ptr_len);
     int            
-        qpid010ConnectionSaslMechanism_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionSaslMechanism_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionSaslMechanism_set(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionSaslMechanism_set(brokerConnectionTable_rowreq_ctx
                                           * rowreq_ctx,
                                           char
-                                          *qpid010ConnectionSaslMechanism_val_ptr,
+                                          *brokerConnectionSaslMechanism_val_ptr,
                                           size_t
-                                          qpid010ConnectionSaslMechanism_val_ptr_len);
+                                          brokerConnectionSaslMechanism_val_ptr_len);
     int            
-        qpid010ConnectionSaslMechanism_undo(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionSaslMechanism_undo(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx);
 
     int            
-        qpid010ConnectionSaslSsf_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         long qpid010ConnectionSaslSsf_val);
+        brokerConnectionSaslSsf_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         long brokerConnectionSaslSsf_val);
     int            
-        qpid010ConnectionSaslSsf_undo_setup(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionSaslSsf_undo_setup(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx);
     int            
-        qpid010ConnectionSaslSsf_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionSaslSsf_set(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    long qpid010ConnectionSaslSsf_val);
+                                    long brokerConnectionSaslSsf_val);
     int            
-        qpid010ConnectionSaslSsf_undo(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionSaslSsf_undo(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010ConnectionClosing_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         u_long qpid010ConnectionClosing_val);
+        brokerConnectionClosing_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         u_long brokerConnectionClosing_val);
     int            
-        qpid010ConnectionClosing_undo_setup(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionClosing_undo_setup(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx);
     int            
-        qpid010ConnectionClosing_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionClosing_set(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    u_long qpid010ConnectionClosing_val);
+                                    u_long brokerConnectionClosing_val);
     int            
-        qpid010ConnectionClosing_undo(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionClosing_undo(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010ConnectionFramesFromClient_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010ConnectionFramesFromClient_val);
+        brokerConnectionFramesFromClient_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerConnectionFramesFromClient_val);
     int            
-        qpid010ConnectionFramesFromClient_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionFramesFromClient_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionFramesFromClient_set
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010ConnectionFramesFromClient_val);
+        brokerConnectionFramesFromClient_set
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerConnectionFramesFromClient_val);
     int            
-        qpid010ConnectionFramesFromClient_undo
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionFramesFromClient_undo
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionFramesToClient_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010ConnectionFramesToClient_val);
+        brokerConnectionFramesToClient_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerConnectionFramesToClient_val);
     int            
-        qpid010ConnectionFramesToClient_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionFramesToClient_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionFramesToClient_set(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionFramesToClient_set(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx,
                                            U64
-                                           qpid010ConnectionFramesToClient_val);
+                                           brokerConnectionFramesToClient_val);
     int            
-        qpid010ConnectionFramesToClient_undo
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionFramesToClient_undo
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionBytesFromClient_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010ConnectionBytesFromClient_val);
+        brokerConnectionBytesFromClient_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerConnectionBytesFromClient_val);
     int            
-        qpid010ConnectionBytesFromClient_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionBytesFromClient_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionBytesFromClient_set
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010ConnectionBytesFromClient_val);
+        brokerConnectionBytesFromClient_set
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerConnectionBytesFromClient_val);
     int            
-        qpid010ConnectionBytesFromClient_undo
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionBytesFromClient_undo
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionBytesToClient_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010ConnectionBytesToClient_val);
+        brokerConnectionBytesToClient_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerConnectionBytesToClient_val);
     int            
-        qpid010ConnectionBytesToClient_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionBytesToClient_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionBytesToClient_set(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionBytesToClient_set(brokerConnectionTable_rowreq_ctx
                                           * rowreq_ctx,
                                           U64
-                                          qpid010ConnectionBytesToClient_val);
+                                          brokerConnectionBytesToClient_val);
     int            
-        qpid010ConnectionBytesToClient_undo(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionBytesToClient_undo(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx);
 
     int            
-        qpid010ConnectionMsgsFromClient_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010ConnectionMsgsFromClient_val);
+        brokerConnectionMsgsFromClient_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerConnectionMsgsFromClient_val);
     int            
-        qpid010ConnectionMsgsFromClient_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionMsgsFromClient_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionMsgsFromClient_set(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionMsgsFromClient_set(brokerConnectionTable_rowreq_ctx
                                            * rowreq_ctx,
                                            U64
-                                           qpid010ConnectionMsgsFromClient_val);
+                                           brokerConnectionMsgsFromClient_val);
     int            
-        qpid010ConnectionMsgsFromClient_undo
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionMsgsFromClient_undo
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionMsgsToClient_check_value
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010ConnectionMsgsToClient_val);
+        brokerConnectionMsgsToClient_check_value
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerConnectionMsgsToClient_val);
     int            
-        qpid010ConnectionMsgsToClient_undo_setup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionMsgsToClient_undo_setup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionMsgsToClient_set(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionMsgsToClient_set(brokerConnectionTable_rowreq_ctx *
                                          rowreq_ctx,
                                          U64
-                                         qpid010ConnectionMsgsToClient_val);
+                                         brokerConnectionMsgsToClient_val);
     int            
-        qpid010ConnectionMsgsToClient_undo(qpid010ConnectionTable_rowreq_ctx
+        brokerConnectionMsgsToClient_undo(brokerConnectionTable_rowreq_ctx
                                           * rowreq_ctx);
 
 
     int            
-        qpid010ConnectionTable_check_dependencies
-        (qpid010ConnectionTable_rowreq_ctx * ctx);
+        brokerConnectionTable_check_dependencies
+        (brokerConnectionTable_rowreq_ctx * ctx);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010CONNECTIONTABLE_DATA_SET_H */
+#endif                          /* brokerCONNECTIONTABLE_DATA_SET_H */

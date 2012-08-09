@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010VHOSTTABLE_DATA_SET_H
-#define qpid010VHOSTTABLE_DATA_SET_H
+#ifndef brokerVHOSTTABLE_DATA_SET_H
+#define brokerVHOSTTABLE_DATA_SET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -23,94 +23,94 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010VhostTable
+ *** Table brokerVhostTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
+     * QPID-MESSAGING-MIB::brokerVhostTable is subid 1 of brokerVhosts.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
      */
 
 
-    int             qpid010VhostTable_undo_setup(qpid010VhostTable_rowreq_ctx
+    int             brokerVhostTable_undo_setup(brokerVhostTable_rowreq_ctx
                                                 * rowreq_ctx);
     int            
-        qpid010VhostTable_undo_cleanup(qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_undo_cleanup(brokerVhostTable_rowreq_ctx *
                                       rowreq_ctx);
-    int             qpid010VhostTable_undo(qpid010VhostTable_rowreq_ctx *
+    int             brokerVhostTable_undo(brokerVhostTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010VhostTable_commit(qpid010VhostTable_rowreq_ctx *
+    int             brokerVhostTable_commit(brokerVhostTable_rowreq_ctx *
                                             rowreq_ctx);
     int            
-        qpid010VhostTable_undo_commit(qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_undo_commit(brokerVhostTable_rowreq_ctx *
                                      rowreq_ctx);
 
 
     int            
-        qpid010VhostBrokerRef_check_value(qpid010VhostTable_rowreq_ctx *
+        brokerVhostBrokerRef_check_value(brokerVhostTable_rowreq_ctx *
                                          rowreq_ctx,
                                          char
-                                         *qpid010VhostBrokerRef_val_ptr,
+                                         *brokerVhostBrokerRef_val_ptr,
                                          size_t
-                                         qpid010VhostBrokerRef_val_ptr_len);
+                                         brokerVhostBrokerRef_val_ptr_len);
     int            
-        qpid010VhostBrokerRef_undo_setup(qpid010VhostTable_rowreq_ctx *
+        brokerVhostBrokerRef_undo_setup(brokerVhostTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010VhostBrokerRef_set(qpid010VhostTable_rowreq_ctx *
+    int             brokerVhostBrokerRef_set(brokerVhostTable_rowreq_ctx *
                                              rowreq_ctx,
                                              char
-                                             *qpid010VhostBrokerRef_val_ptr,
+                                             *brokerVhostBrokerRef_val_ptr,
                                              size_t
-                                             qpid010VhostBrokerRef_val_ptr_len);
-    int             qpid010VhostBrokerRef_undo(qpid010VhostTable_rowreq_ctx *
+                                             brokerVhostBrokerRef_val_ptr_len);
+    int             brokerVhostBrokerRef_undo(brokerVhostTable_rowreq_ctx *
                                               rowreq_ctx);
 
-    int             qpid010VhostName_check_value(qpid010VhostTable_rowreq_ctx
+    int             brokerVhostName_check_value(brokerVhostTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 char
-                                                *qpid010VhostName_val_ptr,
+                                                *brokerVhostName_val_ptr,
                                                 size_t
-                                                qpid010VhostName_val_ptr_len);
-    int             qpid010VhostName_undo_setup(qpid010VhostTable_rowreq_ctx
+                                                brokerVhostName_val_ptr_len);
+    int             brokerVhostName_undo_setup(brokerVhostTable_rowreq_ctx
                                                * rowreq_ctx);
-    int             qpid010VhostName_set(qpid010VhostTable_rowreq_ctx *
+    int             brokerVhostName_set(brokerVhostTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char *qpid010VhostName_val_ptr,
+                                        char *brokerVhostName_val_ptr,
                                         size_t
-                                        qpid010VhostName_val_ptr_len);
-    int             qpid010VhostName_undo(qpid010VhostTable_rowreq_ctx *
+                                        brokerVhostName_val_ptr_len);
+    int             brokerVhostName_undo(brokerVhostTable_rowreq_ctx *
                                          rowreq_ctx);
 
     int            
-        qpid010VhostFederationTag_check_value(qpid010VhostTable_rowreq_ctx *
+        brokerVhostFederationTag_check_value(brokerVhostTable_rowreq_ctx *
                                              rowreq_ctx,
                                              char
-                                             *qpid010VhostFederationTag_val_ptr,
+                                             *brokerVhostFederationTag_val_ptr,
                                              size_t
-                                             qpid010VhostFederationTag_val_ptr_len);
+                                             brokerVhostFederationTag_val_ptr_len);
     int            
-        qpid010VhostFederationTag_undo_setup(qpid010VhostTable_rowreq_ctx *
+        brokerVhostFederationTag_undo_setup(brokerVhostTable_rowreq_ctx *
                                             rowreq_ctx);
     int            
-        qpid010VhostFederationTag_set(qpid010VhostTable_rowreq_ctx *
+        brokerVhostFederationTag_set(brokerVhostTable_rowreq_ctx *
                                      rowreq_ctx,
                                      char
-                                     *qpid010VhostFederationTag_val_ptr,
+                                     *brokerVhostFederationTag_val_ptr,
                                      size_t
-                                     qpid010VhostFederationTag_val_ptr_len);
+                                     brokerVhostFederationTag_val_ptr_len);
     int            
-        qpid010VhostFederationTag_undo(qpid010VhostTable_rowreq_ctx *
+        brokerVhostFederationTag_undo(brokerVhostTable_rowreq_ctx *
                                       rowreq_ctx);
 
 
     int            
-        qpid010VhostTable_check_dependencies(qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_check_dependencies(brokerVhostTable_rowreq_ctx *
                                             ctx);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010VHOSTTABLE_DATA_SET_H */
+#endif                          /* brokerVHOSTTABLE_DATA_SET_H */

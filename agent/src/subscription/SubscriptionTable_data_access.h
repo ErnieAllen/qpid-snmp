@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010SUBSCRIPTIONTABLE_DATA_ACCESS_H
-#define qpid010SUBSCRIPTIONTABLE_DATA_ACCESS_H
+#ifndef brokerSUBSCRIPTIONTABLE_DATA_ACCESS_H
+#define brokerSUBSCRIPTIONTABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -24,47 +24,47 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SubscriptionTable
+ *** Table brokerSubscriptionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
+     * QPID-MESSAGING-MIB::brokerSubscriptionTable is subid 1 of brokerSubscriptions.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
      */
 
 
     int            
-        qpid010SubscriptionTable_init_data
-        (qpid010SubscriptionTable_registration *
-         qpid010SubscriptionTable_reg);
+        brokerSubscriptionTable_init_data
+        (brokerSubscriptionTable_registration *
+         brokerSubscriptionTable_reg);
 
 
     /*
-     * TODO:180:o: Review qpid010SubscriptionTable cache timeout.
+     * TODO:180:o: Review brokerSubscriptionTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define qpid010SUBSCRIPTIONTABLE_CACHE_TIMEOUT   60
+#define brokerSUBSCRIPTIONTABLE_CACHE_TIMEOUT   60
 
     void           
-        qpid010SubscriptionTable_container_init(netsnmp_container **
+        brokerSubscriptionTable_container_init(netsnmp_container **
                                                container_ptr_ptr,
                                                netsnmp_cache * cache);
     void           
-        qpid010SubscriptionTable_container_shutdown(netsnmp_container *
+        brokerSubscriptionTable_container_shutdown(netsnmp_container *
                                                    container_ptr);
 
     int            
-        qpid010SubscriptionTable_container_load(netsnmp_container *
+        brokerSubscriptionTable_container_load(netsnmp_container *
                                                container);
     void           
-        qpid010SubscriptionTable_container_free(netsnmp_container *
+        brokerSubscriptionTable_container_free(netsnmp_container *
                                                container);
 
-    int             qpid010SubscriptionTable_cache_load(netsnmp_container *
+    int             brokerSubscriptionTable_cache_load(netsnmp_container *
                                                        container);
-    void            qpid010SubscriptionTable_cache_free(netsnmp_container *
+    void            brokerSubscriptionTable_cache_free(netsnmp_container *
                                                        container);
 
     /*
@@ -82,18 +82,18 @@ extern          "C" {
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
     int            
-        qpid010SubscriptionTable_row_prep(qpid010SubscriptionTable_rowreq_ctx
+        brokerSubscriptionTable_row_prep(brokerSubscriptionTable_rowreq_ctx
                                          * rowreq_ctx);
 
     int            
-        qpid010SubscriptionTable_validate_index
-        (qpid010SubscriptionTable_registration *
-         qpid010SubscriptionTable_reg,
-         qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx);
-    int             qpid010SubscriptionInternalIndex_check_index(qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx);       /* internal */
+        brokerSubscriptionTable_validate_index
+        (brokerSubscriptionTable_registration *
+         brokerSubscriptionTable_reg,
+         brokerSubscriptionTable_rowreq_ctx * rowreq_ctx);
+    int             brokerSubscriptionInternalIndex_check_index(brokerSubscriptionTable_rowreq_ctx * rowreq_ctx);       /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SUBSCRIPTIONTABLE_DATA_ACCESS_H */
+#endif                          /* brokerSUBSCRIPTIONTABLE_DATA_ACCESS_H */

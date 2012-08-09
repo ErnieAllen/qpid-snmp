@@ -10,80 +10,80 @@
 
 #include "../qpid_api.h"
 
-/** Initializes the qpid010Memory module */
+/** Initializes the brokerMemory module */
 void
 init_Memory(void)
 {
-    const oid       qpid010MemoryName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 1 };
-    const oid       qpid010MemoryMallocarena_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 2 };
-    const oid       qpid010MemoryMallocordblks_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 3 };
-    const oid       qpid010MemoryMallochblks_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 4 };
-    const oid       qpid010MemoryMallochblkhd_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 5 };
-    const oid       qpid010MemoryMallocuordblks_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 6 };
-    const oid       qpid010MemoryMallocfordblks_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 7 };
-    const oid       qpid010MemoryMallockeepcost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 2, 8 };
+    const oid       brokerMemoryName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 1 };
+    const oid       brokerMemoryMallocarena_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2 };
+    const oid       brokerMemoryMallocordblks_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 3 };
+    const oid       brokerMemoryMallochblks_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 4 };
+    const oid       brokerMemoryMallochblkhd_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 5 };
+    const oid       brokerMemoryMallocuordblks_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 6 };
+    const oid       brokerMemoryMallocfordblks_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 7 };
+    const oid       brokerMemoryMallockeepcost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 8 };
 
-    DEBUGMSGTL(("qpid010Memory", "Initializing\n"));
+    DEBUGMSGTL(("brokerMemory", "Initializing\n"));
 
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010MemoryName", handle_qpid010MemoryName,
-                             qpid010MemoryName_oid,
-                             OID_LENGTH(qpid010MemoryName_oid),
+                            ("brokerMemoryName", handle_brokerMemoryName,
+                             brokerMemoryName_oid,
+                             OID_LENGTH(brokerMemoryName_oid),
                              HANDLER_CAN_RWRITE));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010MemoryMallocarena",
-                             handle_qpid010MemoryMallocarena,
-                             qpid010MemoryMallocarena_oid,
-                             OID_LENGTH(qpid010MemoryMallocarena_oid),
+                            ("brokerMemoryMallocarena",
+                             handle_brokerMemoryMallocarena,
+                             brokerMemoryMallocarena_oid,
+                             OID_LENGTH(brokerMemoryMallocarena_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010MemoryMallocordblks",
-                             handle_qpid010MemoryMallocordblks,
-                             qpid010MemoryMallocordblks_oid,
-                             OID_LENGTH(qpid010MemoryMallocordblks_oid),
+                            ("brokerMemoryMallocordblks",
+                             handle_brokerMemoryMallocordblks,
+                             brokerMemoryMallocordblks_oid,
+                             OID_LENGTH(brokerMemoryMallocordblks_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010MemoryMallochblks",
-                             handle_qpid010MemoryMallochblks,
-                             qpid010MemoryMallochblks_oid,
-                             OID_LENGTH(qpid010MemoryMallochblks_oid),
+                            ("brokerMemoryMallochblks",
+                             handle_brokerMemoryMallochblks,
+                             brokerMemoryMallochblks_oid,
+                             OID_LENGTH(brokerMemoryMallochblks_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010MemoryMallochblkhd",
-                             handle_qpid010MemoryMallochblkhd,
-                             qpid010MemoryMallochblkhd_oid,
-                             OID_LENGTH(qpid010MemoryMallochblkhd_oid),
+                            ("brokerMemoryMallochblkhd",
+                             handle_brokerMemoryMallochblkhd,
+                             brokerMemoryMallochblkhd_oid,
+                             OID_LENGTH(brokerMemoryMallochblkhd_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010MemoryMallocuordblks",
-                             handle_qpid010MemoryMallocuordblks,
-                             qpid010MemoryMallocuordblks_oid,
-                             OID_LENGTH(qpid010MemoryMallocuordblks_oid),
+                            ("brokerMemoryMallocuordblks",
+                             handle_brokerMemoryMallocuordblks,
+                             brokerMemoryMallocuordblks_oid,
+                             OID_LENGTH(brokerMemoryMallocuordblks_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010MemoryMallocfordblks",
-                             handle_qpid010MemoryMallocfordblks,
-                             qpid010MemoryMallocfordblks_oid,
-                             OID_LENGTH(qpid010MemoryMallocfordblks_oid),
+                            ("brokerMemoryMallocfordblks",
+                             handle_brokerMemoryMallocfordblks,
+                             brokerMemoryMallocfordblks_oid,
+                             OID_LENGTH(brokerMemoryMallocfordblks_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010MemoryMallockeepcost",
-                             handle_qpid010MemoryMallockeepcost,
-                             qpid010MemoryMallockeepcost_oid,
-                             OID_LENGTH(qpid010MemoryMallockeepcost_oid),
+                            ("brokerMemoryMallockeepcost",
+                             handle_brokerMemoryMallockeepcost,
+                             brokerMemoryMallockeepcost_oid,
+                             OID_LENGTH(brokerMemoryMallockeepcost_oid),
                              HANDLER_CAN_RONLY));
 }
 
 int
-handle_qpid010MemoryName(netsnmp_mib_handler *handler,
+handle_brokerMemoryName(netsnmp_mib_handler *handler,
                         netsnmp_handler_registration *reginfo,
                         netsnmp_agent_request_info *reqinfo,
                         netsnmp_request_info *requests)
@@ -184,7 +184,7 @@ handle_qpid010MemoryName(netsnmp_mib_handler *handler,
         /*
          * we should never get here, so this is a really bad error 
          */
-        snmp_log(LOG_ERR, "unknown mode (%d) in handle_qpid010MemoryName\n",
+        snmp_log(LOG_ERR, "unknown mode (%d) in handle_brokerMemoryName\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -193,7 +193,7 @@ handle_qpid010MemoryName(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010MemoryMallocarena(netsnmp_mib_handler *handler,
+handle_brokerMemoryMallocarena(netsnmp_mib_handler *handler,
                                netsnmp_handler_registration *reginfo,
                                netsnmp_agent_request_info *reqinfo,
                                netsnmp_request_info *requests)
@@ -226,7 +226,7 @@ handle_qpid010MemoryMallocarena(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010MemoryMallocarena\n",
+                 "unknown mode (%d) in handle_brokerMemoryMallocarena\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -235,7 +235,7 @@ handle_qpid010MemoryMallocarena(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010MemoryMallocordblks(netsnmp_mib_handler *handler,
+handle_brokerMemoryMallocordblks(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *reqinfo,
                                  netsnmp_request_info *requests)
@@ -268,7 +268,7 @@ handle_qpid010MemoryMallocordblks(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010MemoryMallocordblks\n",
+                 "unknown mode (%d) in handle_brokerMemoryMallocordblks\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -277,7 +277,7 @@ handle_qpid010MemoryMallocordblks(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010MemoryMallochblks(netsnmp_mib_handler *handler,
+handle_brokerMemoryMallochblks(netsnmp_mib_handler *handler,
                                netsnmp_handler_registration *reginfo,
                                netsnmp_agent_request_info *reqinfo,
                                netsnmp_request_info *requests)
@@ -310,7 +310,7 @@ handle_qpid010MemoryMallochblks(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010MemoryMallochblks\n",
+                 "unknown mode (%d) in handle_brokerMemoryMallochblks\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -319,7 +319,7 @@ handle_qpid010MemoryMallochblks(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010MemoryMallochblkhd(netsnmp_mib_handler *handler,
+handle_brokerMemoryMallochblkhd(netsnmp_mib_handler *handler,
                                 netsnmp_handler_registration *reginfo,
                                 netsnmp_agent_request_info *reqinfo,
                                 netsnmp_request_info *requests)
@@ -352,7 +352,7 @@ handle_qpid010MemoryMallochblkhd(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010MemoryMallochblkhd\n",
+                 "unknown mode (%d) in handle_brokerMemoryMallochblkhd\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -361,7 +361,7 @@ handle_qpid010MemoryMallochblkhd(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010MemoryMallocuordblks(netsnmp_mib_handler *handler,
+handle_brokerMemoryMallocuordblks(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *reqinfo,
                                   netsnmp_request_info *requests)
@@ -394,7 +394,7 @@ handle_qpid010MemoryMallocuordblks(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010MemoryMallocuordblks\n",
+                 "unknown mode (%d) in handle_brokerMemoryMallocuordblks\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -403,7 +403,7 @@ handle_qpid010MemoryMallocuordblks(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010MemoryMallocfordblks(netsnmp_mib_handler *handler,
+handle_brokerMemoryMallocfordblks(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *reqinfo,
                                   netsnmp_request_info *requests)
@@ -436,7 +436,7 @@ handle_qpid010MemoryMallocfordblks(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010MemoryMallocfordblks\n",
+                 "unknown mode (%d) in handle_brokerMemoryMallocfordblks\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -445,7 +445,7 @@ handle_qpid010MemoryMallocfordblks(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010MemoryMallockeepcost(netsnmp_mib_handler *handler,
+handle_brokerMemoryMallockeepcost(netsnmp_mib_handler *handler,
                                   netsnmp_handler_registration *reginfo,
                                   netsnmp_agent_request_info *reqinfo,
                                   netsnmp_request_info *requests)
@@ -478,7 +478,7 @@ handle_qpid010MemoryMallockeepcost(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010MemoryMallockeepcost\n",
+                 "unknown mode (%d) in handle_brokerMemoryMallockeepcost\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }

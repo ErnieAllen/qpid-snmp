@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010BridgeTable get routines.
- * TODO:240:M: Implement qpid010BridgeTable mapping routines (if any).
+ * TODO:230:M: Implement brokerBridgeTable get routines.
+ * TODO:240:M: Implement brokerBridgeTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BridgeTable
+ *** Table brokerBridgeTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
+ * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010BridgeTable data context functions.
+ * * TODO:200:r: Implement brokerBridgeTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010BridgeInternalIndex_val
+ * @param brokerBridgeInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,20 +63,20 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010BridgeTable_indexes_set_tbl_idx(qpid010BridgeTable_mib_index *
+brokerBridgeTable_indexes_set_tbl_idx(brokerBridgeTable_mib_index *
                                       tbl_idx,
-                                      u_long qpid010BridgeInternalIndex_val)
+                                      u_long brokerBridgeInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010BridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010BridgeInternalIndex = qpid010BridgeInternalIndex_val;
+    tbl_idx->brokerBridgeInternalIndex = brokerBridgeInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTable_indexes_set_tbl_idx */
+}                               /* brokerBridgeTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -92,33 +92,33 @@ qpid010BridgeTable_indexes_set_tbl_idx(qpid010BridgeTable_mib_index *
  *  from the mib index.
  */
 int
-qpid010BridgeTable_indexes_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                              u_long qpid010BridgeInternalIndex_val)
+brokerBridgeTable_indexes_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                              u_long brokerBridgeInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_indexes_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_indexes_set",
                 "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010BridgeTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                              qpid010BridgeInternalIndex_val))
+        brokerBridgeTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                              brokerBridgeInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010BridgeTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerBridgeTable_index_to_oid(&rowreq_ctx->oid_idx,
                                             &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTable_indexes_set */
+}                               /* brokerBridgeTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeLinkRef
- * qpid010BridgeLinkRef is subid 1 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeLinkRef
+ * brokerBridgeLinkRef is subid 1 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.1
  * Description:
@@ -138,25 +138,25 @@ Bridge linkRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010BridgeLinkRef data.
+ * Extract the current value of the brokerBridgeLinkRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeLinkRef_val_ptr_ptr
+ * @param brokerBridgeLinkRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BridgeLinkRef_val_ptr_len_ptr
+ * @param brokerBridgeLinkRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BridgeLinkRef.
+ *        pointed to by brokerBridgeLinkRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BridgeLinkRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BridgeLinkRef_val_ptr_ptr.
+ * @note If you need more than (*brokerBridgeLinkRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBridgeLinkRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -166,58 +166,58 @@ Bridge linkRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BridgeLinkRef_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                        char **qpid010BridgeLinkRef_val_ptr_ptr,
-                        size_t *qpid010BridgeLinkRef_val_ptr_len_ptr)
+brokerBridgeLinkRef_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                        char **brokerBridgeLinkRef_val_ptr_ptr,
+                        size_t *brokerBridgeLinkRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BridgeLinkRef_val_ptr_ptr)
-                   && (NULL != *qpid010BridgeLinkRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BridgeLinkRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBridgeLinkRef_val_ptr_ptr)
+                   && (NULL != *brokerBridgeLinkRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBridgeLinkRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeLinkRef_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeLinkRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeLinkRef data.
-     * copy (* qpid010BridgeLinkRef_val_ptr_ptr ) data and (* qpid010BridgeLinkRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeLinkRef data.
+     * copy (* brokerBridgeLinkRef_val_ptr_ptr ) data and (* brokerBridgeLinkRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BridgeLinkRef data
+     * make sure there is enough space for brokerBridgeLinkRef data
      */
-    if ((NULL == (*qpid010BridgeLinkRef_val_ptr_ptr)) ||
-        ((*qpid010BridgeLinkRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BridgeLinkRef_len *
-          sizeof(rowreq_ctx->data.qpid010BridgeLinkRef[0])))) {
+    if ((NULL == (*brokerBridgeLinkRef_val_ptr_ptr)) ||
+        ((*brokerBridgeLinkRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBridgeLinkRef_len *
+          sizeof(rowreq_ctx->data.brokerBridgeLinkRef[0])))) {
         /*
-         * allocate space for qpid010BridgeLinkRef data
+         * allocate space for brokerBridgeLinkRef data
          */
-        (*qpid010BridgeLinkRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BridgeLinkRef_len *
-                   sizeof(rowreq_ctx->data.qpid010BridgeLinkRef[0]));
-        if (NULL == (*qpid010BridgeLinkRef_val_ptr_ptr)) {
+        (*brokerBridgeLinkRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBridgeLinkRef_len *
+                   sizeof(rowreq_ctx->data.brokerBridgeLinkRef[0]));
+        if (NULL == (*brokerBridgeLinkRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BridgeLinkRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBridgeLinkRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BridgeLinkRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BridgeLinkRef_len *
-        sizeof(rowreq_ctx->data.qpid010BridgeLinkRef[0]);
-    memcpy((*qpid010BridgeLinkRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BridgeLinkRef,
-           rowreq_ctx->data.qpid010BridgeLinkRef_len *
-           sizeof(rowreq_ctx->data.qpid010BridgeLinkRef[0]));
+    (*brokerBridgeLinkRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBridgeLinkRef_len *
+        sizeof(rowreq_ctx->data.brokerBridgeLinkRef[0]);
+    memcpy((*brokerBridgeLinkRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerBridgeLinkRef,
+           rowreq_ctx->data.brokerBridgeLinkRef_len *
+           sizeof(rowreq_ctx->data.brokerBridgeLinkRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeLinkRef_get */
+}                               /* brokerBridgeLinkRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeChannelId
- * qpid010BridgeChannelId is subid 2 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeChannelId
+ * brokerBridgeChannelId is subid 2 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.2
  * Description:
@@ -235,13 +235,13 @@ Bridge channelId
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010BridgeChannelId data.
+ * Extract the current value of the brokerBridgeChannelId data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeChannelId_val_ptr
+ * @param brokerBridgeChannelId_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -249,31 +249,31 @@ Bridge channelId
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010BridgeChannelId_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                          long *qpid010BridgeChannelId_val_ptr)
+brokerBridgeChannelId_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                          long *brokerBridgeChannelId_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010BridgeChannelId_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeChannelId_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeChannelId_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeChannelId_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeChannelId data.
-     * copy (* qpid010BridgeChannelId_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeChannelId data.
+     * copy (* brokerBridgeChannelId_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010BridgeChannelId_val_ptr) =
-        rowreq_ctx->data.qpid010BridgeChannelId;
+    (*brokerBridgeChannelId_val_ptr) =
+        rowreq_ctx->data.brokerBridgeChannelId;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeChannelId_get */
+}                               /* brokerBridgeChannelId_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDurable
- * qpid010BridgeDurable is subid 3 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDurable
+ * brokerBridgeDurable is subid 3 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.3
  * Description:
@@ -291,13 +291,13 @@ Bridge durable
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010BridgeDurable data.
+ * Extract the current value of the brokerBridgeDurable data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeDurable_val_ptr
+ * @param brokerBridgeDurable_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -305,30 +305,30 @@ Bridge durable
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010BridgeDurable_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                        u_long * qpid010BridgeDurable_val_ptr)
+brokerBridgeDurable_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                        u_long * brokerBridgeDurable_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010BridgeDurable_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeDurable_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDurable_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDurable_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeDurable data.
-     * copy (* qpid010BridgeDurable_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeDurable data.
+     * copy (* brokerBridgeDurable_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010BridgeDurable_val_ptr) = rowreq_ctx->data.qpid010BridgeDurable;
+    (*brokerBridgeDurable_val_ptr) = rowreq_ctx->data.brokerBridgeDurable;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDurable_get */
+}                               /* brokerBridgeDurable_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrc
- * qpid010BridgeSrc is subid 4 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrc
+ * brokerBridgeSrc is subid 4 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.4
  * Description:
@@ -348,25 +348,25 @@ Bridge src
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010BridgeSrc data.
+ * Extract the current value of the brokerBridgeSrc data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeSrc_val_ptr_ptr
+ * @param brokerBridgeSrc_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BridgeSrc_val_ptr_len_ptr
+ * @param brokerBridgeSrc_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BridgeSrc.
+ *        pointed to by brokerBridgeSrc.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BridgeSrc_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BridgeSrc_val_ptr_ptr.
+ * @note If you need more than (*brokerBridgeSrc_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBridgeSrc_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -376,58 +376,58 @@ Bridge src
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BridgeSrc_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                    char **qpid010BridgeSrc_val_ptr_ptr,
-                    size_t *qpid010BridgeSrc_val_ptr_len_ptr)
+brokerBridgeSrc_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                    char **brokerBridgeSrc_val_ptr_ptr,
+                    size_t *brokerBridgeSrc_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BridgeSrc_val_ptr_ptr)
-                   && (NULL != *qpid010BridgeSrc_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BridgeSrc_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBridgeSrc_val_ptr_ptr)
+                   && (NULL != *brokerBridgeSrc_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBridgeSrc_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrc_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrc_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeSrc data.
-     * copy (* qpid010BridgeSrc_val_ptr_ptr ) data and (* qpid010BridgeSrc_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeSrc data.
+     * copy (* brokerBridgeSrc_val_ptr_ptr ) data and (* brokerBridgeSrc_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BridgeSrc data
+     * make sure there is enough space for brokerBridgeSrc data
      */
-    if ((NULL == (*qpid010BridgeSrc_val_ptr_ptr)) ||
-        ((*qpid010BridgeSrc_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BridgeSrc_len *
-          sizeof(rowreq_ctx->data.qpid010BridgeSrc[0])))) {
+    if ((NULL == (*brokerBridgeSrc_val_ptr_ptr)) ||
+        ((*brokerBridgeSrc_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBridgeSrc_len *
+          sizeof(rowreq_ctx->data.brokerBridgeSrc[0])))) {
         /*
-         * allocate space for qpid010BridgeSrc data
+         * allocate space for brokerBridgeSrc data
          */
-        (*qpid010BridgeSrc_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BridgeSrc_len *
-                   sizeof(rowreq_ctx->data.qpid010BridgeSrc[0]));
-        if (NULL == (*qpid010BridgeSrc_val_ptr_ptr)) {
+        (*brokerBridgeSrc_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBridgeSrc_len *
+                   sizeof(rowreq_ctx->data.brokerBridgeSrc[0]));
+        if (NULL == (*brokerBridgeSrc_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BridgeSrc)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBridgeSrc)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BridgeSrc_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BridgeSrc_len *
-        sizeof(rowreq_ctx->data.qpid010BridgeSrc[0]);
-    memcpy((*qpid010BridgeSrc_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BridgeSrc,
-           rowreq_ctx->data.qpid010BridgeSrc_len *
-           sizeof(rowreq_ctx->data.qpid010BridgeSrc[0]));
+    (*brokerBridgeSrc_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBridgeSrc_len *
+        sizeof(rowreq_ctx->data.brokerBridgeSrc[0]);
+    memcpy((*brokerBridgeSrc_val_ptr_ptr),
+           rowreq_ctx->data.brokerBridgeSrc,
+           rowreq_ctx->data.brokerBridgeSrc_len *
+           sizeof(rowreq_ctx->data.brokerBridgeSrc[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrc_get */
+}                               /* brokerBridgeSrc_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDest
- * qpid010BridgeDest is subid 5 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDest
+ * brokerBridgeDest is subid 5 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.5
  * Description:
@@ -447,25 +447,25 @@ Bridge dest
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010BridgeDest data.
+ * Extract the current value of the brokerBridgeDest data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeDest_val_ptr_ptr
+ * @param brokerBridgeDest_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BridgeDest_val_ptr_len_ptr
+ * @param brokerBridgeDest_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BridgeDest.
+ *        pointed to by brokerBridgeDest.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BridgeDest_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BridgeDest_val_ptr_ptr.
+ * @note If you need more than (*brokerBridgeDest_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBridgeDest_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -475,58 +475,58 @@ Bridge dest
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BridgeDest_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                     char **qpid010BridgeDest_val_ptr_ptr,
-                     size_t *qpid010BridgeDest_val_ptr_len_ptr)
+brokerBridgeDest_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                     char **brokerBridgeDest_val_ptr_ptr,
+                     size_t *brokerBridgeDest_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BridgeDest_val_ptr_ptr)
-                   && (NULL != *qpid010BridgeDest_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BridgeDest_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBridgeDest_val_ptr_ptr)
+                   && (NULL != *brokerBridgeDest_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBridgeDest_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDest_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDest_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeDest data.
-     * copy (* qpid010BridgeDest_val_ptr_ptr ) data and (* qpid010BridgeDest_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeDest data.
+     * copy (* brokerBridgeDest_val_ptr_ptr ) data and (* brokerBridgeDest_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BridgeDest data
+     * make sure there is enough space for brokerBridgeDest data
      */
-    if ((NULL == (*qpid010BridgeDest_val_ptr_ptr)) ||
-        ((*qpid010BridgeDest_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BridgeDest_len *
-          sizeof(rowreq_ctx->data.qpid010BridgeDest[0])))) {
+    if ((NULL == (*brokerBridgeDest_val_ptr_ptr)) ||
+        ((*brokerBridgeDest_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBridgeDest_len *
+          sizeof(rowreq_ctx->data.brokerBridgeDest[0])))) {
         /*
-         * allocate space for qpid010BridgeDest data
+         * allocate space for brokerBridgeDest data
          */
-        (*qpid010BridgeDest_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BridgeDest_len *
-                   sizeof(rowreq_ctx->data.qpid010BridgeDest[0]));
-        if (NULL == (*qpid010BridgeDest_val_ptr_ptr)) {
+        (*brokerBridgeDest_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBridgeDest_len *
+                   sizeof(rowreq_ctx->data.brokerBridgeDest[0]));
+        if (NULL == (*brokerBridgeDest_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BridgeDest)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBridgeDest)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BridgeDest_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BridgeDest_len *
-        sizeof(rowreq_ctx->data.qpid010BridgeDest[0]);
-    memcpy((*qpid010BridgeDest_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BridgeDest,
-           rowreq_ctx->data.qpid010BridgeDest_len *
-           sizeof(rowreq_ctx->data.qpid010BridgeDest[0]));
+    (*brokerBridgeDest_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBridgeDest_len *
+        sizeof(rowreq_ctx->data.brokerBridgeDest[0]);
+    memcpy((*brokerBridgeDest_val_ptr_ptr),
+           rowreq_ctx->data.brokerBridgeDest,
+           rowreq_ctx->data.brokerBridgeDest_len *
+           sizeof(rowreq_ctx->data.brokerBridgeDest[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDest_get */
+}                               /* brokerBridgeDest_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeKey
- * qpid010BridgeKey is subid 6 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeKey
+ * brokerBridgeKey is subid 6 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.6
  * Description:
@@ -546,25 +546,25 @@ Bridge key
  * This data type requires a length.  (Max 65535)
  */
 /**
- * Extract the current value of the qpid010BridgeKey data.
+ * Extract the current value of the brokerBridgeKey data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeKey_val_ptr_ptr
+ * @param brokerBridgeKey_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BridgeKey_val_ptr_len_ptr
+ * @param brokerBridgeKey_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BridgeKey.
+ *        pointed to by brokerBridgeKey.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BridgeKey_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BridgeKey_val_ptr_ptr.
+ * @note If you need more than (*brokerBridgeKey_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBridgeKey_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -574,58 +574,58 @@ Bridge key
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BridgeKey_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                    char **qpid010BridgeKey_val_ptr_ptr,
-                    size_t *qpid010BridgeKey_val_ptr_len_ptr)
+brokerBridgeKey_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                    char **brokerBridgeKey_val_ptr_ptr,
+                    size_t *brokerBridgeKey_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BridgeKey_val_ptr_ptr)
-                   && (NULL != *qpid010BridgeKey_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BridgeKey_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBridgeKey_val_ptr_ptr)
+                   && (NULL != *brokerBridgeKey_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBridgeKey_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeKey_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeKey_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeKey data.
-     * copy (* qpid010BridgeKey_val_ptr_ptr ) data and (* qpid010BridgeKey_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeKey data.
+     * copy (* brokerBridgeKey_val_ptr_ptr ) data and (* brokerBridgeKey_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BridgeKey data
+     * make sure there is enough space for brokerBridgeKey data
      */
-    if ((NULL == (*qpid010BridgeKey_val_ptr_ptr)) ||
-        ((*qpid010BridgeKey_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BridgeKey_len *
-          sizeof(rowreq_ctx->data.qpid010BridgeKey[0])))) {
+    if ((NULL == (*brokerBridgeKey_val_ptr_ptr)) ||
+        ((*brokerBridgeKey_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBridgeKey_len *
+          sizeof(rowreq_ctx->data.brokerBridgeKey[0])))) {
         /*
-         * allocate space for qpid010BridgeKey data
+         * allocate space for brokerBridgeKey data
          */
-        (*qpid010BridgeKey_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BridgeKey_len *
-                   sizeof(rowreq_ctx->data.qpid010BridgeKey[0]));
-        if (NULL == (*qpid010BridgeKey_val_ptr_ptr)) {
+        (*brokerBridgeKey_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBridgeKey_len *
+                   sizeof(rowreq_ctx->data.brokerBridgeKey[0]));
+        if (NULL == (*brokerBridgeKey_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BridgeKey)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBridgeKey)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BridgeKey_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BridgeKey_len *
-        sizeof(rowreq_ctx->data.qpid010BridgeKey[0]);
-    memcpy((*qpid010BridgeKey_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BridgeKey,
-           rowreq_ctx->data.qpid010BridgeKey_len *
-           sizeof(rowreq_ctx->data.qpid010BridgeKey[0]));
+    (*brokerBridgeKey_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBridgeKey_len *
+        sizeof(rowreq_ctx->data.brokerBridgeKey[0]);
+    memcpy((*brokerBridgeKey_val_ptr_ptr),
+           rowreq_ctx->data.brokerBridgeKey,
+           rowreq_ctx->data.brokerBridgeKey_len *
+           sizeof(rowreq_ctx->data.brokerBridgeKey[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeKey_get */
+}                               /* brokerBridgeKey_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrcIsQueue
- * qpid010BridgeSrcIsQueue is subid 7 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrcIsQueue
+ * brokerBridgeSrcIsQueue is subid 7 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.7
  * Description:
@@ -643,13 +643,13 @@ Bridge srcIsQueue
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010BridgeSrcIsQueue data.
+ * Extract the current value of the brokerBridgeSrcIsQueue data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeSrcIsQueue_val_ptr
+ * @param brokerBridgeSrcIsQueue_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -657,31 +657,31 @@ Bridge srcIsQueue
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010BridgeSrcIsQueue_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                           u_long * qpid010BridgeSrcIsQueue_val_ptr)
+brokerBridgeSrcIsQueue_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                           u_long * brokerBridgeSrcIsQueue_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010BridgeSrcIsQueue_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeSrcIsQueue_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsQueue_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsQueue_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeSrcIsQueue data.
-     * copy (* qpid010BridgeSrcIsQueue_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeSrcIsQueue data.
+     * copy (* brokerBridgeSrcIsQueue_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010BridgeSrcIsQueue_val_ptr) =
-        rowreq_ctx->data.qpid010BridgeSrcIsQueue;
+    (*brokerBridgeSrcIsQueue_val_ptr) =
+        rowreq_ctx->data.brokerBridgeSrcIsQueue;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrcIsQueue_get */
+}                               /* brokerBridgeSrcIsQueue_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrcIsLocal
- * qpid010BridgeSrcIsLocal is subid 8 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrcIsLocal
+ * brokerBridgeSrcIsLocal is subid 8 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.8
  * Description:
@@ -699,13 +699,13 @@ Bridge srcIsLocal
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010BridgeSrcIsLocal data.
+ * Extract the current value of the brokerBridgeSrcIsLocal data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeSrcIsLocal_val_ptr
+ * @param brokerBridgeSrcIsLocal_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -713,31 +713,31 @@ Bridge srcIsLocal
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010BridgeSrcIsLocal_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                           u_long * qpid010BridgeSrcIsLocal_val_ptr)
+brokerBridgeSrcIsLocal_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                           u_long * brokerBridgeSrcIsLocal_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010BridgeSrcIsLocal_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeSrcIsLocal_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsLocal_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsLocal_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeSrcIsLocal data.
-     * copy (* qpid010BridgeSrcIsLocal_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeSrcIsLocal data.
+     * copy (* brokerBridgeSrcIsLocal_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010BridgeSrcIsLocal_val_ptr) =
-        rowreq_ctx->data.qpid010BridgeSrcIsLocal;
+    (*brokerBridgeSrcIsLocal_val_ptr) =
+        rowreq_ctx->data.brokerBridgeSrcIsLocal;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrcIsLocal_get */
+}                               /* brokerBridgeSrcIsLocal_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeTag
- * qpid010BridgeTag is subid 9 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeTag
+ * brokerBridgeTag is subid 9 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.9
  * Description:
@@ -757,25 +757,25 @@ Bridge tag
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010BridgeTag data.
+ * Extract the current value of the brokerBridgeTag data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeTag_val_ptr_ptr
+ * @param brokerBridgeTag_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BridgeTag_val_ptr_len_ptr
+ * @param brokerBridgeTag_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BridgeTag.
+ *        pointed to by brokerBridgeTag.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BridgeTag_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BridgeTag_val_ptr_ptr.
+ * @note If you need more than (*brokerBridgeTag_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBridgeTag_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -785,58 +785,58 @@ Bridge tag
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BridgeTag_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                    char **qpid010BridgeTag_val_ptr_ptr,
-                    size_t *qpid010BridgeTag_val_ptr_len_ptr)
+brokerBridgeTag_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                    char **brokerBridgeTag_val_ptr_ptr,
+                    size_t *brokerBridgeTag_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BridgeTag_val_ptr_ptr)
-                   && (NULL != *qpid010BridgeTag_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BridgeTag_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBridgeTag_val_ptr_ptr)
+                   && (NULL != *brokerBridgeTag_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBridgeTag_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTag_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTag_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeTag data.
-     * copy (* qpid010BridgeTag_val_ptr_ptr ) data and (* qpid010BridgeTag_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeTag data.
+     * copy (* brokerBridgeTag_val_ptr_ptr ) data and (* brokerBridgeTag_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BridgeTag data
+     * make sure there is enough space for brokerBridgeTag data
      */
-    if ((NULL == (*qpid010BridgeTag_val_ptr_ptr)) ||
-        ((*qpid010BridgeTag_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BridgeTag_len *
-          sizeof(rowreq_ctx->data.qpid010BridgeTag[0])))) {
+    if ((NULL == (*brokerBridgeTag_val_ptr_ptr)) ||
+        ((*brokerBridgeTag_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBridgeTag_len *
+          sizeof(rowreq_ctx->data.brokerBridgeTag[0])))) {
         /*
-         * allocate space for qpid010BridgeTag data
+         * allocate space for brokerBridgeTag data
          */
-        (*qpid010BridgeTag_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BridgeTag_len *
-                   sizeof(rowreq_ctx->data.qpid010BridgeTag[0]));
-        if (NULL == (*qpid010BridgeTag_val_ptr_ptr)) {
+        (*brokerBridgeTag_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBridgeTag_len *
+                   sizeof(rowreq_ctx->data.brokerBridgeTag[0]));
+        if (NULL == (*brokerBridgeTag_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BridgeTag)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBridgeTag)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BridgeTag_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BridgeTag_len *
-        sizeof(rowreq_ctx->data.qpid010BridgeTag[0]);
-    memcpy((*qpid010BridgeTag_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BridgeTag,
-           rowreq_ctx->data.qpid010BridgeTag_len *
-           sizeof(rowreq_ctx->data.qpid010BridgeTag[0]));
+    (*brokerBridgeTag_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBridgeTag_len *
+        sizeof(rowreq_ctx->data.brokerBridgeTag[0]);
+    memcpy((*brokerBridgeTag_val_ptr_ptr),
+           rowreq_ctx->data.brokerBridgeTag,
+           rowreq_ctx->data.brokerBridgeTag_len *
+           sizeof(rowreq_ctx->data.brokerBridgeTag[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTag_get */
+}                               /* brokerBridgeTag_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeExcludes
- * qpid010BridgeExcludes is subid 10 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeExcludes
+ * brokerBridgeExcludes is subid 10 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.10
  * Description:
@@ -856,25 +856,25 @@ Bridge excludes
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010BridgeExcludes data.
+ * Extract the current value of the brokerBridgeExcludes data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeExcludes_val_ptr_ptr
+ * @param brokerBridgeExcludes_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BridgeExcludes_val_ptr_len_ptr
+ * @param brokerBridgeExcludes_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BridgeExcludes.
+ *        pointed to by brokerBridgeExcludes.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BridgeExcludes_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BridgeExcludes_val_ptr_ptr.
+ * @note If you need more than (*brokerBridgeExcludes_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBridgeExcludes_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -884,58 +884,58 @@ Bridge excludes
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BridgeExcludes_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                         char **qpid010BridgeExcludes_val_ptr_ptr,
-                         size_t *qpid010BridgeExcludes_val_ptr_len_ptr)
+brokerBridgeExcludes_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                         char **brokerBridgeExcludes_val_ptr_ptr,
+                         size_t *brokerBridgeExcludes_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BridgeExcludes_val_ptr_ptr)
-                   && (NULL != *qpid010BridgeExcludes_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BridgeExcludes_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBridgeExcludes_val_ptr_ptr)
+                   && (NULL != *brokerBridgeExcludes_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBridgeExcludes_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeExcludes_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeExcludes_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeExcludes data.
-     * copy (* qpid010BridgeExcludes_val_ptr_ptr ) data and (* qpid010BridgeExcludes_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeExcludes data.
+     * copy (* brokerBridgeExcludes_val_ptr_ptr ) data and (* brokerBridgeExcludes_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BridgeExcludes data
+     * make sure there is enough space for brokerBridgeExcludes data
      */
-    if ((NULL == (*qpid010BridgeExcludes_val_ptr_ptr)) ||
-        ((*qpid010BridgeExcludes_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BridgeExcludes_len *
-          sizeof(rowreq_ctx->data.qpid010BridgeExcludes[0])))) {
+    if ((NULL == (*brokerBridgeExcludes_val_ptr_ptr)) ||
+        ((*brokerBridgeExcludes_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBridgeExcludes_len *
+          sizeof(rowreq_ctx->data.brokerBridgeExcludes[0])))) {
         /*
-         * allocate space for qpid010BridgeExcludes data
+         * allocate space for brokerBridgeExcludes data
          */
-        (*qpid010BridgeExcludes_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BridgeExcludes_len *
-                   sizeof(rowreq_ctx->data.qpid010BridgeExcludes[0]));
-        if (NULL == (*qpid010BridgeExcludes_val_ptr_ptr)) {
+        (*brokerBridgeExcludes_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBridgeExcludes_len *
+                   sizeof(rowreq_ctx->data.brokerBridgeExcludes[0]));
+        if (NULL == (*brokerBridgeExcludes_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BridgeExcludes)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBridgeExcludes)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BridgeExcludes_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BridgeExcludes_len *
-        sizeof(rowreq_ctx->data.qpid010BridgeExcludes[0]);
-    memcpy((*qpid010BridgeExcludes_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BridgeExcludes,
-           rowreq_ctx->data.qpid010BridgeExcludes_len *
-           sizeof(rowreq_ctx->data.qpid010BridgeExcludes[0]));
+    (*brokerBridgeExcludes_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBridgeExcludes_len *
+        sizeof(rowreq_ctx->data.brokerBridgeExcludes[0]);
+    memcpy((*brokerBridgeExcludes_val_ptr_ptr),
+           rowreq_ctx->data.brokerBridgeExcludes,
+           rowreq_ctx->data.brokerBridgeExcludes_len *
+           sizeof(rowreq_ctx->data.brokerBridgeExcludes[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeExcludes_get */
+}                               /* brokerBridgeExcludes_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDynamic
- * qpid010BridgeDynamic is subid 11 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDynamic
+ * brokerBridgeDynamic is subid 11 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.11
  * Description:
@@ -953,13 +953,13 @@ Bridge dynamic
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010BridgeDynamic data.
+ * Extract the current value of the brokerBridgeDynamic data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeDynamic_val_ptr
+ * @param brokerBridgeDynamic_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -967,30 +967,30 @@ Bridge dynamic
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010BridgeDynamic_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                        u_long * qpid010BridgeDynamic_val_ptr)
+brokerBridgeDynamic_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                        u_long * brokerBridgeDynamic_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010BridgeDynamic_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeDynamic_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDynamic_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDynamic_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeDynamic data.
-     * copy (* qpid010BridgeDynamic_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeDynamic data.
+     * copy (* brokerBridgeDynamic_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010BridgeDynamic_val_ptr) = rowreq_ctx->data.qpid010BridgeDynamic;
+    (*brokerBridgeDynamic_val_ptr) = rowreq_ctx->data.brokerBridgeDynamic;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDynamic_get */
+}                               /* brokerBridgeDynamic_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSync
- * qpid010BridgeSync is subid 12 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSync
+ * brokerBridgeSync is subid 12 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.12
  * Description:
@@ -1008,13 +1008,13 @@ Bridge sync
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010BridgeSync data.
+ * Extract the current value of the brokerBridgeSync data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeSync_val_ptr
+ * @param brokerBridgeSync_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1022,26 +1022,26 @@ Bridge sync
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010BridgeSync_get(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                     long *qpid010BridgeSync_val_ptr)
+brokerBridgeSync_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                     long *brokerBridgeSync_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010BridgeSync_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeSync_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSync_get",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSync_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BridgeSync data.
-     * copy (* qpid010BridgeSync_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeSync data.
+     * copy (* brokerBridgeSync_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010BridgeSync_val_ptr) = rowreq_ctx->data.qpid010BridgeSync;
+    (*brokerBridgeSync_val_ptr) = rowreq_ctx->data.brokerBridgeSync;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSync_get */
+}                               /* brokerBridgeSync_get */
 
 
 

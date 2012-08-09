@@ -14,7 +14,7 @@ extern const oid snmptrap_oid[];
 extern const size_t snmptrap_oid_len;
 
 int
-send_qpid010EvtClientConnect_trap(const char * rHost, const char * user)
+send_brokerEvtClientConnect_trap(const char * rHost, const char * user)
 {
 	// sanity check the args
 	if (!rHost || !user) {
@@ -22,17 +22,17 @@ send_qpid010EvtClientConnect_trap(const char * rHost, const char * user)
 		if (!user)
 			badArg = "user";
 		// if both are null, only user gets reported
-		DEBUGMSGTL(("qpid-snmp/send_qpid010EvtClientConnect_trap", "NULL %s\n", badArg));
+		DEBUGMSGTL(("qpid-snmp/send_brokerEvtClientConnect_trap", "NULL %s\n", badArg));
 		return SNMP_ERR_BADVALUE;
 	}
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtClientConnect_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 1 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
+    const oid       brokerEvtClientConnect_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 1 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -40,26 +40,26 @@ send_qpid010EvtClientConnect_trap(const char * rHost, const char * user)
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtClientConnect_oid,
-                              sizeof(qpid010EvtClientConnect_oid));
+                              brokerEvtClientConnect_oid,
+                              sizeof(brokerEvtClientConnect_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
 
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
 
@@ -74,7 +74,7 @@ send_qpid010EvtClientConnect_trap(const char * rHost, const char * user)
 }
 
 int
-send_qpid010EvtClientConnectFail_trap(const char * rHost, const char * user, const char * reason)
+send_brokerEvtClientConnectFail_trap(const char * rHost, const char * user, const char * reason)
 {
 	// sanity check the args
 	if (!rHost || !user || !reason) {
@@ -90,14 +90,14 @@ send_qpid010EvtClientConnectFail_trap(const char * rHost, const char * user, con
 	}
 
     netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtClientConnectFail_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 2 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtReason_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 12, 0 };
+    const oid       brokerEvtClientConnectFail_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 2 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtReason_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 12, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -105,33 +105,33 @@ send_qpid010EvtClientConnectFail_trap(const char * rHost, const char * user, con
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtClientConnectFail_oid,
-                              sizeof(qpid010EvtClientConnectFail_oid));
+                              brokerEvtClientConnectFail_oid,
+                              sizeof(brokerEvtClientConnectFail_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtReason_oid,
-                              OID_LENGTH(qpid010EvtReason_oid),
+                              brokerEvtReason_oid,
+                              OID_LENGTH(brokerEvtReason_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtReason 
+                               * Set an appropriate value for brokerEvtReason 
                                */
                               reason, strlen(reason));
 
@@ -146,7 +146,7 @@ send_qpid010EvtClientConnectFail_trap(const char * rHost, const char * user, con
 }
 
 int
-send_qpid010EvtClientDisconnect_trap(const char * rHost, const char * user)
+send_brokerEvtClientDisconnect_trap(const char * rHost, const char * user)
 {
 	// sanity check the args
 	if (!rHost || !user) {
@@ -159,12 +159,12 @@ send_qpid010EvtClientDisconnect_trap(const char * rHost, const char * user)
 	}
 
     netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtClientDisconnect_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 3 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
+    const oid       brokerEvtClientDisconnect_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 3 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -172,25 +172,25 @@ send_qpid010EvtClientDisconnect_trap(const char * rHost, const char * user)
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtClientDisconnect_oid,
-                              sizeof(qpid010EvtClientDisconnect_oid));
+                              brokerEvtClientDisconnect_oid,
+                              sizeof(brokerEvtClientDisconnect_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
 
@@ -205,7 +205,7 @@ send_qpid010EvtClientDisconnect_trap(const char * rHost, const char * user)
 }
 
 int
-send_qpid010EvtBrokerLinkUp_trap(const char *rHost)
+send_brokerEvtBrokerLinkUp_trap(const char *rHost)
 {
 	// sanity check the args
 	if (!rHost) {
@@ -214,10 +214,10 @@ send_qpid010EvtBrokerLinkUp_trap(const char *rHost)
 	}
 
     netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtBrokerLinkUp_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 4 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
+    const oid       brokerEvtBrokerLinkUp_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 4 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -225,18 +225,18 @@ send_qpid010EvtBrokerLinkUp_trap(const char *rHost)
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtBrokerLinkUp_oid,
-                              sizeof(qpid010EvtBrokerLinkUp_oid));
+                              brokerEvtBrokerLinkUp_oid,
+                              sizeof(brokerEvtBrokerLinkUp_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
 
@@ -251,7 +251,7 @@ send_qpid010EvtBrokerLinkUp_trap(const char *rHost)
 }
 
 int
-send_qpid010EvtBrokerLinkDown_trap(const char *rHost)
+send_brokerEvtBrokerLinkDown_trap(const char *rHost)
 {
 	// sanity check the args
 	if (!rHost) {
@@ -259,10 +259,10 @@ send_qpid010EvtBrokerLinkDown_trap(const char *rHost)
 		return SNMP_ERR_BADVALUE;
 	}
     netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtBrokerLinkDown_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 5 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
+    const oid       brokerEvtBrokerLinkDown_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 5 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -270,18 +270,18 @@ send_qpid010EvtBrokerLinkDown_trap(const char *rHost)
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtBrokerLinkDown_oid,
-                              sizeof(qpid010EvtBrokerLinkDown_oid));
+                              brokerEvtBrokerLinkDown_oid,
+                              sizeof(brokerEvtBrokerLinkDown_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
 
@@ -300,7 +300,7 @@ send_qpid010EvtBrokerLinkDown_trap(const char *rHost)
 }
 
 int
-send_qpid010EvtQueueDeclare_trap(const char *rHost, const char * user, const char * qName,
+send_brokerEvtQueueDeclare_trap(const char *rHost, const char * user, const char * qName,
 		int durable, int exclusive, int autoDelete, const char *altEx,
 		const char *args, const char *disp)
 {
@@ -325,26 +325,26 @@ send_qpid010EvtQueueDeclare_trap(const char *rHost, const char * user, const cha
 	}
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtQueueDeclare_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 6 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
-    const oid       qpid010EvtDurable_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 6, 0 };
-    const oid       qpid010EvtExcl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 9, 0 };
-    const oid       qpid010EvtAutoDel_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 3, 0 };
-    const oid       qpid010EvtAltEx_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 1, 0 };
-    const oid       qpid010EvtArgs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 2, 0 };
-    const oid       qpid010EvtDisp_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 5, 0 };
+    const oid       brokerEvtQueueDeclare_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 6 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtQName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 11, 0 };
+    const oid       brokerEvtDurable_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 6, 0 };
+    const oid       brokerEvtExcl_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 9, 0 };
+    const oid       brokerEvtAutoDel_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 3, 0 };
+    const oid       brokerEvtAltEx_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 1, 0 };
+    const oid       brokerEvtArgs_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 2, 0 };
+    const oid       brokerEvtDisp_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 5, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -352,78 +352,78 @@ send_qpid010EvtQueueDeclare_trap(const char *rHost, const char * user, const cha
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtQueueDeclare_oid,
-                              sizeof(qpid010EvtQueueDeclare_oid));
+                              brokerEvtQueueDeclare_oid,
+                              sizeof(brokerEvtQueueDeclare_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtQName_oid,
-                              OID_LENGTH(qpid010EvtQName_oid),
+                              brokerEvtQName_oid,
+                              OID_LENGTH(brokerEvtQName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtQName 
+                               * Set an appropriate value for brokerEvtQName 
                                */
                               qName, strlen(qName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtDurable_oid,
-                              OID_LENGTH(qpid010EvtDurable_oid),
+                              brokerEvtDurable_oid,
+                              OID_LENGTH(brokerEvtDurable_oid),
                               ASN_INTEGER,
                               /*
-                               * Set an appropriate value for qpid010EvtDurable 
+                               * Set an appropriate value for brokerEvtDurable 
                                */
                               &durable, sizeof(durable));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtExcl_oid,
-                              OID_LENGTH(qpid010EvtExcl_oid), ASN_INTEGER,
+                              brokerEvtExcl_oid,
+                              OID_LENGTH(brokerEvtExcl_oid), ASN_INTEGER,
                               /*
-                               * Set an appropriate value for qpid010EvtExcl 
+                               * Set an appropriate value for brokerEvtExcl 
                                */
                               &exclusive, sizeof(exclusive));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtAutoDel_oid,
-                              OID_LENGTH(qpid010EvtAutoDel_oid),
+                              brokerEvtAutoDel_oid,
+                              OID_LENGTH(brokerEvtAutoDel_oid),
                               ASN_INTEGER,
                               /*
-                               * Set an appropriate value for qpid010EvtAutoDel 
+                               * Set an appropriate value for brokerEvtAutoDel 
                                */
                               &autoDelete, sizeof(autoDelete));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtAltEx_oid,
-                              OID_LENGTH(qpid010EvtAltEx_oid),
+                              brokerEvtAltEx_oid,
+                              OID_LENGTH(brokerEvtAltEx_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtAltEx 
+                               * Set an appropriate value for brokerEvtAltEx 
                                */
                               altEx, strlen(altEx));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtArgs_oid,
-                              OID_LENGTH(qpid010EvtArgs_oid), ASN_OCTET_STR,
+                              brokerEvtArgs_oid,
+                              OID_LENGTH(brokerEvtArgs_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtArgs 
+                               * Set an appropriate value for brokerEvtArgs 
                                */
                               args, strlen(args));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtDisp_oid,
-                              OID_LENGTH(qpid010EvtDisp_oid), ASN_OCTET_STR,
+                              brokerEvtDisp_oid,
+                              OID_LENGTH(brokerEvtDisp_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtDisp 
+                               * Set an appropriate value for brokerEvtDisp 
                                */
                               disp, strlen(disp));
 
@@ -442,7 +442,7 @@ send_qpid010EvtQueueDeclare_trap(const char *rHost, const char * user, const cha
 }
 
 int
-send_qpid010EvtQueueDelete_trap(const char *rHost, const char * user, const char * qName)
+send_brokerEvtQueueDelete_trap(const char *rHost, const char * user, const char * qName)
 {
 	// sanity check the args
 	char * badArg = NULL;
@@ -459,14 +459,14 @@ send_qpid010EvtQueueDelete_trap(const char *rHost, const char * user, const char
 	}
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtQueueDelete_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 7 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
+    const oid       brokerEvtQueueDelete_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 7 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtQName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 11, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -474,33 +474,33 @@ send_qpid010EvtQueueDelete_trap(const char *rHost, const char * user, const char
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtQueueDelete_oid,
-                              sizeof(qpid010EvtQueueDelete_oid));
+                              brokerEvtQueueDelete_oid,
+                              sizeof(brokerEvtQueueDelete_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtQName_oid,
-                              OID_LENGTH(qpid010EvtQName_oid),
+                              brokerEvtQName_oid,
+                              OID_LENGTH(brokerEvtQName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtQName 
+                               * Set an appropriate value for brokerEvtQName 
                                */
                               qName, strlen(qName));
 
@@ -519,7 +519,7 @@ send_qpid010EvtQueueDelete_trap(const char *rHost, const char * user, const char
 }
 
 int
-send_qpid010EvtExchangeDeclare_trap(const char *rHost, const char * user, const char * exName,
+send_brokerEvtExchangeDeclare_trap(const char *rHost, const char * user, const char * exName,
 		const char *exType, const char *altEx, int durable, int autoDelete,
 		const char *args, const char *disp)
 {
@@ -547,26 +547,26 @@ send_qpid010EvtExchangeDeclare_trap(const char *rHost, const char * user, const 
 	}
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtExchangeDeclare_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 8 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtExName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 7, 0 };
-    const oid       qpid010EvtExType_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 8, 0 };
-    const oid       qpid010EvtAltEx_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 1, 0 };
-    const oid       qpid010EvtDurable_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 6, 0 };
-    const oid       qpid010EvtAutoDel_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 3, 0 };
-    const oid       qpid010EvtArgs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 2, 0 };
-    const oid       qpid010EvtDisp_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 5, 0 };
+    const oid       brokerEvtExchangeDeclare_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 8 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtExName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 7, 0 };
+    const oid       brokerEvtExType_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 8, 0 };
+    const oid       brokerEvtAltEx_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 1, 0 };
+    const oid       brokerEvtDurable_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 6, 0 };
+    const oid       brokerEvtAutoDel_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 3, 0 };
+    const oid       brokerEvtArgs_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 2, 0 };
+    const oid       brokerEvtDisp_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 5, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -574,79 +574,79 @@ send_qpid010EvtExchangeDeclare_trap(const char *rHost, const char * user, const 
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtExchangeDeclare_oid,
-                              sizeof(qpid010EvtExchangeDeclare_oid));
+                              brokerEvtExchangeDeclare_oid,
+                              sizeof(brokerEvtExchangeDeclare_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtExName_oid,
-                              OID_LENGTH(qpid010EvtExName_oid),
+                              brokerEvtExName_oid,
+                              OID_LENGTH(brokerEvtExName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtExName 
+                               * Set an appropriate value for brokerEvtExName 
                                */
                               exName, strlen(exName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtExType_oid,
-                              OID_LENGTH(qpid010EvtExType_oid),
+                              brokerEvtExType_oid,
+                              OID_LENGTH(brokerEvtExType_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtExType 
+                               * Set an appropriate value for brokerEvtExType 
                                */
                               exType, strlen(exType));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtAltEx_oid,
-                              OID_LENGTH(qpid010EvtAltEx_oid),
+                              brokerEvtAltEx_oid,
+                              OID_LENGTH(brokerEvtAltEx_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtAltEx 
+                               * Set an appropriate value for brokerEvtAltEx 
                                */
                               altEx, strlen(altEx));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtDurable_oid,
-                              OID_LENGTH(qpid010EvtDurable_oid),
+                              brokerEvtDurable_oid,
+                              OID_LENGTH(brokerEvtDurable_oid),
                               ASN_INTEGER,
                               /*
-                               * Set an appropriate value for qpid010EvtDurable 
+                               * Set an appropriate value for brokerEvtDurable 
                                */
                               &durable, sizeof(durable));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtAutoDel_oid,
-                              OID_LENGTH(qpid010EvtAutoDel_oid),
+                              brokerEvtAutoDel_oid,
+                              OID_LENGTH(brokerEvtAutoDel_oid),
                               ASN_INTEGER,
                               /*
-                               * Set an appropriate value for qpid010EvtAutoDel 
+                               * Set an appropriate value for brokerEvtAutoDel 
                                */
                               &autoDelete, sizeof(autoDelete));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtArgs_oid,
-                              OID_LENGTH(qpid010EvtArgs_oid), ASN_OCTET_STR,
+                              brokerEvtArgs_oid,
+                              OID_LENGTH(brokerEvtArgs_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtArgs 
+                               * Set an appropriate value for brokerEvtArgs 
                                */
                               args, strlen(args));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtDisp_oid,
-                              OID_LENGTH(qpid010EvtDisp_oid), ASN_OCTET_STR,
+                              brokerEvtDisp_oid,
+                              OID_LENGTH(brokerEvtDisp_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtDisp 
+                               * Set an appropriate value for brokerEvtDisp 
                                */
                               disp, strlen(disp));
 
@@ -665,7 +665,7 @@ send_qpid010EvtExchangeDeclare_trap(const char *rHost, const char * user, const 
 }
 
 int
-send_qpid010EvtExchangeDelete_trap(const char *rHost, const char * user, const char * exName)
+send_brokerEvtExchangeDelete_trap(const char *rHost, const char * user, const char * exName)
 {
 	// sanity check the args
 	char * badArg = NULL;
@@ -682,14 +682,14 @@ send_qpid010EvtExchangeDelete_trap(const char *rHost, const char * user, const c
 	}
 
     netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtExchangeDelete_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 9 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtExName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 7, 0 };
+    const oid       brokerEvtExchangeDelete_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 9 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtExName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 7, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -697,33 +697,33 @@ send_qpid010EvtExchangeDelete_trap(const char *rHost, const char * user, const c
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtExchangeDelete_oid,
-                              sizeof(qpid010EvtExchangeDelete_oid));
+                              brokerEvtExchangeDelete_oid,
+                              sizeof(brokerEvtExchangeDelete_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtExName_oid,
-                              OID_LENGTH(qpid010EvtExName_oid),
+                              brokerEvtExName_oid,
+                              OID_LENGTH(brokerEvtExName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtExName 
+                               * Set an appropriate value for brokerEvtExName 
                                */
                               exName, strlen(exName));
 
@@ -742,7 +742,7 @@ send_qpid010EvtExchangeDelete_trap(const char *rHost, const char * user, const c
 }
 
 int
-send_qpid010EvtBind_trap(const char *rHost, const char * user,
+send_brokerEvtBind_trap(const char *rHost, const char * user,
 		const char *exName, const char *qName, const char * key, const char * args)
 {
 	// sanity check the args
@@ -766,20 +766,20 @@ send_qpid010EvtBind_trap(const char *rHost, const char * user,
 	}
 
 		netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtBind_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 10 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtExName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 7, 0 };
-    const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
-    const oid       qpid010EvtKey_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 10, 0 };
-    const oid       qpid010EvtArgs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 2, 0 };
+    const oid       brokerEvtBind_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 10 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtExName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 7, 0 };
+    const oid       brokerEvtQName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 11, 0 };
+    const oid       brokerEvtKey_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 10, 0 };
+    const oid       brokerEvtArgs_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 2, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -787,55 +787,55 @@ send_qpid010EvtBind_trap(const char *rHost, const char * user,
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtBind_oid,
-                              sizeof(qpid010EvtBind_oid));
+                              brokerEvtBind_oid,
+                              sizeof(brokerEvtBind_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtExName_oid,
-                              OID_LENGTH(qpid010EvtExName_oid),
+                              brokerEvtExName_oid,
+                              OID_LENGTH(brokerEvtExName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtExName 
+                               * Set an appropriate value for brokerEvtExName 
                                */
                               exName, strlen(exName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtQName_oid,
-                              OID_LENGTH(qpid010EvtQName_oid),
+                              brokerEvtQName_oid,
+                              OID_LENGTH(brokerEvtQName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtQName 
+                               * Set an appropriate value for brokerEvtQName 
                                */
                               qName, strlen(qName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtKey_oid,
-                              OID_LENGTH(qpid010EvtKey_oid), ASN_OCTET_STR,
+                              brokerEvtKey_oid,
+                              OID_LENGTH(brokerEvtKey_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtKey 
+                               * Set an appropriate value for brokerEvtKey 
                                */
                               key, strlen(key));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtArgs_oid,
-                              OID_LENGTH(qpid010EvtArgs_oid), ASN_OCTET_STR,
+                              brokerEvtArgs_oid,
+                              OID_LENGTH(brokerEvtArgs_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtArgs 
+                               * Set an appropriate value for brokerEvtArgs 
                                */
                               args, strlen(args));
 
@@ -854,7 +854,7 @@ send_qpid010EvtBind_trap(const char *rHost, const char * user,
 }
 
 int
-send_qpid010EvtUnbind_trap(const char *rHost, const char * user,
+send_brokerEvtUnbind_trap(const char *rHost, const char * user,
 		const char *exName, const char *qName, const char * key)
 {
 	// sanity check the args
@@ -876,18 +876,18 @@ send_qpid010EvtUnbind_trap(const char *rHost, const char * user,
 	}
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtUnbind_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 11 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtExName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 7, 0 };
-    const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
-    const oid       qpid010EvtKey_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 10, 0 };
+    const oid       brokerEvtUnbind_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 11 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtExName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 7, 0 };
+    const oid       brokerEvtQName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 11, 0 };
+    const oid       brokerEvtKey_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 10, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -895,48 +895,48 @@ send_qpid010EvtUnbind_trap(const char *rHost, const char * user,
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtUnbind_oid,
-                              sizeof(qpid010EvtUnbind_oid));
+                              brokerEvtUnbind_oid,
+                              sizeof(brokerEvtUnbind_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtExName_oid,
-                              OID_LENGTH(qpid010EvtExName_oid),
+                              brokerEvtExName_oid,
+                              OID_LENGTH(brokerEvtExName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtExName 
+                               * Set an appropriate value for brokerEvtExName 
                                */
                               exName, strlen(exName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtQName_oid,
-                              OID_LENGTH(qpid010EvtQName_oid),
+                              brokerEvtQName_oid,
+                              OID_LENGTH(brokerEvtQName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtQName 
+                               * Set an appropriate value for brokerEvtQName 
                                */
                               qName, strlen(qName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtKey_oid,
-                              OID_LENGTH(qpid010EvtKey_oid), ASN_OCTET_STR,
+                              brokerEvtKey_oid,
+                              OID_LENGTH(brokerEvtKey_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtKey 
+                               * Set an appropriate value for brokerEvtKey 
                                */
                               key, strlen(key));
 
@@ -955,7 +955,7 @@ send_qpid010EvtUnbind_trap(const char *rHost, const char * user,
 }
 
 int
-send_qpid010EvtSubscribe_trap(const char *rHost, const char * user, const char * qName,
+send_brokerEvtSubscribe_trap(const char *rHost, const char * user, const char * qName,
 		int exclusive, const char *dest, const char *args)
 {
 	// sanity check the args
@@ -977,20 +977,20 @@ send_qpid010EvtSubscribe_trap(const char *rHost, const char * user, const char *
 	}
 
     netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtSubscribe_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 12 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
-    const oid       qpid010EvtDest_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 4, 0 };
-    const oid       qpid010EvtExcl_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 9, 0 };
-    const oid       qpid010EvtArgs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 2, 0 };
+    const oid       brokerEvtSubscribe_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 12 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtQName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 11, 0 };
+    const oid       brokerEvtDest_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 4, 0 };
+    const oid       brokerEvtExcl_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 9, 0 };
+    const oid       brokerEvtArgs_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 2, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -998,54 +998,54 @@ send_qpid010EvtSubscribe_trap(const char *rHost, const char * user, const char *
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtSubscribe_oid,
-                              sizeof(qpid010EvtSubscribe_oid));
+                              brokerEvtSubscribe_oid,
+                              sizeof(brokerEvtSubscribe_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtQName_oid,
-                              OID_LENGTH(qpid010EvtQName_oid),
+                              brokerEvtQName_oid,
+                              OID_LENGTH(brokerEvtQName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtQName 
+                               * Set an appropriate value for brokerEvtQName 
                                */
                               qName, strlen(qName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtDest_oid,
-                              OID_LENGTH(qpid010EvtDest_oid), ASN_OCTET_STR,
+                              brokerEvtDest_oid,
+                              OID_LENGTH(brokerEvtDest_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtDest 
+                               * Set an appropriate value for brokerEvtDest 
                                */
                               dest, strlen(dest));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtExcl_oid,
-                              OID_LENGTH(qpid010EvtExcl_oid), ASN_INTEGER,
+                              brokerEvtExcl_oid,
+                              OID_LENGTH(brokerEvtExcl_oid), ASN_INTEGER,
                               /*
-                               * Set an appropriate value for qpid010EvtExcl 
+                               * Set an appropriate value for brokerEvtExcl 
                                */
                               &exclusive, sizeof(exclusive));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtArgs_oid,
-                              OID_LENGTH(qpid010EvtArgs_oid), ASN_OCTET_STR,
+                              brokerEvtArgs_oid,
+                              OID_LENGTH(brokerEvtArgs_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtArgs 
+                               * Set an appropriate value for brokerEvtArgs 
                                */
                               args, strlen(args));
 
@@ -1065,7 +1065,7 @@ send_qpid010EvtSubscribe_trap(const char *rHost, const char * user, const char *
 
 //	  <event name="unsubscribe"       sev="inform" args="rhost, user, dest"/>
 int
-send_qpid010EvtUnsubscribe_trap(const char *rHost, const char * user, const char *dest)
+send_brokerEvtUnsubscribe_trap(const char *rHost, const char * user, const char *dest)
 {
 
 	// sanity check the args
@@ -1084,14 +1084,14 @@ send_qpid010EvtUnsubscribe_trap(const char *rHost, const char * user, const char
 
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtUnsubscribe_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 13 };
-    const oid       qpid010EvtRhost_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 13, 0 };
-    const oid       qpid010EvtUser_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 14, 0 };
-    const oid       qpid010EvtDest_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 4, 0 };
+    const oid       brokerEvtUnsubscribe_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 13 };
+    const oid       brokerEvtRhost_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 13, 0 };
+    const oid       brokerEvtUser_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 14, 0 };
+    const oid       brokerEvtDest_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 4, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1099,32 +1099,32 @@ send_qpid010EvtUnsubscribe_trap(const char *rHost, const char * user, const char
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtUnsubscribe_oid,
-                              sizeof(qpid010EvtUnsubscribe_oid));
+                              brokerEvtUnsubscribe_oid,
+                              sizeof(brokerEvtUnsubscribe_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtRhost_oid,
-                              OID_LENGTH(qpid010EvtRhost_oid),
+                              brokerEvtRhost_oid,
+                              OID_LENGTH(brokerEvtRhost_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtRhost 
+                               * Set an appropriate value for brokerEvtRhost 
                                */
                               rHost, strlen(rHost));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUser_oid,
-                              OID_LENGTH(qpid010EvtUser_oid), ASN_OCTET_STR,
+                              brokerEvtUser_oid,
+                              OID_LENGTH(brokerEvtUser_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUser 
+                               * Set an appropriate value for brokerEvtUser 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtDest_oid,
-                              OID_LENGTH(qpid010EvtDest_oid), ASN_OCTET_STR,
+                              brokerEvtDest_oid,
+                              OID_LENGTH(brokerEvtDest_oid), ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtDest 
+                               * Set an appropriate value for brokerEvtDest 
                                */
                               dest, strlen(dest));
 
@@ -1143,7 +1143,7 @@ send_qpid010EvtUnsubscribe_trap(const char *rHost, const char * user, const char
 }
 
 int
-send_qpid010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth, uint64_t byteDepth)
+send_brokerEvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth, uint64_t byteDepth)
 {
 	// sanity check the args
 	if (!qName) {
@@ -1157,14 +1157,14 @@ send_qpid010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth,
 	u64ByteDepth.low = LOWLONG(byteDepth);
 
     netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtQueueThresholdExceeded_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 14 };
-    const oid       qpid010EvtQName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 11, 0 };
-    const oid       qpid010EvtMsgDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 15, 0 };
-    const oid       qpid010EvtByteDepth_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 16, 0 };
+    const oid       brokerEvtQueueThresholdExceeded_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 14 };
+    const oid       brokerEvtQName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 11, 0 };
+    const oid       brokerEvtMsgDepth_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 15, 0 };
+    const oid       brokerEvtByteDepth_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 16, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1172,34 +1172,34 @@ send_qpid010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth,
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtQueueThresholdExceeded_oid,
-                              sizeof(qpid010EvtQueueThresholdExceeded_oid));
+                              brokerEvtQueueThresholdExceeded_oid,
+                              sizeof(brokerEvtQueueThresholdExceeded_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtQName_oid,
-                              OID_LENGTH(qpid010EvtQName_oid),
+                              brokerEvtQName_oid,
+                              OID_LENGTH(brokerEvtQName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtQName 
+                               * Set an appropriate value for brokerEvtQName 
                                */
                               qName, strlen(qName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtMsgDepth_oid,
-                              OID_LENGTH(qpid010EvtMsgDepth_oid),
+                              brokerEvtMsgDepth_oid,
+                              OID_LENGTH(brokerEvtMsgDepth_oid),
                               ASN_COUNTER64,
                               /*
-                               * Set an appropriate value for qpid010EvtMsgDepth 
+                               * Set an appropriate value for brokerEvtMsgDepth 
                                */
                               &u64MsgDepth, sizeof(u64MsgDepth));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtByteDepth_oid,
-                              OID_LENGTH(qpid010EvtByteDepth_oid),
+                              brokerEvtByteDepth_oid,
+                              OID_LENGTH(brokerEvtByteDepth_oid),
                               ASN_COUNTER64,
                               /*
-                               * Set an appropriate value for qpid010EvtByteDepth 
+                               * Set an appropriate value for brokerEvtByteDepth 
                                */
                               &u64ByteDepth, sizeof(u64ByteDepth));
 
@@ -1214,7 +1214,7 @@ send_qpid010EvtQueueThresholdExceeded_trap(const char *qName, uint64_t msgDepth,
 }
 
 int
-send_qpid010EvtAllow_trap(const char *user, const char *action, const char *objectType, const char *objectName, const char *args)
+send_brokerEvtAllow_trap(const char *user, const char *action, const char *objectType, const char *objectName, const char *args)
 {
 	// sanity check the args
 	char * badArg = NULL;
@@ -1235,18 +1235,18 @@ send_qpid010EvtAllow_trap(const char *user, const char *action, const char *obje
 	}
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtAllow_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 15 };
-    const oid       qpid010EvtUserId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 21, 0 };
-    const oid       qpid010EvtAction_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 17, 0 };
-    const oid       qpid010EvtObjectType_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 20, 0 };
-    const oid       qpid010EvtObjectName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 19, 0 };
-    const oid       qpid010EvtArguments_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 18, 0 };
+    const oid       brokerEvtAllow_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 15 };
+    const oid       brokerEvtUserId_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 21, 0 };
+    const oid       brokerEvtAction_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 17, 0 };
+    const oid       brokerEvtObjectType_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 20, 0 };
+    const oid       brokerEvtObjectName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 19, 0 };
+    const oid       brokerEvtArguments_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 18, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1254,50 +1254,50 @@ send_qpid010EvtAllow_trap(const char *user, const char *action, const char *obje
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtAllow_oid,
-                              sizeof(qpid010EvtAllow_oid));
+                              brokerEvtAllow_oid,
+                              sizeof(brokerEvtAllow_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUserId_oid,
-                              OID_LENGTH(qpid010EvtUserId_oid),
+                              brokerEvtUserId_oid,
+                              OID_LENGTH(brokerEvtUserId_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUserId 
+                               * Set an appropriate value for brokerEvtUserId 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtAction_oid,
-                              OID_LENGTH(qpid010EvtAction_oid),
+                              brokerEvtAction_oid,
+                              OID_LENGTH(brokerEvtAction_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtAction 
+                               * Set an appropriate value for brokerEvtAction 
                                */
                               action, strlen(action));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtObjectType_oid,
-                              OID_LENGTH(qpid010EvtObjectType_oid),
+                              brokerEvtObjectType_oid,
+                              OID_LENGTH(brokerEvtObjectType_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtObjectType 
+                               * Set an appropriate value for brokerEvtObjectType 
                                */
                               objectType, strlen(objectType));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtObjectName_oid,
-                              OID_LENGTH(qpid010EvtObjectName_oid),
+                              brokerEvtObjectName_oid,
+                              OID_LENGTH(brokerEvtObjectName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtObjectName 
+                               * Set an appropriate value for brokerEvtObjectName 
                                */
                               objectType, strlen(objectType));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtArguments_oid,
-                              OID_LENGTH(qpid010EvtArguments_oid),
+                              brokerEvtArguments_oid,
+                              OID_LENGTH(brokerEvtArguments_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtArguments 
+                               * Set an appropriate value for brokerEvtArguments 
                                */
                               args, strlen(args));
 
@@ -1316,7 +1316,7 @@ send_qpid010EvtAllow_trap(const char *user, const char *action, const char *obje
 }
 
 int
-send_qpid010EvtDeny_trap(const char *user, const char *action, const char *objectType, const char *objectName, const char *args)
+send_brokerEvtDeny_trap(const char *user, const char *action, const char *objectType, const char *objectName, const char *args)
 {
 	// sanity check the args
 	char * badArg = NULL;
@@ -1337,18 +1337,18 @@ send_qpid010EvtDeny_trap(const char *user, const char *action, const char *objec
 	}
 
     netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtDeny_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 16 };
-    const oid       qpid010EvtUserId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 21, 0 };
-    const oid       qpid010EvtAction_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 17, 0 };
-    const oid       qpid010EvtObjectType_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 20, 0 };
-    const oid       qpid010EvtObjectName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 19, 0 };
-    const oid       qpid010EvtArguments_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 18, 0 };
+    const oid       brokerEvtDeny_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 16 };
+    const oid       brokerEvtUserId_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 21, 0 };
+    const oid       brokerEvtAction_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 17, 0 };
+    const oid       brokerEvtObjectType_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 20, 0 };
+    const oid       brokerEvtObjectName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 19, 0 };
+    const oid       brokerEvtArguments_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 18, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1356,50 +1356,50 @@ send_qpid010EvtDeny_trap(const char *user, const char *action, const char *objec
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtDeny_oid,
-                              sizeof(qpid010EvtDeny_oid));
+                              brokerEvtDeny_oid,
+                              sizeof(brokerEvtDeny_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUserId_oid,
-                              OID_LENGTH(qpid010EvtUserId_oid),
+                              brokerEvtUserId_oid,
+                              OID_LENGTH(brokerEvtUserId_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUserId 
+                               * Set an appropriate value for brokerEvtUserId 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtAction_oid,
-                              OID_LENGTH(qpid010EvtAction_oid),
+                              brokerEvtAction_oid,
+                              OID_LENGTH(brokerEvtAction_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtAction 
+                               * Set an appropriate value for brokerEvtAction 
                                */
                               action, strlen(action));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtObjectType_oid,
-                              OID_LENGTH(qpid010EvtObjectType_oid),
+                              brokerEvtObjectType_oid,
+                              OID_LENGTH(brokerEvtObjectType_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtObjectType 
+                               * Set an appropriate value for brokerEvtObjectType 
                                */
                               objectType, strlen(objectType));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtObjectName_oid,
-                              OID_LENGTH(qpid010EvtObjectName_oid),
+                              brokerEvtObjectName_oid,
+                              OID_LENGTH(brokerEvtObjectName_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtObjectName 
+                               * Set an appropriate value for brokerEvtObjectName 
                                */
                               objectName, strlen(objectName));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtArguments_oid,
-                              OID_LENGTH(qpid010EvtArguments_oid),
+                              brokerEvtArguments_oid,
+                              OID_LENGTH(brokerEvtArguments_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtArguments 
+                               * Set an appropriate value for brokerEvtArguments 
                                */
                               args, strlen(args));
 
@@ -1418,7 +1418,7 @@ send_qpid010EvtDeny_trap(const char *user, const char *action, const char *objec
 }
 
 int
-send_qpid010EvtFileLoaded_trap(const char *user)
+send_brokerEvtFileLoaded_trap(const char *user)
 {
 	// sanity check the args
 	if (!user) {
@@ -1427,10 +1427,10 @@ send_qpid010EvtFileLoaded_trap(const char *user)
 	}
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtFileLoaded_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 17 };
-    const oid       qpid010EvtUserId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 21, 0 };
+    const oid       brokerEvtFileLoaded_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 17 };
+    const oid       brokerEvtUserId_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 21, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1438,18 +1438,18 @@ send_qpid010EvtFileLoaded_trap(const char *user)
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtFileLoaded_oid,
-                              sizeof(qpid010EvtFileLoaded_oid));
+                              brokerEvtFileLoaded_oid,
+                              sizeof(brokerEvtFileLoaded_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUserId_oid,
-                              OID_LENGTH(qpid010EvtUserId_oid),
+                              brokerEvtUserId_oid,
+                              OID_LENGTH(brokerEvtUserId_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUserId 
+                               * Set an appropriate value for brokerEvtUserId 
                                */
                               user, strlen(user));
 
@@ -1468,7 +1468,7 @@ send_qpid010EvtFileLoaded_trap(const char *user)
 }
 
 int
-send_qpid010EvtFileLoadFailed_trap(const char *user, const char *reason)
+send_brokerEvtFileLoadFailed_trap(const char *user, const char *reason)
 {
 	// sanity check the args
 	char * badArg = NULL;
@@ -1483,12 +1483,12 @@ send_qpid010EvtFileLoadFailed_trap(const char *user, const char *reason)
 	}
 
 	netsnmp_variable_list *var_list = NULL;
-    const oid       qpid010EvtFileLoadFailed_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 0, 18 };
-    const oid       qpid010EvtUserId_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 21, 0 };
-    const oid       qpid010EvtReason_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 1, 100, 1, 12, 0 };
+    const oid       brokerEvtFileLoadFailed_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 0, 18 };
+    const oid       brokerEvtUserId_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 21, 0 };
+    const oid       brokerEvtReason_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 3, 2, 1, 12, 0 };
 
     /*
      * Set the snmpTrapOid.0 value
@@ -1496,26 +1496,26 @@ send_qpid010EvtFileLoadFailed_trap(const char *user, const char *reason)
     snmp_varlist_add_variable(&var_list,
                               snmptrap_oid, snmptrap_oid_len,
                               ASN_OBJECT_ID,
-                              qpid010EvtFileLoadFailed_oid,
-                              sizeof(qpid010EvtFileLoadFailed_oid));
+                              brokerEvtFileLoadFailed_oid,
+                              sizeof(brokerEvtFileLoadFailed_oid));
 
     /*
      * Add any objects from the trap definition
      */
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtUserId_oid,
-                              OID_LENGTH(qpid010EvtUserId_oid),
+                              brokerEvtUserId_oid,
+                              OID_LENGTH(brokerEvtUserId_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtUserId 
+                               * Set an appropriate value for brokerEvtUserId 
                                */
                               user, strlen(user));
     snmp_varlist_add_variable(&var_list,
-                              qpid010EvtReason_oid,
-                              OID_LENGTH(qpid010EvtReason_oid),
+                              brokerEvtReason_oid,
+                              OID_LENGTH(brokerEvtReason_oid),
                               ASN_OCTET_STR,
                               /*
-                               * Set an appropriate value for qpid010EvtReason 
+                               * Set an appropriate value for brokerEvtReason 
                                */
                               reason, strlen(reason));
 

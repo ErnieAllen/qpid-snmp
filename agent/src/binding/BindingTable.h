@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010BINDINGTABLE_H
-#define qpid010BINDINGTABLE_H
+#ifndef brokerBINDINGTABLE_H
+#define brokerBINDINGTABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerBindingTable/brokerBindingTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerBindingTable/brokerBindingTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerBindingTable/brokerBindingTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerBindingTable/brokerBindingTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010BindingTable 
+     * OID and column number definitions for brokerBindingTable 
      */
 #include "BindingTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_data_se
      * function declarations
      */
     void            init_BindingTable(void);
-    void            shutdown_qpid010BindingTable(void);
+    void            shutdown_brokerBindingTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_data_se
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BindingTable
+ *** Table brokerBindingTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010BindingTable is subid 1 of qpid010Bindings.
+     * QPID-MESSAGING-MIB::brokerBindingTable is subid 1 of brokerBindings.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1, length: 12
      */
@@ -71,106 +71,106 @@ config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_data_se
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010BindingTable registration context.
+     * TODO:101:o: |-> Review brokerBindingTable registration context.
      */
-    typedef netsnmp_data_list qpid010BindingTable_registration;
+    typedef netsnmp_data_list brokerBindingTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010BindingTable data context structure.
-     * This structure is used to represent the data for qpid010BindingTable.
+     * TODO:110:r: |-> Review brokerBindingTable data context structure.
+     * This structure is used to represent the data for brokerBindingTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010BindingTable.
+     * brokerBindingTable.
      */
-    typedef struct qpid010BindingTable_data_s {
+    typedef struct brokerBindingTable_data_s {
 
         /*
-         * qpid010BindingExchangeRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBindingExchangeRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BindingExchangeRef[255];
-        size_t          qpid010BindingExchangeRef_len;   /* # of char elements, not bytes */
+        char            brokerBindingExchangeRef[255];
+        size_t          brokerBindingExchangeRef_len;   /* # of char elements, not bytes */
 
         /*
-         * qpid010BindingQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBindingQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BindingQueueRef[255];
-        size_t          qpid010BindingQueueRef_len;      /* # of char elements, not bytes */
+        char            brokerBindingQueueRef[255];
+        size_t          brokerBindingQueueRef_len;      /* # of char elements, not bytes */
 
         /*
-         * qpid010BindingBindingKey(3)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBindingBindingKey(3)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BindingBindingKey[65535];
-        size_t          qpid010BindingBindingKey_len;    /* # of char elements, not bytes */
+        char            brokerBindingBindingKey[65535];
+        size_t          brokerBindingBindingKey_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010BindingArguments(4)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBindingArguments(4)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BindingArguments[65535];
-        size_t          qpid010BindingArguments_len;     /* # of char elements, not bytes */
+        char            brokerBindingArguments[65535];
+        size_t          brokerBindingArguments_len;     /* # of char elements, not bytes */
 
         /*
-         * qpid010BindingOrigin(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerBindingOrigin(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010BindingOrigin[255];
-        size_t          qpid010BindingOrigin_len;        /* # of char elements, not bytes */
+        char            brokerBindingOrigin[255];
+        size_t          brokerBindingOrigin_len;        /* # of char elements, not bytes */
 
         /*
-         * qpid010BindingMsgMatched(6)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerBindingMsgMatched(6)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010BindingMsgMatched;
+        U64             brokerBindingMsgMatched;
 
-    } qpid010BindingTable_data;
+    } brokerBindingTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010BindingTable undo context.
+     * TODO:115:o: |-> Review brokerBindingTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010BindingTable_data qpid010BindingTable_undo_data;
+    typedef brokerBindingTable_data brokerBindingTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010BindingTable mib index.
-     * This structure is used to represent the index for qpid010BindingTable.
+     * TODO:120:r: |-> Review brokerBindingTable mib index.
+     * This structure is used to represent the index for brokerBindingTable.
      */
-    typedef struct qpid010BindingTable_mib_index_s {
+    typedef struct brokerBindingTable_mib_index_s {
 
         /*
-         * qpid010BindingInternalIndex(7)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerBindingInternalIndex(7)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010BindingInternalIndex;
+        u_long          brokerBindingInternalIndex;
 
 
-    } qpid010BindingTable_mib_index;
+    } brokerBindingTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010BindingTable max index length.
+     * TODO:121:r: |   |-> Review brokerBindingTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010BindingTable_IDX_LEN     1
+#define MAX_brokerBindingTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010BindingTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerBindingTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010BindingTable_rowreq_ctx pointer.
+     * brokerBindingTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010BindingTable_rowreq_ctx_s {
+    typedef struct brokerBindingTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010BindingTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerBindingTable_IDX_LEN];
 
-        qpid010BindingTable_mib_index tbl_idx;
+        brokerBindingTable_mib_index tbl_idx;
 
-        qpid010BindingTable_data data;
-        qpid010BindingTable_undo_data *undo;
+        brokerBindingTable_data data;
+        brokerBindingTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -181,51 +181,51 @@ config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_data_se
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010BindingTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerBindingTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010BindingTable_data_list;
+        netsnmp_data_list *brokerBindingTable_data_list;
 
-    } qpid010BindingTable_rowreq_ctx;
+    } brokerBindingTable_rowreq_ctx;
 
-    typedef struct qpid010BindingTable_ref_rowreq_ctx_s {
-        qpid010BindingTable_rowreq_ctx *rowreq_ctx;
-    } qpid010BindingTable_ref_rowreq_ctx;
+    typedef struct brokerBindingTable_ref_rowreq_ctx_s {
+        brokerBindingTable_rowreq_ctx *rowreq_ctx;
+    } brokerBindingTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010BindingTable_pre_request(qpid010BindingTable_registration *
+        brokerBindingTable_pre_request(brokerBindingTable_registration *
                                        user_context);
     int            
-        qpid010BindingTable_post_request(qpid010BindingTable_registration *
+        brokerBindingTable_post_request(brokerBindingTable_registration *
                                         user_context, int rc);
 
     int            
-        qpid010BindingTable_rowreq_ctx_init(qpid010BindingTable_rowreq_ctx *
+        brokerBindingTable_rowreq_ctx_init(brokerBindingTable_rowreq_ctx *
                                            rowreq_ctx,
                                            void *user_init_ctx);
     void           
-        qpid010BindingTable_rowreq_ctx_cleanup(qpid010BindingTable_rowreq_ctx
+        brokerBindingTable_rowreq_ctx_cleanup(brokerBindingTable_rowreq_ctx
                                               * rowreq_ctx);
 
     int            
-        qpid010BindingTable_check_dependencies(qpid010BindingTable_rowreq_ctx
+        brokerBindingTable_check_dependencies(brokerBindingTable_rowreq_ctx
                                               * rowreq_ctx);
-    int             qpid010BindingTable_commit(qpid010BindingTable_rowreq_ctx
+    int             brokerBindingTable_commit(brokerBindingTable_rowreq_ctx
                                               * rowreq_ctx);
 
-    qpid010BindingTable_rowreq_ctx
-        *qpid010BindingTable_row_find_by_mib_index
-        (qpid010BindingTable_mib_index * mib_idx);
+    brokerBindingTable_rowreq_ctx
+        *brokerBindingTable_row_find_by_mib_index
+        (brokerBindingTable_mib_index * mib_idx);
 
-    extern const oid qpid010BindingTable_oid[];
-    extern const int qpid010BindingTable_oid_size;
+    extern const oid brokerBindingTable_oid[];
+    extern const int brokerBindingTable_oid_size;
 
 
 #include "BindingTable_interface.h"
@@ -246,5 +246,5 @@ config_require(MRG-MESSAGING-MIB/qpid010BindingTable/qpid010BindingTable_data_se
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BINDINGTABLE_H */
+#endif                          /* brokerBINDINGTABLE_H */
 /** @} */

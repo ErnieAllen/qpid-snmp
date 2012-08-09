@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010SESSIONTABLE_ENUMS_H
-#define qpid010SESSIONTABLE_ENUMS_H
+#ifndef brokerSESSIONTABLE_ENUMS_H
+#define brokerSESSIONTABLE_ENUMS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -26,14 +26,14 @@ extern          "C" {
 /*************************************************************************
  *************************************************************************
  *
- * enum definitions for table qpid010SessionTable
+ * enum definitions for table brokerSessionTable
  *
  *************************************************************************
  *************************************************************************/
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010SessionAttached (TruthValue / ASN_INTEGER)
+ * brokerSessionAttached (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -52,4 +52,4 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SESSIONTABLE_ENUMS_H */
+#endif                          /* brokerSESSIONTABLE_ENUMS_H */

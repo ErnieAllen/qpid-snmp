@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef qpid010BINDINGTABLE_INTERFACE_H
-#define qpid010BINDINGTABLE_INTERFACE_H
+#ifndef brokerBINDINGTABLE_INTERFACE_H
+#define brokerBINDINGTABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,38 +53,38 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010BindingTable_initialize_interface
-        (qpid010BindingTable_registration * user_ctx, u_long flags);
+        _brokerBindingTable_initialize_interface
+        (brokerBindingTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010BindingTable_shutdown_interface
-        (qpid010BindingTable_registration * user_ctx);
+        _brokerBindingTable_shutdown_interface
+        (brokerBindingTable_registration * user_ctx);
 
-    qpid010BindingTable_registration
-        *qpid010BindingTable_registration_get(void);
+    brokerBindingTable_registration
+        *brokerBindingTable_registration_get(void);
 
-    qpid010BindingTable_registration
-        *qpid010BindingTable_registration_set
-        (qpid010BindingTable_registration * newreg);
+    brokerBindingTable_registration
+        *brokerBindingTable_registration_set
+        (brokerBindingTable_registration * newreg);
 
-    netsnmp_container *qpid010BindingTable_container_get(void);
-    int             qpid010BindingTable_container_size(void);
+    netsnmp_container *brokerBindingTable_container_get(void);
+    int             brokerBindingTable_container_size(void);
 
-    u_int           qpid010BindingTable_dirty_get(void);
-    void            qpid010BindingTable_dirty_set(u_int status);
+    u_int           brokerBindingTable_dirty_get(void);
+    void            brokerBindingTable_dirty_set(u_int status);
 
-    qpid010BindingTable_rowreq_ctx
-        *qpid010BindingTable_allocate_rowreq_ctx(void *);
+    brokerBindingTable_rowreq_ctx
+        *brokerBindingTable_allocate_rowreq_ctx(void *);
     void           
-        qpid010BindingTable_release_rowreq_ctx(qpid010BindingTable_rowreq_ctx
+        brokerBindingTable_release_rowreq_ctx(brokerBindingTable_rowreq_ctx
                                               * rowreq_ctx);
 
-    int             qpid010BindingTable_index_to_oid(netsnmp_index *
+    int             brokerBindingTable_index_to_oid(netsnmp_index *
                                                     oid_idx,
-                                                    qpid010BindingTable_mib_index
+                                                    brokerBindingTable_mib_index
                                                     * mib_idx);
-    int             qpid010BindingTable_index_from_oid(netsnmp_index *
+    int             brokerBindingTable_index_from_oid(netsnmp_index *
                                                       oid_idx,
-                                                      qpid010BindingTable_mib_index
+                                                      brokerBindingTable_mib_index
                                                       * mib_idx);
 
     /*
@@ -97,22 +97,22 @@ extern          "C" {
 #define LINE_TERM_CHAR '$'
 
     void           
-        qpid010BindingTable_container_init_persistence(netsnmp_container *
+        brokerBindingTable_container_init_persistence(netsnmp_container *
                                                       container);
     int            
-        qpid010BindingTable_container_should_save
-        (qpid010BindingTable_rowreq_ctx * rowreq_ctx);
+        brokerBindingTable_container_should_save
+        (brokerBindingTable_rowreq_ctx * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
     void           
-        qpid010BindingTable_valid_columns_set(netsnmp_column_info *vc);
+        brokerBindingTable_valid_columns_set(netsnmp_column_info *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BINDINGTABLE_INTERFACE_H */
+#endif                          /* brokerBINDINGTABLE_INTERFACE_H */
 /** @} */

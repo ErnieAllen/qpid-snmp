@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010BridgeTable
+/** \page MFD helper for brokerBridgeTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -27,67 +27,67 @@
 
 #include "BridgeTable_interface.h"
 
-const oid       qpid010BridgeTable_oid[] = { qpid010BRIDGETABLE_OID };
+const oid       brokerBridgeTable_oid[] = { brokerBRIDGETABLE_OID };
 
-const int       qpid010BridgeTable_oid_size =
-OID_LENGTH(qpid010BridgeTable_oid);
+const int       brokerBridgeTable_oid_size =
+OID_LENGTH(brokerBridgeTable_oid);
 
-qpid010BridgeTable_registration qpid010BridgeTable_user_context;
+brokerBridgeTable_registration brokerBridgeTable_user_context;
 
-void            initialize_table_qpid010BridgeTable(void);
-void            shutdown_table_qpid010BridgeTable(void);
+void            initialize_table_brokerBridgeTable(void);
+void            shutdown_table_brokerBridgeTable(void);
 
 
 /**
- * Initializes the qpid010BridgeTable module
+ * Initializes the brokerBridgeTable module
  */
 void
 init_BridgeTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:init_BridgeTable",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:init_BridgeTable",
                 "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010BridgeTable one-time module initialization.
+     * TODO:300:o: Perform brokerBridgeTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010BridgeTable"))
-        initialize_table_qpid010BridgeTable();
+    if (should_init("brokerBridgeTable"))
+        initialize_table_brokerBridgeTable();
 
 }                               /* init_BridgeTable */
 
 /**
- * Shut-down the qpid010BridgeTable module (agent is exiting)
+ * Shut-down the brokerBridgeTable module (agent is exiting)
  */
 void
-shutdown_qpid010BridgeTable(void)
+shutdown_brokerBridgeTable(void)
 {
-    if (should_init("qpid010BridgeTable"))
-        shutdown_table_qpid010BridgeTable();
+    if (should_init("brokerBridgeTable"))
+        shutdown_table_brokerBridgeTable();
 
 }
 
 /**
- * Initialize the table qpid010BridgeTable 
+ * Initialize the table brokerBridgeTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010BridgeTable(void)
+initialize_table_brokerBridgeTable(void)
 {
-    qpid010BridgeTable_registration *user_context;
+    brokerBridgeTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:initialize_table_qpid010BridgeTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:initialize_table_brokerBridgeTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010BridgeTable one-time table initialization.
+     * TODO:301:o: Perform brokerBridgeTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010BridgeTable user context
+     * TODO:302:o: |->Initialize brokerBridgeTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -96,7 +96,7 @@ initialize_table_qpid010BridgeTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010BridgeTable", NULL, NULL);
+        netsnmp_create_data_list("brokerBridgeTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -107,19 +107,19 @@ initialize_table_qpid010BridgeTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010BridgeTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010BridgeTable */
+    _brokerBridgeTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerBridgeTable */
 
 /**
- * Shutdown the table qpid010BridgeTable 
+ * Shutdown the table brokerBridgeTable 
  */
 void
-shutdown_table_qpid010BridgeTable(void)
+shutdown_table_brokerBridgeTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010BridgeTable_shutdown_interface(&qpid010BridgeTable_user_context);
+    _brokerBridgeTable_shutdown_interface(&brokerBridgeTable_user_context);
 }
 
 /**
@@ -132,42 +132,42 @@ shutdown_table_qpid010BridgeTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010BridgeTable_rowreq_ctx_init(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeTable_rowreq_ctx_init(brokerBridgeTable_rowreq_ctx *
                                   rowreq_ctx, void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * Perform extra qpid010BridgeTable rowreq initialization. (eg DEFVALS)
+     * Perform extra brokerBridgeTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010BridgeLinkRef_len = 255;        /* # of char elements, not bytes */
-    rowreq_ctx->data.qpid010BridgeSrc_len = 255;
-    rowreq_ctx->data.qpid010BridgeDest_len = 255;
-    rowreq_ctx->data.qpid010BridgeKey_len = 65535;
-    rowreq_ctx->data.qpid010BridgeTag_len = 255;
-    rowreq_ctx->data.qpid010BridgeExcludes_len = 255;
+    rowreq_ctx->data.brokerBridgeLinkRef_len = 255;        /* # of char elements, not bytes */
+    rowreq_ctx->data.brokerBridgeSrc_len = 255;
+    rowreq_ctx->data.brokerBridgeDest_len = 255;
+    rowreq_ctx->data.brokerBridgeKey_len = 65535;
+    rowreq_ctx->data.brokerBridgeTag_len = 255;
+    rowreq_ctx->data.brokerBridgeExcludes_len = 255;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTable_rowreq_ctx_init */
+}                               /* brokerBridgeTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010BridgeTable_rowreq_ctx_cleanup(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeTable_rowreq_ctx_cleanup(brokerBridgeTable_rowreq_ctx *
                                      rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010BridgeTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerBridgeTable rowreq cleanup.
      */
-}                               /* qpid010BridgeTable_rowreq_ctx_cleanup */
+}                               /* brokerBridgeTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -181,7 +181,7 @@ qpid010BridgeTable_rowreq_ctx_cleanup(qpid010BridgeTable_rowreq_ctx *
  * return 0 if the row should not be stored
  */
 int
-qpid010BridgeTable_container_should_save(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeTable_container_should_save(brokerBridgeTable_rowreq_ctx *
                                         rowreq_ctx)
 {
 
@@ -196,18 +196,18 @@ qpid010BridgeTable_container_should_save(qpid010BridgeTable_rowreq_ctx *
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010BridgeTable_pre_request(qpid010BridgeTable_registration *
+brokerBridgeTable_pre_request(brokerBridgeTable_registration *
                               user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_pre_request",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_pre_request",
                 "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010BridgeTable pre-request actions.
+     * TODO:510:o: Perform brokerBridgeTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTable_pre_request */
+}                               /* brokerBridgeTable_pre_request */
 
 /**
  * post-request callback
@@ -224,20 +224,20 @@ qpid010BridgeTable_pre_request(qpid010BridgeTable_registration *
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010BridgeTable_post_request(qpid010BridgeTable_registration *
+brokerBridgeTable_post_request(brokerBridgeTable_registration *
                                user_context, int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_post_request",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_post_request",
                 "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010BridgeTable post-request actions.
+     * TODO:511:o: Perform brokerBridgeTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010BridgeTable_dirty_get()) {
+    if (brokerBridgeTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -250,11 +250,11 @@ qpid010BridgeTable_post_request(qpid010BridgeTable_registration *
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010BridgeTable_dirty_set(0); /* clear table dirty flag */
+        brokerBridgeTable_dirty_set(0); /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTable_post_request */
+}                               /* brokerBridgeTable_post_request */
 
 
 /** @{ */

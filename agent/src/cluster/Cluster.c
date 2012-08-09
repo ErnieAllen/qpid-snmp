@@ -10,89 +10,89 @@
 
 #include "../qpid_api.h"
 
-/** Initializes the qpid010Cluster module */
+/** Initializes the brokerCluster module */
 void
 init_Cluster(void)
 {
-    const oid       qpid010ClusterBrokerRef_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 1 };
-    const oid       qpid010ClusterClusterName_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 2 };
-    const oid       qpid010ClusterClusterID_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 3 };
-    const oid       qpid010ClusterMemberID_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 4 };
-    const oid       qpid010ClusterPublishedURL_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 5 };
-    const oid       qpid010ClusterClusterSize_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 6 };
-    const oid       qpid010ClusterStatus_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 7 };
-    const oid       qpid010ClusterMembers_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 8 };
-    const oid       qpid010ClusterMemberIDs_oid[] =
-        { 1, 3, 6, 1, 4, 1, 18060,5672, 1, 2, 2, 9 };
+    const oid       brokerClusterBrokerRef_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 1 };
+    const oid       brokerClusterClusterName_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 2 };
+    const oid       brokerClusterClusterID_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 3 };
+    const oid       brokerClusterMemberID_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 4 };
+    const oid       brokerClusterPublishedURL_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 5 };
+    const oid       brokerClusterClusterSize_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 6 };
+    const oid       brokerClusterStatus_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 7 };
+    const oid       brokerClusterMembers_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 8 };
+    const oid       brokerClusterMemberIDs_oid[] =
+        { 1, 3, 6, 1, 4, 1, 18060,5672, 2, 2, 9 };
 
-    DEBUGMSGTL(("qpid010Cluster", "Initializing\n"));
+    DEBUGMSGTL(("brokerCluster", "Initializing\n"));
 
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterBrokerRef",
-                             handle_qpid010ClusterBrokerRef,
-                             qpid010ClusterBrokerRef_oid,
-                             OID_LENGTH(qpid010ClusterBrokerRef_oid),
+                            ("brokerClusterBrokerRef",
+                             handle_brokerClusterBrokerRef,
+                             brokerClusterBrokerRef_oid,
+                             OID_LENGTH(brokerClusterBrokerRef_oid),
                              HANDLER_CAN_RWRITE));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterClusterName",
-                             handle_qpid010ClusterClusterName,
-                             qpid010ClusterClusterName_oid,
-                             OID_LENGTH(qpid010ClusterClusterName_oid),
+                            ("brokerClusterClusterName",
+                             handle_brokerClusterClusterName,
+                             brokerClusterClusterName_oid,
+                             OID_LENGTH(brokerClusterClusterName_oid),
                              HANDLER_CAN_RWRITE));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterClusterID",
-                             handle_qpid010ClusterClusterID,
-                             qpid010ClusterClusterID_oid,
-                             OID_LENGTH(qpid010ClusterClusterID_oid),
+                            ("brokerClusterClusterID",
+                             handle_brokerClusterClusterID,
+                             brokerClusterClusterID_oid,
+                             OID_LENGTH(brokerClusterClusterID_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterMemberID",
-                             handle_qpid010ClusterMemberID,
-                             qpid010ClusterMemberID_oid,
-                             OID_LENGTH(qpid010ClusterMemberID_oid),
+                            ("brokerClusterMemberID",
+                             handle_brokerClusterMemberID,
+                             brokerClusterMemberID_oid,
+                             OID_LENGTH(brokerClusterMemberID_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterPublishedURL",
-                             handle_qpid010ClusterPublishedURL,
-                             qpid010ClusterPublishedURL_oid,
-                             OID_LENGTH(qpid010ClusterPublishedURL_oid),
+                            ("brokerClusterPublishedURL",
+                             handle_brokerClusterPublishedURL,
+                             brokerClusterPublishedURL_oid,
+                             OID_LENGTH(brokerClusterPublishedURL_oid),
                              HANDLER_CAN_RWRITE));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterClusterSize",
-                             handle_qpid010ClusterClusterSize,
-                             qpid010ClusterClusterSize_oid,
-                             OID_LENGTH(qpid010ClusterClusterSize_oid),
+                            ("brokerClusterClusterSize",
+                             handle_brokerClusterClusterSize,
+                             brokerClusterClusterSize_oid,
+                             OID_LENGTH(brokerClusterClusterSize_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterStatus",
-                             handle_qpid010ClusterStatus,
-                             qpid010ClusterStatus_oid,
-                             OID_LENGTH(qpid010ClusterStatus_oid),
+                            ("brokerClusterStatus",
+                             handle_brokerClusterStatus,
+                             brokerClusterStatus_oid,
+                             OID_LENGTH(brokerClusterStatus_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterMembers",
-                             handle_qpid010ClusterMembers,
-                             qpid010ClusterMembers_oid,
-                             OID_LENGTH(qpid010ClusterMembers_oid),
+                            ("brokerClusterMembers",
+                             handle_brokerClusterMembers,
+                             brokerClusterMembers_oid,
+                             OID_LENGTH(brokerClusterMembers_oid),
                              HANDLER_CAN_RONLY));
     netsnmp_register_scalar(netsnmp_create_handler_registration
-                            ("qpid010ClusterMemberIDs",
-                             handle_qpid010ClusterMemberIDs,
-                             qpid010ClusterMemberIDs_oid,
-                             OID_LENGTH(qpid010ClusterMemberIDs_oid),
+                            ("brokerClusterMemberIDs",
+                             handle_brokerClusterMemberIDs,
+                             brokerClusterMemberIDs_oid,
+                             OID_LENGTH(brokerClusterMemberIDs_oid),
                              HANDLER_CAN_RONLY));
 }
 
 int
-handle_qpid010ClusterBrokerRef(netsnmp_mib_handler *handler,
+handle_brokerClusterBrokerRef(netsnmp_mib_handler *handler,
                               netsnmp_handler_registration *reginfo,
                               netsnmp_agent_request_info *reqinfo,
                               netsnmp_request_info *requests)
@@ -194,7 +194,7 @@ handle_qpid010ClusterBrokerRef(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterBrokerRef\n",
+                 "unknown mode (%d) in handle_brokerClusterBrokerRef\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -203,7 +203,7 @@ handle_qpid010ClusterBrokerRef(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ClusterClusterName(netsnmp_mib_handler *handler,
+handle_brokerClusterClusterName(netsnmp_mib_handler *handler,
                                 netsnmp_handler_registration *reginfo,
                                 netsnmp_agent_request_info *reqinfo,
                                 netsnmp_request_info *requests)
@@ -305,7 +305,7 @@ handle_qpid010ClusterClusterName(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterClusterName\n",
+                 "unknown mode (%d) in handle_brokerClusterClusterName\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -314,7 +314,7 @@ handle_qpid010ClusterClusterName(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ClusterClusterID(netsnmp_mib_handler *handler,
+handle_brokerClusterClusterID(netsnmp_mib_handler *handler,
                               netsnmp_handler_registration *reginfo,
                               netsnmp_agent_request_info *reqinfo,
                               netsnmp_request_info *requests)
@@ -347,7 +347,7 @@ handle_qpid010ClusterClusterID(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterClusterID\n",
+                 "unknown mode (%d) in handle_brokerClusterClusterID\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -356,7 +356,7 @@ handle_qpid010ClusterClusterID(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ClusterMemberID(netsnmp_mib_handler *handler,
+handle_brokerClusterMemberID(netsnmp_mib_handler *handler,
                              netsnmp_handler_registration *reginfo,
                              netsnmp_agent_request_info *reqinfo,
                              netsnmp_request_info *requests)
@@ -389,7 +389,7 @@ handle_qpid010ClusterMemberID(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterMemberID\n",
+                 "unknown mode (%d) in handle_brokerClusterMemberID\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -398,7 +398,7 @@ handle_qpid010ClusterMemberID(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ClusterPublishedURL(netsnmp_mib_handler *handler,
+handle_brokerClusterPublishedURL(netsnmp_mib_handler *handler,
                                  netsnmp_handler_registration *reginfo,
                                  netsnmp_agent_request_info *reqinfo,
                                  netsnmp_request_info *requests)
@@ -500,7 +500,7 @@ handle_qpid010ClusterPublishedURL(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterPublishedURL\n",
+                 "unknown mode (%d) in handle_brokerClusterPublishedURL\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -509,7 +509,7 @@ handle_qpid010ClusterPublishedURL(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ClusterClusterSize(netsnmp_mib_handler *handler,
+handle_brokerClusterClusterSize(netsnmp_mib_handler *handler,
                                 netsnmp_handler_registration *reginfo,
                                 netsnmp_agent_request_info *reqinfo,
                                 netsnmp_request_info *requests)
@@ -542,7 +542,7 @@ handle_qpid010ClusterClusterSize(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterClusterSize\n",
+                 "unknown mode (%d) in handle_brokerClusterClusterSize\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -551,7 +551,7 @@ handle_qpid010ClusterClusterSize(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ClusterStatus(netsnmp_mib_handler *handler,
+handle_brokerClusterStatus(netsnmp_mib_handler *handler,
                            netsnmp_handler_registration *reginfo,
                            netsnmp_agent_request_info *reqinfo,
                            netsnmp_request_info *requests)
@@ -584,7 +584,7 @@ handle_qpid010ClusterStatus(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterStatus\n",
+                 "unknown mode (%d) in handle_brokerClusterStatus\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -593,7 +593,7 @@ handle_qpid010ClusterStatus(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ClusterMembers(netsnmp_mib_handler *handler,
+handle_brokerClusterMembers(netsnmp_mib_handler *handler,
                             netsnmp_handler_registration *reginfo,
                             netsnmp_agent_request_info *reqinfo,
                             netsnmp_request_info *requests)
@@ -626,7 +626,7 @@ handle_qpid010ClusterMembers(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterMembers\n",
+                 "unknown mode (%d) in handle_brokerClusterMembers\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }
@@ -635,7 +635,7 @@ handle_qpid010ClusterMembers(netsnmp_mib_handler *handler,
 }
 
 int
-handle_qpid010ClusterMemberIDs(netsnmp_mib_handler *handler,
+handle_brokerClusterMemberIDs(netsnmp_mib_handler *handler,
                               netsnmp_handler_registration *reginfo,
                               netsnmp_agent_request_info *reqinfo,
                               netsnmp_request_info *requests)
@@ -668,7 +668,7 @@ handle_qpid010ClusterMemberIDs(netsnmp_mib_handler *handler,
          * we should never get here, so this is a really bad error 
          */
         snmp_log(LOG_ERR,
-                 "unknown mode (%d) in handle_qpid010ClusterMemberIDs\n",
+                 "unknown mode (%d) in handle_brokerClusterMemberIDs\n",
                  reqinfo->mode);
         return SNMP_ERR_GENERR;
     }

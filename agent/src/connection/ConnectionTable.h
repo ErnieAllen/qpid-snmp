@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010CONNECTIONTABLE_H
-#define qpid010CONNECTIONTABLE_H
+#ifndef brokerCONNECTIONTABLE_H
+#define brokerCONNECTIONTABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerConnectionTable/brokerConnectionTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerConnectionTable/brokerConnectionTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerConnectionTable/brokerConnectionTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerConnectionTable/brokerConnectionTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010ConnectionTable 
+     * OID and column number definitions for brokerConnectionTable 
      */
 #include "ConnectionTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_d
      * function declarations
      */
     void            init_ConnectionTable(void);
-    void            shutdown_qpid010ConnectionTable(void);
+    void            shutdown_brokerConnectionTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_d
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ConnectionTable
+ *** Table brokerConnectionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010ConnectionTable is subid 1 of qpid010Connections.
+     * QPID-MESSAGING-MIB::brokerConnectionTable is subid 1 of brokerConnections.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1, length: 12
      */
@@ -71,176 +71,176 @@ config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_d
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010ConnectionTable registration context.
+     * TODO:101:o: |-> Review brokerConnectionTable registration context.
      */
-    typedef netsnmp_data_list qpid010ConnectionTable_registration;
+    typedef netsnmp_data_list brokerConnectionTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010ConnectionTable data context structure.
-     * This structure is used to represent the data for qpid010ConnectionTable.
+     * TODO:110:r: |-> Review brokerConnectionTable data context structure.
+     * This structure is used to represent the data for brokerConnectionTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010ConnectionTable.
+     * brokerConnectionTable.
      */
-    typedef struct qpid010ConnectionTable_data_s {
+    typedef struct brokerConnectionTable_data_s {
 
         /*
-         * qpid010ConnectionVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerConnectionVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010ConnectionVhostRef[255];
-        size_t          qpid010ConnectionVhostRef_len;   /* # of char elements, not bytes */
+        char            brokerConnectionVhostRef[255];
+        size_t          brokerConnectionVhostRef_len;   /* # of char elements, not bytes */
 
         /*
-         * qpid010ConnectionAddress(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerConnectionAddress(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010ConnectionAddress[255];
-        size_t          qpid010ConnectionAddress_len;    /* # of char elements, not bytes */
+        char            brokerConnectionAddress[255];
+        size_t          brokerConnectionAddress_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010ConnectionIncoming(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerConnectionIncoming(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010ConnectionIncoming;
+        u_long          brokerConnectionIncoming;
 
         /*
-         * qpid010ConnectionSystemConnection(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerConnectionSystemConnection(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010ConnectionSystemConnection;
+        u_long          brokerConnectionSystemConnection;
 
         /*
-         * qpid010ConnectionUserProxyAuth(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * brokerConnectionUserProxyAuth(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
-        u_long          qpid010ConnectionUserProxyAuth;
+        u_long          brokerConnectionUserProxyAuth;
 
         /*
-         * qpid010ConnectionFederationLink(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * brokerConnectionFederationLink(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
-        u_long          qpid010ConnectionFederationLink;
+        u_long          brokerConnectionFederationLink;
 
         /*
-         * qpid010ConnectionAuthIdentity(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerConnectionAuthIdentity(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010ConnectionAuthIdentity[255];
-        size_t          qpid010ConnectionAuthIdentity_len;       /* # of char elements, not bytes */
+        char            brokerConnectionAuthIdentity[255];
+        size_t          brokerConnectionAuthIdentity_len;       /* # of char elements, not bytes */
 
         /*
-         * qpid010ConnectionRemoteProcessName(8)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerConnectionRemoteProcessName(8)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010ConnectionRemoteProcessName[65535];
-        size_t          qpid010ConnectionRemoteProcessName_len;  /* # of char elements, not bytes */
+        char            brokerConnectionRemoteProcessName[65535];
+        size_t          brokerConnectionRemoteProcessName_len;  /* # of char elements, not bytes */
 
         /*
-         * qpid010ConnectionRemotePid(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerConnectionRemotePid(9)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010ConnectionRemotePid;
+        u_long          brokerConnectionRemotePid;
 
         /*
-         * qpid010ConnectionRemoteParentPid(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerConnectionRemoteParentPid(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010ConnectionRemoteParentPid;
+        u_long          brokerConnectionRemoteParentPid;
 
         /*
-         * qpid010ConnectionShadow(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * brokerConnectionShadow(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
-        u_long          qpid010ConnectionShadow;
+        u_long          brokerConnectionShadow;
 
         /*
-         * qpid010ConnectionSaslMechanism(12)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerConnectionSaslMechanism(12)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010ConnectionSaslMechanism[255];
-        size_t          qpid010ConnectionSaslMechanism_len;      /* # of char elements, not bytes */
+        char            brokerConnectionSaslMechanism[255];
+        size_t          brokerConnectionSaslMechanism_len;      /* # of char elements, not bytes */
 
         /*
-         * qpid010ConnectionSaslSsf(13)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerConnectionSaslSsf(13)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010ConnectionSaslSsf;
+        long            brokerConnectionSaslSsf;
 
         /*
-         * qpid010ConnectionClosing(14)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * brokerConnectionClosing(14)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
-        u_long          qpid010ConnectionClosing;
+        u_long          brokerConnectionClosing;
 
         /*
-         * qpid010ConnectionFramesFromClient(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerConnectionFramesFromClient(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ConnectionFramesFromClient;
+        U64             brokerConnectionFramesFromClient;
 
         /*
-         * qpid010ConnectionFramesToClient(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerConnectionFramesToClient(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ConnectionFramesToClient;
+        U64             brokerConnectionFramesToClient;
 
         /*
-         * qpid010ConnectionBytesFromClient(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerConnectionBytesFromClient(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ConnectionBytesFromClient;
+        U64             brokerConnectionBytesFromClient;
 
         /*
-         * qpid010ConnectionBytesToClient(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerConnectionBytesToClient(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ConnectionBytesToClient;
+        U64             brokerConnectionBytesToClient;
 
         /*
-         * qpid010ConnectionMsgsFromClient(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerConnectionMsgsFromClient(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ConnectionMsgsFromClient;
+        U64             brokerConnectionMsgsFromClient;
 
         /*
-         * qpid010ConnectionMsgsToClient(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerConnectionMsgsToClient(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ConnectionMsgsToClient;
+        U64             brokerConnectionMsgsToClient;
 
-    } qpid010ConnectionTable_data;
+    } brokerConnectionTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010ConnectionTable undo context.
+     * TODO:115:o: |-> Review brokerConnectionTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010ConnectionTable_data qpid010ConnectionTable_undo_data;
+    typedef brokerConnectionTable_data brokerConnectionTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010ConnectionTable mib index.
-     * This structure is used to represent the index for qpid010ConnectionTable.
+     * TODO:120:r: |-> Review brokerConnectionTable mib index.
+     * This structure is used to represent the index for brokerConnectionTable.
      */
-    typedef struct qpid010ConnectionTable_mib_index_s {
+    typedef struct brokerConnectionTable_mib_index_s {
 
         /*
-         * qpid010ConnectionInternalIndex(21)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerConnectionInternalIndex(21)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010ConnectionInternalIndex;
+        u_long          brokerConnectionInternalIndex;
 
 
-    } qpid010ConnectionTable_mib_index;
+    } brokerConnectionTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010ConnectionTable max index length.
+     * TODO:121:r: |   |-> Review brokerConnectionTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010ConnectionTable_IDX_LEN     1
+#define MAX_brokerConnectionTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010ConnectionTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerConnectionTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010ConnectionTable_rowreq_ctx pointer.
+     * brokerConnectionTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010ConnectionTable_rowreq_ctx_s {
+    typedef struct brokerConnectionTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010ConnectionTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerConnectionTable_IDX_LEN];
 
-        qpid010ConnectionTable_mib_index tbl_idx;
+        brokerConnectionTable_mib_index tbl_idx;
 
-        qpid010ConnectionTable_data data;
-        qpid010ConnectionTable_undo_data *undo;
+        brokerConnectionTable_data data;
+        brokerConnectionTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -251,52 +251,52 @@ config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_d
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010ConnectionTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerConnectionTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010ConnectionTable_data_list;
+        netsnmp_data_list *brokerConnectionTable_data_list;
 
-    } qpid010ConnectionTable_rowreq_ctx;
+    } brokerConnectionTable_rowreq_ctx;
 
-    typedef struct qpid010ConnectionTable_ref_rowreq_ctx_s {
-        qpid010ConnectionTable_rowreq_ctx *rowreq_ctx;
-    } qpid010ConnectionTable_ref_rowreq_ctx;
+    typedef struct brokerConnectionTable_ref_rowreq_ctx_s {
+        brokerConnectionTable_rowreq_ctx *rowreq_ctx;
+    } brokerConnectionTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010ConnectionTable_pre_request
-        (qpid010ConnectionTable_registration * user_context);
+        brokerConnectionTable_pre_request
+        (brokerConnectionTable_registration * user_context);
     int            
-        qpid010ConnectionTable_post_request
-        (qpid010ConnectionTable_registration * user_context, int rc);
+        brokerConnectionTable_post_request
+        (brokerConnectionTable_registration * user_context, int rc);
 
     int            
-        qpid010ConnectionTable_rowreq_ctx_init
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
+        brokerConnectionTable_rowreq_ctx_init
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
          void *user_init_ctx);
     void           
-        qpid010ConnectionTable_rowreq_ctx_cleanup
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionTable_rowreq_ctx_cleanup
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ConnectionTable_check_dependencies
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionTable_check_dependencies
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ConnectionTable_commit(qpid010ConnectionTable_rowreq_ctx *
+        brokerConnectionTable_commit(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx);
 
-    qpid010ConnectionTable_rowreq_ctx
-        *qpid010ConnectionTable_row_find_by_mib_index
-        (qpid010ConnectionTable_mib_index * mib_idx);
+    brokerConnectionTable_rowreq_ctx
+        *brokerConnectionTable_row_find_by_mib_index
+        (brokerConnectionTable_mib_index * mib_idx);
 
-    extern const oid qpid010ConnectionTable_oid[];
-    extern const int qpid010ConnectionTable_oid_size;
+    extern const oid brokerConnectionTable_oid[];
+    extern const int brokerConnectionTable_oid_size;
 
 
 #include "ConnectionTable_interface.h"
@@ -317,5 +317,5 @@ config_require(MRG-MESSAGING-MIB/qpid010ConnectionTable/qpid010ConnectionTable_d
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010CONNECTIONTABLE_H */
+#endif                          /* brokerCONNECTIONTABLE_H */
 /** @} */

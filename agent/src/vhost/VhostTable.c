@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010VhostTable
+/** \page MFD helper for brokerVhostTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -27,67 +27,67 @@
 
 #include "VhostTable_interface.h"
 
-const oid       qpid010VhostTable_oid[] = { qpid010VHOSTTABLE_OID };
+const oid       brokerVhostTable_oid[] = { brokerVHOSTTABLE_OID };
 
-const int       qpid010VhostTable_oid_size =
-OID_LENGTH(qpid010VhostTable_oid);
+const int       brokerVhostTable_oid_size =
+OID_LENGTH(brokerVhostTable_oid);
 
-qpid010VhostTable_registration qpid010VhostTable_user_context;
+brokerVhostTable_registration brokerVhostTable_user_context;
 
-void            initialize_table_qpid010VhostTable(void);
-void            shutdown_table_qpid010VhostTable(void);
+void            initialize_table_brokerVhostTable(void);
+void            shutdown_table_brokerVhostTable(void);
 
 
 /**
- * Initializes the qpid010VhostTable module
+ * Initializes the brokerVhostTable module
  */
 void
 init_VhostTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:init_VhostTable",
+    DEBUGMSGTL(("verbose:brokerVhostTable:init_VhostTable",
                 "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010VhostTable one-time module initialization.
+     * TODO:300:o: Perform brokerVhostTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010VhostTable"))
-        initialize_table_qpid010VhostTable();
+    if (should_init("brokerVhostTable"))
+        initialize_table_brokerVhostTable();
 
 }                               /* init_VhostTable */
 
 /**
- * Shut-down the qpid010VhostTable module (agent is exiting)
+ * Shut-down the brokerVhostTable module (agent is exiting)
  */
 void
-shutdown_qpid010VhostTable(void)
+shutdown_brokerVhostTable(void)
 {
-    if (should_init("qpid010VhostTable"))
-        shutdown_table_qpid010VhostTable();
+    if (should_init("brokerVhostTable"))
+        shutdown_table_brokerVhostTable();
 
 }
 
 /**
- * Initialize the table qpid010VhostTable 
+ * Initialize the table brokerVhostTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010VhostTable(void)
+initialize_table_brokerVhostTable(void)
 {
-    qpid010VhostTable_registration *user_context;
+    brokerVhostTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:initialize_table_qpid010VhostTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerVhostTable:initialize_table_brokerVhostTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010VhostTable one-time table initialization.
+     * TODO:301:o: Perform brokerVhostTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010VhostTable user context
+     * TODO:302:o: |->Initialize brokerVhostTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -96,7 +96,7 @@ initialize_table_qpid010VhostTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010VhostTable", NULL, NULL);
+        netsnmp_create_data_list("brokerVhostTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -107,19 +107,19 @@ initialize_table_qpid010VhostTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010VhostTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010VhostTable */
+    _brokerVhostTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerVhostTable */
 
 /**
- * Shutdown the table qpid010VhostTable 
+ * Shutdown the table brokerVhostTable 
  */
 void
-shutdown_table_qpid010VhostTable(void)
+shutdown_table_brokerVhostTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010VhostTable_shutdown_interface(&qpid010VhostTable_user_context);
+    _brokerVhostTable_shutdown_interface(&brokerVhostTable_user_context);
 }
 
 /**
@@ -132,39 +132,39 @@ shutdown_table_qpid010VhostTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010VhostTable_rowreq_ctx_init(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
+brokerVhostTable_rowreq_ctx_init(brokerVhostTable_rowreq_ctx * rowreq_ctx,
                                  void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * Perform extra qpid010VhostTable rowreq initialization. (eg DEFVALS)
+     * Perform extra brokerVhostTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010VhostBrokerRef_len = 255;
-    rowreq_ctx->data.qpid010VhostName_len = 255;
-    rowreq_ctx->data.qpid010VhostFederationTag_len = 255;
+    rowreq_ctx->data.brokerVhostBrokerRef_len = 255;
+    rowreq_ctx->data.brokerVhostName_len = 255;
+    rowreq_ctx->data.brokerVhostFederationTag_len = 255;
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostTable_rowreq_ctx_init */
+}                               /* brokerVhostTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010VhostTable_rowreq_ctx_cleanup(qpid010VhostTable_rowreq_ctx *
+brokerVhostTable_rowreq_ctx_cleanup(brokerVhostTable_rowreq_ctx *
                                     rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010VhostTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerVhostTable rowreq cleanup.
      */
-}                               /* qpid010VhostTable_rowreq_ctx_cleanup */
+}                               /* brokerVhostTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -178,7 +178,7 @@ qpid010VhostTable_rowreq_ctx_cleanup(qpid010VhostTable_rowreq_ctx *
  * return 0 if the row should not be stored
  */
 int
-qpid010VhostTable_container_should_save(qpid010VhostTable_rowreq_ctx *
+brokerVhostTable_container_should_save(brokerVhostTable_rowreq_ctx *
                                        rowreq_ctx)
 {
 
@@ -193,17 +193,17 @@ qpid010VhostTable_container_should_save(qpid010VhostTable_rowreq_ctx *
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010VhostTable_pre_request(qpid010VhostTable_registration * user_context)
+brokerVhostTable_pre_request(brokerVhostTable_registration * user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_pre_request",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_pre_request",
                 "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010VhostTable pre-request actions.
+     * TODO:510:o: Perform brokerVhostTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostTable_pre_request */
+}                               /* brokerVhostTable_pre_request */
 
 /**
  * post-request callback
@@ -220,20 +220,20 @@ qpid010VhostTable_pre_request(qpid010VhostTable_registration * user_context)
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010VhostTable_post_request(qpid010VhostTable_registration * user_context,
+brokerVhostTable_post_request(brokerVhostTable_registration * user_context,
                               int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_post_request",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_post_request",
                 "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010VhostTable post-request actions.
+     * TODO:511:o: Perform brokerVhostTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010VhostTable_dirty_get()) {
+    if (brokerVhostTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -246,11 +246,11 @@ qpid010VhostTable_post_request(qpid010VhostTable_registration * user_context,
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010VhostTable_dirty_set(0);  /* clear table dirty flag */
+        brokerVhostTable_dirty_set(0);  /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostTable_post_request */
+}                               /* brokerVhostTable_post_request */
 
 
 /** @{ */

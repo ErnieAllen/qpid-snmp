@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ConnectionTable
+ *** Table brokerConnectionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010ConnectionTable is subid 1 of qpid010Connections.
+ * QPID-MESSAGING-MIB::brokerConnectionTable is subid 1 of brokerConnections.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010ConnectionTable_allocate_data(), but may need extra
+ * brokerConnectionTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010ConnectionTable_rowreq_ctx_init().
+ * brokerConnectionTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,30 +125,30 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ConnectionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerConnectionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010ConnectionTable_undo_setup(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_undo_setup(brokerConnectionTable_rowreq_ctx *
                                  rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_undo_setup", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010ConnectionTable undo.
-     * set up qpid010ConnectionTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010ConnectionMsgsToClient_val_ptr )*
+     * TODO:451:M: |-> Setup brokerConnectionTable undo.
+     * set up brokerConnectionTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerConnectionMsgsToClient_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010ConnectionTable_undo_setup */
+}                               /* brokerConnectionTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -165,30 +165,30 @@ qpid010ConnectionTable_undo_setup(qpid010ConnectionTable_rowreq_ctx *
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ConnectionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerConnectionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010ConnectionTable_undo(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
+brokerConnectionTable_undo(brokerConnectionTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_undo",
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_undo",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010ConnectionTable undo.
-     * qpid010ConnectionTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010ConnectionMsgsToClient_val_ptr )*
+     * TODO:451:M: |-> brokerConnectionTable undo.
+     * brokerConnectionTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerConnectionMsgsToClient_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010ConnectionTable_undo_setup */
+}                               /* brokerConnectionTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -202,29 +202,29 @@ qpid010ConnectionTable_undo(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ConnectionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerConnectionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010ConnectionTable_undo_cleanup(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_undo_cleanup(brokerConnectionTable_rowreq_ctx *
                                    rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_undo_cleanup", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010ConnectionTable undo.
-     * Undo storage is in (* qpid010ConnectionMsgsToClient_val_ptr )*
+     * TODO:452:M: |-> Cleanup brokerConnectionTable undo.
+     * Undo storage is in (* brokerConnectionMsgsToClient_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010ConnectionTable_undo_cleanup */
+}                               /* brokerConnectionTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -235,22 +235,22 @@ qpid010ConnectionTable_undo_cleanup(qpid010ConnectionTable_rowreq_ctx *
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010ConnectionTable_oids.h.
+ * brokerConnectionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010ConnectionTable_rowreq_ctx
+ * @param brokerConnectionTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010ConnectionTable_commit(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
+brokerConnectionTable_commit(brokerConnectionTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_commit", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_commit", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
@@ -262,81 +262,81 @@ qpid010ConnectionTable_commit(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010ConnectionTable data
+     * commit brokerConnectionTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010CONNECTIONVHOSTREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010CONNECTIONVHOSTREF_FLAG;    /* clear qpid010ConnectionVhostRef */
+    if (save_flags & COLUMN_brokerCONNECTIONVHOSTREF_FLAG) {
+        save_flags &= ~COLUMN_brokerCONNECTIONVHOSTREF_FLAG;    /* clear brokerConnectionVhostRef */
         /*
-         * TODO:482:o: |-> commit column qpid010ConnectionVhostRef.
+         * TODO:482:o: |-> commit column brokerConnectionVhostRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010ConnectionTable column qpid010ConnectionVhostRef commit failed\n");
+                     "brokerConnectionTable column brokerConnectionVhostRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010ConnectionVhostRef
+             * set flag, in case we need to undo brokerConnectionVhostRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010CONNECTIONVHOSTREF_FLAG;
+                COLUMN_brokerCONNECTIONVHOSTREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010CONNECTIONADDRESS_FLAG) {
-        save_flags &= ~COLUMN_qpid010CONNECTIONADDRESS_FLAG;     /* clear qpid010ConnectionAddress */
+    if (save_flags & COLUMN_brokerCONNECTIONADDRESS_FLAG) {
+        save_flags &= ~COLUMN_brokerCONNECTIONADDRESS_FLAG;     /* clear brokerConnectionAddress */
         /*
-         * TODO:482:o: |-> commit column qpid010ConnectionAddress.
+         * TODO:482:o: |-> commit column brokerConnectionAddress.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010ConnectionTable column qpid010ConnectionAddress commit failed\n");
+                     "brokerConnectionTable column brokerConnectionAddress commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010ConnectionAddress
+             * set flag, in case we need to undo brokerConnectionAddress
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010CONNECTIONADDRESS_FLAG;
+                COLUMN_brokerCONNECTIONADDRESS_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010CONNECTIONINCOMING_FLAG) {
-        save_flags &= ~COLUMN_qpid010CONNECTIONINCOMING_FLAG;    /* clear qpid010ConnectionIncoming */
+    if (save_flags & COLUMN_brokerCONNECTIONINCOMING_FLAG) {
+        save_flags &= ~COLUMN_brokerCONNECTIONINCOMING_FLAG;    /* clear brokerConnectionIncoming */
         /*
-         * TODO:482:o: |-> commit column qpid010ConnectionIncoming.
+         * TODO:482:o: |-> commit column brokerConnectionIncoming.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010ConnectionTable column qpid010ConnectionIncoming commit failed\n");
+                     "brokerConnectionTable column brokerConnectionIncoming commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010ConnectionIncoming
+             * set flag, in case we need to undo brokerConnectionIncoming
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010CONNECTIONINCOMING_FLAG;
+                COLUMN_brokerCONNECTIONINCOMING_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010CONNECTIONSYSTEMCONNECTION_FLAG) {
-        save_flags &= ~COLUMN_qpid010CONNECTIONSYSTEMCONNECTION_FLAG;    /* clear qpid010ConnectionSystemConnection */
+    if (save_flags & COLUMN_brokerCONNECTIONSYSTEMCONNECTION_FLAG) {
+        save_flags &= ~COLUMN_brokerCONNECTIONSYSTEMCONNECTION_FLAG;    /* clear brokerConnectionSystemConnection */
         /*
-         * TODO:482:o: |-> commit column qpid010ConnectionSystemConnection.
+         * TODO:482:o: |-> commit column brokerConnectionSystemConnection.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010ConnectionTable column qpid010ConnectionSystemConnection commit failed\n");
+                     "brokerConnectionTable column brokerConnectionSystemConnection commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010ConnectionSystemConnection
+             * set flag, in case we need to undo brokerConnectionSystemConnection
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010CONNECTIONSYSTEMCONNECTION_FLAG;
+                COLUMN_brokerCONNECTIONSYSTEMCONNECTION_FLAG;
         }
     }
 
@@ -354,7 +354,7 @@ qpid010ConnectionTable_commit(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010ConnectionTable_commit */
+}                               /* brokerConnectionTable_commit */
 
 /**
  * undo commit new values.
@@ -362,28 +362,28 @@ qpid010ConnectionTable_commit(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010ConnectionTable_oids.h.
+ * brokerConnectionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010ConnectionTable_rowreq_ctx
+ * @param brokerConnectionTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010ConnectionTable_undo_commit(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_undo_commit(brokerConnectionTable_rowreq_ctx *
                                   rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionTable_undo_commit", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010ConnectionTable commit.
+     * TODO:485:M: |-> Undo brokerConnectionTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -399,17 +399,17 @@ qpid010ConnectionTable_undo_commit(qpid010ConnectionTable_rowreq_ctx *
     }
 
     return rc;
-}                               /* qpid010ConnectionTable_undo_commit */
+}                               /* brokerConnectionTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010ConnectionTable node value checks.
- * TODO:450:M: Implement qpid010ConnectionTable undo functions.
- * TODO:460:M: Implement qpid010ConnectionTable set functions.
- * TODO:480:M: Implement qpid010ConnectionTable commit functions.
+ * TODO:440:M: Implement brokerConnectionTable node value checks.
+ * TODO:450:M: Implement brokerConnectionTable undo functions.
+ * TODO:460:M: Implement brokerConnectionTable set functions.
+ * TODO:480:M: Implement brokerConnectionTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionVhostRef
- * qpid010ConnectionVhostRef is subid 1 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionVhostRef
+ * brokerConnectionVhostRef is subid 1 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.1
  * Description:
@@ -433,10 +433,10 @@ Connection vhostRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionVhostRef_val_ptr
+ * @param brokerConnectionVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010ConnectionVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010ConnectionVhostRef_val_ptr
+ * @param brokerConnectionVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerConnectionVhostRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -459,48 +459,48 @@ Connection vhostRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010ConnectionTable_check_dependencies() function.
+ * brokerConnectionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010ConnectionVhostRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerConnectionVhostRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010ConnectionVhostRef_check_value(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionVhostRef_check_value(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx,
                                      char
-                                     *qpid010ConnectionVhostRef_val_ptr,
+                                     *brokerConnectionVhostRef_val_ptr,
                                      size_t
-                                     qpid010ConnectionVhostRef_val_ptr_len)
+                                     brokerConnectionVhostRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionVhostRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionVhostRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010ConnectionVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionVhostRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010ConnectionVhostRef value.
+     * TODO:441:o: |-> Check for valid brokerConnectionVhostRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010ConnectionVhostRef value not illegal */
-}                               /* qpid010ConnectionVhostRef_check_value */
+    return MFD_SUCCESS;         /* brokerConnectionVhostRef value not illegal */
+}                               /* brokerConnectionVhostRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ConnectionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerConnectionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010ConnectionTable_undo_setup has been called.
+ * brokerConnectionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -510,31 +510,31 @@ qpid010ConnectionVhostRef_check_value(qpid010ConnectionTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010ConnectionVhostRef_undo_setup(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionVhostRef_undo_setup(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionVhostRef_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionVhostRef_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010ConnectionVhostRef undo.
+     * TODO:455:o: |-> Setup brokerConnectionVhostRef undo.
      */
     /*
-     * copy qpid010ConnectionVhostRef and qpid010ConnectionVhostRef_len data
-     * set rowreq_ctx->undo->qpid010ConnectionVhostRef from rowreq_ctx->data.qpid010ConnectionVhostRef
+     * copy brokerConnectionVhostRef and brokerConnectionVhostRef_len data
+     * set rowreq_ctx->undo->brokerConnectionVhostRef from rowreq_ctx->data.brokerConnectionVhostRef
      */
-    memcpy(rowreq_ctx->undo->qpid010ConnectionVhostRef,
-           rowreq_ctx->data.qpid010ConnectionVhostRef,
-           (rowreq_ctx->data.qpid010ConnectionVhostRef_len *
-            sizeof(rowreq_ctx->undo->qpid010ConnectionVhostRef[0])));
-    rowreq_ctx->undo->qpid010ConnectionVhostRef_len =
-        rowreq_ctx->data.qpid010ConnectionVhostRef_len;
+    memcpy(rowreq_ctx->undo->brokerConnectionVhostRef,
+           rowreq_ctx->data.brokerConnectionVhostRef,
+           (rowreq_ctx->data.brokerConnectionVhostRef_len *
+            sizeof(rowreq_ctx->undo->brokerConnectionVhostRef[0])));
+    rowreq_ctx->undo->brokerConnectionVhostRef_len =
+        rowreq_ctx->data.brokerConnectionVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionVhostRef_undo_setup */
+}                               /* brokerConnectionVhostRef_undo_setup */
 
 /**
  * Set the new value.
@@ -542,37 +542,37 @@ qpid010ConnectionVhostRef_undo_setup(qpid010ConnectionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010ConnectionVhostRef_val_ptr
+ * @param brokerConnectionVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010ConnectionVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010ConnectionVhostRef_val_ptr
+ * @param brokerConnectionVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerConnectionVhostRef_val_ptr
  */
 int
-qpid010ConnectionVhostRef_set(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                             char *qpid010ConnectionVhostRef_val_ptr,
-                             size_t qpid010ConnectionVhostRef_val_ptr_len)
+brokerConnectionVhostRef_set(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                             char *brokerConnectionVhostRef_val_ptr,
+                             size_t brokerConnectionVhostRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionVhostRef_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionVhostRef_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010ConnectionVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionVhostRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010ConnectionVhostRef value.
-     * set qpid010ConnectionVhostRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerConnectionVhostRef value.
+     * set brokerConnectionVhostRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010ConnectionVhostRef,
-           qpid010ConnectionVhostRef_val_ptr,
-           qpid010ConnectionVhostRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerConnectionVhostRef,
+           brokerConnectionVhostRef_val_ptr,
+           brokerConnectionVhostRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010ConnectionVhostRef_len =
-        qpid010ConnectionVhostRef_val_ptr_len /
-        sizeof(qpid010ConnectionVhostRef_val_ptr[0]);
+    rowreq_ctx->data.brokerConnectionVhostRef_len =
+        brokerConnectionVhostRef_val_ptr_len /
+        sizeof(brokerConnectionVhostRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionVhostRef_set */
+}                               /* brokerConnectionVhostRef_set */
 
 /**
  * undo the previous set.
@@ -581,35 +581,35 @@ qpid010ConnectionVhostRef_set(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010ConnectionVhostRef_undo(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionVhostRef_undo(brokerConnectionTable_rowreq_ctx *
                               rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionVhostRef_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionVhostRef_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010ConnectionVhostRef undo.
+     * TODO:456:o: |-> Clean up brokerConnectionVhostRef undo.
      */
     /*
-     * copy qpid010ConnectionVhostRef and qpid010ConnectionVhostRef_len data
-     * set rowreq_ctx->data.qpid010ConnectionVhostRef from rowreq_ctx->undo->qpid010ConnectionVhostRef
+     * copy brokerConnectionVhostRef and brokerConnectionVhostRef_len data
+     * set rowreq_ctx->data.brokerConnectionVhostRef from rowreq_ctx->undo->brokerConnectionVhostRef
      */
-    memcpy(rowreq_ctx->data.qpid010ConnectionVhostRef,
-           rowreq_ctx->undo->qpid010ConnectionVhostRef,
-           (rowreq_ctx->undo->qpid010ConnectionVhostRef_len *
-            sizeof(rowreq_ctx->data.qpid010ConnectionVhostRef[0])));
-    rowreq_ctx->data.qpid010ConnectionVhostRef_len =
-        rowreq_ctx->undo->qpid010ConnectionVhostRef_len;
+    memcpy(rowreq_ctx->data.brokerConnectionVhostRef,
+           rowreq_ctx->undo->brokerConnectionVhostRef,
+           (rowreq_ctx->undo->brokerConnectionVhostRef_len *
+            sizeof(rowreq_ctx->data.brokerConnectionVhostRef[0])));
+    rowreq_ctx->data.brokerConnectionVhostRef_len =
+        rowreq_ctx->undo->brokerConnectionVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionVhostRef_undo */
+}                               /* brokerConnectionVhostRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionAddress
- * qpid010ConnectionAddress is subid 2 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionAddress
+ * brokerConnectionAddress is subid 2 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.2
  * Description:
@@ -633,10 +633,10 @@ Connection address
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionAddress_val_ptr
+ * @param brokerConnectionAddress_val_ptr
  *        A char containing the new value.
- * @param qpid010ConnectionAddress_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010ConnectionAddress_val_ptr
+ * @param brokerConnectionAddress_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerConnectionAddress_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -659,47 +659,47 @@ Connection address
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010ConnectionTable_check_dependencies() function.
+ * brokerConnectionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010ConnectionAddress).
+ *    The length is < sizeof(rowreq_ctx->data.brokerConnectionAddress).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010ConnectionAddress_check_value(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionAddress_check_value(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    char *qpid010ConnectionAddress_val_ptr,
+                                    char *brokerConnectionAddress_val_ptr,
                                     size_t
-                                    qpid010ConnectionAddress_val_ptr_len)
+                                    brokerConnectionAddress_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionAddress_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionAddress_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010ConnectionAddress_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionAddress_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010ConnectionAddress value.
+     * TODO:441:o: |-> Check for valid brokerConnectionAddress value.
      */
 
-    return MFD_SUCCESS;         /* qpid010ConnectionAddress value not illegal */
-}                               /* qpid010ConnectionAddress_check_value */
+    return MFD_SUCCESS;         /* brokerConnectionAddress value not illegal */
+}                               /* brokerConnectionAddress_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ConnectionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerConnectionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010ConnectionTable_undo_setup has been called.
+ * brokerConnectionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -709,31 +709,31 @@ qpid010ConnectionAddress_check_value(qpid010ConnectionTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010ConnectionAddress_undo_setup(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionAddress_undo_setup(brokerConnectionTable_rowreq_ctx *
                                    rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionAddress_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionAddress_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010ConnectionAddress undo.
+     * TODO:455:o: |-> Setup brokerConnectionAddress undo.
      */
     /*
-     * copy qpid010ConnectionAddress and qpid010ConnectionAddress_len data
-     * set rowreq_ctx->undo->qpid010ConnectionAddress from rowreq_ctx->data.qpid010ConnectionAddress
+     * copy brokerConnectionAddress and brokerConnectionAddress_len data
+     * set rowreq_ctx->undo->brokerConnectionAddress from rowreq_ctx->data.brokerConnectionAddress
      */
-    memcpy(rowreq_ctx->undo->qpid010ConnectionAddress,
-           rowreq_ctx->data.qpid010ConnectionAddress,
-           (rowreq_ctx->data.qpid010ConnectionAddress_len *
-            sizeof(rowreq_ctx->undo->qpid010ConnectionAddress[0])));
-    rowreq_ctx->undo->qpid010ConnectionAddress_len =
-        rowreq_ctx->data.qpid010ConnectionAddress_len;
+    memcpy(rowreq_ctx->undo->brokerConnectionAddress,
+           rowreq_ctx->data.brokerConnectionAddress,
+           (rowreq_ctx->data.brokerConnectionAddress_len *
+            sizeof(rowreq_ctx->undo->brokerConnectionAddress[0])));
+    rowreq_ctx->undo->brokerConnectionAddress_len =
+        rowreq_ctx->data.brokerConnectionAddress_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionAddress_undo_setup */
+}                               /* brokerConnectionAddress_undo_setup */
 
 /**
  * Set the new value.
@@ -741,37 +741,37 @@ qpid010ConnectionAddress_undo_setup(qpid010ConnectionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010ConnectionAddress_val_ptr
+ * @param brokerConnectionAddress_val_ptr
  *        A char containing the new value.
- * @param qpid010ConnectionAddress_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010ConnectionAddress_val_ptr
+ * @param brokerConnectionAddress_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerConnectionAddress_val_ptr
  */
 int
-qpid010ConnectionAddress_set(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                            char *qpid010ConnectionAddress_val_ptr,
-                            size_t qpid010ConnectionAddress_val_ptr_len)
+brokerConnectionAddress_set(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                            char *brokerConnectionAddress_val_ptr,
+                            size_t brokerConnectionAddress_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionAddress_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionAddress_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010ConnectionAddress_val_ptr);
+    netsnmp_assert(NULL != brokerConnectionAddress_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010ConnectionAddress value.
-     * set qpid010ConnectionAddress value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerConnectionAddress value.
+     * set brokerConnectionAddress value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010ConnectionAddress,
-           qpid010ConnectionAddress_val_ptr,
-           qpid010ConnectionAddress_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerConnectionAddress,
+           brokerConnectionAddress_val_ptr,
+           brokerConnectionAddress_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010ConnectionAddress_len =
-        qpid010ConnectionAddress_val_ptr_len /
-        sizeof(qpid010ConnectionAddress_val_ptr[0]);
+    rowreq_ctx->data.brokerConnectionAddress_len =
+        brokerConnectionAddress_val_ptr_len /
+        sizeof(brokerConnectionAddress_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionAddress_set */
+}                               /* brokerConnectionAddress_set */
 
 /**
  * undo the previous set.
@@ -780,34 +780,34 @@ qpid010ConnectionAddress_set(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010ConnectionAddress_undo(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
+brokerConnectionAddress_undo(brokerConnectionTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionAddress_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionAddress_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010ConnectionAddress undo.
+     * TODO:456:o: |-> Clean up brokerConnectionAddress undo.
      */
     /*
-     * copy qpid010ConnectionAddress and qpid010ConnectionAddress_len data
-     * set rowreq_ctx->data.qpid010ConnectionAddress from rowreq_ctx->undo->qpid010ConnectionAddress
+     * copy brokerConnectionAddress and brokerConnectionAddress_len data
+     * set rowreq_ctx->data.brokerConnectionAddress from rowreq_ctx->undo->brokerConnectionAddress
      */
-    memcpy(rowreq_ctx->data.qpid010ConnectionAddress,
-           rowreq_ctx->undo->qpid010ConnectionAddress,
-           (rowreq_ctx->undo->qpid010ConnectionAddress_len *
-            sizeof(rowreq_ctx->data.qpid010ConnectionAddress[0])));
-    rowreq_ctx->data.qpid010ConnectionAddress_len =
-        rowreq_ctx->undo->qpid010ConnectionAddress_len;
+    memcpy(rowreq_ctx->data.brokerConnectionAddress,
+           rowreq_ctx->undo->brokerConnectionAddress,
+           (rowreq_ctx->undo->brokerConnectionAddress_len *
+            sizeof(rowreq_ctx->data.brokerConnectionAddress[0])));
+    rowreq_ctx->data.brokerConnectionAddress_len =
+        rowreq_ctx->undo->brokerConnectionAddress_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionAddress_undo */
+}                               /* brokerConnectionAddress_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionIncoming
- * qpid010ConnectionIncoming is subid 3 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionIncoming
+ * brokerConnectionIncoming is subid 3 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.3
  * Description:
@@ -829,7 +829,7 @@ Connection incoming
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionIncoming_val
+ * @param brokerConnectionIncoming_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -853,7 +853,7 @@ Connection incoming
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010ConnectionTable_check_dependencies() function.
+ * brokerConnectionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -863,33 +863,33 @@ Connection incoming
  *
  */
 int
-qpid010ConnectionIncoming_check_value(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionIncoming_check_value(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx,
-                                     u_long qpid010ConnectionIncoming_val)
+                                     u_long brokerConnectionIncoming_val)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionIncoming_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionIncoming_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010ConnectionIncoming value.
+     * TODO:441:o: |-> Check for valid brokerConnectionIncoming value.
      */
 
-    return MFD_SUCCESS;         /* qpid010ConnectionIncoming value not illegal */
-}                               /* qpid010ConnectionIncoming_check_value */
+    return MFD_SUCCESS;         /* brokerConnectionIncoming value not illegal */
+}                               /* brokerConnectionIncoming_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ConnectionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerConnectionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010ConnectionTable_undo_setup has been called.
+ * brokerConnectionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -899,27 +899,27 @@ qpid010ConnectionIncoming_check_value(qpid010ConnectionTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010ConnectionIncoming_undo_setup(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionIncoming_undo_setup(brokerConnectionTable_rowreq_ctx *
                                     rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionIncoming_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionIncoming_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010ConnectionIncoming undo.
+     * TODO:455:o: |-> Setup brokerConnectionIncoming undo.
      */
     /*
-     * copy qpid010ConnectionIncoming data
-     * set rowreq_ctx->undo->qpid010ConnectionIncoming from rowreq_ctx->data.qpid010ConnectionIncoming
+     * copy brokerConnectionIncoming data
+     * set rowreq_ctx->undo->brokerConnectionIncoming from rowreq_ctx->data.brokerConnectionIncoming
      */
-    rowreq_ctx->undo->qpid010ConnectionIncoming =
-        rowreq_ctx->data.qpid010ConnectionIncoming;
+    rowreq_ctx->undo->brokerConnectionIncoming =
+        rowreq_ctx->data.brokerConnectionIncoming;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionIncoming_undo_setup */
+}                               /* brokerConnectionIncoming_undo_setup */
 
 /**
  * Set the new value.
@@ -927,28 +927,28 @@ qpid010ConnectionIncoming_undo_setup(qpid010ConnectionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010ConnectionIncoming_val
+ * @param brokerConnectionIncoming_val
  *        A long containing the new value.
  */
 int
-qpid010ConnectionIncoming_set(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-                             u_long qpid010ConnectionIncoming_val)
+brokerConnectionIncoming_set(brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+                             u_long brokerConnectionIncoming_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionIncoming_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionIncoming_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010ConnectionIncoming value.
-     * set qpid010ConnectionIncoming value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerConnectionIncoming value.
+     * set brokerConnectionIncoming value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010ConnectionIncoming =
-        qpid010ConnectionIncoming_val;
+    rowreq_ctx->data.brokerConnectionIncoming =
+        brokerConnectionIncoming_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionIncoming_set */
+}                               /* brokerConnectionIncoming_set */
 
 /**
  * undo the previous set.
@@ -957,31 +957,31 @@ qpid010ConnectionIncoming_set(qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010ConnectionIncoming_undo(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionIncoming_undo(brokerConnectionTable_rowreq_ctx *
                               rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionIncoming_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionIncoming_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010ConnectionIncoming undo.
+     * TODO:456:o: |-> Clean up brokerConnectionIncoming undo.
      */
     /*
-     * copy qpid010ConnectionIncoming data
-     * set rowreq_ctx->data.qpid010ConnectionIncoming from rowreq_ctx->undo->qpid010ConnectionIncoming
+     * copy brokerConnectionIncoming data
+     * set rowreq_ctx->data.brokerConnectionIncoming from rowreq_ctx->undo->brokerConnectionIncoming
      */
-    rowreq_ctx->data.qpid010ConnectionIncoming =
-        rowreq_ctx->undo->qpid010ConnectionIncoming;
+    rowreq_ctx->data.brokerConnectionIncoming =
+        rowreq_ctx->undo->brokerConnectionIncoming;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionIncoming_undo */
+}                               /* brokerConnectionIncoming_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ConnectionEntry.qpid010ConnectionSystemConnection
- * qpid010ConnectionSystemConnection is subid 4 of qpid010ConnectionEntry.
+ * QPID-MESSAGING-MIB::brokerConnectionEntry.brokerConnectionSystemConnection
+ * brokerConnectionSystemConnection is subid 4 of brokerConnectionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.10.1.1.4
  * Description:
@@ -1003,7 +1003,7 @@ Infrastructure/ Inter-system connection (Cluster, Federation, ...)
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ConnectionSystemConnection_val
+ * @param brokerConnectionSystemConnection_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -1027,7 +1027,7 @@ Infrastructure/ Inter-system connection (Cluster, Federation, ...)
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010ConnectionTable_check_dependencies() function.
+ * brokerConnectionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -1037,33 +1037,33 @@ Infrastructure/ Inter-system connection (Cluster, Federation, ...)
  *
  */
 int
-qpid010ConnectionSystemConnection_check_value
-    (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx,
-     u_long qpid010ConnectionSystemConnection_val)
+brokerConnectionSystemConnection_check_value
+    (brokerConnectionTable_rowreq_ctx * rowreq_ctx,
+     u_long brokerConnectionSystemConnection_val)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionSystemConnection_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionSystemConnection_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010ConnectionSystemConnection value.
+     * TODO:441:o: |-> Check for valid brokerConnectionSystemConnection value.
      */
 
-    return MFD_SUCCESS;         /* qpid010ConnectionSystemConnection value not illegal */
-}                               /* qpid010ConnectionSystemConnection_check_value */
+    return MFD_SUCCESS;         /* brokerConnectionSystemConnection value not illegal */
+}                               /* brokerConnectionSystemConnection_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ConnectionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerConnectionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010ConnectionTable_undo_setup has been called.
+ * brokerConnectionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1073,27 +1073,27 @@ qpid010ConnectionSystemConnection_check_value
  * won't be done unless it is necessary.
  */
 int
-qpid010ConnectionSystemConnection_undo_setup
-    (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx)
+brokerConnectionSystemConnection_undo_setup
+    (brokerConnectionTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionSystemConnection_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionSystemConnection_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010ConnectionSystemConnection undo.
+     * TODO:455:o: |-> Setup brokerConnectionSystemConnection undo.
      */
     /*
-     * copy qpid010ConnectionSystemConnection data
-     * set rowreq_ctx->undo->qpid010ConnectionSystemConnection from rowreq_ctx->data.qpid010ConnectionSystemConnection
+     * copy brokerConnectionSystemConnection data
+     * set rowreq_ctx->undo->brokerConnectionSystemConnection from rowreq_ctx->data.brokerConnectionSystemConnection
      */
-    rowreq_ctx->undo->qpid010ConnectionSystemConnection =
-        rowreq_ctx->data.qpid010ConnectionSystemConnection;
+    rowreq_ctx->undo->brokerConnectionSystemConnection =
+        rowreq_ctx->data.brokerConnectionSystemConnection;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionSystemConnection_undo_setup */
+}                               /* brokerConnectionSystemConnection_undo_setup */
 
 /**
  * Set the new value.
@@ -1101,30 +1101,30 @@ qpid010ConnectionSystemConnection_undo_setup
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010ConnectionSystemConnection_val
+ * @param brokerConnectionSystemConnection_val
  *        A long containing the new value.
  */
 int
-qpid010ConnectionSystemConnection_set(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionSystemConnection_set(brokerConnectionTable_rowreq_ctx *
                                      rowreq_ctx,
                                      u_long
-                                     qpid010ConnectionSystemConnection_val)
+                                     brokerConnectionSystemConnection_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionSystemConnection_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionSystemConnection_set", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010ConnectionSystemConnection value.
-     * set qpid010ConnectionSystemConnection value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerConnectionSystemConnection value.
+     * set brokerConnectionSystemConnection value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010ConnectionSystemConnection =
-        qpid010ConnectionSystemConnection_val;
+    rowreq_ctx->data.brokerConnectionSystemConnection =
+        brokerConnectionSystemConnection_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionSystemConnection_set */
+}                               /* brokerConnectionSystemConnection_set */
 
 /**
  * undo the previous set.
@@ -1133,27 +1133,27 @@ qpid010ConnectionSystemConnection_set(qpid010ConnectionTable_rowreq_ctx *
  *        Pointer to the users context.
  */
 int
-qpid010ConnectionSystemConnection_undo(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionSystemConnection_undo(brokerConnectionTable_rowreq_ctx *
                                       rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ConnectionTable:qpid010ConnectionSystemConnection_undo", "called\n"));
+    DEBUGMSGTL(("verbose:brokerConnectionTable:brokerConnectionSystemConnection_undo", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010ConnectionSystemConnection undo.
+     * TODO:456:o: |-> Clean up brokerConnectionSystemConnection undo.
      */
     /*
-     * copy qpid010ConnectionSystemConnection data
-     * set rowreq_ctx->data.qpid010ConnectionSystemConnection from rowreq_ctx->undo->qpid010ConnectionSystemConnection
+     * copy brokerConnectionSystemConnection data
+     * set rowreq_ctx->data.brokerConnectionSystemConnection from rowreq_ctx->undo->brokerConnectionSystemConnection
      */
-    rowreq_ctx->data.qpid010ConnectionSystemConnection =
-        rowreq_ctx->undo->qpid010ConnectionSystemConnection;
+    rowreq_ctx->data.brokerConnectionSystemConnection =
+        rowreq_ctx->undo->brokerConnectionSystemConnection;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ConnectionSystemConnection_undo */
+}                               /* brokerConnectionSystemConnection_undo */
 
 /**
  * check dependencies
@@ -1165,29 +1165,29 @@ qpid010ConnectionSystemConnection_undo(qpid010ConnectionTable_rowreq_ctx *
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010ConnectionTable_oids.h.
+ * brokerConnectionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010ConnectionTable if you don't have dependencies)
+ * (see README-table-brokerConnectionTable if you don't have dependencies)
  */
 int
-qpid010ConnectionTable_check_dependencies(qpid010ConnectionTable_rowreq_ctx *
+brokerConnectionTable_check_dependencies(brokerConnectionTable_rowreq_ctx *
                                          rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010ConnectionTable:qpid010ConnectionTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerConnectionTable:brokerConnectionTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010ConnectionTable row dependencies.
+     * TODO:470:o: Check brokerConnectionTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010ConnectionTable_check_dependencies */
+}                               /* brokerConnectionTable_check_dependencies */
 
 /** @} */

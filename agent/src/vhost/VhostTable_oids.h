@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010VHOSTTABLE_OIDS_H
-#define qpid010VHOSTTABLE_OIDS_H
+#ifndef brokerVHOSTTABLE_OIDS_H
+#define brokerVHOSTTABLE_OIDS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -13,33 +13,33 @@ extern          "C" {
 
 
     /*
-     * column number definitions for table qpid010VhostTable 
+     * column number definitions for table brokerVhostTable 
      */
-#define qpid010VHOSTTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,5,1
+#define brokerVHOSTTABLE_OID              1,3,6,1,4,1,18060,5672,1,5,1
 
 
-#define COLUMN_qpid010VHOSTBROKERREF         1
-#define COLUMN_qpid010VHOSTBROKERREF_FLAG    (0x1 << 0)
+#define COLUMN_brokerVHOSTBROKERREF         1
+#define COLUMN_brokerVHOSTBROKERREF_FLAG    (0x1 << 0)
 
-#define COLUMN_qpid010VHOSTNAME         2
-#define COLUMN_qpid010VHOSTNAME_FLAG    (0x1 << 1)
+#define COLUMN_brokerVHOSTNAME         2
+#define COLUMN_brokerVHOSTNAME_FLAG    (0x1 << 1)
 
-#define COLUMN_qpid010VHOSTFEDERATIONTAG         3
+#define COLUMN_brokerVHOSTFEDERATIONTAG         3
 
-#define COLUMN_qpid010VHOSTINTERNALINDEX         4
+#define COLUMN_brokerVHOSTINTERNALINDEX         4
 
 
-#define qpid010VHOSTTABLE_MIN_COL   COLUMN_qpid010VHOSTBROKERREF
-#define qpid010VHOSTTABLE_MAX_COL   COLUMN_qpid010VHOSTFEDERATIONTAG
+#define brokerVHOSTTABLE_MIN_COL   COLUMN_brokerVHOSTBROKERREF
+#define brokerVHOSTTABLE_MAX_COL   COLUMN_brokerVHOSTFEDERATIONTAG
 
 
     /*
-     * TODO:405:r: Review qpid010VHOSTTABLE_SETTABLE_COLS macro.
+     * TODO:405:r: Review brokerVHOSTTABLE_SETTABLE_COLS macro.
      * OR together all the writable cols.
      */
-#define qpid010VHOSTTABLE_SETTABLE_COLS (COLUMN_qpid010VHOSTBROKERREF_FLAG | COLUMN_qpid010VHOSTNAME_FLAG)
+#define brokerVHOSTTABLE_SETTABLE_COLS (COLUMN_brokerVHOSTBROKERREF_FLAG | COLUMN_brokerVHOSTNAME_FLAG)
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010VHOSTTABLE_OIDS_H */
+#endif                          /* brokerVHOSTTABLE_OIDS_H */

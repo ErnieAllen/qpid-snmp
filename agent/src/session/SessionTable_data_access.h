@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010SESSIONTABLE_DATA_ACCESS_H
-#define qpid010SESSIONTABLE_DATA_ACCESS_H
+#ifndef brokerSESSIONTABLE_DATA_ACCESS_H
+#define brokerSESSIONTABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -24,43 +24,43 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SessionTable
+ *** Table brokerSessionTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
+     * QPID-MESSAGING-MIB::brokerSessionTable is subid 1 of brokerSessions.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
      */
 
 
     int            
-        qpid010SessionTable_init_data(qpid010SessionTable_registration *
-                                     qpid010SessionTable_reg);
+        brokerSessionTable_init_data(brokerSessionTable_registration *
+                                     brokerSessionTable_reg);
 
 
     /*
-     * TODO:180:o: Review qpid010SessionTable cache timeout.
+     * TODO:180:o: Review brokerSessionTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define qpid010SESSIONTABLE_CACHE_TIMEOUT   60
+#define brokerSESSIONTABLE_CACHE_TIMEOUT   60
 
-    void            qpid010SessionTable_container_init(netsnmp_container **
+    void            brokerSessionTable_container_init(netsnmp_container **
                                                       container_ptr_ptr,
                                                       netsnmp_cache *
                                                       cache);
-    void            qpid010SessionTable_container_shutdown(netsnmp_container
+    void            brokerSessionTable_container_shutdown(netsnmp_container
                                                           * container_ptr);
 
-    int             qpid010SessionTable_container_load(netsnmp_container *
+    int             brokerSessionTable_container_load(netsnmp_container *
                                                       container);
-    void            qpid010SessionTable_container_free(netsnmp_container *
+    void            brokerSessionTable_container_free(netsnmp_container *
                                                       container);
 
-    int             qpid010SessionTable_cache_load(netsnmp_container *
+    int             brokerSessionTable_cache_load(netsnmp_container *
                                                   container);
-    void            qpid010SessionTable_cache_free(netsnmp_container *
+    void            brokerSessionTable_cache_free(netsnmp_container *
                                                   container);
 
     /*
@@ -78,18 +78,18 @@ extern          "C" {
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
     int            
-        qpid010SessionTable_row_prep(qpid010SessionTable_rowreq_ctx *
+        brokerSessionTable_row_prep(brokerSessionTable_rowreq_ctx *
                                     rowreq_ctx);
 
     int            
-        qpid010SessionTable_validate_index(qpid010SessionTable_registration *
-                                          qpid010SessionTable_reg,
-                                          qpid010SessionTable_rowreq_ctx *
+        brokerSessionTable_validate_index(brokerSessionTable_registration *
+                                          brokerSessionTable_reg,
+                                          brokerSessionTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010SessionInternalIndex_check_index(qpid010SessionTable_rowreq_ctx * rowreq_ctx); /* internal */
+    int             brokerSessionInternalIndex_check_index(brokerSessionTable_rowreq_ctx * rowreq_ctx); /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SESSIONTABLE_DATA_ACCESS_H */
+#endif                          /* brokerSESSIONTABLE_DATA_ACCESS_H */

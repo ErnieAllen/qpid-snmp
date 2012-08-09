@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef qpid010CONNECTIONTABLE_INTERFACE_H
-#define qpid010CONNECTIONTABLE_INTERFACE_H
+#ifndef brokerCONNECTIONTABLE_INTERFACE_H
+#define brokerCONNECTIONTABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,38 +53,38 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010ConnectionTable_initialize_interface
-        (qpid010ConnectionTable_registration * user_ctx, u_long flags);
+        _brokerConnectionTable_initialize_interface
+        (brokerConnectionTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010ConnectionTable_shutdown_interface
-        (qpid010ConnectionTable_registration * user_ctx);
+        _brokerConnectionTable_shutdown_interface
+        (brokerConnectionTable_registration * user_ctx);
 
-    qpid010ConnectionTable_registration
-        *qpid010ConnectionTable_registration_get(void);
+    brokerConnectionTable_registration
+        *brokerConnectionTable_registration_get(void);
 
-    qpid010ConnectionTable_registration
-        *qpid010ConnectionTable_registration_set
-        (qpid010ConnectionTable_registration * newreg);
+    brokerConnectionTable_registration
+        *brokerConnectionTable_registration_set
+        (brokerConnectionTable_registration * newreg);
 
-    netsnmp_container *qpid010ConnectionTable_container_get(void);
-    int             qpid010ConnectionTable_container_size(void);
+    netsnmp_container *brokerConnectionTable_container_get(void);
+    int             brokerConnectionTable_container_size(void);
 
-    u_int           qpid010ConnectionTable_dirty_get(void);
-    void            qpid010ConnectionTable_dirty_set(u_int status);
+    u_int           brokerConnectionTable_dirty_get(void);
+    void            brokerConnectionTable_dirty_set(u_int status);
 
-    qpid010ConnectionTable_rowreq_ctx
-        *qpid010ConnectionTable_allocate_rowreq_ctx(void *);
+    brokerConnectionTable_rowreq_ctx
+        *brokerConnectionTable_allocate_rowreq_ctx(void *);
     void           
-        qpid010ConnectionTable_release_rowreq_ctx
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionTable_release_rowreq_ctx
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
-    int             qpid010ConnectionTable_index_to_oid(netsnmp_index *
+    int             brokerConnectionTable_index_to_oid(netsnmp_index *
                                                        oid_idx,
-                                                       qpid010ConnectionTable_mib_index
+                                                       brokerConnectionTable_mib_index
                                                        * mib_idx);
-    int             qpid010ConnectionTable_index_from_oid(netsnmp_index *
+    int             brokerConnectionTable_index_from_oid(netsnmp_index *
                                                          oid_idx,
-                                                         qpid010ConnectionTable_mib_index
+                                                         brokerConnectionTable_mib_index
                                                          * mib_idx);
 
     /*
@@ -97,22 +97,22 @@ extern          "C" {
 #define LINE_TERM_CHAR '$'
 
     void           
-        qpid010ConnectionTable_container_init_persistence(netsnmp_container
+        brokerConnectionTable_container_init_persistence(netsnmp_container
                                                          * container);
     int            
-        qpid010ConnectionTable_container_should_save
-        (qpid010ConnectionTable_rowreq_ctx * rowreq_ctx);
+        brokerConnectionTable_container_should_save
+        (brokerConnectionTable_rowreq_ctx * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
     void           
-        qpid010ConnectionTable_valid_columns_set(netsnmp_column_info *vc);
+        brokerConnectionTable_valid_columns_set(netsnmp_column_info *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010CONNECTIONTABLE_INTERFACE_H */
+#endif                          /* brokerCONNECTIONTABLE_INTERFACE_H */
 /** @} */

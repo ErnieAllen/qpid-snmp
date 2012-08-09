@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010BRIDGETABLE_H
-#define qpid010BRIDGETABLE_H
+#ifndef brokerBRIDGETABLE_H
+#define brokerBRIDGETABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerBridgeTable/brokerBridgeTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerBridgeTable/brokerBridgeTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerBridgeTable/brokerBridgeTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerBridgeTable/brokerBridgeTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010BridgeTable 
+     * OID and column number definitions for brokerBridgeTable 
      */
 #include "BridgeTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_data_set)
      * function declarations
      */
     void            init_BridgeTable(void);
-    void            shutdown_qpid010BridgeTable(void);
+    void            shutdown_brokerBridgeTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_data_set)
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BridgeTable
+ *** Table brokerBridgeTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
+     * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
      */
@@ -71,137 +71,137 @@ config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_data_set)
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010BridgeTable registration context.
+     * TODO:101:o: |-> Review brokerBridgeTable registration context.
      */
-    typedef netsnmp_data_list qpid010BridgeTable_registration;
+    typedef netsnmp_data_list brokerBridgeTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010BridgeTable data context structure.
-     * This structure is used to represent the data for qpid010BridgeTable.
+     * TODO:110:r: |-> Review brokerBridgeTable data context structure.
+     * This structure is used to represent the data for brokerBridgeTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010BridgeTable.
+     * brokerBridgeTable.
      */
-    typedef struct qpid010BridgeTable_data_s {
+    typedef struct brokerBridgeTable_data_s {
 
         /*
-         * qpid010BridgeLinkRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeLinkRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BridgeLinkRef[255];
-        size_t          qpid010BridgeLinkRef_len;        /* # of char elements, not bytes */
+        char            brokerBridgeLinkRef[255];
+        size_t          brokerBridgeLinkRef_len;        /* # of char elements, not bytes */
 
         /*
-         * qpid010BridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
          */
-        long            qpid010BridgeChannelId;
+        long            brokerBridgeChannelId;
 
         /*
-         * qpid010BridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010BridgeDurable;
+        u_long          brokerBridgeDurable;
 
         /*
-         * qpid010BridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BridgeSrc[255];
-        size_t          qpid010BridgeSrc_len;    /* # of char elements, not bytes */
+        char            brokerBridgeSrc[255];
+        size_t          brokerBridgeSrc_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010BridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BridgeDest[255];
-        size_t          qpid010BridgeDest_len;   /* # of char elements, not bytes */
+        char            brokerBridgeDest[255];
+        size_t          brokerBridgeDest_len;   /* # of char elements, not bytes */
 
         /*
-         * qpid010BridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BridgeKey[65535];
-        size_t          qpid010BridgeKey_len;    /* # of char elements, not bytes */
+        char            brokerBridgeKey[65535];
+        size_t          brokerBridgeKey_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010BridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010BridgeSrcIsQueue;
+        u_long          brokerBridgeSrcIsQueue;
 
         /*
-         * qpid010BridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010BridgeSrcIsLocal;
+        u_long          brokerBridgeSrcIsLocal;
 
         /*
-         * qpid010BridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BridgeTag[255];
-        size_t          qpid010BridgeTag_len;    /* # of char elements, not bytes */
+        char            brokerBridgeTag[255];
+        size_t          brokerBridgeTag_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010BridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010BridgeExcludes[255];
-        size_t          qpid010BridgeExcludes_len;       /* # of char elements, not bytes */
+        char            brokerBridgeExcludes[255];
+        size_t          brokerBridgeExcludes_len;       /* # of char elements, not bytes */
 
         /*
-         * qpid010BridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010BridgeDynamic;
+        u_long          brokerBridgeDynamic;
 
         /*
-         * qpid010BridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * brokerBridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
          */
-        long            qpid010BridgeSync;
+        long            brokerBridgeSync;
 
-    } qpid010BridgeTable_data;
+    } brokerBridgeTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010BridgeTable undo context.
+     * TODO:115:o: |-> Review brokerBridgeTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010BridgeTable_data qpid010BridgeTable_undo_data;
+    typedef brokerBridgeTable_data brokerBridgeTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010BridgeTable mib index.
-     * This structure is used to represent the index for qpid010BridgeTable.
+     * TODO:120:r: |-> Review brokerBridgeTable mib index.
+     * This structure is used to represent the index for brokerBridgeTable.
      */
-    typedef struct qpid010BridgeTable_mib_index_s {
+    typedef struct brokerBridgeTable_mib_index_s {
 
         /*
-         * qpid010BridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010BridgeInternalIndex;
+        u_long          brokerBridgeInternalIndex;
 
 
-    } qpid010BridgeTable_mib_index;
+    } brokerBridgeTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010BridgeTable max index length.
+     * TODO:121:r: |   |-> Review brokerBridgeTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010BridgeTable_IDX_LEN     1
+#define MAX_brokerBridgeTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010BridgeTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerBridgeTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010BridgeTable_rowreq_ctx pointer.
+     * brokerBridgeTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010BridgeTable_rowreq_ctx_s {
+    typedef struct brokerBridgeTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010BridgeTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerBridgeTable_IDX_LEN];
 
-        qpid010BridgeTable_mib_index tbl_idx;
+        brokerBridgeTable_mib_index tbl_idx;
 
-        qpid010BridgeTable_data data;
-        qpid010BridgeTable_undo_data *undo;
+        brokerBridgeTable_data data;
+        brokerBridgeTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -212,50 +212,50 @@ config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_data_set)
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010BridgeTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerBridgeTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010BridgeTable_data_list;
+        netsnmp_data_list *brokerBridgeTable_data_list;
 
-    } qpid010BridgeTable_rowreq_ctx;
+    } brokerBridgeTable_rowreq_ctx;
 
-    typedef struct qpid010BridgeTable_ref_rowreq_ctx_s {
-        qpid010BridgeTable_rowreq_ctx *rowreq_ctx;
-    } qpid010BridgeTable_ref_rowreq_ctx;
+    typedef struct brokerBridgeTable_ref_rowreq_ctx_s {
+        brokerBridgeTable_rowreq_ctx *rowreq_ctx;
+    } brokerBridgeTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010BridgeTable_pre_request(qpid010BridgeTable_registration *
+        brokerBridgeTable_pre_request(brokerBridgeTable_registration *
                                       user_context);
     int            
-        qpid010BridgeTable_post_request(qpid010BridgeTable_registration *
+        brokerBridgeTable_post_request(brokerBridgeTable_registration *
                                        user_context, int rc);
 
     int            
-        qpid010BridgeTable_rowreq_ctx_init(qpid010BridgeTable_rowreq_ctx *
+        brokerBridgeTable_rowreq_ctx_init(brokerBridgeTable_rowreq_ctx *
                                           rowreq_ctx, void *user_init_ctx);
     void           
-        qpid010BridgeTable_rowreq_ctx_cleanup(qpid010BridgeTable_rowreq_ctx *
+        brokerBridgeTable_rowreq_ctx_cleanup(brokerBridgeTable_rowreq_ctx *
                                              rowreq_ctx);
 
     int            
-        qpid010BridgeTable_check_dependencies(qpid010BridgeTable_rowreq_ctx *
+        brokerBridgeTable_check_dependencies(brokerBridgeTable_rowreq_ctx *
                                              rowreq_ctx);
-    int             qpid010BridgeTable_commit(qpid010BridgeTable_rowreq_ctx *
+    int             brokerBridgeTable_commit(brokerBridgeTable_rowreq_ctx *
                                              rowreq_ctx);
 
-    qpid010BridgeTable_rowreq_ctx
-        *qpid010BridgeTable_row_find_by_mib_index
-        (qpid010BridgeTable_mib_index * mib_idx);
+    brokerBridgeTable_rowreq_ctx
+        *brokerBridgeTable_row_find_by_mib_index
+        (brokerBridgeTable_mib_index * mib_idx);
 
-    extern const oid qpid010BridgeTable_oid[];
-    extern const int qpid010BridgeTable_oid_size;
+    extern const oid brokerBridgeTable_oid[];
+    extern const int brokerBridgeTable_oid_size;
 
 
 #include "BridgeTable_interface.h"
@@ -276,5 +276,5 @@ config_require(MRG-MESSAGING-MIB/qpid010BridgeTable/qpid010BridgeTable_data_set)
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BRIDGETABLE_H */
+#endif                          /* brokerBRIDGETABLE_H */
 /** @} */

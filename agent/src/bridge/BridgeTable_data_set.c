@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BridgeTable
+ *** Table brokerBridgeTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
+ * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010BridgeTable_allocate_data(), but may need extra
+ * brokerBridgeTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010BridgeTable_rowreq_ctx_init().
+ * brokerBridgeTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,30 +125,30 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010BridgeTable_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTable_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_undo_setup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010BridgeTable undo.
-     * set up qpid010BridgeTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010BridgeSync_val_ptr )*
+     * TODO:451:M: |-> Setup brokerBridgeTable undo.
+     * set up brokerBridgeTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerBridgeSync_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010BridgeTable_undo_setup */
+}                               /* brokerBridgeTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -165,30 +165,30 @@ qpid010BridgeTable_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010BridgeTable_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTable_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_undo",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010BridgeTable undo.
-     * qpid010BridgeTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010BridgeSync_val_ptr )*
+     * TODO:451:M: |-> brokerBridgeTable undo.
+     * brokerBridgeTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerBridgeSync_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010BridgeTable_undo_setup */
+}                               /* brokerBridgeTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -202,29 +202,29 @@ qpid010BridgeTable_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010BridgeTable_undo_cleanup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTable_undo_cleanup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_undo_cleanup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_undo_cleanup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010BridgeTable undo.
-     * Undo storage is in (* qpid010BridgeSync_val_ptr )*
+     * TODO:452:M: |-> Cleanup brokerBridgeTable undo.
+     * Undo storage is in (* brokerBridgeSync_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010BridgeTable_undo_cleanup */
+}                               /* brokerBridgeTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -235,22 +235,22 @@ qpid010BridgeTable_undo_cleanup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010BridgeTable_oids.h.
+ * brokerBridgeTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010BridgeTable_rowreq_ctx
+ * @param brokerBridgeTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010BridgeTable_commit(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTable_commit(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_commit",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
@@ -263,220 +263,220 @@ qpid010BridgeTable_commit(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010BridgeTable data
+     * commit brokerBridgeTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010BRIDGELINKREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGELINKREF_FLAG; /* clear qpid010BridgeLinkRef */
+    if (save_flags & COLUMN_brokerBRIDGELINKREF_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGELINKREF_FLAG; /* clear brokerBridgeLinkRef */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeLinkRef.
+         * TODO:482:o: |-> commit column brokerBridgeLinkRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeLinkRef commit failed\n");
+                     "brokerBridgeTable column brokerBridgeLinkRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeLinkRef
+             * set flag, in case we need to undo brokerBridgeLinkRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BRIDGELINKREF_FLAG;
+                COLUMN_brokerBRIDGELINKREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGECHANNELID_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGECHANNELID_FLAG;       /* clear qpid010BridgeChannelId */
+    if (save_flags & COLUMN_brokerBRIDGECHANNELID_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGECHANNELID_FLAG;       /* clear brokerBridgeChannelId */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeChannelId.
+         * TODO:482:o: |-> commit column brokerBridgeChannelId.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeChannelId commit failed\n");
+                     "brokerBridgeTable column brokerBridgeChannelId commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeChannelId
+             * set flag, in case we need to undo brokerBridgeChannelId
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BRIDGECHANNELID_FLAG;
+                COLUMN_brokerBRIDGECHANNELID_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGEDURABLE_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGEDURABLE_FLAG; /* clear qpid010BridgeDurable */
+    if (save_flags & COLUMN_brokerBRIDGEDURABLE_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGEDURABLE_FLAG; /* clear brokerBridgeDurable */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeDurable.
+         * TODO:482:o: |-> commit column brokerBridgeDurable.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeDurable commit failed\n");
+                     "brokerBridgeTable column brokerBridgeDurable commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeDurable
+             * set flag, in case we need to undo brokerBridgeDurable
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BRIDGEDURABLE_FLAG;
+                COLUMN_brokerBRIDGEDURABLE_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGESRC_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGESRC_FLAG;     /* clear qpid010BridgeSrc */
+    if (save_flags & COLUMN_brokerBRIDGESRC_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGESRC_FLAG;     /* clear brokerBridgeSrc */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeSrc.
+         * TODO:482:o: |-> commit column brokerBridgeSrc.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeSrc commit failed\n");
+                     "brokerBridgeTable column brokerBridgeSrc commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeSrc
+             * set flag, in case we need to undo brokerBridgeSrc
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010BRIDGESRC_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESRC_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGEDEST_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGEDEST_FLAG;    /* clear qpid010BridgeDest */
+    if (save_flags & COLUMN_brokerBRIDGEDEST_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGEDEST_FLAG;    /* clear brokerBridgeDest */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeDest.
+         * TODO:482:o: |-> commit column brokerBridgeDest.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeDest commit failed\n");
+                     "brokerBridgeTable column brokerBridgeDest commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeDest
+             * set flag, in case we need to undo brokerBridgeDest
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010BRIDGEDEST_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEDEST_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGEKEY_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGEKEY_FLAG;     /* clear qpid010BridgeKey */
+    if (save_flags & COLUMN_brokerBRIDGEKEY_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGEKEY_FLAG;     /* clear brokerBridgeKey */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeKey.
+         * TODO:482:o: |-> commit column brokerBridgeKey.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeKey commit failed\n");
+                     "brokerBridgeTable column brokerBridgeKey commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeKey
+             * set flag, in case we need to undo brokerBridgeKey
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010BRIDGEKEY_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEKEY_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGESRCISQUEUE_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGESRCISQUEUE_FLAG;      /* clear qpid010BridgeSrcIsQueue */
+    if (save_flags & COLUMN_brokerBRIDGESRCISQUEUE_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGESRCISQUEUE_FLAG;      /* clear brokerBridgeSrcIsQueue */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeSrcIsQueue.
+         * TODO:482:o: |-> commit column brokerBridgeSrcIsQueue.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeSrcIsQueue commit failed\n");
+                     "brokerBridgeTable column brokerBridgeSrcIsQueue commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeSrcIsQueue
-             */
-            rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BRIDGESRCISQUEUE_FLAG;
-        }
-    }
-
-    if (save_flags & COLUMN_qpid010BRIDGESRCISLOCAL_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGESRCISLOCAL_FLAG;      /* clear qpid010BridgeSrcIsLocal */
-        /*
-         * TODO:482:o: |-> commit column qpid010BridgeSrcIsLocal.
-         */
-        rc = -1;
-        if (-1 == rc) {
-            snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeSrcIsLocal commit failed\n");
-        } else {
-            /*
-             * set flag, in case we need to undo qpid010BridgeSrcIsLocal
+             * set flag, in case we need to undo brokerBridgeSrcIsQueue
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BRIDGESRCISLOCAL_FLAG;
+                COLUMN_brokerBRIDGESRCISQUEUE_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGETAG_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGETAG_FLAG;     /* clear qpid010BridgeTag */
+    if (save_flags & COLUMN_brokerBRIDGESRCISLOCAL_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGESRCISLOCAL_FLAG;      /* clear brokerBridgeSrcIsLocal */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeTag.
+         * TODO:482:o: |-> commit column brokerBridgeSrcIsLocal.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeTag commit failed\n");
+                     "brokerBridgeTable column brokerBridgeSrcIsLocal commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeTag
-             */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010BRIDGETAG_FLAG;
-        }
-    }
-
-    if (save_flags & COLUMN_qpid010BRIDGEEXCLUDES_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGEEXCLUDES_FLAG;        /* clear qpid010BridgeExcludes */
-        /*
-         * TODO:482:o: |-> commit column qpid010BridgeExcludes.
-         */
-        rc = -1;
-        if (-1 == rc) {
-            snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeExcludes commit failed\n");
-        } else {
-            /*
-             * set flag, in case we need to undo qpid010BridgeExcludes
+             * set flag, in case we need to undo brokerBridgeSrcIsLocal
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BRIDGEEXCLUDES_FLAG;
+                COLUMN_brokerBRIDGESRCISLOCAL_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGEDYNAMIC_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGEDYNAMIC_FLAG; /* clear qpid010BridgeDynamic */
+    if (save_flags & COLUMN_brokerBRIDGETAG_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGETAG_FLAG;     /* clear brokerBridgeTag */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeDynamic.
+         * TODO:482:o: |-> commit column brokerBridgeTag.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeDynamic commit failed\n");
+                     "brokerBridgeTable column brokerBridgeTag commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeDynamic
+             * set flag, in case we need to undo brokerBridgeTag
+             */
+            rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGETAG_FLAG;
+        }
+    }
+
+    if (save_flags & COLUMN_brokerBRIDGEEXCLUDES_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGEEXCLUDES_FLAG;        /* clear brokerBridgeExcludes */
+        /*
+         * TODO:482:o: |-> commit column brokerBridgeExcludes.
+         */
+        rc = -1;
+        if (-1 == rc) {
+            snmp_log(LOG_ERR,
+                     "brokerBridgeTable column brokerBridgeExcludes commit failed\n");
+        } else {
+            /*
+             * set flag, in case we need to undo brokerBridgeExcludes
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010BRIDGEDYNAMIC_FLAG;
+                COLUMN_brokerBRIDGEEXCLUDES_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010BRIDGESYNC_FLAG) {
-        save_flags &= ~COLUMN_qpid010BRIDGESYNC_FLAG;    /* clear qpid010BridgeSync */
+    if (save_flags & COLUMN_brokerBRIDGEDYNAMIC_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGEDYNAMIC_FLAG; /* clear brokerBridgeDynamic */
         /*
-         * TODO:482:o: |-> commit column qpid010BridgeSync.
+         * TODO:482:o: |-> commit column brokerBridgeDynamic.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010BridgeTable column qpid010BridgeSync commit failed\n");
+                     "brokerBridgeTable column brokerBridgeDynamic commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010BridgeSync
+             * set flag, in case we need to undo brokerBridgeDynamic
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010BRIDGESYNC_FLAG;
+            rowreq_ctx->column_set_flags |=
+                COLUMN_brokerBRIDGEDYNAMIC_FLAG;
+        }
+    }
+
+    if (save_flags & COLUMN_brokerBRIDGESYNC_FLAG) {
+        save_flags &= ~COLUMN_brokerBRIDGESYNC_FLAG;    /* clear brokerBridgeSync */
+        /*
+         * TODO:482:o: |-> commit column brokerBridgeSync.
+         */
+        rc = -1;
+        if (-1 == rc) {
+            snmp_log(LOG_ERR,
+                     "brokerBridgeTable column brokerBridgeSync commit failed\n");
+        } else {
+            /*
+             * set flag, in case we need to undo brokerBridgeSync
+             */
+            rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESYNC_FLAG;
         }
     }
 
@@ -494,7 +494,7 @@ qpid010BridgeTable_commit(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010BridgeTable_commit */
+}                               /* brokerBridgeTable_commit */
 
 /**
  * undo commit new values.
@@ -502,28 +502,28 @@ qpid010BridgeTable_commit(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010BridgeTable_oids.h.
+ * brokerBridgeTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010BridgeTable_rowreq_ctx
+ * @param brokerBridgeTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010BridgeTable_undo_commit(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTable_undo_commit(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTable_undo_commit",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_undo_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010BridgeTable commit.
+     * TODO:485:M: |-> Undo brokerBridgeTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -539,17 +539,17 @@ qpid010BridgeTable_undo_commit(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010BridgeTable_undo_commit */
+}                               /* brokerBridgeTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010BridgeTable node value checks.
- * TODO:450:M: Implement qpid010BridgeTable undo functions.
- * TODO:460:M: Implement qpid010BridgeTable set functions.
- * TODO:480:M: Implement qpid010BridgeTable commit functions.
+ * TODO:440:M: Implement brokerBridgeTable node value checks.
+ * TODO:450:M: Implement brokerBridgeTable undo functions.
+ * TODO:460:M: Implement brokerBridgeTable set functions.
+ * TODO:480:M: Implement brokerBridgeTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeLinkRef
- * qpid010BridgeLinkRef is subid 1 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeLinkRef
+ * brokerBridgeLinkRef is subid 1 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.1
  * Description:
@@ -573,10 +573,10 @@ Bridge linkRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeLinkRef_val_ptr
+ * @param brokerBridgeLinkRef_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeLinkRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeLinkRef_val_ptr
+ * @param brokerBridgeLinkRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeLinkRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -599,45 +599,45 @@ Bridge linkRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BridgeLinkRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBridgeLinkRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BridgeLinkRef_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                                char *qpid010BridgeLinkRef_val_ptr,
-                                size_t qpid010BridgeLinkRef_val_ptr_len)
+brokerBridgeLinkRef_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                                char *brokerBridgeLinkRef_val_ptr,
+                                size_t brokerBridgeLinkRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeLinkRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeLinkRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeLinkRef_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeLinkRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeLinkRef value.
+     * TODO:441:o: |-> Check for valid brokerBridgeLinkRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeLinkRef value not illegal */
-}                               /* qpid010BridgeLinkRef_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeLinkRef value not illegal */
+}                               /* brokerBridgeLinkRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -647,31 +647,31 @@ qpid010BridgeLinkRef_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeLinkRef_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeLinkRef_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeLinkRef_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeLinkRef_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeLinkRef undo.
+     * TODO:455:o: |-> Setup brokerBridgeLinkRef undo.
      */
     /*
-     * copy qpid010BridgeLinkRef and qpid010BridgeLinkRef_len data
-     * set rowreq_ctx->undo->qpid010BridgeLinkRef from rowreq_ctx->data.qpid010BridgeLinkRef
+     * copy brokerBridgeLinkRef and brokerBridgeLinkRef_len data
+     * set rowreq_ctx->undo->brokerBridgeLinkRef from rowreq_ctx->data.brokerBridgeLinkRef
      */
-    memcpy(rowreq_ctx->undo->qpid010BridgeLinkRef,
-           rowreq_ctx->data.qpid010BridgeLinkRef,
-           (rowreq_ctx->data.qpid010BridgeLinkRef_len *
-            sizeof(rowreq_ctx->undo->qpid010BridgeLinkRef[0])));
-    rowreq_ctx->undo->qpid010BridgeLinkRef_len =
-        rowreq_ctx->data.qpid010BridgeLinkRef_len;
+    memcpy(rowreq_ctx->undo->brokerBridgeLinkRef,
+           rowreq_ctx->data.brokerBridgeLinkRef,
+           (rowreq_ctx->data.brokerBridgeLinkRef_len *
+            sizeof(rowreq_ctx->undo->brokerBridgeLinkRef[0])));
+    rowreq_ctx->undo->brokerBridgeLinkRef_len =
+        rowreq_ctx->data.brokerBridgeLinkRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeLinkRef_undo_setup */
+}                               /* brokerBridgeLinkRef_undo_setup */
 
 /**
  * Set the new value.
@@ -679,37 +679,37 @@ qpid010BridgeLinkRef_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeLinkRef_val_ptr
+ * @param brokerBridgeLinkRef_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeLinkRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeLinkRef_val_ptr
+ * @param brokerBridgeLinkRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeLinkRef_val_ptr
  */
 int
-qpid010BridgeLinkRef_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                        char *qpid010BridgeLinkRef_val_ptr,
-                        size_t qpid010BridgeLinkRef_val_ptr_len)
+brokerBridgeLinkRef_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                        char *brokerBridgeLinkRef_val_ptr,
+                        size_t brokerBridgeLinkRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeLinkRef_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeLinkRef_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeLinkRef_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeLinkRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeLinkRef value.
-     * set qpid010BridgeLinkRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeLinkRef value.
+     * set brokerBridgeLinkRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeLinkRef,
-           qpid010BridgeLinkRef_val_ptr, qpid010BridgeLinkRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBridgeLinkRef,
+           brokerBridgeLinkRef_val_ptr, brokerBridgeLinkRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BridgeLinkRef_len =
-        qpid010BridgeLinkRef_val_ptr_len /
-        sizeof(qpid010BridgeLinkRef_val_ptr[0]);
+    rowreq_ctx->data.brokerBridgeLinkRef_len =
+        brokerBridgeLinkRef_val_ptr_len /
+        sizeof(brokerBridgeLinkRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeLinkRef_set */
+}                               /* brokerBridgeLinkRef_set */
 
 /**
  * undo the previous set.
@@ -718,35 +718,35 @@ qpid010BridgeLinkRef_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeLinkRef_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeLinkRef_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeLinkRef_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeLinkRef_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeLinkRef undo.
+     * TODO:456:o: |-> Clean up brokerBridgeLinkRef undo.
      */
     /*
-     * copy qpid010BridgeLinkRef and qpid010BridgeLinkRef_len data
-     * set rowreq_ctx->data.qpid010BridgeLinkRef from rowreq_ctx->undo->qpid010BridgeLinkRef
+     * copy brokerBridgeLinkRef and brokerBridgeLinkRef_len data
+     * set rowreq_ctx->data.brokerBridgeLinkRef from rowreq_ctx->undo->brokerBridgeLinkRef
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeLinkRef,
-           rowreq_ctx->undo->qpid010BridgeLinkRef,
-           (rowreq_ctx->undo->qpid010BridgeLinkRef_len *
-            sizeof(rowreq_ctx->data.qpid010BridgeLinkRef[0])));
-    rowreq_ctx->data.qpid010BridgeLinkRef_len =
-        rowreq_ctx->undo->qpid010BridgeLinkRef_len;
+    memcpy(rowreq_ctx->data.brokerBridgeLinkRef,
+           rowreq_ctx->undo->brokerBridgeLinkRef,
+           (rowreq_ctx->undo->brokerBridgeLinkRef_len *
+            sizeof(rowreq_ctx->data.brokerBridgeLinkRef[0])));
+    rowreq_ctx->data.brokerBridgeLinkRef_len =
+        rowreq_ctx->undo->brokerBridgeLinkRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeLinkRef_undo */
+}                               /* brokerBridgeLinkRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeChannelId
- * qpid010BridgeChannelId is subid 2 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeChannelId
+ * brokerBridgeChannelId is subid 2 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.2
  * Description:
@@ -768,7 +768,7 @@ Bridge channelId
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeChannelId_val
+ * @param brokerBridgeChannelId_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -792,7 +792,7 @@ Bridge channelId
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -801,33 +801,33 @@ Bridge channelId
  *
  */
 int
-qpid010BridgeChannelId_check_value(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeChannelId_check_value(brokerBridgeTable_rowreq_ctx *
                                   rowreq_ctx,
-                                  long qpid010BridgeChannelId_val)
+                                  long brokerBridgeChannelId_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeChannelId_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeChannelId_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeChannelId value.
+     * TODO:441:o: |-> Check for valid brokerBridgeChannelId value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeChannelId value not illegal */
-}                               /* qpid010BridgeChannelId_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeChannelId value not illegal */
+}                               /* brokerBridgeChannelId_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -837,26 +837,26 @@ qpid010BridgeChannelId_check_value(qpid010BridgeTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeChannelId_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeChannelId_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeChannelId_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeChannelId_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeChannelId undo.
+     * TODO:455:o: |-> Setup brokerBridgeChannelId undo.
      */
     /*
-     * copy qpid010BridgeChannelId data
-     * set rowreq_ctx->undo->qpid010BridgeChannelId from rowreq_ctx->data.qpid010BridgeChannelId
+     * copy brokerBridgeChannelId data
+     * set rowreq_ctx->undo->brokerBridgeChannelId from rowreq_ctx->data.brokerBridgeChannelId
      */
-    rowreq_ctx->undo->qpid010BridgeChannelId =
-        rowreq_ctx->data.qpid010BridgeChannelId;
+    rowreq_ctx->undo->brokerBridgeChannelId =
+        rowreq_ctx->data.brokerBridgeChannelId;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeChannelId_undo_setup */
+}                               /* brokerBridgeChannelId_undo_setup */
 
 /**
  * Set the new value.
@@ -864,28 +864,28 @@ qpid010BridgeChannelId_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeChannelId_val
+ * @param brokerBridgeChannelId_val
  *        A long containing the new value.
  */
 int
-qpid010BridgeChannelId_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                          long qpid010BridgeChannelId_val)
+brokerBridgeChannelId_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                          long brokerBridgeChannelId_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeChannelId_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeChannelId_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeChannelId value.
-     * set qpid010BridgeChannelId value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeChannelId value.
+     * set brokerBridgeChannelId value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010BridgeChannelId = qpid010BridgeChannelId_val;
+    rowreq_ctx->data.brokerBridgeChannelId = brokerBridgeChannelId_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeChannelId_set */
+}                               /* brokerBridgeChannelId_set */
 
 /**
  * undo the previous set.
@@ -894,31 +894,31 @@ qpid010BridgeChannelId_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeChannelId_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeChannelId_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeChannelId_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeChannelId_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeChannelId undo.
+     * TODO:456:o: |-> Clean up brokerBridgeChannelId undo.
      */
     /*
-     * copy qpid010BridgeChannelId data
-     * set rowreq_ctx->data.qpid010BridgeChannelId from rowreq_ctx->undo->qpid010BridgeChannelId
+     * copy brokerBridgeChannelId data
+     * set rowreq_ctx->data.brokerBridgeChannelId from rowreq_ctx->undo->brokerBridgeChannelId
      */
-    rowreq_ctx->data.qpid010BridgeChannelId =
-        rowreq_ctx->undo->qpid010BridgeChannelId;
+    rowreq_ctx->data.brokerBridgeChannelId =
+        rowreq_ctx->undo->brokerBridgeChannelId;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeChannelId_undo */
+}                               /* brokerBridgeChannelId_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDurable
- * qpid010BridgeDurable is subid 3 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDurable
+ * brokerBridgeDurable is subid 3 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.3
  * Description:
@@ -940,7 +940,7 @@ Bridge durable
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeDurable_val
+ * @param brokerBridgeDurable_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -964,7 +964,7 @@ Bridge durable
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -974,32 +974,32 @@ Bridge durable
  *
  */
 int
-qpid010BridgeDurable_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                                u_long qpid010BridgeDurable_val)
+brokerBridgeDurable_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                                u_long brokerBridgeDurable_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDurable_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDurable_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeDurable value.
+     * TODO:441:o: |-> Check for valid brokerBridgeDurable value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeDurable value not illegal */
-}                               /* qpid010BridgeDurable_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeDurable value not illegal */
+}                               /* brokerBridgeDurable_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1009,27 +1009,27 @@ qpid010BridgeDurable_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeDurable_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeDurable_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDurable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDurable_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeDurable undo.
+     * TODO:455:o: |-> Setup brokerBridgeDurable undo.
      */
     /*
-     * copy qpid010BridgeDurable data
-     * set rowreq_ctx->undo->qpid010BridgeDurable from rowreq_ctx->data.qpid010BridgeDurable
+     * copy brokerBridgeDurable data
+     * set rowreq_ctx->undo->brokerBridgeDurable from rowreq_ctx->data.brokerBridgeDurable
      */
-    rowreq_ctx->undo->qpid010BridgeDurable =
-        rowreq_ctx->data.qpid010BridgeDurable;
+    rowreq_ctx->undo->brokerBridgeDurable =
+        rowreq_ctx->data.brokerBridgeDurable;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDurable_undo_setup */
+}                               /* brokerBridgeDurable_undo_setup */
 
 /**
  * Set the new value.
@@ -1037,28 +1037,28 @@ qpid010BridgeDurable_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeDurable_val
+ * @param brokerBridgeDurable_val
  *        A long containing the new value.
  */
 int
-qpid010BridgeDurable_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                        u_long qpid010BridgeDurable_val)
+brokerBridgeDurable_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                        u_long brokerBridgeDurable_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDurable_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDurable_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeDurable value.
-     * set qpid010BridgeDurable value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeDurable value.
+     * set brokerBridgeDurable value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010BridgeDurable = qpid010BridgeDurable_val;
+    rowreq_ctx->data.brokerBridgeDurable = brokerBridgeDurable_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDurable_set */
+}                               /* brokerBridgeDurable_set */
 
 /**
  * undo the previous set.
@@ -1067,31 +1067,31 @@ qpid010BridgeDurable_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeDurable_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeDurable_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDurable_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDurable_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeDurable undo.
+     * TODO:456:o: |-> Clean up brokerBridgeDurable undo.
      */
     /*
-     * copy qpid010BridgeDurable data
-     * set rowreq_ctx->data.qpid010BridgeDurable from rowreq_ctx->undo->qpid010BridgeDurable
+     * copy brokerBridgeDurable data
+     * set rowreq_ctx->data.brokerBridgeDurable from rowreq_ctx->undo->brokerBridgeDurable
      */
-    rowreq_ctx->data.qpid010BridgeDurable =
-        rowreq_ctx->undo->qpid010BridgeDurable;
+    rowreq_ctx->data.brokerBridgeDurable =
+        rowreq_ctx->undo->brokerBridgeDurable;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDurable_undo */
+}                               /* brokerBridgeDurable_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrc
- * qpid010BridgeSrc is subid 4 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrc
+ * brokerBridgeSrc is subid 4 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.4
  * Description:
@@ -1115,10 +1115,10 @@ Bridge src
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeSrc_val_ptr
+ * @param brokerBridgeSrc_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeSrc_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeSrc_val_ptr
+ * @param brokerBridgeSrc_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeSrc_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -1141,46 +1141,46 @@ Bridge src
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BridgeSrc).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBridgeSrc).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BridgeSrc_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                            char *qpid010BridgeSrc_val_ptr,
-                            size_t qpid010BridgeSrc_val_ptr_len)
+brokerBridgeSrc_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                            char *brokerBridgeSrc_val_ptr,
+                            size_t brokerBridgeSrc_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrc_check_value",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrc_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeSrc_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeSrc_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeSrc value.
+     * TODO:441:o: |-> Check for valid brokerBridgeSrc value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeSrc value not illegal */
-}                               /* qpid010BridgeSrc_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeSrc value not illegal */
+}                               /* brokerBridgeSrc_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1190,31 +1190,31 @@ qpid010BridgeSrc_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeSrc_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeSrc_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrc_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrc_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeSrc undo.
+     * TODO:455:o: |-> Setup brokerBridgeSrc undo.
      */
     /*
-     * copy qpid010BridgeSrc and qpid010BridgeSrc_len data
-     * set rowreq_ctx->undo->qpid010BridgeSrc from rowreq_ctx->data.qpid010BridgeSrc
+     * copy brokerBridgeSrc and brokerBridgeSrc_len data
+     * set rowreq_ctx->undo->brokerBridgeSrc from rowreq_ctx->data.brokerBridgeSrc
      */
-    memcpy(rowreq_ctx->undo->qpid010BridgeSrc,
-           rowreq_ctx->data.qpid010BridgeSrc,
-           (rowreq_ctx->data.qpid010BridgeSrc_len *
-            sizeof(rowreq_ctx->undo->qpid010BridgeSrc[0])));
-    rowreq_ctx->undo->qpid010BridgeSrc_len =
-        rowreq_ctx->data.qpid010BridgeSrc_len;
+    memcpy(rowreq_ctx->undo->brokerBridgeSrc,
+           rowreq_ctx->data.brokerBridgeSrc,
+           (rowreq_ctx->data.brokerBridgeSrc_len *
+            sizeof(rowreq_ctx->undo->brokerBridgeSrc[0])));
+    rowreq_ctx->undo->brokerBridgeSrc_len =
+        rowreq_ctx->data.brokerBridgeSrc_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrc_undo_setup */
+}                               /* brokerBridgeSrc_undo_setup */
 
 /**
  * Set the new value.
@@ -1222,36 +1222,36 @@ qpid010BridgeSrc_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeSrc_val_ptr
+ * @param brokerBridgeSrc_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeSrc_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeSrc_val_ptr
+ * @param brokerBridgeSrc_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeSrc_val_ptr
  */
 int
-qpid010BridgeSrc_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                    char *qpid010BridgeSrc_val_ptr,
-                    size_t qpid010BridgeSrc_val_ptr_len)
+brokerBridgeSrc_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                    char *brokerBridgeSrc_val_ptr,
+                    size_t brokerBridgeSrc_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrc_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrc_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeSrc_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeSrc_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeSrc value.
-     * set qpid010BridgeSrc value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeSrc value.
+     * set brokerBridgeSrc value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeSrc, qpid010BridgeSrc_val_ptr,
-           qpid010BridgeSrc_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBridgeSrc, brokerBridgeSrc_val_ptr,
+           brokerBridgeSrc_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BridgeSrc_len =
-        qpid010BridgeSrc_val_ptr_len / sizeof(qpid010BridgeSrc_val_ptr[0]);
+    rowreq_ctx->data.brokerBridgeSrc_len =
+        brokerBridgeSrc_val_ptr_len / sizeof(brokerBridgeSrc_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrc_set */
+}                               /* brokerBridgeSrc_set */
 
 /**
  * undo the previous set.
@@ -1260,35 +1260,35 @@ qpid010BridgeSrc_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeSrc_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeSrc_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrc_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrc_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeSrc undo.
+     * TODO:456:o: |-> Clean up brokerBridgeSrc undo.
      */
     /*
-     * copy qpid010BridgeSrc and qpid010BridgeSrc_len data
-     * set rowreq_ctx->data.qpid010BridgeSrc from rowreq_ctx->undo->qpid010BridgeSrc
+     * copy brokerBridgeSrc and brokerBridgeSrc_len data
+     * set rowreq_ctx->data.brokerBridgeSrc from rowreq_ctx->undo->brokerBridgeSrc
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeSrc,
-           rowreq_ctx->undo->qpid010BridgeSrc,
-           (rowreq_ctx->undo->qpid010BridgeSrc_len *
-            sizeof(rowreq_ctx->data.qpid010BridgeSrc[0])));
-    rowreq_ctx->data.qpid010BridgeSrc_len =
-        rowreq_ctx->undo->qpid010BridgeSrc_len;
+    memcpy(rowreq_ctx->data.brokerBridgeSrc,
+           rowreq_ctx->undo->brokerBridgeSrc,
+           (rowreq_ctx->undo->brokerBridgeSrc_len *
+            sizeof(rowreq_ctx->data.brokerBridgeSrc[0])));
+    rowreq_ctx->data.brokerBridgeSrc_len =
+        rowreq_ctx->undo->brokerBridgeSrc_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrc_undo */
+}                               /* brokerBridgeSrc_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDest
- * qpid010BridgeDest is subid 5 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDest
+ * brokerBridgeDest is subid 5 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.5
  * Description:
@@ -1312,10 +1312,10 @@ Bridge dest
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeDest_val_ptr
+ * @param brokerBridgeDest_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeDest_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeDest_val_ptr
+ * @param brokerBridgeDest_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeDest_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -1338,46 +1338,46 @@ Bridge dest
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BridgeDest).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBridgeDest).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BridgeDest_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                             char *qpid010BridgeDest_val_ptr,
-                             size_t qpid010BridgeDest_val_ptr_len)
+brokerBridgeDest_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                             char *brokerBridgeDest_val_ptr,
+                             size_t brokerBridgeDest_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDest_check_value",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDest_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeDest_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeDest_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeDest value.
+     * TODO:441:o: |-> Check for valid brokerBridgeDest value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeDest value not illegal */
-}                               /* qpid010BridgeDest_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeDest value not illegal */
+}                               /* brokerBridgeDest_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1387,31 +1387,31 @@ qpid010BridgeDest_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeDest_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeDest_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDest_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDest_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeDest undo.
+     * TODO:455:o: |-> Setup brokerBridgeDest undo.
      */
     /*
-     * copy qpid010BridgeDest and qpid010BridgeDest_len data
-     * set rowreq_ctx->undo->qpid010BridgeDest from rowreq_ctx->data.qpid010BridgeDest
+     * copy brokerBridgeDest and brokerBridgeDest_len data
+     * set rowreq_ctx->undo->brokerBridgeDest from rowreq_ctx->data.brokerBridgeDest
      */
-    memcpy(rowreq_ctx->undo->qpid010BridgeDest,
-           rowreq_ctx->data.qpid010BridgeDest,
-           (rowreq_ctx->data.qpid010BridgeDest_len *
-            sizeof(rowreq_ctx->undo->qpid010BridgeDest[0])));
-    rowreq_ctx->undo->qpid010BridgeDest_len =
-        rowreq_ctx->data.qpid010BridgeDest_len;
+    memcpy(rowreq_ctx->undo->brokerBridgeDest,
+           rowreq_ctx->data.brokerBridgeDest,
+           (rowreq_ctx->data.brokerBridgeDest_len *
+            sizeof(rowreq_ctx->undo->brokerBridgeDest[0])));
+    rowreq_ctx->undo->brokerBridgeDest_len =
+        rowreq_ctx->data.brokerBridgeDest_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDest_undo_setup */
+}                               /* brokerBridgeDest_undo_setup */
 
 /**
  * Set the new value.
@@ -1419,36 +1419,36 @@ qpid010BridgeDest_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeDest_val_ptr
+ * @param brokerBridgeDest_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeDest_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeDest_val_ptr
+ * @param brokerBridgeDest_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeDest_val_ptr
  */
 int
-qpid010BridgeDest_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                     char *qpid010BridgeDest_val_ptr,
-                     size_t qpid010BridgeDest_val_ptr_len)
+brokerBridgeDest_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                     char *brokerBridgeDest_val_ptr,
+                     size_t brokerBridgeDest_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDest_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDest_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeDest_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeDest_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeDest value.
-     * set qpid010BridgeDest value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeDest value.
+     * set brokerBridgeDest value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeDest, qpid010BridgeDest_val_ptr,
-           qpid010BridgeDest_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBridgeDest, brokerBridgeDest_val_ptr,
+           brokerBridgeDest_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BridgeDest_len =
-        qpid010BridgeDest_val_ptr_len / sizeof(qpid010BridgeDest_val_ptr[0]);
+    rowreq_ctx->data.brokerBridgeDest_len =
+        brokerBridgeDest_val_ptr_len / sizeof(brokerBridgeDest_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDest_set */
+}                               /* brokerBridgeDest_set */
 
 /**
  * undo the previous set.
@@ -1457,35 +1457,35 @@ qpid010BridgeDest_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeDest_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeDest_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDest_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDest_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeDest undo.
+     * TODO:456:o: |-> Clean up brokerBridgeDest undo.
      */
     /*
-     * copy qpid010BridgeDest and qpid010BridgeDest_len data
-     * set rowreq_ctx->data.qpid010BridgeDest from rowreq_ctx->undo->qpid010BridgeDest
+     * copy brokerBridgeDest and brokerBridgeDest_len data
+     * set rowreq_ctx->data.brokerBridgeDest from rowreq_ctx->undo->brokerBridgeDest
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeDest,
-           rowreq_ctx->undo->qpid010BridgeDest,
-           (rowreq_ctx->undo->qpid010BridgeDest_len *
-            sizeof(rowreq_ctx->data.qpid010BridgeDest[0])));
-    rowreq_ctx->data.qpid010BridgeDest_len =
-        rowreq_ctx->undo->qpid010BridgeDest_len;
+    memcpy(rowreq_ctx->data.brokerBridgeDest,
+           rowreq_ctx->undo->brokerBridgeDest,
+           (rowreq_ctx->undo->brokerBridgeDest_len *
+            sizeof(rowreq_ctx->data.brokerBridgeDest[0])));
+    rowreq_ctx->data.brokerBridgeDest_len =
+        rowreq_ctx->undo->brokerBridgeDest_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDest_undo */
+}                               /* brokerBridgeDest_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeKey
- * qpid010BridgeKey is subid 6 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeKey
+ * brokerBridgeKey is subid 6 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.6
  * Description:
@@ -1509,10 +1509,10 @@ Bridge key
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeKey_val_ptr
+ * @param brokerBridgeKey_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeKey_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeKey_val_ptr
+ * @param brokerBridgeKey_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeKey_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -1535,46 +1535,46 @@ Bridge key
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BridgeKey).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBridgeKey).
  *    The length is in (one of) the range set(s):  0 - 65535
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BridgeKey_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                            char *qpid010BridgeKey_val_ptr,
-                            size_t qpid010BridgeKey_val_ptr_len)
+brokerBridgeKey_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                            char *brokerBridgeKey_val_ptr,
+                            size_t brokerBridgeKey_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeKey_check_value",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeKey_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeKey_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeKey_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeKey value.
+     * TODO:441:o: |-> Check for valid brokerBridgeKey value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeKey value not illegal */
-}                               /* qpid010BridgeKey_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeKey value not illegal */
+}                               /* brokerBridgeKey_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1584,31 +1584,31 @@ qpid010BridgeKey_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeKey_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeKey_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeKey_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeKey_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeKey undo.
+     * TODO:455:o: |-> Setup brokerBridgeKey undo.
      */
     /*
-     * copy qpid010BridgeKey and qpid010BridgeKey_len data
-     * set rowreq_ctx->undo->qpid010BridgeKey from rowreq_ctx->data.qpid010BridgeKey
+     * copy brokerBridgeKey and brokerBridgeKey_len data
+     * set rowreq_ctx->undo->brokerBridgeKey from rowreq_ctx->data.brokerBridgeKey
      */
-    memcpy(rowreq_ctx->undo->qpid010BridgeKey,
-           rowreq_ctx->data.qpid010BridgeKey,
-           (rowreq_ctx->data.qpid010BridgeKey_len *
-            sizeof(rowreq_ctx->undo->qpid010BridgeKey[0])));
-    rowreq_ctx->undo->qpid010BridgeKey_len =
-        rowreq_ctx->data.qpid010BridgeKey_len;
+    memcpy(rowreq_ctx->undo->brokerBridgeKey,
+           rowreq_ctx->data.brokerBridgeKey,
+           (rowreq_ctx->data.brokerBridgeKey_len *
+            sizeof(rowreq_ctx->undo->brokerBridgeKey[0])));
+    rowreq_ctx->undo->brokerBridgeKey_len =
+        rowreq_ctx->data.brokerBridgeKey_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeKey_undo_setup */
+}                               /* brokerBridgeKey_undo_setup */
 
 /**
  * Set the new value.
@@ -1616,36 +1616,36 @@ qpid010BridgeKey_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeKey_val_ptr
+ * @param brokerBridgeKey_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeKey_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeKey_val_ptr
+ * @param brokerBridgeKey_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeKey_val_ptr
  */
 int
-qpid010BridgeKey_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                    char *qpid010BridgeKey_val_ptr,
-                    size_t qpid010BridgeKey_val_ptr_len)
+brokerBridgeKey_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                    char *brokerBridgeKey_val_ptr,
+                    size_t brokerBridgeKey_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeKey_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeKey_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeKey_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeKey_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeKey value.
-     * set qpid010BridgeKey value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeKey value.
+     * set brokerBridgeKey value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeKey, qpid010BridgeKey_val_ptr,
-           qpid010BridgeKey_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBridgeKey, brokerBridgeKey_val_ptr,
+           brokerBridgeKey_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BridgeKey_len =
-        qpid010BridgeKey_val_ptr_len / sizeof(qpid010BridgeKey_val_ptr[0]);
+    rowreq_ctx->data.brokerBridgeKey_len =
+        brokerBridgeKey_val_ptr_len / sizeof(brokerBridgeKey_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeKey_set */
+}                               /* brokerBridgeKey_set */
 
 /**
  * undo the previous set.
@@ -1654,35 +1654,35 @@ qpid010BridgeKey_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeKey_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeKey_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeKey_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeKey_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeKey undo.
+     * TODO:456:o: |-> Clean up brokerBridgeKey undo.
      */
     /*
-     * copy qpid010BridgeKey and qpid010BridgeKey_len data
-     * set rowreq_ctx->data.qpid010BridgeKey from rowreq_ctx->undo->qpid010BridgeKey
+     * copy brokerBridgeKey and brokerBridgeKey_len data
+     * set rowreq_ctx->data.brokerBridgeKey from rowreq_ctx->undo->brokerBridgeKey
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeKey,
-           rowreq_ctx->undo->qpid010BridgeKey,
-           (rowreq_ctx->undo->qpid010BridgeKey_len *
-            sizeof(rowreq_ctx->data.qpid010BridgeKey[0])));
-    rowreq_ctx->data.qpid010BridgeKey_len =
-        rowreq_ctx->undo->qpid010BridgeKey_len;
+    memcpy(rowreq_ctx->data.brokerBridgeKey,
+           rowreq_ctx->undo->brokerBridgeKey,
+           (rowreq_ctx->undo->brokerBridgeKey_len *
+            sizeof(rowreq_ctx->data.brokerBridgeKey[0])));
+    rowreq_ctx->data.brokerBridgeKey_len =
+        rowreq_ctx->undo->brokerBridgeKey_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeKey_undo */
+}                               /* brokerBridgeKey_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrcIsQueue
- * qpid010BridgeSrcIsQueue is subid 7 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrcIsQueue
+ * brokerBridgeSrcIsQueue is subid 7 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.7
  * Description:
@@ -1704,7 +1704,7 @@ Bridge srcIsQueue
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeSrcIsQueue_val
+ * @param brokerBridgeSrcIsQueue_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -1728,7 +1728,7 @@ Bridge srcIsQueue
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -1738,33 +1738,33 @@ Bridge srcIsQueue
  *
  */
 int
-qpid010BridgeSrcIsQueue_check_value(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeSrcIsQueue_check_value(brokerBridgeTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   u_long qpid010BridgeSrcIsQueue_val)
+                                   u_long brokerBridgeSrcIsQueue_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsQueue_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsQueue_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeSrcIsQueue value.
+     * TODO:441:o: |-> Check for valid brokerBridgeSrcIsQueue value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeSrcIsQueue value not illegal */
-}                               /* qpid010BridgeSrcIsQueue_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeSrcIsQueue value not illegal */
+}                               /* brokerBridgeSrcIsQueue_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1774,27 +1774,27 @@ qpid010BridgeSrcIsQueue_check_value(qpid010BridgeTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeSrcIsQueue_undo_setup(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeSrcIsQueue_undo_setup(brokerBridgeTable_rowreq_ctx *
                                   rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsQueue_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsQueue_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeSrcIsQueue undo.
+     * TODO:455:o: |-> Setup brokerBridgeSrcIsQueue undo.
      */
     /*
-     * copy qpid010BridgeSrcIsQueue data
-     * set rowreq_ctx->undo->qpid010BridgeSrcIsQueue from rowreq_ctx->data.qpid010BridgeSrcIsQueue
+     * copy brokerBridgeSrcIsQueue data
+     * set rowreq_ctx->undo->brokerBridgeSrcIsQueue from rowreq_ctx->data.brokerBridgeSrcIsQueue
      */
-    rowreq_ctx->undo->qpid010BridgeSrcIsQueue =
-        rowreq_ctx->data.qpid010BridgeSrcIsQueue;
+    rowreq_ctx->undo->brokerBridgeSrcIsQueue =
+        rowreq_ctx->data.brokerBridgeSrcIsQueue;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrcIsQueue_undo_setup */
+}                               /* brokerBridgeSrcIsQueue_undo_setup */
 
 /**
  * Set the new value.
@@ -1802,28 +1802,28 @@ qpid010BridgeSrcIsQueue_undo_setup(qpid010BridgeTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeSrcIsQueue_val
+ * @param brokerBridgeSrcIsQueue_val
  *        A long containing the new value.
  */
 int
-qpid010BridgeSrcIsQueue_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                           u_long qpid010BridgeSrcIsQueue_val)
+brokerBridgeSrcIsQueue_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                           u_long brokerBridgeSrcIsQueue_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsQueue_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsQueue_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeSrcIsQueue value.
-     * set qpid010BridgeSrcIsQueue value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeSrcIsQueue value.
+     * set brokerBridgeSrcIsQueue value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010BridgeSrcIsQueue = qpid010BridgeSrcIsQueue_val;
+    rowreq_ctx->data.brokerBridgeSrcIsQueue = brokerBridgeSrcIsQueue_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrcIsQueue_set */
+}                               /* brokerBridgeSrcIsQueue_set */
 
 /**
  * undo the previous set.
@@ -1832,31 +1832,31 @@ qpid010BridgeSrcIsQueue_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeSrcIsQueue_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeSrcIsQueue_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsQueue_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsQueue_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeSrcIsQueue undo.
+     * TODO:456:o: |-> Clean up brokerBridgeSrcIsQueue undo.
      */
     /*
-     * copy qpid010BridgeSrcIsQueue data
-     * set rowreq_ctx->data.qpid010BridgeSrcIsQueue from rowreq_ctx->undo->qpid010BridgeSrcIsQueue
+     * copy brokerBridgeSrcIsQueue data
+     * set rowreq_ctx->data.brokerBridgeSrcIsQueue from rowreq_ctx->undo->brokerBridgeSrcIsQueue
      */
-    rowreq_ctx->data.qpid010BridgeSrcIsQueue =
-        rowreq_ctx->undo->qpid010BridgeSrcIsQueue;
+    rowreq_ctx->data.brokerBridgeSrcIsQueue =
+        rowreq_ctx->undo->brokerBridgeSrcIsQueue;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrcIsQueue_undo */
+}                               /* brokerBridgeSrcIsQueue_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSrcIsLocal
- * qpid010BridgeSrcIsLocal is subid 8 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrcIsLocal
+ * brokerBridgeSrcIsLocal is subid 8 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.8
  * Description:
@@ -1878,7 +1878,7 @@ Bridge srcIsLocal
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeSrcIsLocal_val
+ * @param brokerBridgeSrcIsLocal_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -1902,7 +1902,7 @@ Bridge srcIsLocal
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -1912,33 +1912,33 @@ Bridge srcIsLocal
  *
  */
 int
-qpid010BridgeSrcIsLocal_check_value(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeSrcIsLocal_check_value(brokerBridgeTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   u_long qpid010BridgeSrcIsLocal_val)
+                                   u_long brokerBridgeSrcIsLocal_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsLocal_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsLocal_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeSrcIsLocal value.
+     * TODO:441:o: |-> Check for valid brokerBridgeSrcIsLocal value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeSrcIsLocal value not illegal */
-}                               /* qpid010BridgeSrcIsLocal_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeSrcIsLocal value not illegal */
+}                               /* brokerBridgeSrcIsLocal_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -1948,27 +1948,27 @@ qpid010BridgeSrcIsLocal_check_value(qpid010BridgeTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeSrcIsLocal_undo_setup(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeSrcIsLocal_undo_setup(brokerBridgeTable_rowreq_ctx *
                                   rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsLocal_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsLocal_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeSrcIsLocal undo.
+     * TODO:455:o: |-> Setup brokerBridgeSrcIsLocal undo.
      */
     /*
-     * copy qpid010BridgeSrcIsLocal data
-     * set rowreq_ctx->undo->qpid010BridgeSrcIsLocal from rowreq_ctx->data.qpid010BridgeSrcIsLocal
+     * copy brokerBridgeSrcIsLocal data
+     * set rowreq_ctx->undo->brokerBridgeSrcIsLocal from rowreq_ctx->data.brokerBridgeSrcIsLocal
      */
-    rowreq_ctx->undo->qpid010BridgeSrcIsLocal =
-        rowreq_ctx->data.qpid010BridgeSrcIsLocal;
+    rowreq_ctx->undo->brokerBridgeSrcIsLocal =
+        rowreq_ctx->data.brokerBridgeSrcIsLocal;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrcIsLocal_undo_setup */
+}                               /* brokerBridgeSrcIsLocal_undo_setup */
 
 /**
  * Set the new value.
@@ -1976,28 +1976,28 @@ qpid010BridgeSrcIsLocal_undo_setup(qpid010BridgeTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeSrcIsLocal_val
+ * @param brokerBridgeSrcIsLocal_val
  *        A long containing the new value.
  */
 int
-qpid010BridgeSrcIsLocal_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                           u_long qpid010BridgeSrcIsLocal_val)
+brokerBridgeSrcIsLocal_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                           u_long brokerBridgeSrcIsLocal_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsLocal_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsLocal_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeSrcIsLocal value.
-     * set qpid010BridgeSrcIsLocal value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeSrcIsLocal value.
+     * set brokerBridgeSrcIsLocal value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010BridgeSrcIsLocal = qpid010BridgeSrcIsLocal_val;
+    rowreq_ctx->data.brokerBridgeSrcIsLocal = brokerBridgeSrcIsLocal_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrcIsLocal_set */
+}                               /* brokerBridgeSrcIsLocal_set */
 
 /**
  * undo the previous set.
@@ -2006,31 +2006,31 @@ qpid010BridgeSrcIsLocal_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeSrcIsLocal_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeSrcIsLocal_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSrcIsLocal_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSrcIsLocal_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeSrcIsLocal undo.
+     * TODO:456:o: |-> Clean up brokerBridgeSrcIsLocal undo.
      */
     /*
-     * copy qpid010BridgeSrcIsLocal data
-     * set rowreq_ctx->data.qpid010BridgeSrcIsLocal from rowreq_ctx->undo->qpid010BridgeSrcIsLocal
+     * copy brokerBridgeSrcIsLocal data
+     * set rowreq_ctx->data.brokerBridgeSrcIsLocal from rowreq_ctx->undo->brokerBridgeSrcIsLocal
      */
-    rowreq_ctx->data.qpid010BridgeSrcIsLocal =
-        rowreq_ctx->undo->qpid010BridgeSrcIsLocal;
+    rowreq_ctx->data.brokerBridgeSrcIsLocal =
+        rowreq_ctx->undo->brokerBridgeSrcIsLocal;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSrcIsLocal_undo */
+}                               /* brokerBridgeSrcIsLocal_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeTag
- * qpid010BridgeTag is subid 9 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeTag
+ * brokerBridgeTag is subid 9 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.9
  * Description:
@@ -2054,10 +2054,10 @@ Bridge tag
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeTag_val_ptr
+ * @param brokerBridgeTag_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeTag_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeTag_val_ptr
+ * @param brokerBridgeTag_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeTag_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -2080,46 +2080,46 @@ Bridge tag
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BridgeTag).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBridgeTag).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BridgeTag_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                            char *qpid010BridgeTag_val_ptr,
-                            size_t qpid010BridgeTag_val_ptr_len)
+brokerBridgeTag_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                            char *brokerBridgeTag_val_ptr,
+                            size_t brokerBridgeTag_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTag_check_value",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTag_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeTag_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeTag_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeTag value.
+     * TODO:441:o: |-> Check for valid brokerBridgeTag value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeTag value not illegal */
-}                               /* qpid010BridgeTag_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeTag value not illegal */
+}                               /* brokerBridgeTag_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -2129,31 +2129,31 @@ qpid010BridgeTag_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeTag_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTag_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTag_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTag_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeTag undo.
+     * TODO:455:o: |-> Setup brokerBridgeTag undo.
      */
     /*
-     * copy qpid010BridgeTag and qpid010BridgeTag_len data
-     * set rowreq_ctx->undo->qpid010BridgeTag from rowreq_ctx->data.qpid010BridgeTag
+     * copy brokerBridgeTag and brokerBridgeTag_len data
+     * set rowreq_ctx->undo->brokerBridgeTag from rowreq_ctx->data.brokerBridgeTag
      */
-    memcpy(rowreq_ctx->undo->qpid010BridgeTag,
-           rowreq_ctx->data.qpid010BridgeTag,
-           (rowreq_ctx->data.qpid010BridgeTag_len *
-            sizeof(rowreq_ctx->undo->qpid010BridgeTag[0])));
-    rowreq_ctx->undo->qpid010BridgeTag_len =
-        rowreq_ctx->data.qpid010BridgeTag_len;
+    memcpy(rowreq_ctx->undo->brokerBridgeTag,
+           rowreq_ctx->data.brokerBridgeTag,
+           (rowreq_ctx->data.brokerBridgeTag_len *
+            sizeof(rowreq_ctx->undo->brokerBridgeTag[0])));
+    rowreq_ctx->undo->brokerBridgeTag_len =
+        rowreq_ctx->data.brokerBridgeTag_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTag_undo_setup */
+}                               /* brokerBridgeTag_undo_setup */
 
 /**
  * Set the new value.
@@ -2161,36 +2161,36 @@ qpid010BridgeTag_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeTag_val_ptr
+ * @param brokerBridgeTag_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeTag_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeTag_val_ptr
+ * @param brokerBridgeTag_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeTag_val_ptr
  */
 int
-qpid010BridgeTag_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                    char *qpid010BridgeTag_val_ptr,
-                    size_t qpid010BridgeTag_val_ptr_len)
+brokerBridgeTag_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                    char *brokerBridgeTag_val_ptr,
+                    size_t brokerBridgeTag_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTag_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTag_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeTag_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeTag_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeTag value.
-     * set qpid010BridgeTag value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeTag value.
+     * set brokerBridgeTag value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeTag, qpid010BridgeTag_val_ptr,
-           qpid010BridgeTag_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBridgeTag, brokerBridgeTag_val_ptr,
+           brokerBridgeTag_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BridgeTag_len =
-        qpid010BridgeTag_val_ptr_len / sizeof(qpid010BridgeTag_val_ptr[0]);
+    rowreq_ctx->data.brokerBridgeTag_len =
+        brokerBridgeTag_val_ptr_len / sizeof(brokerBridgeTag_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTag_set */
+}                               /* brokerBridgeTag_set */
 
 /**
  * undo the previous set.
@@ -2199,35 +2199,35 @@ qpid010BridgeTag_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeTag_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeTag_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeTag_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTag_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeTag undo.
+     * TODO:456:o: |-> Clean up brokerBridgeTag undo.
      */
     /*
-     * copy qpid010BridgeTag and qpid010BridgeTag_len data
-     * set rowreq_ctx->data.qpid010BridgeTag from rowreq_ctx->undo->qpid010BridgeTag
+     * copy brokerBridgeTag and brokerBridgeTag_len data
+     * set rowreq_ctx->data.brokerBridgeTag from rowreq_ctx->undo->brokerBridgeTag
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeTag,
-           rowreq_ctx->undo->qpid010BridgeTag,
-           (rowreq_ctx->undo->qpid010BridgeTag_len *
-            sizeof(rowreq_ctx->data.qpid010BridgeTag[0])));
-    rowreq_ctx->data.qpid010BridgeTag_len =
-        rowreq_ctx->undo->qpid010BridgeTag_len;
+    memcpy(rowreq_ctx->data.brokerBridgeTag,
+           rowreq_ctx->undo->brokerBridgeTag,
+           (rowreq_ctx->undo->brokerBridgeTag_len *
+            sizeof(rowreq_ctx->data.brokerBridgeTag[0])));
+    rowreq_ctx->data.brokerBridgeTag_len =
+        rowreq_ctx->undo->brokerBridgeTag_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeTag_undo */
+}                               /* brokerBridgeTag_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeExcludes
- * qpid010BridgeExcludes is subid 10 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeExcludes
+ * brokerBridgeExcludes is subid 10 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.10
  * Description:
@@ -2251,10 +2251,10 @@ Bridge excludes
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeExcludes_val_ptr
+ * @param brokerBridgeExcludes_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeExcludes_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeExcludes_val_ptr
+ * @param brokerBridgeExcludes_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeExcludes_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -2277,45 +2277,45 @@ Bridge excludes
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010BridgeExcludes).
+ *    The length is < sizeof(rowreq_ctx->data.brokerBridgeExcludes).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010BridgeExcludes_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                                 char *qpid010BridgeExcludes_val_ptr,
-                                 size_t qpid010BridgeExcludes_val_ptr_len)
+brokerBridgeExcludes_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                                 char *brokerBridgeExcludes_val_ptr,
+                                 size_t brokerBridgeExcludes_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeExcludes_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeExcludes_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeExcludes_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeExcludes_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeExcludes value.
+     * TODO:441:o: |-> Check for valid brokerBridgeExcludes value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeExcludes value not illegal */
-}                               /* qpid010BridgeExcludes_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeExcludes value not illegal */
+}                               /* brokerBridgeExcludes_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -2325,30 +2325,30 @@ qpid010BridgeExcludes_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeExcludes_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeExcludes_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeExcludes_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeExcludes_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeExcludes undo.
+     * TODO:455:o: |-> Setup brokerBridgeExcludes undo.
      */
     /*
-     * copy qpid010BridgeExcludes and qpid010BridgeExcludes_len data
-     * set rowreq_ctx->undo->qpid010BridgeExcludes from rowreq_ctx->data.qpid010BridgeExcludes
+     * copy brokerBridgeExcludes and brokerBridgeExcludes_len data
+     * set rowreq_ctx->undo->brokerBridgeExcludes from rowreq_ctx->data.brokerBridgeExcludes
      */
-    memcpy(rowreq_ctx->undo->qpid010BridgeExcludes,
-           rowreq_ctx->data.qpid010BridgeExcludes,
-           (rowreq_ctx->data.qpid010BridgeExcludes_len *
-            sizeof(rowreq_ctx->undo->qpid010BridgeExcludes[0])));
-    rowreq_ctx->undo->qpid010BridgeExcludes_len =
-        rowreq_ctx->data.qpid010BridgeExcludes_len;
+    memcpy(rowreq_ctx->undo->brokerBridgeExcludes,
+           rowreq_ctx->data.brokerBridgeExcludes,
+           (rowreq_ctx->data.brokerBridgeExcludes_len *
+            sizeof(rowreq_ctx->undo->brokerBridgeExcludes[0])));
+    rowreq_ctx->undo->brokerBridgeExcludes_len =
+        rowreq_ctx->data.brokerBridgeExcludes_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeExcludes_undo_setup */
+}                               /* brokerBridgeExcludes_undo_setup */
 
 /**
  * Set the new value.
@@ -2356,37 +2356,37 @@ qpid010BridgeExcludes_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeExcludes_val_ptr
+ * @param brokerBridgeExcludes_val_ptr
  *        A char containing the new value.
- * @param qpid010BridgeExcludes_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010BridgeExcludes_val_ptr
+ * @param brokerBridgeExcludes_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerBridgeExcludes_val_ptr
  */
 int
-qpid010BridgeExcludes_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                         char *qpid010BridgeExcludes_val_ptr,
-                         size_t qpid010BridgeExcludes_val_ptr_len)
+brokerBridgeExcludes_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                         char *brokerBridgeExcludes_val_ptr,
+                         size_t brokerBridgeExcludes_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeExcludes_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeExcludes_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010BridgeExcludes_val_ptr);
+    netsnmp_assert(NULL != brokerBridgeExcludes_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeExcludes value.
-     * set qpid010BridgeExcludes value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeExcludes value.
+     * set brokerBridgeExcludes value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeExcludes,
-           qpid010BridgeExcludes_val_ptr, qpid010BridgeExcludes_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerBridgeExcludes,
+           brokerBridgeExcludes_val_ptr, brokerBridgeExcludes_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010BridgeExcludes_len =
-        qpid010BridgeExcludes_val_ptr_len /
-        sizeof(qpid010BridgeExcludes_val_ptr[0]);
+    rowreq_ctx->data.brokerBridgeExcludes_len =
+        brokerBridgeExcludes_val_ptr_len /
+        sizeof(brokerBridgeExcludes_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeExcludes_set */
+}                               /* brokerBridgeExcludes_set */
 
 /**
  * undo the previous set.
@@ -2395,35 +2395,35 @@ qpid010BridgeExcludes_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeExcludes_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeExcludes_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeExcludes_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeExcludes_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeExcludes undo.
+     * TODO:456:o: |-> Clean up brokerBridgeExcludes undo.
      */
     /*
-     * copy qpid010BridgeExcludes and qpid010BridgeExcludes_len data
-     * set rowreq_ctx->data.qpid010BridgeExcludes from rowreq_ctx->undo->qpid010BridgeExcludes
+     * copy brokerBridgeExcludes and brokerBridgeExcludes_len data
+     * set rowreq_ctx->data.brokerBridgeExcludes from rowreq_ctx->undo->brokerBridgeExcludes
      */
-    memcpy(rowreq_ctx->data.qpid010BridgeExcludes,
-           rowreq_ctx->undo->qpid010BridgeExcludes,
-           (rowreq_ctx->undo->qpid010BridgeExcludes_len *
-            sizeof(rowreq_ctx->data.qpid010BridgeExcludes[0])));
-    rowreq_ctx->data.qpid010BridgeExcludes_len =
-        rowreq_ctx->undo->qpid010BridgeExcludes_len;
+    memcpy(rowreq_ctx->data.brokerBridgeExcludes,
+           rowreq_ctx->undo->brokerBridgeExcludes,
+           (rowreq_ctx->undo->brokerBridgeExcludes_len *
+            sizeof(rowreq_ctx->data.brokerBridgeExcludes[0])));
+    rowreq_ctx->data.brokerBridgeExcludes_len =
+        rowreq_ctx->undo->brokerBridgeExcludes_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeExcludes_undo */
+}                               /* brokerBridgeExcludes_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeDynamic
- * qpid010BridgeDynamic is subid 11 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDynamic
+ * brokerBridgeDynamic is subid 11 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.11
  * Description:
@@ -2445,7 +2445,7 @@ Bridge dynamic
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeDynamic_val
+ * @param brokerBridgeDynamic_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -2469,7 +2469,7 @@ Bridge dynamic
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -2479,32 +2479,32 @@ Bridge dynamic
  *
  */
 int
-qpid010BridgeDynamic_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                                u_long qpid010BridgeDynamic_val)
+brokerBridgeDynamic_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                                u_long brokerBridgeDynamic_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDynamic_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDynamic_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeDynamic value.
+     * TODO:441:o: |-> Check for valid brokerBridgeDynamic value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeDynamic value not illegal */
-}                               /* qpid010BridgeDynamic_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeDynamic value not illegal */
+}                               /* brokerBridgeDynamic_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -2514,27 +2514,27 @@ qpid010BridgeDynamic_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeDynamic_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeDynamic_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDynamic_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDynamic_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeDynamic undo.
+     * TODO:455:o: |-> Setup brokerBridgeDynamic undo.
      */
     /*
-     * copy qpid010BridgeDynamic data
-     * set rowreq_ctx->undo->qpid010BridgeDynamic from rowreq_ctx->data.qpid010BridgeDynamic
+     * copy brokerBridgeDynamic data
+     * set rowreq_ctx->undo->brokerBridgeDynamic from rowreq_ctx->data.brokerBridgeDynamic
      */
-    rowreq_ctx->undo->qpid010BridgeDynamic =
-        rowreq_ctx->data.qpid010BridgeDynamic;
+    rowreq_ctx->undo->brokerBridgeDynamic =
+        rowreq_ctx->data.brokerBridgeDynamic;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDynamic_undo_setup */
+}                               /* brokerBridgeDynamic_undo_setup */
 
 /**
  * Set the new value.
@@ -2542,28 +2542,28 @@ qpid010BridgeDynamic_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeDynamic_val
+ * @param brokerBridgeDynamic_val
  *        A long containing the new value.
  */
 int
-qpid010BridgeDynamic_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                        u_long qpid010BridgeDynamic_val)
+brokerBridgeDynamic_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                        u_long brokerBridgeDynamic_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDynamic_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDynamic_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeDynamic value.
-     * set qpid010BridgeDynamic value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeDynamic value.
+     * set brokerBridgeDynamic value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010BridgeDynamic = qpid010BridgeDynamic_val;
+    rowreq_ctx->data.brokerBridgeDynamic = brokerBridgeDynamic_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDynamic_set */
+}                               /* brokerBridgeDynamic_set */
 
 /**
  * undo the previous set.
@@ -2572,31 +2572,31 @@ qpid010BridgeDynamic_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeDynamic_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeDynamic_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeDynamic_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeDynamic_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeDynamic undo.
+     * TODO:456:o: |-> Clean up brokerBridgeDynamic undo.
      */
     /*
-     * copy qpid010BridgeDynamic data
-     * set rowreq_ctx->data.qpid010BridgeDynamic from rowreq_ctx->undo->qpid010BridgeDynamic
+     * copy brokerBridgeDynamic data
+     * set rowreq_ctx->data.brokerBridgeDynamic from rowreq_ctx->undo->brokerBridgeDynamic
      */
-    rowreq_ctx->data.qpid010BridgeDynamic =
-        rowreq_ctx->undo->qpid010BridgeDynamic;
+    rowreq_ctx->data.brokerBridgeDynamic =
+        rowreq_ctx->undo->brokerBridgeDynamic;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeDynamic_undo */
+}                               /* brokerBridgeDynamic_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BridgeEntry.qpid010BridgeSync
- * qpid010BridgeSync is subid 12 of qpid010BridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSync
+ * brokerBridgeSync is subid 12 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.12
  * Description:
@@ -2618,7 +2618,7 @@ Bridge sync
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BridgeSync_val
+ * @param brokerBridgeSync_val
  *        A long containing the new value.
  *
  * @retval MFD_SUCCESS        : incoming value is legal
@@ -2642,7 +2642,7 @@ Bridge sync
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010BridgeTable_check_dependencies() function.
+ * brokerBridgeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_INTEGER
@@ -2651,33 +2651,33 @@ Bridge sync
  *
  */
 int
-qpid010BridgeSync_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                             long qpid010BridgeSync_val)
+brokerBridgeSync_check_value(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                             long brokerBridgeSync_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSync_check_value",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSync_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010BridgeSync value.
+     * TODO:441:o: |-> Check for valid brokerBridgeSync value.
      */
 
-    return MFD_SUCCESS;         /* qpid010BridgeSync value not illegal */
-}                               /* qpid010BridgeSync_check_value */
+    return MFD_SUCCESS;         /* brokerBridgeSync value not illegal */
+}                               /* brokerBridgeSync_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010BridgeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerBridgeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010BridgeTable_undo_setup has been called.
+ * brokerBridgeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -2687,26 +2687,26 @@ qpid010BridgeSync_check_value(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010BridgeSync_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeSync_undo_setup(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSync_undo_setup",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSync_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010BridgeSync undo.
+     * TODO:455:o: |-> Setup brokerBridgeSync undo.
      */
     /*
-     * copy qpid010BridgeSync data
-     * set rowreq_ctx->undo->qpid010BridgeSync from rowreq_ctx->data.qpid010BridgeSync
+     * copy brokerBridgeSync data
+     * set rowreq_ctx->undo->brokerBridgeSync from rowreq_ctx->data.brokerBridgeSync
      */
-    rowreq_ctx->undo->qpid010BridgeSync = rowreq_ctx->data.qpid010BridgeSync;
+    rowreq_ctx->undo->brokerBridgeSync = rowreq_ctx->data.brokerBridgeSync;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSync_undo_setup */
+}                               /* brokerBridgeSync_undo_setup */
 
 /**
  * Set the new value.
@@ -2714,28 +2714,28 @@ qpid010BridgeSync_undo_setup(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010BridgeSync_val
+ * @param brokerBridgeSync_val
  *        A long containing the new value.
  */
 int
-qpid010BridgeSync_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
-                     long qpid010BridgeSync_val)
+brokerBridgeSync_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                     long brokerBridgeSync_val)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSync_set",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSync_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:461:M: |-> Set qpid010BridgeSync value.
-     * set qpid010BridgeSync value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerBridgeSync value.
+     * set brokerBridgeSync value in rowreq_ctx->data
      */
-    rowreq_ctx->data.qpid010BridgeSync = qpid010BridgeSync_val;
+    rowreq_ctx->data.brokerBridgeSync = brokerBridgeSync_val;
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSync_set */
+}                               /* brokerBridgeSync_set */
 
 /**
  * undo the previous set.
@@ -2744,26 +2744,26 @@ qpid010BridgeSync_set(qpid010BridgeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010BridgeSync_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
+brokerBridgeSync_undo(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010BridgeTable:qpid010BridgeSync_undo",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeSync_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010BridgeSync undo.
+     * TODO:456:o: |-> Clean up brokerBridgeSync undo.
      */
     /*
-     * copy qpid010BridgeSync data
-     * set rowreq_ctx->data.qpid010BridgeSync from rowreq_ctx->undo->qpid010BridgeSync
+     * copy brokerBridgeSync data
+     * set rowreq_ctx->data.brokerBridgeSync from rowreq_ctx->undo->brokerBridgeSync
      */
-    rowreq_ctx->data.qpid010BridgeSync = rowreq_ctx->undo->qpid010BridgeSync;
+    rowreq_ctx->data.brokerBridgeSync = rowreq_ctx->undo->brokerBridgeSync;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BridgeSync_undo */
+}                               /* brokerBridgeSync_undo */
 
 /**
  * check dependencies
@@ -2775,29 +2775,29 @@ qpid010BridgeSync_undo(qpid010BridgeTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010BridgeTable_oids.h.
+ * brokerBridgeTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010BridgeTable if you don't have dependencies)
+ * (see README-table-brokerBridgeTable if you don't have dependencies)
  */
 int
-qpid010BridgeTable_check_dependencies(qpid010BridgeTable_rowreq_ctx *
+brokerBridgeTable_check_dependencies(brokerBridgeTable_rowreq_ctx *
                                      rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010BridgeTable:qpid010BridgeTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerBridgeTable:brokerBridgeTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010BridgeTable row dependencies.
+     * TODO:470:o: Check brokerBridgeTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010BridgeTable_check_dependencies */
+}                               /* brokerBridgeTable_check_dependencies */
 
 /** @} */

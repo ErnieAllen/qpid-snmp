@@ -33,8 +33,8 @@
  * *********************************************************************
  * *********************************************************************
  */
-#ifndef qpid010SUBSCRIPTIONTABLE_INTERFACE_H
-#define qpid010SUBSCRIPTIONTABLE_INTERFACE_H
+#ifndef brokerSUBSCRIPTIONTABLE_INTERFACE_H
+#define brokerSUBSCRIPTIONTABLE_INTERFACE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -53,38 +53,38 @@ extern          "C" {
      * PUBLIC interface initialization routine 
      */
     void           
-        _qpid010SubscriptionTable_initialize_interface
-        (qpid010SubscriptionTable_registration * user_ctx, u_long flags);
+        _brokerSubscriptionTable_initialize_interface
+        (brokerSubscriptionTable_registration * user_ctx, u_long flags);
     void           
-        _qpid010SubscriptionTable_shutdown_interface
-        (qpid010SubscriptionTable_registration * user_ctx);
+        _brokerSubscriptionTable_shutdown_interface
+        (brokerSubscriptionTable_registration * user_ctx);
 
-    qpid010SubscriptionTable_registration
-        *qpid010SubscriptionTable_registration_get(void);
+    brokerSubscriptionTable_registration
+        *brokerSubscriptionTable_registration_get(void);
 
-    qpid010SubscriptionTable_registration
-        *qpid010SubscriptionTable_registration_set
-        (qpid010SubscriptionTable_registration * newreg);
+    brokerSubscriptionTable_registration
+        *brokerSubscriptionTable_registration_set
+        (brokerSubscriptionTable_registration * newreg);
 
-    netsnmp_container *qpid010SubscriptionTable_container_get(void);
-    int             qpid010SubscriptionTable_container_size(void);
+    netsnmp_container *brokerSubscriptionTable_container_get(void);
+    int             brokerSubscriptionTable_container_size(void);
 
-    u_int           qpid010SubscriptionTable_dirty_get(void);
-    void            qpid010SubscriptionTable_dirty_set(u_int status);
+    u_int           brokerSubscriptionTable_dirty_get(void);
+    void            brokerSubscriptionTable_dirty_set(u_int status);
 
-    qpid010SubscriptionTable_rowreq_ctx
-        *qpid010SubscriptionTable_allocate_rowreq_ctx(void *);
+    brokerSubscriptionTable_rowreq_ctx
+        *brokerSubscriptionTable_allocate_rowreq_ctx(void *);
     void           
-        qpid010SubscriptionTable_release_rowreq_ctx
-        (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx);
+        brokerSubscriptionTable_release_rowreq_ctx
+        (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx);
 
-    int             qpid010SubscriptionTable_index_to_oid(netsnmp_index *
+    int             brokerSubscriptionTable_index_to_oid(netsnmp_index *
                                                          oid_idx,
-                                                         qpid010SubscriptionTable_mib_index
+                                                         brokerSubscriptionTable_mib_index
                                                          * mib_idx);
-    int             qpid010SubscriptionTable_index_from_oid(netsnmp_index *
+    int             brokerSubscriptionTable_index_from_oid(netsnmp_index *
                                                            oid_idx,
-                                                           qpid010SubscriptionTable_mib_index
+                                                           brokerSubscriptionTable_mib_index
                                                            * mib_idx);
 
     /*
@@ -97,22 +97,22 @@ extern          "C" {
 #define LINE_TERM_CHAR '$'
 
     void           
-        qpid010SubscriptionTable_container_init_persistence
+        brokerSubscriptionTable_container_init_persistence
         (netsnmp_container * container);
     int            
-        qpid010SubscriptionTable_container_should_save
-        (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx);
+        brokerSubscriptionTable_container_should_save
+        (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx);
 
 
     /*
      * access to certain internals. use with caution!
      */
     void           
-        qpid010SubscriptionTable_valid_columns_set(netsnmp_column_info *vc);
+        brokerSubscriptionTable_valid_columns_set(netsnmp_column_info *vc);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SUBSCRIPTIONTABLE_INTERFACE_H */
+#endif                          /* brokerSUBSCRIPTIONTABLE_INTERFACE_H */
 /** @} */

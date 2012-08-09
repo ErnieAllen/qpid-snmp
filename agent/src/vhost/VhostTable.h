@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010VHOSTTABLE_H
-#define qpid010VHOSTTABLE_H
+#ifndef brokerVHOSTTABLE_H
+#define brokerVHOSTTABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerVhostTable/brokerVhostTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerVhostTable/brokerVhostTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerVhostTable/brokerVhostTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerVhostTable/brokerVhostTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010VhostTable 
+     * OID and column number definitions for brokerVhostTable 
      */
 #include "VhostTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_set)
      * function declarations
      */
     void            init_VhostTable(void);
-    void            shutdown_qpid010VhostTable(void);
+    void            shutdown_brokerVhostTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_set)
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010VhostTable
+ *** Table brokerVhostTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
+     * QPID-MESSAGING-MIB::brokerVhostTable is subid 1 of brokerVhosts.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
      */
@@ -71,89 +71,89 @@ config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_set)
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010VhostTable registration context.
+     * TODO:101:o: |-> Review brokerVhostTable registration context.
      */
-    typedef netsnmp_data_list qpid010VhostTable_registration;
+    typedef netsnmp_data_list brokerVhostTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010VhostTable data context structure.
-     * This structure is used to represent the data for qpid010VhostTable.
+     * TODO:110:r: |-> Review brokerVhostTable data context structure.
+     * This structure is used to represent the data for brokerVhostTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010VhostTable.
+     * brokerVhostTable.
      */
-    typedef struct qpid010VhostTable_data_s {
+    typedef struct brokerVhostTable_data_s {
 
         /*
-         * qpid010VhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerVhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010VhostBrokerRef[255];
-        size_t          qpid010VhostBrokerRef_len;       /* # of char elements, not bytes */
+        char            brokerVhostBrokerRef[255];
+        size_t          brokerVhostBrokerRef_len;       /* # of char elements, not bytes */
 
         /*
-         * qpid010VhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerVhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010VhostName[255];
-        size_t          qpid010VhostName_len;    /* # of char elements, not bytes */
+        char            brokerVhostName[255];
+        size_t          brokerVhostName_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010VhostFederationTag(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerVhostFederationTag(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010VhostFederationTag[255];
-        size_t          qpid010VhostFederationTag_len;   /* # of char elements, not bytes */
+        char            brokerVhostFederationTag[255];
+        size_t          brokerVhostFederationTag_len;   /* # of char elements, not bytes */
 
-    } qpid010VhostTable_data;
+    } brokerVhostTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010VhostTable undo context.
+     * TODO:115:o: |-> Review brokerVhostTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010VhostTable_data qpid010VhostTable_undo_data;
+    typedef brokerVhostTable_data brokerVhostTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010VhostTable mib index.
-     * This structure is used to represent the index for qpid010VhostTable.
+     * TODO:120:r: |-> Review brokerVhostTable mib index.
+     * This structure is used to represent the index for brokerVhostTable.
      */
-    typedef struct qpid010VhostTable_mib_index_s {
+    typedef struct brokerVhostTable_mib_index_s {
 
         /*
-         * qpid010VhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerVhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010VhostInternalIndex;
+        u_long          brokerVhostInternalIndex;
 
 
-    } qpid010VhostTable_mib_index;
+    } brokerVhostTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010VhostTable max index length.
+     * TODO:121:r: |   |-> Review brokerVhostTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010VhostTable_IDX_LEN     1
+#define MAX_brokerVhostTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010VhostTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerVhostTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010VhostTable_rowreq_ctx pointer.
+     * brokerVhostTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010VhostTable_rowreq_ctx_s {
+    typedef struct brokerVhostTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010VhostTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerVhostTable_IDX_LEN];
 
-        qpid010VhostTable_mib_index tbl_idx;
+        brokerVhostTable_mib_index tbl_idx;
 
-        qpid010VhostTable_data data;
-        qpid010VhostTable_undo_data *undo;
+        brokerVhostTable_data data;
+        brokerVhostTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -164,50 +164,50 @@ config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_set)
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010VhostTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerVhostTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010VhostTable_data_list;
+        netsnmp_data_list *brokerVhostTable_data_list;
 
-    } qpid010VhostTable_rowreq_ctx;
+    } brokerVhostTable_rowreq_ctx;
 
-    typedef struct qpid010VhostTable_ref_rowreq_ctx_s {
-        qpid010VhostTable_rowreq_ctx *rowreq_ctx;
-    } qpid010VhostTable_ref_rowreq_ctx;
+    typedef struct brokerVhostTable_ref_rowreq_ctx_s {
+        brokerVhostTable_rowreq_ctx *rowreq_ctx;
+    } brokerVhostTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010VhostTable_pre_request(qpid010VhostTable_registration *
+        brokerVhostTable_pre_request(brokerVhostTable_registration *
                                      user_context);
     int            
-        qpid010VhostTable_post_request(qpid010VhostTable_registration *
+        brokerVhostTable_post_request(brokerVhostTable_registration *
                                       user_context, int rc);
 
     int            
-        qpid010VhostTable_rowreq_ctx_init(qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_rowreq_ctx_init(brokerVhostTable_rowreq_ctx *
                                          rowreq_ctx, void *user_init_ctx);
     void           
-        qpid010VhostTable_rowreq_ctx_cleanup(qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_rowreq_ctx_cleanup(brokerVhostTable_rowreq_ctx *
                                             rowreq_ctx);
 
     int            
-        qpid010VhostTable_check_dependencies(qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_check_dependencies(brokerVhostTable_rowreq_ctx *
                                             rowreq_ctx);
-    int             qpid010VhostTable_commit(qpid010VhostTable_rowreq_ctx *
+    int             brokerVhostTable_commit(brokerVhostTable_rowreq_ctx *
                                             rowreq_ctx);
 
-    qpid010VhostTable_rowreq_ctx
-        *qpid010VhostTable_row_find_by_mib_index(qpid010VhostTable_mib_index
+    brokerVhostTable_rowreq_ctx
+        *brokerVhostTable_row_find_by_mib_index(brokerVhostTable_mib_index
                                                 * mib_idx);
 
-    extern const oid qpid010VhostTable_oid[];
-    extern const int qpid010VhostTable_oid_size;
+    extern const oid brokerVhostTable_oid[];
+    extern const int brokerVhostTable_oid_size;
 
 
 #include "VhostTable_interface.h"
@@ -228,5 +228,5 @@ config_require(MRG-MESSAGING-MIB/qpid010VhostTable/qpid010VhostTable_data_set)
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010VHOSTTABLE_H */
+#endif                          /* brokerVHOSTTABLE_H */
 /** @} */

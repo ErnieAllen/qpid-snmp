@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010SUBSCRIPTIONTABLE_ENUMS_H
-#define qpid010SUBSCRIPTIONTABLE_ENUMS_H
+#ifndef brokerSUBSCRIPTIONTABLE_ENUMS_H
+#define brokerSUBSCRIPTIONTABLE_ENUMS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -26,14 +26,14 @@ extern          "C" {
 /*************************************************************************
  *************************************************************************
  *
- * enum definitions for table qpid010SubscriptionTable
+ * enum definitions for table brokerSubscriptionTable
  *
  *************************************************************************
  *************************************************************************/
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010SubscriptionBrowsing (TruthValue / ASN_INTEGER)
+ * brokerSubscriptionBrowsing (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -49,7 +49,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010SubscriptionAcknowledged (TruthValue / ASN_INTEGER)
+ * brokerSubscriptionAcknowledged (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -65,7 +65,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010SubscriptionExclusive (TruthValue / ASN_INTEGER)
+ * brokerSubscriptionExclusive (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -84,4 +84,4 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SUBSCRIPTIONTABLE_ENUMS_H */
+#endif                          /* brokerSUBSCRIPTIONTABLE_ENUMS_H */

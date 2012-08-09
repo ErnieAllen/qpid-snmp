@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010SESSIONTABLE_OIDS_H
-#define qpid010SESSIONTABLE_OIDS_H
+#ifndef brokerSESSIONTABLE_OIDS_H
+#define brokerSESSIONTABLE_OIDS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -13,55 +13,55 @@ extern          "C" {
 
 
     /*
-     * column number definitions for table qpid010SessionTable 
+     * column number definitions for table brokerSessionTable 
      */
-#define qpid010SESSIONTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,13,1
+#define brokerSESSIONTABLE_OID              1,3,6,1,4,1,18060,5672,1,13,1
 
 
-#define COLUMN_qpid010SESSIONVHOSTREF         1
-#define COLUMN_qpid010SESSIONVHOSTREF_FLAG    (0x1 << 0)
+#define COLUMN_brokerSESSIONVHOSTREF         1
+#define COLUMN_brokerSESSIONVHOSTREF_FLAG    (0x1 << 0)
 
-#define COLUMN_qpid010SESSIONNAME         2
-#define COLUMN_qpid010SESSIONNAME_FLAG    (0x1 << 1)
+#define COLUMN_brokerSESSIONNAME         2
+#define COLUMN_brokerSESSIONNAME_FLAG    (0x1 << 1)
 
-#define COLUMN_qpid010SESSIONCHANNELID         3
+#define COLUMN_brokerSESSIONCHANNELID         3
 
-#define COLUMN_qpid010SESSIONCONNECTIONREF         4
+#define COLUMN_brokerSESSIONCONNECTIONREF         4
 
-#define COLUMN_qpid010SESSIONDETACHEDLIFESPAN         5
+#define COLUMN_brokerSESSIONDETACHEDLIFESPAN         5
 
-#define COLUMN_qpid010SESSIONATTACHED         6
+#define COLUMN_brokerSESSIONATTACHED         6
 
-#define COLUMN_qpid010SESSIONEXPIRETIME         7
+#define COLUMN_brokerSESSIONEXPIRETIME         7
 
-#define COLUMN_qpid010SESSIONMAXCLIENTRATE         8
+#define COLUMN_brokerSESSIONMAXCLIENTRATE         8
 
-#define COLUMN_qpid010SESSIONFRAMESOUTSTANDING         9
+#define COLUMN_brokerSESSIONFRAMESOUTSTANDING         9
 
-#define COLUMN_qpid010SESSIONTXNSTARTS         10
+#define COLUMN_brokerSESSIONTXNSTARTS         10
 
-#define COLUMN_qpid010SESSIONTXNCOMMITS         11
+#define COLUMN_brokerSESSIONTXNCOMMITS         11
 
-#define COLUMN_qpid010SESSIONTXNREJECTS         12
+#define COLUMN_brokerSESSIONTXNREJECTS         12
 
-#define COLUMN_qpid010SESSIONTXNCOUNT         13
+#define COLUMN_brokerSESSIONTXNCOUNT         13
 
-#define COLUMN_qpid010SESSIONCLIENTCREDIT         14
+#define COLUMN_brokerSESSIONCLIENTCREDIT         14
 
-#define COLUMN_qpid010SESSIONINTERNALINDEX         15
+#define COLUMN_brokerSESSIONINTERNALINDEX         15
 
 
-#define qpid010SESSIONTABLE_MIN_COL   COLUMN_qpid010SESSIONVHOSTREF
-#define qpid010SESSIONTABLE_MAX_COL   COLUMN_qpid010SESSIONCLIENTCREDIT
+#define brokerSESSIONTABLE_MIN_COL   COLUMN_brokerSESSIONVHOSTREF
+#define brokerSESSIONTABLE_MAX_COL   COLUMN_brokerSESSIONCLIENTCREDIT
 
 
     /*
-     * TODO:405:r: Review qpid010SESSIONTABLE_SETTABLE_COLS macro.
+     * TODO:405:r: Review brokerSESSIONTABLE_SETTABLE_COLS macro.
      * OR together all the writable cols.
      */
-#define qpid010SESSIONTABLE_SETTABLE_COLS (COLUMN_qpid010SESSIONVHOSTREF_FLAG | COLUMN_qpid010SESSIONNAME_FLAG)
+#define brokerSESSIONTABLE_SETTABLE_COLS (COLUMN_brokerSESSIONVHOSTREF_FLAG | COLUMN_brokerSESSIONNAME_FLAG)
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010SESSIONTABLE_OIDS_H */
+#endif                          /* brokerSESSIONTABLE_OIDS_H */

@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010QUEUETABLE_DATA_ACCESS_H
-#define qpid010QUEUETABLE_DATA_ACCESS_H
+#ifndef brokerQUEUETABLE_DATA_ACCESS_H
+#define brokerQUEUETABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -24,42 +24,42 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010QueueTable
+ *** Table brokerQueueTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
+     * QPID-MESSAGING-MIB::brokerQueueTable is subid 1 of brokerQueues.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
      */
 
 
     int            
-        qpid010QueueTable_init_data(qpid010QueueTable_registration *
-                                   qpid010QueueTable_reg);
+        brokerQueueTable_init_data(brokerQueueTable_registration *
+                                   brokerQueueTable_reg);
 
 
     /*
-     * TODO:180:o: Review qpid010QueueTable cache timeout.
+     * TODO:180:o: Review brokerQueueTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define qpid010QUEUETABLE_CACHE_TIMEOUT   60
+#define brokerQUEUETABLE_CACHE_TIMEOUT   60
 
-    void            qpid010QueueTable_container_init(netsnmp_container **
+    void            brokerQueueTable_container_init(netsnmp_container **
                                                     container_ptr_ptr,
                                                     netsnmp_cache * cache);
-    void            qpid010QueueTable_container_shutdown(netsnmp_container *
+    void            brokerQueueTable_container_shutdown(netsnmp_container *
                                                         container_ptr);
 
-    int             qpid010QueueTable_container_load(netsnmp_container *
+    int             brokerQueueTable_container_load(netsnmp_container *
                                                     container);
-    void            qpid010QueueTable_container_free(netsnmp_container *
+    void            brokerQueueTable_container_free(netsnmp_container *
                                                     container);
 
-    int             qpid010QueueTable_cache_load(netsnmp_container *
+    int             brokerQueueTable_cache_load(netsnmp_container *
                                                 container);
-    void            qpid010QueueTable_cache_free(netsnmp_container *
+    void            brokerQueueTable_cache_free(netsnmp_container *
                                                 container);
 
     /*
@@ -76,18 +76,18 @@ extern          "C" {
      ***---------------------------------------------***
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
-    int             qpid010QueueTable_row_prep(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueTable_row_prep(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
 
     int            
-        qpid010QueueTable_validate_index(qpid010QueueTable_registration *
-                                        qpid010QueueTable_reg,
-                                        qpid010QueueTable_rowreq_ctx *
+        brokerQueueTable_validate_index(brokerQueueTable_registration *
+                                        brokerQueueTable_reg,
+                                        brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010QueueInternalIndex_check_index(qpid010QueueTable_rowreq_ctx * rowreq_ctx);     /* internal */
+    int             brokerQueueInternalIndex_check_index(brokerQueueTable_rowreq_ctx * rowreq_ctx);     /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010QUEUETABLE_DATA_ACCESS_H */
+#endif                          /* brokerQUEUETABLE_DATA_ACCESS_H */

@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010BRIDGETABLE_ENUMS_H
-#define qpid010BRIDGETABLE_ENUMS_H
+#ifndef brokerBRIDGETABLE_ENUMS_H
+#define brokerBRIDGETABLE_ENUMS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -26,14 +26,14 @@ extern          "C" {
 /*************************************************************************
  *************************************************************************
  *
- * enum definitions for table qpid010BridgeTable
+ * enum definitions for table brokerBridgeTable
  *
  *************************************************************************
  *************************************************************************/
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010BridgeDurable (TruthValue / ASN_INTEGER)
+ * brokerBridgeDurable (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -49,7 +49,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010BridgeSrcIsQueue (TruthValue / ASN_INTEGER)
+ * brokerBridgeSrcIsQueue (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -65,7 +65,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010BridgeSrcIsLocal (TruthValue / ASN_INTEGER)
+ * brokerBridgeSrcIsLocal (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -81,7 +81,7 @@ extern          "C" {
 
 /*************************************************************
  * constants for enums for the MIB node
- * qpid010BridgeDynamic (TruthValue / ASN_INTEGER)
+ * brokerBridgeDynamic (TruthValue / ASN_INTEGER)
  *
  * since a Textual Convention may be referenced more than once in a
  * MIB, protect againt redefinitions of the enum values.
@@ -100,4 +100,4 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BRIDGETABLE_ENUMS_H */
+#endif                          /* brokerBRIDGETABLE_ENUMS_H */

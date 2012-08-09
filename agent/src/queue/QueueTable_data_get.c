@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010QueueTable get routines.
- * TODO:240:M: Implement qpid010QueueTable mapping routines (if any).
+ * TODO:230:M: Implement brokerQueueTable get routines.
+ * TODO:240:M: Implement brokerQueueTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010QueueTable
+ *** Table brokerQueueTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
+ * QPID-MESSAGING-MIB::brokerQueueTable is subid 1 of brokerQueues.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010QueueTable data context functions.
+ * * TODO:200:r: Implement brokerQueueTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010QueueInternalIndex_val
+ * @param brokerQueueInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,19 +63,19 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010QueueTable_indexes_set_tbl_idx(qpid010QueueTable_mib_index * tbl_idx,
-                                     u_long qpid010QueueInternalIndex_val)
+brokerQueueTable_indexes_set_tbl_idx(brokerQueueTable_mib_index * tbl_idx,
+                                     u_long brokerQueueInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010QueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerQueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010QueueInternalIndex = qpid010QueueInternalIndex_val;
+    tbl_idx->brokerQueueInternalIndex = brokerQueueInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueTable_indexes_set_tbl_idx */
+}                               /* brokerQueueTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -91,33 +91,33 @@ qpid010QueueTable_indexes_set_tbl_idx(qpid010QueueTable_mib_index * tbl_idx,
  *  from the mib index.
  */
 int
-qpid010QueueTable_indexes_set(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                             u_long qpid010QueueInternalIndex_val)
+brokerQueueTable_indexes_set(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                             u_long brokerQueueInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_indexes_set",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_indexes_set",
                 "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010QueueTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                             qpid010QueueInternalIndex_val))
+        brokerQueueTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                             brokerQueueInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010QueueTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerQueueTable_index_to_oid(&rowreq_ctx->oid_idx,
                                            &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueTable_indexes_set */
+}                               /* brokerQueueTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueVhostRef
- * qpid010QueueVhostRef is subid 1 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueVhostRef
+ * brokerQueueVhostRef is subid 1 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.1
  * Description:
@@ -137,25 +137,25 @@ Queue vhostRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010QueueVhostRef data.
+ * Extract the current value of the brokerQueueVhostRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueVhostRef_val_ptr_ptr
+ * @param brokerQueueVhostRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010QueueVhostRef_val_ptr_len_ptr
+ * @param brokerQueueVhostRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010QueueVhostRef.
+ *        pointed to by brokerQueueVhostRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010QueueVhostRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010QueueVhostRef_val_ptr_ptr.
+ * @note If you need more than (*brokerQueueVhostRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerQueueVhostRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -165,58 +165,58 @@ Queue vhostRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010QueueVhostRef_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                        char **qpid010QueueVhostRef_val_ptr_ptr,
-                        size_t *qpid010QueueVhostRef_val_ptr_len_ptr)
+brokerQueueVhostRef_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                        char **brokerQueueVhostRef_val_ptr_ptr,
+                        size_t *brokerQueueVhostRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010QueueVhostRef_val_ptr_ptr)
-                   && (NULL != *qpid010QueueVhostRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010QueueVhostRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerQueueVhostRef_val_ptr_ptr)
+                   && (NULL != *brokerQueueVhostRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerQueueVhostRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueVhostRef_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueVhostRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueVhostRef data.
-     * copy (* qpid010QueueVhostRef_val_ptr_ptr ) data and (* qpid010QueueVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueVhostRef data.
+     * copy (* brokerQueueVhostRef_val_ptr_ptr ) data and (* brokerQueueVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010QueueVhostRef data
+     * make sure there is enough space for brokerQueueVhostRef data
      */
-    if ((NULL == (*qpid010QueueVhostRef_val_ptr_ptr)) ||
-        ((*qpid010QueueVhostRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010QueueVhostRef_len *
-          sizeof(rowreq_ctx->data.qpid010QueueVhostRef[0])))) {
+    if ((NULL == (*brokerQueueVhostRef_val_ptr_ptr)) ||
+        ((*brokerQueueVhostRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerQueueVhostRef_len *
+          sizeof(rowreq_ctx->data.brokerQueueVhostRef[0])))) {
         /*
-         * allocate space for qpid010QueueVhostRef data
+         * allocate space for brokerQueueVhostRef data
          */
-        (*qpid010QueueVhostRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010QueueVhostRef_len *
-                   sizeof(rowreq_ctx->data.qpid010QueueVhostRef[0]));
-        if (NULL == (*qpid010QueueVhostRef_val_ptr_ptr)) {
+        (*brokerQueueVhostRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerQueueVhostRef_len *
+                   sizeof(rowreq_ctx->data.brokerQueueVhostRef[0]));
+        if (NULL == (*brokerQueueVhostRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010QueueVhostRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerQueueVhostRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010QueueVhostRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010QueueVhostRef_len *
-        sizeof(rowreq_ctx->data.qpid010QueueVhostRef[0]);
-    memcpy((*qpid010QueueVhostRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010QueueVhostRef,
-           rowreq_ctx->data.qpid010QueueVhostRef_len *
-           sizeof(rowreq_ctx->data.qpid010QueueVhostRef[0]));
+    (*brokerQueueVhostRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerQueueVhostRef_len *
+        sizeof(rowreq_ctx->data.brokerQueueVhostRef[0]);
+    memcpy((*brokerQueueVhostRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerQueueVhostRef,
+           rowreq_ctx->data.brokerQueueVhostRef_len *
+           sizeof(rowreq_ctx->data.brokerQueueVhostRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueVhostRef_get */
+}                               /* brokerQueueVhostRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueName
- * qpid010QueueName is subid 2 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueName
+ * brokerQueueName is subid 2 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.2
  * Description:
@@ -236,25 +236,25 @@ Queue name
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010QueueName data.
+ * Extract the current value of the brokerQueueName data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueName_val_ptr_ptr
+ * @param brokerQueueName_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010QueueName_val_ptr_len_ptr
+ * @param brokerQueueName_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010QueueName.
+ *        pointed to by brokerQueueName.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010QueueName_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010QueueName_val_ptr_ptr.
+ * @note If you need more than (*brokerQueueName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerQueueName_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -264,58 +264,58 @@ Queue name
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010QueueName_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                    char **qpid010QueueName_val_ptr_ptr,
-                    size_t *qpid010QueueName_val_ptr_len_ptr)
+brokerQueueName_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                    char **brokerQueueName_val_ptr_ptr,
+                    size_t *brokerQueueName_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010QueueName_val_ptr_ptr)
-                   && (NULL != *qpid010QueueName_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010QueueName_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerQueueName_val_ptr_ptr)
+                   && (NULL != *brokerQueueName_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerQueueName_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueName_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueName_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueName data.
-     * copy (* qpid010QueueName_val_ptr_ptr ) data and (* qpid010QueueName_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueName data.
+     * copy (* brokerQueueName_val_ptr_ptr ) data and (* brokerQueueName_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010QueueName data
+     * make sure there is enough space for brokerQueueName data
      */
-    if ((NULL == (*qpid010QueueName_val_ptr_ptr)) ||
-        ((*qpid010QueueName_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010QueueName_len *
-          sizeof(rowreq_ctx->data.qpid010QueueName[0])))) {
+    if ((NULL == (*brokerQueueName_val_ptr_ptr)) ||
+        ((*brokerQueueName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerQueueName_len *
+          sizeof(rowreq_ctx->data.brokerQueueName[0])))) {
         /*
-         * allocate space for qpid010QueueName data
+         * allocate space for brokerQueueName data
          */
-        (*qpid010QueueName_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010QueueName_len *
-                   sizeof(rowreq_ctx->data.qpid010QueueName[0]));
-        if (NULL == (*qpid010QueueName_val_ptr_ptr)) {
+        (*brokerQueueName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerQueueName_len *
+                   sizeof(rowreq_ctx->data.brokerQueueName[0]));
+        if (NULL == (*brokerQueueName_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010QueueName)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerQueueName)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010QueueName_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010QueueName_len *
-        sizeof(rowreq_ctx->data.qpid010QueueName[0]);
-    memcpy((*qpid010QueueName_val_ptr_ptr),
-           rowreq_ctx->data.qpid010QueueName,
-           rowreq_ctx->data.qpid010QueueName_len *
-           sizeof(rowreq_ctx->data.qpid010QueueName[0]));
+    (*brokerQueueName_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerQueueName_len *
+        sizeof(rowreq_ctx->data.brokerQueueName[0]);
+    memcpy((*brokerQueueName_val_ptr_ptr),
+           rowreq_ctx->data.brokerQueueName,
+           rowreq_ctx->data.brokerQueueName_len *
+           sizeof(rowreq_ctx->data.brokerQueueName[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueName_get */
+}                               /* brokerQueueName_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDurable
- * qpid010QueueDurable is subid 3 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueDurable
+ * brokerQueueDurable is subid 3 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.3
  * Description:
@@ -333,13 +333,13 @@ Queue durable
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010QueueDurable data.
+ * Extract the current value of the brokerQueueDurable data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueDurable_val_ptr
+ * @param brokerQueueDurable_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -347,30 +347,30 @@ Queue durable
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueDurable_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                       u_long * qpid010QueueDurable_val_ptr)
+brokerQueueDurable_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                       u_long * brokerQueueDurable_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueDurable_val_ptr);
+    netsnmp_assert(NULL != brokerQueueDurable_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueDurable_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueDurable_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueDurable data.
-     * copy (* qpid010QueueDurable_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueDurable data.
+     * copy (* brokerQueueDurable_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueDurable_val_ptr) = rowreq_ctx->data.qpid010QueueDurable;
+    (*brokerQueueDurable_val_ptr) = rowreq_ctx->data.brokerQueueDurable;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDurable_get */
+}                               /* brokerQueueDurable_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueAutoDelete
- * qpid010QueueAutoDelete is subid 4 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueAutoDelete
+ * brokerQueueAutoDelete is subid 4 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.4
  * Description:
@@ -388,13 +388,13 @@ Queue autoDelete
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010QueueAutoDelete data.
+ * Extract the current value of the brokerQueueAutoDelete data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueAutoDelete_val_ptr
+ * @param brokerQueueAutoDelete_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -402,31 +402,31 @@ Queue autoDelete
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueAutoDelete_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                          u_long * qpid010QueueAutoDelete_val_ptr)
+brokerQueueAutoDelete_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                          u_long * brokerQueueAutoDelete_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueAutoDelete_val_ptr);
+    netsnmp_assert(NULL != brokerQueueAutoDelete_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueAutoDelete_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueAutoDelete_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueAutoDelete data.
-     * copy (* qpid010QueueAutoDelete_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueAutoDelete data.
+     * copy (* brokerQueueAutoDelete_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueAutoDelete_val_ptr) =
-        rowreq_ctx->data.qpid010QueueAutoDelete;
+    (*brokerQueueAutoDelete_val_ptr) =
+        rowreq_ctx->data.brokerQueueAutoDelete;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueAutoDelete_get */
+}                               /* brokerQueueAutoDelete_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueExclusive
- * qpid010QueueExclusive is subid 5 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueExclusive
+ * brokerQueueExclusive is subid 5 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.5
  * Description:
@@ -444,13 +444,13 @@ Queue exclusive
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010QueueExclusive data.
+ * Extract the current value of the brokerQueueExclusive data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueExclusive_val_ptr
+ * @param brokerQueueExclusive_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -458,31 +458,31 @@ Queue exclusive
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueExclusive_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                         u_long * qpid010QueueExclusive_val_ptr)
+brokerQueueExclusive_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                         u_long * brokerQueueExclusive_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueExclusive_val_ptr);
+    netsnmp_assert(NULL != brokerQueueExclusive_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueExclusive_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueExclusive_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueExclusive data.
-     * copy (* qpid010QueueExclusive_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueExclusive data.
+     * copy (* brokerQueueExclusive_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueExclusive_val_ptr) =
-        rowreq_ctx->data.qpid010QueueExclusive;
+    (*brokerQueueExclusive_val_ptr) =
+        rowreq_ctx->data.brokerQueueExclusive;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueExclusive_get */
+}                               /* brokerQueueExclusive_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueArguments
- * qpid010QueueArguments is subid 6 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueArguments
+ * brokerQueueArguments is subid 6 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.6
  * Description:
@@ -502,25 +502,25 @@ Arguments supplied in queue.declare
  * This data type requires a length.  (Max 65535)
  */
 /**
- * Extract the current value of the qpid010QueueArguments data.
+ * Extract the current value of the brokerQueueArguments data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueArguments_val_ptr_ptr
+ * @param brokerQueueArguments_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010QueueArguments_val_ptr_len_ptr
+ * @param brokerQueueArguments_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010QueueArguments.
+ *        pointed to by brokerQueueArguments.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010QueueArguments_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010QueueArguments_val_ptr_ptr.
+ * @note If you need more than (*brokerQueueArguments_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerQueueArguments_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -530,58 +530,58 @@ Arguments supplied in queue.declare
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010QueueArguments_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                         char **qpid010QueueArguments_val_ptr_ptr,
-                         size_t *qpid010QueueArguments_val_ptr_len_ptr)
+brokerQueueArguments_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                         char **brokerQueueArguments_val_ptr_ptr,
+                         size_t *brokerQueueArguments_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010QueueArguments_val_ptr_ptr)
-                   && (NULL != *qpid010QueueArguments_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010QueueArguments_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerQueueArguments_val_ptr_ptr)
+                   && (NULL != *brokerQueueArguments_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerQueueArguments_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueArguments_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueArguments_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueArguments data.
-     * copy (* qpid010QueueArguments_val_ptr_ptr ) data and (* qpid010QueueArguments_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueArguments data.
+     * copy (* brokerQueueArguments_val_ptr_ptr ) data and (* brokerQueueArguments_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010QueueArguments data
+     * make sure there is enough space for brokerQueueArguments data
      */
-    if ((NULL == (*qpid010QueueArguments_val_ptr_ptr)) ||
-        ((*qpid010QueueArguments_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010QueueArguments_len *
-          sizeof(rowreq_ctx->data.qpid010QueueArguments[0])))) {
+    if ((NULL == (*brokerQueueArguments_val_ptr_ptr)) ||
+        ((*brokerQueueArguments_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerQueueArguments_len *
+          sizeof(rowreq_ctx->data.brokerQueueArguments[0])))) {
         /*
-         * allocate space for qpid010QueueArguments data
+         * allocate space for brokerQueueArguments data
          */
-        (*qpid010QueueArguments_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010QueueArguments_len *
-                   sizeof(rowreq_ctx->data.qpid010QueueArguments[0]));
-        if (NULL == (*qpid010QueueArguments_val_ptr_ptr)) {
+        (*brokerQueueArguments_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerQueueArguments_len *
+                   sizeof(rowreq_ctx->data.brokerQueueArguments[0]));
+        if (NULL == (*brokerQueueArguments_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010QueueArguments)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerQueueArguments)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010QueueArguments_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010QueueArguments_len *
-        sizeof(rowreq_ctx->data.qpid010QueueArguments[0]);
-    memcpy((*qpid010QueueArguments_val_ptr_ptr),
-           rowreq_ctx->data.qpid010QueueArguments,
-           rowreq_ctx->data.qpid010QueueArguments_len *
-           sizeof(rowreq_ctx->data.qpid010QueueArguments[0]));
+    (*brokerQueueArguments_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerQueueArguments_len *
+        sizeof(rowreq_ctx->data.brokerQueueArguments[0]);
+    memcpy((*brokerQueueArguments_val_ptr_ptr),
+           rowreq_ctx->data.brokerQueueArguments,
+           rowreq_ctx->data.brokerQueueArguments_len *
+           sizeof(rowreq_ctx->data.brokerQueueArguments[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueArguments_get */
+}                               /* brokerQueueArguments_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueAltExchange
- * qpid010QueueAltExchange is subid 7 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueAltExchange
+ * brokerQueueAltExchange is subid 7 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.7
  * Description:
@@ -601,25 +601,25 @@ Queue altExchange
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010QueueAltExchange data.
+ * Extract the current value of the brokerQueueAltExchange data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueAltExchange_val_ptr_ptr
+ * @param brokerQueueAltExchange_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010QueueAltExchange_val_ptr_len_ptr
+ * @param brokerQueueAltExchange_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010QueueAltExchange.
+ *        pointed to by brokerQueueAltExchange.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010QueueAltExchange_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010QueueAltExchange_val_ptr_ptr.
+ * @note If you need more than (*brokerQueueAltExchange_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerQueueAltExchange_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -629,58 +629,58 @@ Queue altExchange
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010QueueAltExchange_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                           char **qpid010QueueAltExchange_val_ptr_ptr,
-                           size_t *qpid010QueueAltExchange_val_ptr_len_ptr)
+brokerQueueAltExchange_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                           char **brokerQueueAltExchange_val_ptr_ptr,
+                           size_t *brokerQueueAltExchange_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010QueueAltExchange_val_ptr_ptr)
-                   && (NULL != *qpid010QueueAltExchange_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010QueueAltExchange_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerQueueAltExchange_val_ptr_ptr)
+                   && (NULL != *brokerQueueAltExchange_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerQueueAltExchange_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueAltExchange_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueAltExchange_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueAltExchange data.
-     * copy (* qpid010QueueAltExchange_val_ptr_ptr ) data and (* qpid010QueueAltExchange_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueAltExchange data.
+     * copy (* brokerQueueAltExchange_val_ptr_ptr ) data and (* brokerQueueAltExchange_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010QueueAltExchange data
+     * make sure there is enough space for brokerQueueAltExchange data
      */
-    if ((NULL == (*qpid010QueueAltExchange_val_ptr_ptr)) ||
-        ((*qpid010QueueAltExchange_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010QueueAltExchange_len *
-          sizeof(rowreq_ctx->data.qpid010QueueAltExchange[0])))) {
+    if ((NULL == (*brokerQueueAltExchange_val_ptr_ptr)) ||
+        ((*brokerQueueAltExchange_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerQueueAltExchange_len *
+          sizeof(rowreq_ctx->data.brokerQueueAltExchange[0])))) {
         /*
-         * allocate space for qpid010QueueAltExchange data
+         * allocate space for brokerQueueAltExchange data
          */
-        (*qpid010QueueAltExchange_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010QueueAltExchange_len *
-                   sizeof(rowreq_ctx->data.qpid010QueueAltExchange[0]));
-        if (NULL == (*qpid010QueueAltExchange_val_ptr_ptr)) {
+        (*brokerQueueAltExchange_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerQueueAltExchange_len *
+                   sizeof(rowreq_ctx->data.brokerQueueAltExchange[0]));
+        if (NULL == (*brokerQueueAltExchange_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010QueueAltExchange)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerQueueAltExchange)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010QueueAltExchange_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010QueueAltExchange_len *
-        sizeof(rowreq_ctx->data.qpid010QueueAltExchange[0]);
-    memcpy((*qpid010QueueAltExchange_val_ptr_ptr),
-           rowreq_ctx->data.qpid010QueueAltExchange,
-           rowreq_ctx->data.qpid010QueueAltExchange_len *
-           sizeof(rowreq_ctx->data.qpid010QueueAltExchange[0]));
+    (*brokerQueueAltExchange_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerQueueAltExchange_len *
+        sizeof(rowreq_ctx->data.brokerQueueAltExchange[0]);
+    memcpy((*brokerQueueAltExchange_val_ptr_ptr),
+           rowreq_ctx->data.brokerQueueAltExchange,
+           rowreq_ctx->data.brokerQueueAltExchange_len *
+           sizeof(rowreq_ctx->data.brokerQueueAltExchange[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueAltExchange_get */
+}                               /* brokerQueueAltExchange_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgTotalEnqueues
- * qpid010QueueMsgTotalEnqueues is subid 8 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgTotalEnqueues
+ * brokerQueueMsgTotalEnqueues is subid 8 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.8
  * Description:
@@ -697,13 +697,13 @@ Total messages enqueued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgTotalEnqueues data.
+ * Extract the current value of the brokerQueueMsgTotalEnqueues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgTotalEnqueues_val_ptr
+ * @param brokerQueueMsgTotalEnqueues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -711,28 +711,28 @@ Total messages enqueued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgTotalEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                                U64 * qpid010QueueMsgTotalEnqueues_val_ptr)
+brokerQueueMsgTotalEnqueues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                                U64 * brokerQueueMsgTotalEnqueues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgTotalEnqueues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgTotalEnqueues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgTotalEnqueues data.
-     * get (* qpid010QueueMsgTotalEnqueues_val_ptr ).low and (* qpid010QueueMsgTotalEnqueues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgTotalEnqueues data.
+     * get (* brokerQueueMsgTotalEnqueues_val_ptr ).low and (* brokerQueueMsgTotalEnqueues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgTotalEnqueues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgTotalEnqueues.high;
-    (*qpid010QueueMsgTotalEnqueues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgTotalEnqueues.low;
+    (*brokerQueueMsgTotalEnqueues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgTotalEnqueues.high;
+    (*brokerQueueMsgTotalEnqueues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgTotalEnqueues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgTotalEnqueues_get */
+}                               /* brokerQueueMsgTotalEnqueues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgTotalDequeues
- * qpid010QueueMsgTotalDequeues is subid 9 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgTotalDequeues
+ * brokerQueueMsgTotalDequeues is subid 9 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.9
  * Description:
@@ -749,13 +749,13 @@ Total messages dequeued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgTotalDequeues data.
+ * Extract the current value of the brokerQueueMsgTotalDequeues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgTotalDequeues_val_ptr
+ * @param brokerQueueMsgTotalDequeues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -763,28 +763,28 @@ Total messages dequeued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgTotalDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                                U64 * qpid010QueueMsgTotalDequeues_val_ptr)
+brokerQueueMsgTotalDequeues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                                U64 * brokerQueueMsgTotalDequeues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgTotalDequeues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgTotalDequeues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgTotalDequeues data.
-     * get (* qpid010QueueMsgTotalDequeues_val_ptr ).low and (* qpid010QueueMsgTotalDequeues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgTotalDequeues data.
+     * get (* brokerQueueMsgTotalDequeues_val_ptr ).low and (* brokerQueueMsgTotalDequeues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgTotalDequeues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgTotalDequeues.high;
-    (*qpid010QueueMsgTotalDequeues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgTotalDequeues.low;
+    (*brokerQueueMsgTotalDequeues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgTotalDequeues.high;
+    (*brokerQueueMsgTotalDequeues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgTotalDequeues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgTotalDequeues_get */
+}                               /* brokerQueueMsgTotalDequeues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgTxnEnqueues
- * qpid010QueueMsgTxnEnqueues is subid 10 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgTxnEnqueues
+ * brokerQueueMsgTxnEnqueues is subid 10 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.10
  * Description:
@@ -801,13 +801,13 @@ Transactional messages enqueued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgTxnEnqueues data.
+ * Extract the current value of the brokerQueueMsgTxnEnqueues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgTxnEnqueues_val_ptr
+ * @param brokerQueueMsgTxnEnqueues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -815,28 +815,28 @@ Transactional messages enqueued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgTxnEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                              U64 * qpid010QueueMsgTxnEnqueues_val_ptr)
+brokerQueueMsgTxnEnqueues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                              U64 * brokerQueueMsgTxnEnqueues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgTxnEnqueues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgTxnEnqueues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgTxnEnqueues data.
-     * get (* qpid010QueueMsgTxnEnqueues_val_ptr ).low and (* qpid010QueueMsgTxnEnqueues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgTxnEnqueues data.
+     * get (* brokerQueueMsgTxnEnqueues_val_ptr ).low and (* brokerQueueMsgTxnEnqueues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgTxnEnqueues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgTxnEnqueues.high;
-    (*qpid010QueueMsgTxnEnqueues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgTxnEnqueues.low;
+    (*brokerQueueMsgTxnEnqueues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgTxnEnqueues.high;
+    (*brokerQueueMsgTxnEnqueues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgTxnEnqueues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgTxnEnqueues_get */
+}                               /* brokerQueueMsgTxnEnqueues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgTxnDequeues
- * qpid010QueueMsgTxnDequeues is subid 11 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgTxnDequeues
+ * brokerQueueMsgTxnDequeues is subid 11 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.11
  * Description:
@@ -853,13 +853,13 @@ Transactional messages dequeued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgTxnDequeues data.
+ * Extract the current value of the brokerQueueMsgTxnDequeues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgTxnDequeues_val_ptr
+ * @param brokerQueueMsgTxnDequeues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -867,28 +867,28 @@ Transactional messages dequeued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgTxnDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                              U64 * qpid010QueueMsgTxnDequeues_val_ptr)
+brokerQueueMsgTxnDequeues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                              U64 * brokerQueueMsgTxnDequeues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgTxnDequeues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgTxnDequeues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgTxnDequeues data.
-     * get (* qpid010QueueMsgTxnDequeues_val_ptr ).low and (* qpid010QueueMsgTxnDequeues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgTxnDequeues data.
+     * get (* brokerQueueMsgTxnDequeues_val_ptr ).low and (* brokerQueueMsgTxnDequeues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgTxnDequeues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgTxnDequeues.high;
-    (*qpid010QueueMsgTxnDequeues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgTxnDequeues.low;
+    (*brokerQueueMsgTxnDequeues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgTxnDequeues.high;
+    (*brokerQueueMsgTxnDequeues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgTxnDequeues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgTxnDequeues_get */
+}                               /* brokerQueueMsgTxnDequeues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgPersistEnqueues
- * qpid010QueueMsgPersistEnqueues is subid 12 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgPersistEnqueues
+ * brokerQueueMsgPersistEnqueues is subid 12 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.12
  * Description:
@@ -905,13 +905,13 @@ Persistent messages enqueued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgPersistEnqueues data.
+ * Extract the current value of the brokerQueueMsgPersistEnqueues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgPersistEnqueues_val_ptr
+ * @param brokerQueueMsgPersistEnqueues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -919,29 +919,29 @@ Persistent messages enqueued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgPersistEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueMsgPersistEnqueues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                   U64 *
-                                  qpid010QueueMsgPersistEnqueues_val_ptr)
+                                  brokerQueueMsgPersistEnqueues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgPersistEnqueues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgPersistEnqueues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgPersistEnqueues data.
-     * get (* qpid010QueueMsgPersistEnqueues_val_ptr ).low and (* qpid010QueueMsgPersistEnqueues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgPersistEnqueues data.
+     * get (* brokerQueueMsgPersistEnqueues_val_ptr ).low and (* brokerQueueMsgPersistEnqueues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgPersistEnqueues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgPersistEnqueues.high;
-    (*qpid010QueueMsgPersistEnqueues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgPersistEnqueues.low;
+    (*brokerQueueMsgPersistEnqueues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgPersistEnqueues.high;
+    (*brokerQueueMsgPersistEnqueues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgPersistEnqueues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgPersistEnqueues_get */
+}                               /* brokerQueueMsgPersistEnqueues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgPersistDequeues
- * qpid010QueueMsgPersistDequeues is subid 13 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgPersistDequeues
+ * brokerQueueMsgPersistDequeues is subid 13 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.13
  * Description:
@@ -958,13 +958,13 @@ Persistent messages dequeued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgPersistDequeues data.
+ * Extract the current value of the brokerQueueMsgPersistDequeues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgPersistDequeues_val_ptr
+ * @param brokerQueueMsgPersistDequeues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -972,29 +972,29 @@ Persistent messages dequeued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgPersistDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueMsgPersistDequeues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                   U64 *
-                                  qpid010QueueMsgPersistDequeues_val_ptr)
+                                  brokerQueueMsgPersistDequeues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgPersistDequeues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgPersistDequeues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgPersistDequeues data.
-     * get (* qpid010QueueMsgPersistDequeues_val_ptr ).low and (* qpid010QueueMsgPersistDequeues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgPersistDequeues data.
+     * get (* brokerQueueMsgPersistDequeues_val_ptr ).low and (* brokerQueueMsgPersistDequeues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgPersistDequeues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgPersistDequeues.high;
-    (*qpid010QueueMsgPersistDequeues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgPersistDequeues.low;
+    (*brokerQueueMsgPersistDequeues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgPersistDequeues.high;
+    (*brokerQueueMsgPersistDequeues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgPersistDequeues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgPersistDequeues_get */
+}                               /* brokerQueueMsgPersistDequeues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgDepth
- * qpid010QueueMsgDepth is subid 14 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgDepth
+ * brokerQueueMsgDepth is subid 14 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.14
  * Description:
@@ -1011,13 +1011,13 @@ Current size of queue in messages
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgDepth data.
+ * Extract the current value of the brokerQueueMsgDepth data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgDepth_val_ptr
+ * @param brokerQueueMsgDepth_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1025,28 +1025,28 @@ Current size of queue in messages
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgDepth_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                        U64 * qpid010QueueMsgDepth_val_ptr)
+brokerQueueMsgDepth_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                        U64 * brokerQueueMsgDepth_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgDepth_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgDepth_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgDepth data.
-     * get (* qpid010QueueMsgDepth_val_ptr ).low and (* qpid010QueueMsgDepth_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgDepth data.
+     * get (* brokerQueueMsgDepth_val_ptr ).low and (* brokerQueueMsgDepth_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgDepth_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgDepth.high;
-    (*qpid010QueueMsgDepth_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgDepth.low;
+    (*brokerQueueMsgDepth_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgDepth.high;
+    (*brokerQueueMsgDepth_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgDepth.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgDepth_get */
+}                               /* brokerQueueMsgDepth_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteDepth
- * qpid010QueueByteDepth is subid 15 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueByteDepth
+ * brokerQueueByteDepth is subid 15 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.15
  * Description:
@@ -1063,13 +1063,13 @@ Current size of queue in bytes
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueByteDepth data.
+ * Extract the current value of the brokerQueueByteDepth data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueByteDepth_val_ptr
+ * @param brokerQueueByteDepth_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1077,28 +1077,28 @@ Current size of queue in bytes
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueByteDepth_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                         U64 * qpid010QueueByteDepth_val_ptr)
+brokerQueueByteDepth_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                         U64 * brokerQueueByteDepth_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueByteDepth_val_ptr);
+    netsnmp_assert(NULL != brokerQueueByteDepth_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueByteDepth data.
-     * get (* qpid010QueueByteDepth_val_ptr ).low and (* qpid010QueueByteDepth_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueByteDepth data.
+     * get (* brokerQueueByteDepth_val_ptr ).low and (* brokerQueueByteDepth_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueByteDepth_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueByteDepth.high;
-    (*qpid010QueueByteDepth_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueByteDepth.low;
+    (*brokerQueueByteDepth_val_ptr).high =
+        rowreq_ctx->data.brokerQueueByteDepth.high;
+    (*brokerQueueByteDepth_val_ptr).low =
+        rowreq_ctx->data.brokerQueueByteDepth.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueByteDepth_get */
+}                               /* brokerQueueByteDepth_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteTotalEnqueues
- * qpid010QueueByteTotalEnqueues is subid 16 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueByteTotalEnqueues
+ * brokerQueueByteTotalEnqueues is subid 16 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.16
  * Description:
@@ -1115,13 +1115,13 @@ Total messages enqueued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueByteTotalEnqueues data.
+ * Extract the current value of the brokerQueueByteTotalEnqueues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueByteTotalEnqueues_val_ptr
+ * @param brokerQueueByteTotalEnqueues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1129,29 +1129,29 @@ Total messages enqueued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueByteTotalEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueByteTotalEnqueues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                  U64 *
-                                 qpid010QueueByteTotalEnqueues_val_ptr)
+                                 brokerQueueByteTotalEnqueues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueByteTotalEnqueues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueByteTotalEnqueues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueByteTotalEnqueues data.
-     * get (* qpid010QueueByteTotalEnqueues_val_ptr ).low and (* qpid010QueueByteTotalEnqueues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueByteTotalEnqueues data.
+     * get (* brokerQueueByteTotalEnqueues_val_ptr ).low and (* brokerQueueByteTotalEnqueues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueByteTotalEnqueues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueByteTotalEnqueues.high;
-    (*qpid010QueueByteTotalEnqueues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueByteTotalEnqueues.low;
+    (*brokerQueueByteTotalEnqueues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueByteTotalEnqueues.high;
+    (*brokerQueueByteTotalEnqueues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueByteTotalEnqueues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueByteTotalEnqueues_get */
+}                               /* brokerQueueByteTotalEnqueues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteTotalDequeues
- * qpid010QueueByteTotalDequeues is subid 17 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueByteTotalDequeues
+ * brokerQueueByteTotalDequeues is subid 17 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.17
  * Description:
@@ -1168,13 +1168,13 @@ Total messages dequeued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueByteTotalDequeues data.
+ * Extract the current value of the brokerQueueByteTotalDequeues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueByteTotalDequeues_val_ptr
+ * @param brokerQueueByteTotalDequeues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1182,29 +1182,29 @@ Total messages dequeued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueByteTotalDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueByteTotalDequeues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                  U64 *
-                                 qpid010QueueByteTotalDequeues_val_ptr)
+                                 brokerQueueByteTotalDequeues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueByteTotalDequeues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueByteTotalDequeues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueByteTotalDequeues data.
-     * get (* qpid010QueueByteTotalDequeues_val_ptr ).low and (* qpid010QueueByteTotalDequeues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueByteTotalDequeues data.
+     * get (* brokerQueueByteTotalDequeues_val_ptr ).low and (* brokerQueueByteTotalDequeues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueByteTotalDequeues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueByteTotalDequeues.high;
-    (*qpid010QueueByteTotalDequeues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueByteTotalDequeues.low;
+    (*brokerQueueByteTotalDequeues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueByteTotalDequeues.high;
+    (*brokerQueueByteTotalDequeues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueByteTotalDequeues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueByteTotalDequeues_get */
+}                               /* brokerQueueByteTotalDequeues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteTxnEnqueues
- * qpid010QueueByteTxnEnqueues is subid 18 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueByteTxnEnqueues
+ * brokerQueueByteTxnEnqueues is subid 18 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.18
  * Description:
@@ -1221,13 +1221,13 @@ Transactional messages enqueued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueByteTxnEnqueues data.
+ * Extract the current value of the brokerQueueByteTxnEnqueues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueByteTxnEnqueues_val_ptr
+ * @param brokerQueueByteTxnEnqueues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1235,28 +1235,28 @@ Transactional messages enqueued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueByteTxnEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                               U64 * qpid010QueueByteTxnEnqueues_val_ptr)
+brokerQueueByteTxnEnqueues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                               U64 * brokerQueueByteTxnEnqueues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueByteTxnEnqueues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueByteTxnEnqueues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueByteTxnEnqueues data.
-     * get (* qpid010QueueByteTxnEnqueues_val_ptr ).low and (* qpid010QueueByteTxnEnqueues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueByteTxnEnqueues data.
+     * get (* brokerQueueByteTxnEnqueues_val_ptr ).low and (* brokerQueueByteTxnEnqueues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueByteTxnEnqueues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueByteTxnEnqueues.high;
-    (*qpid010QueueByteTxnEnqueues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueByteTxnEnqueues.low;
+    (*brokerQueueByteTxnEnqueues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueByteTxnEnqueues.high;
+    (*brokerQueueByteTxnEnqueues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueByteTxnEnqueues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueByteTxnEnqueues_get */
+}                               /* brokerQueueByteTxnEnqueues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteTxnDequeues
- * qpid010QueueByteTxnDequeues is subid 19 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueByteTxnDequeues
+ * brokerQueueByteTxnDequeues is subid 19 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.19
  * Description:
@@ -1273,13 +1273,13 @@ Transactional messages dequeued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueByteTxnDequeues data.
+ * Extract the current value of the brokerQueueByteTxnDequeues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueByteTxnDequeues_val_ptr
+ * @param brokerQueueByteTxnDequeues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1287,28 +1287,28 @@ Transactional messages dequeued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueByteTxnDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                               U64 * qpid010QueueByteTxnDequeues_val_ptr)
+brokerQueueByteTxnDequeues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                               U64 * brokerQueueByteTxnDequeues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueByteTxnDequeues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueByteTxnDequeues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueByteTxnDequeues data.
-     * get (* qpid010QueueByteTxnDequeues_val_ptr ).low and (* qpid010QueueByteTxnDequeues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueByteTxnDequeues data.
+     * get (* brokerQueueByteTxnDequeues_val_ptr ).low and (* brokerQueueByteTxnDequeues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueByteTxnDequeues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueByteTxnDequeues.high;
-    (*qpid010QueueByteTxnDequeues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueByteTxnDequeues.low;
+    (*brokerQueueByteTxnDequeues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueByteTxnDequeues.high;
+    (*brokerQueueByteTxnDequeues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueByteTxnDequeues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueByteTxnDequeues_get */
+}                               /* brokerQueueByteTxnDequeues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBytePersistEnqueues
- * qpid010QueueBytePersistEnqueues is subid 20 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueBytePersistEnqueues
+ * brokerQueueBytePersistEnqueues is subid 20 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.20
  * Description:
@@ -1325,13 +1325,13 @@ Persistent messages enqueued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueBytePersistEnqueues data.
+ * Extract the current value of the brokerQueueBytePersistEnqueues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueBytePersistEnqueues_val_ptr
+ * @param brokerQueueBytePersistEnqueues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1339,30 +1339,30 @@ Persistent messages enqueued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueBytePersistEnqueues_get(qpid010QueueTable_rowreq_ctx *
+brokerQueueBytePersistEnqueues_get(brokerQueueTable_rowreq_ctx *
                                    rowreq_ctx,
                                    U64 *
-                                   qpid010QueueBytePersistEnqueues_val_ptr)
+                                   brokerQueueBytePersistEnqueues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueBytePersistEnqueues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueBytePersistEnqueues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueBytePersistEnqueues data.
-     * get (* qpid010QueueBytePersistEnqueues_val_ptr ).low and (* qpid010QueueBytePersistEnqueues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueBytePersistEnqueues data.
+     * get (* brokerQueueBytePersistEnqueues_val_ptr ).low and (* brokerQueueBytePersistEnqueues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueBytePersistEnqueues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueBytePersistEnqueues.high;
-    (*qpid010QueueBytePersistEnqueues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueBytePersistEnqueues.low;
+    (*brokerQueueBytePersistEnqueues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueBytePersistEnqueues.high;
+    (*brokerQueueBytePersistEnqueues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueBytePersistEnqueues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueBytePersistEnqueues_get */
+}                               /* brokerQueueBytePersistEnqueues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBytePersistDequeues
- * qpid010QueueBytePersistDequeues is subid 21 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueBytePersistDequeues
+ * brokerQueueBytePersistDequeues is subid 21 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.21
  * Description:
@@ -1379,13 +1379,13 @@ Persistent messages dequeued
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueBytePersistDequeues data.
+ * Extract the current value of the brokerQueueBytePersistDequeues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueBytePersistDequeues_val_ptr
+ * @param brokerQueueBytePersistDequeues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1393,30 +1393,30 @@ Persistent messages dequeued
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueBytePersistDequeues_get(qpid010QueueTable_rowreq_ctx *
+brokerQueueBytePersistDequeues_get(brokerQueueTable_rowreq_ctx *
                                    rowreq_ctx,
                                    U64 *
-                                   qpid010QueueBytePersistDequeues_val_ptr)
+                                   brokerQueueBytePersistDequeues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueBytePersistDequeues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueBytePersistDequeues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueBytePersistDequeues data.
-     * get (* qpid010QueueBytePersistDequeues_val_ptr ).low and (* qpid010QueueBytePersistDequeues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueBytePersistDequeues data.
+     * get (* brokerQueueBytePersistDequeues_val_ptr ).low and (* brokerQueueBytePersistDequeues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueBytePersistDequeues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueBytePersistDequeues.high;
-    (*qpid010QueueBytePersistDequeues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueBytePersistDequeues.low;
+    (*brokerQueueBytePersistDequeues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueBytePersistDequeues.high;
+    (*brokerQueueBytePersistDequeues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueBytePersistDequeues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueBytePersistDequeues_get */
+}                               /* brokerQueueBytePersistDequeues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgFtdEnqueues
- * qpid010QueueMsgFtdEnqueues is subid 22 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgFtdEnqueues
+ * brokerQueueMsgFtdEnqueues is subid 22 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.22
  * Description:
@@ -1433,13 +1433,13 @@ Total message bodies released from memory and flowed-to-disk on broker
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgFtdEnqueues data.
+ * Extract the current value of the brokerQueueMsgFtdEnqueues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgFtdEnqueues_val_ptr
+ * @param brokerQueueMsgFtdEnqueues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1447,28 +1447,28 @@ Total message bodies released from memory and flowed-to-disk on broker
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgFtdEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                              U64 * qpid010QueueMsgFtdEnqueues_val_ptr)
+brokerQueueMsgFtdEnqueues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                              U64 * brokerQueueMsgFtdEnqueues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgFtdEnqueues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgFtdEnqueues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgFtdEnqueues data.
-     * get (* qpid010QueueMsgFtdEnqueues_val_ptr ).low and (* qpid010QueueMsgFtdEnqueues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgFtdEnqueues data.
+     * get (* brokerQueueMsgFtdEnqueues_val_ptr ).low and (* brokerQueueMsgFtdEnqueues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgFtdEnqueues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgFtdEnqueues.high;
-    (*qpid010QueueMsgFtdEnqueues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgFtdEnqueues.low;
+    (*brokerQueueMsgFtdEnqueues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgFtdEnqueues.high;
+    (*brokerQueueMsgFtdEnqueues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgFtdEnqueues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgFtdEnqueues_get */
+}                               /* brokerQueueMsgFtdEnqueues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgFtdDequeues
- * qpid010QueueMsgFtdDequeues is subid 23 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgFtdDequeues
+ * brokerQueueMsgFtdDequeues is subid 23 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.23
  * Description:
@@ -1485,13 +1485,13 @@ Total message bodies dequeued from the broker having been flowed-to-disk
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgFtdDequeues data.
+ * Extract the current value of the brokerQueueMsgFtdDequeues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgFtdDequeues_val_ptr
+ * @param brokerQueueMsgFtdDequeues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1499,28 +1499,28 @@ Total message bodies dequeued from the broker having been flowed-to-disk
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgFtdDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                              U64 * qpid010QueueMsgFtdDequeues_val_ptr)
+brokerQueueMsgFtdDequeues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                              U64 * brokerQueueMsgFtdDequeues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgFtdDequeues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgFtdDequeues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgFtdDequeues data.
-     * get (* qpid010QueueMsgFtdDequeues_val_ptr ).low and (* qpid010QueueMsgFtdDequeues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgFtdDequeues data.
+     * get (* brokerQueueMsgFtdDequeues_val_ptr ).low and (* brokerQueueMsgFtdDequeues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgFtdDequeues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgFtdDequeues.high;
-    (*qpid010QueueMsgFtdDequeues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgFtdDequeues.low;
+    (*brokerQueueMsgFtdDequeues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgFtdDequeues.high;
+    (*brokerQueueMsgFtdDequeues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgFtdDequeues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgFtdDequeues_get */
+}                               /* brokerQueueMsgFtdDequeues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteFtdEnqueues
- * qpid010QueueByteFtdEnqueues is subid 24 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueByteFtdEnqueues
+ * brokerQueueByteFtdEnqueues is subid 24 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.24
  * Description:
@@ -1537,13 +1537,13 @@ Total bytes released from memory and flowed-to-disk on broker
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueByteFtdEnqueues data.
+ * Extract the current value of the brokerQueueByteFtdEnqueues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueByteFtdEnqueues_val_ptr
+ * @param brokerQueueByteFtdEnqueues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1551,28 +1551,28 @@ Total bytes released from memory and flowed-to-disk on broker
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueByteFtdEnqueues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                               U64 * qpid010QueueByteFtdEnqueues_val_ptr)
+brokerQueueByteFtdEnqueues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                               U64 * brokerQueueByteFtdEnqueues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueByteFtdEnqueues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueByteFtdEnqueues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueByteFtdEnqueues data.
-     * get (* qpid010QueueByteFtdEnqueues_val_ptr ).low and (* qpid010QueueByteFtdEnqueues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueByteFtdEnqueues data.
+     * get (* brokerQueueByteFtdEnqueues_val_ptr ).low and (* brokerQueueByteFtdEnqueues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueByteFtdEnqueues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueByteFtdEnqueues.high;
-    (*qpid010QueueByteFtdEnqueues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueByteFtdEnqueues.low;
+    (*brokerQueueByteFtdEnqueues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueByteFtdEnqueues.high;
+    (*brokerQueueByteFtdEnqueues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueByteFtdEnqueues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueByteFtdEnqueues_get */
+}                               /* brokerQueueByteFtdEnqueues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteFtdDequeues
- * qpid010QueueByteFtdDequeues is subid 25 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueByteFtdDequeues
+ * brokerQueueByteFtdDequeues is subid 25 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.25
  * Description:
@@ -1589,13 +1589,13 @@ Total bytes dequeued from the broker having been flowed-to-disk
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueByteFtdDequeues data.
+ * Extract the current value of the brokerQueueByteFtdDequeues data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueByteFtdDequeues_val_ptr
+ * @param brokerQueueByteFtdDequeues_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1603,28 +1603,28 @@ Total bytes dequeued from the broker having been flowed-to-disk
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueByteFtdDequeues_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                               U64 * qpid010QueueByteFtdDequeues_val_ptr)
+brokerQueueByteFtdDequeues_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                               U64 * brokerQueueByteFtdDequeues_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueByteFtdDequeues_val_ptr);
+    netsnmp_assert(NULL != brokerQueueByteFtdDequeues_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueByteFtdDequeues data.
-     * get (* qpid010QueueByteFtdDequeues_val_ptr ).low and (* qpid010QueueByteFtdDequeues_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueByteFtdDequeues data.
+     * get (* brokerQueueByteFtdDequeues_val_ptr ).low and (* brokerQueueByteFtdDequeues_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueByteFtdDequeues_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueByteFtdDequeues.high;
-    (*qpid010QueueByteFtdDequeues_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueByteFtdDequeues.low;
+    (*brokerQueueByteFtdDequeues_val_ptr).high =
+        rowreq_ctx->data.brokerQueueByteFtdDequeues.high;
+    (*brokerQueueByteFtdDequeues_val_ptr).low =
+        rowreq_ctx->data.brokerQueueByteFtdDequeues.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueByteFtdDequeues_get */
+}                               /* brokerQueueByteFtdDequeues_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMsgFtdDepth
- * qpid010QueueMsgFtdDepth is subid 26 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMsgFtdDepth
+ * brokerQueueMsgFtdDepth is subid 26 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.26
  * Description:
@@ -1641,13 +1641,13 @@ Current number of messages flowed-to-disk
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueMsgFtdDepth data.
+ * Extract the current value of the brokerQueueMsgFtdDepth data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMsgFtdDepth_val_ptr
+ * @param brokerQueueMsgFtdDepth_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1655,28 +1655,28 @@ Current number of messages flowed-to-disk
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMsgFtdDepth_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                           U64 * qpid010QueueMsgFtdDepth_val_ptr)
+brokerQueueMsgFtdDepth_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                           U64 * brokerQueueMsgFtdDepth_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMsgFtdDepth_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMsgFtdDepth_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueMsgFtdDepth data.
-     * get (* qpid010QueueMsgFtdDepth_val_ptr ).low and (* qpid010QueueMsgFtdDepth_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueMsgFtdDepth data.
+     * get (* brokerQueueMsgFtdDepth_val_ptr ).low and (* brokerQueueMsgFtdDepth_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueMsgFtdDepth_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueMsgFtdDepth.high;
-    (*qpid010QueueMsgFtdDepth_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueMsgFtdDepth.low;
+    (*brokerQueueMsgFtdDepth_val_ptr).high =
+        rowreq_ctx->data.brokerQueueMsgFtdDepth.high;
+    (*brokerQueueMsgFtdDepth_val_ptr).low =
+        rowreq_ctx->data.brokerQueueMsgFtdDepth.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMsgFtdDepth_get */
+}                               /* brokerQueueMsgFtdDepth_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueByteFtdDepth
- * qpid010QueueByteFtdDepth is subid 27 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueByteFtdDepth
+ * brokerQueueByteFtdDepth is subid 27 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.27
  * Description:
@@ -1693,13 +1693,13 @@ Current number of bytes flowed-to-disk
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueByteFtdDepth data.
+ * Extract the current value of the brokerQueueByteFtdDepth data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueByteFtdDepth_val_ptr
+ * @param brokerQueueByteFtdDepth_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1707,28 +1707,28 @@ Current number of bytes flowed-to-disk
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueByteFtdDepth_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                            U64 * qpid010QueueByteFtdDepth_val_ptr)
+brokerQueueByteFtdDepth_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                            U64 * brokerQueueByteFtdDepth_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueByteFtdDepth_val_ptr);
+    netsnmp_assert(NULL != brokerQueueByteFtdDepth_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueByteFtdDepth data.
-     * get (* qpid010QueueByteFtdDepth_val_ptr ).low and (* qpid010QueueByteFtdDepth_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueByteFtdDepth data.
+     * get (* brokerQueueByteFtdDepth_val_ptr ).low and (* brokerQueueByteFtdDepth_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueByteFtdDepth_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueByteFtdDepth.high;
-    (*qpid010QueueByteFtdDepth_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueByteFtdDepth.low;
+    (*brokerQueueByteFtdDepth_val_ptr).high =
+        rowreq_ctx->data.brokerQueueByteFtdDepth.high;
+    (*brokerQueueByteFtdDepth_val_ptr).low =
+        rowreq_ctx->data.brokerQueueByteFtdDepth.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueByteFtdDepth_get */
+}                               /* brokerQueueByteFtdDepth_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueReleases
- * qpid010QueueReleases is subid 28 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueReleases
+ * brokerQueueReleases is subid 28 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.28
  * Description:
@@ -1745,13 +1745,13 @@ Acquired messages reinserted into the queue
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueReleases data.
+ * Extract the current value of the brokerQueueReleases data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueReleases_val_ptr
+ * @param brokerQueueReleases_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1759,28 +1759,28 @@ Acquired messages reinserted into the queue
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueReleases_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                        U64 * qpid010QueueReleases_val_ptr)
+brokerQueueReleases_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                        U64 * brokerQueueReleases_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueReleases_val_ptr);
+    netsnmp_assert(NULL != brokerQueueReleases_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueReleases data.
-     * get (* qpid010QueueReleases_val_ptr ).low and (* qpid010QueueReleases_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueReleases data.
+     * get (* brokerQueueReleases_val_ptr ).low and (* brokerQueueReleases_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueReleases_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueReleases.high;
-    (*qpid010QueueReleases_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueReleases.low;
+    (*brokerQueueReleases_val_ptr).high =
+        rowreq_ctx->data.brokerQueueReleases.high;
+    (*brokerQueueReleases_val_ptr).low =
+        rowreq_ctx->data.brokerQueueReleases.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueReleases_get */
+}                               /* brokerQueueReleases_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueAcquires
- * qpid010QueueAcquires is subid 29 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueAcquires
+ * brokerQueueAcquires is subid 29 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.29
  * Description:
@@ -1797,13 +1797,13 @@ Messages acquired from the queue
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueAcquires data.
+ * Extract the current value of the brokerQueueAcquires data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueAcquires_val_ptr
+ * @param brokerQueueAcquires_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1811,28 +1811,28 @@ Messages acquired from the queue
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueAcquires_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                        U64 * qpid010QueueAcquires_val_ptr)
+brokerQueueAcquires_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                        U64 * brokerQueueAcquires_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueAcquires_val_ptr);
+    netsnmp_assert(NULL != brokerQueueAcquires_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueAcquires data.
-     * get (* qpid010QueueAcquires_val_ptr ).low and (* qpid010QueueAcquires_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueAcquires data.
+     * get (* brokerQueueAcquires_val_ptr ).low and (* brokerQueueAcquires_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueAcquires_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueAcquires.high;
-    (*qpid010QueueAcquires_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueAcquires.low;
+    (*brokerQueueAcquires_val_ptr).high =
+        rowreq_ctx->data.brokerQueueAcquires.high;
+    (*brokerQueueAcquires_val_ptr).low =
+        rowreq_ctx->data.brokerQueueAcquires.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueAcquires_get */
+}                               /* brokerQueueAcquires_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsTtl
- * qpid010QueueDiscardsTtl is subid 30 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueDiscardsTtl
+ * brokerQueueDiscardsTtl is subid 30 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.30
  * Description:
@@ -1849,13 +1849,13 @@ Messages discarded due to TTL expiration
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueDiscardsTtl data.
+ * Extract the current value of the brokerQueueDiscardsTtl data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueDiscardsTtl_val_ptr
+ * @param brokerQueueDiscardsTtl_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1863,28 +1863,28 @@ Messages discarded due to TTL expiration
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueDiscardsTtl_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                           U64 * qpid010QueueDiscardsTtl_val_ptr)
+brokerQueueDiscardsTtl_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                           U64 * brokerQueueDiscardsTtl_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueDiscardsTtl_val_ptr);
+    netsnmp_assert(NULL != brokerQueueDiscardsTtl_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueDiscardsTtl data.
-     * get (* qpid010QueueDiscardsTtl_val_ptr ).low and (* qpid010QueueDiscardsTtl_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueDiscardsTtl data.
+     * get (* brokerQueueDiscardsTtl_val_ptr ).low and (* brokerQueueDiscardsTtl_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueDiscardsTtl_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueDiscardsTtl.high;
-    (*qpid010QueueDiscardsTtl_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueDiscardsTtl.low;
+    (*brokerQueueDiscardsTtl_val_ptr).high =
+        rowreq_ctx->data.brokerQueueDiscardsTtl.high;
+    (*brokerQueueDiscardsTtl_val_ptr).low =
+        rowreq_ctx->data.brokerQueueDiscardsTtl.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDiscardsTtl_get */
+}                               /* brokerQueueDiscardsTtl_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsRing
- * qpid010QueueDiscardsRing is subid 31 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueDiscardsRing
+ * brokerQueueDiscardsRing is subid 31 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.31
  * Description:
@@ -1901,13 +1901,13 @@ Messages discarded due to ring-queue overflow
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueDiscardsRing data.
+ * Extract the current value of the brokerQueueDiscardsRing data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueDiscardsRing_val_ptr
+ * @param brokerQueueDiscardsRing_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1915,28 +1915,28 @@ Messages discarded due to ring-queue overflow
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueDiscardsRing_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                            U64 * qpid010QueueDiscardsRing_val_ptr)
+brokerQueueDiscardsRing_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                            U64 * brokerQueueDiscardsRing_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueDiscardsRing_val_ptr);
+    netsnmp_assert(NULL != brokerQueueDiscardsRing_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueDiscardsRing data.
-     * get (* qpid010QueueDiscardsRing_val_ptr ).low and (* qpid010QueueDiscardsRing_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueDiscardsRing data.
+     * get (* brokerQueueDiscardsRing_val_ptr ).low and (* brokerQueueDiscardsRing_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueDiscardsRing_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueDiscardsRing.high;
-    (*qpid010QueueDiscardsRing_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueDiscardsRing.low;
+    (*brokerQueueDiscardsRing_val_ptr).high =
+        rowreq_ctx->data.brokerQueueDiscardsRing.high;
+    (*brokerQueueDiscardsRing_val_ptr).low =
+        rowreq_ctx->data.brokerQueueDiscardsRing.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDiscardsRing_get */
+}                               /* brokerQueueDiscardsRing_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsLvq
- * qpid010QueueDiscardsLvq is subid 32 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueDiscardsLvq
+ * brokerQueueDiscardsLvq is subid 32 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.32
  * Description:
@@ -1953,13 +1953,13 @@ Messages discarded due to LVQ insert
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueDiscardsLvq data.
+ * Extract the current value of the brokerQueueDiscardsLvq data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueDiscardsLvq_val_ptr
+ * @param brokerQueueDiscardsLvq_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1967,28 +1967,28 @@ Messages discarded due to LVQ insert
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueDiscardsLvq_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                           U64 * qpid010QueueDiscardsLvq_val_ptr)
+brokerQueueDiscardsLvq_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                           U64 * brokerQueueDiscardsLvq_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueDiscardsLvq_val_ptr);
+    netsnmp_assert(NULL != brokerQueueDiscardsLvq_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueDiscardsLvq data.
-     * get (* qpid010QueueDiscardsLvq_val_ptr ).low and (* qpid010QueueDiscardsLvq_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueDiscardsLvq data.
+     * get (* brokerQueueDiscardsLvq_val_ptr ).low and (* brokerQueueDiscardsLvq_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueDiscardsLvq_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueDiscardsLvq.high;
-    (*qpid010QueueDiscardsLvq_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueDiscardsLvq.low;
+    (*brokerQueueDiscardsLvq_val_ptr).high =
+        rowreq_ctx->data.brokerQueueDiscardsLvq.high;
+    (*brokerQueueDiscardsLvq_val_ptr).low =
+        rowreq_ctx->data.brokerQueueDiscardsLvq.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDiscardsLvq_get */
+}                               /* brokerQueueDiscardsLvq_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsOverflow
- * qpid010QueueDiscardsOverflow is subid 33 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueDiscardsOverflow
+ * brokerQueueDiscardsOverflow is subid 33 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.33
  * Description:
@@ -2005,13 +2005,13 @@ Messages discarded due to reject-policy overflow
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueDiscardsOverflow data.
+ * Extract the current value of the brokerQueueDiscardsOverflow data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueDiscardsOverflow_val_ptr
+ * @param brokerQueueDiscardsOverflow_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2019,28 +2019,28 @@ Messages discarded due to reject-policy overflow
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueDiscardsOverflow_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                                U64 * qpid010QueueDiscardsOverflow_val_ptr)
+brokerQueueDiscardsOverflow_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                                U64 * brokerQueueDiscardsOverflow_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueDiscardsOverflow_val_ptr);
+    netsnmp_assert(NULL != brokerQueueDiscardsOverflow_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueDiscardsOverflow data.
-     * get (* qpid010QueueDiscardsOverflow_val_ptr ).low and (* qpid010QueueDiscardsOverflow_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueDiscardsOverflow data.
+     * get (* brokerQueueDiscardsOverflow_val_ptr ).low and (* brokerQueueDiscardsOverflow_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueDiscardsOverflow_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueDiscardsOverflow.high;
-    (*qpid010QueueDiscardsOverflow_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueDiscardsOverflow.low;
+    (*brokerQueueDiscardsOverflow_val_ptr).high =
+        rowreq_ctx->data.brokerQueueDiscardsOverflow.high;
+    (*brokerQueueDiscardsOverflow_val_ptr).low =
+        rowreq_ctx->data.brokerQueueDiscardsOverflow.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDiscardsOverflow_get */
+}                               /* brokerQueueDiscardsOverflow_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsSubscriber
- * qpid010QueueDiscardsSubscriber is subid 34 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueDiscardsSubscriber
+ * brokerQueueDiscardsSubscriber is subid 34 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.34
  * Description:
@@ -2057,13 +2057,13 @@ Messages discarded due to subscriber reject
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueDiscardsSubscriber data.
+ * Extract the current value of the brokerQueueDiscardsSubscriber data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueDiscardsSubscriber_val_ptr
+ * @param brokerQueueDiscardsSubscriber_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2071,29 +2071,29 @@ Messages discarded due to subscriber reject
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueDiscardsSubscriber_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueDiscardsSubscriber_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                   U64 *
-                                  qpid010QueueDiscardsSubscriber_val_ptr)
+                                  brokerQueueDiscardsSubscriber_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueDiscardsSubscriber_val_ptr);
+    netsnmp_assert(NULL != brokerQueueDiscardsSubscriber_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueDiscardsSubscriber data.
-     * get (* qpid010QueueDiscardsSubscriber_val_ptr ).low and (* qpid010QueueDiscardsSubscriber_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueDiscardsSubscriber data.
+     * get (* brokerQueueDiscardsSubscriber_val_ptr ).low and (* brokerQueueDiscardsSubscriber_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueDiscardsSubscriber_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueDiscardsSubscriber.high;
-    (*qpid010QueueDiscardsSubscriber_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueDiscardsSubscriber.low;
+    (*brokerQueueDiscardsSubscriber_val_ptr).high =
+        rowreq_ctx->data.brokerQueueDiscardsSubscriber.high;
+    (*brokerQueueDiscardsSubscriber_val_ptr).low =
+        rowreq_ctx->data.brokerQueueDiscardsSubscriber.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDiscardsSubscriber_get */
+}                               /* brokerQueueDiscardsSubscriber_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueDiscardsPurge
- * qpid010QueueDiscardsPurge is subid 35 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueDiscardsPurge
+ * brokerQueueDiscardsPurge is subid 35 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.35
  * Description:
@@ -2110,13 +2110,13 @@ Messages discarded due to management purge
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueDiscardsPurge data.
+ * Extract the current value of the brokerQueueDiscardsPurge data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueDiscardsPurge_val_ptr
+ * @param brokerQueueDiscardsPurge_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2124,28 +2124,28 @@ Messages discarded due to management purge
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueDiscardsPurge_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                             U64 * qpid010QueueDiscardsPurge_val_ptr)
+brokerQueueDiscardsPurge_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                             U64 * brokerQueueDiscardsPurge_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueDiscardsPurge_val_ptr);
+    netsnmp_assert(NULL != brokerQueueDiscardsPurge_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueDiscardsPurge data.
-     * get (* qpid010QueueDiscardsPurge_val_ptr ).low and (* qpid010QueueDiscardsPurge_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueDiscardsPurge data.
+     * get (* brokerQueueDiscardsPurge_val_ptr ).low and (* brokerQueueDiscardsPurge_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueDiscardsPurge_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueDiscardsPurge.high;
-    (*qpid010QueueDiscardsPurge_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueDiscardsPurge.low;
+    (*brokerQueueDiscardsPurge_val_ptr).high =
+        rowreq_ctx->data.brokerQueueDiscardsPurge.high;
+    (*brokerQueueDiscardsPurge_val_ptr).low =
+        rowreq_ctx->data.brokerQueueDiscardsPurge.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueDiscardsPurge_get */
+}                               /* brokerQueueDiscardsPurge_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueReroutes
- * qpid010QueueReroutes is subid 36 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueReroutes
+ * brokerQueueReroutes is subid 36 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.36
  * Description:
@@ -2162,13 +2162,13 @@ Messages dequeued to management re-route
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010QueueReroutes data.
+ * Extract the current value of the brokerQueueReroutes data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueReroutes_val_ptr
+ * @param brokerQueueReroutes_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2176,28 +2176,28 @@ Messages dequeued to management re-route
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueReroutes_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                        U64 * qpid010QueueReroutes_val_ptr)
+brokerQueueReroutes_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                        U64 * brokerQueueReroutes_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueReroutes_val_ptr);
+    netsnmp_assert(NULL != brokerQueueReroutes_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010QueueReroutes data.
-     * get (* qpid010QueueReroutes_val_ptr ).low and (* qpid010QueueReroutes_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerQueueReroutes data.
+     * get (* brokerQueueReroutes_val_ptr ).low and (* brokerQueueReroutes_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010QueueReroutes_val_ptr).high =
-        rowreq_ctx->data.qpid010QueueReroutes.high;
-    (*qpid010QueueReroutes_val_ptr).low =
-        rowreq_ctx->data.qpid010QueueReroutes.low;
+    (*brokerQueueReroutes_val_ptr).high =
+        rowreq_ctx->data.brokerQueueReroutes.high;
+    (*brokerQueueReroutes_val_ptr).low =
+        rowreq_ctx->data.brokerQueueReroutes.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueReroutes_get */
+}                               /* brokerQueueReroutes_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueConsumerCount
- * qpid010QueueConsumerCount is subid 37 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueConsumerCount
+ * brokerQueueConsumerCount is subid 37 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.37
  * Description:
@@ -2215,13 +2215,13 @@ Current consumers on queue
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueConsumerCount data.
+ * Extract the current value of the brokerQueueConsumerCount data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueConsumerCount_val_ptr
+ * @param brokerQueueConsumerCount_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2229,31 +2229,31 @@ Current consumers on queue
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueConsumerCount_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                             long *qpid010QueueConsumerCount_val_ptr)
+brokerQueueConsumerCount_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                             long *brokerQueueConsumerCount_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueConsumerCount_val_ptr);
+    netsnmp_assert(NULL != brokerQueueConsumerCount_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueConsumerCount_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueConsumerCount_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueConsumerCount data.
-     * copy (* qpid010QueueConsumerCount_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueConsumerCount data.
+     * copy (* brokerQueueConsumerCount_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueConsumerCount_val_ptr) =
-        rowreq_ctx->data.qpid010QueueConsumerCount;
+    (*brokerQueueConsumerCount_val_ptr) =
+        rowreq_ctx->data.brokerQueueConsumerCount;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueConsumerCount_get */
+}                               /* brokerQueueConsumerCount_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueConsumerCountHi
- * qpid010QueueConsumerCountHi is subid 38 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueConsumerCountHi
+ * brokerQueueConsumerCountHi is subid 38 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.38
  * Description:
@@ -2271,13 +2271,13 @@ Current consumers on queue
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueConsumerCountHi data.
+ * Extract the current value of the brokerQueueConsumerCountHi data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueConsumerCountHi_val_ptr
+ * @param brokerQueueConsumerCountHi_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2285,31 +2285,31 @@ Current consumers on queue
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueConsumerCountHi_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                               long *qpid010QueueConsumerCountHi_val_ptr)
+brokerQueueConsumerCountHi_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                               long *brokerQueueConsumerCountHi_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueConsumerCountHi_val_ptr);
+    netsnmp_assert(NULL != brokerQueueConsumerCountHi_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueConsumerCountHi_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueConsumerCountHi_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueConsumerCountHi data.
-     * copy (* qpid010QueueConsumerCountHi_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueConsumerCountHi data.
+     * copy (* brokerQueueConsumerCountHi_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueConsumerCountHi_val_ptr) =
-        rowreq_ctx->data.qpid010QueueConsumerCountHi;
+    (*brokerQueueConsumerCountHi_val_ptr) =
+        rowreq_ctx->data.brokerQueueConsumerCountHi;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueConsumerCountHi_get */
+}                               /* brokerQueueConsumerCountHi_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueConsumerCountLow
- * qpid010QueueConsumerCountLow is subid 39 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueConsumerCountLow
+ * brokerQueueConsumerCountLow is subid 39 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.39
  * Description:
@@ -2327,13 +2327,13 @@ Current consumers on queue
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueConsumerCountLow data.
+ * Extract the current value of the brokerQueueConsumerCountLow data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueConsumerCountLow_val_ptr
+ * @param brokerQueueConsumerCountLow_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2341,31 +2341,31 @@ Current consumers on queue
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueConsumerCountLow_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                                long *qpid010QueueConsumerCountLow_val_ptr)
+brokerQueueConsumerCountLow_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                                long *brokerQueueConsumerCountLow_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueConsumerCountLow_val_ptr);
+    netsnmp_assert(NULL != brokerQueueConsumerCountLow_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueConsumerCountLow_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueConsumerCountLow_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueConsumerCountLow data.
-     * copy (* qpid010QueueConsumerCountLow_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueConsumerCountLow data.
+     * copy (* brokerQueueConsumerCountLow_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueConsumerCountLow_val_ptr) =
-        rowreq_ctx->data.qpid010QueueConsumerCountLow;
+    (*brokerQueueConsumerCountLow_val_ptr) =
+        rowreq_ctx->data.brokerQueueConsumerCountLow;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueConsumerCountLow_get */
+}                               /* brokerQueueConsumerCountLow_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBindingCount
- * qpid010QueueBindingCount is subid 40 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueBindingCount
+ * brokerQueueBindingCount is subid 40 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.40
  * Description:
@@ -2383,13 +2383,13 @@ Current bindings
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueBindingCount data.
+ * Extract the current value of the brokerQueueBindingCount data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueBindingCount_val_ptr
+ * @param brokerQueueBindingCount_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2397,31 +2397,31 @@ Current bindings
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueBindingCount_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                            long *qpid010QueueBindingCount_val_ptr)
+brokerQueueBindingCount_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                            long *brokerQueueBindingCount_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueBindingCount_val_ptr);
+    netsnmp_assert(NULL != brokerQueueBindingCount_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueBindingCount_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueBindingCount_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueBindingCount data.
-     * copy (* qpid010QueueBindingCount_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueBindingCount data.
+     * copy (* brokerQueueBindingCount_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueBindingCount_val_ptr) =
-        rowreq_ctx->data.qpid010QueueBindingCount;
+    (*brokerQueueBindingCount_val_ptr) =
+        rowreq_ctx->data.brokerQueueBindingCount;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueBindingCount_get */
+}                               /* brokerQueueBindingCount_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBindingCountHi
- * qpid010QueueBindingCountHi is subid 41 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueBindingCountHi
+ * brokerQueueBindingCountHi is subid 41 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.41
  * Description:
@@ -2439,13 +2439,13 @@ Current bindings
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueBindingCountHi data.
+ * Extract the current value of the brokerQueueBindingCountHi data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueBindingCountHi_val_ptr
+ * @param brokerQueueBindingCountHi_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2453,31 +2453,31 @@ Current bindings
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueBindingCountHi_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                              long *qpid010QueueBindingCountHi_val_ptr)
+brokerQueueBindingCountHi_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                              long *brokerQueueBindingCountHi_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueBindingCountHi_val_ptr);
+    netsnmp_assert(NULL != brokerQueueBindingCountHi_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueBindingCountHi_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueBindingCountHi_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueBindingCountHi data.
-     * copy (* qpid010QueueBindingCountHi_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueBindingCountHi data.
+     * copy (* brokerQueueBindingCountHi_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueBindingCountHi_val_ptr) =
-        rowreq_ctx->data.qpid010QueueBindingCountHi;
+    (*brokerQueueBindingCountHi_val_ptr) =
+        rowreq_ctx->data.brokerQueueBindingCountHi;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueBindingCountHi_get */
+}                               /* brokerQueueBindingCountHi_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueBindingCountLow
- * qpid010QueueBindingCountLow is subid 42 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueBindingCountLow
+ * brokerQueueBindingCountLow is subid 42 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.42
  * Description:
@@ -2495,13 +2495,13 @@ Current bindings
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueBindingCountLow data.
+ * Extract the current value of the brokerQueueBindingCountLow data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueBindingCountLow_val_ptr
+ * @param brokerQueueBindingCountLow_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2509,31 +2509,31 @@ Current bindings
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueBindingCountLow_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                               long *qpid010QueueBindingCountLow_val_ptr)
+brokerQueueBindingCountLow_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                               long *brokerQueueBindingCountLow_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueBindingCountLow_val_ptr);
+    netsnmp_assert(NULL != brokerQueueBindingCountLow_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueBindingCountLow_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueBindingCountLow_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueBindingCountLow data.
-     * copy (* qpid010QueueBindingCountLow_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueBindingCountLow data.
+     * copy (* brokerQueueBindingCountLow_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueBindingCountLow_val_ptr) =
-        rowreq_ctx->data.qpid010QueueBindingCountLow;
+    (*brokerQueueBindingCountLow_val_ptr) =
+        rowreq_ctx->data.brokerQueueBindingCountLow;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueBindingCountLow_get */
+}                               /* brokerQueueBindingCountLow_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueUnackedMessages
- * qpid010QueueUnackedMessages is subid 43 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueUnackedMessages
+ * brokerQueueUnackedMessages is subid 43 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.43
  * Description:
@@ -2551,13 +2551,13 @@ Messages consumed but not yet acked
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueUnackedMessages data.
+ * Extract the current value of the brokerQueueUnackedMessages data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueUnackedMessages_val_ptr
+ * @param brokerQueueUnackedMessages_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2565,31 +2565,31 @@ Messages consumed but not yet acked
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueUnackedMessages_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                               long *qpid010QueueUnackedMessages_val_ptr)
+brokerQueueUnackedMessages_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                               long *brokerQueueUnackedMessages_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueUnackedMessages_val_ptr);
+    netsnmp_assert(NULL != brokerQueueUnackedMessages_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueUnackedMessages_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueUnackedMessages_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueUnackedMessages data.
-     * copy (* qpid010QueueUnackedMessages_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueUnackedMessages data.
+     * copy (* brokerQueueUnackedMessages_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueUnackedMessages_val_ptr) =
-        rowreq_ctx->data.qpid010QueueUnackedMessages;
+    (*brokerQueueUnackedMessages_val_ptr) =
+        rowreq_ctx->data.brokerQueueUnackedMessages;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueUnackedMessages_get */
+}                               /* brokerQueueUnackedMessages_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueUnackedMessagesHi
- * qpid010QueueUnackedMessagesHi is subid 44 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueUnackedMessagesHi
+ * brokerQueueUnackedMessagesHi is subid 44 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.44
  * Description:
@@ -2607,13 +2607,13 @@ Messages consumed but not yet acked
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueUnackedMessagesHi data.
+ * Extract the current value of the brokerQueueUnackedMessagesHi data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueUnackedMessagesHi_val_ptr
+ * @param brokerQueueUnackedMessagesHi_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2621,31 +2621,31 @@ Messages consumed but not yet acked
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueUnackedMessagesHi_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueUnackedMessagesHi_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                  long
-                                 *qpid010QueueUnackedMessagesHi_val_ptr)
+                                 *brokerQueueUnackedMessagesHi_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueUnackedMessagesHi_val_ptr);
+    netsnmp_assert(NULL != brokerQueueUnackedMessagesHi_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueUnackedMessagesHi_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueUnackedMessagesHi_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueUnackedMessagesHi data.
-     * copy (* qpid010QueueUnackedMessagesHi_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueUnackedMessagesHi data.
+     * copy (* brokerQueueUnackedMessagesHi_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueUnackedMessagesHi_val_ptr) =
-        rowreq_ctx->data.qpid010QueueUnackedMessagesHi;
+    (*brokerQueueUnackedMessagesHi_val_ptr) =
+        rowreq_ctx->data.brokerQueueUnackedMessagesHi;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueUnackedMessagesHi_get */
+}                               /* brokerQueueUnackedMessagesHi_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueUnackedMessagesLow
- * qpid010QueueUnackedMessagesLow is subid 45 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueUnackedMessagesLow
+ * brokerQueueUnackedMessagesLow is subid 45 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.45
  * Description:
@@ -2663,13 +2663,13 @@ Messages consumed but not yet acked
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010QueueUnackedMessagesLow data.
+ * Extract the current value of the brokerQueueUnackedMessagesLow data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueUnackedMessagesLow_val_ptr
+ * @param brokerQueueUnackedMessagesLow_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2677,31 +2677,31 @@ Messages consumed but not yet acked
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueUnackedMessagesLow_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueUnackedMessagesLow_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                   long
-                                  *qpid010QueueUnackedMessagesLow_val_ptr)
+                                  *brokerQueueUnackedMessagesLow_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueUnackedMessagesLow_val_ptr);
+    netsnmp_assert(NULL != brokerQueueUnackedMessagesLow_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueUnackedMessagesLow_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueUnackedMessagesLow_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueUnackedMessagesLow data.
-     * copy (* qpid010QueueUnackedMessagesLow_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueUnackedMessagesLow data.
+     * copy (* brokerQueueUnackedMessagesLow_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueUnackedMessagesLow_val_ptr) =
-        rowreq_ctx->data.qpid010QueueUnackedMessagesLow;
+    (*brokerQueueUnackedMessagesLow_val_ptr) =
+        rowreq_ctx->data.brokerQueueUnackedMessagesLow;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueUnackedMessagesLow_get */
+}                               /* brokerQueueUnackedMessagesLow_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueMessageLatency
- * qpid010QueueMessageLatency is subid 46 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueMessageLatency
+ * brokerQueueMessageLatency is subid 46 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.46
  * Description:
@@ -2718,13 +2718,13 @@ Broker latency through this queue
  * The net-snmp type is ASN_TIMETICKS. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010QueueMessageLatency data.
+ * Extract the current value of the brokerQueueMessageLatency data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueMessageLatency_val_ptr
+ * @param brokerQueueMessageLatency_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2732,31 +2732,31 @@ Broker latency through this queue
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueMessageLatency_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                              u_long * qpid010QueueMessageLatency_val_ptr)
+brokerQueueMessageLatency_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                              u_long * brokerQueueMessageLatency_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueMessageLatency_val_ptr);
+    netsnmp_assert(NULL != brokerQueueMessageLatency_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueMessageLatency_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueMessageLatency_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueMessageLatency data.
-     * copy (* qpid010QueueMessageLatency_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueMessageLatency data.
+     * copy (* brokerQueueMessageLatency_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueMessageLatency_val_ptr) =
-        rowreq_ctx->data.qpid010QueueMessageLatency;
+    (*brokerQueueMessageLatency_val_ptr) =
+        rowreq_ctx->data.brokerQueueMessageLatency;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueMessageLatency_get */
+}                               /* brokerQueueMessageLatency_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueFlowStopped
- * qpid010QueueFlowStopped is subid 47 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueFlowStopped
+ * brokerQueueFlowStopped is subid 47 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.47
  * Description:
@@ -2774,13 +2774,13 @@ Flow control active.
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010QueueFlowStopped data.
+ * Extract the current value of the brokerQueueFlowStopped data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueFlowStopped_val_ptr
+ * @param brokerQueueFlowStopped_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2788,31 +2788,31 @@ Flow control active.
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueFlowStopped_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-                           u_long * qpid010QueueFlowStopped_val_ptr)
+brokerQueueFlowStopped_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
+                           u_long * brokerQueueFlowStopped_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueFlowStopped_val_ptr);
+    netsnmp_assert(NULL != brokerQueueFlowStopped_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueFlowStopped_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueFlowStopped_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueFlowStopped data.
-     * copy (* qpid010QueueFlowStopped_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueFlowStopped data.
+     * copy (* brokerQueueFlowStopped_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueFlowStopped_val_ptr) =
-        rowreq_ctx->data.qpid010QueueFlowStopped;
+    (*brokerQueueFlowStopped_val_ptr) =
+        rowreq_ctx->data.brokerQueueFlowStopped;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueFlowStopped_get */
+}                               /* brokerQueueFlowStopped_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueFlowStoppedCount
- * qpid010QueueFlowStoppedCount is subid 48 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueFlowStoppedCount
+ * brokerQueueFlowStoppedCount is subid 48 of brokerQueueEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.48
  * Description:
@@ -2829,13 +2829,13 @@ Number of times flow control was activated for this queue
  * The net-snmp type is ASN_COUNTER. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the qpid010QueueFlowStoppedCount data.
+ * Extract the current value of the brokerQueueFlowStoppedCount data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010QueueFlowStoppedCount_val_ptr
+ * @param brokerQueueFlowStoppedCount_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -2843,28 +2843,28 @@ Number of times flow control was activated for this queue
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010QueueFlowStoppedCount_get(qpid010QueueTable_rowreq_ctx * rowreq_ctx,
+brokerQueueFlowStoppedCount_get(brokerQueueTable_rowreq_ctx * rowreq_ctx,
                                 u_long *
-                                qpid010QueueFlowStoppedCount_val_ptr)
+                                brokerQueueFlowStoppedCount_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010QueueFlowStoppedCount_val_ptr);
+    netsnmp_assert(NULL != brokerQueueFlowStoppedCount_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueFlowStoppedCount_get",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueFlowStoppedCount_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010QueueFlowStoppedCount data.
-     * copy (* qpid010QueueFlowStoppedCount_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerQueueFlowStoppedCount data.
+     * copy (* brokerQueueFlowStoppedCount_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010QueueFlowStoppedCount_val_ptr) =
-        rowreq_ctx->data.qpid010QueueFlowStoppedCount;
+    (*brokerQueueFlowStoppedCount_val_ptr) =
+        rowreq_ctx->data.brokerQueueFlowStoppedCount;
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueFlowStoppedCount_get */
+}                               /* brokerQueueFlowStoppedCount_get */
 
 
 

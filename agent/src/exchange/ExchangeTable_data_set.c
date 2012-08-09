@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ExchangeTable
+ *** Table brokerExchangeTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
+ * QPID-MESSAGING-MIB::brokerExchangeTable is subid 1 of brokerExchanges.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010ExchangeTable_allocate_data(), but may need extra
+ * brokerExchangeTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010ExchangeTable_rowreq_ctx_init().
+ * brokerExchangeTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,29 +125,29 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ExchangeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerExchangeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010ExchangeTable_undo_setup(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
+brokerExchangeTable_undo_setup(brokerExchangeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_undo_setup", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010ExchangeTable undo.
-     * set up qpid010ExchangeTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010ExchangeByteRoutes_val_ptr )*
+     * TODO:451:M: |-> Setup brokerExchangeTable undo.
+     * set up brokerExchangeTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerExchangeByteRoutes_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010ExchangeTable_undo_setup */
+}                               /* brokerExchangeTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -164,30 +164,30 @@ qpid010ExchangeTable_undo_setup(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ExchangeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerExchangeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010ExchangeTable_undo(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
+brokerExchangeTable_undo(brokerExchangeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_undo",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_undo",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010ExchangeTable undo.
-     * qpid010ExchangeTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010ExchangeByteRoutes_val_ptr )*
+     * TODO:451:M: |-> brokerExchangeTable undo.
+     * brokerExchangeTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerExchangeByteRoutes_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010ExchangeTable_undo_setup */
+}                               /* brokerExchangeTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -201,29 +201,29 @@ qpid010ExchangeTable_undo(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ExchangeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerExchangeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010ExchangeTable_undo_cleanup(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_undo_cleanup(brokerExchangeTable_rowreq_ctx *
                                  rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_undo_cleanup", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010ExchangeTable undo.
-     * Undo storage is in (* qpid010ExchangeByteRoutes_val_ptr )*
+     * TODO:452:M: |-> Cleanup brokerExchangeTable undo.
+     * Undo storage is in (* brokerExchangeByteRoutes_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010ExchangeTable_undo_cleanup */
+}                               /* brokerExchangeTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -234,22 +234,22 @@ qpid010ExchangeTable_undo_cleanup(qpid010ExchangeTable_rowreq_ctx *
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010ExchangeTable_oids.h.
+ * brokerExchangeTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010ExchangeTable_rowreq_ctx
+ * @param brokerExchangeTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010ExchangeTable_commit(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
+brokerExchangeTable_commit(brokerExchangeTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_commit",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
@@ -262,44 +262,44 @@ qpid010ExchangeTable_commit(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010ExchangeTable data
+     * commit brokerExchangeTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010EXCHANGEVHOSTREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010EXCHANGEVHOSTREF_FLAG;      /* clear qpid010ExchangeVhostRef */
+    if (save_flags & COLUMN_brokerEXCHANGEVHOSTREF_FLAG) {
+        save_flags &= ~COLUMN_brokerEXCHANGEVHOSTREF_FLAG;      /* clear brokerExchangeVhostRef */
         /*
-         * TODO:482:o: |-> commit column qpid010ExchangeVhostRef.
+         * TODO:482:o: |-> commit column brokerExchangeVhostRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010ExchangeTable column qpid010ExchangeVhostRef commit failed\n");
+                     "brokerExchangeTable column brokerExchangeVhostRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010ExchangeVhostRef
+             * set flag, in case we need to undo brokerExchangeVhostRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010EXCHANGEVHOSTREF_FLAG;
+                COLUMN_brokerEXCHANGEVHOSTREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010EXCHANGENAME_FLAG) {
-        save_flags &= ~COLUMN_qpid010EXCHANGENAME_FLAG;  /* clear qpid010ExchangeName */
+    if (save_flags & COLUMN_brokerEXCHANGENAME_FLAG) {
+        save_flags &= ~COLUMN_brokerEXCHANGENAME_FLAG;  /* clear brokerExchangeName */
         /*
-         * TODO:482:o: |-> commit column qpid010ExchangeName.
+         * TODO:482:o: |-> commit column brokerExchangeName.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010ExchangeTable column qpid010ExchangeName commit failed\n");
+                     "brokerExchangeTable column brokerExchangeName commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010ExchangeName
+             * set flag, in case we need to undo brokerExchangeName
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010EXCHANGENAME_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerEXCHANGENAME_FLAG;
         }
     }
 
@@ -317,7 +317,7 @@ qpid010ExchangeTable_commit(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010ExchangeTable_commit */
+}                               /* brokerExchangeTable_commit */
 
 /**
  * undo commit new values.
@@ -325,28 +325,28 @@ qpid010ExchangeTable_commit(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010ExchangeTable_oids.h.
+ * brokerExchangeTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010ExchangeTable_rowreq_ctx
+ * @param brokerExchangeTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010ExchangeTable_undo_commit(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_undo_commit(brokerExchangeTable_rowreq_ctx *
                                 rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_undo_commit", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010ExchangeTable commit.
+     * TODO:485:M: |-> Undo brokerExchangeTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -362,17 +362,17 @@ qpid010ExchangeTable_undo_commit(qpid010ExchangeTable_rowreq_ctx *
     }
 
     return rc;
-}                               /* qpid010ExchangeTable_undo_commit */
+}                               /* brokerExchangeTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010ExchangeTable node value checks.
- * TODO:450:M: Implement qpid010ExchangeTable undo functions.
- * TODO:460:M: Implement qpid010ExchangeTable set functions.
- * TODO:480:M: Implement qpid010ExchangeTable commit functions.
+ * TODO:440:M: Implement brokerExchangeTable node value checks.
+ * TODO:450:M: Implement brokerExchangeTable undo functions.
+ * TODO:460:M: Implement brokerExchangeTable set functions.
+ * TODO:480:M: Implement brokerExchangeTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeVhostRef
- * qpid010ExchangeVhostRef is subid 1 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeVhostRef
+ * brokerExchangeVhostRef is subid 1 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.1
  * Description:
@@ -396,10 +396,10 @@ Exchange vhostRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeVhostRef_val_ptr
+ * @param brokerExchangeVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010ExchangeVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010ExchangeVhostRef_val_ptr
+ * @param brokerExchangeVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerExchangeVhostRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -422,47 +422,47 @@ Exchange vhostRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010ExchangeTable_check_dependencies() function.
+ * brokerExchangeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010ExchangeVhostRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerExchangeVhostRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010ExchangeVhostRef_check_value(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeVhostRef_check_value(brokerExchangeTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   char *qpid010ExchangeVhostRef_val_ptr,
+                                   char *brokerExchangeVhostRef_val_ptr,
                                    size_t
-                                   qpid010ExchangeVhostRef_val_ptr_len)
+                                   brokerExchangeVhostRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeVhostRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeVhostRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010ExchangeVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeVhostRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010ExchangeVhostRef value.
+     * TODO:441:o: |-> Check for valid brokerExchangeVhostRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010ExchangeVhostRef value not illegal */
-}                               /* qpid010ExchangeVhostRef_check_value */
+    return MFD_SUCCESS;         /* brokerExchangeVhostRef value not illegal */
+}                               /* brokerExchangeVhostRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ExchangeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerExchangeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010ExchangeTable_undo_setup has been called.
+ * brokerExchangeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -472,31 +472,31 @@ qpid010ExchangeVhostRef_check_value(qpid010ExchangeTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010ExchangeVhostRef_undo_setup(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeVhostRef_undo_setup(brokerExchangeTable_rowreq_ctx *
                                   rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeVhostRef_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeVhostRef_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010ExchangeVhostRef undo.
+     * TODO:455:o: |-> Setup brokerExchangeVhostRef undo.
      */
     /*
-     * copy qpid010ExchangeVhostRef and qpid010ExchangeVhostRef_len data
-     * set rowreq_ctx->undo->qpid010ExchangeVhostRef from rowreq_ctx->data.qpid010ExchangeVhostRef
+     * copy brokerExchangeVhostRef and brokerExchangeVhostRef_len data
+     * set rowreq_ctx->undo->brokerExchangeVhostRef from rowreq_ctx->data.brokerExchangeVhostRef
      */
-    memcpy(rowreq_ctx->undo->qpid010ExchangeVhostRef,
-           rowreq_ctx->data.qpid010ExchangeVhostRef,
-           (rowreq_ctx->data.qpid010ExchangeVhostRef_len *
-            sizeof(rowreq_ctx->undo->qpid010ExchangeVhostRef[0])));
-    rowreq_ctx->undo->qpid010ExchangeVhostRef_len =
-        rowreq_ctx->data.qpid010ExchangeVhostRef_len;
+    memcpy(rowreq_ctx->undo->brokerExchangeVhostRef,
+           rowreq_ctx->data.brokerExchangeVhostRef,
+           (rowreq_ctx->data.brokerExchangeVhostRef_len *
+            sizeof(rowreq_ctx->undo->brokerExchangeVhostRef[0])));
+    rowreq_ctx->undo->brokerExchangeVhostRef_len =
+        rowreq_ctx->data.brokerExchangeVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeVhostRef_undo_setup */
+}                               /* brokerExchangeVhostRef_undo_setup */
 
 /**
  * Set the new value.
@@ -504,38 +504,38 @@ qpid010ExchangeVhostRef_undo_setup(qpid010ExchangeTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010ExchangeVhostRef_val_ptr
+ * @param brokerExchangeVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010ExchangeVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010ExchangeVhostRef_val_ptr
+ * @param brokerExchangeVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerExchangeVhostRef_val_ptr
  */
 int
-qpid010ExchangeVhostRef_set(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                           char *qpid010ExchangeVhostRef_val_ptr,
-                           size_t qpid010ExchangeVhostRef_val_ptr_len)
+brokerExchangeVhostRef_set(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                           char *brokerExchangeVhostRef_val_ptr,
+                           size_t brokerExchangeVhostRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeVhostRef_set",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeVhostRef_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010ExchangeVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeVhostRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010ExchangeVhostRef value.
-     * set qpid010ExchangeVhostRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerExchangeVhostRef value.
+     * set brokerExchangeVhostRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010ExchangeVhostRef,
-           qpid010ExchangeVhostRef_val_ptr,
-           qpid010ExchangeVhostRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerExchangeVhostRef,
+           brokerExchangeVhostRef_val_ptr,
+           brokerExchangeVhostRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010ExchangeVhostRef_len =
-        qpid010ExchangeVhostRef_val_ptr_len /
-        sizeof(qpid010ExchangeVhostRef_val_ptr[0]);
+    rowreq_ctx->data.brokerExchangeVhostRef_len =
+        brokerExchangeVhostRef_val_ptr_len /
+        sizeof(brokerExchangeVhostRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeVhostRef_set */
+}                               /* brokerExchangeVhostRef_set */
 
 /**
  * undo the previous set.
@@ -544,35 +544,35 @@ qpid010ExchangeVhostRef_set(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010ExchangeVhostRef_undo(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
+brokerExchangeVhostRef_undo(brokerExchangeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeVhostRef_undo",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeVhostRef_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010ExchangeVhostRef undo.
+     * TODO:456:o: |-> Clean up brokerExchangeVhostRef undo.
      */
     /*
-     * copy qpid010ExchangeVhostRef and qpid010ExchangeVhostRef_len data
-     * set rowreq_ctx->data.qpid010ExchangeVhostRef from rowreq_ctx->undo->qpid010ExchangeVhostRef
+     * copy brokerExchangeVhostRef and brokerExchangeVhostRef_len data
+     * set rowreq_ctx->data.brokerExchangeVhostRef from rowreq_ctx->undo->brokerExchangeVhostRef
      */
-    memcpy(rowreq_ctx->data.qpid010ExchangeVhostRef,
-           rowreq_ctx->undo->qpid010ExchangeVhostRef,
-           (rowreq_ctx->undo->qpid010ExchangeVhostRef_len *
-            sizeof(rowreq_ctx->data.qpid010ExchangeVhostRef[0])));
-    rowreq_ctx->data.qpid010ExchangeVhostRef_len =
-        rowreq_ctx->undo->qpid010ExchangeVhostRef_len;
+    memcpy(rowreq_ctx->data.brokerExchangeVhostRef,
+           rowreq_ctx->undo->brokerExchangeVhostRef,
+           (rowreq_ctx->undo->brokerExchangeVhostRef_len *
+            sizeof(rowreq_ctx->data.brokerExchangeVhostRef[0])));
+    rowreq_ctx->data.brokerExchangeVhostRef_len =
+        rowreq_ctx->undo->brokerExchangeVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeVhostRef_undo */
+}                               /* brokerExchangeVhostRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeName
- * qpid010ExchangeName is subid 2 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeName
+ * brokerExchangeName is subid 2 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.2
  * Description:
@@ -596,10 +596,10 @@ Exchange name
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeName_val_ptr
+ * @param brokerExchangeName_val_ptr
  *        A char containing the new value.
- * @param qpid010ExchangeName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010ExchangeName_val_ptr
+ * @param brokerExchangeName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerExchangeName_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -622,45 +622,45 @@ Exchange name
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010ExchangeTable_check_dependencies() function.
+ * brokerExchangeTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010ExchangeName).
+ *    The length is < sizeof(rowreq_ctx->data.brokerExchangeName).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010ExchangeName_check_value(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                               char *qpid010ExchangeName_val_ptr,
-                               size_t qpid010ExchangeName_val_ptr_len)
+brokerExchangeName_check_value(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                               char *brokerExchangeName_val_ptr,
+                               size_t brokerExchangeName_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeName_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeName_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010ExchangeName_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeName_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010ExchangeName value.
+     * TODO:441:o: |-> Check for valid brokerExchangeName value.
      */
 
-    return MFD_SUCCESS;         /* qpid010ExchangeName value not illegal */
-}                               /* qpid010ExchangeName_check_value */
+    return MFD_SUCCESS;         /* brokerExchangeName value not illegal */
+}                               /* brokerExchangeName_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010ExchangeTable_rowreq_ctx)
+ *        Pointer to the table context (brokerExchangeTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010ExchangeTable_undo_setup has been called.
+ * brokerExchangeTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -670,30 +670,30 @@ qpid010ExchangeName_check_value(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010ExchangeName_undo_setup(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
+brokerExchangeName_undo_setup(brokerExchangeTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeName_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeName_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010ExchangeName undo.
+     * TODO:455:o: |-> Setup brokerExchangeName undo.
      */
     /*
-     * copy qpid010ExchangeName and qpid010ExchangeName_len data
-     * set rowreq_ctx->undo->qpid010ExchangeName from rowreq_ctx->data.qpid010ExchangeName
+     * copy brokerExchangeName and brokerExchangeName_len data
+     * set rowreq_ctx->undo->brokerExchangeName from rowreq_ctx->data.brokerExchangeName
      */
-    memcpy(rowreq_ctx->undo->qpid010ExchangeName,
-           rowreq_ctx->data.qpid010ExchangeName,
-           (rowreq_ctx->data.qpid010ExchangeName_len *
-            sizeof(rowreq_ctx->undo->qpid010ExchangeName[0])));
-    rowreq_ctx->undo->qpid010ExchangeName_len =
-        rowreq_ctx->data.qpid010ExchangeName_len;
+    memcpy(rowreq_ctx->undo->brokerExchangeName,
+           rowreq_ctx->data.brokerExchangeName,
+           (rowreq_ctx->data.brokerExchangeName_len *
+            sizeof(rowreq_ctx->undo->brokerExchangeName[0])));
+    rowreq_ctx->undo->brokerExchangeName_len =
+        rowreq_ctx->data.brokerExchangeName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeName_undo_setup */
+}                               /* brokerExchangeName_undo_setup */
 
 /**
  * Set the new value.
@@ -701,37 +701,37 @@ qpid010ExchangeName_undo_setup(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010ExchangeName_val_ptr
+ * @param brokerExchangeName_val_ptr
  *        A char containing the new value.
- * @param qpid010ExchangeName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010ExchangeName_val_ptr
+ * @param brokerExchangeName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerExchangeName_val_ptr
  */
 int
-qpid010ExchangeName_set(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                       char *qpid010ExchangeName_val_ptr,
-                       size_t qpid010ExchangeName_val_ptr_len)
+brokerExchangeName_set(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                       char *brokerExchangeName_val_ptr,
+                       size_t brokerExchangeName_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeName_set",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeName_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010ExchangeName_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeName_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010ExchangeName value.
-     * set qpid010ExchangeName value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerExchangeName value.
+     * set brokerExchangeName value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010ExchangeName, qpid010ExchangeName_val_ptr,
-           qpid010ExchangeName_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerExchangeName, brokerExchangeName_val_ptr,
+           brokerExchangeName_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010ExchangeName_len =
-        qpid010ExchangeName_val_ptr_len /
-        sizeof(qpid010ExchangeName_val_ptr[0]);
+    rowreq_ctx->data.brokerExchangeName_len =
+        brokerExchangeName_val_ptr_len /
+        sizeof(brokerExchangeName_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeName_set */
+}                               /* brokerExchangeName_set */
 
 /**
  * undo the previous set.
@@ -740,31 +740,31 @@ qpid010ExchangeName_set(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010ExchangeName_undo(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
+brokerExchangeName_undo(brokerExchangeTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeName_undo",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeName_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010ExchangeName undo.
+     * TODO:456:o: |-> Clean up brokerExchangeName undo.
      */
     /*
-     * copy qpid010ExchangeName and qpid010ExchangeName_len data
-     * set rowreq_ctx->data.qpid010ExchangeName from rowreq_ctx->undo->qpid010ExchangeName
+     * copy brokerExchangeName and brokerExchangeName_len data
+     * set rowreq_ctx->data.brokerExchangeName from rowreq_ctx->undo->brokerExchangeName
      */
-    memcpy(rowreq_ctx->data.qpid010ExchangeName,
-           rowreq_ctx->undo->qpid010ExchangeName,
-           (rowreq_ctx->undo->qpid010ExchangeName_len *
-            sizeof(rowreq_ctx->data.qpid010ExchangeName[0])));
-    rowreq_ctx->data.qpid010ExchangeName_len =
-        rowreq_ctx->undo->qpid010ExchangeName_len;
+    memcpy(rowreq_ctx->data.brokerExchangeName,
+           rowreq_ctx->undo->brokerExchangeName,
+           (rowreq_ctx->undo->brokerExchangeName_len *
+            sizeof(rowreq_ctx->data.brokerExchangeName[0])));
+    rowreq_ctx->data.brokerExchangeName_len =
+        rowreq_ctx->undo->brokerExchangeName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeName_undo */
+}                               /* brokerExchangeName_undo */
 
 /**
  * check dependencies
@@ -776,29 +776,29 @@ qpid010ExchangeName_undo(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010ExchangeTable_oids.h.
+ * brokerExchangeTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010ExchangeTable if you don't have dependencies)
+ * (see README-table-brokerExchangeTable if you don't have dependencies)
  */
 int
-qpid010ExchangeTable_check_dependencies(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_check_dependencies(brokerExchangeTable_rowreq_ctx *
                                        rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010ExchangeTable:qpid010ExchangeTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerExchangeTable:brokerExchangeTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010ExchangeTable row dependencies.
+     * TODO:470:o: Check brokerExchangeTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010ExchangeTable_check_dependencies */
+}                               /* brokerExchangeTable_check_dependencies */
 
 /** @} */

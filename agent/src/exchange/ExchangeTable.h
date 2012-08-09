@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010EXCHANGETABLE_H
-#define qpid010EXCHANGETABLE_H
+#ifndef brokerEXCHANGETABLE_H
+#define brokerEXCHANGETABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerExchangeTable/brokerExchangeTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerExchangeTable/brokerExchangeTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerExchangeTable/brokerExchangeTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerExchangeTable/brokerExchangeTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010ExchangeTable 
+     * OID and column number definitions for brokerExchangeTable 
      */
 #include "ExchangeTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_data_
      * function declarations
      */
     void            init_ExchangeTable(void);
-    void            shutdown_qpid010ExchangeTable(void);
+    void            shutdown_brokerExchangeTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_data_
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ExchangeTable
+ *** Table brokerExchangeTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
+     * QPID-MESSAGING-MIB::brokerExchangeTable is subid 1 of brokerExchanges.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
      */
@@ -71,171 +71,171 @@ config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_data_
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010ExchangeTable registration context.
+     * TODO:101:o: |-> Review brokerExchangeTable registration context.
      */
-    typedef netsnmp_data_list qpid010ExchangeTable_registration;
+    typedef netsnmp_data_list brokerExchangeTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010ExchangeTable data context structure.
-     * This structure is used to represent the data for qpid010ExchangeTable.
+     * TODO:110:r: |-> Review brokerExchangeTable data context structure.
+     * This structure is used to represent the data for brokerExchangeTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010ExchangeTable.
+     * brokerExchangeTable.
      */
-    typedef struct qpid010ExchangeTable_data_s {
+    typedef struct brokerExchangeTable_data_s {
 
         /*
-         * qpid010ExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerExchangeVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010ExchangeVhostRef[255];
-        size_t          qpid010ExchangeVhostRef_len;     /* # of char elements, not bytes */
+        char            brokerExchangeVhostRef[255];
+        size_t          brokerExchangeVhostRef_len;     /* # of char elements, not bytes */
 
         /*
-         * qpid010ExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerExchangeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010ExchangeName[255];
-        size_t          qpid010ExchangeName_len; /* # of char elements, not bytes */
+        char            brokerExchangeName[255];
+        size_t          brokerExchangeName_len; /* # of char elements, not bytes */
 
         /*
-         * qpid010ExchangeType(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerExchangeType(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010ExchangeType[255];
-        size_t          qpid010ExchangeType_len; /* # of char elements, not bytes */
+        char            brokerExchangeType[255];
+        size_t          brokerExchangeType_len; /* # of char elements, not bytes */
 
         /*
-         * qpid010ExchangeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * brokerExchangeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
-        u_long          qpid010ExchangeDurable;
+        u_long          brokerExchangeDurable;
 
         /*
-         * qpid010ExchangeAutoDelete(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * brokerExchangeAutoDelete(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
-        u_long          qpid010ExchangeAutoDelete;
+        u_long          brokerExchangeAutoDelete;
 
         /*
-         * qpid010ExchangeAltExchange(6)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerExchangeAltExchange(6)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010ExchangeAltExchange[255];
-        size_t          qpid010ExchangeAltExchange_len;  /* # of char elements, not bytes */
+        char            brokerExchangeAltExchange[255];
+        size_t          brokerExchangeAltExchange_len;  /* # of char elements, not bytes */
 
         /*
-         * qpid010ExchangeArguments(7)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerExchangeArguments(7)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010ExchangeArguments[65535];
-        size_t          qpid010ExchangeArguments_len;    /* # of char elements, not bytes */
+        char            brokerExchangeArguments[65535];
+        size_t          brokerExchangeArguments_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010ExchangeProducerCount(8)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerExchangeProducerCount(8)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010ExchangeProducerCount;
+        long            brokerExchangeProducerCount;
 
         /*
-         * qpid010ExchangeProducerCountHi(9)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerExchangeProducerCountHi(9)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010ExchangeProducerCountHi;
+        long            brokerExchangeProducerCountHi;
 
         /*
-         * qpid010ExchangeProducerCountLow(10)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerExchangeProducerCountLow(10)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010ExchangeProducerCountLow;
+        long            brokerExchangeProducerCountLow;
 
         /*
-         * qpid010ExchangeBindingCount(11)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerExchangeBindingCount(11)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010ExchangeBindingCount;
+        long            brokerExchangeBindingCount;
 
         /*
-         * qpid010ExchangeBindingCountHi(12)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerExchangeBindingCountHi(12)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010ExchangeBindingCountHi;
+        long            brokerExchangeBindingCountHi;
 
         /*
-         * qpid010ExchangeBindingCountLow(13)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerExchangeBindingCountLow(13)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010ExchangeBindingCountLow;
+        long            brokerExchangeBindingCountLow;
 
         /*
-         * qpid010ExchangeMsgReceives(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerExchangeMsgReceives(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ExchangeMsgReceives;
+        U64             brokerExchangeMsgReceives;
 
         /*
-         * qpid010ExchangeMsgDrops(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerExchangeMsgDrops(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ExchangeMsgDrops;
+        U64             brokerExchangeMsgDrops;
 
         /*
-         * qpid010ExchangeMsgRoutes(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerExchangeMsgRoutes(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ExchangeMsgRoutes;
+        U64             brokerExchangeMsgRoutes;
 
         /*
-         * qpid010ExchangeByteReceives(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerExchangeByteReceives(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ExchangeByteReceives;
+        U64             brokerExchangeByteReceives;
 
         /*
-         * qpid010ExchangeByteDrops(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerExchangeByteDrops(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ExchangeByteDrops;
+        U64             brokerExchangeByteDrops;
 
         /*
-         * qpid010ExchangeByteRoutes(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerExchangeByteRoutes(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010ExchangeByteRoutes;
+        U64             brokerExchangeByteRoutes;
 
-    } qpid010ExchangeTable_data;
+    } brokerExchangeTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010ExchangeTable undo context.
+     * TODO:115:o: |-> Review brokerExchangeTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010ExchangeTable_data qpid010ExchangeTable_undo_data;
+    typedef brokerExchangeTable_data brokerExchangeTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010ExchangeTable mib index.
-     * This structure is used to represent the index for qpid010ExchangeTable.
+     * TODO:120:r: |-> Review brokerExchangeTable mib index.
+     * This structure is used to represent the index for brokerExchangeTable.
      */
-    typedef struct qpid010ExchangeTable_mib_index_s {
+    typedef struct brokerExchangeTable_mib_index_s {
 
         /*
-         * qpid010ExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010ExchangeInternalIndex;
+        u_long          brokerExchangeInternalIndex;
 
 
-    } qpid010ExchangeTable_mib_index;
+    } brokerExchangeTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010ExchangeTable max index length.
+     * TODO:121:r: |   |-> Review brokerExchangeTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010ExchangeTable_IDX_LEN     1
+#define MAX_brokerExchangeTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010ExchangeTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerExchangeTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010ExchangeTable_rowreq_ctx pointer.
+     * brokerExchangeTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010ExchangeTable_rowreq_ctx_s {
+    typedef struct brokerExchangeTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010ExchangeTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerExchangeTable_IDX_LEN];
 
-        qpid010ExchangeTable_mib_index tbl_idx;
+        brokerExchangeTable_mib_index tbl_idx;
 
-        qpid010ExchangeTable_data data;
-        qpid010ExchangeTable_undo_data *undo;
+        brokerExchangeTable_data data;
+        brokerExchangeTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -246,52 +246,52 @@ config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_data_
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010ExchangeTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerExchangeTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010ExchangeTable_data_list;
+        netsnmp_data_list *brokerExchangeTable_data_list;
 
-    } qpid010ExchangeTable_rowreq_ctx;
+    } brokerExchangeTable_rowreq_ctx;
 
-    typedef struct qpid010ExchangeTable_ref_rowreq_ctx_s {
-        qpid010ExchangeTable_rowreq_ctx *rowreq_ctx;
-    } qpid010ExchangeTable_ref_rowreq_ctx;
+    typedef struct brokerExchangeTable_ref_rowreq_ctx_s {
+        brokerExchangeTable_rowreq_ctx *rowreq_ctx;
+    } brokerExchangeTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010ExchangeTable_pre_request(qpid010ExchangeTable_registration *
+        brokerExchangeTable_pre_request(brokerExchangeTable_registration *
                                         user_context);
     int            
-        qpid010ExchangeTable_post_request(qpid010ExchangeTable_registration *
+        brokerExchangeTable_post_request(brokerExchangeTable_registration *
                                          user_context, int rc);
 
     int            
-        qpid010ExchangeTable_rowreq_ctx_init(qpid010ExchangeTable_rowreq_ctx
+        brokerExchangeTable_rowreq_ctx_init(brokerExchangeTable_rowreq_ctx
                                             * rowreq_ctx,
                                             void *user_init_ctx);
     void           
-        qpid010ExchangeTable_rowreq_ctx_cleanup
-        (qpid010ExchangeTable_rowreq_ctx * rowreq_ctx);
+        brokerExchangeTable_rowreq_ctx_cleanup
+        (brokerExchangeTable_rowreq_ctx * rowreq_ctx);
 
     int            
-        qpid010ExchangeTable_check_dependencies
-        (qpid010ExchangeTable_rowreq_ctx * rowreq_ctx);
+        brokerExchangeTable_check_dependencies
+        (brokerExchangeTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010ExchangeTable_commit(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeTable_commit(brokerExchangeTable_rowreq_ctx *
                                    rowreq_ctx);
 
-    qpid010ExchangeTable_rowreq_ctx
-        *qpid010ExchangeTable_row_find_by_mib_index
-        (qpid010ExchangeTable_mib_index * mib_idx);
+    brokerExchangeTable_rowreq_ctx
+        *brokerExchangeTable_row_find_by_mib_index
+        (brokerExchangeTable_mib_index * mib_idx);
 
-    extern const oid qpid010ExchangeTable_oid[];
-    extern const int qpid010ExchangeTable_oid_size;
+    extern const oid brokerExchangeTable_oid[];
+    extern const int brokerExchangeTable_oid_size;
 
 
 #include "ExchangeTable_interface.h"
@@ -312,5 +312,5 @@ config_require(MRG-MESSAGING-MIB/qpid010ExchangeTable/qpid010ExchangeTable_data_
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010EXCHANGETABLE_H */
+#endif                          /* brokerEXCHANGETABLE_H */
 /** @} */

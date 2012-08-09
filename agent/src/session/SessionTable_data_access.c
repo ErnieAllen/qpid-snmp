@@ -37,37 +37,37 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SessionTable
+ *** Table brokerSessionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
+ * QPID-MESSAGING-MIB::brokerSessionTable is subid 1 of brokerSessions.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
  */
 
 /**
- * initialization for qpid010SessionTable data access
+ * initialization for brokerSessionTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010SessionTable_reg
- *        Pointer to qpid010SessionTable_registration
+ * @param brokerSessionTable_reg
+ *        Pointer to brokerSessionTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010SessionTable_init_data(qpid010SessionTable_registration *
-                             qpid010SessionTable_reg)
+brokerSessionTable_init_data(brokerSessionTable_registration *
+                             brokerSessionTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_init_data",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_init_data",
                 "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010SessionTable data.
+     * TODO:303:o: Initialize brokerSessionTable data.
      */
     /*
      ***************************************************
@@ -86,7 +86,7 @@ qpid010SessionTable_init_data(qpid010SessionTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTable_init_data */
+}                               /* brokerSessionTable_init_data */
 
 /**
  * container overview
@@ -120,14 +120,14 @@ qpid010SessionTable_init_data(qpid010SessionTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010SessionTable_container_init(netsnmp_container ** container_ptr_ptr,
+brokerSessionTable_container_init(netsnmp_container ** container_ptr_ptr,
                                   netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_container_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_container_init", "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010SessionTable_container_init\n");
+                 "bad container param to brokerSessionTable_container_init\n");
         return;
     }
 
@@ -139,7 +139,7 @@ qpid010SessionTable_container_init(netsnmp_container ** container_ptr_ptr,
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010SessionTable_container_init\n");
+                 "bad cache param to brokerSessionTable_container_init\n");
         return;
     }
 
@@ -147,9 +147,9 @@ qpid010SessionTable_container_init(netsnmp_container ** container_ptr_ptr,
         * preload to assign initial index values
         */
 
-    cache->timeout = qpid010SESSIONTABLE_CACHE_TIMEOUT;  /* seconds */
+    cache->timeout = brokerSESSIONTABLE_CACHE_TIMEOUT;  /* seconds */
     //cache->flags |= NETSNMP_CACHE_PRELOAD;
-}                               /* qpid010SessionTable_container_init */
+}                               /* brokerSessionTable_container_init */
 
 /**
  * container shutdown
@@ -160,7 +160,7 @@ qpid010SessionTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010SessionTable_container_free().
+ *  This function is called before brokerSessionTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -168,22 +168,22 @@ qpid010SessionTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010SessionTable_container_shutdown(netsnmp_container * container_ptr)
+brokerSessionTable_container_shutdown(netsnmp_container * container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010SessionTable_container_shutdown\n");
+                 "bad params to brokerSessionTable_container_shutdown\n");
         return;
     }
 
-}                               /* qpid010SessionTable_container_shutdown */
+}                               /* brokerSessionTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010SessionTable data load
+ * TODO:350:M: Implement brokerSessionTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -205,7 +205,7 @@ qpid010SessionTable_container_shutdown(netsnmp_container * container_ptr)
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010SessionTable_row_prep() for populating data.
+ *  brokerSessionTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -214,22 +214,22 @@ qpid010SessionTable_container_shutdown(netsnmp_container * container_ptr)
  *
  */
 int
-qpid010SessionTable_container_load(netsnmp_container * container)
+brokerSessionTable_container_load(netsnmp_container * container)
 {
-    qpid010SessionTable_rowreq_ctx *rowreq_ctx;
+    brokerSessionTable_rowreq_ctx *rowreq_ctx;
     size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010SessionInternalIndex(15)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerSessionInternalIndex(15)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010SessionInternalIndex;
-    qpid010SessionTable_data qmfData;
+    u_long          brokerSessionInternalIndex;
+    brokerSessionTable_data qmfData;
 
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_container_load", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_container_load", "called\n"));
 
     uint64_t u64Data;
 
@@ -239,225 +239,225 @@ qpid010SessionTable_container_load(netsnmp_container * container)
     uint objects;
     objects = qpidGetCount(pEvent);
 
-    qpid010SessionInternalIndex = 0;
+    brokerSessionInternalIndex = 0;
     for (index = 0; index < objects; ++index) {
 
     	void * pRow = qpidGetDataRow(pEvent, index);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010SessionVhostRef,
+        strncpy(qmfData.brokerSessionVhostRef,
         		qpidGetString(pRow, "vhostRef"), 254);
-        qmfData.qpid010SessionVhostRef_len = strlen(qmfData.qpid010SessionVhostRef) + 1;
+        qmfData.brokerSessionVhostRef_len = strlen(qmfData.brokerSessionVhostRef) + 1;
 
-        strncpy(qmfData.qpid010SessionName,
+        strncpy(qmfData.brokerSessionName,
         		qpidGetString(pRow, "name"), 254);
-        qmfData.qpid010SessionName_len = strlen(qmfData.qpid010SessionName) + 1;
+        qmfData.brokerSessionName_len = strlen(qmfData.brokerSessionName) + 1;
 
-        qmfData.qpid010SessionChannelId = qpidGetU16(pRow, "channelId");
+        qmfData.brokerSessionChannelId = qpidGetU16(pRow, "channelId");
 
-        strncpy(qmfData.qpid010SessionConnectionRef,
+        strncpy(qmfData.brokerSessionConnectionRef,
         		qpidGetString(pRow, "connectionRef"), 254);
-        qmfData.qpid010SessionConnectionRef_len = strlen(qmfData.qpid010SessionConnectionRef) + 1;
+        qmfData.brokerSessionConnectionRef_len = strlen(qmfData.brokerSessionConnectionRef) + 1;
 
-        qmfData.qpid010SessionDetachedLifespan = qpidGetU32(pRow, "detachedLifespan");
-        qmfData.qpid010SessionAttached = qpidGetBool(pRow, "attached");
-        qmfData.qpid010SessionExpireTime = qpidGetU32(pRow, "expireTime");
-        qmfData.qpid010SessionMaxClientRate = qpidGetU32(pRow, "maxClientRate");
-        qmfData.qpid010SessionFramesOutstanding = qpidGetU32(pRow, "framesOutstanding");
+        qmfData.brokerSessionDetachedLifespan = qpidGetU32(pRow, "detachedLifespan");
+        qmfData.brokerSessionAttached = qpidGetBool(pRow, "attached");
+        qmfData.brokerSessionExpireTime = qpidGetU32(pRow, "expireTime");
+        qmfData.brokerSessionMaxClientRate = qpidGetU32(pRow, "maxClientRate");
+        qmfData.brokerSessionFramesOutstanding = qpidGetU32(pRow, "framesOutstanding");
 
         u64Data = qpidGetU64(pRow, "txnStarts");
-        qmfData.qpid010SessionTxnStarts.high = HIGHLONG(u64Data);
-        qmfData.qpid010SessionTxnStarts.low = LOWLONG(u64Data);
+        qmfData.brokerSessionTxnStarts.high = HIGHLONG(u64Data);
+        qmfData.brokerSessionTxnStarts.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "txnCommits");
-        qmfData.qpid010SessionTxnCommits.high = HIGHLONG(u64Data);
-        qmfData.qpid010SessionTxnCommits.low = LOWLONG(u64Data);
+        qmfData.brokerSessionTxnCommits.high = HIGHLONG(u64Data);
+        qmfData.brokerSessionTxnCommits.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "txnRejects");
-        qmfData.qpid010SessionTxnRejects.high = HIGHLONG(u64Data);
-        qmfData.qpid010SessionTxnRejects.low = LOWLONG(u64Data);
+        qmfData.brokerSessionTxnRejects.high = HIGHLONG(u64Data);
+        qmfData.brokerSessionTxnRejects.low = LOWLONG(u64Data);
 
-        qmfData.qpid010SessionTxnCount = qpidGetU32(pRow, "txnCount");
-        qmfData.qpid010SessionClientCredit = qpidGetU32(pRow, "clientCredit");
+        qmfData.brokerSessionTxnCount = qpidGetU32(pRow, "txnCount");
+        qmfData.brokerSessionClientCredit = qpidGetU32(pRow, "clientCredit");
 
         /*
-         * set indexes in new qpid010SessionTable rowreq context.
+         * set indexes in new brokerSessionTable rowreq context.
          * data context will be set from the param (unless NULL,
          *      in which case a new data context will be allocated)
          */
-        rowreq_ctx = qpid010SessionTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerSessionTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010SessionTable_indexes_set(rowreq_ctx,
-                                           qpid010SessionInternalIndex)) {
+            brokerSessionTable_indexes_set(rowreq_ctx,
+                                           brokerSessionInternalIndex)) {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010SessionTable data.\n");
-            qpid010SessionTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerSessionTable data.\n");
+            brokerSessionTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        qpid010SessionInternalIndex++;
+        brokerSessionInternalIndex++;
 
         /*
-         * setup/save data for qpid010SessionVhostRef
-         * qpid010SessionVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerSessionVhostRef
+         * brokerSessionVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010SessionVhostRef data
+         * make sure there is enough space for brokerSessionVhostRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010SessionVhostRef) ||
-            (rowreq_ctx->data.qpid010SessionVhostRef_len <
-             (qmfData.qpid010SessionVhostRef_len *
-              sizeof(qmfData.qpid010SessionVhostRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerSessionVhostRef) ||
+            (rowreq_ctx->data.brokerSessionVhostRef_len <
+             (qmfData.brokerSessionVhostRef_len *
+              sizeof(qmfData.brokerSessionVhostRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010SessionVhostRef)\n");
+                     "not enough space for value (brokerSessionVhostRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010SessionVhostRef_len =
-        		qmfData.qpid010SessionVhostRef_len * sizeof(qmfData.qpid010SessionVhostRef[0]);
-        memcpy(rowreq_ctx->data.qpid010SessionVhostRef,
-        		qmfData.qpid010SessionVhostRef,
-        		qmfData.qpid010SessionVhostRef_len *
-               sizeof(qmfData.qpid010SessionVhostRef[0]));
+        rowreq_ctx->data.brokerSessionVhostRef_len =
+        		qmfData.brokerSessionVhostRef_len * sizeof(qmfData.brokerSessionVhostRef[0]);
+        memcpy(rowreq_ctx->data.brokerSessionVhostRef,
+        		qmfData.brokerSessionVhostRef,
+        		qmfData.brokerSessionVhostRef_len *
+               sizeof(qmfData.brokerSessionVhostRef[0]));
 
         /*
-         * setup/save data for qpid010SessionName
-         * qpid010SessionName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerSessionName
+         * brokerSessionName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010SessionName data
+         * make sure there is enough space for brokerSessionName data
          */
-        if ((NULL == rowreq_ctx->data.qpid010SessionName) ||
-            (rowreq_ctx->data.qpid010SessionName_len <
-             (qmfData.qpid010SessionName_len * sizeof(qmfData.qpid010SessionName[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerSessionName) ||
+            (rowreq_ctx->data.brokerSessionName_len <
+             (qmfData.brokerSessionName_len * sizeof(qmfData.brokerSessionName[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010SessionName)\n");
+                     "not enough space for value (brokerSessionName)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010SessionName_len =
-        		qmfData.qpid010SessionName_len * sizeof(qmfData.qpid010SessionName[0]);
-        memcpy(rowreq_ctx->data.qpid010SessionName, qmfData.qpid010SessionName,
-        		qmfData.qpid010SessionName_len * sizeof(qmfData.qpid010SessionName[0]));
+        rowreq_ctx->data.brokerSessionName_len =
+        		qmfData.brokerSessionName_len * sizeof(qmfData.brokerSessionName[0]);
+        memcpy(rowreq_ctx->data.brokerSessionName, qmfData.brokerSessionName,
+        		qmfData.brokerSessionName_len * sizeof(qmfData.brokerSessionName[0]));
 
         /*
-         * setup/save data for qpid010SessionChannelId
-         * qpid010SessionChannelId(3)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerSessionChannelId
+         * brokerSessionChannelId(3)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionChannelId = qmfData.qpid010SessionChannelId;
+        rowreq_ctx->data.brokerSessionChannelId = qmfData.brokerSessionChannelId;
 
         /*
-         * setup/save data for qpid010SessionConnectionRef
-         * qpid010SessionConnectionRef(4)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerSessionConnectionRef
+         * brokerSessionConnectionRef(4)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010SessionConnectionRef data
+         * make sure there is enough space for brokerSessionConnectionRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010SessionConnectionRef) ||
-            (rowreq_ctx->data.qpid010SessionConnectionRef_len <
-             (qmfData.qpid010SessionConnectionRef_len *
-              sizeof(qmfData.qpid010SessionConnectionRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerSessionConnectionRef) ||
+            (rowreq_ctx->data.brokerSessionConnectionRef_len <
+             (qmfData.brokerSessionConnectionRef_len *
+              sizeof(qmfData.brokerSessionConnectionRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010SessionConnectionRef)\n");
+                     "not enough space for value (brokerSessionConnectionRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010SessionConnectionRef_len =
-        		qmfData.qpid010SessionConnectionRef_len *
-            sizeof(qmfData.qpid010SessionConnectionRef[0]);
-        memcpy(rowreq_ctx->data.qpid010SessionConnectionRef,
-        		qmfData.qpid010SessionConnectionRef,
-        		qmfData.qpid010SessionConnectionRef_len *
-               sizeof(qmfData.qpid010SessionConnectionRef[0]));
+        rowreq_ctx->data.brokerSessionConnectionRef_len =
+        		qmfData.brokerSessionConnectionRef_len *
+            sizeof(qmfData.brokerSessionConnectionRef[0]);
+        memcpy(rowreq_ctx->data.brokerSessionConnectionRef,
+        		qmfData.brokerSessionConnectionRef,
+        		qmfData.brokerSessionConnectionRef_len *
+               sizeof(qmfData.brokerSessionConnectionRef[0]));
 
         /*
-         * setup/save data for qpid010SessionDetachedLifespan
-         * qpid010SessionDetachedLifespan(5)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionDetachedLifespan
+         * brokerSessionDetachedLifespan(5)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionDetachedLifespan =
-        		qmfData.qpid010SessionDetachedLifespan;
+        rowreq_ctx->data.brokerSessionDetachedLifespan =
+        		qmfData.brokerSessionDetachedLifespan;
 
         /*
-         * setup/save data for qpid010SessionAttached
-         * qpid010SessionAttached(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * setup/save data for brokerSessionAttached
+         * brokerSessionAttached(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionAttached = qmfData.qpid010SessionAttached;
+        rowreq_ctx->data.brokerSessionAttached = qmfData.brokerSessionAttached;
 
         /*
-         * setup/save data for qpid010SessionExpireTime
-         * qpid010SessionExpireTime(7)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionExpireTime
+         * brokerSessionExpireTime(7)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionExpireTime = qmfData.qpid010SessionExpireTime;
+        rowreq_ctx->data.brokerSessionExpireTime = qmfData.brokerSessionExpireTime;
 
         /*
-         * setup/save data for qpid010SessionMaxClientRate
-         * qpid010SessionMaxClientRate(8)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionMaxClientRate
+         * brokerSessionMaxClientRate(8)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionMaxClientRate =
-        		qmfData.qpid010SessionMaxClientRate;
+        rowreq_ctx->data.brokerSessionMaxClientRate =
+        		qmfData.brokerSessionMaxClientRate;
 
         /*
-         * setup/save data for qpid010SessionFramesOutstanding
-         * qpid010SessionFramesOutstanding(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionFramesOutstanding
+         * brokerSessionFramesOutstanding(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionFramesOutstanding =
-        		qmfData.qpid010SessionFramesOutstanding;
+        rowreq_ctx->data.brokerSessionFramesOutstanding =
+        		qmfData.brokerSessionFramesOutstanding;
 
         /*
-         * setup/save data for qpid010SessionTxnStarts
-         * qpid010SessionTxnStarts(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionTxnStarts
+         * brokerSessionTxnStarts(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionTxnStarts.high =
-        		qmfData.qpid010SessionTxnStarts.high;
-        rowreq_ctx->data.qpid010SessionTxnStarts.low =
-        		qmfData.qpid010SessionTxnStarts.low;
+        rowreq_ctx->data.brokerSessionTxnStarts.high =
+        		qmfData.brokerSessionTxnStarts.high;
+        rowreq_ctx->data.brokerSessionTxnStarts.low =
+        		qmfData.brokerSessionTxnStarts.low;
 
         /*
-         * setup/save data for qpid010SessionTxnCommits
-         * qpid010SessionTxnCommits(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionTxnCommits
+         * brokerSessionTxnCommits(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionTxnCommits.high =
-        		qmfData.qpid010SessionTxnCommits.high;
-        rowreq_ctx->data.qpid010SessionTxnCommits.low =
-        		qmfData.qpid010SessionTxnCommits.low;
+        rowreq_ctx->data.brokerSessionTxnCommits.high =
+        		qmfData.brokerSessionTxnCommits.high;
+        rowreq_ctx->data.brokerSessionTxnCommits.low =
+        		qmfData.brokerSessionTxnCommits.low;
 
         /*
-         * setup/save data for qpid010SessionTxnRejects
-         * qpid010SessionTxnRejects(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionTxnRejects
+         * brokerSessionTxnRejects(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionTxnRejects.high =
-        		qmfData.qpid010SessionTxnRejects.high;
-        rowreq_ctx->data.qpid010SessionTxnRejects.low =
-        		qmfData.qpid010SessionTxnRejects.low;
+        rowreq_ctx->data.brokerSessionTxnRejects.high =
+        		qmfData.brokerSessionTxnRejects.high;
+        rowreq_ctx->data.brokerSessionTxnRejects.low =
+        		qmfData.brokerSessionTxnRejects.low;
 
         /*
-         * setup/save data for qpid010SessionTxnCount
-         * qpid010SessionTxnCount(13)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionTxnCount
+         * brokerSessionTxnCount(13)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionTxnCount = qmfData.qpid010SessionTxnCount;
+        rowreq_ctx->data.brokerSessionTxnCount = qmfData.brokerSessionTxnCount;
 
         /*
-         * setup/save data for qpid010SessionClientCredit
-         * qpid010SessionClientCredit(14)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionClientCredit
+         * brokerSessionClientCredit(14)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SessionClientCredit =
-        		qmfData.qpid010SessionClientCredit;
+        rowreq_ctx->data.brokerSessionClientCredit =
+        		qmfData.brokerSessionClientCredit;
 
 
         /*
@@ -470,10 +470,10 @@ qpid010SessionTable_container_load(netsnmp_container * container)
     }
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:qpid010SessionTable:qpid010SessionTable_container_load", "inserted %d records\n", count));
+    DEBUGMSGT(("verbose:brokerSessionTable:brokerSessionTable_container_load", "inserted %d records\n", count));
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTable_container_load */
+}                               /* brokerSessionTable_container_load */
 
 /**
  * container clean up
@@ -489,14 +489,14 @@ qpid010SessionTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010SessionTable_container_free(netsnmp_container * container)
+brokerSessionTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_container_free", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_container_free", "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010SessionTable container data.
+     * TODO:380:M: Free brokerSessionTable container data.
      */
-}                               /* qpid010SessionTable_container_free */
+}                               /* brokerSessionTable_container_free */
 
 /**
  * prepare row for processing.
@@ -512,9 +512,9 @@ qpid010SessionTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010SessionTable_row_prep(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionTable_row_prep(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_row_prep",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_row_prep",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -526,14 +526,14 @@ qpid010SessionTable_row_prep(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionTable_row_prep */
+}                               /* brokerSessionTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010SessionTable index validation.
+ * TODO:420:r: Implement brokerSessionTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionInternalIndex
- * qpid010SessionInternalIndex is subid 15 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionInternalIndex
+ * brokerSessionInternalIndex is subid 15 of brokerSessionEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.15
  * Description:
@@ -550,19 +550,19 @@ Internal index for session table
  *
  *
  *
- * NOTE: NODE qpid010SessionInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerSessionInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010SessionInternalIndex index portion
+ * check validity of brokerSessionInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010SessionTable_validate_index() function.
+ *       brokerSessionTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -577,21 +577,21 @@ Internal index for session table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010SessionInternalIndex_check_index(qpid010SessionTable_rowreq_ctx *
+brokerSessionInternalIndex_check_index(brokerSessionTable_rowreq_ctx *
                                        rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010SessionTable index qpid010SessionInternalIndex.
+     * TODO:426:M: |-> Check brokerSessionTable index brokerSessionInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010SessionInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerSessionInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010SessionInternalIndex index ok */
-}                               /* qpid010SessionInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerSessionInternalIndex index ok */
+}                               /* brokerSessionInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -615,33 +615,33 @@ qpid010SessionInternalIndex_check_index(qpid010SessionTable_rowreq_ctx *
  *       available then.
  *
  *
- * @param qpid010SessionTable_reg
+ * @param brokerSessionTable_reg
  *        Pointer to the user registration data
- * @param qpid010SessionTable_rowreq_ctx
+ * @param brokerSessionTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010SessionTable_validate_index(qpid010SessionTable_registration *
-                                  qpid010SessionTable_reg,
-                                  qpid010SessionTable_rowreq_ctx *
+brokerSessionTable_validate_index(brokerSessionTable_registration *
+                                  brokerSessionTable_reg,
+                                  brokerSessionTable_rowreq_ctx *
                                   rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_validate_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_validate_index", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010SessionTable index.
+     * TODO:430:M: |-> Validate potential brokerSessionTable index.
      */
     if (1) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010SessionTable table.\n");
+                 "brokerSessionTable table.\n");
         /*
          * determine failure type.
          *
@@ -658,6 +658,6 @@ qpid010SessionTable_validate_index(qpid010SessionTable_registration *
     }
 
     return rc;
-}                               /* qpid010SessionTable_validate_index */
+}                               /* brokerSessionTable_validate_index */
 
 /** @} */

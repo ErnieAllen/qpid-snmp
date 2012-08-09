@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef QPID010LINKTABLE_DATA_ACCESS_H
-#define QPID010LINKTABLE_DATA_ACCESS_H
+#ifndef brokerLINKTABLE_DATA_ACCESS_H
+#define brokerLINKTABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -24,42 +24,42 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010LinkTable
+ *** Table brokerLinkTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
+     * QPID-MESSAGING-MIB::brokerLinkTable is subid 1 of brokerLinks.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
      */
 
 
     int            
-        qpid010LinkTable_init_data(qpid010LinkTable_registration *
-                                   qpid010LinkTable_reg);
+        brokerLinkTable_init_data(brokerLinkTable_registration *
+                                   brokerLinkTable_reg);
 
 
     /*
-     * TODO:180:o: Review qpid010LinkTable cache timeout.
+     * TODO:180:o: Review brokerLinkTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define QPID010LINKTABLE_CACHE_TIMEOUT   60
+#define brokerLINKTABLE_CACHE_TIMEOUT   60
 
-    void            qpid010LinkTable_container_init(netsnmp_container **
+    void            brokerLinkTable_container_init(netsnmp_container **
                                                     container_ptr_ptr,
                                                     netsnmp_cache * cache);
-    void            qpid010LinkTable_container_shutdown(netsnmp_container *
+    void            brokerLinkTable_container_shutdown(netsnmp_container *
                                                         container_ptr);
 
-    int             qpid010LinkTable_container_load(netsnmp_container *
+    int             brokerLinkTable_container_load(netsnmp_container *
                                                     container);
-    void            qpid010LinkTable_container_free(netsnmp_container *
+    void            brokerLinkTable_container_free(netsnmp_container *
                                                     container);
 
-    int             qpid010LinkTable_cache_load(netsnmp_container *
+    int             brokerLinkTable_cache_load(netsnmp_container *
                                                 container);
-    void            qpid010LinkTable_cache_free(netsnmp_container *
+    void            brokerLinkTable_cache_free(netsnmp_container *
                                                 container);
 
     /*
@@ -76,18 +76,18 @@ extern          "C" {
      ***---------------------------------------------***
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
-    int             qpid010LinkTable_row_prep(qpid010LinkTable_rowreq_ctx *
+    int             brokerLinkTable_row_prep(brokerLinkTable_rowreq_ctx *
                                               rowreq_ctx);
 
     int            
-        qpid010LinkTable_validate_index(qpid010LinkTable_registration *
-                                        qpid010LinkTable_reg,
-                                        qpid010LinkTable_rowreq_ctx *
+        brokerLinkTable_validate_index(brokerLinkTable_registration *
+                                        brokerLinkTable_reg,
+                                        brokerLinkTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010LinkInternalIndex_check_index(qpid010LinkTable_rowreq_ctx * rowreq_ctx);     /* internal */
+    int             brokerLinkInternalIndex_check_index(brokerLinkTable_rowreq_ctx * rowreq_ctx);     /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* QPID010LINKTABLE_DATA_ACCESS_H */
+#endif                          /* brokerLINKTABLE_DATA_ACCESS_H */

@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010BINDINGTABLE_OIDS_H
-#define qpid010BINDINGTABLE_OIDS_H
+#ifndef brokerBINDINGTABLE_OIDS_H
+#define brokerBINDINGTABLE_OIDS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -13,41 +13,41 @@ extern          "C" {
 
 
     /*
-     * column number definitions for table qpid010BindingTable 
+     * column number definitions for table brokerBindingTable 
      */
-#define qpid010BINDINGTABLE_OID              1,3,6,1,4,1,18060,5672,1,1,8,1
+#define brokerBINDINGTABLE_OID              1,3,6,1,4,1,18060,5672,1,8,1
 
 
-#define COLUMN_qpid010BINDINGEXCHANGEREF         1
-#define COLUMN_qpid010BINDINGEXCHANGEREF_FLAG    (0x1 << 0)
+#define COLUMN_brokerBINDINGEXCHANGEREF         1
+#define COLUMN_brokerBINDINGEXCHANGEREF_FLAG    (0x1 << 0)
 
-#define COLUMN_qpid010BINDINGQUEUEREF         2
-#define COLUMN_qpid010BINDINGQUEUEREF_FLAG    (0x1 << 1)
+#define COLUMN_brokerBINDINGQUEUEREF         2
+#define COLUMN_brokerBINDINGQUEUEREF_FLAG    (0x1 << 1)
 
-#define COLUMN_qpid010BINDINGBINDINGKEY         3
-#define COLUMN_qpid010BINDINGBINDINGKEY_FLAG    (0x1 << 2)
+#define COLUMN_brokerBINDINGBINDINGKEY         3
+#define COLUMN_brokerBINDINGBINDINGKEY_FLAG    (0x1 << 2)
 
-#define COLUMN_qpid010BINDINGARGUMENTS         4
-#define COLUMN_qpid010BINDINGARGUMENTS_FLAG    (0x1 << 3)
+#define COLUMN_brokerBINDINGARGUMENTS         4
+#define COLUMN_brokerBINDINGARGUMENTS_FLAG    (0x1 << 3)
 
-#define COLUMN_qpid010BINDINGORIGIN         5
+#define COLUMN_brokerBINDINGORIGIN         5
 
-#define COLUMN_qpid010BINDINGMSGMATCHED         6
+#define COLUMN_brokerBINDINGMSGMATCHED         6
 
-#define COLUMN_qpid010BINDINGINTERNALINDEX         7
+#define COLUMN_brokerBINDINGINTERNALINDEX         7
 
 
-#define qpid010BINDINGTABLE_MIN_COL   COLUMN_qpid010BINDINGEXCHANGEREF
-#define qpid010BINDINGTABLE_MAX_COL   COLUMN_qpid010BINDINGMSGMATCHED
+#define brokerBINDINGTABLE_MIN_COL   COLUMN_brokerBINDINGEXCHANGEREF
+#define brokerBINDINGTABLE_MAX_COL   COLUMN_brokerBINDINGMSGMATCHED
 
 
     /*
-     * TODO:405:r: Review qpid010BINDINGTABLE_SETTABLE_COLS macro.
+     * TODO:405:r: Review brokerBINDINGTABLE_SETTABLE_COLS macro.
      * OR together all the writable cols.
      */
-#define qpid010BINDINGTABLE_SETTABLE_COLS (COLUMN_qpid010BINDINGEXCHANGEREF_FLAG | COLUMN_qpid010BINDINGQUEUEREF_FLAG | COLUMN_qpid010BINDINGBINDINGKEY_FLAG | COLUMN_qpid010BINDINGARGUMENTS_FLAG)
+#define brokerBINDINGTABLE_SETTABLE_COLS (COLUMN_brokerBINDINGEXCHANGEREF_FLAG | COLUMN_brokerBINDINGQUEUEREF_FLAG | COLUMN_brokerBINDINGBINDINGKEY_FLAG | COLUMN_brokerBINDINGARGUMENTS_FLAG)
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BINDINGTABLE_OIDS_H */
+#endif                          /* brokerBINDINGTABLE_OIDS_H */

@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010BINDINGTABLE_DATA_SET_H
-#define qpid010BINDINGTABLE_DATA_SET_H
+#ifndef brokerBINDINGTABLE_DATA_SET_H
+#define brokerBINDINGTABLE_DATA_SET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -23,154 +23,154 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BindingTable
+ *** Table brokerBindingTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010BindingTable is subid 1 of qpid010Bindings.
+     * QPID-MESSAGING-MIB::brokerBindingTable is subid 1 of brokerBindings.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1, length: 12
      */
 
 
     int            
-        qpid010BindingTable_undo_setup(qpid010BindingTable_rowreq_ctx *
+        brokerBindingTable_undo_setup(brokerBindingTable_rowreq_ctx *
                                       rowreq_ctx);
     int            
-        qpid010BindingTable_undo_cleanup(qpid010BindingTable_rowreq_ctx *
+        brokerBindingTable_undo_cleanup(brokerBindingTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010BindingTable_undo(qpid010BindingTable_rowreq_ctx *
+    int             brokerBindingTable_undo(brokerBindingTable_rowreq_ctx *
                                             rowreq_ctx);
-    int             qpid010BindingTable_commit(qpid010BindingTable_rowreq_ctx
+    int             brokerBindingTable_commit(brokerBindingTable_rowreq_ctx
                                               * rowreq_ctx);
     int            
-        qpid010BindingTable_undo_commit(qpid010BindingTable_rowreq_ctx *
+        brokerBindingTable_undo_commit(brokerBindingTable_rowreq_ctx *
                                        rowreq_ctx);
 
 
     int            
-        qpid010BindingExchangeRef_check_value(qpid010BindingTable_rowreq_ctx
+        brokerBindingExchangeRef_check_value(brokerBindingTable_rowreq_ctx
                                              * rowreq_ctx,
                                              char
-                                             *qpid010BindingExchangeRef_val_ptr,
+                                             *brokerBindingExchangeRef_val_ptr,
                                              size_t
-                                             qpid010BindingExchangeRef_val_ptr_len);
+                                             brokerBindingExchangeRef_val_ptr_len);
     int            
-        qpid010BindingExchangeRef_undo_setup(qpid010BindingTable_rowreq_ctx *
+        brokerBindingExchangeRef_undo_setup(brokerBindingTable_rowreq_ctx *
                                             rowreq_ctx);
     int            
-        qpid010BindingExchangeRef_set(qpid010BindingTable_rowreq_ctx *
+        brokerBindingExchangeRef_set(brokerBindingTable_rowreq_ctx *
                                      rowreq_ctx,
                                      char
-                                     *qpid010BindingExchangeRef_val_ptr,
+                                     *brokerBindingExchangeRef_val_ptr,
                                      size_t
-                                     qpid010BindingExchangeRef_val_ptr_len);
+                                     brokerBindingExchangeRef_val_ptr_len);
     int            
-        qpid010BindingExchangeRef_undo(qpid010BindingTable_rowreq_ctx *
+        brokerBindingExchangeRef_undo(brokerBindingTable_rowreq_ctx *
                                       rowreq_ctx);
 
     int            
-        qpid010BindingQueueRef_check_value(qpid010BindingTable_rowreq_ctx *
+        brokerBindingQueueRef_check_value(brokerBindingTable_rowreq_ctx *
                                           rowreq_ctx,
                                           char
-                                          *qpid010BindingQueueRef_val_ptr,
+                                          *brokerBindingQueueRef_val_ptr,
                                           size_t
-                                          qpid010BindingQueueRef_val_ptr_len);
+                                          brokerBindingQueueRef_val_ptr_len);
     int            
-        qpid010BindingQueueRef_undo_setup(qpid010BindingTable_rowreq_ctx *
+        brokerBindingQueueRef_undo_setup(brokerBindingTable_rowreq_ctx *
                                          rowreq_ctx);
-    int             qpid010BindingQueueRef_set(qpid010BindingTable_rowreq_ctx
+    int             brokerBindingQueueRef_set(brokerBindingTable_rowreq_ctx
                                               * rowreq_ctx,
                                               char
-                                              *qpid010BindingQueueRef_val_ptr,
+                                              *brokerBindingQueueRef_val_ptr,
                                               size_t
-                                              qpid010BindingQueueRef_val_ptr_len);
+                                              brokerBindingQueueRef_val_ptr_len);
     int            
-        qpid010BindingQueueRef_undo(qpid010BindingTable_rowreq_ctx *
+        brokerBindingQueueRef_undo(brokerBindingTable_rowreq_ctx *
                                    rowreq_ctx);
 
     int            
-        qpid010BindingBindingKey_check_value(qpid010BindingTable_rowreq_ctx *
+        brokerBindingBindingKey_check_value(brokerBindingTable_rowreq_ctx *
                                             rowreq_ctx,
                                             char
-                                            *qpid010BindingBindingKey_val_ptr,
+                                            *brokerBindingBindingKey_val_ptr,
                                             size_t
-                                            qpid010BindingBindingKey_val_ptr_len);
+                                            brokerBindingBindingKey_val_ptr_len);
     int            
-        qpid010BindingBindingKey_undo_setup(qpid010BindingTable_rowreq_ctx *
+        brokerBindingBindingKey_undo_setup(brokerBindingTable_rowreq_ctx *
                                            rowreq_ctx);
     int            
-        qpid010BindingBindingKey_set(qpid010BindingTable_rowreq_ctx *
+        brokerBindingBindingKey_set(brokerBindingTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    char *qpid010BindingBindingKey_val_ptr,
+                                    char *brokerBindingBindingKey_val_ptr,
                                     size_t
-                                    qpid010BindingBindingKey_val_ptr_len);
+                                    brokerBindingBindingKey_val_ptr_len);
     int            
-        qpid010BindingBindingKey_undo(qpid010BindingTable_rowreq_ctx *
+        brokerBindingBindingKey_undo(brokerBindingTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010BindingArguments_check_value(qpid010BindingTable_rowreq_ctx *
+        brokerBindingArguments_check_value(brokerBindingTable_rowreq_ctx *
                                            rowreq_ctx,
                                            char
-                                           *qpid010BindingArguments_val_ptr,
+                                           *brokerBindingArguments_val_ptr,
                                            size_t
-                                           qpid010BindingArguments_val_ptr_len);
+                                           brokerBindingArguments_val_ptr_len);
     int            
-        qpid010BindingArguments_undo_setup(qpid010BindingTable_rowreq_ctx *
+        brokerBindingArguments_undo_setup(brokerBindingTable_rowreq_ctx *
                                           rowreq_ctx);
     int            
-        qpid010BindingArguments_set(qpid010BindingTable_rowreq_ctx *
+        brokerBindingArguments_set(brokerBindingTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   char *qpid010BindingArguments_val_ptr,
+                                   char *brokerBindingArguments_val_ptr,
                                    size_t
-                                   qpid010BindingArguments_val_ptr_len);
+                                   brokerBindingArguments_val_ptr_len);
     int            
-        qpid010BindingArguments_undo(qpid010BindingTable_rowreq_ctx *
+        brokerBindingArguments_undo(brokerBindingTable_rowreq_ctx *
                                     rowreq_ctx);
 
     int            
-        qpid010BindingOrigin_check_value(qpid010BindingTable_rowreq_ctx *
+        brokerBindingOrigin_check_value(brokerBindingTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char *qpid010BindingOrigin_val_ptr,
+                                        char *brokerBindingOrigin_val_ptr,
                                         size_t
-                                        qpid010BindingOrigin_val_ptr_len);
+                                        brokerBindingOrigin_val_ptr_len);
     int            
-        qpid010BindingOrigin_undo_setup(qpid010BindingTable_rowreq_ctx *
+        brokerBindingOrigin_undo_setup(brokerBindingTable_rowreq_ctx *
                                        rowreq_ctx);
-    int             qpid010BindingOrigin_set(qpid010BindingTable_rowreq_ctx *
+    int             brokerBindingOrigin_set(brokerBindingTable_rowreq_ctx *
                                             rowreq_ctx,
                                             char
-                                            *qpid010BindingOrigin_val_ptr,
+                                            *brokerBindingOrigin_val_ptr,
                                             size_t
-                                            qpid010BindingOrigin_val_ptr_len);
-    int             qpid010BindingOrigin_undo(qpid010BindingTable_rowreq_ctx
+                                            brokerBindingOrigin_val_ptr_len);
+    int             brokerBindingOrigin_undo(brokerBindingTable_rowreq_ctx
                                              * rowreq_ctx);
 
     int            
-        qpid010BindingMsgMatched_check_value(qpid010BindingTable_rowreq_ctx *
+        brokerBindingMsgMatched_check_value(brokerBindingTable_rowreq_ctx *
                                             rowreq_ctx,
                                             U64
-                                            qpid010BindingMsgMatched_val);
+                                            brokerBindingMsgMatched_val);
     int            
-        qpid010BindingMsgMatched_undo_setup(qpid010BindingTable_rowreq_ctx *
+        brokerBindingMsgMatched_undo_setup(brokerBindingTable_rowreq_ctx *
                                            rowreq_ctx);
     int            
-        qpid010BindingMsgMatched_set(qpid010BindingTable_rowreq_ctx *
+        brokerBindingMsgMatched_set(brokerBindingTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    U64 qpid010BindingMsgMatched_val);
+                                    U64 brokerBindingMsgMatched_val);
     int            
-        qpid010BindingMsgMatched_undo(qpid010BindingTable_rowreq_ctx *
+        brokerBindingMsgMatched_undo(brokerBindingTable_rowreq_ctx *
                                      rowreq_ctx);
 
 
     int            
-        qpid010BindingTable_check_dependencies(qpid010BindingTable_rowreq_ctx
+        brokerBindingTable_check_dependencies(brokerBindingTable_rowreq_ctx
                                               * ctx);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BINDINGTABLE_DATA_SET_H */
+#endif                          /* brokerBINDINGTABLE_DATA_SET_H */

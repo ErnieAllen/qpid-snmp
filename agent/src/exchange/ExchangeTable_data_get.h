@@ -4,7 +4,7 @@
  *
  * $Id:$
  *
- * @file qpid010ExchangeTable_data_get.h
+ * @file brokerExchangeTable_data_get.h
  *
  * @addtogroup get
  *
@@ -12,8 +12,8 @@
  *
  * @{
  */
-#ifndef qpid010EXCHANGETABLE_DATA_GET_H
-#define qpid010EXCHANGETABLE_DATA_GET_H
+#ifndef brokerEXCHANGETABLE_DATA_GET_H
+#define brokerEXCHANGETABLE_DATA_GET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -31,12 +31,12 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ExchangeTable
+ *** Table brokerExchangeTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
+     * QPID-MESSAGING-MIB::brokerExchangeTable is subid 1 of brokerExchanges.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
      */
@@ -45,115 +45,115 @@ extern          "C" {
      */
 
     int            
-        qpid010ExchangeVhostRef_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeVhostRef_get(brokerExchangeTable_rowreq_ctx *
                                    rowreq_ctx,
                                    char
-                                   **qpid010ExchangeVhostRef_val_ptr_ptr,
+                                   **brokerExchangeVhostRef_val_ptr_ptr,
                                    size_t
-                                   *qpid010ExchangeVhostRef_val_ptr_len_ptr);
-    int             qpid010ExchangeName_get(qpid010ExchangeTable_rowreq_ctx *
+                                   *brokerExchangeVhostRef_val_ptr_len_ptr);
+    int             brokerExchangeName_get(brokerExchangeTable_rowreq_ctx *
                                            rowreq_ctx,
                                            char
-                                           **qpid010ExchangeName_val_ptr_ptr,
+                                           **brokerExchangeName_val_ptr_ptr,
                                            size_t
-                                           *qpid010ExchangeName_val_ptr_len_ptr);
-    int             qpid010ExchangeType_get(qpid010ExchangeTable_rowreq_ctx *
+                                           *brokerExchangeName_val_ptr_len_ptr);
+    int             brokerExchangeType_get(brokerExchangeTable_rowreq_ctx *
                                            rowreq_ctx,
                                            char
-                                           **qpid010ExchangeType_val_ptr_ptr,
+                                           **brokerExchangeType_val_ptr_ptr,
                                            size_t
-                                           *qpid010ExchangeType_val_ptr_len_ptr);
+                                           *brokerExchangeType_val_ptr_len_ptr);
     int            
-        qpid010ExchangeDurable_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeDurable_get(brokerExchangeTable_rowreq_ctx *
                                   rowreq_ctx,
-                                  u_long * qpid010ExchangeDurable_val_ptr);
+                                  u_long * brokerExchangeDurable_val_ptr);
     int            
-        qpid010ExchangeAutoDelete_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeAutoDelete_get(brokerExchangeTable_rowreq_ctx *
                                      rowreq_ctx,
                                      u_long *
-                                     qpid010ExchangeAutoDelete_val_ptr);
+                                     brokerExchangeAutoDelete_val_ptr);
     int            
-        qpid010ExchangeAltExchange_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeAltExchange_get(brokerExchangeTable_rowreq_ctx *
                                       rowreq_ctx,
                                       char
-                                      **qpid010ExchangeAltExchange_val_ptr_ptr,
+                                      **brokerExchangeAltExchange_val_ptr_ptr,
                                       size_t
-                                      *qpid010ExchangeAltExchange_val_ptr_len_ptr);
+                                      *brokerExchangeAltExchange_val_ptr_len_ptr);
     int            
-        qpid010ExchangeArguments_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeArguments_get(brokerExchangeTable_rowreq_ctx *
                                     rowreq_ctx,
                                     char
-                                    **qpid010ExchangeArguments_val_ptr_ptr,
+                                    **brokerExchangeArguments_val_ptr_ptr,
                                     size_t
-                                    *qpid010ExchangeArguments_val_ptr_len_ptr);
+                                    *brokerExchangeArguments_val_ptr_len_ptr);
     int            
-        qpid010ExchangeProducerCount_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeProducerCount_get(brokerExchangeTable_rowreq_ctx *
                                         rowreq_ctx,
                                         long
-                                        *qpid010ExchangeProducerCount_val_ptr);
+                                        *brokerExchangeProducerCount_val_ptr);
     int            
-        qpid010ExchangeProducerCountHi_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeProducerCountHi_get(brokerExchangeTable_rowreq_ctx *
                                           rowreq_ctx,
                                           long
-                                          *qpid010ExchangeProducerCountHi_val_ptr);
+                                          *brokerExchangeProducerCountHi_val_ptr);
     int            
-        qpid010ExchangeProducerCountLow_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeProducerCountLow_get(brokerExchangeTable_rowreq_ctx *
                                            rowreq_ctx,
                                            long
-                                           *qpid010ExchangeProducerCountLow_val_ptr);
+                                           *brokerExchangeProducerCountLow_val_ptr);
     int            
-        qpid010ExchangeBindingCount_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeBindingCount_get(brokerExchangeTable_rowreq_ctx *
                                        rowreq_ctx,
                                        long
-                                       *qpid010ExchangeBindingCount_val_ptr);
+                                       *brokerExchangeBindingCount_val_ptr);
     int            
-        qpid010ExchangeBindingCountHi_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeBindingCountHi_get(brokerExchangeTable_rowreq_ctx *
                                          rowreq_ctx,
                                          long
-                                         *qpid010ExchangeBindingCountHi_val_ptr);
+                                         *brokerExchangeBindingCountHi_val_ptr);
     int            
-        qpid010ExchangeBindingCountLow_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeBindingCountLow_get(brokerExchangeTable_rowreq_ctx *
                                           rowreq_ctx,
                                           long
-                                          *qpid010ExchangeBindingCountLow_val_ptr);
+                                          *brokerExchangeBindingCountLow_val_ptr);
     int            
-        qpid010ExchangeMsgReceives_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeMsgReceives_get(brokerExchangeTable_rowreq_ctx *
                                       rowreq_ctx,
                                       U64 *
-                                      qpid010ExchangeMsgReceives_val_ptr);
+                                      brokerExchangeMsgReceives_val_ptr);
     int            
-        qpid010ExchangeMsgDrops_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeMsgDrops_get(brokerExchangeTable_rowreq_ctx *
                                    rowreq_ctx,
-                                   U64 * qpid010ExchangeMsgDrops_val_ptr);
+                                   U64 * brokerExchangeMsgDrops_val_ptr);
     int            
-        qpid010ExchangeMsgRoutes_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeMsgRoutes_get(brokerExchangeTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    U64 * qpid010ExchangeMsgRoutes_val_ptr);
+                                    U64 * brokerExchangeMsgRoutes_val_ptr);
     int            
-        qpid010ExchangeByteReceives_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeByteReceives_get(brokerExchangeTable_rowreq_ctx *
                                        rowreq_ctx,
                                        U64 *
-                                       qpid010ExchangeByteReceives_val_ptr);
+                                       brokerExchangeByteReceives_val_ptr);
     int            
-        qpid010ExchangeByteDrops_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeByteDrops_get(brokerExchangeTable_rowreq_ctx *
                                     rowreq_ctx,
-                                    U64 * qpid010ExchangeByteDrops_val_ptr);
+                                    U64 * brokerExchangeByteDrops_val_ptr);
     int            
-        qpid010ExchangeByteRoutes_get(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeByteRoutes_get(brokerExchangeTable_rowreq_ctx *
                                      rowreq_ctx,
                                      U64 *
-                                     qpid010ExchangeByteRoutes_val_ptr);
+                                     brokerExchangeByteRoutes_val_ptr);
 
 
     int            
-        qpid010ExchangeTable_indexes_set_tbl_idx
-        (qpid010ExchangeTable_mib_index * tbl_idx,
-         u_long qpid010ExchangeInternalIndex_val);
+        brokerExchangeTable_indexes_set_tbl_idx
+        (brokerExchangeTable_mib_index * tbl_idx,
+         u_long brokerExchangeInternalIndex_val);
     int            
-        qpid010ExchangeTable_indexes_set(qpid010ExchangeTable_rowreq_ctx *
+        brokerExchangeTable_indexes_set(brokerExchangeTable_rowreq_ctx *
                                         rowreq_ctx,
                                         u_long
-                                        qpid010ExchangeInternalIndex_val);
+                                        brokerExchangeInternalIndex_val);
 
 
 
@@ -161,5 +161,5 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010EXCHANGETABLE_DATA_GET_H */
+#endif                          /* brokerEXCHANGETABLE_DATA_GET_H */
 /** @} */

@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SessionTable
+ *** Table brokerSessionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010SessionTable is subid 1 of qpid010Sessions.
+ * QPID-MESSAGING-MIB::brokerSessionTable is subid 1 of brokerSessions.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010SessionTable_allocate_data(), but may need extra
+ * brokerSessionTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010SessionTable_rowreq_ctx_init().
+ * brokerSessionTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,30 +125,30 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SessionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSessionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010SessionTable_undo_setup(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionTable_undo_setup(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_undo_setup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010SessionTable undo.
-     * set up qpid010SessionTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010SessionClientCredit_val_ptr )*
+     * TODO:451:M: |-> Setup brokerSessionTable undo.
+     * set up brokerSessionTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerSessionClientCredit_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010SessionTable_undo_setup */
+}                               /* brokerSessionTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -165,30 +165,30 @@ qpid010SessionTable_undo_setup(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SessionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSessionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010SessionTable_undo(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionTable_undo(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_undo",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_undo",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010SessionTable undo.
-     * qpid010SessionTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010SessionClientCredit_val_ptr )*
+     * TODO:451:M: |-> brokerSessionTable undo.
+     * brokerSessionTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerSessionClientCredit_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010SessionTable_undo_setup */
+}                               /* brokerSessionTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -202,28 +202,28 @@ qpid010SessionTable_undo(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SessionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSessionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010SessionTable_undo_cleanup(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionTable_undo_cleanup(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_undo_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_undo_cleanup", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010SessionTable undo.
-     * Undo storage is in (* qpid010SessionClientCredit_val_ptr )*
+     * TODO:452:M: |-> Cleanup brokerSessionTable undo.
+     * Undo storage is in (* brokerSessionClientCredit_val_ptr )*
      */
 
     return rc;
-}                               /* qpid010SessionTable_undo_cleanup */
+}                               /* brokerSessionTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -234,22 +234,22 @@ qpid010SessionTable_undo_cleanup(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010SessionTable_oids.h.
+ * brokerSessionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010SessionTable_rowreq_ctx
+ * @param brokerSessionTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010SessionTable_commit(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionTable_commit(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_commit",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
@@ -262,44 +262,44 @@ qpid010SessionTable_commit(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010SessionTable data
+     * commit brokerSessionTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010SESSIONVHOSTREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010SESSIONVHOSTREF_FLAG;       /* clear qpid010SessionVhostRef */
+    if (save_flags & COLUMN_brokerSESSIONVHOSTREF_FLAG) {
+        save_flags &= ~COLUMN_brokerSESSIONVHOSTREF_FLAG;       /* clear brokerSessionVhostRef */
         /*
-         * TODO:482:o: |-> commit column qpid010SessionVhostRef.
+         * TODO:482:o: |-> commit column brokerSessionVhostRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SessionTable column qpid010SessionVhostRef commit failed\n");
+                     "brokerSessionTable column brokerSessionVhostRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SessionVhostRef
+             * set flag, in case we need to undo brokerSessionVhostRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010SESSIONVHOSTREF_FLAG;
+                COLUMN_brokerSESSIONVHOSTREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010SESSIONNAME_FLAG) {
-        save_flags &= ~COLUMN_qpid010SESSIONNAME_FLAG;   /* clear qpid010SessionName */
+    if (save_flags & COLUMN_brokerSESSIONNAME_FLAG) {
+        save_flags &= ~COLUMN_brokerSESSIONNAME_FLAG;   /* clear brokerSessionName */
         /*
-         * TODO:482:o: |-> commit column qpid010SessionName.
+         * TODO:482:o: |-> commit column brokerSessionName.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010SessionTable column qpid010SessionName commit failed\n");
+                     "brokerSessionTable column brokerSessionName commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010SessionName
+             * set flag, in case we need to undo brokerSessionName
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010SESSIONNAME_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerSESSIONNAME_FLAG;
         }
     }
 
@@ -317,7 +317,7 @@ qpid010SessionTable_commit(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010SessionTable_commit */
+}                               /* brokerSessionTable_commit */
 
 /**
  * undo commit new values.
@@ -325,27 +325,27 @@ qpid010SessionTable_commit(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010SessionTable_oids.h.
+ * brokerSessionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010SessionTable_rowreq_ctx
+ * @param brokerSessionTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010SessionTable_undo_commit(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionTable_undo_commit(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionTable_undo_commit", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionTable_undo_commit", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010SessionTable commit.
+     * TODO:485:M: |-> Undo brokerSessionTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -361,17 +361,17 @@ qpid010SessionTable_undo_commit(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010SessionTable_undo_commit */
+}                               /* brokerSessionTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010SessionTable node value checks.
- * TODO:450:M: Implement qpid010SessionTable undo functions.
- * TODO:460:M: Implement qpid010SessionTable set functions.
- * TODO:480:M: Implement qpid010SessionTable commit functions.
+ * TODO:440:M: Implement brokerSessionTable node value checks.
+ * TODO:450:M: Implement brokerSessionTable undo functions.
+ * TODO:460:M: Implement brokerSessionTable set functions.
+ * TODO:480:M: Implement brokerSessionTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionVhostRef
- * qpid010SessionVhostRef is subid 1 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionVhostRef
+ * brokerSessionVhostRef is subid 1 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.1
  * Description:
@@ -395,10 +395,10 @@ Session vhostRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionVhostRef_val_ptr
+ * @param brokerSessionVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010SessionVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SessionVhostRef_val_ptr
+ * @param brokerSessionVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSessionVhostRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -421,46 +421,46 @@ Session vhostRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SessionTable_check_dependencies() function.
+ * brokerSessionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010SessionVhostRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerSessionVhostRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010SessionVhostRef_check_value(qpid010SessionTable_rowreq_ctx *
+brokerSessionVhostRef_check_value(brokerSessionTable_rowreq_ctx *
                                   rowreq_ctx,
-                                  char *qpid010SessionVhostRef_val_ptr,
-                                  size_t qpid010SessionVhostRef_val_ptr_len)
+                                  char *brokerSessionVhostRef_val_ptr,
+                                  size_t brokerSessionVhostRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionVhostRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionVhostRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SessionVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerSessionVhostRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SessionVhostRef value.
+     * TODO:441:o: |-> Check for valid brokerSessionVhostRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SessionVhostRef value not illegal */
-}                               /* qpid010SessionVhostRef_check_value */
+    return MFD_SUCCESS;         /* brokerSessionVhostRef value not illegal */
+}                               /* brokerSessionVhostRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SessionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSessionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SessionTable_undo_setup has been called.
+ * brokerSessionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -470,31 +470,31 @@ qpid010SessionVhostRef_check_value(qpid010SessionTable_rowreq_ctx *
  * won't be done unless it is necessary.
  */
 int
-qpid010SessionVhostRef_undo_setup(qpid010SessionTable_rowreq_ctx *
+brokerSessionVhostRef_undo_setup(brokerSessionTable_rowreq_ctx *
                                  rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionVhostRef_undo_setup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionVhostRef_undo_setup", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SessionVhostRef undo.
+     * TODO:455:o: |-> Setup brokerSessionVhostRef undo.
      */
     /*
-     * copy qpid010SessionVhostRef and qpid010SessionVhostRef_len data
-     * set rowreq_ctx->undo->qpid010SessionVhostRef from rowreq_ctx->data.qpid010SessionVhostRef
+     * copy brokerSessionVhostRef and brokerSessionVhostRef_len data
+     * set rowreq_ctx->undo->brokerSessionVhostRef from rowreq_ctx->data.brokerSessionVhostRef
      */
-    memcpy(rowreq_ctx->undo->qpid010SessionVhostRef,
-           rowreq_ctx->data.qpid010SessionVhostRef,
-           (rowreq_ctx->data.qpid010SessionVhostRef_len *
-            sizeof(rowreq_ctx->undo->qpid010SessionVhostRef[0])));
-    rowreq_ctx->undo->qpid010SessionVhostRef_len =
-        rowreq_ctx->data.qpid010SessionVhostRef_len;
+    memcpy(rowreq_ctx->undo->brokerSessionVhostRef,
+           rowreq_ctx->data.brokerSessionVhostRef,
+           (rowreq_ctx->data.brokerSessionVhostRef_len *
+            sizeof(rowreq_ctx->undo->brokerSessionVhostRef[0])));
+    rowreq_ctx->undo->brokerSessionVhostRef_len =
+        rowreq_ctx->data.brokerSessionVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionVhostRef_undo_setup */
+}                               /* brokerSessionVhostRef_undo_setup */
 
 /**
  * Set the new value.
@@ -502,38 +502,38 @@ qpid010SessionVhostRef_undo_setup(qpid010SessionTable_rowreq_ctx *
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SessionVhostRef_val_ptr
+ * @param brokerSessionVhostRef_val_ptr
  *        A char containing the new value.
- * @param qpid010SessionVhostRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SessionVhostRef_val_ptr
+ * @param brokerSessionVhostRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSessionVhostRef_val_ptr
  */
 int
-qpid010SessionVhostRef_set(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                          char *qpid010SessionVhostRef_val_ptr,
-                          size_t qpid010SessionVhostRef_val_ptr_len)
+brokerSessionVhostRef_set(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                          char *brokerSessionVhostRef_val_ptr,
+                          size_t brokerSessionVhostRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionVhostRef_set",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionVhostRef_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SessionVhostRef_val_ptr);
+    netsnmp_assert(NULL != brokerSessionVhostRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010SessionVhostRef value.
-     * set qpid010SessionVhostRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSessionVhostRef value.
+     * set brokerSessionVhostRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010SessionVhostRef,
-           qpid010SessionVhostRef_val_ptr,
-           qpid010SessionVhostRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerSessionVhostRef,
+           brokerSessionVhostRef_val_ptr,
+           brokerSessionVhostRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010SessionVhostRef_len =
-        qpid010SessionVhostRef_val_ptr_len /
-        sizeof(qpid010SessionVhostRef_val_ptr[0]);
+    rowreq_ctx->data.brokerSessionVhostRef_len =
+        brokerSessionVhostRef_val_ptr_len /
+        sizeof(brokerSessionVhostRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionVhostRef_set */
+}                               /* brokerSessionVhostRef_set */
 
 /**
  * undo the previous set.
@@ -542,35 +542,35 @@ qpid010SessionVhostRef_set(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010SessionVhostRef_undo(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionVhostRef_undo(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionVhostRef_undo",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionVhostRef_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SessionVhostRef undo.
+     * TODO:456:o: |-> Clean up brokerSessionVhostRef undo.
      */
     /*
-     * copy qpid010SessionVhostRef and qpid010SessionVhostRef_len data
-     * set rowreq_ctx->data.qpid010SessionVhostRef from rowreq_ctx->undo->qpid010SessionVhostRef
+     * copy brokerSessionVhostRef and brokerSessionVhostRef_len data
+     * set rowreq_ctx->data.brokerSessionVhostRef from rowreq_ctx->undo->brokerSessionVhostRef
      */
-    memcpy(rowreq_ctx->data.qpid010SessionVhostRef,
-           rowreq_ctx->undo->qpid010SessionVhostRef,
-           (rowreq_ctx->undo->qpid010SessionVhostRef_len *
-            sizeof(rowreq_ctx->data.qpid010SessionVhostRef[0])));
-    rowreq_ctx->data.qpid010SessionVhostRef_len =
-        rowreq_ctx->undo->qpid010SessionVhostRef_len;
+    memcpy(rowreq_ctx->data.brokerSessionVhostRef,
+           rowreq_ctx->undo->brokerSessionVhostRef,
+           (rowreq_ctx->undo->brokerSessionVhostRef_len *
+            sizeof(rowreq_ctx->data.brokerSessionVhostRef[0])));
+    rowreq_ctx->data.brokerSessionVhostRef_len =
+        rowreq_ctx->undo->brokerSessionVhostRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionVhostRef_undo */
+}                               /* brokerSessionVhostRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SessionEntry.qpid010SessionName
- * qpid010SessionName is subid 2 of qpid010SessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionName
+ * brokerSessionName is subid 2 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.2
  * Description:
@@ -594,10 +594,10 @@ Session name
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010SessionName_val_ptr
+ * @param brokerSessionName_val_ptr
  *        A char containing the new value.
- * @param qpid010SessionName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SessionName_val_ptr
+ * @param brokerSessionName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSessionName_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -620,46 +620,46 @@ Session name
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010SessionTable_check_dependencies() function.
+ * brokerSessionTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010SessionName).
+ *    The length is < sizeof(rowreq_ctx->data.brokerSessionName).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010SessionName_check_value(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                              char *qpid010SessionName_val_ptr,
-                              size_t qpid010SessionName_val_ptr_len)
+brokerSessionName_check_value(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                              char *brokerSessionName_val_ptr,
+                              size_t brokerSessionName_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionName_check_value",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionName_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SessionName_val_ptr);
+    netsnmp_assert(NULL != brokerSessionName_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010SessionName value.
+     * TODO:441:o: |-> Check for valid brokerSessionName value.
      */
 
-    return MFD_SUCCESS;         /* qpid010SessionName value not illegal */
-}                               /* qpid010SessionName_check_value */
+    return MFD_SUCCESS;         /* brokerSessionName value not illegal */
+}                               /* brokerSessionName_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010SessionTable_rowreq_ctx)
+ *        Pointer to the table context (brokerSessionTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010SessionTable_undo_setup has been called.
+ * brokerSessionTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -669,31 +669,31 @@ qpid010SessionName_check_value(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010SessionName_undo_setup(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionName_undo_setup(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionName_undo_setup",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionName_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010SessionName undo.
+     * TODO:455:o: |-> Setup brokerSessionName undo.
      */
     /*
-     * copy qpid010SessionName and qpid010SessionName_len data
-     * set rowreq_ctx->undo->qpid010SessionName from rowreq_ctx->data.qpid010SessionName
+     * copy brokerSessionName and brokerSessionName_len data
+     * set rowreq_ctx->undo->brokerSessionName from rowreq_ctx->data.brokerSessionName
      */
-    memcpy(rowreq_ctx->undo->qpid010SessionName,
-           rowreq_ctx->data.qpid010SessionName,
-           (rowreq_ctx->data.qpid010SessionName_len *
-            sizeof(rowreq_ctx->undo->qpid010SessionName[0])));
-    rowreq_ctx->undo->qpid010SessionName_len =
-        rowreq_ctx->data.qpid010SessionName_len;
+    memcpy(rowreq_ctx->undo->brokerSessionName,
+           rowreq_ctx->data.brokerSessionName,
+           (rowreq_ctx->data.brokerSessionName_len *
+            sizeof(rowreq_ctx->undo->brokerSessionName[0])));
+    rowreq_ctx->undo->brokerSessionName_len =
+        rowreq_ctx->data.brokerSessionName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionName_undo_setup */
+}                               /* brokerSessionName_undo_setup */
 
 /**
  * Set the new value.
@@ -701,37 +701,37 @@ qpid010SessionName_undo_setup(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010SessionName_val_ptr
+ * @param brokerSessionName_val_ptr
  *        A char containing the new value.
- * @param qpid010SessionName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010SessionName_val_ptr
+ * @param brokerSessionName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerSessionName_val_ptr
  */
 int
-qpid010SessionName_set(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
-                      char *qpid010SessionName_val_ptr,
-                      size_t qpid010SessionName_val_ptr_len)
+brokerSessionName_set(brokerSessionTable_rowreq_ctx * rowreq_ctx,
+                      char *brokerSessionName_val_ptr,
+                      size_t brokerSessionName_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionName_set",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionName_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010SessionName_val_ptr);
+    netsnmp_assert(NULL != brokerSessionName_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010SessionName value.
-     * set qpid010SessionName value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerSessionName value.
+     * set brokerSessionName value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010SessionName, qpid010SessionName_val_ptr,
-           qpid010SessionName_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerSessionName, brokerSessionName_val_ptr,
+           brokerSessionName_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010SessionName_len =
-        qpid010SessionName_val_ptr_len /
-        sizeof(qpid010SessionName_val_ptr[0]);
+    rowreq_ctx->data.brokerSessionName_len =
+        brokerSessionName_val_ptr_len /
+        sizeof(brokerSessionName_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionName_set */
+}                               /* brokerSessionName_set */
 
 /**
  * undo the previous set.
@@ -740,31 +740,31 @@ qpid010SessionName_set(qpid010SessionTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010SessionName_undo(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
+brokerSessionName_undo(brokerSessionTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010SessionTable:qpid010SessionName_undo",
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionName_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010SessionName undo.
+     * TODO:456:o: |-> Clean up brokerSessionName undo.
      */
     /*
-     * copy qpid010SessionName and qpid010SessionName_len data
-     * set rowreq_ctx->data.qpid010SessionName from rowreq_ctx->undo->qpid010SessionName
+     * copy brokerSessionName and brokerSessionName_len data
+     * set rowreq_ctx->data.brokerSessionName from rowreq_ctx->undo->brokerSessionName
      */
-    memcpy(rowreq_ctx->data.qpid010SessionName,
-           rowreq_ctx->undo->qpid010SessionName,
-           (rowreq_ctx->undo->qpid010SessionName_len *
-            sizeof(rowreq_ctx->data.qpid010SessionName[0])));
-    rowreq_ctx->data.qpid010SessionName_len =
-        rowreq_ctx->undo->qpid010SessionName_len;
+    memcpy(rowreq_ctx->data.brokerSessionName,
+           rowreq_ctx->undo->brokerSessionName,
+           (rowreq_ctx->undo->brokerSessionName_len *
+            sizeof(rowreq_ctx->data.brokerSessionName[0])));
+    rowreq_ctx->data.brokerSessionName_len =
+        rowreq_ctx->undo->brokerSessionName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010SessionName_undo */
+}                               /* brokerSessionName_undo */
 
 /**
  * check dependencies
@@ -776,29 +776,29 @@ qpid010SessionName_undo(qpid010SessionTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010SessionTable_oids.h.
+ * brokerSessionTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010SessionTable if you don't have dependencies)
+ * (see README-table-brokerSessionTable if you don't have dependencies)
  */
 int
-qpid010SessionTable_check_dependencies(qpid010SessionTable_rowreq_ctx *
+brokerSessionTable_check_dependencies(brokerSessionTable_rowreq_ctx *
                                       rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010SessionTable:qpid010SessionTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerSessionTable:brokerSessionTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010SessionTable row dependencies.
+     * TODO:470:o: Check brokerSessionTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010SessionTable_check_dependencies */
+}                               /* brokerSessionTable_check_dependencies */
 
 /** @} */

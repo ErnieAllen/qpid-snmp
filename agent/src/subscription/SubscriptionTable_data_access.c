@@ -37,36 +37,36 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010SubscriptionTable
+ *** Table brokerSubscriptionTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010SubscriptionTable is subid 1 of qpid010Subscriptions.
+ * QPID-MESSAGING-MIB::brokerSubscriptionTable is subid 1 of brokerSubscriptions.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1, length: 12
  */
 
 /**
- * initialization for qpid010SubscriptionTable data access
+ * initialization for brokerSubscriptionTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010SubscriptionTable_reg
- *        Pointer to qpid010SubscriptionTable_registration
+ * @param brokerSubscriptionTable_reg
+ *        Pointer to brokerSubscriptionTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010SubscriptionTable_init_data(qpid010SubscriptionTable_registration *
-                                  qpid010SubscriptionTable_reg)
+brokerSubscriptionTable_init_data(brokerSubscriptionTable_registration *
+                                  brokerSubscriptionTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_init_data", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_init_data", "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010SubscriptionTable data.
+     * TODO:303:o: Initialize brokerSubscriptionTable data.
      */
     /*
      ***************************************************
@@ -85,7 +85,7 @@ qpid010SubscriptionTable_init_data(qpid010SubscriptionTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionTable_init_data */
+}                               /* brokerSubscriptionTable_init_data */
 
 /**
  * container overview
@@ -119,15 +119,15 @@ qpid010SubscriptionTable_init_data(qpid010SubscriptionTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010SubscriptionTable_container_init(netsnmp_container **
+brokerSubscriptionTable_container_init(netsnmp_container **
                                        container_ptr_ptr,
                                        netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_container_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_container_init", "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010SubscriptionTable_container_init\n");
+                 "bad container param to brokerSubscriptionTable_container_init\n");
         return;
     }
 
@@ -139,22 +139,22 @@ qpid010SubscriptionTable_container_init(netsnmp_container **
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010SubscriptionTable_container_init\n");
+                 "bad cache param to brokerSubscriptionTable_container_init\n");
         return;
     }
 
     /*
-     * TODO:345:A: Set up qpid010SubscriptionTable cache properties.
+     * TODO:345:A: Set up brokerSubscriptionTable cache properties.
      *
      * Also for advanced users, you can set parameters for the
      * cache. Do not change the magic pointer, as it is used
      * by the MFD helper. To completely disable caching, set
      * cache->enabled to 0.
      */
-    cache->timeout = qpid010SUBSCRIPTIONTABLE_CACHE_TIMEOUT;     /* seconds */
+    cache->timeout = brokerSUBSCRIPTIONTABLE_CACHE_TIMEOUT;     /* seconds */
 
     //cache->flags |= NETSNMP_CACHE_PRELOAD;
-}                               /* qpid010SubscriptionTable_container_init */
+}                               /* brokerSubscriptionTable_container_init */
 
 /**
  * container shutdown
@@ -165,7 +165,7 @@ qpid010SubscriptionTable_container_init(netsnmp_container **
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010SubscriptionTable_container_free().
+ *  This function is called before brokerSubscriptionTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -173,23 +173,23 @@ qpid010SubscriptionTable_container_init(netsnmp_container **
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010SubscriptionTable_container_shutdown(netsnmp_container *
+brokerSubscriptionTable_container_shutdown(netsnmp_container *
                                            container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010SubscriptionTable_container_shutdown\n");
+                 "bad params to brokerSubscriptionTable_container_shutdown\n");
         return;
     }
 
-}                               /* qpid010SubscriptionTable_container_shutdown */
+}                               /* brokerSubscriptionTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010SubscriptionTable data load
+ * TODO:350:M: Implement brokerSubscriptionTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -211,7 +211,7 @@ qpid010SubscriptionTable_container_shutdown(netsnmp_container *
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010SubscriptionTable_row_prep() for populating data.
+ *  brokerSubscriptionTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -220,21 +220,21 @@ qpid010SubscriptionTable_container_shutdown(netsnmp_container *
  *
  */
 int
-qpid010SubscriptionTable_container_load(netsnmp_container * container)
+brokerSubscriptionTable_container_load(netsnmp_container * container)
 {
-    qpid010SubscriptionTable_rowreq_ctx *rowreq_ctx;
+    brokerSubscriptionTable_rowreq_ctx *rowreq_ctx;
     size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010SubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerSubscriptionInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010SubscriptionInternalIndex;
-    qpid010SubscriptionTable_data qmfData;
+    u_long          brokerSubscriptionInternalIndex;
+    brokerSubscriptionTable_data qmfData;
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_container_load", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_container_load", "called\n"));
 
 
     uint64_t u64Data;
@@ -245,40 +245,40 @@ qpid010SubscriptionTable_container_load(netsnmp_container * container)
     uint objects;
     objects = qpidGetCount(pEvent);
 
-    qpid010SubscriptionInternalIndex = 0;
+    brokerSubscriptionInternalIndex = 0;
     for (index = 0; index < objects; ++index) {
 
     	void * pRow = qpidGetDataRow(pEvent, index);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010SubscriptionSessionRef,
+        strncpy(qmfData.brokerSubscriptionSessionRef,
         		qpidGetString(pRow, "sessionRef"), 254);
-        qmfData.qpid010SubscriptionSessionRef_len = strlen(qmfData.qpid010SubscriptionSessionRef) + 1;
+        qmfData.brokerSubscriptionSessionRef_len = strlen(qmfData.brokerSubscriptionSessionRef) + 1;
 
-        strncpy(qmfData.qpid010SubscriptionQueueRef,
+        strncpy(qmfData.brokerSubscriptionQueueRef,
         		qpidGetString(pRow, "queueRef"), 254);
-        qmfData.qpid010SubscriptionQueueRef_len = strlen(qmfData.qpid010SubscriptionQueueRef) + 1;
+        qmfData.brokerSubscriptionQueueRef_len = strlen(qmfData.brokerSubscriptionQueueRef) + 1;
 
-        strncpy(qmfData.qpid010SubscriptionName,
+        strncpy(qmfData.brokerSubscriptionName,
         		qpidGetString(pRow, "name"), 254);
-        qmfData.qpid010SubscriptionName_len = strlen(qmfData.qpid010SubscriptionName) + 1;
+        qmfData.brokerSubscriptionName_len = strlen(qmfData.brokerSubscriptionName) + 1;
 
-        qmfData.qpid010SubscriptionBrowsing = qpidGetBool(pRow, "browsing");
-        qmfData.qpid010SubscriptionAcknowledged = qpidGetBool(pRow, "acknowledged");
-        qmfData.qpid010SubscriptionExclusive = qpidGetBool(pRow, "exclusive");
+        qmfData.brokerSubscriptionBrowsing = qpidGetBool(pRow, "browsing");
+        qmfData.brokerSubscriptionAcknowledged = qpidGetBool(pRow, "acknowledged");
+        qmfData.brokerSubscriptionExclusive = qpidGetBool(pRow, "exclusive");
 
-        strncpy(qmfData.qpid010SubscriptionCreditMode,
+        strncpy(qmfData.brokerSubscriptionCreditMode,
         		qpidGetString(pRow, "creditMode"), 254);
-        qmfData.qpid010SubscriptionCreditMode_len = strlen(qmfData.qpid010SubscriptionCreditMode) + 1;
+        qmfData.brokerSubscriptionCreditMode_len = strlen(qmfData.brokerSubscriptionCreditMode) + 1;
 
-        strncpy(qmfData.qpid010SubscriptionArguments,
+        strncpy(qmfData.brokerSubscriptionArguments,
         		qpidGetString(pRow, "arguments"), 254);
-        qmfData.qpid010SubscriptionArguments_len = strlen(qmfData.qpid010SubscriptionArguments) + 1;
+        qmfData.brokerSubscriptionArguments_len = strlen(qmfData.brokerSubscriptionArguments) + 1;
 
         u64Data = qpidGetU64(pRow, "delivered");
-        qmfData.qpid010SubscriptionDelivered.high = HIGHLONG(u64Data);
-        qmfData.qpid010SubscriptionDelivered.low = LOWLONG(u64Data);
+        qmfData.brokerSubscriptionDelivered.high = HIGHLONG(u64Data);
+        qmfData.brokerSubscriptionDelivered.low = LOWLONG(u64Data);
 
         /*
          * parse line into variables
@@ -289,179 +289,179 @@ qpid010SubscriptionTable_container_load(netsnmp_container * container)
          ***************************************************/
 
         /*
-         * TODO:352:M: |   |-> set indexes in new qpid010SubscriptionTable rowreq context.
+         * TODO:352:M: |   |-> set indexes in new brokerSubscriptionTable rowreq context.
          * data context will be set from the param (unless NULL,
          *      in which case a new data context will be allocated)
          */
-        rowreq_ctx = qpid010SubscriptionTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerSubscriptionTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010SubscriptionTable_indexes_set(rowreq_ctx,
-                                                qpid010SubscriptionInternalIndex))
+            brokerSubscriptionTable_indexes_set(rowreq_ctx,
+                                                brokerSubscriptionInternalIndex))
         {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010SubscriptionTable data.\n");
-            qpid010SubscriptionTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerSubscriptionTable data.\n");
+            brokerSubscriptionTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        qpid010SubscriptionInternalIndex++;
+        brokerSubscriptionInternalIndex++;
 
         /*
-         * setup/save data for qpid010SubscriptionSessionRef
-         * qpid010SubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerSubscriptionSessionRef
+         * brokerSubscriptionSessionRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010SubscriptionSessionRef data
+         * make sure there is enough space for brokerSubscriptionSessionRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010SubscriptionSessionRef) ||
-            (rowreq_ctx->data.qpid010SubscriptionSessionRef_len <
-             (qmfData.qpid010SubscriptionSessionRef_len *
-              sizeof(qmfData.qpid010SubscriptionSessionRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerSubscriptionSessionRef) ||
+            (rowreq_ctx->data.brokerSubscriptionSessionRef_len <
+             (qmfData.brokerSubscriptionSessionRef_len *
+              sizeof(qmfData.brokerSubscriptionSessionRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010SubscriptionSessionRef)\n");
+                     "not enough space for value (brokerSubscriptionSessionRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010SubscriptionSessionRef_len =
-        		qmfData.qpid010SubscriptionSessionRef_len *
-            sizeof(qmfData.qpid010SubscriptionSessionRef[0]);
-        memcpy(rowreq_ctx->data.qpid010SubscriptionSessionRef,
-        		qmfData.qpid010SubscriptionSessionRef,
-        		qmfData.qpid010SubscriptionSessionRef_len *
-               sizeof(qmfData.qpid010SubscriptionSessionRef[0]));
+        rowreq_ctx->data.brokerSubscriptionSessionRef_len =
+        		qmfData.brokerSubscriptionSessionRef_len *
+            sizeof(qmfData.brokerSubscriptionSessionRef[0]);
+        memcpy(rowreq_ctx->data.brokerSubscriptionSessionRef,
+        		qmfData.brokerSubscriptionSessionRef,
+        		qmfData.brokerSubscriptionSessionRef_len *
+               sizeof(qmfData.brokerSubscriptionSessionRef[0]));
 
         /*
-         * setup/save data for qpid010SubscriptionQueueRef
-         * qpid010SubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerSubscriptionQueueRef
+         * brokerSubscriptionQueueRef(2)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010SubscriptionQueueRef data
+         * make sure there is enough space for brokerSubscriptionQueueRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010SubscriptionQueueRef) ||
-            (rowreq_ctx->data.qpid010SubscriptionQueueRef_len <
-             (qmfData.qpid010SubscriptionQueueRef_len *
-              sizeof(qmfData.qpid010SubscriptionQueueRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerSubscriptionQueueRef) ||
+            (rowreq_ctx->data.brokerSubscriptionQueueRef_len <
+             (qmfData.brokerSubscriptionQueueRef_len *
+              sizeof(qmfData.brokerSubscriptionQueueRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010SubscriptionQueueRef)\n");
+                     "not enough space for value (brokerSubscriptionQueueRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010SubscriptionQueueRef_len =
-        		qmfData.qpid010SubscriptionQueueRef_len *
-            sizeof(qmfData.qpid010SubscriptionQueueRef[0]);
-        memcpy(rowreq_ctx->data.qpid010SubscriptionQueueRef,
-        		qmfData.qpid010SubscriptionQueueRef,
-        		qmfData.qpid010SubscriptionQueueRef_len *
-               sizeof(qmfData.qpid010SubscriptionQueueRef[0]));
+        rowreq_ctx->data.brokerSubscriptionQueueRef_len =
+        		qmfData.brokerSubscriptionQueueRef_len *
+            sizeof(qmfData.brokerSubscriptionQueueRef[0]);
+        memcpy(rowreq_ctx->data.brokerSubscriptionQueueRef,
+        		qmfData.brokerSubscriptionQueueRef,
+        		qmfData.brokerSubscriptionQueueRef_len *
+               sizeof(qmfData.brokerSubscriptionQueueRef[0]));
 
         /*
-         * setup/save data for qpid010SubscriptionName
-         * qpid010SubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerSubscriptionName
+         * brokerSubscriptionName(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010SubscriptionName data
+         * make sure there is enough space for brokerSubscriptionName data
          */
-        if ((NULL == rowreq_ctx->data.qpid010SubscriptionName) ||
-            (rowreq_ctx->data.qpid010SubscriptionName_len <
-             (qmfData.qpid010SubscriptionName_len *
-              sizeof(qmfData.qpid010SubscriptionName[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerSubscriptionName) ||
+            (rowreq_ctx->data.brokerSubscriptionName_len <
+             (qmfData.brokerSubscriptionName_len *
+              sizeof(qmfData.brokerSubscriptionName[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010SubscriptionName)\n");
+                     "not enough space for value (brokerSubscriptionName)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010SubscriptionName_len =
-        		qmfData.qpid010SubscriptionName_len * sizeof(qmfData.qpid010SubscriptionName[0]);
-        memcpy(rowreq_ctx->data.qpid010SubscriptionName,
-        		qmfData.qpid010SubscriptionName,
-        		qmfData.qpid010SubscriptionName_len *
-               sizeof(qmfData.qpid010SubscriptionName[0]));
+        rowreq_ctx->data.brokerSubscriptionName_len =
+        		qmfData.brokerSubscriptionName_len * sizeof(qmfData.brokerSubscriptionName[0]);
+        memcpy(rowreq_ctx->data.brokerSubscriptionName,
+        		qmfData.brokerSubscriptionName,
+        		qmfData.brokerSubscriptionName_len *
+               sizeof(qmfData.brokerSubscriptionName[0]));
 
         /*
-         * setup/save data for qpid010SubscriptionBrowsing
-         * qpid010SubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerSubscriptionBrowsing
+         * brokerSubscriptionBrowsing(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SubscriptionBrowsing =
-        		qmfData.qpid010SubscriptionBrowsing;
+        rowreq_ctx->data.brokerSubscriptionBrowsing =
+        		qmfData.brokerSubscriptionBrowsing;
 
         /*
-         * setup/save data for qpid010SubscriptionAcknowledged
-         * qpid010SubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerSubscriptionAcknowledged
+         * brokerSubscriptionAcknowledged(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SubscriptionAcknowledged =
-        		qmfData.qpid010SubscriptionAcknowledged;
+        rowreq_ctx->data.brokerSubscriptionAcknowledged =
+        		qmfData.brokerSubscriptionAcknowledged;
 
         /*
-         * setup/save data for qpid010SubscriptionExclusive
-         * qpid010SubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerSubscriptionExclusive
+         * brokerSubscriptionExclusive(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SubscriptionExclusive =
-        		qmfData.qpid010SubscriptionExclusive;
+        rowreq_ctx->data.brokerSubscriptionExclusive =
+        		qmfData.brokerSubscriptionExclusive;
 
         /*
-         * setup/save data for qpid010SubscriptionCreditMode
-         * qpid010SubscriptionCreditMode(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerSubscriptionCreditMode
+         * brokerSubscriptionCreditMode(7)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010SubscriptionCreditMode data
+         * make sure there is enough space for brokerSubscriptionCreditMode data
          */
-        if ((NULL == rowreq_ctx->data.qpid010SubscriptionCreditMode) ||
-            (rowreq_ctx->data.qpid010SubscriptionCreditMode_len <
-             (qmfData.qpid010SubscriptionCreditMode_len *
-              sizeof(qmfData.qpid010SubscriptionCreditMode[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerSubscriptionCreditMode) ||
+            (rowreq_ctx->data.brokerSubscriptionCreditMode_len <
+             (qmfData.brokerSubscriptionCreditMode_len *
+              sizeof(qmfData.brokerSubscriptionCreditMode[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010SubscriptionCreditMode)\n");
+                     "not enough space for value (brokerSubscriptionCreditMode)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010SubscriptionCreditMode_len =
-        		qmfData.qpid010SubscriptionCreditMode_len *
-            sizeof(qmfData.qpid010SubscriptionCreditMode[0]);
-        memcpy(rowreq_ctx->data.qpid010SubscriptionCreditMode,
-        		qmfData.qpid010SubscriptionCreditMode,
-        		qmfData.qpid010SubscriptionCreditMode_len *
-               sizeof(qmfData.qpid010SubscriptionCreditMode[0]));
+        rowreq_ctx->data.brokerSubscriptionCreditMode_len =
+        		qmfData.brokerSubscriptionCreditMode_len *
+            sizeof(qmfData.brokerSubscriptionCreditMode[0]);
+        memcpy(rowreq_ctx->data.brokerSubscriptionCreditMode,
+        		qmfData.brokerSubscriptionCreditMode,
+        		qmfData.brokerSubscriptionCreditMode_len *
+               sizeof(qmfData.brokerSubscriptionCreditMode[0]));
 
         /*
-         * setup/save data for qpid010SubscriptionArguments
-         * qpid010SubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerSubscriptionArguments
+         * brokerSubscriptionArguments(8)/Map/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010SubscriptionArguments data
+         * make sure there is enough space for brokerSubscriptionArguments data
          */
-        if ((NULL == rowreq_ctx->data.qpid010SubscriptionArguments) ||
-            (rowreq_ctx->data.qpid010SubscriptionArguments_len <
-             (qmfData.qpid010SubscriptionArguments_len *
-              sizeof(qmfData.qpid010SubscriptionArguments[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerSubscriptionArguments) ||
+            (rowreq_ctx->data.brokerSubscriptionArguments_len <
+             (qmfData.brokerSubscriptionArguments_len *
+              sizeof(qmfData.brokerSubscriptionArguments[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010SubscriptionArguments)\n");
+                     "not enough space for value (brokerSubscriptionArguments)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010SubscriptionArguments_len =
-        		qmfData.qpid010SubscriptionArguments_len *
-            sizeof(qmfData.qpid010SubscriptionArguments[0]);
-        memcpy(rowreq_ctx->data.qpid010SubscriptionArguments,
-        		qmfData.qpid010SubscriptionArguments,
-        		qmfData.qpid010SubscriptionArguments_len *
-               sizeof(qmfData.qpid010SubscriptionArguments[0]));
+        rowreq_ctx->data.brokerSubscriptionArguments_len =
+        		qmfData.brokerSubscriptionArguments_len *
+            sizeof(qmfData.brokerSubscriptionArguments[0]);
+        memcpy(rowreq_ctx->data.brokerSubscriptionArguments,
+        		qmfData.brokerSubscriptionArguments,
+        		qmfData.brokerSubscriptionArguments_len *
+               sizeof(qmfData.brokerSubscriptionArguments[0]));
 
         /*
-         * setup/save data for qpid010SubscriptionDelivered
-         * qpid010SubscriptionDelivered(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerSubscriptionDelivered
+         * brokerSubscriptionDelivered(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010SubscriptionDelivered.high =
-        		qmfData.qpid010SubscriptionDelivered.high;
-        rowreq_ctx->data.qpid010SubscriptionDelivered.low =
-        		qmfData.qpid010SubscriptionDelivered.low;
+        rowreq_ctx->data.brokerSubscriptionDelivered.high =
+        		qmfData.brokerSubscriptionDelivered.high;
+        rowreq_ctx->data.brokerSubscriptionDelivered.low =
+        		qmfData.brokerSubscriptionDelivered.low;
 
 
         /*
@@ -474,10 +474,10 @@ qpid010SubscriptionTable_container_load(netsnmp_container * container)
     }
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_container_load", "inserted %d records\n", count));
+    DEBUGMSGT(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_container_load", "inserted %d records\n", count));
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionTable_container_load */
+}                               /* brokerSubscriptionTable_container_load */
 
 /**
  * container clean up
@@ -493,14 +493,14 @@ qpid010SubscriptionTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010SubscriptionTable_container_free(netsnmp_container * container)
+brokerSubscriptionTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_container_free", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_container_free", "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010SubscriptionTable container data.
+     * TODO:380:M: Free brokerSubscriptionTable container data.
      */
-}                               /* qpid010SubscriptionTable_container_free */
+}                               /* brokerSubscriptionTable_container_free */
 
 /**
  * prepare row for processing.
@@ -516,10 +516,10 @@ qpid010SubscriptionTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010SubscriptionTable_row_prep(qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_row_prep(brokerSubscriptionTable_rowreq_ctx *
                                  rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_row_prep", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_row_prep", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
@@ -530,14 +530,14 @@ qpid010SubscriptionTable_row_prep(qpid010SubscriptionTable_rowreq_ctx *
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionTable_row_prep */
+}                               /* brokerSubscriptionTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010SubscriptionTable index validation.
+ * TODO:420:r: Implement brokerSubscriptionTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010SubscriptionEntry.qpid010SubscriptionInternalIndex
- * qpid010SubscriptionInternalIndex is subid 10 of qpid010SubscriptionEntry.
+ * QPID-MESSAGING-MIB::brokerSubscriptionEntry.brokerSubscriptionInternalIndex
+ * brokerSubscriptionInternalIndex is subid 10 of brokerSubscriptionEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.9.1.1.10
  * Description:
@@ -554,19 +554,19 @@ Internal index for subscription table
  *
  *
  *
- * NOTE: NODE qpid010SubscriptionInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerSubscriptionInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010SubscriptionInternalIndex index portion
+ * check validity of brokerSubscriptionInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010SubscriptionTable_validate_index() function.
+ *       brokerSubscriptionTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -581,21 +581,21 @@ Internal index for subscription table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010SubscriptionInternalIndex_check_index
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx)
+brokerSubscriptionInternalIndex_check_index
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010SubscriptionTable index qpid010SubscriptionInternalIndex.
+     * TODO:426:M: |-> Check brokerSubscriptionTable index brokerSubscriptionInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010SubscriptionInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerSubscriptionInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010SubscriptionInternalIndex index ok */
-}                               /* qpid010SubscriptionInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerSubscriptionInternalIndex index ok */
+}                               /* brokerSubscriptionInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -619,33 +619,33 @@ qpid010SubscriptionInternalIndex_check_index
  *       available then.
  *
  *
- * @param qpid010SubscriptionTable_reg
+ * @param brokerSubscriptionTable_reg
  *        Pointer to the user registration data
- * @param qpid010SubscriptionTable_rowreq_ctx
+ * @param brokerSubscriptionTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010SubscriptionTable_validate_index(qpid010SubscriptionTable_registration
-                                       * qpid010SubscriptionTable_reg,
-                                       qpid010SubscriptionTable_rowreq_ctx *
+brokerSubscriptionTable_validate_index(brokerSubscriptionTable_registration
+                                       * brokerSubscriptionTable_reg,
+                                       brokerSubscriptionTable_rowreq_ctx *
                                        rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_validate_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_validate_index", "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010SubscriptionTable index.
+     * TODO:430:M: |-> Validate potential brokerSubscriptionTable index.
      */
     if (1) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010SubscriptionTable table.\n");
+                 "brokerSubscriptionTable table.\n");
         /*
          * determine failure type.
          *
@@ -662,6 +662,6 @@ qpid010SubscriptionTable_validate_index(qpid010SubscriptionTable_registration
     }
 
     return rc;
-}                               /* qpid010SubscriptionTable_validate_index */
+}                               /* brokerSubscriptionTable_validate_index */
 
 /** @} */

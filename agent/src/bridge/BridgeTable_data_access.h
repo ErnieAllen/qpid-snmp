@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010BRIDGETABLE_DATA_ACCESS_H
-#define qpid010BRIDGETABLE_DATA_ACCESS_H
+#ifndef brokerBRIDGETABLE_DATA_ACCESS_H
+#define brokerBRIDGETABLE_DATA_ACCESS_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -24,43 +24,43 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BridgeTable
+ *** Table brokerBridgeTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010BridgeTable is subid 1 of qpid010Bridges.
+     * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
      */
 
 
     int            
-        qpid010BridgeTable_init_data(qpid010BridgeTable_registration *
-                                    qpid010BridgeTable_reg);
+        brokerBridgeTable_init_data(brokerBridgeTable_registration *
+                                    brokerBridgeTable_reg);
 
 
     /*
-     * TODO:180:o: Review qpid010BridgeTable cache timeout.
+     * TODO:180:o: Review brokerBridgeTable cache timeout.
      * The number of seconds before the cache times out
      */
-#define qpid010BRIDGETABLE_CACHE_TIMEOUT   60
+#define brokerBRIDGETABLE_CACHE_TIMEOUT   60
 
-    void            qpid010BridgeTable_container_init(netsnmp_container **
+    void            brokerBridgeTable_container_init(netsnmp_container **
                                                      container_ptr_ptr,
                                                      netsnmp_cache *
                                                      cache);
-    void            qpid010BridgeTable_container_shutdown(netsnmp_container
+    void            brokerBridgeTable_container_shutdown(netsnmp_container
                                                          * container_ptr);
 
-    int             qpid010BridgeTable_container_load(netsnmp_container *
+    int             brokerBridgeTable_container_load(netsnmp_container *
                                                      container);
-    void            qpid010BridgeTable_container_free(netsnmp_container *
+    void            brokerBridgeTable_container_free(netsnmp_container *
                                                      container);
 
-    int             qpid010BridgeTable_cache_load(netsnmp_container *
+    int             brokerBridgeTable_cache_load(netsnmp_container *
                                                  container);
-    void            qpid010BridgeTable_cache_free(netsnmp_container *
+    void            brokerBridgeTable_cache_free(netsnmp_container *
                                                  container);
 
     /*
@@ -77,18 +77,18 @@ extern          "C" {
      ***---------------------------------------------***
      ***              END  EXAMPLE CODE              ***
      ***************************************************/
-    int             qpid010BridgeTable_row_prep(qpid010BridgeTable_rowreq_ctx
+    int             brokerBridgeTable_row_prep(brokerBridgeTable_rowreq_ctx
                                                * rowreq_ctx);
 
     int            
-        qpid010BridgeTable_validate_index(qpid010BridgeTable_registration *
-                                         qpid010BridgeTable_reg,
-                                         qpid010BridgeTable_rowreq_ctx *
+        brokerBridgeTable_validate_index(brokerBridgeTable_registration *
+                                         brokerBridgeTable_reg,
+                                         brokerBridgeTable_rowreq_ctx *
                                          rowreq_ctx);
-    int             qpid010BridgeInternalIndex_check_index(qpid010BridgeTable_rowreq_ctx * rowreq_ctx);   /* internal */
+    int             brokerBridgeInternalIndex_check_index(brokerBridgeTable_rowreq_ctx * rowreq_ctx);   /* internal */
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010BRIDGETABLE_DATA_ACCESS_H */
+#endif                          /* brokerBRIDGETABLE_DATA_ACCESS_H */

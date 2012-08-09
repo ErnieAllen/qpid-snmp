@@ -29,12 +29,12 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010VhostTable
+ *** Table brokerVhostTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
+ * QPID-MESSAGING-MIB::brokerVhostTable is subid 1 of brokerVhosts.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
  */
@@ -114,9 +114,9 @@
  * related to a specific column, you can do it here.
  *
  * Note that the undo context has been allocated with
- * qpid010VhostTable_allocate_data(), but may need extra
+ * brokerVhostTable_allocate_data(), but may need extra
  * initialization similar to what you may have done in
- * qpid010VhostTable_rowreq_ctx_init().
+ * brokerVhostTable_rowreq_ctx_init().
  * Note that an individual node's undo_setup function will only be called
  * if that node is being set to a new value.
  *
@@ -125,30 +125,30 @@
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010VhostTable_rowreq_ctx)
+ *        Pointer to the table context (brokerVhostTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010VhostTable_undo_setup(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostTable_undo_setup(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_undo_setup",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_undo_setup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> Setup qpid010VhostTable undo.
-     * set up qpid010VhostTable undo information, in preparation for a set.
-     * Undo storage is in (* qpid010VhostFederationTag_val_ptr_ptr )*
+     * TODO:451:M: |-> Setup brokerVhostTable undo.
+     * set up brokerVhostTable undo information, in preparation for a set.
+     * Undo storage is in (* brokerVhostFederationTag_val_ptr_ptr )*
      */
 
     return rc;
-}                               /* qpid010VhostTable_undo_setup */
+}                               /* brokerVhostTable_undo_setup */
 
 /**
  * Undo a set request.
@@ -165,30 +165,30 @@ qpid010VhostTable_undo_setup(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * function, so it won't be done unless it is necessary.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010VhostTable_rowreq_ctx)
+ *        Pointer to the table context (brokerVhostTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  */
 int
-qpid010VhostTable_undo(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostTable_undo(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_undo",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_undo",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:451:M: |-> qpid010VhostTable undo.
-     * qpid010VhostTable undo information, in response to a failed set.
-     * Undo storage is in (* qpid010VhostFederationTag_val_ptr_ptr )*
+     * TODO:451:M: |-> brokerVhostTable undo.
+     * brokerVhostTable undo information, in response to a failed set.
+     * Undo storage is in (* brokerVhostFederationTag_val_ptr_ptr )*
      */
 
     return rc;
-}                               /* qpid010VhostTable_undo_setup */
+}                               /* brokerVhostTable_undo_setup */
 
 /**
  * Cleanup up context undo information.
@@ -202,29 +202,29 @@ qpid010VhostTable_undo(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * on success or failure, you can add a flag to the rowreq_ctx.
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010VhostTable_rowreq_ctx)
+ *        Pointer to the table context (brokerVhostTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010VhostTable_undo_cleanup(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostTable_undo_cleanup(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_undo_cleanup",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_undo_cleanup",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:452:M: |-> Cleanup qpid010VhostTable undo.
-     * Undo storage is in (* qpid010VhostFederationTag_val_ptr_ptr )*
+     * TODO:452:M: |-> Cleanup brokerVhostTable undo.
+     * Undo storage is in (* brokerVhostFederationTag_val_ptr_ptr )*
      */
 
     return rc;
-}                               /* qpid010VhostTable_undo_cleanup */
+}                               /* brokerVhostTable_undo_cleanup */
 
 /**
  * commit new values.
@@ -235,22 +235,22 @@ qpid010VhostTable_undo_cleanup(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010VhostTable_oids.h.
+ * brokerVhostTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010VhostTable_rowreq_ctx
+ * @param brokerVhostTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010VhostTable_commit(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostTable_commit(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
     int             save_flags;
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_commit",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
@@ -263,44 +263,44 @@ qpid010VhostTable_commit(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
     rowreq_ctx->column_set_flags = 0;
 
     /*
-     * commit qpid010VhostTable data
+     * commit brokerVhostTable data
      * 1) check the column's flag in save_flags to see if it was set.
      * 2) clear the flag when you handle that column
      * 3) set the column's flag in column_set_flags if it needs undo
      *    processing in case of a failure.
      */
-    if (save_flags & COLUMN_qpid010VHOSTBROKERREF_FLAG) {
-        save_flags &= ~COLUMN_qpid010VHOSTBROKERREF_FLAG;        /* clear qpid010VhostBrokerRef */
+    if (save_flags & COLUMN_brokerVHOSTBROKERREF_FLAG) {
+        save_flags &= ~COLUMN_brokerVHOSTBROKERREF_FLAG;        /* clear brokerVhostBrokerRef */
         /*
-         * TODO:482:o: |-> commit column qpid010VhostBrokerRef.
+         * TODO:482:o: |-> commit column brokerVhostBrokerRef.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010VhostTable column qpid010VhostBrokerRef commit failed\n");
+                     "brokerVhostTable column brokerVhostBrokerRef commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010VhostBrokerRef
+             * set flag, in case we need to undo brokerVhostBrokerRef
              */
             rowreq_ctx->column_set_flags |=
-                COLUMN_qpid010VHOSTBROKERREF_FLAG;
+                COLUMN_brokerVHOSTBROKERREF_FLAG;
         }
     }
 
-    if (save_flags & COLUMN_qpid010VHOSTNAME_FLAG) {
-        save_flags &= ~COLUMN_qpid010VHOSTNAME_FLAG;     /* clear qpid010VhostName */
+    if (save_flags & COLUMN_brokerVHOSTNAME_FLAG) {
+        save_flags &= ~COLUMN_brokerVHOSTNAME_FLAG;     /* clear brokerVhostName */
         /*
-         * TODO:482:o: |-> commit column qpid010VhostName.
+         * TODO:482:o: |-> commit column brokerVhostName.
          */
         rc = -1;
         if (-1 == rc) {
             snmp_log(LOG_ERR,
-                     "qpid010VhostTable column qpid010VhostName commit failed\n");
+                     "brokerVhostTable column brokerVhostName commit failed\n");
         } else {
             /*
-             * set flag, in case we need to undo qpid010VhostName
+             * set flag, in case we need to undo brokerVhostName
              */
-            rowreq_ctx->column_set_flags |= COLUMN_qpid010VHOSTNAME_FLAG;
+            rowreq_ctx->column_set_flags |= COLUMN_brokerVHOSTNAME_FLAG;
         }
     }
 
@@ -318,7 +318,7 @@ qpid010VhostTable_commit(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010VhostTable_commit */
+}                               /* brokerVhostTable_commit */
 
 /**
  * undo commit new values.
@@ -326,28 +326,28 @@ qpid010VhostTable_commit(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010VhostTable_oids.h.
+ * brokerVhostTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
- * @param qpid010VhostTable_rowreq_ctx
+ * @param brokerVhostTable_rowreq_ctx
  *        Pointer to the users context.
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error
  */
 int
-qpid010VhostTable_undo_commit(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostTable_undo_commit(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_undo_commit",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_undo_commit",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:485:M: |-> Undo qpid010VhostTable commit.
+     * TODO:485:M: |-> Undo brokerVhostTable commit.
      * check the column's flag in rowreq_ctx->column_set_flags to see
      * if it was set during commit, then undo it.
      *
@@ -363,17 +363,17 @@ qpid010VhostTable_undo_commit(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
     }
 
     return rc;
-}                               /* qpid010VhostTable_undo_commit */
+}                               /* brokerVhostTable_undo_commit */
 
 /*
- * TODO:440:M: Implement qpid010VhostTable node value checks.
- * TODO:450:M: Implement qpid010VhostTable undo functions.
- * TODO:460:M: Implement qpid010VhostTable set functions.
- * TODO:480:M: Implement qpid010VhostTable commit functions.
+ * TODO:440:M: Implement brokerVhostTable node value checks.
+ * TODO:450:M: Implement brokerVhostTable undo functions.
+ * TODO:460:M: Implement brokerVhostTable set functions.
+ * TODO:480:M: Implement brokerVhostTable commit functions.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostBrokerRef
- * qpid010VhostBrokerRef is subid 1 of qpid010VhostEntry.
+ * QPID-MESSAGING-MIB::brokerVhostEntry.brokerVhostBrokerRef
+ * brokerVhostBrokerRef is subid 1 of brokerVhostEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.1
  * Description:
@@ -397,10 +397,10 @@ Vhost brokerRef
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010VhostBrokerRef_val_ptr
+ * @param brokerVhostBrokerRef_val_ptr
  *        A char containing the new value.
- * @param qpid010VhostBrokerRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010VhostBrokerRef_val_ptr
+ * @param brokerVhostBrokerRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerVhostBrokerRef_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -423,45 +423,45 @@ Vhost brokerRef
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010VhostTable_check_dependencies() function.
+ * brokerVhostTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010VhostBrokerRef).
+ *    The length is < sizeof(rowreq_ctx->data.brokerVhostBrokerRef).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010VhostBrokerRef_check_value(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
-                                 char *qpid010VhostBrokerRef_val_ptr,
-                                 size_t qpid010VhostBrokerRef_val_ptr_len)
+brokerVhostBrokerRef_check_value(brokerVhostTable_rowreq_ctx * rowreq_ctx,
+                                 char *brokerVhostBrokerRef_val_ptr,
+                                 size_t brokerVhostBrokerRef_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostBrokerRef_check_value", "called\n"));
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostBrokerRef_check_value", "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010VhostBrokerRef_val_ptr);
+    netsnmp_assert(NULL != brokerVhostBrokerRef_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010VhostBrokerRef value.
+     * TODO:441:o: |-> Check for valid brokerVhostBrokerRef value.
      */
 
-    return MFD_SUCCESS;         /* qpid010VhostBrokerRef value not illegal */
-}                               /* qpid010VhostBrokerRef_check_value */
+    return MFD_SUCCESS;         /* brokerVhostBrokerRef value not illegal */
+}                               /* brokerVhostBrokerRef_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010VhostTable_rowreq_ctx)
+ *        Pointer to the table context (brokerVhostTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010VhostTable_undo_setup has been called.
+ * brokerVhostTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -471,31 +471,31 @@ qpid010VhostBrokerRef_check_value(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010VhostBrokerRef_undo_setup(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostBrokerRef_undo_setup(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostBrokerRef_undo_setup",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostBrokerRef_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010VhostBrokerRef undo.
+     * TODO:455:o: |-> Setup brokerVhostBrokerRef undo.
      */
     /*
-     * copy qpid010VhostBrokerRef and qpid010VhostBrokerRef_len data
-     * set rowreq_ctx->undo->qpid010VhostBrokerRef from rowreq_ctx->data.qpid010VhostBrokerRef
+     * copy brokerVhostBrokerRef and brokerVhostBrokerRef_len data
+     * set rowreq_ctx->undo->brokerVhostBrokerRef from rowreq_ctx->data.brokerVhostBrokerRef
      */
-    memcpy(rowreq_ctx->undo->qpid010VhostBrokerRef,
-           rowreq_ctx->data.qpid010VhostBrokerRef,
-           (rowreq_ctx->data.qpid010VhostBrokerRef_len *
-            sizeof(rowreq_ctx->undo->qpid010VhostBrokerRef[0])));
-    rowreq_ctx->undo->qpid010VhostBrokerRef_len =
-        rowreq_ctx->data.qpid010VhostBrokerRef_len;
+    memcpy(rowreq_ctx->undo->brokerVhostBrokerRef,
+           rowreq_ctx->data.brokerVhostBrokerRef,
+           (rowreq_ctx->data.brokerVhostBrokerRef_len *
+            sizeof(rowreq_ctx->undo->brokerVhostBrokerRef[0])));
+    rowreq_ctx->undo->brokerVhostBrokerRef_len =
+        rowreq_ctx->data.brokerVhostBrokerRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostBrokerRef_undo_setup */
+}                               /* brokerVhostBrokerRef_undo_setup */
 
 /**
  * Set the new value.
@@ -503,37 +503,37 @@ qpid010VhostBrokerRef_undo_setup(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010VhostBrokerRef_val_ptr
+ * @param brokerVhostBrokerRef_val_ptr
  *        A char containing the new value.
- * @param qpid010VhostBrokerRef_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010VhostBrokerRef_val_ptr
+ * @param brokerVhostBrokerRef_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerVhostBrokerRef_val_ptr
  */
 int
-qpid010VhostBrokerRef_set(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
-                         char *qpid010VhostBrokerRef_val_ptr,
-                         size_t qpid010VhostBrokerRef_val_ptr_len)
+brokerVhostBrokerRef_set(brokerVhostTable_rowreq_ctx * rowreq_ctx,
+                         char *brokerVhostBrokerRef_val_ptr,
+                         size_t brokerVhostBrokerRef_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostBrokerRef_set",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostBrokerRef_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010VhostBrokerRef_val_ptr);
+    netsnmp_assert(NULL != brokerVhostBrokerRef_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010VhostBrokerRef value.
-     * set qpid010VhostBrokerRef value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerVhostBrokerRef value.
+     * set brokerVhostBrokerRef value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010VhostBrokerRef,
-           qpid010VhostBrokerRef_val_ptr, qpid010VhostBrokerRef_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerVhostBrokerRef,
+           brokerVhostBrokerRef_val_ptr, brokerVhostBrokerRef_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010VhostBrokerRef_len =
-        qpid010VhostBrokerRef_val_ptr_len /
-        sizeof(qpid010VhostBrokerRef_val_ptr[0]);
+    rowreq_ctx->data.brokerVhostBrokerRef_len =
+        brokerVhostBrokerRef_val_ptr_len /
+        sizeof(brokerVhostBrokerRef_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostBrokerRef_set */
+}                               /* brokerVhostBrokerRef_set */
 
 /**
  * undo the previous set.
@@ -542,35 +542,35 @@ qpid010VhostBrokerRef_set(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010VhostBrokerRef_undo(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostBrokerRef_undo(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostBrokerRef_undo",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostBrokerRef_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010VhostBrokerRef undo.
+     * TODO:456:o: |-> Clean up brokerVhostBrokerRef undo.
      */
     /*
-     * copy qpid010VhostBrokerRef and qpid010VhostBrokerRef_len data
-     * set rowreq_ctx->data.qpid010VhostBrokerRef from rowreq_ctx->undo->qpid010VhostBrokerRef
+     * copy brokerVhostBrokerRef and brokerVhostBrokerRef_len data
+     * set rowreq_ctx->data.brokerVhostBrokerRef from rowreq_ctx->undo->brokerVhostBrokerRef
      */
-    memcpy(rowreq_ctx->data.qpid010VhostBrokerRef,
-           rowreq_ctx->undo->qpid010VhostBrokerRef,
-           (rowreq_ctx->undo->qpid010VhostBrokerRef_len *
-            sizeof(rowreq_ctx->data.qpid010VhostBrokerRef[0])));
-    rowreq_ctx->data.qpid010VhostBrokerRef_len =
-        rowreq_ctx->undo->qpid010VhostBrokerRef_len;
+    memcpy(rowreq_ctx->data.brokerVhostBrokerRef,
+           rowreq_ctx->undo->brokerVhostBrokerRef,
+           (rowreq_ctx->undo->brokerVhostBrokerRef_len *
+            sizeof(rowreq_ctx->data.brokerVhostBrokerRef[0])));
+    rowreq_ctx->data.brokerVhostBrokerRef_len =
+        rowreq_ctx->undo->brokerVhostBrokerRef_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostBrokerRef_undo */
+}                               /* brokerVhostBrokerRef_undo */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostName
- * qpid010VhostName is subid 2 of qpid010VhostEntry.
+ * QPID-MESSAGING-MIB::brokerVhostEntry.brokerVhostName
+ * brokerVhostName is subid 2 of brokerVhostEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.2
  * Description:
@@ -594,10 +594,10 @@ Vhost name
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010VhostName_val_ptr
+ * @param brokerVhostName_val_ptr
  *        A char containing the new value.
- * @param qpid010VhostName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010VhostName_val_ptr
+ * @param brokerVhostName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerVhostName_val_ptr
  *
  * @retval MFD_SUCCESS        : incoming value is legal
  * @retval MFD_NOT_VALID_NOW  : incoming value is not valid now
@@ -620,46 +620,46 @@ Vhost name
  * this is not the place to do any checks for values
  * which depend on some other value in the mib. Those
  * types of checks should be done in the
- * qpid010VhostTable_check_dependencies() function.
+ * brokerVhostTable_check_dependencies() function.
  *
  * The following checks have already been done for you:
  *    The syntax is ASN_OCTET_STR
- *    The length is < sizeof(rowreq_ctx->data.qpid010VhostName).
+ *    The length is < sizeof(rowreq_ctx->data.brokerVhostName).
  *    The length is in (one of) the range set(s):  0 - 255
  *
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  *
  */
 int
-qpid010VhostName_check_value(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
-                            char *qpid010VhostName_val_ptr,
-                            size_t qpid010VhostName_val_ptr_len)
+brokerVhostName_check_value(brokerVhostTable_rowreq_ctx * rowreq_ctx,
+                            char *brokerVhostName_val_ptr,
+                            size_t brokerVhostName_val_ptr_len)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostName_check_value",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostName_check_value",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010VhostName_val_ptr);
+    netsnmp_assert(NULL != brokerVhostName_val_ptr);
 
     /*
-     * TODO:441:o: |-> Check for valid qpid010VhostName value.
+     * TODO:441:o: |-> Check for valid brokerVhostName value.
      */
 
-    return MFD_SUCCESS;         /* qpid010VhostName value not illegal */
-}                               /* qpid010VhostName_check_value */
+    return MFD_SUCCESS;         /* brokerVhostName value not illegal */
+}                               /* brokerVhostName_check_value */
 
 /**
  * Save old value information
  *
  * @param rowreq_ctx
- *        Pointer to the table context (qpid010VhostTable_rowreq_ctx)
+ *        Pointer to the table context (brokerVhostTable_rowreq_ctx)
  *
  * @retval MFD_SUCCESS : success
  * @retval MFD_ERROR   : error. set will fail.
  *
  * This function will be called after the table level undo setup function
- * qpid010VhostTable_undo_setup has been called.
+ * brokerVhostTable_undo_setup has been called.
  *
  *@note
  * this function will only be called if a new value is set for this column.
@@ -669,31 +669,31 @@ qpid010VhostName_check_value(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
  * won't be done unless it is necessary.
  */
 int
-qpid010VhostName_undo_setup(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostName_undo_setup(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostName_undo_setup",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostName_undo_setup",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:455:o: |-> Setup qpid010VhostName undo.
+     * TODO:455:o: |-> Setup brokerVhostName undo.
      */
     /*
-     * copy qpid010VhostName and qpid010VhostName_len data
-     * set rowreq_ctx->undo->qpid010VhostName from rowreq_ctx->data.qpid010VhostName
+     * copy brokerVhostName and brokerVhostName_len data
+     * set rowreq_ctx->undo->brokerVhostName from rowreq_ctx->data.brokerVhostName
      */
-    memcpy(rowreq_ctx->undo->qpid010VhostName,
-           rowreq_ctx->data.qpid010VhostName,
-           (rowreq_ctx->data.qpid010VhostName_len *
-            sizeof(rowreq_ctx->undo->qpid010VhostName[0])));
-    rowreq_ctx->undo->qpid010VhostName_len =
-        rowreq_ctx->data.qpid010VhostName_len;
+    memcpy(rowreq_ctx->undo->brokerVhostName,
+           rowreq_ctx->data.brokerVhostName,
+           (rowreq_ctx->data.brokerVhostName_len *
+            sizeof(rowreq_ctx->undo->brokerVhostName[0])));
+    rowreq_ctx->undo->brokerVhostName_len =
+        rowreq_ctx->data.brokerVhostName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostName_undo_setup */
+}                               /* brokerVhostName_undo_setup */
 
 /**
  * Set the new value.
@@ -701,36 +701,36 @@ qpid010VhostName_undo_setup(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * @param rowreq_ctx
  *        Pointer to the users context. You should know how to
  *        manipulate the value from this object.
- * @param qpid010VhostName_val_ptr
+ * @param brokerVhostName_val_ptr
  *        A char containing the new value.
- * @param qpid010VhostName_val_ptr_len
- *        The size (in bytes) of the data pointed to by qpid010VhostName_val_ptr
+ * @param brokerVhostName_val_ptr_len
+ *        The size (in bytes) of the data pointed to by brokerVhostName_val_ptr
  */
 int
-qpid010VhostName_set(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
-                    char *qpid010VhostName_val_ptr,
-                    size_t qpid010VhostName_val_ptr_len)
+brokerVhostName_set(brokerVhostTable_rowreq_ctx * rowreq_ctx,
+                    char *brokerVhostName_val_ptr,
+                    size_t brokerVhostName_val_ptr_len)
 {
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostName_set",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostName_set",
                 "called\n"));
 
     /** should never get a NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
-    netsnmp_assert(NULL != qpid010VhostName_val_ptr);
+    netsnmp_assert(NULL != brokerVhostName_val_ptr);
 
     /*
-     * TODO:461:M: |-> Set qpid010VhostName value.
-     * set qpid010VhostName value in rowreq_ctx->data
+     * TODO:461:M: |-> Set brokerVhostName value.
+     * set brokerVhostName value in rowreq_ctx->data
      */
-    memcpy(rowreq_ctx->data.qpid010VhostName, qpid010VhostName_val_ptr,
-           qpid010VhostName_val_ptr_len);
+    memcpy(rowreq_ctx->data.brokerVhostName, brokerVhostName_val_ptr,
+           brokerVhostName_val_ptr_len);
     /** convert bytes to number of char */
-    rowreq_ctx->data.qpid010VhostName_len =
-        qpid010VhostName_val_ptr_len / sizeof(qpid010VhostName_val_ptr[0]);
+    rowreq_ctx->data.brokerVhostName_len =
+        brokerVhostName_val_ptr_len / sizeof(brokerVhostName_val_ptr[0]);
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostName_set */
+}                               /* brokerVhostName_set */
 
 /**
  * undo the previous set.
@@ -739,31 +739,31 @@ qpid010VhostName_set(qpid010VhostTable_rowreq_ctx * rowreq_ctx,
  *        Pointer to the users context.
  */
 int
-qpid010VhostName_undo(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostName_undo(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostName_undo",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostName_undo",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:456:o: |-> Clean up qpid010VhostName undo.
+     * TODO:456:o: |-> Clean up brokerVhostName undo.
      */
     /*
-     * copy qpid010VhostName and qpid010VhostName_len data
-     * set rowreq_ctx->data.qpid010VhostName from rowreq_ctx->undo->qpid010VhostName
+     * copy brokerVhostName and brokerVhostName_len data
+     * set rowreq_ctx->data.brokerVhostName from rowreq_ctx->undo->brokerVhostName
      */
-    memcpy(rowreq_ctx->data.qpid010VhostName,
-           rowreq_ctx->undo->qpid010VhostName,
-           (rowreq_ctx->undo->qpid010VhostName_len *
-            sizeof(rowreq_ctx->data.qpid010VhostName[0])));
-    rowreq_ctx->data.qpid010VhostName_len =
-        rowreq_ctx->undo->qpid010VhostName_len;
+    memcpy(rowreq_ctx->data.brokerVhostName,
+           rowreq_ctx->undo->brokerVhostName,
+           (rowreq_ctx->undo->brokerVhostName_len *
+            sizeof(rowreq_ctx->data.brokerVhostName[0])));
+    rowreq_ctx->data.brokerVhostName_len =
+        rowreq_ctx->undo->brokerVhostName_len;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostName_undo */
+}                               /* brokerVhostName_undo */
 
 /**
  * check dependencies
@@ -775,29 +775,29 @@ qpid010VhostName_undo(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
  * Should you need different behavior depending on which columns were
  * set, rowreq_ctx->column_set_flags will indicate which writeable columns were
  * set. The definitions for the COLUMN_*_FLAG bits can be found in
- * qpid010VhostTable_oids.h.
+ * brokerVhostTable_oids.h.
  * A new row will have the MFD_ROW_CREATED bit set in rowreq_flags.
  *
  * @retval MFD_SUCCESS all the changes to the row are legal
  * @retval MFD_ERROR   one or more changes are not legal
  *
- * (see README-table-qpid010VhostTable if you don't have dependencies)
+ * (see README-table-brokerVhostTable if you don't have dependencies)
  */
 int
-qpid010VhostTable_check_dependencies(qpid010VhostTable_rowreq_ctx *
+brokerVhostTable_check_dependencies(brokerVhostTable_rowreq_ctx *
                                     rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("internal:qpid010VhostTable:qpid010VhostTable_check_dependencies", "called\n"));
+    DEBUGMSGTL(("internal:brokerVhostTable:brokerVhostTable_check_dependencies", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:470:o: Check qpid010VhostTable row dependencies.
+     * TODO:470:o: Check brokerVhostTable row dependencies.
      * check that all new value are legal and consistent with each other
      */
     return rc;
-}                               /* qpid010VhostTable_check_dependencies */
+}                               /* brokerVhostTable_check_dependencies */
 
 /** @} */

@@ -4,7 +4,7 @@
  *
  * $Id:$
  *
- * @file qpid010VhostTable_data_get.h
+ * @file brokerVhostTable_data_get.h
  *
  * @addtogroup get
  *
@@ -12,8 +12,8 @@
  *
  * @{
  */
-#ifndef qpid010VHOSTTABLE_DATA_GET_H
-#define qpid010VHOSTTABLE_DATA_GET_H
+#ifndef brokerVHOSTTABLE_DATA_GET_H
+#define brokerVHOSTTABLE_DATA_GET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -31,12 +31,12 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010VhostTable
+ *** Table brokerVhostTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
+     * QPID-MESSAGING-MIB::brokerVhostTable is subid 1 of brokerVhosts.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
      */
@@ -44,35 +44,35 @@ extern          "C" {
      * indexes
      */
 
-    int             qpid010VhostBrokerRef_get(qpid010VhostTable_rowreq_ctx *
+    int             brokerVhostBrokerRef_get(brokerVhostTable_rowreq_ctx *
                                              rowreq_ctx,
                                              char
-                                             **qpid010VhostBrokerRef_val_ptr_ptr,
+                                             **brokerVhostBrokerRef_val_ptr_ptr,
                                              size_t
-                                             *qpid010VhostBrokerRef_val_ptr_len_ptr);
-    int             qpid010VhostName_get(qpid010VhostTable_rowreq_ctx *
+                                             *brokerVhostBrokerRef_val_ptr_len_ptr);
+    int             brokerVhostName_get(brokerVhostTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char **qpid010VhostName_val_ptr_ptr,
+                                        char **brokerVhostName_val_ptr_ptr,
                                         size_t
-                                        *qpid010VhostName_val_ptr_len_ptr);
+                                        *brokerVhostName_val_ptr_len_ptr);
     int            
-        qpid010VhostFederationTag_get(qpid010VhostTable_rowreq_ctx *
+        brokerVhostFederationTag_get(brokerVhostTable_rowreq_ctx *
                                      rowreq_ctx,
                                      char
-                                     **qpid010VhostFederationTag_val_ptr_ptr,
+                                     **brokerVhostFederationTag_val_ptr_ptr,
                                      size_t
-                                     *qpid010VhostFederationTag_val_ptr_len_ptr);
+                                     *brokerVhostFederationTag_val_ptr_len_ptr);
 
 
     int            
-        qpid010VhostTable_indexes_set_tbl_idx(qpid010VhostTable_mib_index *
+        brokerVhostTable_indexes_set_tbl_idx(brokerVhostTable_mib_index *
                                              tbl_idx,
                                              u_long
-                                             qpid010VhostInternalIndex_val);
+                                             brokerVhostInternalIndex_val);
     int            
-        qpid010VhostTable_indexes_set(qpid010VhostTable_rowreq_ctx *
+        brokerVhostTable_indexes_set(brokerVhostTable_rowreq_ctx *
                                      rowreq_ctx,
-                                     u_long qpid010VhostInternalIndex_val);
+                                     u_long brokerVhostInternalIndex_val);
 
 
 
@@ -80,5 +80,5 @@ extern          "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010VHOSTTABLE_DATA_GET_H */
+#endif                          /* brokerVHOSTTABLE_DATA_GET_H */
 /** @} */

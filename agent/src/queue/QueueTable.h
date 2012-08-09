@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010QUEUETABLE_H
-#define qpid010QUEUETABLE_H
+#ifndef brokerQUEUETABLE_H
+#define brokerQUEUETABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerQueueTable/brokerQueueTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerQueueTable/brokerQueueTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerQueueTable/brokerQueueTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerQueueTable/brokerQueueTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010QueueTable 
+     * OID and column number definitions for brokerQueueTable 
      */
 #include "QueueTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_data_set)
      * function declarations
      */
     void            init_QueueTable(void);
-    void            shutdown_qpid010QueueTable(void);
+    void            shutdown_brokerQueueTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_data_set)
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010QueueTable
+ *** Table brokerQueueTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
+     * QPID-MESSAGING-MIB::brokerQueueTable is subid 1 of brokerQueues.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
      */
@@ -71,315 +71,315 @@ config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_data_set)
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010QueueTable registration context.
+     * TODO:101:o: |-> Review brokerQueueTable registration context.
      */
-    typedef netsnmp_data_list qpid010QueueTable_registration;
+    typedef netsnmp_data_list brokerQueueTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010QueueTable data context structure.
-     * This structure is used to represent the data for qpid010QueueTable.
+     * TODO:110:r: |-> Review brokerQueueTable data context structure.
+     * This structure is used to represent the data for brokerQueueTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010QueueTable.
+     * brokerQueueTable.
      */
-    typedef struct qpid010QueueTable_data_s {
+    typedef struct brokerQueueTable_data_s {
 
         /*
-         * qpid010QueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerQueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010QueueVhostRef[255];
-        size_t          qpid010QueueVhostRef_len;        /* # of char elements, not bytes */
+        char            brokerQueueVhostRef[255];
+        size_t          brokerQueueVhostRef_len;        /* # of char elements, not bytes */
 
         /*
-         * qpid010QueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerQueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010QueueName[255];
-        size_t          qpid010QueueName_len;    /* # of char elements, not bytes */
+        char            brokerQueueName[255];
+        size_t          brokerQueueName_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010QueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerQueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010QueueDurable;
+        u_long          brokerQueueDurable;
 
         /*
-         * qpid010QueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerQueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010QueueAutoDelete;
+        u_long          brokerQueueAutoDelete;
 
         /*
-         * qpid010QueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerQueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010QueueExclusive;
+        u_long          brokerQueueExclusive;
 
         /*
-         * qpid010QueueArguments(6)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerQueueArguments(6)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010QueueArguments[65535];
-        size_t          qpid010QueueArguments_len;       /* # of char elements, not bytes */
+        char            brokerQueueArguments[65535];
+        size_t          brokerQueueArguments_len;       /* # of char elements, not bytes */
 
         /*
-         * qpid010QueueAltExchange(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerQueueAltExchange(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010QueueAltExchange[255];
-        size_t          qpid010QueueAltExchange_len;     /* # of char elements, not bytes */
+        char            brokerQueueAltExchange[255];
+        size_t          brokerQueueAltExchange_len;     /* # of char elements, not bytes */
 
         /*
-         * qpid010QueueMsgTotalEnqueues(8)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgTotalEnqueues(8)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgTotalEnqueues;
+        U64             brokerQueueMsgTotalEnqueues;
 
         /*
-         * qpid010QueueMsgTotalDequeues(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgTotalDequeues(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgTotalDequeues;
+        U64             brokerQueueMsgTotalDequeues;
 
         /*
-         * qpid010QueueMsgTxnEnqueues(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgTxnEnqueues(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgTxnEnqueues;
+        U64             brokerQueueMsgTxnEnqueues;
 
         /*
-         * qpid010QueueMsgTxnDequeues(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgTxnDequeues(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgTxnDequeues;
+        U64             brokerQueueMsgTxnDequeues;
 
         /*
-         * qpid010QueueMsgPersistEnqueues(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgPersistEnqueues(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgPersistEnqueues;
+        U64             brokerQueueMsgPersistEnqueues;
 
         /*
-         * qpid010QueueMsgPersistDequeues(13)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgPersistDequeues(13)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgPersistDequeues;
+        U64             brokerQueueMsgPersistDequeues;
 
         /*
-         * qpid010QueueMsgDepth(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgDepth(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgDepth;
+        U64             brokerQueueMsgDepth;
 
         /*
-         * qpid010QueueByteDepth(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueByteDepth(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueByteDepth;
+        U64             brokerQueueByteDepth;
 
         /*
-         * qpid010QueueByteTotalEnqueues(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueByteTotalEnqueues(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueByteTotalEnqueues;
+        U64             brokerQueueByteTotalEnqueues;
 
         /*
-         * qpid010QueueByteTotalDequeues(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueByteTotalDequeues(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueByteTotalDequeues;
+        U64             brokerQueueByteTotalDequeues;
 
         /*
-         * qpid010QueueByteTxnEnqueues(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueByteTxnEnqueues(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueByteTxnEnqueues;
+        U64             brokerQueueByteTxnEnqueues;
 
         /*
-         * qpid010QueueByteTxnDequeues(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueByteTxnDequeues(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueByteTxnDequeues;
+        U64             brokerQueueByteTxnDequeues;
 
         /*
-         * qpid010QueueBytePersistEnqueues(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueBytePersistEnqueues(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueBytePersistEnqueues;
+        U64             brokerQueueBytePersistEnqueues;
 
         /*
-         * qpid010QueueBytePersistDequeues(21)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueBytePersistDequeues(21)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueBytePersistDequeues;
+        U64             brokerQueueBytePersistDequeues;
 
         /*
-         * qpid010QueueMsgFtdEnqueues(22)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgFtdEnqueues(22)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgFtdEnqueues;
+        U64             brokerQueueMsgFtdEnqueues;
 
         /*
-         * qpid010QueueMsgFtdDequeues(23)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgFtdDequeues(23)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgFtdDequeues;
+        U64             brokerQueueMsgFtdDequeues;
 
         /*
-         * qpid010QueueByteFtdEnqueues(24)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueByteFtdEnqueues(24)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueByteFtdEnqueues;
+        U64             brokerQueueByteFtdEnqueues;
 
         /*
-         * qpid010QueueByteFtdDequeues(25)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueByteFtdDequeues(25)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueByteFtdDequeues;
+        U64             brokerQueueByteFtdDequeues;
 
         /*
-         * qpid010QueueMsgFtdDepth(26)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueMsgFtdDepth(26)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueMsgFtdDepth;
+        U64             brokerQueueMsgFtdDepth;
 
         /*
-         * qpid010QueueByteFtdDepth(27)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueByteFtdDepth(27)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueByteFtdDepth;
+        U64             brokerQueueByteFtdDepth;
 
         /*
-         * qpid010QueueReleases(28)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueReleases(28)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueReleases;
+        U64             brokerQueueReleases;
 
         /*
-         * qpid010QueueAcquires(29)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueAcquires(29)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueAcquires;
+        U64             brokerQueueAcquires;
 
         /*
-         * qpid010QueueDiscardsTtl(30)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueDiscardsTtl(30)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueDiscardsTtl;
+        U64             brokerQueueDiscardsTtl;
 
         /*
-         * qpid010QueueDiscardsRing(31)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueDiscardsRing(31)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueDiscardsRing;
+        U64             brokerQueueDiscardsRing;
 
         /*
-         * qpid010QueueDiscardsLvq(32)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueDiscardsLvq(32)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueDiscardsLvq;
+        U64             brokerQueueDiscardsLvq;
 
         /*
-         * qpid010QueueDiscardsOverflow(33)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueDiscardsOverflow(33)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueDiscardsOverflow;
+        U64             brokerQueueDiscardsOverflow;
 
         /*
-         * qpid010QueueDiscardsSubscriber(34)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueDiscardsSubscriber(34)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueDiscardsSubscriber;
+        U64             brokerQueueDiscardsSubscriber;
 
         /*
-         * qpid010QueueDiscardsPurge(35)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueDiscardsPurge(35)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueDiscardsPurge;
+        U64             brokerQueueDiscardsPurge;
 
         /*
-         * qpid010QueueReroutes(36)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * brokerQueueReroutes(36)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        U64             qpid010QueueReroutes;
+        U64             brokerQueueReroutes;
 
         /*
-         * qpid010QueueConsumerCount(37)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueConsumerCount(37)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueConsumerCount;
+        long            brokerQueueConsumerCount;
 
         /*
-         * qpid010QueueConsumerCountHi(38)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueConsumerCountHi(38)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueConsumerCountHi;
+        long            brokerQueueConsumerCountHi;
 
         /*
-         * qpid010QueueConsumerCountLow(39)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueConsumerCountLow(39)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueConsumerCountLow;
+        long            brokerQueueConsumerCountLow;
 
         /*
-         * qpid010QueueBindingCount(40)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueBindingCount(40)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueBindingCount;
+        long            brokerQueueBindingCount;
 
         /*
-         * qpid010QueueBindingCountHi(41)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueBindingCountHi(41)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueBindingCountHi;
+        long            brokerQueueBindingCountHi;
 
         /*
-         * qpid010QueueBindingCountLow(42)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueBindingCountLow(42)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueBindingCountLow;
+        long            brokerQueueBindingCountLow;
 
         /*
-         * qpid010QueueUnackedMessages(43)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueUnackedMessages(43)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueUnackedMessages;
+        long            brokerQueueUnackedMessages;
 
         /*
-         * qpid010QueueUnackedMessagesHi(44)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueUnackedMessagesHi(44)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueUnackedMessagesHi;
+        long            brokerQueueUnackedMessagesHi;
 
         /*
-         * qpid010QueueUnackedMessagesLow(45)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerQueueUnackedMessagesLow(45)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010QueueUnackedMessagesLow;
+        long            brokerQueueUnackedMessagesLow;
 
         /*
-         * qpid010QueueMessageLatency(46)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerQueueMessageLatency(46)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010QueueMessageLatency;
+        u_long          brokerQueueMessageLatency;
 
         /*
-         * qpid010QueueFlowStopped(47)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * brokerQueueFlowStopped(47)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
-        u_long          qpid010QueueFlowStopped;
+        u_long          brokerQueueFlowStopped;
 
         /*
-         * qpid010QueueFlowStoppedCount(48)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerQueueFlowStoppedCount(48)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
-        u_long          qpid010QueueFlowStoppedCount;
+        u_long          brokerQueueFlowStoppedCount;
 
-    } qpid010QueueTable_data;
+    } brokerQueueTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010QueueTable undo context.
+     * TODO:115:o: |-> Review brokerQueueTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010QueueTable_data qpid010QueueTable_undo_data;
+    typedef brokerQueueTable_data brokerQueueTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010QueueTable mib index.
-     * This structure is used to represent the index for qpid010QueueTable.
+     * TODO:120:r: |-> Review brokerQueueTable mib index.
+     * This structure is used to represent the index for brokerQueueTable.
      */
-    typedef struct qpid010QueueTable_mib_index_s {
+    typedef struct brokerQueueTable_mib_index_s {
 
         /*
-         * qpid010QueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerQueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010QueueInternalIndex;
+        u_long          brokerQueueInternalIndex;
 
 
-    } qpid010QueueTable_mib_index;
+    } brokerQueueTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010QueueTable max index length.
+     * TODO:121:r: |   |-> Review brokerQueueTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010QueueTable_IDX_LEN     1
+#define MAX_brokerQueueTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010QueueTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerQueueTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010QueueTable_rowreq_ctx pointer.
+     * brokerQueueTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010QueueTable_rowreq_ctx_s {
+    typedef struct brokerQueueTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010QueueTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerQueueTable_IDX_LEN];
 
-        qpid010QueueTable_mib_index tbl_idx;
+        brokerQueueTable_mib_index tbl_idx;
 
-        qpid010QueueTable_data data;
-        qpid010QueueTable_undo_data *undo;
+        brokerQueueTable_data data;
+        brokerQueueTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -390,50 +390,50 @@ config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_data_set)
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010QueueTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerQueueTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010QueueTable_data_list;
+        netsnmp_data_list *brokerQueueTable_data_list;
 
-    } qpid010QueueTable_rowreq_ctx;
+    } brokerQueueTable_rowreq_ctx;
 
-    typedef struct qpid010QueueTable_ref_rowreq_ctx_s {
-        qpid010QueueTable_rowreq_ctx *rowreq_ctx;
-    } qpid010QueueTable_ref_rowreq_ctx;
+    typedef struct brokerQueueTable_ref_rowreq_ctx_s {
+        brokerQueueTable_rowreq_ctx *rowreq_ctx;
+    } brokerQueueTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010QueueTable_pre_request(qpid010QueueTable_registration *
+        brokerQueueTable_pre_request(brokerQueueTable_registration *
                                      user_context);
     int            
-        qpid010QueueTable_post_request(qpid010QueueTable_registration *
+        brokerQueueTable_post_request(brokerQueueTable_registration *
                                       user_context, int rc);
 
     int            
-        qpid010QueueTable_rowreq_ctx_init(qpid010QueueTable_rowreq_ctx *
+        brokerQueueTable_rowreq_ctx_init(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx, void *user_init_ctx);
     void           
-        qpid010QueueTable_rowreq_ctx_cleanup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueTable_rowreq_ctx_cleanup(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
 
     int            
-        qpid010QueueTable_check_dependencies(qpid010QueueTable_rowreq_ctx *
+        brokerQueueTable_check_dependencies(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
-    int             qpid010QueueTable_commit(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueTable_commit(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
 
-    qpid010QueueTable_rowreq_ctx
-        *qpid010QueueTable_row_find_by_mib_index(qpid010QueueTable_mib_index
+    brokerQueueTable_rowreq_ctx
+        *brokerQueueTable_row_find_by_mib_index(brokerQueueTable_mib_index
                                                 * mib_idx);
 
-    extern const oid qpid010QueueTable_oid[];
-    extern const int qpid010QueueTable_oid_size;
+    extern const oid brokerQueueTable_oid[];
+    extern const int brokerQueueTable_oid_size;
 
 
 #include "QueueTable_interface.h"
@@ -454,5 +454,5 @@ config_require(MRG-MESSAGING-MIB/qpid010QueueTable/qpid010QueueTable_data_set)
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010QUEUETABLE_H */
+#endif                          /* brokerQUEUETABLE_H */
 /** @} */

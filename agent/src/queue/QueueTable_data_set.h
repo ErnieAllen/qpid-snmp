@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef qpid010QUEUETABLE_DATA_SET_H
-#define qpid010QUEUETABLE_DATA_SET_H
+#ifndef brokerQUEUETABLE_DATA_SET_H
+#define brokerQUEUETABLE_DATA_SET_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -23,795 +23,795 @@ extern          "C" {
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010QueueTable
+ *** Table brokerQueueTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
+     * QPID-MESSAGING-MIB::brokerQueueTable is subid 1 of brokerQueues.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
      */
 
 
-    int             qpid010QueueTable_undo_setup(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueTable_undo_setup(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
     int            
-        qpid010QueueTable_undo_cleanup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueTable_undo_cleanup(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx);
-    int             qpid010QueueTable_undo(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueTable_undo(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010QueueTable_commit(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueTable_commit(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
     int            
-        qpid010QueueTable_undo_commit(qpid010QueueTable_rowreq_ctx *
+        brokerQueueTable_undo_commit(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx);
 
 
     int            
-        qpid010QueueVhostRef_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueVhostRef_check_value(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char *qpid010QueueVhostRef_val_ptr,
+                                        char *brokerQueueVhostRef_val_ptr,
                                         size_t
-                                        qpid010QueueVhostRef_val_ptr_len);
+                                        brokerQueueVhostRef_val_ptr_len);
     int            
-        qpid010QueueVhostRef_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueVhostRef_undo_setup(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
-    int             qpid010QueueVhostRef_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueVhostRef_set(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx,
                                             char
-                                            *qpid010QueueVhostRef_val_ptr,
+                                            *brokerQueueVhostRef_val_ptr,
                                             size_t
-                                            qpid010QueueVhostRef_val_ptr_len);
-    int             qpid010QueueVhostRef_undo(qpid010QueueTable_rowreq_ctx *
+                                            brokerQueueVhostRef_val_ptr_len);
+    int             brokerQueueVhostRef_undo(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
 
-    int             qpid010QueueName_check_value(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueName_check_value(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 char
-                                                *qpid010QueueName_val_ptr,
+                                                *brokerQueueName_val_ptr,
                                                 size_t
-                                                qpid010QueueName_val_ptr_len);
-    int             qpid010QueueName_undo_setup(qpid010QueueTable_rowreq_ctx
+                                                brokerQueueName_val_ptr_len);
+    int             brokerQueueName_undo_setup(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx);
-    int             qpid010QueueName_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueName_set(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        char *qpid010QueueName_val_ptr,
+                                        char *brokerQueueName_val_ptr,
                                         size_t
-                                        qpid010QueueName_val_ptr_len);
-    int             qpid010QueueName_undo(qpid010QueueTable_rowreq_ctx *
+                                        brokerQueueName_val_ptr_len);
+    int             brokerQueueName_undo(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx);
 
     int            
-        qpid010QueueDurable_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDurable_check_value(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx,
-                                       u_long qpid010QueueDurable_val);
+                                       u_long brokerQueueDurable_val);
     int            
-        qpid010QueueDurable_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDurable_undo_setup(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx);
-    int             qpid010QueueDurable_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueDurable_set(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx,
-                                           u_long qpid010QueueDurable_val);
-    int             qpid010QueueDurable_undo(qpid010QueueTable_rowreq_ctx *
+                                           u_long brokerQueueDurable_val);
+    int             brokerQueueDurable_undo(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
 
     int            
-        qpid010QueueAutoDelete_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueAutoDelete_check_value(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx,
                                           u_long
-                                          qpid010QueueAutoDelete_val);
+                                          brokerQueueAutoDelete_val);
     int            
-        qpid010QueueAutoDelete_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueAutoDelete_undo_setup(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx);
-    int             qpid010QueueAutoDelete_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueAutoDelete_set(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx,
                                               u_long
-                                              qpid010QueueAutoDelete_val);
-    int             qpid010QueueAutoDelete_undo(qpid010QueueTable_rowreq_ctx
+                                              brokerQueueAutoDelete_val);
+    int             brokerQueueAutoDelete_undo(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx);
 
     int            
-        qpid010QueueExclusive_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueExclusive_check_value(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx,
-                                         u_long qpid010QueueExclusive_val);
+                                         u_long brokerQueueExclusive_val);
     int            
-        qpid010QueueExclusive_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueExclusive_undo_setup(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010QueueExclusive_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueExclusive_set(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx,
                                              u_long
-                                             qpid010QueueExclusive_val);
-    int             qpid010QueueExclusive_undo(qpid010QueueTable_rowreq_ctx *
+                                             brokerQueueExclusive_val);
+    int             brokerQueueExclusive_undo(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
 
     int            
-        qpid010QueueArguments_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueArguments_check_value(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx,
                                          char
-                                         *qpid010QueueArguments_val_ptr,
+                                         *brokerQueueArguments_val_ptr,
                                          size_t
-                                         qpid010QueueArguments_val_ptr_len);
+                                         brokerQueueArguments_val_ptr_len);
     int            
-        qpid010QueueArguments_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueArguments_undo_setup(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010QueueArguments_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueArguments_set(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx,
                                              char
-                                             *qpid010QueueArguments_val_ptr,
+                                             *brokerQueueArguments_val_ptr,
                                              size_t
-                                             qpid010QueueArguments_val_ptr_len);
-    int             qpid010QueueArguments_undo(qpid010QueueTable_rowreq_ctx *
+                                             brokerQueueArguments_val_ptr_len);
+    int             brokerQueueArguments_undo(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
 
     int            
-        qpid010QueueAltExchange_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueAltExchange_check_value(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx,
                                            char
-                                           *qpid010QueueAltExchange_val_ptr,
+                                           *brokerQueueAltExchange_val_ptr,
                                            size_t
-                                           qpid010QueueAltExchange_val_ptr_len);
+                                           brokerQueueAltExchange_val_ptr_len);
     int            
-        qpid010QueueAltExchange_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueAltExchange_undo_setup(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010QueueAltExchange_set(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueAltExchange_set(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                char
-                                               *qpid010QueueAltExchange_val_ptr,
+                                               *brokerQueueAltExchange_val_ptr,
                                                size_t
-                                               qpid010QueueAltExchange_val_ptr_len);
-    int             qpid010QueueAltExchange_undo(qpid010QueueTable_rowreq_ctx
+                                               brokerQueueAltExchange_val_ptr_len);
+    int             brokerQueueAltExchange_undo(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
 
     int            
-        qpid010QueueMsgTotalEnqueues_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueMsgTotalEnqueues_check_value(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 U64
-                                                qpid010QueueMsgTotalEnqueues_val);
+                                                brokerQueueMsgTotalEnqueues_val);
     int            
-        qpid010QueueMsgTotalEnqueues_undo_setup(qpid010QueueTable_rowreq_ctx
+        brokerQueueMsgTotalEnqueues_undo_setup(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx);
     int            
-        qpid010QueueMsgTotalEnqueues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTotalEnqueues_set(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
                                         U64
-                                        qpid010QueueMsgTotalEnqueues_val);
+                                        brokerQueueMsgTotalEnqueues_val);
     int            
-        qpid010QueueMsgTotalEnqueues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTotalEnqueues_undo(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx);
 
     int            
-        qpid010QueueMsgTotalDequeues_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueMsgTotalDequeues_check_value(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 U64
-                                                qpid010QueueMsgTotalDequeues_val);
+                                                brokerQueueMsgTotalDequeues_val);
     int            
-        qpid010QueueMsgTotalDequeues_undo_setup(qpid010QueueTable_rowreq_ctx
+        brokerQueueMsgTotalDequeues_undo_setup(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx);
     int            
-        qpid010QueueMsgTotalDequeues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTotalDequeues_set(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
                                         U64
-                                        qpid010QueueMsgTotalDequeues_val);
+                                        brokerQueueMsgTotalDequeues_val);
     int            
-        qpid010QueueMsgTotalDequeues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTotalDequeues_undo(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx);
 
     int            
-        qpid010QueueMsgTxnEnqueues_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTxnEnqueues_check_value(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx,
                                               U64
-                                              qpid010QueueMsgTxnEnqueues_val);
+                                              brokerQueueMsgTxnEnqueues_val);
     int            
-        qpid010QueueMsgTxnEnqueues_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTxnEnqueues_undo_setup(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
     int            
-        qpid010QueueMsgTxnEnqueues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTxnEnqueues_set(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx,
-                                      U64 qpid010QueueMsgTxnEnqueues_val);
+                                      U64 brokerQueueMsgTxnEnqueues_val);
     int            
-        qpid010QueueMsgTxnEnqueues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTxnEnqueues_undo(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
 
     int            
-        qpid010QueueMsgTxnDequeues_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTxnDequeues_check_value(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx,
                                               U64
-                                              qpid010QueueMsgTxnDequeues_val);
+                                              brokerQueueMsgTxnDequeues_val);
     int            
-        qpid010QueueMsgTxnDequeues_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTxnDequeues_undo_setup(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
     int            
-        qpid010QueueMsgTxnDequeues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTxnDequeues_set(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx,
-                                      U64 qpid010QueueMsgTxnDequeues_val);
+                                      U64 brokerQueueMsgTxnDequeues_val);
     int            
-        qpid010QueueMsgTxnDequeues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgTxnDequeues_undo(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
 
     int            
-        qpid010QueueMsgPersistEnqueues_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010QueueMsgPersistEnqueues_val);
+        brokerQueueMsgPersistEnqueues_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerQueueMsgPersistEnqueues_val);
     int            
-        qpid010QueueMsgPersistEnqueues_undo_setup
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx);
+        brokerQueueMsgPersistEnqueues_undo_setup
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010QueueMsgPersistEnqueues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgPersistEnqueues_set(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx,
                                           U64
-                                          qpid010QueueMsgPersistEnqueues_val);
+                                          brokerQueueMsgPersistEnqueues_val);
     int            
-        qpid010QueueMsgPersistEnqueues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgPersistEnqueues_undo(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx);
 
     int            
-        qpid010QueueMsgPersistDequeues_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010QueueMsgPersistDequeues_val);
+        brokerQueueMsgPersistDequeues_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerQueueMsgPersistDequeues_val);
     int            
-        qpid010QueueMsgPersistDequeues_undo_setup
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx);
+        brokerQueueMsgPersistDequeues_undo_setup
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010QueueMsgPersistDequeues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgPersistDequeues_set(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx,
                                           U64
-                                          qpid010QueueMsgPersistDequeues_val);
+                                          brokerQueueMsgPersistDequeues_val);
     int            
-        qpid010QueueMsgPersistDequeues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgPersistDequeues_undo(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx);
 
     int            
-        qpid010QueueMsgDepth_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgDepth_check_value(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        U64 qpid010QueueMsgDepth_val);
+                                        U64 brokerQueueMsgDepth_val);
     int            
-        qpid010QueueMsgDepth_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgDepth_undo_setup(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
-    int             qpid010QueueMsgDepth_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueMsgDepth_set(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx,
-                                            U64 qpid010QueueMsgDepth_val);
-    int             qpid010QueueMsgDepth_undo(qpid010QueueTable_rowreq_ctx *
+                                            U64 brokerQueueMsgDepth_val);
+    int             brokerQueueMsgDepth_undo(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
 
     int            
-        qpid010QueueByteDepth_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteDepth_check_value(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx,
-                                         U64 qpid010QueueByteDepth_val);
+                                         U64 brokerQueueByteDepth_val);
     int            
-        qpid010QueueByteDepth_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteDepth_undo_setup(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
-    int             qpid010QueueByteDepth_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueByteDepth_set(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx,
-                                             U64 qpid010QueueByteDepth_val);
-    int             qpid010QueueByteDepth_undo(qpid010QueueTable_rowreq_ctx *
+                                             U64 brokerQueueByteDepth_val);
+    int             brokerQueueByteDepth_undo(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
 
     int            
-        qpid010QueueByteTotalEnqueues_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010QueueByteTotalEnqueues_val);
+        brokerQueueByteTotalEnqueues_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerQueueByteTotalEnqueues_val);
     int            
-        qpid010QueueByteTotalEnqueues_undo_setup(qpid010QueueTable_rowreq_ctx
+        brokerQueueByteTotalEnqueues_undo_setup(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
     int            
-        qpid010QueueByteTotalEnqueues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTotalEnqueues_set(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx,
                                          U64
-                                         qpid010QueueByteTotalEnqueues_val);
+                                         brokerQueueByteTotalEnqueues_val);
     int            
-        qpid010QueueByteTotalEnqueues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTotalEnqueues_undo(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
 
     int            
-        qpid010QueueByteTotalDequeues_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010QueueByteTotalDequeues_val);
+        brokerQueueByteTotalDequeues_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerQueueByteTotalDequeues_val);
     int            
-        qpid010QueueByteTotalDequeues_undo_setup(qpid010QueueTable_rowreq_ctx
+        brokerQueueByteTotalDequeues_undo_setup(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
     int            
-        qpid010QueueByteTotalDequeues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTotalDequeues_set(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx,
                                          U64
-                                         qpid010QueueByteTotalDequeues_val);
+                                         brokerQueueByteTotalDequeues_val);
     int            
-        qpid010QueueByteTotalDequeues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTotalDequeues_undo(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
 
     int            
-        qpid010QueueByteTxnEnqueues_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueByteTxnEnqueues_check_value(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                U64
-                                               qpid010QueueByteTxnEnqueues_val);
+                                               brokerQueueByteTxnEnqueues_val);
     int            
-        qpid010QueueByteTxnEnqueues_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTxnEnqueues_undo_setup(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
     int            
-        qpid010QueueByteTxnEnqueues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTxnEnqueues_set(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx,
-                                       U64 qpid010QueueByteTxnEnqueues_val);
+                                       U64 brokerQueueByteTxnEnqueues_val);
     int            
-        qpid010QueueByteTxnEnqueues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTxnEnqueues_undo(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010QueueByteTxnDequeues_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueByteTxnDequeues_check_value(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                U64
-                                               qpid010QueueByteTxnDequeues_val);
+                                               brokerQueueByteTxnDequeues_val);
     int            
-        qpid010QueueByteTxnDequeues_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTxnDequeues_undo_setup(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
     int            
-        qpid010QueueByteTxnDequeues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTxnDequeues_set(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx,
-                                       U64 qpid010QueueByteTxnDequeues_val);
+                                       U64 brokerQueueByteTxnDequeues_val);
     int            
-        qpid010QueueByteTxnDequeues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteTxnDequeues_undo(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010QueueBytePersistEnqueues_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010QueueBytePersistEnqueues_val);
+        brokerQueueBytePersistEnqueues_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerQueueBytePersistEnqueues_val);
     int            
-        qpid010QueueBytePersistEnqueues_undo_setup
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx);
+        brokerQueueBytePersistEnqueues_undo_setup
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010QueueBytePersistEnqueues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBytePersistEnqueues_set(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx,
                                            U64
-                                           qpid010QueueBytePersistEnqueues_val);
+                                           brokerQueueBytePersistEnqueues_val);
     int            
-        qpid010QueueBytePersistEnqueues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBytePersistEnqueues_undo(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
 
     int            
-        qpid010QueueBytePersistDequeues_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010QueueBytePersistDequeues_val);
+        brokerQueueBytePersistDequeues_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerQueueBytePersistDequeues_val);
     int            
-        qpid010QueueBytePersistDequeues_undo_setup
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx);
+        brokerQueueBytePersistDequeues_undo_setup
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010QueueBytePersistDequeues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBytePersistDequeues_set(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx,
                                            U64
-                                           qpid010QueueBytePersistDequeues_val);
+                                           brokerQueueBytePersistDequeues_val);
     int            
-        qpid010QueueBytePersistDequeues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBytePersistDequeues_undo(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
 
     int            
-        qpid010QueueMsgFtdEnqueues_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdEnqueues_check_value(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx,
                                               U64
-                                              qpid010QueueMsgFtdEnqueues_val);
+                                              brokerQueueMsgFtdEnqueues_val);
     int            
-        qpid010QueueMsgFtdEnqueues_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdEnqueues_undo_setup(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
     int            
-        qpid010QueueMsgFtdEnqueues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdEnqueues_set(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx,
-                                      U64 qpid010QueueMsgFtdEnqueues_val);
+                                      U64 brokerQueueMsgFtdEnqueues_val);
     int            
-        qpid010QueueMsgFtdEnqueues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdEnqueues_undo(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
 
     int            
-        qpid010QueueMsgFtdDequeues_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdDequeues_check_value(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx,
                                               U64
-                                              qpid010QueueMsgFtdDequeues_val);
+                                              brokerQueueMsgFtdDequeues_val);
     int            
-        qpid010QueueMsgFtdDequeues_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdDequeues_undo_setup(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
     int            
-        qpid010QueueMsgFtdDequeues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdDequeues_set(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx,
-                                      U64 qpid010QueueMsgFtdDequeues_val);
+                                      U64 brokerQueueMsgFtdDequeues_val);
     int            
-        qpid010QueueMsgFtdDequeues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdDequeues_undo(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
 
     int            
-        qpid010QueueByteFtdEnqueues_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueByteFtdEnqueues_check_value(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                U64
-                                               qpid010QueueByteFtdEnqueues_val);
+                                               brokerQueueByteFtdEnqueues_val);
     int            
-        qpid010QueueByteFtdEnqueues_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdEnqueues_undo_setup(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
     int            
-        qpid010QueueByteFtdEnqueues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdEnqueues_set(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx,
-                                       U64 qpid010QueueByteFtdEnqueues_val);
+                                       U64 brokerQueueByteFtdEnqueues_val);
     int            
-        qpid010QueueByteFtdEnqueues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdEnqueues_undo(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010QueueByteFtdDequeues_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueByteFtdDequeues_check_value(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                U64
-                                               qpid010QueueByteFtdDequeues_val);
+                                               brokerQueueByteFtdDequeues_val);
     int            
-        qpid010QueueByteFtdDequeues_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdDequeues_undo_setup(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
     int            
-        qpid010QueueByteFtdDequeues_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdDequeues_set(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx,
-                                       U64 qpid010QueueByteFtdDequeues_val);
+                                       U64 brokerQueueByteFtdDequeues_val);
     int            
-        qpid010QueueByteFtdDequeues_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdDequeues_undo(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010QueueMsgFtdDepth_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdDepth_check_value(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx,
-                                           U64 qpid010QueueMsgFtdDepth_val);
+                                           U64 brokerQueueMsgFtdDepth_val);
     int            
-        qpid010QueueMsgFtdDepth_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMsgFtdDepth_undo_setup(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010QueueMsgFtdDepth_set(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueMsgFtdDepth_set(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                U64
-                                               qpid010QueueMsgFtdDepth_val);
-    int             qpid010QueueMsgFtdDepth_undo(qpid010QueueTable_rowreq_ctx
+                                               brokerQueueMsgFtdDepth_val);
+    int             brokerQueueMsgFtdDepth_undo(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
 
     int            
-        qpid010QueueByteFtdDepth_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdDepth_check_value(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx,
                                             U64
-                                            qpid010QueueByteFtdDepth_val);
+                                            brokerQueueByteFtdDepth_val);
     int            
-        qpid010QueueByteFtdDepth_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdDepth_undo_setup(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx);
-    int             qpid010QueueByteFtdDepth_set(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueByteFtdDepth_set(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 U64
-                                                qpid010QueueByteFtdDepth_val);
+                                                brokerQueueByteFtdDepth_val);
     int            
-        qpid010QueueByteFtdDepth_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueByteFtdDepth_undo(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010QueueReleases_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueReleases_check_value(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        U64 qpid010QueueReleases_val);
+                                        U64 brokerQueueReleases_val);
     int            
-        qpid010QueueReleases_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueReleases_undo_setup(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
-    int             qpid010QueueReleases_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueReleases_set(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx,
-                                            U64 qpid010QueueReleases_val);
-    int             qpid010QueueReleases_undo(qpid010QueueTable_rowreq_ctx *
+                                            U64 brokerQueueReleases_val);
+    int             brokerQueueReleases_undo(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
 
     int            
-        qpid010QueueAcquires_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueAcquires_check_value(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        U64 qpid010QueueAcquires_val);
+                                        U64 brokerQueueAcquires_val);
     int            
-        qpid010QueueAcquires_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueAcquires_undo_setup(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
-    int             qpid010QueueAcquires_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueAcquires_set(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx,
-                                            U64 qpid010QueueAcquires_val);
-    int             qpid010QueueAcquires_undo(qpid010QueueTable_rowreq_ctx *
+                                            U64 brokerQueueAcquires_val);
+    int             brokerQueueAcquires_undo(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
 
     int            
-        qpid010QueueDiscardsTtl_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsTtl_check_value(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx,
-                                           U64 qpid010QueueDiscardsTtl_val);
+                                           U64 brokerQueueDiscardsTtl_val);
     int            
-        qpid010QueueDiscardsTtl_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsTtl_undo_setup(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010QueueDiscardsTtl_set(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueDiscardsTtl_set(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                U64
-                                               qpid010QueueDiscardsTtl_val);
-    int             qpid010QueueDiscardsTtl_undo(qpid010QueueTable_rowreq_ctx
+                                               brokerQueueDiscardsTtl_val);
+    int             brokerQueueDiscardsTtl_undo(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
 
     int            
-        qpid010QueueDiscardsRing_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsRing_check_value(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx,
                                             U64
-                                            qpid010QueueDiscardsRing_val);
+                                            brokerQueueDiscardsRing_val);
     int            
-        qpid010QueueDiscardsRing_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsRing_undo_setup(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx);
-    int             qpid010QueueDiscardsRing_set(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueDiscardsRing_set(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 U64
-                                                qpid010QueueDiscardsRing_val);
+                                                brokerQueueDiscardsRing_val);
     int            
-        qpid010QueueDiscardsRing_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsRing_undo(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010QueueDiscardsLvq_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsLvq_check_value(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx,
-                                           U64 qpid010QueueDiscardsLvq_val);
+                                           U64 brokerQueueDiscardsLvq_val);
     int            
-        qpid010QueueDiscardsLvq_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsLvq_undo_setup(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010QueueDiscardsLvq_set(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueDiscardsLvq_set(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                U64
-                                               qpid010QueueDiscardsLvq_val);
-    int             qpid010QueueDiscardsLvq_undo(qpid010QueueTable_rowreq_ctx
+                                               brokerQueueDiscardsLvq_val);
+    int             brokerQueueDiscardsLvq_undo(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
 
     int            
-        qpid010QueueDiscardsOverflow_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueDiscardsOverflow_check_value(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 U64
-                                                qpid010QueueDiscardsOverflow_val);
+                                                brokerQueueDiscardsOverflow_val);
     int            
-        qpid010QueueDiscardsOverflow_undo_setup(qpid010QueueTable_rowreq_ctx
+        brokerQueueDiscardsOverflow_undo_setup(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx);
     int            
-        qpid010QueueDiscardsOverflow_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsOverflow_set(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
                                         U64
-                                        qpid010QueueDiscardsOverflow_val);
+                                        brokerQueueDiscardsOverflow_val);
     int            
-        qpid010QueueDiscardsOverflow_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsOverflow_undo(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx);
 
     int            
-        qpid010QueueDiscardsSubscriber_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         U64 qpid010QueueDiscardsSubscriber_val);
+        brokerQueueDiscardsSubscriber_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         U64 brokerQueueDiscardsSubscriber_val);
     int            
-        qpid010QueueDiscardsSubscriber_undo_setup
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx);
+        brokerQueueDiscardsSubscriber_undo_setup
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010QueueDiscardsSubscriber_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsSubscriber_set(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx,
                                           U64
-                                          qpid010QueueDiscardsSubscriber_val);
+                                          brokerQueueDiscardsSubscriber_val);
     int            
-        qpid010QueueDiscardsSubscriber_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsSubscriber_undo(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx);
 
     int            
-        qpid010QueueDiscardsPurge_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsPurge_check_value(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx,
                                              U64
-                                             qpid010QueueDiscardsPurge_val);
+                                             brokerQueueDiscardsPurge_val);
     int            
-        qpid010QueueDiscardsPurge_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsPurge_undo_setup(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
     int            
-        qpid010QueueDiscardsPurge_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsPurge_set(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx,
-                                     U64 qpid010QueueDiscardsPurge_val);
+                                     U64 brokerQueueDiscardsPurge_val);
     int            
-        qpid010QueueDiscardsPurge_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueDiscardsPurge_undo(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx);
 
     int            
-        qpid010QueueReroutes_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueReroutes_check_value(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
-                                        U64 qpid010QueueReroutes_val);
+                                        U64 brokerQueueReroutes_val);
     int            
-        qpid010QueueReroutes_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueReroutes_undo_setup(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
-    int             qpid010QueueReroutes_set(qpid010QueueTable_rowreq_ctx *
+    int             brokerQueueReroutes_set(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx,
-                                            U64 qpid010QueueReroutes_val);
-    int             qpid010QueueReroutes_undo(qpid010QueueTable_rowreq_ctx *
+                                            U64 brokerQueueReroutes_val);
+    int             brokerQueueReroutes_undo(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
 
     int            
-        qpid010QueueConsumerCount_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCount_check_value(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx,
                                              long
-                                             qpid010QueueConsumerCount_val);
+                                             brokerQueueConsumerCount_val);
     int            
-        qpid010QueueConsumerCount_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCount_undo_setup(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx);
     int            
-        qpid010QueueConsumerCount_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCount_set(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx,
-                                     long qpid010QueueConsumerCount_val);
+                                     long brokerQueueConsumerCount_val);
     int            
-        qpid010QueueConsumerCount_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCount_undo(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx);
 
     int            
-        qpid010QueueConsumerCountHi_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueConsumerCountHi_check_value(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                long
-                                               qpid010QueueConsumerCountHi_val);
+                                               brokerQueueConsumerCountHi_val);
     int            
-        qpid010QueueConsumerCountHi_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCountHi_undo_setup(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
     int            
-        qpid010QueueConsumerCountHi_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCountHi_set(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx,
                                        long
-                                       qpid010QueueConsumerCountHi_val);
+                                       brokerQueueConsumerCountHi_val);
     int            
-        qpid010QueueConsumerCountHi_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCountHi_undo(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010QueueConsumerCountLow_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueConsumerCountLow_check_value(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 long
-                                                qpid010QueueConsumerCountLow_val);
+                                                brokerQueueConsumerCountLow_val);
     int            
-        qpid010QueueConsumerCountLow_undo_setup(qpid010QueueTable_rowreq_ctx
+        brokerQueueConsumerCountLow_undo_setup(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx);
     int            
-        qpid010QueueConsumerCountLow_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCountLow_set(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
                                         long
-                                        qpid010QueueConsumerCountLow_val);
+                                        brokerQueueConsumerCountLow_val);
     int            
-        qpid010QueueConsumerCountLow_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueConsumerCountLow_undo(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx);
 
     int            
-        qpid010QueueBindingCount_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCount_check_value(brokerQueueTable_rowreq_ctx *
                                             rowreq_ctx,
                                             long
-                                            qpid010QueueBindingCount_val);
+                                            brokerQueueBindingCount_val);
     int            
-        qpid010QueueBindingCount_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCount_undo_setup(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx);
-    int             qpid010QueueBindingCount_set(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueBindingCount_set(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 long
-                                                qpid010QueueBindingCount_val);
+                                                brokerQueueBindingCount_val);
     int            
-        qpid010QueueBindingCount_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCount_undo(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx);
 
     int            
-        qpid010QueueBindingCountHi_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCountHi_check_value(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx,
                                               long
-                                              qpid010QueueBindingCountHi_val);
+                                              brokerQueueBindingCountHi_val);
     int            
-        qpid010QueueBindingCountHi_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCountHi_undo_setup(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
     int            
-        qpid010QueueBindingCountHi_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCountHi_set(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx,
-                                      long qpid010QueueBindingCountHi_val);
+                                      long brokerQueueBindingCountHi_val);
     int            
-        qpid010QueueBindingCountHi_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCountHi_undo(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
 
     int            
-        qpid010QueueBindingCountLow_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueBindingCountLow_check_value(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                long
-                                               qpid010QueueBindingCountLow_val);
+                                               brokerQueueBindingCountLow_val);
     int            
-        qpid010QueueBindingCountLow_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCountLow_undo_setup(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
     int            
-        qpid010QueueBindingCountLow_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCountLow_set(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx,
                                        long
-                                       qpid010QueueBindingCountLow_val);
+                                       brokerQueueBindingCountLow_val);
     int            
-        qpid010QueueBindingCountLow_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueBindingCountLow_undo(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010QueueUnackedMessages_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueUnackedMessages_check_value(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                long
-                                               qpid010QueueUnackedMessages_val);
+                                               brokerQueueUnackedMessages_val);
     int            
-        qpid010QueueUnackedMessages_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueUnackedMessages_undo_setup(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx);
     int            
-        qpid010QueueUnackedMessages_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueUnackedMessages_set(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx,
                                        long
-                                       qpid010QueueUnackedMessages_val);
+                                       brokerQueueUnackedMessages_val);
     int            
-        qpid010QueueUnackedMessages_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueUnackedMessages_undo(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx);
 
     int            
-        qpid010QueueUnackedMessagesHi_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         long qpid010QueueUnackedMessagesHi_val);
+        brokerQueueUnackedMessagesHi_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         long brokerQueueUnackedMessagesHi_val);
     int            
-        qpid010QueueUnackedMessagesHi_undo_setup(qpid010QueueTable_rowreq_ctx
+        brokerQueueUnackedMessagesHi_undo_setup(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
     int            
-        qpid010QueueUnackedMessagesHi_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueUnackedMessagesHi_set(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx,
                                          long
-                                         qpid010QueueUnackedMessagesHi_val);
+                                         brokerQueueUnackedMessagesHi_val);
     int            
-        qpid010QueueUnackedMessagesHi_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueUnackedMessagesHi_undo(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
 
     int            
-        qpid010QueueUnackedMessagesLow_check_value
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx,
-         long qpid010QueueUnackedMessagesLow_val);
+        brokerQueueUnackedMessagesLow_check_value
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx,
+         long brokerQueueUnackedMessagesLow_val);
     int            
-        qpid010QueueUnackedMessagesLow_undo_setup
-        (qpid010QueueTable_rowreq_ctx * rowreq_ctx);
+        brokerQueueUnackedMessagesLow_undo_setup
+        (brokerQueueTable_rowreq_ctx * rowreq_ctx);
     int            
-        qpid010QueueUnackedMessagesLow_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueUnackedMessagesLow_set(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx,
                                           long
-                                          qpid010QueueUnackedMessagesLow_val);
+                                          brokerQueueUnackedMessagesLow_val);
     int            
-        qpid010QueueUnackedMessagesLow_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueUnackedMessagesLow_undo(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx);
 
     int            
-        qpid010QueueMessageLatency_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMessageLatency_check_value(brokerQueueTable_rowreq_ctx *
                                               rowreq_ctx,
                                               u_long
-                                              qpid010QueueMessageLatency_val);
+                                              brokerQueueMessageLatency_val);
     int            
-        qpid010QueueMessageLatency_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMessageLatency_undo_setup(brokerQueueTable_rowreq_ctx *
                                              rowreq_ctx);
     int            
-        qpid010QueueMessageLatency_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMessageLatency_set(brokerQueueTable_rowreq_ctx *
                                       rowreq_ctx,
                                       u_long
-                                      qpid010QueueMessageLatency_val);
+                                      brokerQueueMessageLatency_val);
     int            
-        qpid010QueueMessageLatency_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueMessageLatency_undo(brokerQueueTable_rowreq_ctx *
                                        rowreq_ctx);
 
     int            
-        qpid010QueueFlowStopped_check_value(qpid010QueueTable_rowreq_ctx *
+        brokerQueueFlowStopped_check_value(brokerQueueTable_rowreq_ctx *
                                            rowreq_ctx,
                                            u_long
-                                           qpid010QueueFlowStopped_val);
+                                           brokerQueueFlowStopped_val);
     int            
-        qpid010QueueFlowStopped_undo_setup(qpid010QueueTable_rowreq_ctx *
+        brokerQueueFlowStopped_undo_setup(brokerQueueTable_rowreq_ctx *
                                           rowreq_ctx);
-    int             qpid010QueueFlowStopped_set(qpid010QueueTable_rowreq_ctx
+    int             brokerQueueFlowStopped_set(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx,
                                                u_long
-                                               qpid010QueueFlowStopped_val);
-    int             qpid010QueueFlowStopped_undo(qpid010QueueTable_rowreq_ctx
+                                               brokerQueueFlowStopped_val);
+    int             brokerQueueFlowStopped_undo(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx);
 
     int            
-        qpid010QueueFlowStoppedCount_check_value(qpid010QueueTable_rowreq_ctx
+        brokerQueueFlowStoppedCount_check_value(brokerQueueTable_rowreq_ctx
                                                 * rowreq_ctx,
                                                 u_long
-                                                qpid010QueueFlowStoppedCount_val);
+                                                brokerQueueFlowStoppedCount_val);
     int            
-        qpid010QueueFlowStoppedCount_undo_setup(qpid010QueueTable_rowreq_ctx
+        brokerQueueFlowStoppedCount_undo_setup(brokerQueueTable_rowreq_ctx
                                                * rowreq_ctx);
     int            
-        qpid010QueueFlowStoppedCount_set(qpid010QueueTable_rowreq_ctx *
+        brokerQueueFlowStoppedCount_set(brokerQueueTable_rowreq_ctx *
                                         rowreq_ctx,
                                         u_long
-                                        qpid010QueueFlowStoppedCount_val);
+                                        brokerQueueFlowStoppedCount_val);
     int            
-        qpid010QueueFlowStoppedCount_undo(qpid010QueueTable_rowreq_ctx *
+        brokerQueueFlowStoppedCount_undo(brokerQueueTable_rowreq_ctx *
                                          rowreq_ctx);
 
 
     int            
-        qpid010QueueTable_check_dependencies(qpid010QueueTable_rowreq_ctx *
+        brokerQueueTable_check_dependencies(brokerQueueTable_rowreq_ctx *
                                             ctx);
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* qpid010QUEUETABLE_DATA_SET_H */
+#endif                          /* brokerQUEUETABLE_DATA_SET_H */

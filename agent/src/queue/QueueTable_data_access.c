@@ -37,37 +37,37 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010QueueTable
+ *** Table brokerQueueTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010QueueTable is subid 1 of qpid010Queues.
+ * QPID-MESSAGING-MIB::brokerQueueTable is subid 1 of brokerQueues.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1, length: 12
  */
 
 /**
- * initialization for qpid010QueueTable data access
+ * initialization for brokerQueueTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010QueueTable_reg
- *        Pointer to qpid010QueueTable_registration
+ * @param brokerQueueTable_reg
+ *        Pointer to brokerQueueTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010QueueTable_init_data(qpid010QueueTable_registration *
-                           qpid010QueueTable_reg)
+brokerQueueTable_init_data(brokerQueueTable_registration *
+                           brokerQueueTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_init_data",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_init_data",
                 "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010QueueTable data.
+     * TODO:303:o: Initialize brokerQueueTable data.
      */
     /*
      ***************************************************
@@ -80,7 +80,7 @@ qpid010QueueTable_init_data(qpid010QueueTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueTable_init_data */
+}                               /* brokerQueueTable_init_data */
 
 /**
  * container overview
@@ -114,15 +114,15 @@ qpid010QueueTable_init_data(qpid010QueueTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010QueueTable_container_init(netsnmp_container ** container_ptr_ptr,
+brokerQueueTable_container_init(netsnmp_container ** container_ptr_ptr,
                                 netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_container_init",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_container_init",
                 "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010QueueTable_container_init\n");
+                 "bad container param to brokerQueueTable_container_init\n");
         return;
     }
 
@@ -134,26 +134,26 @@ qpid010QueueTable_container_init(netsnmp_container ** container_ptr_ptr,
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010QueueTable_container_init\n");
+                 "bad cache param to brokerQueueTable_container_init\n");
         return;
     }
 
     /*
-     * TODO:345:A: Set up qpid010QueueTable cache properties.
+     * TODO:345:A: Set up brokerQueueTable cache properties.
      *
      * Also for advanced users, you can set parameters for the
      * cache. Do not change the magic pointer, as it is used
      * by the MFD helper. To completely disable caching, set
      * cache->enabled to 0.
      */
-    cache->timeout = qpid010QUEUETABLE_CACHE_TIMEOUT;    /* seconds */
+    cache->timeout = brokerQUEUETABLE_CACHE_TIMEOUT;    /* seconds */
 
 
     /* **EA**
         * preload to assign initial index values
         */
 //       cache->flags |= NETSNMP_CACHE_PRELOAD;
-}                               /* qpid010QueueTable_container_init */
+}                               /* brokerQueueTable_container_init */
 
 /**
  * container shutdown
@@ -164,7 +164,7 @@ qpid010QueueTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010QueueTable_container_free().
+ *  This function is called before brokerQueueTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -172,21 +172,21 @@ qpid010QueueTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010QueueTable_container_shutdown(netsnmp_container * container_ptr)
+brokerQueueTable_container_shutdown(netsnmp_container * container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010QueueTable_container_shutdown\n");
+                 "bad params to brokerQueueTable_container_shutdown\n");
         return;
     }
-}                               /* qpid010QueueTable_container_shutdown */
+}                               /* brokerQueueTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010QueueTable data load
+ * TODO:350:M: Implement brokerQueueTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -208,7 +208,7 @@ qpid010QueueTable_container_shutdown(netsnmp_container * container_ptr)
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010QueueTable_row_prep() for populating data.
+ *  brokerQueueTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -217,26 +217,26 @@ qpid010QueueTable_container_shutdown(netsnmp_container * container_ptr)
  *
  */
 int
-qpid010QueueTable_container_load(netsnmp_container * container)
+brokerQueueTable_container_load(netsnmp_container * container)
 {
-    qpid010QueueTable_rowreq_ctx *rowreq_ctx;
+    brokerQueueTable_rowreq_ctx *rowreq_ctx;
     size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010QueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerQueueInternalIndex(49)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010QueueInternalIndex;
-    qpid010QueueTable_data qmfData;
+    u_long          brokerQueueInternalIndex;
+    brokerQueueTable_data qmfData;
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_container_load",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_container_load",
                 "called\n"));
 
     /*
-     * Load/update data in the qpid010QueueTable container.
-     * loop over your qpid010QueueTable data, allocate a rowreq context,
+     * Load/update data in the brokerQueueTable container.
+     * loop over your brokerQueueTable data, allocate a rowreq context,
      * set the index(es) [and data, optionally] and insert into
      * the container.
      */
@@ -249,177 +249,177 @@ qpid010QueueTable_container_load(netsnmp_container * container)
     uint queues;
     queues = qpidGetCount(pEvent);
 
-    qpid010QueueInternalIndex = 0;
+    brokerQueueInternalIndex = 0;
     for (queueIndex = 0; queueIndex < queues; ++queueIndex) {
 
     	void * pRow = qpidGetDataRow(pEvent, queueIndex);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010QueueVhostRef,
+        strncpy(qmfData.brokerQueueVhostRef,
         		qpidGetString(pRow, "vhostRef"), 254);
-        qmfData.qpid010QueueVhostRef_len = strlen(qmfData.qpid010QueueVhostRef) + 1;
+        qmfData.brokerQueueVhostRef_len = strlen(qmfData.brokerQueueVhostRef) + 1;
 
-        strncpy(qmfData.qpid010QueueName,
+        strncpy(qmfData.brokerQueueName,
         		qpidGetString(pRow, "name"), 254);
-        qmfData.qpid010QueueName_len = strlen(qmfData.qpid010QueueName) + 1;
+        qmfData.brokerQueueName_len = strlen(qmfData.brokerQueueName) + 1;
 
-        strncpy(qmfData.qpid010QueueArguments,
+        strncpy(qmfData.brokerQueueArguments,
         		qpidGetString(pRow, "arguments"), 65534);
-        qmfData.qpid010QueueArguments_len = strlen(qmfData.qpid010QueueArguments) + 1;
+        qmfData.brokerQueueArguments_len = strlen(qmfData.brokerQueueArguments) + 1;
 
-        strncpy(qmfData.qpid010QueueAltExchange,
+        strncpy(qmfData.brokerQueueAltExchange,
         		qpidGetString(pRow, "altExchange"), 254);
-        qmfData.qpid010QueueAltExchange_len = strlen(qmfData.qpid010QueueAltExchange) + 1;
+        qmfData.brokerQueueAltExchange_len = strlen(qmfData.brokerQueueAltExchange) + 1;
 
-        qmfData.qpid010QueueDurable = qpidGetBool(pRow, "durable");
-        qmfData.qpid010QueueAutoDelete = qpidGetBool(pRow, "autoDelete");
-        qmfData.qpid010QueueExclusive = qpidGetBool(pRow, "exclusive");
+        qmfData.brokerQueueDurable = qpidGetBool(pRow, "durable");
+        qmfData.brokerQueueAutoDelete = qpidGetBool(pRow, "autoDelete");
+        qmfData.brokerQueueExclusive = qpidGetBool(pRow, "exclusive");
 
         u64Data = qpidGetU64(pRow, "msgTotalEnqueues");
-        qmfData.qpid010QueueMsgTotalEnqueues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgTotalEnqueues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgTotalEnqueues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgTotalEnqueues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgTotalDequeues");
-        qmfData.qpid010QueueMsgTotalDequeues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgTotalDequeues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgTotalDequeues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgTotalDequeues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgTxnEnqueues");
-        qmfData.qpid010QueueMsgTxnEnqueues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgTxnEnqueues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgTxnEnqueues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgTxnEnqueues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgTxnDequeues");
-        qmfData.qpid010QueueMsgTxnDequeues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgTxnDequeues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgTxnDequeues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgTxnDequeues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgPersistEnqueues");
-        qmfData.qpid010QueueMsgPersistEnqueues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgPersistEnqueues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgPersistEnqueues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgPersistEnqueues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgPersistDequeues");
-        qmfData.qpid010QueueMsgPersistDequeues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgPersistDequeues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgPersistDequeues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgPersistDequeues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgDepth");
-        qmfData.qpid010QueueMsgDepth.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgDepth.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgDepth.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgDepth.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteDepth");
-        qmfData.qpid010QueueByteDepth.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueByteDepth.low = LOWLONG(u64Data);
+        qmfData.brokerQueueByteDepth.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueByteDepth.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteTotalEnqueues");
-        qmfData.qpid010QueueByteTotalEnqueues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueByteTotalEnqueues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueByteTotalEnqueues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueByteTotalEnqueues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteTotalDequeues");
-        qmfData.qpid010QueueByteTotalDequeues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueByteTotalDequeues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueByteTotalDequeues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueByteTotalDequeues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteTxnEnqueues");
-        qmfData.qpid010QueueByteTxnEnqueues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueByteTxnEnqueues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueByteTxnEnqueues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueByteTxnEnqueues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteTxnDequeues");
-        qmfData.qpid010QueueByteTxnDequeues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueByteTxnDequeues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueByteTxnDequeues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueByteTxnDequeues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "bytePersistEnqueues");
-        qmfData.qpid010QueueBytePersistEnqueues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueBytePersistEnqueues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueBytePersistEnqueues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueBytePersistEnqueues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "bytePersistDequeues");
-        qmfData.qpid010QueueBytePersistDequeues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueBytePersistDequeues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueBytePersistDequeues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueBytePersistDequeues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgFtdEnqueues");
-        qmfData.qpid010QueueMsgFtdEnqueues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgFtdEnqueues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgFtdEnqueues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgFtdEnqueues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgFtdDequeues");
-        qmfData.qpid010QueueMsgFtdDequeues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgFtdDequeues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgFtdDequeues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgFtdDequeues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteFtdEnqueues");
-        qmfData.qpid010QueueByteFtdEnqueues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueByteFtdEnqueues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueByteFtdEnqueues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueByteFtdEnqueues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteFtdDequeues");
-        qmfData.qpid010QueueByteFtdDequeues.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueByteFtdDequeues.low = LOWLONG(u64Data);
+        qmfData.brokerQueueByteFtdDequeues.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueByteFtdDequeues.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "msgFtdDepth");
-        qmfData.qpid010QueueMsgFtdDepth.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueMsgFtdDepth.low = LOWLONG(u64Data);
+        qmfData.brokerQueueMsgFtdDepth.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueMsgFtdDepth.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "byteFtdDepth");
-        qmfData.qpid010QueueByteFtdDepth.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueByteFtdDepth.low = LOWLONG(u64Data);
+        qmfData.brokerQueueByteFtdDepth.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueByteFtdDepth.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "releases");
-        qmfData.qpid010QueueReleases.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueReleases.low = LOWLONG(u64Data);
+        qmfData.brokerQueueReleases.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueReleases.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "acquires");
-        qmfData.qpid010QueueAcquires.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueAcquires.low = LOWLONG(u64Data);
+        qmfData.brokerQueueAcquires.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueAcquires.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "discardsTtl");
-        qmfData.qpid010QueueDiscardsTtl.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueDiscardsTtl.low = LOWLONG(u64Data);
+        qmfData.brokerQueueDiscardsTtl.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueDiscardsTtl.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "discardsRing");
-        qmfData.qpid010QueueDiscardsRing.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueDiscardsRing.low = LOWLONG(u64Data);
+        qmfData.brokerQueueDiscardsRing.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueDiscardsRing.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "discardsLvq");
-        qmfData.qpid010QueueDiscardsLvq.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueDiscardsLvq.low = LOWLONG(u64Data);
+        qmfData.brokerQueueDiscardsLvq.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueDiscardsLvq.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "discardsOverflow");
-        qmfData.qpid010QueueDiscardsOverflow.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueDiscardsOverflow.low = LOWLONG(u64Data);
+        qmfData.brokerQueueDiscardsOverflow.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueDiscardsOverflow.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "discardsSubscriber");
-        qmfData.qpid010QueueDiscardsSubscriber.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueDiscardsSubscriber.low = LOWLONG(u64Data);
+        qmfData.brokerQueueDiscardsSubscriber.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueDiscardsSubscriber.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "discardsPurge");
-        qmfData.qpid010QueueDiscardsPurge.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueDiscardsPurge.low = LOWLONG(u64Data);
+        qmfData.brokerQueueDiscardsPurge.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueDiscardsPurge.low = LOWLONG(u64Data);
 
         u64Data = qpidGetU64(pRow, "reroutes");
-        qmfData.qpid010QueueReroutes.high = HIGHLONG(u64Data);
-        qmfData.qpid010QueueReroutes.low = LOWLONG(u64Data);
+        qmfData.brokerQueueReroutes.high = HIGHLONG(u64Data);
+        qmfData.brokerQueueReroutes.low = LOWLONG(u64Data);
 
-        qmfData.qpid010QueueConsumerCount = qpidGetU32(pRow, "consumerCount");
-        qmfData.qpid010QueueConsumerCountHi = qpidGetU32(pRow, "consumerCountHigh");
-        qmfData.qpid010QueueConsumerCountLow = qpidGetU32(pRow, "consumerCountLow");
-        qmfData.qpid010QueueBindingCount = qpidGetU32(pRow, "bindingCount");
-        qmfData.qpid010QueueBindingCountHi = qpidGetU32(pRow, "bindingCountHigh");
-        qmfData.qpid010QueueBindingCountLow = qpidGetU32(pRow, "bindingCountLow");
-        qmfData.qpid010QueueUnackedMessages = qpidGetU32(pRow, "unackedMessages");
-        qmfData.qpid010QueueUnackedMessagesHi = qpidGetU32(pRow, "unackedMessagesHigh");
-        qmfData.qpid010QueueUnackedMessagesLow = qpidGetU32(pRow, "unackedMessagesLow");
-        qmfData.qpid010QueueMessageLatency = qpidGetU32(pRow, "messageLatency");
-        qmfData.qpid010QueueFlowStopped = qpidGetBool(pRow, "flowStopped");
-        qmfData.qpid010QueueFlowStoppedCount = qpidGetU32(pRow, "flowStoppedCount");
+        qmfData.brokerQueueConsumerCount = qpidGetU32(pRow, "consumerCount");
+        qmfData.brokerQueueConsumerCountHi = qpidGetU32(pRow, "consumerCountHigh");
+        qmfData.brokerQueueConsumerCountLow = qpidGetU32(pRow, "consumerCountLow");
+        qmfData.brokerQueueBindingCount = qpidGetU32(pRow, "bindingCount");
+        qmfData.brokerQueueBindingCountHi = qpidGetU32(pRow, "bindingCountHigh");
+        qmfData.brokerQueueBindingCountLow = qpidGetU32(pRow, "bindingCountLow");
+        qmfData.brokerQueueUnackedMessages = qpidGetU32(pRow, "unackedMessages");
+        qmfData.brokerQueueUnackedMessagesHi = qpidGetU32(pRow, "unackedMessagesHigh");
+        qmfData.brokerQueueUnackedMessagesLow = qpidGetU32(pRow, "unackedMessagesLow");
+        qmfData.brokerQueueMessageLatency = qpidGetU32(pRow, "messageLatency");
+        qmfData.brokerQueueFlowStopped = qpidGetBool(pRow, "flowStopped");
+        qmfData.brokerQueueFlowStoppedCount = qpidGetU32(pRow, "flowStoppedCount");
 
-        rowreq_ctx = qpid010QueueTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerQueueTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010QueueTable_indexes_set(rowreq_ctx,
-                                         qpid010QueueInternalIndex)) {
+            brokerQueueTable_indexes_set(rowreq_ctx,
+                                         brokerQueueInternalIndex)) {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010QueueTable data.\n");
-            qpid010QueueTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerQueueTable data.\n");
+            brokerQueueTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
-        ++qpid010QueueInternalIndex;
+        ++brokerQueueInternalIndex;
 
         /*
          * Populate data context here.)
@@ -429,494 +429,494 @@ qpid010QueueTable_container_load(netsnmp_container * container)
          * copy data or save any info needed to do it in row_prep.
          */
         /*
-         * setup/save data for qpid010QueueVhostRef
-         * qpid010QueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerQueueVhostRef
+         * brokerQueueVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010QueueVhostRef data
+         * make sure there is enough space for brokerQueueVhostRef data
          */
-        if (NULL == rowreq_ctx->data.qpid010QueueVhostRef) {
+        if (NULL == rowreq_ctx->data.brokerQueueVhostRef) {
             snmp_log(LOG_ERR,
-                     "rowreq_ctx->data.qpid010QueueVhostRef was NULL\n");
+                     "rowreq_ctx->data.brokerQueueVhostRef was NULL\n");
             return MFD_ERROR;
         }
 
-        if (rowreq_ctx->data.qpid010QueueVhostRef_len <
-             (qmfData.qpid010QueueVhostRef_len * sizeof(qmfData.qpid010QueueVhostRef[0]))) {
+        if (rowreq_ctx->data.brokerQueueVhostRef_len <
+             (qmfData.brokerQueueVhostRef_len * sizeof(qmfData.brokerQueueVhostRef[0]))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010QueueVhostRef)\n");
+                     "not enough space for value (brokerQueueVhostRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010QueueVhostRef_len =
-            qmfData.qpid010QueueVhostRef_len * sizeof(qmfData.qpid010QueueVhostRef[0]);
-        memcpy(rowreq_ctx->data.qpid010QueueVhostRef, qmfData.qpid010QueueVhostRef,
-               qmfData.qpid010QueueVhostRef_len * sizeof(qmfData.qpid010QueueVhostRef[0]));
+        rowreq_ctx->data.brokerQueueVhostRef_len =
+            qmfData.brokerQueueVhostRef_len * sizeof(qmfData.brokerQueueVhostRef[0]);
+        memcpy(rowreq_ctx->data.brokerQueueVhostRef, qmfData.brokerQueueVhostRef,
+               qmfData.brokerQueueVhostRef_len * sizeof(qmfData.brokerQueueVhostRef[0]));
 
         /*
-         * setup/save data for qpid010QueueName
-         * qpid010QueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerQueueName
+         * brokerQueueName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010QueueName data
+         * make sure there is enough space for brokerQueueName data
          */
-        if ((NULL == rowreq_ctx->data.qpid010QueueName) ||
-            (rowreq_ctx->data.qpid010QueueName_len <
-             (qmfData.qpid010QueueName_len * sizeof(qmfData.qpid010QueueName[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerQueueName) ||
+            (rowreq_ctx->data.brokerQueueName_len <
+             (qmfData.brokerQueueName_len * sizeof(qmfData.brokerQueueName[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010QueueName)\n");
+                     "not enough space for value (brokerQueueName)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010QueueName_len =
-            qmfData.qpid010QueueName_len * sizeof(qmfData.qpid010QueueName[0]);
-        memcpy(rowreq_ctx->data.qpid010QueueName, qmfData.qpid010QueueName,
-               qmfData.qpid010QueueName_len * sizeof(qmfData.qpid010QueueName[0]));
+        rowreq_ctx->data.brokerQueueName_len =
+            qmfData.brokerQueueName_len * sizeof(qmfData.brokerQueueName[0]);
+        memcpy(rowreq_ctx->data.brokerQueueName, qmfData.brokerQueueName,
+               qmfData.brokerQueueName_len * sizeof(qmfData.brokerQueueName[0]));
 
         /*
-         * setup/save data for qpid010QueueDurable
-         * qpid010QueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerQueueDurable
+         * brokerQueueDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueDurable = qmfData.qpid010QueueDurable;
+        rowreq_ctx->data.brokerQueueDurable = qmfData.brokerQueueDurable;
 
         /*
-         * setup/save data for qpid010QueueAutoDelete
-         * qpid010QueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerQueueAutoDelete
+         * brokerQueueAutoDelete(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueAutoDelete = qmfData.qpid010QueueAutoDelete;
+        rowreq_ctx->data.brokerQueueAutoDelete = qmfData.brokerQueueAutoDelete;
 
         /*
-         * setup/save data for qpid010QueueExclusive
-         * qpid010QueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * setup/save data for brokerQueueExclusive
+         * brokerQueueExclusive(5)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueExclusive = qmfData.qpid010QueueExclusive;
+        rowreq_ctx->data.brokerQueueExclusive = qmfData.brokerQueueExclusive;
 
         /*
-         * setup/save data for qpid010QueueArguments
-         * qpid010QueueArguments(6)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerQueueArguments
+         * brokerQueueArguments(6)/Map/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010QueueArguments data
+         * make sure there is enough space for brokerQueueArguments data
          */
-        if ((NULL == rowreq_ctx->data.qpid010QueueArguments) ||
-            (rowreq_ctx->data.qpid010QueueArguments_len <
-             (qmfData.qpid010QueueArguments_len *
-              sizeof(qmfData.qpid010QueueArguments[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerQueueArguments) ||
+            (rowreq_ctx->data.brokerQueueArguments_len <
+             (qmfData.brokerQueueArguments_len *
+              sizeof(qmfData.brokerQueueArguments[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010QueueArguments)\n");
+                     "not enough space for value (brokerQueueArguments)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010QueueArguments_len =
-            qmfData.qpid010QueueArguments_len * sizeof(qmfData.qpid010QueueArguments[0]);
-        memcpy(rowreq_ctx->data.qpid010QueueArguments, qmfData.qpid010QueueArguments,
-               qmfData.qpid010QueueArguments_len * sizeof(qmfData.qpid010QueueArguments[0]));
+        rowreq_ctx->data.brokerQueueArguments_len =
+            qmfData.brokerQueueArguments_len * sizeof(qmfData.brokerQueueArguments[0]);
+        memcpy(rowreq_ctx->data.brokerQueueArguments, qmfData.brokerQueueArguments,
+               qmfData.brokerQueueArguments_len * sizeof(qmfData.brokerQueueArguments[0]));
 
         /*
-         * setup/save data for qpid010QueueAltExchange
-         * qpid010QueueAltExchange(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerQueueAltExchange
+         * brokerQueueAltExchange(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010QueueAltExchange data
+         * make sure there is enough space for brokerQueueAltExchange data
          */
-        if ((NULL == rowreq_ctx->data.qpid010QueueAltExchange) ||
-            (rowreq_ctx->data.qpid010QueueAltExchange_len <
-             (qmfData.qpid010QueueAltExchange_len *
-              sizeof(qmfData.qpid010QueueAltExchange[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerQueueAltExchange) ||
+            (rowreq_ctx->data.brokerQueueAltExchange_len <
+             (qmfData.brokerQueueAltExchange_len *
+              sizeof(qmfData.brokerQueueAltExchange[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010QueueAltExchange)\n");
+                     "not enough space for value (brokerQueueAltExchange)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010QueueAltExchange_len =
-            qmfData.qpid010QueueAltExchange_len * sizeof(qmfData.qpid010QueueAltExchange[0]);
-        memcpy(rowreq_ctx->data.qpid010QueueAltExchange,
-               qmfData.qpid010QueueAltExchange,
-               qmfData.qpid010QueueAltExchange_len *
-               sizeof(qmfData.qpid010QueueAltExchange[0]));
+        rowreq_ctx->data.brokerQueueAltExchange_len =
+            qmfData.brokerQueueAltExchange_len * sizeof(qmfData.brokerQueueAltExchange[0]);
+        memcpy(rowreq_ctx->data.brokerQueueAltExchange,
+               qmfData.brokerQueueAltExchange,
+               qmfData.brokerQueueAltExchange_len *
+               sizeof(qmfData.brokerQueueAltExchange[0]));
 
         /*
-         * setup/save data for qpid010QueueMsgTotalEnqueues
-         * qpid010QueueMsgTotalEnqueues(8)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgTotalEnqueues
+         * brokerQueueMsgTotalEnqueues(8)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgTotalEnqueues.high =
-            qmfData.qpid010QueueMsgTotalEnqueues.high;
-        rowreq_ctx->data.qpid010QueueMsgTotalEnqueues.low =
-            qmfData.qpid010QueueMsgTotalEnqueues.low;
+        rowreq_ctx->data.brokerQueueMsgTotalEnqueues.high =
+            qmfData.brokerQueueMsgTotalEnqueues.high;
+        rowreq_ctx->data.brokerQueueMsgTotalEnqueues.low =
+            qmfData.brokerQueueMsgTotalEnqueues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgTotalDequeues
-         * qpid010QueueMsgTotalDequeues(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgTotalDequeues
+         * brokerQueueMsgTotalDequeues(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgTotalDequeues.high =
-            qmfData.qpid010QueueMsgTotalDequeues.high;
-        rowreq_ctx->data.qpid010QueueMsgTotalDequeues.low =
-            qmfData.qpid010QueueMsgTotalDequeues.low;
+        rowreq_ctx->data.brokerQueueMsgTotalDequeues.high =
+            qmfData.brokerQueueMsgTotalDequeues.high;
+        rowreq_ctx->data.brokerQueueMsgTotalDequeues.low =
+            qmfData.brokerQueueMsgTotalDequeues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgTxnEnqueues
-         * qpid010QueueMsgTxnEnqueues(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgTxnEnqueues
+         * brokerQueueMsgTxnEnqueues(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgTxnEnqueues.high =
-            qmfData.qpid010QueueMsgTxnEnqueues.high;
-        rowreq_ctx->data.qpid010QueueMsgTxnEnqueues.low =
-            qmfData.qpid010QueueMsgTxnEnqueues.low;
+        rowreq_ctx->data.brokerQueueMsgTxnEnqueues.high =
+            qmfData.brokerQueueMsgTxnEnqueues.high;
+        rowreq_ctx->data.brokerQueueMsgTxnEnqueues.low =
+            qmfData.brokerQueueMsgTxnEnqueues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgTxnDequeues
-         * qpid010QueueMsgTxnDequeues(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgTxnDequeues
+         * brokerQueueMsgTxnDequeues(11)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgTxnDequeues.high =
-            qmfData.qpid010QueueMsgTxnDequeues.high;
-        rowreq_ctx->data.qpid010QueueMsgTxnDequeues.low =
-            qmfData.qpid010QueueMsgTxnDequeues.low;
+        rowreq_ctx->data.brokerQueueMsgTxnDequeues.high =
+            qmfData.brokerQueueMsgTxnDequeues.high;
+        rowreq_ctx->data.brokerQueueMsgTxnDequeues.low =
+            qmfData.brokerQueueMsgTxnDequeues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgPersistEnqueues
-         * qpid010QueueMsgPersistEnqueues(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgPersistEnqueues
+         * brokerQueueMsgPersistEnqueues(12)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgPersistEnqueues.high =
-            qmfData.qpid010QueueMsgPersistEnqueues.high;
-        rowreq_ctx->data.qpid010QueueMsgPersistEnqueues.low =
-            qmfData.qpid010QueueMsgPersistEnqueues.low;
+        rowreq_ctx->data.brokerQueueMsgPersistEnqueues.high =
+            qmfData.brokerQueueMsgPersistEnqueues.high;
+        rowreq_ctx->data.brokerQueueMsgPersistEnqueues.low =
+            qmfData.brokerQueueMsgPersistEnqueues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgPersistDequeues
-         * qpid010QueueMsgPersistDequeues(13)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgPersistDequeues
+         * brokerQueueMsgPersistDequeues(13)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgPersistDequeues.high =
-            qmfData.qpid010QueueMsgPersistDequeues.high;
-        rowreq_ctx->data.qpid010QueueMsgPersistDequeues.low =
-            qmfData.qpid010QueueMsgPersistDequeues.low;
+        rowreq_ctx->data.brokerQueueMsgPersistDequeues.high =
+            qmfData.brokerQueueMsgPersistDequeues.high;
+        rowreq_ctx->data.brokerQueueMsgPersistDequeues.low =
+            qmfData.brokerQueueMsgPersistDequeues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgDepth
-         * qpid010QueueMsgDepth(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgDepth
+         * brokerQueueMsgDepth(14)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgDepth.high =
-            qmfData.qpid010QueueMsgDepth.high;
-        rowreq_ctx->data.qpid010QueueMsgDepth.low = qmfData.qpid010QueueMsgDepth.low;
+        rowreq_ctx->data.brokerQueueMsgDepth.high =
+            qmfData.brokerQueueMsgDepth.high;
+        rowreq_ctx->data.brokerQueueMsgDepth.low = qmfData.brokerQueueMsgDepth.low;
 
         /*
-         * setup/save data for qpid010QueueByteDepth
-         * qpid010QueueByteDepth(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueByteDepth
+         * brokerQueueByteDepth(15)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueByteDepth.high =
-            qmfData.qpid010QueueByteDepth.high;
-        rowreq_ctx->data.qpid010QueueByteDepth.low =
-            qmfData.qpid010QueueByteDepth.low;
+        rowreq_ctx->data.brokerQueueByteDepth.high =
+            qmfData.brokerQueueByteDepth.high;
+        rowreq_ctx->data.brokerQueueByteDepth.low =
+            qmfData.brokerQueueByteDepth.low;
 
         /*
-         * setup/save data for qpid010QueueByteTotalEnqueues
-         * qpid010QueueByteTotalEnqueues(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueByteTotalEnqueues
+         * brokerQueueByteTotalEnqueues(16)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueByteTotalEnqueues.high =
-            qmfData.qpid010QueueByteTotalEnqueues.high;
-        rowreq_ctx->data.qpid010QueueByteTotalEnqueues.low =
-            qmfData.qpid010QueueByteTotalEnqueues.low;
+        rowreq_ctx->data.brokerQueueByteTotalEnqueues.high =
+            qmfData.brokerQueueByteTotalEnqueues.high;
+        rowreq_ctx->data.brokerQueueByteTotalEnqueues.low =
+            qmfData.brokerQueueByteTotalEnqueues.low;
 
         /*
-         * setup/save data for qpid010QueueByteTotalDequeues
-         * qpid010QueueByteTotalDequeues(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueByteTotalDequeues
+         * brokerQueueByteTotalDequeues(17)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueByteTotalDequeues.high =
-            qmfData.qpid010QueueByteTotalDequeues.high;
-        rowreq_ctx->data.qpid010QueueByteTotalDequeues.low =
-            qmfData.qpid010QueueByteTotalDequeues.low;
+        rowreq_ctx->data.brokerQueueByteTotalDequeues.high =
+            qmfData.brokerQueueByteTotalDequeues.high;
+        rowreq_ctx->data.brokerQueueByteTotalDequeues.low =
+            qmfData.brokerQueueByteTotalDequeues.low;
 
         /*
-         * setup/save data for qpid010QueueByteTxnEnqueues
-         * qpid010QueueByteTxnEnqueues(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueByteTxnEnqueues
+         * brokerQueueByteTxnEnqueues(18)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueByteTxnEnqueues.high =
-            qmfData.qpid010QueueByteTxnEnqueues.high;
-        rowreq_ctx->data.qpid010QueueByteTxnEnqueues.low =
-            qmfData.qpid010QueueByteTxnEnqueues.low;
+        rowreq_ctx->data.brokerQueueByteTxnEnqueues.high =
+            qmfData.brokerQueueByteTxnEnqueues.high;
+        rowreq_ctx->data.brokerQueueByteTxnEnqueues.low =
+            qmfData.brokerQueueByteTxnEnqueues.low;
 
         /*
-         * setup/save data for qpid010QueueByteTxnDequeues
-         * qpid010QueueByteTxnDequeues(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueByteTxnDequeues
+         * brokerQueueByteTxnDequeues(19)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueByteTxnDequeues.high =
-            qmfData.qpid010QueueByteTxnDequeues.high;
-        rowreq_ctx->data.qpid010QueueByteTxnDequeues.low =
-            qmfData.qpid010QueueByteTxnDequeues.low;
+        rowreq_ctx->data.brokerQueueByteTxnDequeues.high =
+            qmfData.brokerQueueByteTxnDequeues.high;
+        rowreq_ctx->data.brokerQueueByteTxnDequeues.low =
+            qmfData.brokerQueueByteTxnDequeues.low;
 
         /*
-         * setup/save data for qpid010QueueBytePersistEnqueues
-         * qpid010QueueBytePersistEnqueues(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueBytePersistEnqueues
+         * brokerQueueBytePersistEnqueues(20)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueBytePersistEnqueues.high =
-            qmfData.qpid010QueueBytePersistEnqueues.high;
-        rowreq_ctx->data.qpid010QueueBytePersistEnqueues.low =
-            qmfData.qpid010QueueBytePersistEnqueues.low;
+        rowreq_ctx->data.brokerQueueBytePersistEnqueues.high =
+            qmfData.brokerQueueBytePersistEnqueues.high;
+        rowreq_ctx->data.brokerQueueBytePersistEnqueues.low =
+            qmfData.brokerQueueBytePersistEnqueues.low;
 
         /*
-         * setup/save data for qpid010QueueBytePersistDequeues
-         * qpid010QueueBytePersistDequeues(21)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueBytePersistDequeues
+         * brokerQueueBytePersistDequeues(21)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueBytePersistDequeues.high =
-            qmfData.qpid010QueueBytePersistDequeues.high;
-        rowreq_ctx->data.qpid010QueueBytePersistDequeues.low =
-            qmfData.qpid010QueueBytePersistDequeues.low;
+        rowreq_ctx->data.brokerQueueBytePersistDequeues.high =
+            qmfData.brokerQueueBytePersistDequeues.high;
+        rowreq_ctx->data.brokerQueueBytePersistDequeues.low =
+            qmfData.brokerQueueBytePersistDequeues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgFtdEnqueues
-         * qpid010QueueMsgFtdEnqueues(22)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgFtdEnqueues
+         * brokerQueueMsgFtdEnqueues(22)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgFtdEnqueues.high =
-            qmfData.qpid010QueueMsgFtdEnqueues.high;
-        rowreq_ctx->data.qpid010QueueMsgFtdEnqueues.low =
-            qmfData.qpid010QueueMsgFtdEnqueues.low;
+        rowreq_ctx->data.brokerQueueMsgFtdEnqueues.high =
+            qmfData.brokerQueueMsgFtdEnqueues.high;
+        rowreq_ctx->data.brokerQueueMsgFtdEnqueues.low =
+            qmfData.brokerQueueMsgFtdEnqueues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgFtdDequeues
-         * qpid010QueueMsgFtdDequeues(23)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgFtdDequeues
+         * brokerQueueMsgFtdDequeues(23)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgFtdDequeues.high =
-            qmfData.qpid010QueueMsgFtdDequeues.high;
-        rowreq_ctx->data.qpid010QueueMsgFtdDequeues.low =
-            qmfData.qpid010QueueMsgFtdDequeues.low;
+        rowreq_ctx->data.brokerQueueMsgFtdDequeues.high =
+            qmfData.brokerQueueMsgFtdDequeues.high;
+        rowreq_ctx->data.brokerQueueMsgFtdDequeues.low =
+            qmfData.brokerQueueMsgFtdDequeues.low;
 
         /*
-         * setup/save data for qpid010QueueByteFtdEnqueues
-         * qpid010QueueByteFtdEnqueues(24)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueByteFtdEnqueues
+         * brokerQueueByteFtdEnqueues(24)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueByteFtdEnqueues.high =
-            qmfData.qpid010QueueByteFtdEnqueues.high;
-        rowreq_ctx->data.qpid010QueueByteFtdEnqueues.low =
-            qmfData.qpid010QueueByteFtdEnqueues.low;
+        rowreq_ctx->data.brokerQueueByteFtdEnqueues.high =
+            qmfData.brokerQueueByteFtdEnqueues.high;
+        rowreq_ctx->data.brokerQueueByteFtdEnqueues.low =
+            qmfData.brokerQueueByteFtdEnqueues.low;
 
         /*
-         * setup/save data for qpid010QueueByteFtdDequeues
-         * qpid010QueueByteFtdDequeues(25)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueByteFtdDequeues
+         * brokerQueueByteFtdDequeues(25)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueByteFtdDequeues.high =
-            qmfData.qpid010QueueByteFtdDequeues.high;
-        rowreq_ctx->data.qpid010QueueByteFtdDequeues.low =
-            qmfData.qpid010QueueByteFtdDequeues.low;
+        rowreq_ctx->data.brokerQueueByteFtdDequeues.high =
+            qmfData.brokerQueueByteFtdDequeues.high;
+        rowreq_ctx->data.brokerQueueByteFtdDequeues.low =
+            qmfData.brokerQueueByteFtdDequeues.low;
 
         /*
-         * setup/save data for qpid010QueueMsgFtdDepth
-         * qpid010QueueMsgFtdDepth(26)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMsgFtdDepth
+         * brokerQueueMsgFtdDepth(26)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMsgFtdDepth.high =
-            qmfData.qpid010QueueMsgFtdDepth.high;
-        rowreq_ctx->data.qpid010QueueMsgFtdDepth.low =
-            qmfData.qpid010QueueMsgFtdDepth.low;
+        rowreq_ctx->data.brokerQueueMsgFtdDepth.high =
+            qmfData.brokerQueueMsgFtdDepth.high;
+        rowreq_ctx->data.brokerQueueMsgFtdDepth.low =
+            qmfData.brokerQueueMsgFtdDepth.low;
 
         /*
-         * setup/save data for qpid010QueueByteFtdDepth
-         * qpid010QueueByteFtdDepth(27)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueByteFtdDepth
+         * brokerQueueByteFtdDepth(27)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueByteFtdDepth.high =
-            qmfData.qpid010QueueByteFtdDepth.high;
-        rowreq_ctx->data.qpid010QueueByteFtdDepth.low =
-            qmfData.qpid010QueueByteFtdDepth.low;
+        rowreq_ctx->data.brokerQueueByteFtdDepth.high =
+            qmfData.brokerQueueByteFtdDepth.high;
+        rowreq_ctx->data.brokerQueueByteFtdDepth.low =
+            qmfData.brokerQueueByteFtdDepth.low;
 
         /*
-         * setup/save data for qpid010QueueReleases
-         * qpid010QueueReleases(28)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueReleases
+         * brokerQueueReleases(28)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueReleases.high =
-            qmfData.qpid010QueueReleases.high;
-        rowreq_ctx->data.qpid010QueueReleases.low = qmfData.qpid010QueueReleases.low;
+        rowreq_ctx->data.brokerQueueReleases.high =
+            qmfData.brokerQueueReleases.high;
+        rowreq_ctx->data.brokerQueueReleases.low = qmfData.brokerQueueReleases.low;
 
         /*
-         * setup/save data for qpid010QueueAcquires
-         * qpid010QueueAcquires(29)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueAcquires
+         * brokerQueueAcquires(29)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueAcquires.high =
-            qmfData.qpid010QueueAcquires.high;
-        rowreq_ctx->data.qpid010QueueAcquires.low = qmfData.qpid010QueueAcquires.low;
+        rowreq_ctx->data.brokerQueueAcquires.high =
+            qmfData.brokerQueueAcquires.high;
+        rowreq_ctx->data.brokerQueueAcquires.low = qmfData.brokerQueueAcquires.low;
 
         /*
-         * setup/save data for qpid010QueueDiscardsTtl
-         * qpid010QueueDiscardsTtl(30)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueDiscardsTtl
+         * brokerQueueDiscardsTtl(30)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueDiscardsTtl.high =
-            qmfData.qpid010QueueDiscardsTtl.high;
-        rowreq_ctx->data.qpid010QueueDiscardsTtl.low =
-            qmfData.qpid010QueueDiscardsTtl.low;
+        rowreq_ctx->data.brokerQueueDiscardsTtl.high =
+            qmfData.brokerQueueDiscardsTtl.high;
+        rowreq_ctx->data.brokerQueueDiscardsTtl.low =
+            qmfData.brokerQueueDiscardsTtl.low;
 
         /*
-         * setup/save data for qpid010QueueDiscardsRing
-         * qpid010QueueDiscardsRing(31)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueDiscardsRing
+         * brokerQueueDiscardsRing(31)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueDiscardsRing.high =
-            qmfData.qpid010QueueDiscardsRing.high;
-        rowreq_ctx->data.qpid010QueueDiscardsRing.low =
-            qmfData.qpid010QueueDiscardsRing.low;
+        rowreq_ctx->data.brokerQueueDiscardsRing.high =
+            qmfData.brokerQueueDiscardsRing.high;
+        rowreq_ctx->data.brokerQueueDiscardsRing.low =
+            qmfData.brokerQueueDiscardsRing.low;
 
         /*
-         * setup/save data for qpid010QueueDiscardsLvq
-         * qpid010QueueDiscardsLvq(32)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueDiscardsLvq
+         * brokerQueueDiscardsLvq(32)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueDiscardsLvq.high =
-            qmfData.qpid010QueueDiscardsLvq.high;
-        rowreq_ctx->data.qpid010QueueDiscardsLvq.low =
-            qmfData.qpid010QueueDiscardsLvq.low;
+        rowreq_ctx->data.brokerQueueDiscardsLvq.high =
+            qmfData.brokerQueueDiscardsLvq.high;
+        rowreq_ctx->data.brokerQueueDiscardsLvq.low =
+            qmfData.brokerQueueDiscardsLvq.low;
 
         /*
-         * setup/save data for qpid010QueueDiscardsOverflow
-         * qpid010QueueDiscardsOverflow(33)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueDiscardsOverflow
+         * brokerQueueDiscardsOverflow(33)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueDiscardsOverflow.high =
-            qmfData.qpid010QueueDiscardsOverflow.high;
-        rowreq_ctx->data.qpid010QueueDiscardsOverflow.low =
-            qmfData.qpid010QueueDiscardsOverflow.low;
+        rowreq_ctx->data.brokerQueueDiscardsOverflow.high =
+            qmfData.brokerQueueDiscardsOverflow.high;
+        rowreq_ctx->data.brokerQueueDiscardsOverflow.low =
+            qmfData.brokerQueueDiscardsOverflow.low;
 
         /*
-         * setup/save data for qpid010QueueDiscardsSubscriber
-         * qpid010QueueDiscardsSubscriber(34)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueDiscardsSubscriber
+         * brokerQueueDiscardsSubscriber(34)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueDiscardsSubscriber.high =
-            qmfData.qpid010QueueDiscardsSubscriber.high;
-        rowreq_ctx->data.qpid010QueueDiscardsSubscriber.low =
-            qmfData.qpid010QueueDiscardsSubscriber.low;
+        rowreq_ctx->data.brokerQueueDiscardsSubscriber.high =
+            qmfData.brokerQueueDiscardsSubscriber.high;
+        rowreq_ctx->data.brokerQueueDiscardsSubscriber.low =
+            qmfData.brokerQueueDiscardsSubscriber.low;
 
         /*
-         * setup/save data for qpid010QueueDiscardsPurge
-         * qpid010QueueDiscardsPurge(35)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueDiscardsPurge
+         * brokerQueueDiscardsPurge(35)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueDiscardsPurge.high =
-            qmfData.qpid010QueueDiscardsPurge.high;
-        rowreq_ctx->data.qpid010QueueDiscardsPurge.low =
-            qmfData.qpid010QueueDiscardsPurge.low;
+        rowreq_ctx->data.brokerQueueDiscardsPurge.high =
+            qmfData.brokerQueueDiscardsPurge.high;
+        rowreq_ctx->data.brokerQueueDiscardsPurge.low =
+            qmfData.brokerQueueDiscardsPurge.low;
 
         /*
-         * setup/save data for qpid010QueueReroutes
-         * qpid010QueueReroutes(36)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueReroutes
+         * brokerQueueReroutes(36)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueReroutes.high =
-            qmfData.qpid010QueueReroutes.high;
-        rowreq_ctx->data.qpid010QueueReroutes.low = qmfData.qpid010QueueReroutes.low;
+        rowreq_ctx->data.brokerQueueReroutes.high =
+            qmfData.brokerQueueReroutes.high;
+        rowreq_ctx->data.brokerQueueReroutes.low = qmfData.brokerQueueReroutes.low;
 
         /*
-         * setup/save data for qpid010QueueConsumerCount
-         * qpid010QueueConsumerCount(37)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueConsumerCount
+         * brokerQueueConsumerCount(37)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueConsumerCount =
-            qmfData.qpid010QueueConsumerCount;
+        rowreq_ctx->data.brokerQueueConsumerCount =
+            qmfData.brokerQueueConsumerCount;
 
         /*
-         * setup/save data for qpid010QueueConsumerCountHi
-         * qpid010QueueConsumerCountHi(38)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueConsumerCountHi
+         * brokerQueueConsumerCountHi(38)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueConsumerCountHi =
-            qmfData.qpid010QueueConsumerCountHi;
+        rowreq_ctx->data.brokerQueueConsumerCountHi =
+            qmfData.brokerQueueConsumerCountHi;
 
         /*
-         * setup/save data for qpid010QueueConsumerCountLow
-         * qpid010QueueConsumerCountLow(39)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueConsumerCountLow
+         * brokerQueueConsumerCountLow(39)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueConsumerCountLow =
-            qmfData.qpid010QueueConsumerCountLow;
+        rowreq_ctx->data.brokerQueueConsumerCountLow =
+            qmfData.brokerQueueConsumerCountLow;
 
         /*
-         * setup/save data for qpid010QueueBindingCount
-         * qpid010QueueBindingCount(40)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueBindingCount
+         * brokerQueueBindingCount(40)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueBindingCount = qmfData.qpid010QueueBindingCount;
+        rowreq_ctx->data.brokerQueueBindingCount = qmfData.brokerQueueBindingCount;
 
         /*
-         * setup/save data for qpid010QueueBindingCountHi
-         * qpid010QueueBindingCountHi(41)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueBindingCountHi
+         * brokerQueueBindingCountHi(41)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueBindingCountHi =
-            qmfData.qpid010QueueBindingCountHi;
+        rowreq_ctx->data.brokerQueueBindingCountHi =
+            qmfData.brokerQueueBindingCountHi;
 
         /*
-         * setup/save data for qpid010QueueBindingCountLow
-         * qpid010QueueBindingCountLow(42)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueBindingCountLow
+         * brokerQueueBindingCountLow(42)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueBindingCountLow =
-            qmfData.qpid010QueueBindingCountLow;
+        rowreq_ctx->data.brokerQueueBindingCountLow =
+            qmfData.brokerQueueBindingCountLow;
 
         /*
-         * setup/save data for qpid010QueueUnackedMessages
-         * qpid010QueueUnackedMessages(43)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueUnackedMessages
+         * brokerQueueUnackedMessages(43)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueUnackedMessages =
-            qmfData.qpid010QueueUnackedMessages;
+        rowreq_ctx->data.brokerQueueUnackedMessages =
+            qmfData.brokerQueueUnackedMessages;
 
         /*
-         * setup/save data for qpid010QueueUnackedMessagesHi
-         * qpid010QueueUnackedMessagesHi(44)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueUnackedMessagesHi
+         * brokerQueueUnackedMessagesHi(44)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueUnackedMessagesHi =
-            qmfData.qpid010QueueUnackedMessagesHi;
+        rowreq_ctx->data.brokerQueueUnackedMessagesHi =
+            qmfData.brokerQueueUnackedMessagesHi;
 
         /*
-         * setup/save data for qpid010QueueUnackedMessagesLow
-         * qpid010QueueUnackedMessagesLow(45)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * setup/save data for brokerQueueUnackedMessagesLow
+         * brokerQueueUnackedMessagesLow(45)/Hilo32/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueUnackedMessagesLow =
-            qmfData.qpid010QueueUnackedMessagesLow;
+        rowreq_ctx->data.brokerQueueUnackedMessagesLow =
+            qmfData.brokerQueueUnackedMessagesLow;
 
         /*
-         * setup/save data for qpid010QueueMessageLatency
-         * qpid010QueueMessageLatency(46)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueMessageLatency
+         * brokerQueueMessageLatency(46)/TICKS/ASN_TIMETICKS/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueMessageLatency =
-            qmfData.qpid010QueueMessageLatency;
+        rowreq_ctx->data.brokerQueueMessageLatency =
+            qmfData.brokerQueueMessageLatency;
 
         /*
-         * setup/save data for qpid010QueueFlowStopped
-         * qpid010QueueFlowStopped(47)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
+         * setup/save data for brokerQueueFlowStopped
+         * brokerQueueFlowStopped(47)/TruthValue/ASN_INTEGER/long(u_long)//l/A/w/E/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueFlowStopped = qmfData.qpid010QueueFlowStopped;
+        rowreq_ctx->data.brokerQueueFlowStopped = qmfData.brokerQueueFlowStopped;
 
         /*
-         * setup/save data for qpid010QueueFlowStoppedCount
-         * qpid010QueueFlowStoppedCount(48)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerQueueFlowStoppedCount
+         * brokerQueueFlowStoppedCount(48)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.qpid010QueueFlowStoppedCount =
-            qmfData.qpid010QueueFlowStoppedCount;
+        rowreq_ctx->data.brokerQueueFlowStoppedCount =
+            qmfData.brokerQueueFlowStoppedCount;
 
 
         /*
@@ -931,11 +931,11 @@ qpid010QueueTable_container_load(netsnmp_container * container)
     }
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:qpid010QueueTable:qpid010QueueTable_container_load",
+    DEBUGMSGT(("verbose:brokerQueueTable:brokerQueueTable_container_load",
                "inserted %d records\n", (int)count));
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueTable_container_load */
+}                               /* brokerQueueTable_container_load */
 
 /**
  * container clean up
@@ -951,15 +951,15 @@ qpid010QueueTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010QueueTable_container_free(netsnmp_container * container)
+brokerQueueTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_container_free",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_container_free",
                 "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010QueueTable container data.
+     * TODO:380:M: Free brokerQueueTable container data.
      */
-}                               /* qpid010QueueTable_container_free */
+}                               /* brokerQueueTable_container_free */
 
 /**
  * prepare row for processing.
@@ -975,9 +975,9 @@ qpid010QueueTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010QueueTable_row_prep(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueTable_row_prep(brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_row_prep",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_row_prep",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -989,14 +989,14 @@ qpid010QueueTable_row_prep(qpid010QueueTable_rowreq_ctx * rowreq_ctx)
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010QueueTable_row_prep */
+}                               /* brokerQueueTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010QueueTable index validation.
+ * TODO:420:r: Implement brokerQueueTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010QueueEntry.qpid010QueueInternalIndex
- * qpid010QueueInternalIndex is subid 49 of qpid010QueueEntry.
+ * QPID-MESSAGING-MIB::brokerQueueEntry.brokerQueueInternalIndex
+ * brokerQueueInternalIndex is subid 49 of brokerQueueEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.6.1.1.49
  * Description:
@@ -1013,19 +1013,19 @@ Internal index for queue table
  *
  *
  *
- * NOTE: NODE qpid010QueueInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerQueueInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010QueueInternalIndex index portion
+ * check validity of brokerQueueInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010QueueTable_validate_index() function.
+ *       brokerQueueTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -1040,21 +1040,21 @@ Internal index for queue table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010QueueInternalIndex_check_index(qpid010QueueTable_rowreq_ctx *
+brokerQueueInternalIndex_check_index(brokerQueueTable_rowreq_ctx *
                                      rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010QueueTable index qpid010QueueInternalIndex.
+     * TODO:426:M: |-> Check brokerQueueTable index brokerQueueInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010QueueInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerQueueInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010QueueInternalIndex index ok */
-}                               /* qpid010QueueInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerQueueInternalIndex index ok */
+}                               /* brokerQueueInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -1078,33 +1078,33 @@ qpid010QueueInternalIndex_check_index(qpid010QueueTable_rowreq_ctx *
  *       available then.
  *
  *
- * @param qpid010QueueTable_reg
+ * @param brokerQueueTable_reg
  *        Pointer to the user registration data
- * @param qpid010QueueTable_rowreq_ctx
+ * @param brokerQueueTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010QueueTable_validate_index(qpid010QueueTable_registration *
-                                qpid010QueueTable_reg,
-                                qpid010QueueTable_rowreq_ctx * rowreq_ctx)
+brokerQueueTable_validate_index(brokerQueueTable_registration *
+                                brokerQueueTable_reg,
+                                brokerQueueTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010QueueTable:qpid010QueueTable_validate_index",
+    DEBUGMSGTL(("verbose:brokerQueueTable:brokerQueueTable_validate_index",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010QueueTable index.
+     * TODO:430:M: |-> Validate potential brokerQueueTable index.
      */
     if (0) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010QueueTable table.\n");
+                 "brokerQueueTable table.\n");
         /*
          * determine failure type.
          *
@@ -1121,6 +1121,6 @@ qpid010QueueTable_validate_index(qpid010QueueTable_registration *
     }
 
     return rc;
-}                               /* qpid010QueueTable_validate_index */
+}                               /* brokerQueueTable_validate_index */
 
 /** @} */

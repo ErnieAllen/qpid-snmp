@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010ExchangeTable get routines.
- * TODO:240:M: Implement qpid010ExchangeTable mapping routines (if any).
+ * TODO:230:M: Implement brokerExchangeTable get routines.
+ * TODO:240:M: Implement brokerExchangeTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010ExchangeTable
+ *** Table brokerExchangeTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010ExchangeTable is subid 1 of qpid010Exchanges.
+ * QPID-MESSAGING-MIB::brokerExchangeTable is subid 1 of brokerExchanges.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010ExchangeTable data context functions.
+ * * TODO:200:r: Implement brokerExchangeTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010ExchangeInternalIndex_val
+ * @param brokerExchangeInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,21 +63,21 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010ExchangeTable_indexes_set_tbl_idx(qpid010ExchangeTable_mib_index *
+brokerExchangeTable_indexes_set_tbl_idx(brokerExchangeTable_mib_index *
                                         tbl_idx,
                                         u_long
-                                        qpid010ExchangeInternalIndex_val)
+                                        brokerExchangeInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010ExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerExchangeInternalIndex(20)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010ExchangeInternalIndex = qpid010ExchangeInternalIndex_val;
+    tbl_idx->brokerExchangeInternalIndex = brokerExchangeInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeTable_indexes_set_tbl_idx */
+}                               /* brokerExchangeTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -93,33 +93,33 @@ qpid010ExchangeTable_indexes_set_tbl_idx(qpid010ExchangeTable_mib_index *
  *  from the mib index.
  */
 int
-qpid010ExchangeTable_indexes_set(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeTable_indexes_set(brokerExchangeTable_rowreq_ctx *
                                 rowreq_ctx,
-                                u_long qpid010ExchangeInternalIndex_val)
+                                u_long brokerExchangeInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeTable_indexes_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeTable_indexes_set", "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010ExchangeTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                                qpid010ExchangeInternalIndex_val))
+        brokerExchangeTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                                brokerExchangeInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010ExchangeTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerExchangeTable_index_to_oid(&rowreq_ctx->oid_idx,
                                               &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeTable_indexes_set */
+}                               /* brokerExchangeTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeVhostRef
- * qpid010ExchangeVhostRef is subid 1 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeVhostRef
+ * brokerExchangeVhostRef is subid 1 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.1
  * Description:
@@ -139,25 +139,25 @@ Exchange vhostRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010ExchangeVhostRef data.
+ * Extract the current value of the brokerExchangeVhostRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeVhostRef_val_ptr_ptr
+ * @param brokerExchangeVhostRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ExchangeVhostRef_val_ptr_len_ptr
+ * @param brokerExchangeVhostRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ExchangeVhostRef.
+ *        pointed to by brokerExchangeVhostRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ExchangeVhostRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ExchangeVhostRef_val_ptr_ptr.
+ * @note If you need more than (*brokerExchangeVhostRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerExchangeVhostRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -167,58 +167,58 @@ Exchange vhostRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ExchangeVhostRef_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                           char **qpid010ExchangeVhostRef_val_ptr_ptr,
-                           size_t *qpid010ExchangeVhostRef_val_ptr_len_ptr)
+brokerExchangeVhostRef_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                           char **brokerExchangeVhostRef_val_ptr_ptr,
+                           size_t *brokerExchangeVhostRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ExchangeVhostRef_val_ptr_ptr)
-                   && (NULL != *qpid010ExchangeVhostRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ExchangeVhostRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerExchangeVhostRef_val_ptr_ptr)
+                   && (NULL != *brokerExchangeVhostRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerExchangeVhostRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeVhostRef_get",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeVhostRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeVhostRef data.
-     * copy (* qpid010ExchangeVhostRef_val_ptr_ptr ) data and (* qpid010ExchangeVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeVhostRef data.
+     * copy (* brokerExchangeVhostRef_val_ptr_ptr ) data and (* brokerExchangeVhostRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ExchangeVhostRef data
+     * make sure there is enough space for brokerExchangeVhostRef data
      */
-    if ((NULL == (*qpid010ExchangeVhostRef_val_ptr_ptr)) ||
-        ((*qpid010ExchangeVhostRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ExchangeVhostRef_len *
-          sizeof(rowreq_ctx->data.qpid010ExchangeVhostRef[0])))) {
+    if ((NULL == (*brokerExchangeVhostRef_val_ptr_ptr)) ||
+        ((*brokerExchangeVhostRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerExchangeVhostRef_len *
+          sizeof(rowreq_ctx->data.brokerExchangeVhostRef[0])))) {
         /*
-         * allocate space for qpid010ExchangeVhostRef data
+         * allocate space for brokerExchangeVhostRef data
          */
-        (*qpid010ExchangeVhostRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ExchangeVhostRef_len *
-                   sizeof(rowreq_ctx->data.qpid010ExchangeVhostRef[0]));
-        if (NULL == (*qpid010ExchangeVhostRef_val_ptr_ptr)) {
+        (*brokerExchangeVhostRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerExchangeVhostRef_len *
+                   sizeof(rowreq_ctx->data.brokerExchangeVhostRef[0]));
+        if (NULL == (*brokerExchangeVhostRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ExchangeVhostRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerExchangeVhostRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ExchangeVhostRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ExchangeVhostRef_len *
-        sizeof(rowreq_ctx->data.qpid010ExchangeVhostRef[0]);
-    memcpy((*qpid010ExchangeVhostRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ExchangeVhostRef,
-           rowreq_ctx->data.qpid010ExchangeVhostRef_len *
-           sizeof(rowreq_ctx->data.qpid010ExchangeVhostRef[0]));
+    (*brokerExchangeVhostRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerExchangeVhostRef_len *
+        sizeof(rowreq_ctx->data.brokerExchangeVhostRef[0]);
+    memcpy((*brokerExchangeVhostRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerExchangeVhostRef,
+           rowreq_ctx->data.brokerExchangeVhostRef_len *
+           sizeof(rowreq_ctx->data.brokerExchangeVhostRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeVhostRef_get */
+}                               /* brokerExchangeVhostRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeName
- * qpid010ExchangeName is subid 2 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeName
+ * brokerExchangeName is subid 2 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.2
  * Description:
@@ -238,25 +238,25 @@ Exchange name
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010ExchangeName data.
+ * Extract the current value of the brokerExchangeName data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeName_val_ptr_ptr
+ * @param brokerExchangeName_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ExchangeName_val_ptr_len_ptr
+ * @param brokerExchangeName_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ExchangeName.
+ *        pointed to by brokerExchangeName.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ExchangeName_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ExchangeName_val_ptr_ptr.
+ * @note If you need more than (*brokerExchangeName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerExchangeName_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -266,58 +266,58 @@ Exchange name
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ExchangeName_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                       char **qpid010ExchangeName_val_ptr_ptr,
-                       size_t *qpid010ExchangeName_val_ptr_len_ptr)
+brokerExchangeName_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                       char **brokerExchangeName_val_ptr_ptr,
+                       size_t *brokerExchangeName_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ExchangeName_val_ptr_ptr)
-                   && (NULL != *qpid010ExchangeName_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ExchangeName_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerExchangeName_val_ptr_ptr)
+                   && (NULL != *brokerExchangeName_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerExchangeName_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeName_get",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeName_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeName data.
-     * copy (* qpid010ExchangeName_val_ptr_ptr ) data and (* qpid010ExchangeName_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeName data.
+     * copy (* brokerExchangeName_val_ptr_ptr ) data and (* brokerExchangeName_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ExchangeName data
+     * make sure there is enough space for brokerExchangeName data
      */
-    if ((NULL == (*qpid010ExchangeName_val_ptr_ptr)) ||
-        ((*qpid010ExchangeName_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ExchangeName_len *
-          sizeof(rowreq_ctx->data.qpid010ExchangeName[0])))) {
+    if ((NULL == (*brokerExchangeName_val_ptr_ptr)) ||
+        ((*brokerExchangeName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerExchangeName_len *
+          sizeof(rowreq_ctx->data.brokerExchangeName[0])))) {
         /*
-         * allocate space for qpid010ExchangeName data
+         * allocate space for brokerExchangeName data
          */
-        (*qpid010ExchangeName_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ExchangeName_len *
-                   sizeof(rowreq_ctx->data.qpid010ExchangeName[0]));
-        if (NULL == (*qpid010ExchangeName_val_ptr_ptr)) {
+        (*brokerExchangeName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerExchangeName_len *
+                   sizeof(rowreq_ctx->data.brokerExchangeName[0]));
+        if (NULL == (*brokerExchangeName_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ExchangeName)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerExchangeName)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ExchangeName_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ExchangeName_len *
-        sizeof(rowreq_ctx->data.qpid010ExchangeName[0]);
-    memcpy((*qpid010ExchangeName_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ExchangeName,
-           rowreq_ctx->data.qpid010ExchangeName_len *
-           sizeof(rowreq_ctx->data.qpid010ExchangeName[0]));
+    (*brokerExchangeName_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerExchangeName_len *
+        sizeof(rowreq_ctx->data.brokerExchangeName[0]);
+    memcpy((*brokerExchangeName_val_ptr_ptr),
+           rowreq_ctx->data.brokerExchangeName,
+           rowreq_ctx->data.brokerExchangeName_len *
+           sizeof(rowreq_ctx->data.brokerExchangeName[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeName_get */
+}                               /* brokerExchangeName_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeType
- * qpid010ExchangeType is subid 3 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeType
+ * brokerExchangeType is subid 3 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.3
  * Description:
@@ -337,25 +337,25 @@ Exchange type
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010ExchangeType data.
+ * Extract the current value of the brokerExchangeType data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeType_val_ptr_ptr
+ * @param brokerExchangeType_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ExchangeType_val_ptr_len_ptr
+ * @param brokerExchangeType_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ExchangeType.
+ *        pointed to by brokerExchangeType.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ExchangeType_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ExchangeType_val_ptr_ptr.
+ * @note If you need more than (*brokerExchangeType_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerExchangeType_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -365,58 +365,58 @@ Exchange type
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ExchangeType_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                       char **qpid010ExchangeType_val_ptr_ptr,
-                       size_t *qpid010ExchangeType_val_ptr_len_ptr)
+brokerExchangeType_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                       char **brokerExchangeType_val_ptr_ptr,
+                       size_t *brokerExchangeType_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ExchangeType_val_ptr_ptr)
-                   && (NULL != *qpid010ExchangeType_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ExchangeType_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerExchangeType_val_ptr_ptr)
+                   && (NULL != *brokerExchangeType_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerExchangeType_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeType_get",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeType_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeType data.
-     * copy (* qpid010ExchangeType_val_ptr_ptr ) data and (* qpid010ExchangeType_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeType data.
+     * copy (* brokerExchangeType_val_ptr_ptr ) data and (* brokerExchangeType_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ExchangeType data
+     * make sure there is enough space for brokerExchangeType data
      */
-    if ((NULL == (*qpid010ExchangeType_val_ptr_ptr)) ||
-        ((*qpid010ExchangeType_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ExchangeType_len *
-          sizeof(rowreq_ctx->data.qpid010ExchangeType[0])))) {
+    if ((NULL == (*brokerExchangeType_val_ptr_ptr)) ||
+        ((*brokerExchangeType_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerExchangeType_len *
+          sizeof(rowreq_ctx->data.brokerExchangeType[0])))) {
         /*
-         * allocate space for qpid010ExchangeType data
+         * allocate space for brokerExchangeType data
          */
-        (*qpid010ExchangeType_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ExchangeType_len *
-                   sizeof(rowreq_ctx->data.qpid010ExchangeType[0]));
-        if (NULL == (*qpid010ExchangeType_val_ptr_ptr)) {
+        (*brokerExchangeType_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerExchangeType_len *
+                   sizeof(rowreq_ctx->data.brokerExchangeType[0]));
+        if (NULL == (*brokerExchangeType_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ExchangeType)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerExchangeType)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ExchangeType_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ExchangeType_len *
-        sizeof(rowreq_ctx->data.qpid010ExchangeType[0]);
-    memcpy((*qpid010ExchangeType_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ExchangeType,
-           rowreq_ctx->data.qpid010ExchangeType_len *
-           sizeof(rowreq_ctx->data.qpid010ExchangeType[0]));
+    (*brokerExchangeType_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerExchangeType_len *
+        sizeof(rowreq_ctx->data.brokerExchangeType[0]);
+    memcpy((*brokerExchangeType_val_ptr_ptr),
+           rowreq_ctx->data.brokerExchangeType,
+           rowreq_ctx->data.brokerExchangeType_len *
+           sizeof(rowreq_ctx->data.brokerExchangeType[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeType_get */
+}                               /* brokerExchangeType_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeDurable
- * qpid010ExchangeDurable is subid 4 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeDurable
+ * brokerExchangeDurable is subid 4 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.4
  * Description:
@@ -434,13 +434,13 @@ Exchange durable
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010ExchangeDurable data.
+ * Extract the current value of the brokerExchangeDurable data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeDurable_val_ptr
+ * @param brokerExchangeDurable_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -448,31 +448,31 @@ Exchange durable
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeDurable_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                          u_long * qpid010ExchangeDurable_val_ptr)
+brokerExchangeDurable_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                          u_long * brokerExchangeDurable_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeDurable_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeDurable_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeDurable_get",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeDurable_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeDurable data.
-     * copy (* qpid010ExchangeDurable_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeDurable data.
+     * copy (* brokerExchangeDurable_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ExchangeDurable_val_ptr) =
-        rowreq_ctx->data.qpid010ExchangeDurable;
+    (*brokerExchangeDurable_val_ptr) =
+        rowreq_ctx->data.brokerExchangeDurable;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeDurable_get */
+}                               /* brokerExchangeDurable_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeAutoDelete
- * qpid010ExchangeAutoDelete is subid 5 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeAutoDelete
+ * brokerExchangeAutoDelete is subid 5 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.5
  * Description:
@@ -490,13 +490,13 @@ Exchange autoDelete
  * The net-snmp type is ASN_INTEGER. The C type decl is long (u_long)
  */
 /**
- * Extract the current value of the qpid010ExchangeAutoDelete data.
+ * Extract the current value of the brokerExchangeAutoDelete data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeAutoDelete_val_ptr
+ * @param brokerExchangeAutoDelete_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -504,31 +504,31 @@ Exchange autoDelete
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeAutoDelete_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                             u_long * qpid010ExchangeAutoDelete_val_ptr)
+brokerExchangeAutoDelete_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                             u_long * brokerExchangeAutoDelete_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeAutoDelete_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeAutoDelete_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeAutoDelete_get",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeAutoDelete_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeAutoDelete data.
-     * copy (* qpid010ExchangeAutoDelete_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeAutoDelete data.
+     * copy (* brokerExchangeAutoDelete_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ExchangeAutoDelete_val_ptr) =
-        rowreq_ctx->data.qpid010ExchangeAutoDelete;
+    (*brokerExchangeAutoDelete_val_ptr) =
+        rowreq_ctx->data.brokerExchangeAutoDelete;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeAutoDelete_get */
+}                               /* brokerExchangeAutoDelete_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeAltExchange
- * qpid010ExchangeAltExchange is subid 6 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeAltExchange
+ * brokerExchangeAltExchange is subid 6 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.6
  * Description:
@@ -548,25 +548,25 @@ Exchange altExchange
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010ExchangeAltExchange data.
+ * Extract the current value of the brokerExchangeAltExchange data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeAltExchange_val_ptr_ptr
+ * @param brokerExchangeAltExchange_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ExchangeAltExchange_val_ptr_len_ptr
+ * @param brokerExchangeAltExchange_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ExchangeAltExchange.
+ *        pointed to by brokerExchangeAltExchange.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ExchangeAltExchange_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ExchangeAltExchange_val_ptr_ptr.
+ * @note If you need more than (*brokerExchangeAltExchange_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerExchangeAltExchange_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -576,58 +576,58 @@ Exchange altExchange
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ExchangeAltExchange_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                              char **qpid010ExchangeAltExchange_val_ptr_ptr,
+brokerExchangeAltExchange_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                              char **brokerExchangeAltExchange_val_ptr_ptr,
                               size_t
-                              *qpid010ExchangeAltExchange_val_ptr_len_ptr)
+                              *brokerExchangeAltExchange_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ExchangeAltExchange_val_ptr_ptr)
-                   && (NULL != *qpid010ExchangeAltExchange_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ExchangeAltExchange_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerExchangeAltExchange_val_ptr_ptr)
+                   && (NULL != *brokerExchangeAltExchange_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerExchangeAltExchange_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeAltExchange_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeAltExchange_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeAltExchange data.
-     * copy (* qpid010ExchangeAltExchange_val_ptr_ptr ) data and (* qpid010ExchangeAltExchange_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeAltExchange data.
+     * copy (* brokerExchangeAltExchange_val_ptr_ptr ) data and (* brokerExchangeAltExchange_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ExchangeAltExchange data
+     * make sure there is enough space for brokerExchangeAltExchange data
      */
-    if ((NULL == (*qpid010ExchangeAltExchange_val_ptr_ptr)) ||
-        ((*qpid010ExchangeAltExchange_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ExchangeAltExchange_len *
-          sizeof(rowreq_ctx->data.qpid010ExchangeAltExchange[0])))) {
+    if ((NULL == (*brokerExchangeAltExchange_val_ptr_ptr)) ||
+        ((*brokerExchangeAltExchange_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerExchangeAltExchange_len *
+          sizeof(rowreq_ctx->data.brokerExchangeAltExchange[0])))) {
         /*
-         * allocate space for qpid010ExchangeAltExchange data
+         * allocate space for brokerExchangeAltExchange data
          */
-        (*qpid010ExchangeAltExchange_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ExchangeAltExchange_len *
-                   sizeof(rowreq_ctx->data.qpid010ExchangeAltExchange[0]));
-        if (NULL == (*qpid010ExchangeAltExchange_val_ptr_ptr)) {
+        (*brokerExchangeAltExchange_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerExchangeAltExchange_len *
+                   sizeof(rowreq_ctx->data.brokerExchangeAltExchange[0]));
+        if (NULL == (*brokerExchangeAltExchange_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ExchangeAltExchange)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerExchangeAltExchange)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ExchangeAltExchange_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ExchangeAltExchange_len *
-        sizeof(rowreq_ctx->data.qpid010ExchangeAltExchange[0]);
-    memcpy((*qpid010ExchangeAltExchange_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ExchangeAltExchange,
-           rowreq_ctx->data.qpid010ExchangeAltExchange_len *
-           sizeof(rowreq_ctx->data.qpid010ExchangeAltExchange[0]));
+    (*brokerExchangeAltExchange_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerExchangeAltExchange_len *
+        sizeof(rowreq_ctx->data.brokerExchangeAltExchange[0]);
+    memcpy((*brokerExchangeAltExchange_val_ptr_ptr),
+           rowreq_ctx->data.brokerExchangeAltExchange,
+           rowreq_ctx->data.brokerExchangeAltExchange_len *
+           sizeof(rowreq_ctx->data.brokerExchangeAltExchange[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeAltExchange_get */
+}                               /* brokerExchangeAltExchange_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeArguments
- * qpid010ExchangeArguments is subid 7 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeArguments
+ * brokerExchangeArguments is subid 7 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.7
  * Description:
@@ -647,25 +647,25 @@ Arguments supplied in exchange.declare
  * This data type requires a length.  (Max 65535)
  */
 /**
- * Extract the current value of the qpid010ExchangeArguments data.
+ * Extract the current value of the brokerExchangeArguments data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeArguments_val_ptr_ptr
+ * @param brokerExchangeArguments_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010ExchangeArguments_val_ptr_len_ptr
+ * @param brokerExchangeArguments_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010ExchangeArguments.
+ *        pointed to by brokerExchangeArguments.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010ExchangeArguments_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010ExchangeArguments_val_ptr_ptr.
+ * @note If you need more than (*brokerExchangeArguments_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerExchangeArguments_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -675,59 +675,59 @@ Arguments supplied in exchange.declare
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010ExchangeArguments_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                            char **qpid010ExchangeArguments_val_ptr_ptr,
+brokerExchangeArguments_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                            char **brokerExchangeArguments_val_ptr_ptr,
                             size_t
-                            *qpid010ExchangeArguments_val_ptr_len_ptr)
+                            *brokerExchangeArguments_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010ExchangeArguments_val_ptr_ptr)
-                   && (NULL != *qpid010ExchangeArguments_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010ExchangeArguments_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerExchangeArguments_val_ptr_ptr)
+                   && (NULL != *brokerExchangeArguments_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerExchangeArguments_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeArguments_get",
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeArguments_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeArguments data.
-     * copy (* qpid010ExchangeArguments_val_ptr_ptr ) data and (* qpid010ExchangeArguments_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeArguments data.
+     * copy (* brokerExchangeArguments_val_ptr_ptr ) data and (* brokerExchangeArguments_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010ExchangeArguments data
+     * make sure there is enough space for brokerExchangeArguments data
      */
-    if ((NULL == (*qpid010ExchangeArguments_val_ptr_ptr)) ||
-        ((*qpid010ExchangeArguments_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010ExchangeArguments_len *
-          sizeof(rowreq_ctx->data.qpid010ExchangeArguments[0])))) {
+    if ((NULL == (*brokerExchangeArguments_val_ptr_ptr)) ||
+        ((*brokerExchangeArguments_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerExchangeArguments_len *
+          sizeof(rowreq_ctx->data.brokerExchangeArguments[0])))) {
         /*
-         * allocate space for qpid010ExchangeArguments data
+         * allocate space for brokerExchangeArguments data
          */
-        (*qpid010ExchangeArguments_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010ExchangeArguments_len *
-                   sizeof(rowreq_ctx->data.qpid010ExchangeArguments[0]));
-        if (NULL == (*qpid010ExchangeArguments_val_ptr_ptr)) {
+        (*brokerExchangeArguments_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerExchangeArguments_len *
+                   sizeof(rowreq_ctx->data.brokerExchangeArguments[0]));
+        if (NULL == (*brokerExchangeArguments_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010ExchangeArguments)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerExchangeArguments)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010ExchangeArguments_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010ExchangeArguments_len *
-        sizeof(rowreq_ctx->data.qpid010ExchangeArguments[0]);
-    memcpy((*qpid010ExchangeArguments_val_ptr_ptr),
-           rowreq_ctx->data.qpid010ExchangeArguments,
-           rowreq_ctx->data.qpid010ExchangeArguments_len *
-           sizeof(rowreq_ctx->data.qpid010ExchangeArguments[0]));
+    (*brokerExchangeArguments_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerExchangeArguments_len *
+        sizeof(rowreq_ctx->data.brokerExchangeArguments[0]);
+    memcpy((*brokerExchangeArguments_val_ptr_ptr),
+           rowreq_ctx->data.brokerExchangeArguments,
+           rowreq_ctx->data.brokerExchangeArguments_len *
+           sizeof(rowreq_ctx->data.brokerExchangeArguments[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeArguments_get */
+}                               /* brokerExchangeArguments_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeProducerCount
- * qpid010ExchangeProducerCount is subid 8 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeProducerCount
+ * brokerExchangeProducerCount is subid 8 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.8
  * Description:
@@ -745,13 +745,13 @@ Current producers on exchange
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010ExchangeProducerCount data.
+ * Extract the current value of the brokerExchangeProducerCount data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeProducerCount_val_ptr
+ * @param brokerExchangeProducerCount_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -759,31 +759,31 @@ Current producers on exchange
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeProducerCount_get(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeProducerCount_get(brokerExchangeTable_rowreq_ctx *
                                 rowreq_ctx,
-                                long *qpid010ExchangeProducerCount_val_ptr)
+                                long *brokerExchangeProducerCount_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeProducerCount_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeProducerCount_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeProducerCount_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeProducerCount_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeProducerCount data.
-     * copy (* qpid010ExchangeProducerCount_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeProducerCount data.
+     * copy (* brokerExchangeProducerCount_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ExchangeProducerCount_val_ptr) =
-        rowreq_ctx->data.qpid010ExchangeProducerCount;
+    (*brokerExchangeProducerCount_val_ptr) =
+        rowreq_ctx->data.brokerExchangeProducerCount;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeProducerCount_get */
+}                               /* brokerExchangeProducerCount_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeProducerCountHi
- * qpid010ExchangeProducerCountHi is subid 9 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeProducerCountHi
+ * brokerExchangeProducerCountHi is subid 9 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.9
  * Description:
@@ -801,13 +801,13 @@ Current producers on exchange
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010ExchangeProducerCountHi data.
+ * Extract the current value of the brokerExchangeProducerCountHi data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeProducerCountHi_val_ptr
+ * @param brokerExchangeProducerCountHi_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -815,32 +815,32 @@ Current producers on exchange
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeProducerCountHi_get(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeProducerCountHi_get(brokerExchangeTable_rowreq_ctx *
                                   rowreq_ctx,
                                   long
-                                  *qpid010ExchangeProducerCountHi_val_ptr)
+                                  *brokerExchangeProducerCountHi_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeProducerCountHi_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeProducerCountHi_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeProducerCountHi_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeProducerCountHi_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeProducerCountHi data.
-     * copy (* qpid010ExchangeProducerCountHi_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeProducerCountHi data.
+     * copy (* brokerExchangeProducerCountHi_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ExchangeProducerCountHi_val_ptr) =
-        rowreq_ctx->data.qpid010ExchangeProducerCountHi;
+    (*brokerExchangeProducerCountHi_val_ptr) =
+        rowreq_ctx->data.brokerExchangeProducerCountHi;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeProducerCountHi_get */
+}                               /* brokerExchangeProducerCountHi_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeProducerCountLow
- * qpid010ExchangeProducerCountLow is subid 10 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeProducerCountLow
+ * brokerExchangeProducerCountLow is subid 10 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.10
  * Description:
@@ -858,13 +858,13 @@ Current producers on exchange
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010ExchangeProducerCountLow data.
+ * Extract the current value of the brokerExchangeProducerCountLow data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeProducerCountLow_val_ptr
+ * @param brokerExchangeProducerCountLow_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -872,32 +872,32 @@ Current producers on exchange
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeProducerCountLow_get(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeProducerCountLow_get(brokerExchangeTable_rowreq_ctx *
                                    rowreq_ctx,
                                    long
-                                   *qpid010ExchangeProducerCountLow_val_ptr)
+                                   *brokerExchangeProducerCountLow_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeProducerCountLow_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeProducerCountLow_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeProducerCountLow_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeProducerCountLow_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeProducerCountLow data.
-     * copy (* qpid010ExchangeProducerCountLow_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeProducerCountLow data.
+     * copy (* brokerExchangeProducerCountLow_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ExchangeProducerCountLow_val_ptr) =
-        rowreq_ctx->data.qpid010ExchangeProducerCountLow;
+    (*brokerExchangeProducerCountLow_val_ptr) =
+        rowreq_ctx->data.brokerExchangeProducerCountLow;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeProducerCountLow_get */
+}                               /* brokerExchangeProducerCountLow_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeBindingCount
- * qpid010ExchangeBindingCount is subid 11 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeBindingCount
+ * brokerExchangeBindingCount is subid 11 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.11
  * Description:
@@ -915,13 +915,13 @@ Current bindings
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010ExchangeBindingCount data.
+ * Extract the current value of the brokerExchangeBindingCount data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeBindingCount_val_ptr
+ * @param brokerExchangeBindingCount_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -929,30 +929,30 @@ Current bindings
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeBindingCount_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                               long *qpid010ExchangeBindingCount_val_ptr)
+brokerExchangeBindingCount_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                               long *brokerExchangeBindingCount_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeBindingCount_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeBindingCount_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeBindingCount_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeBindingCount_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeBindingCount data.
-     * copy (* qpid010ExchangeBindingCount_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeBindingCount data.
+     * copy (* brokerExchangeBindingCount_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ExchangeBindingCount_val_ptr) =
-        rowreq_ctx->data.qpid010ExchangeBindingCount;
+    (*brokerExchangeBindingCount_val_ptr) =
+        rowreq_ctx->data.brokerExchangeBindingCount;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeBindingCount_get */
+}                               /* brokerExchangeBindingCount_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeBindingCountHi
- * qpid010ExchangeBindingCountHi is subid 12 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeBindingCountHi
+ * brokerExchangeBindingCountHi is subid 12 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.12
  * Description:
@@ -970,13 +970,13 @@ Current bindings
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010ExchangeBindingCountHi data.
+ * Extract the current value of the brokerExchangeBindingCountHi data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeBindingCountHi_val_ptr
+ * @param brokerExchangeBindingCountHi_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -984,32 +984,32 @@ Current bindings
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeBindingCountHi_get(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeBindingCountHi_get(brokerExchangeTable_rowreq_ctx *
                                  rowreq_ctx,
                                  long
-                                 *qpid010ExchangeBindingCountHi_val_ptr)
+                                 *brokerExchangeBindingCountHi_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeBindingCountHi_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeBindingCountHi_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeBindingCountHi_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeBindingCountHi_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeBindingCountHi data.
-     * copy (* qpid010ExchangeBindingCountHi_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeBindingCountHi data.
+     * copy (* brokerExchangeBindingCountHi_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ExchangeBindingCountHi_val_ptr) =
-        rowreq_ctx->data.qpid010ExchangeBindingCountHi;
+    (*brokerExchangeBindingCountHi_val_ptr) =
+        rowreq_ctx->data.brokerExchangeBindingCountHi;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeBindingCountHi_get */
+}                               /* brokerExchangeBindingCountHi_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeBindingCountLow
- * qpid010ExchangeBindingCountLow is subid 13 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeBindingCountLow
+ * brokerExchangeBindingCountLow is subid 13 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.13
  * Description:
@@ -1027,13 +1027,13 @@ Current bindings
  * The net-snmp type is ASN_INTEGER. The C type decl is long (long)
  */
 /**
- * Extract the current value of the qpid010ExchangeBindingCountLow data.
+ * Extract the current value of the brokerExchangeBindingCountLow data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeBindingCountLow_val_ptr
+ * @param brokerExchangeBindingCountLow_val_ptr
  *        Pointer to storage for a long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1041,32 +1041,32 @@ Current bindings
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeBindingCountLow_get(qpid010ExchangeTable_rowreq_ctx *
+brokerExchangeBindingCountLow_get(brokerExchangeTable_rowreq_ctx *
                                   rowreq_ctx,
                                   long
-                                  *qpid010ExchangeBindingCountLow_val_ptr)
+                                  *brokerExchangeBindingCountLow_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeBindingCountLow_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeBindingCountLow_val_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010ExchangeTable:qpid010ExchangeBindingCountLow_get", "called\n"));
+    DEBUGMSGTL(("verbose:brokerExchangeTable:brokerExchangeBindingCountLow_get", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010ExchangeBindingCountLow data.
-     * copy (* qpid010ExchangeBindingCountLow_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerExchangeBindingCountLow data.
+     * copy (* brokerExchangeBindingCountLow_val_ptr ) from rowreq_ctx->data
      */
-    (*qpid010ExchangeBindingCountLow_val_ptr) =
-        rowreq_ctx->data.qpid010ExchangeBindingCountLow;
+    (*brokerExchangeBindingCountLow_val_ptr) =
+        rowreq_ctx->data.brokerExchangeBindingCountLow;
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeBindingCountLow_get */
+}                               /* brokerExchangeBindingCountLow_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeMsgReceives
- * qpid010ExchangeMsgReceives is subid 14 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeMsgReceives
+ * brokerExchangeMsgReceives is subid 14 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.14
  * Description:
@@ -1083,13 +1083,13 @@ Total messages received
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ExchangeMsgReceives data.
+ * Extract the current value of the brokerExchangeMsgReceives data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeMsgReceives_val_ptr
+ * @param brokerExchangeMsgReceives_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1097,28 +1097,28 @@ Total messages received
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeMsgReceives_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                              U64 * qpid010ExchangeMsgReceives_val_ptr)
+brokerExchangeMsgReceives_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                              U64 * brokerExchangeMsgReceives_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeMsgReceives_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeMsgReceives_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ExchangeMsgReceives data.
-     * get (* qpid010ExchangeMsgReceives_val_ptr ).low and (* qpid010ExchangeMsgReceives_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerExchangeMsgReceives data.
+     * get (* brokerExchangeMsgReceives_val_ptr ).low and (* brokerExchangeMsgReceives_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ExchangeMsgReceives_val_ptr).high =
-        rowreq_ctx->data.qpid010ExchangeMsgReceives.high;
-    (*qpid010ExchangeMsgReceives_val_ptr).low =
-        rowreq_ctx->data.qpid010ExchangeMsgReceives.low;
+    (*brokerExchangeMsgReceives_val_ptr).high =
+        rowreq_ctx->data.brokerExchangeMsgReceives.high;
+    (*brokerExchangeMsgReceives_val_ptr).low =
+        rowreq_ctx->data.brokerExchangeMsgReceives.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeMsgReceives_get */
+}                               /* brokerExchangeMsgReceives_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeMsgDrops
- * qpid010ExchangeMsgDrops is subid 15 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeMsgDrops
+ * brokerExchangeMsgDrops is subid 15 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.15
  * Description:
@@ -1135,13 +1135,13 @@ Total messages dropped (no matching key)
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ExchangeMsgDrops data.
+ * Extract the current value of the brokerExchangeMsgDrops data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeMsgDrops_val_ptr
+ * @param brokerExchangeMsgDrops_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1149,28 +1149,28 @@ Total messages dropped (no matching key)
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeMsgDrops_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                           U64 * qpid010ExchangeMsgDrops_val_ptr)
+brokerExchangeMsgDrops_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                           U64 * brokerExchangeMsgDrops_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeMsgDrops_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeMsgDrops_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ExchangeMsgDrops data.
-     * get (* qpid010ExchangeMsgDrops_val_ptr ).low and (* qpid010ExchangeMsgDrops_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerExchangeMsgDrops data.
+     * get (* brokerExchangeMsgDrops_val_ptr ).low and (* brokerExchangeMsgDrops_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ExchangeMsgDrops_val_ptr).high =
-        rowreq_ctx->data.qpid010ExchangeMsgDrops.high;
-    (*qpid010ExchangeMsgDrops_val_ptr).low =
-        rowreq_ctx->data.qpid010ExchangeMsgDrops.low;
+    (*brokerExchangeMsgDrops_val_ptr).high =
+        rowreq_ctx->data.brokerExchangeMsgDrops.high;
+    (*brokerExchangeMsgDrops_val_ptr).low =
+        rowreq_ctx->data.brokerExchangeMsgDrops.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeMsgDrops_get */
+}                               /* brokerExchangeMsgDrops_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeMsgRoutes
- * qpid010ExchangeMsgRoutes is subid 16 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeMsgRoutes
+ * brokerExchangeMsgRoutes is subid 16 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.16
  * Description:
@@ -1187,13 +1187,13 @@ Total routed messages
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ExchangeMsgRoutes data.
+ * Extract the current value of the brokerExchangeMsgRoutes data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeMsgRoutes_val_ptr
+ * @param brokerExchangeMsgRoutes_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1201,28 +1201,28 @@ Total routed messages
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeMsgRoutes_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                            U64 * qpid010ExchangeMsgRoutes_val_ptr)
+brokerExchangeMsgRoutes_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                            U64 * brokerExchangeMsgRoutes_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeMsgRoutes_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeMsgRoutes_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ExchangeMsgRoutes data.
-     * get (* qpid010ExchangeMsgRoutes_val_ptr ).low and (* qpid010ExchangeMsgRoutes_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerExchangeMsgRoutes data.
+     * get (* brokerExchangeMsgRoutes_val_ptr ).low and (* brokerExchangeMsgRoutes_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ExchangeMsgRoutes_val_ptr).high =
-        rowreq_ctx->data.qpid010ExchangeMsgRoutes.high;
-    (*qpid010ExchangeMsgRoutes_val_ptr).low =
-        rowreq_ctx->data.qpid010ExchangeMsgRoutes.low;
+    (*brokerExchangeMsgRoutes_val_ptr).high =
+        rowreq_ctx->data.brokerExchangeMsgRoutes.high;
+    (*brokerExchangeMsgRoutes_val_ptr).low =
+        rowreq_ctx->data.brokerExchangeMsgRoutes.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeMsgRoutes_get */
+}                               /* brokerExchangeMsgRoutes_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeByteReceives
- * qpid010ExchangeByteReceives is subid 17 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeByteReceives
+ * brokerExchangeByteReceives is subid 17 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.17
  * Description:
@@ -1239,13 +1239,13 @@ Total bytes received
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ExchangeByteReceives data.
+ * Extract the current value of the brokerExchangeByteReceives data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeByteReceives_val_ptr
+ * @param brokerExchangeByteReceives_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1253,28 +1253,28 @@ Total bytes received
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeByteReceives_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                               U64 * qpid010ExchangeByteReceives_val_ptr)
+brokerExchangeByteReceives_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                               U64 * brokerExchangeByteReceives_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeByteReceives_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeByteReceives_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ExchangeByteReceives data.
-     * get (* qpid010ExchangeByteReceives_val_ptr ).low and (* qpid010ExchangeByteReceives_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerExchangeByteReceives data.
+     * get (* brokerExchangeByteReceives_val_ptr ).low and (* brokerExchangeByteReceives_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ExchangeByteReceives_val_ptr).high =
-        rowreq_ctx->data.qpid010ExchangeByteReceives.high;
-    (*qpid010ExchangeByteReceives_val_ptr).low =
-        rowreq_ctx->data.qpid010ExchangeByteReceives.low;
+    (*brokerExchangeByteReceives_val_ptr).high =
+        rowreq_ctx->data.brokerExchangeByteReceives.high;
+    (*brokerExchangeByteReceives_val_ptr).low =
+        rowreq_ctx->data.brokerExchangeByteReceives.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeByteReceives_get */
+}                               /* brokerExchangeByteReceives_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeByteDrops
- * qpid010ExchangeByteDrops is subid 18 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeByteDrops
+ * brokerExchangeByteDrops is subid 18 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.18
  * Description:
@@ -1291,13 +1291,13 @@ Total bytes dropped (no matching key)
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ExchangeByteDrops data.
+ * Extract the current value of the brokerExchangeByteDrops data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeByteDrops_val_ptr
+ * @param brokerExchangeByteDrops_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1305,28 +1305,28 @@ Total bytes dropped (no matching key)
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeByteDrops_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                            U64 * qpid010ExchangeByteDrops_val_ptr)
+brokerExchangeByteDrops_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                            U64 * brokerExchangeByteDrops_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeByteDrops_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeByteDrops_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ExchangeByteDrops data.
-     * get (* qpid010ExchangeByteDrops_val_ptr ).low and (* qpid010ExchangeByteDrops_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerExchangeByteDrops data.
+     * get (* brokerExchangeByteDrops_val_ptr ).low and (* brokerExchangeByteDrops_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ExchangeByteDrops_val_ptr).high =
-        rowreq_ctx->data.qpid010ExchangeByteDrops.high;
-    (*qpid010ExchangeByteDrops_val_ptr).low =
-        rowreq_ctx->data.qpid010ExchangeByteDrops.low;
+    (*brokerExchangeByteDrops_val_ptr).high =
+        rowreq_ctx->data.brokerExchangeByteDrops.high;
+    (*brokerExchangeByteDrops_val_ptr).low =
+        rowreq_ctx->data.brokerExchangeByteDrops.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeByteDrops_get */
+}                               /* brokerExchangeByteDrops_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010ExchangeEntry.qpid010ExchangeByteRoutes
- * qpid010ExchangeByteRoutes is subid 19 of qpid010ExchangeEntry.
+ * QPID-MESSAGING-MIB::brokerExchangeEntry.brokerExchangeByteRoutes
+ * brokerExchangeByteRoutes is subid 19 of brokerExchangeEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.7.1.1.19
  * Description:
@@ -1343,13 +1343,13 @@ Total routed bytes
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010ExchangeByteRoutes data.
+ * Extract the current value of the brokerExchangeByteRoutes data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010ExchangeByteRoutes_val_ptr
+ * @param brokerExchangeByteRoutes_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -1357,24 +1357,24 @@ Total routed bytes
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010ExchangeByteRoutes_get(qpid010ExchangeTable_rowreq_ctx * rowreq_ctx,
-                             U64 * qpid010ExchangeByteRoutes_val_ptr)
+brokerExchangeByteRoutes_get(brokerExchangeTable_rowreq_ctx * rowreq_ctx,
+                             U64 * brokerExchangeByteRoutes_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010ExchangeByteRoutes_val_ptr);
+    netsnmp_assert(NULL != brokerExchangeByteRoutes_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010ExchangeByteRoutes data.
-     * get (* qpid010ExchangeByteRoutes_val_ptr ).low and (* qpid010ExchangeByteRoutes_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerExchangeByteRoutes data.
+     * get (* brokerExchangeByteRoutes_val_ptr ).low and (* brokerExchangeByteRoutes_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010ExchangeByteRoutes_val_ptr).high =
-        rowreq_ctx->data.qpid010ExchangeByteRoutes.high;
-    (*qpid010ExchangeByteRoutes_val_ptr).low =
-        rowreq_ctx->data.qpid010ExchangeByteRoutes.low;
+    (*brokerExchangeByteRoutes_val_ptr).high =
+        rowreq_ctx->data.brokerExchangeByteRoutes.high;
+    (*brokerExchangeByteRoutes_val_ptr).low =
+        rowreq_ctx->data.brokerExchangeByteRoutes.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010ExchangeByteRoutes_get */
+}                               /* brokerExchangeByteRoutes_get */
 
 
 

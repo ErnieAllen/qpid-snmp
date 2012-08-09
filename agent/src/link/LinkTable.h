@@ -4,8 +4,8 @@
  *
  * $Id:$
  */
-#ifndef QPID010LINKTABLE_H
-#define QPID010LINKTABLE_H
+#ifndef brokerLINKTABLE_H
+#define brokerLINKTABLE_H
 
 #ifdef __cplusplus
 extern          "C" {
@@ -22,15 +22,15 @@ extern          "C" {
      * other required module components 
      */
     /* *INDENT-OFF*  */
-config_add_mib(MRG-MESSAGING-MIB)
-config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_interface)
-config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_access)
-config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_get)
-config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
+config_add_mib(QPID-MESSAGING-MIB)
+config_require(QPID-MESSAGING-MIB/brokerLinkTable/brokerLinkTable_interface)
+config_require(QPID-MESSAGING-MIB/brokerLinkTable/brokerLinkTable_data_access)
+config_require(QPID-MESSAGING-MIB/brokerLinkTable/brokerLinkTable_data_get)
+config_require(QPID-MESSAGING-MIB/brokerLinkTable/brokerLinkTable_data_set)
     /* *INDENT-ON*  */
 
     /*
-     * OID and column number definitions for qpid010LinkTable 
+     * OID and column number definitions for brokerLinkTable 
      */
 #include "LinkTable_oids.h"
 
@@ -44,7 +44,7 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
      * function declarations
      */
     void            init_LinkTable(void);
-    void            shutdown_qpid010LinkTable(void);
+    void            shutdown_brokerLinkTable(void);
 
     /*
      *********************************************************************
@@ -53,12 +53,12 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010LinkTable
+ *** Table brokerLinkTable
  ***
  **********************************************************************
  **********************************************************************/
     /*
-     * MRG-MESSAGING-MIB::qpid010LinkTable is subid 1 of qpid010Links.
+     * QPID-MESSAGING-MIB::brokerLinkTable is subid 1 of brokerLinks.
      * Its status is Current.
      * OID: .1.3.6.1.4.1.18060.5672.1.1.11.1, length: 12
      */
@@ -71,123 +71,123 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
      * TODO:100:r: Review all context structures
      */
     /*
-     * TODO:101:o: |-> Review qpid010LinkTable registration context.
+     * TODO:101:o: |-> Review brokerLinkTable registration context.
      */
-    typedef netsnmp_data_list qpid010LinkTable_registration;
+    typedef netsnmp_data_list brokerLinkTable_registration;
 
 /**********************************************************************/
     /*
-     * TODO:110:r: |-> Review qpid010LinkTable data context structure.
-     * This structure is used to represent the data for qpid010LinkTable.
+     * TODO:110:r: |-> Review brokerLinkTable data context structure.
+     * This structure is used to represent the data for brokerLinkTable.
      */
     /*
      * This structure contains storage for all the columns defined in the
-     * qpid010LinkTable.
+     * brokerLinkTable.
      */
-    typedef struct qpid010LinkTable_data_s {
+    typedef struct brokerLinkTable_data_s {
 
         /*
-         * qpid010LinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerLinkVhostRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010LinkVhostRef[255];
-        size_t          qpid010LinkVhostRef_len;        /* # of char elements, not bytes */
+        char            brokerLinkVhostRef[255];
+        size_t          brokerLinkVhostRef_len;        /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerLinkName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
-        char            qpid010LinkName[255];
-        size_t          qpid010LinkName_len;    /* # of char elements, not bytes */
+        char            brokerLinkName[255];
+        size_t          brokerLinkName_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkHost(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerLinkHost(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010LinkHost[255];
-        size_t          qpid010LinkHost_len;    /* # of char elements, not bytes */
+        char            brokerLinkHost[255];
+        size_t          brokerLinkHost_len;    /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkPort(4)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
+         * brokerLinkPort(4)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
-        long            qpid010LinkPort;
+        long            brokerLinkPort;
 
         /*
-         * qpid010LinkTransport(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerLinkTransport(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010LinkTransport[255];
-        size_t          qpid010LinkTransport_len;       /* # of char elements, not bytes */
+        char            brokerLinkTransport[255];
+        size_t          brokerLinkTransport_len;       /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerLinkDurable(6)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-        u_long          qpid010LinkDurable;
+        u_long          brokerLinkDurable;
 
         /*
-         * qpid010LinkConnectionRef(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerLinkConnectionRef(7)/ObjId/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010LinkConnectionRef[255];
-        size_t          qpid010LinkConnectionRef_len;   /* # of char elements, not bytes */
+        char            brokerLinkConnectionRef[255];
+        size_t          brokerLinkConnectionRef_len;   /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkState(8)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerLinkState(8)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010LinkState[255];
-        size_t          qpid010LinkState_len;   /* # of char elements, not bytes */
+        char            brokerLinkState[255];
+        size_t          brokerLinkState_len;   /* # of char elements, not bytes */
 
         /*
-         * qpid010LinkLastError(9)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * brokerLinkLastError(9)/Lstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
-        char            qpid010LinkLastError[65535];
-        size_t          qpid010LinkLastError_len;       /* # of char elements, not bytes */
+        char            brokerLinkLastError[65535];
+        size_t          brokerLinkLastError_len;       /* # of char elements, not bytes */
 
-    } qpid010LinkTable_data;
+    } brokerLinkTable_data;
 
 
     /*
      *********************************************************************
-     * TODO:115:o: |-> Review qpid010LinkTable undo context.
+     * TODO:115:o: |-> Review brokerLinkTable undo context.
      * We're just going to use the same data structure for our
      * undo_context. If you want to do something more efficent,
      * define your typedef here.
      */
-    typedef qpid010LinkTable_data qpid010LinkTable_undo_data;
+    typedef brokerLinkTable_data brokerLinkTable_undo_data;
 
     /*
-     * TODO:120:r: |-> Review qpid010LinkTable mib index.
-     * This structure is used to represent the index for qpid010LinkTable.
+     * TODO:120:r: |-> Review brokerLinkTable mib index.
+     * This structure is used to represent the index for brokerLinkTable.
      */
-    typedef struct qpid010LinkTable_mib_index_s {
+    typedef struct brokerLinkTable_mib_index_s {
 
         /*
-         * qpid010LinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerLinkInternalIndex(10)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
-        u_long          qpid010LinkInternalIndex;
+        u_long          brokerLinkInternalIndex;
 
 
-    } qpid010LinkTable_mib_index;
+    } brokerLinkTable_mib_index;
 
     /*
-     * TODO:121:r: |   |-> Review qpid010LinkTable max index length.
+     * TODO:121:r: |   |-> Review brokerLinkTable max index length.
      * If you KNOW that your indexes will never exceed a certain
      * length, update this macro to that length.
      */
-#define MAX_qpid010LinkTable_IDX_LEN     1
+#define MAX_brokerLinkTable_IDX_LEN     1
 
 
     /*
      *********************************************************************
-     * TODO:130:o: |-> Review qpid010LinkTable Row request (rowreq) context.
+     * TODO:130:o: |-> Review brokerLinkTable Row request (rowreq) context.
      * When your functions are called, you will be passed a
-     * qpid010LinkTable_rowreq_ctx pointer.
+     * brokerLinkTable_rowreq_ctx pointer.
      */
-    typedef struct qpid010LinkTable_rowreq_ctx_s {
+    typedef struct brokerLinkTable_rowreq_ctx_s {
 
     /** this must be first for container compare to work */
         netsnmp_index   oid_idx;
-        oid             oid_tmp[MAX_qpid010LinkTable_IDX_LEN];
+        oid             oid_tmp[MAX_brokerLinkTable_IDX_LEN];
 
-        qpid010LinkTable_mib_index tbl_idx;
+        brokerLinkTable_mib_index tbl_idx;
 
-        qpid010LinkTable_data data;
-        qpid010LinkTable_undo_data *undo;
+        brokerLinkTable_data data;
+        brokerLinkTable_undo_data *undo;
         unsigned int    column_set_flags;       /* flags for set columns */
 
 
@@ -198,50 +198,50 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
         u_int           rowreq_flags;
 
         /*
-         * TODO:131:o: |   |-> Add useful data to qpid010LinkTable rowreq context.
+         * TODO:131:o: |   |-> Add useful data to brokerLinkTable rowreq context.
          */
 
         /*
          * storage for future expansion
          */
-        netsnmp_data_list *qpid010LinkTable_data_list;
+        netsnmp_data_list *brokerLinkTable_data_list;
 
-    } qpid010LinkTable_rowreq_ctx;
+    } brokerLinkTable_rowreq_ctx;
 
-    typedef struct qpid010LinkTable_ref_rowreq_ctx_s {
-        qpid010LinkTable_rowreq_ctx *rowreq_ctx;
-    } qpid010LinkTable_ref_rowreq_ctx;
+    typedef struct brokerLinkTable_ref_rowreq_ctx_s {
+        brokerLinkTable_rowreq_ctx *rowreq_ctx;
+    } brokerLinkTable_ref_rowreq_ctx;
 
     /*
      *********************************************************************
      * function prototypes
      */
     int            
-        qpid010LinkTable_pre_request(qpid010LinkTable_registration *
+        brokerLinkTable_pre_request(brokerLinkTable_registration *
                                      user_context);
     int            
-        qpid010LinkTable_post_request(qpid010LinkTable_registration *
+        brokerLinkTable_post_request(brokerLinkTable_registration *
                                       user_context, int rc);
 
     int            
-        qpid010LinkTable_rowreq_ctx_init(qpid010LinkTable_rowreq_ctx *
+        brokerLinkTable_rowreq_ctx_init(brokerLinkTable_rowreq_ctx *
                                          rowreq_ctx, void *user_init_ctx);
     void           
-        qpid010LinkTable_rowreq_ctx_cleanup(qpid010LinkTable_rowreq_ctx *
+        brokerLinkTable_rowreq_ctx_cleanup(brokerLinkTable_rowreq_ctx *
                                             rowreq_ctx);
 
     int            
-        qpid010LinkTable_check_dependencies(qpid010LinkTable_rowreq_ctx *
+        brokerLinkTable_check_dependencies(brokerLinkTable_rowreq_ctx *
                                             rowreq_ctx);
-    int             qpid010LinkTable_commit(qpid010LinkTable_rowreq_ctx *
+    int             brokerLinkTable_commit(brokerLinkTable_rowreq_ctx *
                                             rowreq_ctx);
 
-    qpid010LinkTable_rowreq_ctx
-        *qpid010LinkTable_row_find_by_mib_index(qpid010LinkTable_mib_index
+    brokerLinkTable_rowreq_ctx
+        *brokerLinkTable_row_find_by_mib_index(brokerLinkTable_mib_index
                                                 * mib_idx);
 
-    extern const oid qpid010LinkTable_oid[];
-    extern const int qpid010LinkTable_oid_size;
+    extern const oid brokerLinkTable_oid[];
+    extern const int brokerLinkTable_oid_size;
 
 
 #include "LinkTable_interface.h"
@@ -262,5 +262,5 @@ config_require(MRG-MESSAGING-MIB/qpid010LinkTable/qpid010LinkTable_data_set)
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* QPID010LINKTABLE_H */
+#endif                          /* brokerLINKTABLE_H */
 /** @} */

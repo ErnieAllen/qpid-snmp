@@ -33,37 +33,37 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010VhostTable
+ *** Table brokerVhostTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010VhostTable is subid 1 of qpid010Vhosts.
+ * QPID-MESSAGING-MIB::brokerVhostTable is subid 1 of brokerVhosts.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1, length: 12
  */
 
 /**
- * initialization for qpid010VhostTable data access
+ * initialization for brokerVhostTable data access
  *
  * This function is called during startup to allow you to
  * allocate any resources you need for the data table.
  *
- * @param qpid010VhostTable_reg
- *        Pointer to qpid010VhostTable_registration
+ * @param brokerVhostTable_reg
+ *        Pointer to brokerVhostTable_registration
  *
  * @retval MFD_SUCCESS : success.
  * @retval MFD_ERROR   : unrecoverable error.
  */
 int
-qpid010VhostTable_init_data(qpid010VhostTable_registration *
-                           qpid010VhostTable_reg)
+brokerVhostTable_init_data(brokerVhostTable_registration *
+                           brokerVhostTable_reg)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_init_data",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_init_data",
                 "called\n"));
 
     /*
-     * TODO:303:o: Initialize qpid010VhostTable data.
+     * TODO:303:o: Initialize brokerVhostTable data.
      */
     /*
      ***************************************************
@@ -82,7 +82,7 @@ qpid010VhostTable_init_data(qpid010VhostTable_registration *
      ***************************************************/
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostTable_init_data */
+}                               /* brokerVhostTable_init_data */
 
 /**
  * container overview
@@ -116,15 +116,15 @@ qpid010VhostTable_init_data(qpid010VhostTable_registration *
  *  process that will supply the data, opening a database, etc.
  */
 void
-qpid010VhostTable_container_init(netsnmp_container ** container_ptr_ptr,
+brokerVhostTable_container_init(netsnmp_container ** container_ptr_ptr,
                                 netsnmp_cache * cache)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_container_init",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_container_init",
                 "called\n"));
 
     if (NULL == container_ptr_ptr) {
         snmp_log(LOG_ERR,
-                 "bad container param to qpid010VhostTable_container_init\n");
+                 "bad container param to brokerVhostTable_container_init\n");
         return;
     }
 
@@ -136,20 +136,20 @@ qpid010VhostTable_container_init(netsnmp_container ** container_ptr_ptr,
 
     if (NULL == cache) {
         snmp_log(LOG_ERR,
-                 "bad cache param to qpid010VhostTable_container_init\n");
+                 "bad cache param to brokerVhostTable_container_init\n");
         return;
     }
 
     /*
-     * TODO:345:A: Set up qpid010VhostTable cache properties.
+     * TODO:345:A: Set up brokerVhostTable cache properties.
      *
      * Also for advanced users, you can set parameters for the
      * cache. Do not change the magic pointer, as it is used
      * by the MFD helper. To completely disable caching, set
      * cache->enabled to 0.
      */
-    cache->timeout = qpid010VHOSTTABLE_CACHE_TIMEOUT;    /* seconds */
-}                               /* qpid010VhostTable_container_init */
+    cache->timeout = brokerVHOSTTABLE_CACHE_TIMEOUT;    /* seconds */
+}                               /* brokerVhostTable_container_init */
 
 /**
  * container shutdown
@@ -160,7 +160,7 @@ qpid010VhostTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  aspects of the access method. For the most part, it is for advanced
  *  users. The default code should suffice for most cases.
  *
- *  This function is called before qpid010VhostTable_container_free().
+ *  This function is called before brokerVhostTable_container_free().
  *
  * @remark
  *  This would also be a good place to do any cleanup needed
@@ -168,22 +168,22 @@ qpid010VhostTable_container_init(netsnmp_container ** container_ptr_ptr,
  *  process that supplied the data, closing a database, etc.
  */
 void
-qpid010VhostTable_container_shutdown(netsnmp_container * container_ptr)
+brokerVhostTable_container_shutdown(netsnmp_container * container_ptr)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_container_shutdown", "called\n"));
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_container_shutdown", "called\n"));
 
     if (NULL == container_ptr) {
         snmp_log(LOG_ERR,
-                 "bad params to qpid010VhostTable_container_shutdown\n");
+                 "bad params to brokerVhostTable_container_shutdown\n");
         return;
     }
 
-}                               /* qpid010VhostTable_container_shutdown */
+}                               /* brokerVhostTable_container_shutdown */
 
 /**
  * load initial data
  *
- * TODO:350:M: Implement qpid010VhostTable data load
+ * TODO:350:M: Implement brokerVhostTable data load
  * This function will also be called by the cache helper to load
  * the container again (after the container free function has been
  * called to free the previous contents).
@@ -205,7 +205,7 @@ qpid010VhostTable_container_shutdown(netsnmp_container * container_ptr)
  *  some other existing data, or peforming calculations to derive the data),
  *  then you can limit yourself to setting the indexes and saving any
  *  information you will need later. Then use the saved information in
- *  qpid010VhostTable_row_prep() for populating data.
+ *  brokerVhostTable_row_prep() for populating data.
  *
  * @note
  *  If you need consistency between rows (like you want statistics
@@ -214,21 +214,21 @@ qpid010VhostTable_container_shutdown(netsnmp_container * container_ptr)
  *
  */
 int
-qpid010VhostTable_container_load(netsnmp_container * container)
+brokerVhostTable_container_load(netsnmp_container * container)
 {
-    qpid010VhostTable_rowreq_ctx *rowreq_ctx;
+    brokerVhostTable_rowreq_ctx *rowreq_ctx;
     size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * qpid010VhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerVhostInternalIndex(4)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
-    u_long          qpid010VhostInternalIndex;
-    qpid010VhostTable_data qmfData;
+    u_long          brokerVhostInternalIndex;
+    brokerVhostTable_data qmfData;
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_container_load",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_container_load",
                 "called\n"));
 
     void *pEvent = qpidGet("vhost");
@@ -237,47 +237,47 @@ qpid010VhostTable_container_load(netsnmp_container * container)
     uint vHosts;
     vHosts = qpidGetCount(pEvent);
 
-    qpid010VhostInternalIndex = 0;
+    brokerVhostInternalIndex = 0;
     for (vHostIndex = 0; vHostIndex < vHosts; ++vHostIndex) {
 
     	void * pRow = qpidGetDataRow(pEvent, vHostIndex);
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.qpid010VhostBrokerRef,
+        strncpy(qmfData.brokerVhostBrokerRef,
         		qpidGetString(pRow, "brokerRef"), 254);
-        qmfData.qpid010VhostBrokerRef_len = strlen(qmfData.qpid010VhostBrokerRef) + 1;
+        qmfData.brokerVhostBrokerRef_len = strlen(qmfData.brokerVhostBrokerRef) + 1;
 
-        strncpy(qmfData.qpid010VhostName,
+        strncpy(qmfData.brokerVhostName,
         		qpidGetString(pRow, "name"), 254);
-        qmfData.qpid010VhostName_len = strlen(qmfData.qpid010VhostName) + 1;
+        qmfData.brokerVhostName_len = strlen(qmfData.brokerVhostName) + 1;
 
-        strncpy(qmfData.qpid010VhostFederationTag,
+        strncpy(qmfData.brokerVhostFederationTag,
         		qpidGetString(pRow, "federationTag"), 254);
-        qmfData.qpid010VhostFederationTag_len = strlen(qmfData.qpid010VhostFederationTag) + 1;
+        qmfData.brokerVhostFederationTag_len = strlen(qmfData.brokerVhostFederationTag) + 1;
 
         /*
-         * set indexes in new qpid010VhostTable rowreq context.
+         * set indexes in new brokerVhostTable rowreq context.
          * data context will be set from the param (unless NULL,
          *      in which case a new data context will be allocated)
          */
-        rowreq_ctx = qpid010VhostTable_allocate_rowreq_ctx(NULL);
+        rowreq_ctx = brokerVhostTable_allocate_rowreq_ctx(NULL);
         if (NULL == rowreq_ctx) {
             snmp_log(LOG_ERR, "memory allocation failed\n");
             return MFD_RESOURCE_UNAVAILABLE;
         }
         if (MFD_SUCCESS !=
-            qpid010VhostTable_indexes_set(rowreq_ctx,
-                                         qpid010VhostInternalIndex)) {
+            brokerVhostTable_indexes_set(rowreq_ctx,
+                                         brokerVhostInternalIndex)) {
             snmp_log(LOG_ERR,
                      "error setting index while loading "
-                     "qpid010VhostTable data.\n");
-            qpid010VhostTable_release_rowreq_ctx(rowreq_ctx);
+                     "brokerVhostTable data.\n");
+            brokerVhostTable_release_rowreq_ctx(rowreq_ctx);
             continue;
         }
 
         /*
-         * TODO:352:r: |   |-> populate qpid010VhostTable data context.
+         * TODO:352:r: |   |-> populate brokerVhostTable data context.
          * Populate data context here. (optionally, delay until row prep)
          */
         /*
@@ -285,69 +285,69 @@ qpid010VhostTable_container_load(netsnmp_container * container)
          * copy data or save any info needed to do it in row_prep.
          */
         /*
-         * setup/save data for qpid010VhostBrokerRef
-         * qpid010VhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerVhostBrokerRef
+         * brokerVhostBrokerRef(1)/ObjId/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010VhostBrokerRef data
+         * make sure there is enough space for brokerVhostBrokerRef data
          */
-        if ((NULL == rowreq_ctx->data.qpid010VhostBrokerRef) ||
-            (rowreq_ctx->data.qpid010VhostBrokerRef_len <
-             (qmfData.qpid010VhostBrokerRef_len *
-              sizeof(qmfData.qpid010VhostBrokerRef[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerVhostBrokerRef) ||
+            (rowreq_ctx->data.brokerVhostBrokerRef_len <
+             (qmfData.brokerVhostBrokerRef_len *
+              sizeof(qmfData.brokerVhostBrokerRef[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010VhostBrokerRef)\n");
+                     "not enough space for value (brokerVhostBrokerRef)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010VhostBrokerRef_len =
-        		qmfData.qpid010VhostBrokerRef_len * sizeof(qmfData.qpid010VhostBrokerRef[0]);
-        memcpy(rowreq_ctx->data.qpid010VhostBrokerRef, qmfData.qpid010VhostBrokerRef,
-        		qmfData.qpid010VhostBrokerRef_len * sizeof(qmfData.qpid010VhostBrokerRef[0]));
+        rowreq_ctx->data.brokerVhostBrokerRef_len =
+        		qmfData.brokerVhostBrokerRef_len * sizeof(qmfData.brokerVhostBrokerRef[0]);
+        memcpy(rowreq_ctx->data.brokerVhostBrokerRef, qmfData.brokerVhostBrokerRef,
+        		qmfData.brokerVhostBrokerRef_len * sizeof(qmfData.brokerVhostBrokerRef[0]));
 
         /*
-         * setup/save data for qpid010VhostName
-         * qpid010VhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * setup/save data for brokerVhostName
+         * brokerVhostName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010VhostName data
+         * make sure there is enough space for brokerVhostName data
          */
-        if ((NULL == rowreq_ctx->data.qpid010VhostName) ||
-            (rowreq_ctx->data.qpid010VhostName_len <
-             (qmfData.qpid010VhostName_len * sizeof(qmfData.qpid010VhostName[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerVhostName) ||
+            (rowreq_ctx->data.brokerVhostName_len <
+             (qmfData.brokerVhostName_len * sizeof(qmfData.brokerVhostName[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010VhostName)\n");
+                     "not enough space for value (brokerVhostName)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010VhostName_len =
-        		qmfData.qpid010VhostName_len * sizeof(qmfData.qpid010VhostName[0]);
-        memcpy(rowreq_ctx->data.qpid010VhostName, qmfData.qpid010VhostName,
-        		qmfData.qpid010VhostName_len * sizeof(qmfData.qpid010VhostName[0]));
+        rowreq_ctx->data.brokerVhostName_len =
+        		qmfData.brokerVhostName_len * sizeof(qmfData.brokerVhostName[0]);
+        memcpy(rowreq_ctx->data.brokerVhostName, qmfData.brokerVhostName,
+        		qmfData.brokerVhostName_len * sizeof(qmfData.brokerVhostName[0]));
 
         /*
-         * setup/save data for qpid010VhostFederationTag
-         * qpid010VhostFederationTag(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
+         * setup/save data for brokerVhostFederationTag
+         * brokerVhostFederationTag(3)/Sstr/ASN_OCTET_STR/char(char)//L/A/w/e/R/d/H
          */
     /** no mapping */
         /*
-         * make sure there is enough space for qpid010VhostFederationTag data
+         * make sure there is enough space for brokerVhostFederationTag data
          */
-        if ((NULL == rowreq_ctx->data.qpid010VhostFederationTag) ||
-            (rowreq_ctx->data.qpid010VhostFederationTag_len <
-             (qmfData.qpid010VhostFederationTag_len *
-              sizeof(qmfData.qpid010VhostFederationTag[0])))) {
+        if ((NULL == rowreq_ctx->data.brokerVhostFederationTag) ||
+            (rowreq_ctx->data.brokerVhostFederationTag_len <
+             (qmfData.brokerVhostFederationTag_len *
+              sizeof(qmfData.brokerVhostFederationTag[0])))) {
             snmp_log(LOG_ERR,
-                     "not enough space for value (qpid010VhostFederationTag)\n");
+                     "not enough space for value (brokerVhostFederationTag)\n");
             return MFD_ERROR;
         }
-        rowreq_ctx->data.qpid010VhostFederationTag_len =
-        		qmfData.qpid010VhostFederationTag_len *
-            sizeof(qmfData.qpid010VhostFederationTag[0]);
-        memcpy(rowreq_ctx->data.qpid010VhostFederationTag,
-        		qmfData.qpid010VhostFederationTag,
-        		qmfData.qpid010VhostFederationTag_len *
-               sizeof(qmfData.qpid010VhostFederationTag[0]));
+        rowreq_ctx->data.brokerVhostFederationTag_len =
+        		qmfData.brokerVhostFederationTag_len *
+            sizeof(qmfData.brokerVhostFederationTag[0]);
+        memcpy(rowreq_ctx->data.brokerVhostFederationTag,
+        		qmfData.brokerVhostFederationTag,
+        		qmfData.brokerVhostFederationTag_len *
+               sizeof(qmfData.brokerVhostFederationTag[0]));
 
 
         /*
@@ -361,11 +361,11 @@ qpid010VhostTable_container_load(netsnmp_container * container)
     }
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:qpid010VhostTable:qpid010VhostTable_container_load",
+    DEBUGMSGT(("verbose:brokerVhostTable:brokerVhostTable_container_load",
                "inserted %d records\n", (int)count));
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostTable_container_load */
+}                               /* brokerVhostTable_container_load */
 
 /**
  * container clean up
@@ -381,15 +381,15 @@ qpid010VhostTable_container_load(netsnmp_container * container)
  *
  */
 void
-qpid010VhostTable_container_free(netsnmp_container * container)
+brokerVhostTable_container_free(netsnmp_container * container)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_container_free",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_container_free",
                 "called\n"));
 
     /*
-     * TODO:380:M: Free qpid010VhostTable container data.
+     * TODO:380:M: Free brokerVhostTable container data.
      */
-}                               /* qpid010VhostTable_container_free */
+}                               /* brokerVhostTable_container_free */
 
 /**
  * prepare row for processing.
@@ -405,9 +405,9 @@ qpid010VhostTable_container_free(netsnmp_container * container)
  * @retval MFD_ERROR       : other error.
  */
 int
-qpid010VhostTable_row_prep(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostTable_row_prep(brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_row_prep",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_row_prep",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
@@ -419,14 +419,14 @@ qpid010VhostTable_row_prep(qpid010VhostTable_rowreq_ctx * rowreq_ctx)
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010VhostTable_row_prep */
+}                               /* brokerVhostTable_row_prep */
 
 /*
- * TODO:420:r: Implement qpid010VhostTable index validation.
+ * TODO:420:r: Implement brokerVhostTable index validation.
  */
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010VhostEntry.qpid010VhostInternalIndex
- * qpid010VhostInternalIndex is subid 4 of qpid010VhostEntry.
+ * QPID-MESSAGING-MIB::brokerVhostEntry.brokerVhostInternalIndex
+ * brokerVhostInternalIndex is subid 4 of brokerVhostEntry.
  * Its status is Current, and its access level is NoAccess.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.5.1.1.4
  * Description:
@@ -443,19 +443,19 @@ Internal index for vhost table
  *
  *
  *
- * NOTE: NODE qpid010VhostInternalIndex IS NOT ACCESSIBLE
+ * NOTE: NODE brokerVhostInternalIndex IS NOT ACCESSIBLE
  *
  *
  */
 /**
- * check validity of qpid010VhostInternalIndex index portion
+ * check validity of brokerVhostInternalIndex index portion
  *
  * @retval MFD_SUCCESS   : the incoming value is legal
  * @retval MFD_ERROR     : the incoming value is NOT legal
  *
  * @note this is not the place to do any checks for the sanity
  *       of multiple indexes. Those types of checks should be done in the
- *       qpid010VhostTable_validate_index() function.
+ *       brokerVhostTable_validate_index() function.
  *
  * @note Also keep in mind that if the index refers to a row in this or
  *       some other table, you can't check for that row here to make
@@ -470,21 +470,21 @@ Internal index for vhost table
  * If there a no other checks you need to do, simply return MFD_SUCCESS.
  */
 int
-qpid010VhostInternalIndex_check_index(qpid010VhostTable_rowreq_ctx *
+brokerVhostInternalIndex_check_index(brokerVhostTable_rowreq_ctx *
                                      rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostInternalIndex_check_index", "called\n"));
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostInternalIndex_check_index", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:426:M: |-> Check qpid010VhostTable index qpid010VhostInternalIndex.
+     * TODO:426:M: |-> Check brokerVhostTable index brokerVhostInternalIndex.
      * check that index value in the table context is legal.
-     * (rowreq_ctx->tbl_index.qpid010VhostInternalIndex)
+     * (rowreq_ctx->tbl_index.brokerVhostInternalIndex)
      */
 
-    return MFD_SUCCESS;         /* qpid010VhostInternalIndex index ok */
-}                               /* qpid010VhostInternalIndex_check_index */
+    return MFD_SUCCESS;         /* brokerVhostInternalIndex index ok */
+}                               /* brokerVhostInternalIndex_check_index */
 
 /**
  * verify specified index is valid.
@@ -508,33 +508,33 @@ qpid010VhostInternalIndex_check_index(qpid010VhostTable_rowreq_ctx *
  *       available then.
  *
  *
- * @param qpid010VhostTable_reg
+ * @param brokerVhostTable_reg
  *        Pointer to the user registration data
- * @param qpid010VhostTable_rowreq_ctx
+ * @param brokerVhostTable_rowreq_ctx
  *        Pointer to the users context.
  * @retval MFD_SUCCESS            : success
  * @retval MFD_CANNOT_CREATE_NOW  : index not valid right now
  * @retval MFD_CANNOT_CREATE_EVER : index never valid
  */
 int
-qpid010VhostTable_validate_index(qpid010VhostTable_registration *
-                                qpid010VhostTable_reg,
-                                qpid010VhostTable_rowreq_ctx * rowreq_ctx)
+brokerVhostTable_validate_index(brokerVhostTable_registration *
+                                brokerVhostTable_reg,
+                                brokerVhostTable_rowreq_ctx * rowreq_ctx)
 {
     int             rc = MFD_SUCCESS;
 
-    DEBUGMSGTL(("verbose:qpid010VhostTable:qpid010VhostTable_validate_index",
+    DEBUGMSGTL(("verbose:brokerVhostTable:brokerVhostTable_validate_index",
                 "called\n"));
 
     /** we should have a non-NULL pointer */
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:430:M: |-> Validate potential qpid010VhostTable index.
+     * TODO:430:M: |-> Validate potential brokerVhostTable index.
      */
     if (0) {
         snmp_log(LOG_WARNING, "invalid index for a new row in the "
-                 "qpid010VhostTable table.\n");
+                 "brokerVhostTable table.\n");
         /*
          * determine failure type.
          *
@@ -551,6 +551,6 @@ qpid010VhostTable_validate_index(qpid010VhostTable_registration *
     }
 
     return rc;
-}                               /* qpid010VhostTable_validate_index */
+}                               /* brokerVhostTable_validate_index */
 
 /** @} */

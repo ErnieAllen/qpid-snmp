@@ -4,7 +4,7 @@
  *
  * $Id:$
  */
-/** \page MFD helper for qpid010SubscriptionTable
+/** \page MFD helper for brokerSubscriptionTable
  *
  * \section intro Introduction
  * Introductory text.
@@ -27,66 +27,66 @@
 
 #include "SubscriptionTable_interface.h"
 
-const oid       qpid010SubscriptionTable_oid[] =
-    { qpid010SUBSCRIPTIONTABLE_OID };
-const int       qpid010SubscriptionTable_oid_size =
-OID_LENGTH(qpid010SubscriptionTable_oid);
+const oid       brokerSubscriptionTable_oid[] =
+    { brokerSUBSCRIPTIONTABLE_OID };
+const int       brokerSubscriptionTable_oid_size =
+OID_LENGTH(brokerSubscriptionTable_oid);
 
-qpid010SubscriptionTable_registration qpid010SubscriptionTable_user_context;
+brokerSubscriptionTable_registration brokerSubscriptionTable_user_context;
 
-void            initialize_table_qpid010SubscriptionTable(void);
-void            shutdown_table_qpid010SubscriptionTable(void);
+void            initialize_table_brokerSubscriptionTable(void);
+void            shutdown_table_brokerSubscriptionTable(void);
 
 
 /**
- * Initializes the qpid010SubscriptionTable module
+ * Initializes the brokerSubscriptionTable module
  */
 void
 init_SubscriptionTable(void)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:init_SubscriptionTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:init_SubscriptionTable", "called\n"));
 
     /*
-     * TODO:300:o: Perform qpid010SubscriptionTable one-time module initialization.
+     * TODO:300:o: Perform brokerSubscriptionTable one-time module initialization.
      */
 
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("qpid010SubscriptionTable"))
-        initialize_table_qpid010SubscriptionTable();
+    if (should_init("brokerSubscriptionTable"))
+        initialize_table_brokerSubscriptionTable();
 
 }                               /* init_SubscriptionTable */
 
 /**
- * Shut-down the qpid010SubscriptionTable module (agent is exiting)
+ * Shut-down the brokerSubscriptionTable module (agent is exiting)
  */
 void
-shutdown_qpid010SubscriptionTable(void)
+shutdown_brokerSubscriptionTable(void)
 {
-    if (should_init("qpid010SubscriptionTable"))
-        shutdown_table_qpid010SubscriptionTable();
+    if (should_init("brokerSubscriptionTable"))
+        shutdown_table_brokerSubscriptionTable();
 
 }
 
 /**
- * Initialize the table qpid010SubscriptionTable 
+ * Initialize the table brokerSubscriptionTable 
  *    (Define its contents and how it's structured)
  */
 void
-initialize_table_qpid010SubscriptionTable(void)
+initialize_table_brokerSubscriptionTable(void)
 {
-    qpid010SubscriptionTable_registration *user_context;
+    brokerSubscriptionTable_registration *user_context;
     u_long          flags;
 
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:initialize_table_qpid010SubscriptionTable", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:initialize_table_brokerSubscriptionTable", "called\n"));
 
     /*
-     * TODO:301:o: Perform qpid010SubscriptionTable one-time table initialization.
+     * TODO:301:o: Perform brokerSubscriptionTable one-time table initialization.
      */
 
     /*
-     * TODO:302:o: |->Initialize qpid010SubscriptionTable user context
+     * TODO:302:o: |->Initialize brokerSubscriptionTable user context
      * if you'd like to pass in a pointer to some data for this
      * table, allocate or set it up here.
      */
@@ -95,7 +95,7 @@ initialize_table_qpid010SubscriptionTable(void)
      * string token is used to add, find or remove pointers.
      */
     user_context =
-        netsnmp_create_data_list("qpid010SubscriptionTable", NULL, NULL);
+        netsnmp_create_data_list("brokerSubscriptionTable", NULL, NULL);
 
     /*
      * No support for any flags yet, but in the future you would
@@ -106,20 +106,20 @@ initialize_table_qpid010SubscriptionTable(void)
     /*
      * call interface initialization code
      */
-    _qpid010SubscriptionTable_initialize_interface(user_context, flags);
-}                               /* initialize_table_qpid010SubscriptionTable */
+    _brokerSubscriptionTable_initialize_interface(user_context, flags);
+}                               /* initialize_table_brokerSubscriptionTable */
 
 /**
- * Shutdown the table qpid010SubscriptionTable 
+ * Shutdown the table brokerSubscriptionTable 
  */
 void
-shutdown_table_qpid010SubscriptionTable(void)
+shutdown_table_brokerSubscriptionTable(void)
 {
     /*
      * call interface shutdown code
      */
-    _qpid010SubscriptionTable_shutdown_interface
-        (&qpid010SubscriptionTable_user_context);
+    _brokerSubscriptionTable_shutdown_interface
+        (&brokerSubscriptionTable_user_context);
 }
 
 /**
@@ -132,41 +132,41 @@ shutdown_table_qpid010SubscriptionTable(void)
  * @retval MFD_ERROR    : error (context allocate will fail)
  */
 int
-qpid010SubscriptionTable_rowreq_ctx_init(qpid010SubscriptionTable_rowreq_ctx
+brokerSubscriptionTable_rowreq_ctx_init(brokerSubscriptionTable_rowreq_ctx
                                         * rowreq_ctx, void *user_init_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_rowreq_ctx_init", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_rowreq_ctx_init", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * Perform extra qpid010SubscriptionTable rowreq initialization. (eg DEFVALS)
+     * Perform extra brokerSubscriptionTable rowreq initialization. (eg DEFVALS)
      */
-    rowreq_ctx->data.qpid010SubscriptionSessionRef_len = 255;
-    rowreq_ctx->data.qpid010SubscriptionQueueRef_len = 255;
-    rowreq_ctx->data.qpid010SubscriptionName_len = 255;
-    rowreq_ctx->data.qpid010SubscriptionCreditMode_len = 255;
-    rowreq_ctx->data.qpid010SubscriptionArguments_len = 65535;
+    rowreq_ctx->data.brokerSubscriptionSessionRef_len = 255;
+    rowreq_ctx->data.brokerSubscriptionQueueRef_len = 255;
+    rowreq_ctx->data.brokerSubscriptionName_len = 255;
+    rowreq_ctx->data.brokerSubscriptionCreditMode_len = 255;
+    rowreq_ctx->data.brokerSubscriptionArguments_len = 65535;
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionTable_rowreq_ctx_init */
+}                               /* brokerSubscriptionTable_rowreq_ctx_init */
 
 /**
  * extra context cleanup
  *
  */
 void
-qpid010SubscriptionTable_rowreq_ctx_cleanup
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx)
+brokerSubscriptionTable_rowreq_ctx_cleanup
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_rowreq_ctx_cleanup", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_rowreq_ctx_cleanup", "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:211:o: |-> Perform extra qpid010SubscriptionTable rowreq cleanup.
+     * TODO:211:o: |-> Perform extra brokerSubscriptionTable rowreq cleanup.
      */
-}                               /* qpid010SubscriptionTable_rowreq_ctx_cleanup */
+}                               /* brokerSubscriptionTable_rowreq_ctx_cleanup */
 
 /************************************************************
  * the *_should_save routine is called to determine if a row
@@ -180,8 +180,8 @@ qpid010SubscriptionTable_rowreq_ctx_cleanup
  * return 0 if the row should not be stored
  */
 int
-qpid010SubscriptionTable_container_should_save
-    (qpid010SubscriptionTable_rowreq_ctx * rowreq_ctx)
+brokerSubscriptionTable_container_should_save
+    (brokerSubscriptionTable_rowreq_ctx * rowreq_ctx)
 {
 
     return 1;                   /* save the row */
@@ -195,17 +195,17 @@ qpid010SubscriptionTable_container_should_save
  * @retval MFD_ERROR                : other error
  */
 int
-qpid010SubscriptionTable_pre_request(qpid010SubscriptionTable_registration *
+brokerSubscriptionTable_pre_request(brokerSubscriptionTable_registration *
                                     user_context)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_pre_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_pre_request", "called\n"));
 
     /*
-     * TODO:510:o: Perform qpid010SubscriptionTable pre-request actions.
+     * TODO:510:o: Perform brokerSubscriptionTable pre-request actions.
      */
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionTable_pre_request */
+}                               /* brokerSubscriptionTable_pre_request */
 
 /**
  * post-request callback
@@ -222,19 +222,19 @@ qpid010SubscriptionTable_pre_request(qpid010SubscriptionTable_registration *
  * @retval MFD_ERROR   : other error (ignored)
  */
 int
-qpid010SubscriptionTable_post_request(qpid010SubscriptionTable_registration *
+brokerSubscriptionTable_post_request(brokerSubscriptionTable_registration *
                                      user_context, int rc)
 {
-    DEBUGMSGTL(("verbose:qpid010SubscriptionTable:qpid010SubscriptionTable_post_request", "called\n"));
+    DEBUGMSGTL(("verbose:brokerSubscriptionTable:brokerSubscriptionTable_post_request", "called\n"));
 
     /*
-     * TODO:511:o: Perform qpid010SubscriptionTable post-request actions.
+     * TODO:511:o: Perform brokerSubscriptionTable post-request actions.
      */
 
     /*
      * check to set if any rows were changed.
      */
-    if (qpid010SubscriptionTable_dirty_get()) {
+    if (brokerSubscriptionTable_dirty_get()) {
         /*
          * check if request was successful. If so, this would be
          * a good place to save data to its persistent store.
@@ -247,11 +247,11 @@ qpid010SubscriptionTable_post_request(qpid010SubscriptionTable_registration *
                                              NETSNMP_DS_LIB_APPTYPE));
         }
 
-        qpid010SubscriptionTable_dirty_set(0);   /* clear table dirty flag */
+        brokerSubscriptionTable_dirty_set(0);   /* clear table dirty flag */
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010SubscriptionTable_post_request */
+}                               /* brokerSubscriptionTable_post_request */
 
 
 /** @{ */

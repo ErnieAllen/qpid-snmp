@@ -20,8 +20,8 @@
 
 /** @defgroup data_get data_get: Routines to get data
  *
- * TODO:230:M: Implement qpid010BindingTable get routines.
- * TODO:240:M: Implement qpid010BindingTable mapping routines (if any).
+ * TODO:230:M: Implement brokerBindingTable get routines.
+ * TODO:240:M: Implement brokerBindingTable mapping routines (if any).
  *
  * These routine are used to get the value for individual objects. The
  * row context is passed, along with a pointer to the memory where the
@@ -32,19 +32,19 @@
 /**********************************************************************
  **********************************************************************
  ***
- *** Table qpid010BindingTable
+ *** Table brokerBindingTable
  ***
  **********************************************************************
  **********************************************************************/
 /*
- * MRG-MESSAGING-MIB::qpid010BindingTable is subid 1 of qpid010Bindings.
+ * QPID-MESSAGING-MIB::brokerBindingTable is subid 1 of brokerBindings.
  * Its status is Current.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1, length: 12
  */
 
 /*
  * ---------------------------------------------------------------------
- * * TODO:200:r: Implement qpid010BindingTable data context functions.
+ * * TODO:200:r: Implement brokerBindingTable data context functions.
  */
 
 
@@ -52,7 +52,7 @@
  * set mib index(es)
  *
  * @param tbl_idx mib index structure
- * @param qpid010BindingInternalIndex_val
+ * @param brokerBindingInternalIndex_val
  *
  * @retval MFD_SUCCESS     : success.
  * @retval MFD_ERROR       : other error.
@@ -63,21 +63,21 @@
  *  have already been mapped from their native/rawformat to the MIB format.
  */
 int
-qpid010BindingTable_indexes_set_tbl_idx(qpid010BindingTable_mib_index *
+brokerBindingTable_indexes_set_tbl_idx(brokerBindingTable_mib_index *
                                        tbl_idx,
                                        u_long
-                                       qpid010BindingInternalIndex_val)
+                                       brokerBindingInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_indexes_set_tbl_idx", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * qpid010BindingInternalIndex(7)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerBindingInternalIndex(7)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
-    tbl_idx->qpid010BindingInternalIndex = qpid010BindingInternalIndex_val;
+    tbl_idx->brokerBindingInternalIndex = brokerBindingInternalIndex_val;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingTable_indexes_set_tbl_idx */
+}                               /* brokerBindingTable_indexes_set_tbl_idx */
 
 /**
  * @internal
@@ -93,32 +93,32 @@ qpid010BindingTable_indexes_set_tbl_idx(qpid010BindingTable_mib_index *
  *  from the mib index.
  */
 int
-qpid010BindingTable_indexes_set(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                               u_long qpid010BindingInternalIndex_val)
+brokerBindingTable_indexes_set(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                               u_long brokerBindingInternalIndex_val)
 {
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingTable_indexes_set", "called\n"));
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingTable_indexes_set", "called\n"));
 
     if (MFD_SUCCESS !=
-        qpid010BindingTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
-                                               qpid010BindingInternalIndex_val))
+        brokerBindingTable_indexes_set_tbl_idx(&rowreq_ctx->tbl_idx,
+                                               brokerBindingInternalIndex_val))
         return MFD_ERROR;
 
     /*
      * convert mib index to oid index
      */
     rowreq_ctx->oid_idx.len = sizeof(rowreq_ctx->oid_tmp) / sizeof(oid);
-    if (0 != qpid010BindingTable_index_to_oid(&rowreq_ctx->oid_idx,
+    if (0 != brokerBindingTable_index_to_oid(&rowreq_ctx->oid_idx,
                                              &rowreq_ctx->tbl_idx)) {
         return MFD_ERROR;
     }
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingTable_indexes_set */
+}                               /* brokerBindingTable_indexes_set */
 
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingExchangeRef
- * qpid010BindingExchangeRef is subid 1 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingExchangeRef
+ * brokerBindingExchangeRef is subid 1 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.1
  * Description:
@@ -138,25 +138,25 @@ Binding exchangeRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010BindingExchangeRef data.
+ * Extract the current value of the brokerBindingExchangeRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingExchangeRef_val_ptr_ptr
+ * @param brokerBindingExchangeRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BindingExchangeRef_val_ptr_len_ptr
+ * @param brokerBindingExchangeRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BindingExchangeRef.
+ *        pointed to by brokerBindingExchangeRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BindingExchangeRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BindingExchangeRef_val_ptr_ptr.
+ * @note If you need more than (*brokerBindingExchangeRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBindingExchangeRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -166,59 +166,59 @@ Binding exchangeRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BindingExchangeRef_get(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                             char **qpid010BindingExchangeRef_val_ptr_ptr,
+brokerBindingExchangeRef_get(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                             char **brokerBindingExchangeRef_val_ptr_ptr,
                              size_t
-                             *qpid010BindingExchangeRef_val_ptr_len_ptr)
+                             *brokerBindingExchangeRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BindingExchangeRef_val_ptr_ptr)
-                   && (NULL != *qpid010BindingExchangeRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BindingExchangeRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBindingExchangeRef_val_ptr_ptr)
+                   && (NULL != *brokerBindingExchangeRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBindingExchangeRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingExchangeRef_get",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingExchangeRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BindingExchangeRef data.
-     * copy (* qpid010BindingExchangeRef_val_ptr_ptr ) data and (* qpid010BindingExchangeRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBindingExchangeRef data.
+     * copy (* brokerBindingExchangeRef_val_ptr_ptr ) data and (* brokerBindingExchangeRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BindingExchangeRef data
+     * make sure there is enough space for brokerBindingExchangeRef data
      */
-    if ((NULL == (*qpid010BindingExchangeRef_val_ptr_ptr)) ||
-        ((*qpid010BindingExchangeRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BindingExchangeRef_len *
-          sizeof(rowreq_ctx->data.qpid010BindingExchangeRef[0])))) {
+    if ((NULL == (*brokerBindingExchangeRef_val_ptr_ptr)) ||
+        ((*brokerBindingExchangeRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBindingExchangeRef_len *
+          sizeof(rowreq_ctx->data.brokerBindingExchangeRef[0])))) {
         /*
-         * allocate space for qpid010BindingExchangeRef data
+         * allocate space for brokerBindingExchangeRef data
          */
-        (*qpid010BindingExchangeRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BindingExchangeRef_len *
-                   sizeof(rowreq_ctx->data.qpid010BindingExchangeRef[0]));
-        if (NULL == (*qpid010BindingExchangeRef_val_ptr_ptr)) {
+        (*brokerBindingExchangeRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBindingExchangeRef_len *
+                   sizeof(rowreq_ctx->data.brokerBindingExchangeRef[0]));
+        if (NULL == (*brokerBindingExchangeRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BindingExchangeRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBindingExchangeRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BindingExchangeRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BindingExchangeRef_len *
-        sizeof(rowreq_ctx->data.qpid010BindingExchangeRef[0]);
-    memcpy((*qpid010BindingExchangeRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BindingExchangeRef,
-           rowreq_ctx->data.qpid010BindingExchangeRef_len *
-           sizeof(rowreq_ctx->data.qpid010BindingExchangeRef[0]));
+    (*brokerBindingExchangeRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBindingExchangeRef_len *
+        sizeof(rowreq_ctx->data.brokerBindingExchangeRef[0]);
+    memcpy((*brokerBindingExchangeRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerBindingExchangeRef,
+           rowreq_ctx->data.brokerBindingExchangeRef_len *
+           sizeof(rowreq_ctx->data.brokerBindingExchangeRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingExchangeRef_get */
+}                               /* brokerBindingExchangeRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingQueueRef
- * qpid010BindingQueueRef is subid 2 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingQueueRef
+ * brokerBindingQueueRef is subid 2 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.2
  * Description:
@@ -238,25 +238,25 @@ Binding queueRef
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010BindingQueueRef data.
+ * Extract the current value of the brokerBindingQueueRef data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingQueueRef_val_ptr_ptr
+ * @param brokerBindingQueueRef_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BindingQueueRef_val_ptr_len_ptr
+ * @param brokerBindingQueueRef_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BindingQueueRef.
+ *        pointed to by brokerBindingQueueRef.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BindingQueueRef_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BindingQueueRef_val_ptr_ptr.
+ * @note If you need more than (*brokerBindingQueueRef_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBindingQueueRef_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -266,58 +266,58 @@ Binding queueRef
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BindingQueueRef_get(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                          char **qpid010BindingQueueRef_val_ptr_ptr,
-                          size_t *qpid010BindingQueueRef_val_ptr_len_ptr)
+brokerBindingQueueRef_get(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                          char **brokerBindingQueueRef_val_ptr_ptr,
+                          size_t *brokerBindingQueueRef_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BindingQueueRef_val_ptr_ptr)
-                   && (NULL != *qpid010BindingQueueRef_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BindingQueueRef_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBindingQueueRef_val_ptr_ptr)
+                   && (NULL != *brokerBindingQueueRef_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBindingQueueRef_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingQueueRef_get",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingQueueRef_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BindingQueueRef data.
-     * copy (* qpid010BindingQueueRef_val_ptr_ptr ) data and (* qpid010BindingQueueRef_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBindingQueueRef data.
+     * copy (* brokerBindingQueueRef_val_ptr_ptr ) data and (* brokerBindingQueueRef_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BindingQueueRef data
+     * make sure there is enough space for brokerBindingQueueRef data
      */
-    if ((NULL == (*qpid010BindingQueueRef_val_ptr_ptr)) ||
-        ((*qpid010BindingQueueRef_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BindingQueueRef_len *
-          sizeof(rowreq_ctx->data.qpid010BindingQueueRef[0])))) {
+    if ((NULL == (*brokerBindingQueueRef_val_ptr_ptr)) ||
+        ((*brokerBindingQueueRef_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBindingQueueRef_len *
+          sizeof(rowreq_ctx->data.brokerBindingQueueRef[0])))) {
         /*
-         * allocate space for qpid010BindingQueueRef data
+         * allocate space for brokerBindingQueueRef data
          */
-        (*qpid010BindingQueueRef_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BindingQueueRef_len *
-                   sizeof(rowreq_ctx->data.qpid010BindingQueueRef[0]));
-        if (NULL == (*qpid010BindingQueueRef_val_ptr_ptr)) {
+        (*brokerBindingQueueRef_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBindingQueueRef_len *
+                   sizeof(rowreq_ctx->data.brokerBindingQueueRef[0]));
+        if (NULL == (*brokerBindingQueueRef_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BindingQueueRef)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBindingQueueRef)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BindingQueueRef_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BindingQueueRef_len *
-        sizeof(rowreq_ctx->data.qpid010BindingQueueRef[0]);
-    memcpy((*qpid010BindingQueueRef_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BindingQueueRef,
-           rowreq_ctx->data.qpid010BindingQueueRef_len *
-           sizeof(rowreq_ctx->data.qpid010BindingQueueRef[0]));
+    (*brokerBindingQueueRef_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBindingQueueRef_len *
+        sizeof(rowreq_ctx->data.brokerBindingQueueRef[0]);
+    memcpy((*brokerBindingQueueRef_val_ptr_ptr),
+           rowreq_ctx->data.brokerBindingQueueRef,
+           rowreq_ctx->data.brokerBindingQueueRef_len *
+           sizeof(rowreq_ctx->data.brokerBindingQueueRef[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingQueueRef_get */
+}                               /* brokerBindingQueueRef_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingBindingKey
- * qpid010BindingBindingKey is subid 3 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingBindingKey
+ * brokerBindingBindingKey is subid 3 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.3
  * Description:
@@ -337,25 +337,25 @@ Binding bindingKey
  * This data type requires a length.  (Max 65535)
  */
 /**
- * Extract the current value of the qpid010BindingBindingKey data.
+ * Extract the current value of the brokerBindingBindingKey data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingBindingKey_val_ptr_ptr
+ * @param brokerBindingBindingKey_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BindingBindingKey_val_ptr_len_ptr
+ * @param brokerBindingBindingKey_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BindingBindingKey.
+ *        pointed to by brokerBindingBindingKey.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BindingBindingKey_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BindingBindingKey_val_ptr_ptr.
+ * @note If you need more than (*brokerBindingBindingKey_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBindingBindingKey_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -365,59 +365,59 @@ Binding bindingKey
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BindingBindingKey_get(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                            char **qpid010BindingBindingKey_val_ptr_ptr,
+brokerBindingBindingKey_get(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                            char **brokerBindingBindingKey_val_ptr_ptr,
                             size_t
-                            *qpid010BindingBindingKey_val_ptr_len_ptr)
+                            *brokerBindingBindingKey_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BindingBindingKey_val_ptr_ptr)
-                   && (NULL != *qpid010BindingBindingKey_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BindingBindingKey_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBindingBindingKey_val_ptr_ptr)
+                   && (NULL != *brokerBindingBindingKey_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBindingBindingKey_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingBindingKey_get",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingBindingKey_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BindingBindingKey data.
-     * copy (* qpid010BindingBindingKey_val_ptr_ptr ) data and (* qpid010BindingBindingKey_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBindingBindingKey data.
+     * copy (* brokerBindingBindingKey_val_ptr_ptr ) data and (* brokerBindingBindingKey_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BindingBindingKey data
+     * make sure there is enough space for brokerBindingBindingKey data
      */
-    if ((NULL == (*qpid010BindingBindingKey_val_ptr_ptr)) ||
-        ((*qpid010BindingBindingKey_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BindingBindingKey_len *
-          sizeof(rowreq_ctx->data.qpid010BindingBindingKey[0])))) {
+    if ((NULL == (*brokerBindingBindingKey_val_ptr_ptr)) ||
+        ((*brokerBindingBindingKey_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBindingBindingKey_len *
+          sizeof(rowreq_ctx->data.brokerBindingBindingKey[0])))) {
         /*
-         * allocate space for qpid010BindingBindingKey data
+         * allocate space for brokerBindingBindingKey data
          */
-        (*qpid010BindingBindingKey_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BindingBindingKey_len *
-                   sizeof(rowreq_ctx->data.qpid010BindingBindingKey[0]));
-        if (NULL == (*qpid010BindingBindingKey_val_ptr_ptr)) {
+        (*brokerBindingBindingKey_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBindingBindingKey_len *
+                   sizeof(rowreq_ctx->data.brokerBindingBindingKey[0]));
+        if (NULL == (*brokerBindingBindingKey_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BindingBindingKey)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBindingBindingKey)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BindingBindingKey_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BindingBindingKey_len *
-        sizeof(rowreq_ctx->data.qpid010BindingBindingKey[0]);
-    memcpy((*qpid010BindingBindingKey_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BindingBindingKey,
-           rowreq_ctx->data.qpid010BindingBindingKey_len *
-           sizeof(rowreq_ctx->data.qpid010BindingBindingKey[0]));
+    (*brokerBindingBindingKey_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBindingBindingKey_len *
+        sizeof(rowreq_ctx->data.brokerBindingBindingKey[0]);
+    memcpy((*brokerBindingBindingKey_val_ptr_ptr),
+           rowreq_ctx->data.brokerBindingBindingKey,
+           rowreq_ctx->data.brokerBindingBindingKey_len *
+           sizeof(rowreq_ctx->data.brokerBindingBindingKey[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingBindingKey_get */
+}                               /* brokerBindingBindingKey_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingArguments
- * qpid010BindingArguments is subid 4 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingArguments
+ * brokerBindingArguments is subid 4 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadWrite.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.4
  * Description:
@@ -437,25 +437,25 @@ Binding arguments
  * This data type requires a length.  (Max 65535)
  */
 /**
- * Extract the current value of the qpid010BindingArguments data.
+ * Extract the current value of the brokerBindingArguments data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingArguments_val_ptr_ptr
+ * @param brokerBindingArguments_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BindingArguments_val_ptr_len_ptr
+ * @param brokerBindingArguments_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BindingArguments.
+ *        pointed to by brokerBindingArguments.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BindingArguments_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BindingArguments_val_ptr_ptr.
+ * @note If you need more than (*brokerBindingArguments_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBindingArguments_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -465,58 +465,58 @@ Binding arguments
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BindingArguments_get(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                           char **qpid010BindingArguments_val_ptr_ptr,
-                           size_t *qpid010BindingArguments_val_ptr_len_ptr)
+brokerBindingArguments_get(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                           char **brokerBindingArguments_val_ptr_ptr,
+                           size_t *brokerBindingArguments_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BindingArguments_val_ptr_ptr)
-                   && (NULL != *qpid010BindingArguments_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BindingArguments_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBindingArguments_val_ptr_ptr)
+                   && (NULL != *brokerBindingArguments_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBindingArguments_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingArguments_get",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingArguments_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BindingArguments data.
-     * copy (* qpid010BindingArguments_val_ptr_ptr ) data and (* qpid010BindingArguments_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBindingArguments data.
+     * copy (* brokerBindingArguments_val_ptr_ptr ) data and (* brokerBindingArguments_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BindingArguments data
+     * make sure there is enough space for brokerBindingArguments data
      */
-    if ((NULL == (*qpid010BindingArguments_val_ptr_ptr)) ||
-        ((*qpid010BindingArguments_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BindingArguments_len *
-          sizeof(rowreq_ctx->data.qpid010BindingArguments[0])))) {
+    if ((NULL == (*brokerBindingArguments_val_ptr_ptr)) ||
+        ((*brokerBindingArguments_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBindingArguments_len *
+          sizeof(rowreq_ctx->data.brokerBindingArguments[0])))) {
         /*
-         * allocate space for qpid010BindingArguments data
+         * allocate space for brokerBindingArguments data
          */
-        (*qpid010BindingArguments_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BindingArguments_len *
-                   sizeof(rowreq_ctx->data.qpid010BindingArguments[0]));
-        if (NULL == (*qpid010BindingArguments_val_ptr_ptr)) {
+        (*brokerBindingArguments_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBindingArguments_len *
+                   sizeof(rowreq_ctx->data.brokerBindingArguments[0]));
+        if (NULL == (*brokerBindingArguments_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BindingArguments)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBindingArguments)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BindingArguments_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BindingArguments_len *
-        sizeof(rowreq_ctx->data.qpid010BindingArguments[0]);
-    memcpy((*qpid010BindingArguments_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BindingArguments,
-           rowreq_ctx->data.qpid010BindingArguments_len *
-           sizeof(rowreq_ctx->data.qpid010BindingArguments[0]));
+    (*brokerBindingArguments_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBindingArguments_len *
+        sizeof(rowreq_ctx->data.brokerBindingArguments[0]);
+    memcpy((*brokerBindingArguments_val_ptr_ptr),
+           rowreq_ctx->data.brokerBindingArguments,
+           rowreq_ctx->data.brokerBindingArguments_len *
+           sizeof(rowreq_ctx->data.brokerBindingArguments[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingArguments_get */
+}                               /* brokerBindingArguments_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingOrigin
- * qpid010BindingOrigin is subid 5 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingOrigin
+ * brokerBindingOrigin is subid 5 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.5
  * Description:
@@ -536,25 +536,25 @@ Binding origin
  * This data type requires a length.  (Max 255)
  */
 /**
- * Extract the current value of the qpid010BindingOrigin data.
+ * Extract the current value of the brokerBindingOrigin data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingOrigin_val_ptr_ptr
+ * @param brokerBindingOrigin_val_ptr_ptr
  *        Pointer to storage for a char variable
- * @param qpid010BindingOrigin_val_ptr_len_ptr
+ * @param brokerBindingOrigin_val_ptr_len_ptr
  *        Pointer to a size_t. On entry, it will contain the size (in bytes)
- *        pointed to by qpid010BindingOrigin.
+ *        pointed to by brokerBindingOrigin.
  *        On exit, this value should contain the data size (in bytes).
  *
  * @retval MFD_SUCCESS         : success
  * @retval MFD_SKIP            : skip this node (no value for now)
  * @retval MFD_ERROR           : Any other error
 *
- * @note If you need more than (*qpid010BindingOrigin_val_ptr_len_ptr) bytes of memory,
- *       allocate it using malloc() and update qpid010BindingOrigin_val_ptr_ptr.
+ * @note If you need more than (*brokerBindingOrigin_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBindingOrigin_val_ptr_ptr.
  *       <b>DO NOT</b> free the previous pointer.
  *       The MFD helper will release the memory you allocate.
  *
@@ -564,58 +564,58 @@ Binding origin
  *         in a pointer to static memory, obviously.)
  */
 int
-qpid010BindingOrigin_get(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                        char **qpid010BindingOrigin_val_ptr_ptr,
-                        size_t *qpid010BindingOrigin_val_ptr_len_ptr)
+brokerBindingOrigin_get(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                        char **brokerBindingOrigin_val_ptr_ptr,
+                        size_t *brokerBindingOrigin_val_ptr_len_ptr)
 {
    /** we should have a non-NULL pointer and enough storage */
-    netsnmp_assert((NULL != qpid010BindingOrigin_val_ptr_ptr)
-                   && (NULL != *qpid010BindingOrigin_val_ptr_ptr));
-    netsnmp_assert(NULL != qpid010BindingOrigin_val_ptr_len_ptr);
+    netsnmp_assert((NULL != brokerBindingOrigin_val_ptr_ptr)
+                   && (NULL != *brokerBindingOrigin_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBindingOrigin_val_ptr_len_ptr);
 
 
-    DEBUGMSGTL(("verbose:qpid010BindingTable:qpid010BindingOrigin_get",
+    DEBUGMSGTL(("verbose:brokerBindingTable:brokerBindingOrigin_get",
                 "called\n"));
 
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the qpid010BindingOrigin data.
-     * copy (* qpid010BindingOrigin_val_ptr_ptr ) data and (* qpid010BindingOrigin_val_ptr_len_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerBindingOrigin data.
+     * copy (* brokerBindingOrigin_val_ptr_ptr ) data and (* brokerBindingOrigin_val_ptr_len_ptr ) from rowreq_ctx->data
      */
     /*
-     * make sure there is enough space for qpid010BindingOrigin data
+     * make sure there is enough space for brokerBindingOrigin data
      */
-    if ((NULL == (*qpid010BindingOrigin_val_ptr_ptr)) ||
-        ((*qpid010BindingOrigin_val_ptr_len_ptr) <
-         (rowreq_ctx->data.qpid010BindingOrigin_len *
-          sizeof(rowreq_ctx->data.qpid010BindingOrigin[0])))) {
+    if ((NULL == (*brokerBindingOrigin_val_ptr_ptr)) ||
+        ((*brokerBindingOrigin_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBindingOrigin_len *
+          sizeof(rowreq_ctx->data.brokerBindingOrigin[0])))) {
         /*
-         * allocate space for qpid010BindingOrigin data
+         * allocate space for brokerBindingOrigin data
          */
-        (*qpid010BindingOrigin_val_ptr_ptr) =
-            malloc(rowreq_ctx->data.qpid010BindingOrigin_len *
-                   sizeof(rowreq_ctx->data.qpid010BindingOrigin[0]));
-        if (NULL == (*qpid010BindingOrigin_val_ptr_ptr)) {
+        (*brokerBindingOrigin_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBindingOrigin_len *
+                   sizeof(rowreq_ctx->data.brokerBindingOrigin[0]));
+        if (NULL == (*brokerBindingOrigin_val_ptr_ptr)) {
             snmp_log(LOG_ERR,
-                     "could not allocate memory (rowreq_ctx->data.qpid010BindingOrigin)\n");
+                     "could not allocate memory (rowreq_ctx->data.brokerBindingOrigin)\n");
             return MFD_ERROR;
         }
     }
-    (*qpid010BindingOrigin_val_ptr_len_ptr) =
-        rowreq_ctx->data.qpid010BindingOrigin_len *
-        sizeof(rowreq_ctx->data.qpid010BindingOrigin[0]);
-    memcpy((*qpid010BindingOrigin_val_ptr_ptr),
-           rowreq_ctx->data.qpid010BindingOrigin,
-           rowreq_ctx->data.qpid010BindingOrigin_len *
-           sizeof(rowreq_ctx->data.qpid010BindingOrigin[0]));
+    (*brokerBindingOrigin_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBindingOrigin_len *
+        sizeof(rowreq_ctx->data.brokerBindingOrigin[0]);
+    memcpy((*brokerBindingOrigin_val_ptr_ptr),
+           rowreq_ctx->data.brokerBindingOrigin,
+           rowreq_ctx->data.brokerBindingOrigin_len *
+           sizeof(rowreq_ctx->data.brokerBindingOrigin[0]));
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingOrigin_get */
+}                               /* brokerBindingOrigin_get */
 
 /*---------------------------------------------------------------------
- * MRG-MESSAGING-MIB::qpid010BindingEntry.qpid010BindingMsgMatched
- * qpid010BindingMsgMatched is subid 6 of qpid010BindingEntry.
+ * QPID-MESSAGING-MIB::brokerBindingEntry.brokerBindingMsgMatched
+ * brokerBindingMsgMatched is subid 6 of brokerBindingEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.8.1.1.6
  * Description:
@@ -632,13 +632,13 @@ Binding msgMatched
  * The net-snmp type is ASN_COUNTER64. The C type decl is U64 (U64)
  */
 /**
- * Extract the current value of the qpid010BindingMsgMatched data.
+ * Extract the current value of the brokerBindingMsgMatched data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param qpid010BindingMsgMatched_val_ptr
+ * @param brokerBindingMsgMatched_val_ptr
  *        Pointer to storage for a U64 variable
  *
  * @retval MFD_SUCCESS         : success
@@ -646,24 +646,24 @@ Binding msgMatched
  * @retval MFD_ERROR           : Any other error
  */
 int
-qpid010BindingMsgMatched_get(qpid010BindingTable_rowreq_ctx * rowreq_ctx,
-                            U64 * qpid010BindingMsgMatched_val_ptr)
+brokerBindingMsgMatched_get(brokerBindingTable_rowreq_ctx * rowreq_ctx,
+                            U64 * brokerBindingMsgMatched_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != qpid010BindingMsgMatched_val_ptr);
+    netsnmp_assert(NULL != brokerBindingMsgMatched_val_ptr);
 
     /*
-     * TODO:231:o: |-> copy qpid010BindingMsgMatched data.
-     * get (* qpid010BindingMsgMatched_val_ptr ).low and (* qpid010BindingMsgMatched_val_ptr ).high from rowreq_ctx->data
+     * TODO:231:o: |-> copy brokerBindingMsgMatched data.
+     * get (* brokerBindingMsgMatched_val_ptr ).low and (* brokerBindingMsgMatched_val_ptr ).high from rowreq_ctx->data
      */
-    (*qpid010BindingMsgMatched_val_ptr).high =
-        rowreq_ctx->data.qpid010BindingMsgMatched.high;
-    (*qpid010BindingMsgMatched_val_ptr).low =
-        rowreq_ctx->data.qpid010BindingMsgMatched.low;
+    (*brokerBindingMsgMatched_val_ptr).high =
+        rowreq_ctx->data.brokerBindingMsgMatched.high;
+    (*brokerBindingMsgMatched_val_ptr).low =
+        rowreq_ctx->data.brokerBindingMsgMatched.low;
 
 
     return MFD_SUCCESS;
-}                               /* qpid010BindingMsgMatched_get */
+}                               /* brokerBindingMsgMatched_get */
 
 
 
