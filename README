@@ -13,7 +13,7 @@ Usage: qpid-snmp-mibgen -t <template> -s <schema> [-s <schema> ] [-m <output mib
     Additional plugin schemas are optional (up to 10 additional schemas can be specified).
 
 For example:
-./qpid-snmp-mibgen -t qpid-snmp.txt -s ~/workspace/qpid/specs/management-schema.xml -s ~/workspace/qpid/cpp/src/qpid/cluster/management-schema.xml -s ~/workspace/qpid/cpp/src/qpid/acl/management-schema.xml -m MRG-MESSAGING-MIB
+./qpid-snmp-mibgen -t qpid-snmp.txt -s ~/workspace/qpid/specs/management-schema.xml -s ~/workspace/qpid/cpp/src/qpid/cluster/management-schema.xml -s ~/workspace/qpid/cpp/src/qpid/acl/management-schema.xml -m QPID-MESSAGING-MIB
 
-This will use the qpid-snmp.txt template to generate the MRG-MESSAGING-MIB output file.
+This will use the qpid-snmp.txt template to generate the QPID-MESSAGING-MIB output file.
 It will use the main qpid management-schema.xml and add the schemas for cluster and acl.

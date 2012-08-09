@@ -17,12 +17,12 @@ The application qpid-snmp should be created in that directory.
 
 To configure:
 Before you run, some configuration files need to be in place.
-- Place the file MRG-MESSAGING-MIB in ~/.snmp/mibs
+- Place the file QPID-MESSAGING-MIB in ~/.snmp/mibs
   This file is the qpid messaging mib.
 
 - Place the file snmp.conf in ~/.snmp
   This file should contain one line:
-		mibs +MRG-MESSAGING-MIB
+		mibs +QPID-MESSAGING-MIB
   
 - Place the file qpid010.conf in ~/.snmp
 - This file should contain two lines:
@@ -73,7 +73,7 @@ This is because you are running as a non-root user. No worries here.
 To test:
 In a separate terminal window, run one of the net-snmp commands. For example:
 [user ~]$ snmpget -v2c -c public localhost:1161 qpid010Brokeruptime.0
-MRG-MESSAGING-MIB::qpid010BrokerUptime.0 = Timeticks: (16102344) 1 day, 20:43:43.44
+QPID-MESSAGING-MIB::qpid010BrokerUptime.0 = Timeticks: (16102344) 1 day, 20:43:43.44
 
 Another example:
 [user ~]$ snmpwalk -v2c -c public localhost:1161 qpid010ExchangeTable
