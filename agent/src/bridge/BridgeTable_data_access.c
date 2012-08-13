@@ -44,7 +44,7 @@
 /*
  * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1, length: 11
  */
 
 /**
@@ -152,8 +152,6 @@ brokerBridgeTable_container_init(netsnmp_container ** container_ptr_ptr,
      * cache->enabled to 0.
      */
     cache->timeout = brokerBRIDGETABLE_CACHE_TIMEOUT;   /* seconds */
-    //cache->flags |= NETSNMP_CACHE_PRELOAD;
-
 }                               /* brokerBridgeTable_container_init */
 
 /**
@@ -222,18 +220,17 @@ int
 brokerBridgeTable_container_load(netsnmp_container * container)
 {
     brokerBridgeTable_rowreq_ctx *rowreq_ctx;
-    size_t          count = 0;
 
     /*
      * temporary storage for index values
      */
     /*
-     * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerBridgeInternalIndex(14)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
     u_long          brokerBridgeInternalIndex;
     brokerBridgeTable_data qmfData;
 
-    void *pEvent = qpidGet("session");
+    void *pEvent = qpidGet("bridge");
 
     int index;
     uint objects;
@@ -246,9 +243,13 @@ brokerBridgeTable_container_load(netsnmp_container * container)
     	if (!pRow)
     		continue;
 
-        strncpy(qmfData.brokerBridgeLinkRef,
-        		qpidGetString(pRow, "linkRef"), 254);
-        qmfData.brokerBridgeLinkRef_len = strlen(qmfData.brokerBridgeLinkRef) + 1;
+    	strncpy(qmfData.brokerBridgeLinkRef,
+    	        		qpidGetString(pRow, "linkRef"), 254);
+    	        qmfData.brokerBridgeLinkRef_len = strlen(qmfData.brokerBridgeLinkRef) + 1;
+
+		strncpy(qmfData.brokerBridgeName,
+						qpidGetString(pRow, "name"), 254);
+				qmfData.brokerBridgeName_len = strlen(qmfData.brokerBridgeName) + 1;
 
         qmfData.brokerBridgeChannelId = qpidGetU16(pRow, "channelId");
         qmfData.brokerBridgeDurable = qpidGetBool(pRow, "durable");
@@ -321,18 +322,38 @@ brokerBridgeTable_container_load(netsnmp_container * container)
         		qmfData.brokerBridgeLinkRef_len * sizeof(qmfData.brokerBridgeLinkRef[0]));
 
         /*
+         * setup/save data for brokerBridgeName
+         * brokerBridgeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         */
+    /** no mapping */
+        /*
+         * make sure there is enough space for brokerBridgeName data
+         */
+        if ((NULL == rowreq_ctx->data.brokerBridgeName) ||
+            (rowreq_ctx->data.brokerBridgeName_len <
+             (qmfData.brokerBridgeName_len * sizeof(qmfData.brokerBridgeName[0])))) {
+            snmp_log(LOG_ERR,
+                     "not enough space for value (brokerBridgeName)\n");
+            return MFD_ERROR;
+        }
+        rowreq_ctx->data.brokerBridgeName_len =
+        		qmfData.brokerBridgeName_len * sizeof(qmfData.brokerBridgeName[0]);
+        memcpy(rowreq_ctx->data.brokerBridgeName, qmfData.brokerBridgeName,
+        		qmfData.brokerBridgeName_len * sizeof(qmfData.brokerBridgeName[0]));
+
+        /*
          * setup/save data for brokerBridgeChannelId
-         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * brokerBridgeChannelId(3)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
     /** no mapping */
         rowreq_ctx->data.brokerBridgeChannelId = qmfData.brokerBridgeChannelId;
 
         /*
          * setup/save data for brokerBridgeDurable
-         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-    /** no mapping */
-        rowreq_ctx->data.brokerBridgeDurable = qmfData.brokerBridgeDurable;
+    /** truthvalue mapping */
+        rowreq_ctx->data.brokerBridgeDurable = qmfData.brokerBridgeDurable == 0 ? TRUTHVALUE_FALSE: TRUTHVALUE_TRUE;
 
         /*
          * setup/save data for brokerBridgeSrc
@@ -398,15 +419,15 @@ brokerBridgeTable_container_load(netsnmp_container * container)
          * setup/save data for brokerBridgeSrcIsQueue
          * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-    /** no mapping */
-        rowreq_ctx->data.brokerBridgeSrcIsQueue = qmfData.brokerBridgeSrcIsQueue;
+    /** truth value mapping*/
+        rowreq_ctx->data.brokerBridgeSrcIsQueue = qmfData.brokerBridgeSrcIsQueue == 0 ? TRUTHVALUE_FALSE : TRUTHVALUE_TRUE;
 
         /*
          * setup/save data for brokerBridgeSrcIsLocal
          * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-    /** no mapping */
-        rowreq_ctx->data.brokerBridgeSrcIsLocal = qmfData.brokerBridgeSrcIsLocal;
+    /** truth mapping */
+        rowreq_ctx->data.brokerBridgeSrcIsLocal = qmfData.brokerBridgeSrcIsLocal == 0 ? TRUTHVALUE_FALSE : TRUTHVALUE_TRUE;
 
         /*
          * setup/save data for brokerBridgeTag
@@ -453,8 +474,8 @@ brokerBridgeTable_container_load(netsnmp_container * container)
          * setup/save data for brokerBridgeDynamic
          * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
-    /** no mapping */
-        rowreq_ctx->data.brokerBridgeDynamic = qmfData.brokerBridgeDynamic;
+    /** truth mapping */
+        rowreq_ctx->data.brokerBridgeDynamic = qmfData.brokerBridgeDynamic == 0 ? TRUTHVALUE_FALSE : TRUTHVALUE_TRUE;
 
         /*
          * setup/save data for brokerBridgeSync
@@ -468,12 +489,11 @@ brokerBridgeTable_container_load(netsnmp_container * container)
          * insert into table container
          */
         CONTAINER_INSERT(container, rowreq_ctx);
-        ++count;
         qpidReleaseDataRow(pRow);
     }
     qpidRelease(pEvent);
 
-    DEBUGMSGT(("verbose:brokerBridgeTable:brokerBridgeTable_container_load", "inserted %d records\n", count));
+    DEBUGMSGT(("verbose:brokerBridgeTable:brokerBridgeTable_container_load", "inserted %d records\n", index));
 
     return MFD_SUCCESS;
 }                               /* brokerBridgeTable_container_load */
@@ -536,9 +556,9 @@ brokerBridgeTable_row_prep(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
  */
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeInternalIndex
- * brokerBridgeInternalIndex is subid 13 of brokerBridgeEntry.
+ * brokerBridgeInternalIndex is subid 14 of brokerBridgeEntry.
  * Its status is Current, and its access level is NoAccess.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.13
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.14
  * Description:
 Internal index for bridge table
  *

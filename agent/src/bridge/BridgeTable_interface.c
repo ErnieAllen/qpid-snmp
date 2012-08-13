@@ -59,7 +59,7 @@ netsnmp_feature_require(baby_steps)
     /*
      * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.12.1, length: 11
      */
      typedef struct brokerBridgeTable_interface_ctx_s {
 
@@ -246,7 +246,7 @@ _brokerBridgeTable_initialize_interface(brokerBridgeTable_registration *
      *
      * Create a registration, save our reg data, register table.
      */
-    DEBUGMSGTL(("brokerBridgeTable:init_BridgeTable",
+    DEBUGMSGTL(("brokerBridgeTable:init_brokerBridgeTable",
                 "Registering brokerBridgeTable as a mibs-for-dummies table.\n"));
     handler =
         netsnmp_baby_steps_access_multiplexer_get(access_multiplexer);
@@ -378,7 +378,7 @@ brokerBridgeTable_index_to_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerBridgeInternalIndex(14)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
     netsnmp_variable_list var_brokerBridgeInternalIndex;
 
@@ -399,7 +399,7 @@ brokerBridgeTable_index_to_oid(netsnmp_index * oid_idx,
                 "called\n"));
 
     /*
-     * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerBridgeInternalIndex(14)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     snmp_set_var_value(&var_brokerBridgeInternalIndex,
                        &mib_idx->brokerBridgeInternalIndex,
@@ -435,7 +435,7 @@ brokerBridgeTable_index_from_oid(netsnmp_index * oid_idx,
      * temp storage for parsing indexes
      */
     /*
-     * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+     * brokerBridgeInternalIndex(14)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
      */
     netsnmp_variable_list var_brokerBridgeInternalIndex;
 
@@ -540,8 +540,7 @@ brokerBridgeTable_allocate_rowreq_ctx(void *user_init_ctx)
      * if we allocated data, call init routine
      */
     if (!(rowreq_ctx->rowreq_flags & MFD_ROW_DATA_FROM_USER)) {
-        if (SNMPERR_SUCCESS !=
-            brokerBridgeTable_rowreq_ctx_init(rowreq_ctx, user_init_ctx)) {
+        if (SNMPERR_SUCCESS != brokerBridgeTable_rowreq_ctx_init(rowreq_ctx, user_init_ctx)) {
             brokerBridgeTable_release_rowreq_ctx(rowreq_ctx);
             rowreq_ctx = NULL;
         }
@@ -677,7 +676,7 @@ _brokerBridgeTable_check_indexes(brokerBridgeTable_rowreq_ctx * rowreq_ctx)
 
 
     /*
-     * (INDEX) brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * (INDEX) brokerBridgeInternalIndex(14)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     if (MFD_SUCCESS != rc)
         return rc;
@@ -823,7 +822,16 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         */
+    case COLUMN_brokerBRIDGENAME:
+        var->type = ASN_OCTET_STR;
+        rc = brokerBridgeName_get(rowreq_ctx, (char **) &var->val.string,
+                                  &var->val_len);
+        break;
+
+        /*
+         * brokerBridgeChannelId(3)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
          */
     case COLUMN_brokerBRIDGECHANNELID:
         var->val_len = sizeof(long);
@@ -833,7 +841,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDURABLE:
         var->val_len = sizeof(u_long);
@@ -843,7 +851,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeSrc(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGESRC:
         var->type = ASN_OCTET_STR;
@@ -852,7 +860,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeDest(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEDEST:
         var->type = ASN_OCTET_STR;
@@ -861,7 +869,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeKey(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEKEY:
         var->type = ASN_OCTET_STR;
@@ -870,7 +878,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsQueue(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISQUEUE:
         var->val_len = sizeof(u_long);
@@ -880,7 +888,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsLocal(9)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISLOCAL:
         var->val_len = sizeof(u_long);
@@ -890,7 +898,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeTag(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGETAG:
         var->type = ASN_OCTET_STR;
@@ -899,7 +907,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeExcludes(11)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEEXCLUDES:
         var->type = ASN_OCTET_STR;
@@ -909,7 +917,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDynamic(12)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDYNAMIC:
         var->val_len = sizeof(u_long);
@@ -919,7 +927,7 @@ _brokerBridgeTable_get_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeSync(13)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
          */
     case COLUMN_brokerBRIDGESYNC:
         var->val_len = sizeof(long);
@@ -1044,7 +1052,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
     switch (column) {
         /*
-         * (INDEX) brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+         * (INDEX) brokerBridgeInternalIndex(14)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
          */
     case COLUMN_brokerBRIDGEINTERNALINDEX:
         rc = SNMP_ERR_NOTWRITABLE;      /* can not change index of active row */
@@ -1082,22 +1090,30 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_brokerBRIDGECHANNELID:
-        rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
-                                            sizeof(rowreq_ctx->data.
-                                                   brokerBridgeChannelId));
+    case COLUMN_brokerBRIDGENAME:
+        rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
+                                                sizeof(rowreq_ctx->data.
+                                                       brokerBridgeName));
+        /*
+         * check defined range(s). 
+         */
+        if ((SNMPERR_SUCCESS == rc)
+            && ((var->val_len < 0) || (var->val_len > 255))
+            ) {
+            rc = SNMP_ERR_WRONGLENGTH;
+        }
         if (SNMPERR_SUCCESS != rc) {
-            DEBUGMSGTL(("brokerBridgeTable:_brokerBridgeTable_check_column:brokerBridgeChannelId", "varbind validation failed (eg bad type or size)\n"));
+            DEBUGMSGTL(("brokerBridgeTable:_brokerBridgeTable_check_column:brokerBridgeName", "varbind validation failed (eg bad type or size)\n"));
         } else {
-            rc = brokerBridgeChannelId_check_value(rowreq_ctx,
-                                                   *((long *) var->val.
-                                                     string));
+            rc = brokerBridgeName_check_value(rowreq_ctx,
+                                              (char *) var->val.string,
+                                              var->val_len);
             if ((MFD_SUCCESS != rc) && (MFD_NOT_VALID_EVER != rc)
                 && (MFD_NOT_VALID_NOW != rc)) {
                 snmp_log(LOG_ERR,
-                         "bad rc %d from brokerBridgeChannelId_check_value\n",
+                         "bad rc %d from brokerBridgeName_check_value\n",
                          rc);
                 rc = SNMP_ERR_GENERR;
             }
@@ -1105,7 +1121,14 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeChannelId(3)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H 
+         */
+    case COLUMN_brokerBRIDGECHANNELID:
+        rc = SNMP_ERR_NOTWRITABLE;
+        break;
+
+        /*
+         * brokerBridgeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDURABLE:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
@@ -1137,7 +1160,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeSrc(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGESRC:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
@@ -1168,7 +1191,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeDest(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEDEST:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
@@ -1199,7 +1222,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeKey(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEKEY:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
@@ -1230,7 +1253,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsQueue(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISQUEUE:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
@@ -1262,7 +1285,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsLocal(9)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISLOCAL:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
@@ -1294,7 +1317,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeTag(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGETAG:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
@@ -1325,7 +1348,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeExcludes(11)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEEXCLUDES:
         rc = netsnmp_check_vb_type_and_max_size(var, ASN_OCTET_STR,
@@ -1356,7 +1379,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDynamic(12)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDYNAMIC:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
@@ -1388,7 +1411,7 @@ _brokerBridgeTable_check_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeSync(13)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
          */
     case COLUMN_brokerBRIDGESYNC:
         rc = netsnmp_check_vb_type_and_size(var, ASN_INTEGER,
@@ -1524,15 +1547,15 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_brokerBRIDGECHANNELID:
-        rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGECHANNELID_FLAG;
-        rc = brokerBridgeChannelId_undo_setup(rowreq_ctx);
+    case COLUMN_brokerBRIDGENAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGENAME_FLAG;
+        rc = brokerBridgeName_undo_setup(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDURABLE:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEDURABLE_FLAG;
@@ -1540,7 +1563,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeSrc(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGESRC:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESRC_FLAG;
@@ -1548,7 +1571,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeDest(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEDEST:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEDEST_FLAG;
@@ -1556,7 +1579,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeKey(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEKEY:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEKEY_FLAG;
@@ -1564,7 +1587,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsQueue(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISQUEUE:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESRCISQUEUE_FLAG;
@@ -1572,7 +1595,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsLocal(9)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISLOCAL:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESRCISLOCAL_FLAG;
@@ -1580,7 +1603,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeTag(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGETAG:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGETAG_FLAG;
@@ -1588,7 +1611,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeExcludes(11)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEEXCLUDES:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEEXCLUDES_FLAG;
@@ -1596,7 +1619,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDynamic(12)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDYNAMIC:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEDYNAMIC_FLAG;
@@ -1604,7 +1627,7 @@ _brokerBridgeTable_undo_setup_column(brokerBridgeTable_rowreq_ctx *
         break;
 
         /*
-         * brokerBridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeSync(13)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
          */
     case COLUMN_brokerBRIDGESYNC:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESYNC_FLAG;
@@ -1768,16 +1791,16 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_brokerBRIDGECHANNELID:
-        rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGECHANNELID_FLAG;
-        rc = brokerBridgeChannelId_set(rowreq_ctx,
-                                       *((long *) var->val.string));
+    case COLUMN_brokerBRIDGENAME:
+        rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGENAME_FLAG;
+        rc = brokerBridgeName_set(rowreq_ctx, (char *) var->val.string,
+                                  var->val_len);
         break;
 
         /*
-         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDURABLE:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEDURABLE_FLAG;
@@ -1786,7 +1809,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeSrc(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGESRC:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESRC_FLAG;
@@ -1795,7 +1818,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeDest(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEDEST:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEDEST_FLAG;
@@ -1804,7 +1827,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeKey(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEKEY:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEKEY_FLAG;
@@ -1813,7 +1836,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsQueue(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISQUEUE:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESRCISQUEUE_FLAG;
@@ -1822,7 +1845,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsLocal(9)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISLOCAL:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESRCISLOCAL_FLAG;
@@ -1831,7 +1854,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeTag(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGETAG:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGETAG_FLAG;
@@ -1840,7 +1863,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeExcludes(11)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEEXCLUDES:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEEXCLUDES_FLAG;
@@ -1849,7 +1872,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDynamic(12)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDYNAMIC:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGEDYNAMIC_FLAG;
@@ -1858,7 +1881,7 @@ _brokerBridgeTable_set_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeSync(13)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
          */
     case COLUMN_brokerBRIDGESYNC:
         rowreq_ctx->column_set_flags |= COLUMN_brokerBRIDGESYNC_FLAG;
@@ -2029,77 +2052,77 @@ _brokerBridgeTable_undo_column(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
-    case COLUMN_brokerBRIDGECHANNELID:
-        rc = brokerBridgeChannelId_undo(rowreq_ctx);
+    case COLUMN_brokerBRIDGENAME:
+        rc = brokerBridgeName_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDURABLE:
         rc = brokerBridgeDurable_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeSrc(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGESRC:
         rc = brokerBridgeSrc_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeDest(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEDEST:
         rc = brokerBridgeDest_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeKey(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEKEY:
         rc = brokerBridgeKey_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsQueue(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISQUEUE:
         rc = brokerBridgeSrcIsQueue_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeSrcIsLocal(9)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGESRCISLOCAL:
         rc = brokerBridgeSrcIsLocal_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeTag(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGETAG:
         rc = brokerBridgeTag_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
+         * brokerBridgeExcludes(11)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H 
          */
     case COLUMN_brokerBRIDGEEXCLUDES:
         rc = brokerBridgeExcludes_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
+         * brokerBridgeDynamic(12)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h 
          */
     case COLUMN_brokerBRIDGEDYNAMIC:
         rc = brokerBridgeDynamic_undo(rowreq_ctx);
         break;
 
         /*
-         * brokerBridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
+         * brokerBridgeSync(13)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H 
          */
     case COLUMN_brokerBRIDGESYNC:
         rc = brokerBridgeSync_undo(rowreq_ctx);
@@ -2477,7 +2500,7 @@ _brokerBridgeTable_container_row_save(brokerBridgeTable_rowreq_ctx *
         /** xxx: add storage for external index(s)! */
 #define MAX_ROW_SIZE (sizeof(row_token) + 1 +  \
         ( ( 2 * sizeof(rowreq_ctx->data.brokerBridgeLinkRef) ) + 3 ) + /* ASN_OCTET_STR */ \
-        ( 12 ) + /* ASN_INTEGER brokerBridgeChannelId */ \
+        ( ( 2 * sizeof(rowreq_ctx->data.brokerBridgeName) ) + 3 ) + /* ASN_OCTET_STR */ \
         ( 12 ) + /* ASN_INTEGER brokerBridgeDurable */ \
         ( ( 2 * sizeof(rowreq_ctx->data.brokerBridgeSrc) ) + 3 ) + /* ASN_OCTET_STR */ \
         ( ( 2 * sizeof(rowreq_ctx->data.brokerBridgeDest) ) + 3 ) + /* ASN_OCTET_STR */ \
@@ -2693,6 +2716,15 @@ _brokerBridgeTable_container_col_save(brokerBridgeTable_rowreq_ctx *
                                           brokerBridgeLinkRef_len);
         break;
 
+    case COLUMN_brokerBRIDGENAME:    /** Sstr = ASN_OCTET_STR */
+        buf =
+            read_config_save_octet_string(buf,
+                                          rowreq_ctx->data.
+                                          brokerBridgeName,
+                                          rowreq_ctx->data.
+                                          brokerBridgeName_len);
+        break;
+
     case COLUMN_brokerBRIDGECHANNELID:    /** Uint16 = ASN_INTEGER */
         buf += sprintf(buf, "%ld", rowreq_ctx->data.brokerBridgeChannelId);
         break;
@@ -2800,6 +2832,17 @@ _brokerBridgeTable_container_col_restore(brokerBridgeTable_rowreq_ctx *
                                     brokerBridgeLinkRef,
                                     (size_t *) &rowreq_ctx->data.
                                     brokerBridgeLinkRef_len);
+        break;
+
+    case COLUMN_brokerBRIDGENAME:    /** Sstr = ASN_OCTET_STR */
+        rowreq_ctx->data.brokerBridgeName_len =
+            sizeof(rowreq_ctx->data.brokerBridgeName);
+        buf =
+            read_config_read_memory(ASN_OCTET_STR, buf,
+                                    (char *) &rowreq_ctx->data.
+                                    brokerBridgeName,
+                                    (size_t *) &rowreq_ctx->data.
+                                    brokerBridgeName_len);
         break;
 
     case COLUMN_brokerBRIDGECHANNELID:    /** Uint16 = ASN_INTEGER */

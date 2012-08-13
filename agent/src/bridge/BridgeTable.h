@@ -60,7 +60,7 @@ config_require(QPID-MESSAGING-MIB/brokerBridgeTable/brokerBridgeTable_data_set)
     /*
      * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.12.1, length: 11
      */
     /*
      *********************************************************************
@@ -93,62 +93,68 @@ config_require(QPID-MESSAGING-MIB/brokerBridgeTable/brokerBridgeTable_data_set)
         size_t          brokerBridgeLinkRef_len;        /* # of char elements, not bytes */
 
         /*
-         * brokerBridgeChannelId(2)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * brokerBridgeName(2)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         */
+        char            brokerBridgeName[255];
+        size_t          brokerBridgeName_len;   /* # of char elements, not bytes */
+
+        /*
+         * brokerBridgeChannelId(3)/Uint16/ASN_INTEGER/long(long)//l/A/w/e/r/d/H
          */
         long            brokerBridgeChannelId;
 
         /*
-         * brokerBridgeDurable(3)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeDurable(4)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
         u_long          brokerBridgeDurable;
 
         /*
-         * brokerBridgeSrc(4)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeSrc(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
         char            brokerBridgeSrc[255];
         size_t          brokerBridgeSrc_len;    /* # of char elements, not bytes */
 
         /*
-         * brokerBridgeDest(5)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeDest(6)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
         char            brokerBridgeDest[255];
         size_t          brokerBridgeDest_len;   /* # of char elements, not bytes */
 
         /*
-         * brokerBridgeKey(6)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeKey(7)/Lstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
         char            brokerBridgeKey[65535];
         size_t          brokerBridgeKey_len;    /* # of char elements, not bytes */
 
         /*
-         * brokerBridgeSrcIsQueue(7)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeSrcIsQueue(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
         u_long          brokerBridgeSrcIsQueue;
 
         /*
-         * brokerBridgeSrcIsLocal(8)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeSrcIsLocal(9)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
         u_long          brokerBridgeSrcIsLocal;
 
         /*
-         * brokerBridgeTag(9)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeTag(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
         char            brokerBridgeTag[255];
         size_t          brokerBridgeTag_len;    /* # of char elements, not bytes */
 
         /*
-         * brokerBridgeExcludes(10)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
+         * brokerBridgeExcludes(11)/Sstr/ASN_OCTET_STR/char(char)//L/A/W/e/R/d/H
          */
         char            brokerBridgeExcludes[255];
         size_t          brokerBridgeExcludes_len;       /* # of char elements, not bytes */
 
         /*
-         * brokerBridgeDynamic(11)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
+         * brokerBridgeDynamic(12)/TruthValue/ASN_INTEGER/long(u_long)//l/A/W/E/r/d/h
          */
         u_long          brokerBridgeDynamic;
 
         /*
-         * brokerBridgeSync(12)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
+         * brokerBridgeSync(13)/Uint16/ASN_INTEGER/long(long)//l/A/W/e/r/d/H
          */
         long            brokerBridgeSync;
 
@@ -171,7 +177,7 @@ config_require(QPID-MESSAGING-MIB/brokerBridgeTable/brokerBridgeTable_data_set)
     typedef struct brokerBridgeTable_mib_index_s {
 
         /*
-         * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
+         * brokerBridgeInternalIndex(14)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h
          */
         u_long          brokerBridgeInternalIndex;
 

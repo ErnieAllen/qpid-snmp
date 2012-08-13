@@ -44,7 +44,7 @@ void            shutdown_table_brokerBridgeTable(void);
 void
 init_BridgeTable(void)
 {
-    DEBUGMSGTL(("verbose:brokerBridgeTable:init_BridgeTable",
+    DEBUGMSGTL(("verbose:brokerBridgeTable:init_brokerBridgeTable",
                 "called\n"));
 
     /*
@@ -54,8 +54,11 @@ init_BridgeTable(void)
     /*
      * here we initialize all the tables we're planning on supporting
      */
-    if (should_init("brokerBridgeTable"))
+    if (should_init("brokerBridgeTable")) {
+        DEBUGMSGTL(("brokerBridgeTable:init_brokerBridgeTable",
+                    "should_init\n"));
         initialize_table_brokerBridgeTable();
+    }
 
 }                               /* init_BridgeTable */
 

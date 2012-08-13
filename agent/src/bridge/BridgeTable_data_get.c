@@ -39,7 +39,7 @@
 /*
  * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
  * Its status is Current.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1, length: 11
  */
 
 /*
@@ -70,7 +70,7 @@ brokerBridgeTable_indexes_set_tbl_idx(brokerBridgeTable_mib_index *
     DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeTable_indexes_set_tbl_idx", "called\n"));
 
     /*
-     * brokerBridgeInternalIndex(13)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
+     * brokerBridgeInternalIndex(14)/UNSIGNED32/ASN_UNSIGNED/u_long(u_long)//l/a/w/e/r/d/h 
      */
     tbl_idx->brokerBridgeInternalIndex = brokerBridgeInternalIndex_val;
 
@@ -120,7 +120,7 @@ brokerBridgeTable_indexes_set(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeLinkRef
  * brokerBridgeLinkRef is subid 1 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.1
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.1
  * Description:
 Bridge linkRef
                      Additional info ( nodeType:property, references:Link, index:y, parentRef:y )
@@ -216,18 +216,117 @@ brokerBridgeLinkRef_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 }                               /* brokerBridgeLinkRef_get */
 
 /*---------------------------------------------------------------------
- * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeChannelId
- * brokerBridgeChannelId is subid 2 of brokerBridgeEntry.
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeName
+ * brokerBridgeName is subid 2 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.2
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.2
  * Description:
-Bridge channelId
+Bridge name
                      Additional info ( nodeType:property, index:y )
  *
  * Attributes:
  *   accessible 1     isscalar 0     enums  0      hasdefval 0
- *   readable   1     iscolumn 1     ranges 0      hashint   1
+ *   readable   1     iscolumn 1     ranges 1      hashint   1
  *   settable   1
+ *   hint: 255a
+ *
+ * Ranges:  0 - 255;
+ *
+ * Its syntax is Sstr (based on perltype OCTETSTR)
+ * The net-snmp type is ASN_OCTET_STR. The C type decl is char (char)
+ * This data type requires a length.  (Max 255)
+ */
+/**
+ * Extract the current value of the brokerBridgeName data.
+ *
+ * Set a value using the data context for the row.
+ *
+ * @param rowreq_ctx
+ *        Pointer to the row request context.
+ * @param brokerBridgeName_val_ptr_ptr
+ *        Pointer to storage for a char variable
+ * @param brokerBridgeName_val_ptr_len_ptr
+ *        Pointer to a size_t. On entry, it will contain the size (in bytes)
+ *        pointed to by brokerBridgeName.
+ *        On exit, this value should contain the data size (in bytes).
+ *
+ * @retval MFD_SUCCESS         : success
+ * @retval MFD_SKIP            : skip this node (no value for now)
+ * @retval MFD_ERROR           : Any other error
+*
+ * @note If you need more than (*brokerBridgeName_val_ptr_len_ptr) bytes of memory,
+ *       allocate it using malloc() and update brokerBridgeName_val_ptr_ptr.
+ *       <b>DO NOT</b> free the previous pointer.
+ *       The MFD helper will release the memory you allocate.
+ *
+ * @remark If you call this function yourself, you are responsible
+ *         for checking if the pointer changed, and freeing any
+ *         previously allocated memory. (Not necessary if you pass
+ *         in a pointer to static memory, obviously.)
+ */
+int
+brokerBridgeName_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
+                     char **brokerBridgeName_val_ptr_ptr,
+                     size_t *brokerBridgeName_val_ptr_len_ptr)
+{
+   /** we should have a non-NULL pointer and enough storage */
+    netsnmp_assert((NULL != brokerBridgeName_val_ptr_ptr)
+                   && (NULL != *brokerBridgeName_val_ptr_ptr));
+    netsnmp_assert(NULL != brokerBridgeName_val_ptr_len_ptr);
+
+
+    DEBUGMSGTL(("verbose:brokerBridgeTable:brokerBridgeName_get",
+                "called\n"));
+
+    netsnmp_assert(NULL != rowreq_ctx);
+
+    /*
+     * TODO:231:o: |-> Extract the current value of the brokerBridgeName data.
+     * copy (* brokerBridgeName_val_ptr_ptr ) data and (* brokerBridgeName_val_ptr_len_ptr ) from rowreq_ctx->data
+     */
+    /*
+     * make sure there is enough space for brokerBridgeName data
+     */
+    if ((NULL == (*brokerBridgeName_val_ptr_ptr)) ||
+        ((*brokerBridgeName_val_ptr_len_ptr) <
+         (rowreq_ctx->data.brokerBridgeName_len *
+          sizeof(rowreq_ctx->data.brokerBridgeName[0])))) {
+        /*
+         * allocate space for brokerBridgeName data
+         */
+        (*brokerBridgeName_val_ptr_ptr) =
+            malloc(rowreq_ctx->data.brokerBridgeName_len *
+                   sizeof(rowreq_ctx->data.brokerBridgeName[0]));
+        if (NULL == (*brokerBridgeName_val_ptr_ptr)) {
+            snmp_log(LOG_ERR,
+                     "could not allocate memory (rowreq_ctx->data.brokerBridgeName)\n");
+            return MFD_ERROR;
+        }
+    }
+    (*brokerBridgeName_val_ptr_len_ptr) =
+        rowreq_ctx->data.brokerBridgeName_len *
+        sizeof(rowreq_ctx->data.brokerBridgeName[0]);
+    memcpy((*brokerBridgeName_val_ptr_ptr),
+           rowreq_ctx->data.brokerBridgeName,
+           rowreq_ctx->data.brokerBridgeName_len *
+           sizeof(rowreq_ctx->data.brokerBridgeName[0]));
+
+    return MFD_SUCCESS;
+}                               /* brokerBridgeName_get */
+
+/*---------------------------------------------------------------------
+ * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeChannelId
+ * brokerBridgeChannelId is subid 3 of brokerBridgeEntry.
+ * Its status is Current, and its access level is ReadOnly.
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.3
+ * Description:
+Bridge channelId
+                     Additional info ( nodeType:property )
+ *
+ * Attributes:
+ *   accessible 1     isscalar 0     enums  0      hasdefval 0
+ *   readable   1     iscolumn 1     ranges 0      hashint   1
+ *   settable   0
  *   hint: d
  *
  *
@@ -273,9 +372,9 @@ brokerBridgeChannelId_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDurable
- * brokerBridgeDurable is subid 3 of brokerBridgeEntry.
+ * brokerBridgeDurable is subid 4 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.3
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.4
  * Description:
 Bridge durable
                      Additional info ( nodeType:property )
@@ -328,9 +427,9 @@ brokerBridgeDurable_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrc
- * brokerBridgeSrc is subid 4 of brokerBridgeEntry.
+ * brokerBridgeSrc is subid 5 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.4
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.5
  * Description:
 Bridge src
                      Additional info ( nodeType:property )
@@ -427,9 +526,9 @@ brokerBridgeSrc_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDest
- * brokerBridgeDest is subid 5 of brokerBridgeEntry.
+ * brokerBridgeDest is subid 6 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.5
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.6
  * Description:
 Bridge dest
                      Additional info ( nodeType:property )
@@ -526,9 +625,9 @@ brokerBridgeDest_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeKey
- * brokerBridgeKey is subid 6 of brokerBridgeEntry.
+ * brokerBridgeKey is subid 7 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.6
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.7
  * Description:
 Bridge key
                      Additional info ( nodeType:property )
@@ -625,9 +724,9 @@ brokerBridgeKey_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrcIsQueue
- * brokerBridgeSrcIsQueue is subid 7 of brokerBridgeEntry.
+ * brokerBridgeSrcIsQueue is subid 8 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.7
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.8
  * Description:
 Bridge srcIsQueue
                      Additional info ( nodeType:property )
@@ -681,9 +780,9 @@ brokerBridgeSrcIsQueue_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSrcIsLocal
- * brokerBridgeSrcIsLocal is subid 8 of brokerBridgeEntry.
+ * brokerBridgeSrcIsLocal is subid 9 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.8
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.9
  * Description:
 Bridge srcIsLocal
                      Additional info ( nodeType:property )
@@ -737,9 +836,9 @@ brokerBridgeSrcIsLocal_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeTag
- * brokerBridgeTag is subid 9 of brokerBridgeEntry.
+ * brokerBridgeTag is subid 10 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.9
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.10
  * Description:
 Bridge tag
                      Additional info ( nodeType:property )
@@ -836,9 +935,9 @@ brokerBridgeTag_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeExcludes
- * brokerBridgeExcludes is subid 10 of brokerBridgeEntry.
+ * brokerBridgeExcludes is subid 11 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.10
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.11
  * Description:
 Bridge excludes
                      Additional info ( nodeType:property )
@@ -935,9 +1034,9 @@ brokerBridgeExcludes_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeDynamic
- * brokerBridgeDynamic is subid 11 of brokerBridgeEntry.
+ * brokerBridgeDynamic is subid 12 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.11
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.12
  * Description:
 Bridge dynamic
                      Additional info ( nodeType:property )
@@ -990,9 +1089,9 @@ brokerBridgeDynamic_get(brokerBridgeTable_rowreq_ctx * rowreq_ctx,
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerBridgeEntry.brokerBridgeSync
- * brokerBridgeSync is subid 12 of brokerBridgeEntry.
+ * brokerBridgeSync is subid 13 of brokerBridgeEntry.
  * Its status is Current, and its access level is ReadWrite.
- * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1.1.12
+ * OID: .1.3.6.1.4.1.18060.5672.1.12.1.1.13
  * Description:
 Bridge sync
                      Additional info ( nodeType:property )

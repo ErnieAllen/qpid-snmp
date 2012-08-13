@@ -38,7 +38,7 @@ extern          "C" {
     /*
      * QPID-MESSAGING-MIB::brokerBridgeTable is subid 1 of brokerBridges.
      * Its status is Current.
-     * OID: .1.3.6.1.4.1.18060.5672.1.1.12.1, length: 12
+     * OID: .1.3.6.1.4.1.18060.5672.1.12.1, length: 11
      */
     /*
      * indexes
@@ -50,6 +50,12 @@ extern          "C" {
                                             **brokerBridgeLinkRef_val_ptr_ptr,
                                             size_t
                                             *brokerBridgeLinkRef_val_ptr_len_ptr);
+    int             brokerBridgeName_get(brokerBridgeTable_rowreq_ctx *
+                                         rowreq_ctx,
+                                         char
+                                         **brokerBridgeName_val_ptr_ptr,
+                                         size_t
+                                         *brokerBridgeName_val_ptr_len_ptr);
     int             brokerBridgeChannelId_get(brokerBridgeTable_rowreq_ctx
                                               * rowreq_ctx,
                                               long
