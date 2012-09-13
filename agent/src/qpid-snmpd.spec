@@ -11,6 +11,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  net-snmp-devel
 BuildRequires:  qpid-qmf-devel
+BuildRequires:  pciutils-devel
 BuildRequires:  cmake
 
 %description
@@ -39,6 +40,8 @@ rm -rf %{buildroot}
 %{_bindir}/%{_app}
 %doc %{_build_dir}/README.txt
 %doc %{_build_dir}/license.txt
+/usr/local/share/snmp/ %{_build_dir}/conf/qpid010.conf
+/etc/init.d/ %{_build_dir}/etc/qpid-snmpd
 
 %changelog
 
