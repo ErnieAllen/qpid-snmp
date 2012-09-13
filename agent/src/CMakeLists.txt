@@ -162,6 +162,6 @@ SET(snmpd_SOURCES
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 ADD_EXECUTABLE(qpid-snmpd ${snmpd_SOURCES} ${snmpd_HEADERS})
-TARGET_LINK_LIBRARIES(qpid-snmpd netsnmp netsnmpagent pthread qmf2 qpidmessaging qpidtypes)
+TARGET_LINK_LIBRARIES(qpid-snmpd netsnmpmibs pci dl rpm rpmio netsnmpagent netsnmp crypto qmf2 qpidmessaging qpidtypes pthread)
 
 INSTALL (TARGETS qpid-snmpd RUNTIME DESTINATION bin)
