@@ -107,7 +107,14 @@ set_broker_config_params(const char *name, char * value)
 int
 main(int argc, char **argv)
 {
-    int             agentx_subagent = 0;        /* change this if you don't want to be a SNMP master agent */
+	/* This app can be run in two ways:
+	 * 1. As a master agent running as root
+	 * 2. As a sub-agent.
+	 *
+	 * The default is to run as a master. To run as a sub-agent, modify the startup script (/usr/local/etc/init.d/qpid-snmpd)
+	 * and pass the -S command line parameter
+	 */
+	int             agentx_subagent = 0;        /* change this if you don't want to be a SNMP master agent */
     /*
      * Defs for arg-handling code: handles setting of policy-related variables 
      */
@@ -124,7 +131,7 @@ main(int argc, char **argv)
     char		   *qpidBrokerConnectOptions_cmdl = NULL;
     char		   *qpidQmfOptions_cmdl = NULL;
 
-    while ((ch = getopt(argc, argv, "D:b:c:q:fHLMx:")) != EOF)
+    while ((ch = getopt(argc, argv, "D:b:c:q:fHLMSx:")) != EOF)
         switch (ch) {
         case 'D':
             debug_register_tokens(optarg);
@@ -153,6 +160,9 @@ main(int argc, char **argv)
         case 'M':
             agentx_subagent = 0;
             break;
+        case 'S':
+        	agentx_subagent = 1;
+        	break;
         case 'L':
             use_syslog = 0;     /* use stderr */
             break;
@@ -245,9 +255,9 @@ main(int argc, char **argv)
     init_BindingTable();
     init_SessionTable();
     init_SubscriptionTable();
-    init_ConnectionTable();
     init_LinkTable();
     init_BridgeTable();
+    init_ConnectionTable();
     init_System();
     init_Acl();
     init_HaBroker();
