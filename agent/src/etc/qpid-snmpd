@@ -35,85 +35,68 @@
 # description: qpid-snmpd is an Net-SNMP master agent. It exposes properties for the QPID AMQP broker.
 # processname: qpid-snmpd
 
-prog=qpid-snmpd
-lockfile=/var/lock/subsys/$prog
-pidfile=/var/run/qpid-snmpd.pid
-
-# Source configuration
-if [ -f /usr/local/etc/sysconfig/$prog ] ; then
-	. /usr/local/etc/sysconfig/$prog
-fi
-
 # Source function library.
 . /etc/rc.d/init.d/functions
 
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "${NETWORKING}" = "no" ] && exit 0
+
 RETVAL=0
+name="qpid-snmpd"
+prog="/usr/bin/qpid-snmpd"
 
-#ensure binary is present and executable
-if [[ !(-x /usr/local/bin/$prog) ]] ; then
-    echo "/usr/local/bin/$prog not found or not executable"
-    exit 5
-fi
-
-#ensure user has sufficient permissions
-runuser -s /bin/sh qpid-snmpd -c "echo x > /dev/null" 2> /dev/null || RETVAL=4
-if [ $RETVAL = 4 ]; then
-    echo "user had insufficient privilege";
-    exit $RETVAL
-fi
+[ -x $prog -a -f /usr/share/snmp/qpid010.conf ] || exit 0
 
 start() {
-        [[ $QPID_DATA_DIR ]] || QPID_DATA_DIR=/var/lib/qpidd
-        echo -n $"Starting Qpid SNMP daemon: "
-	daemon --pidfile $pidfile --check $prog --user qpid-snmpd /usr/local/bin/$prog
+        # Start daemons.
+        echo -n $"Starting $name: "
+        daemon $prog
 	RETVAL=$?
-	echo
-	[ $RETVAL = 0 ] && touch $lockfile
-	if [ $RETVAL = 0 ]; then
-	    touch $pidfile
-	    chown qpid-snmpd.qpid-snmpd $pidfile
-            [ -x /sbin/restorecon ] && /sbin/restorecon $pidfile
-	    runuser - -s /bin/sh qpid-snmpd -c "/usr/local/bin/$prog --check > $pidfile"
-	fi
+        echo
+        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$name
 	return $RETVAL
 }
 
 stop() {
-	echo -n $"Stopping Qpid SNMP daemon: "
-	killproc -p ${pidfile} $prog
+        # Stop daemons.
+        echo -n $"Shutting down $name: "
+	killproc $prog
 	RETVAL=$?
-	echo
-	[ $RETVAL = 0 ] && rm -f ${lockfile} ${pidfile}
-}
-
-reload() {
-	echo 1>&2 $"$0: reload not supported"
-	exit 3
-}
-
-restart() {
-	stop
-	start
+        echo
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$name
+	return $RETVAL
 }
 
 # See how we were called.
 case "$1" in
-  start|stop|restart|reload)
-	$1
-	;;
+  start)
+	start
+        ;;
+  stop)
+	stop
+        ;;
   status)
-	status $prog
+	status $name
 	RETVAL=$?
 	;;
-  force-reload)
-	restart
+  restart|reload)
+	stop
+	start
+	RETVAL=$?
 	;;
-  try-restart|condrestart)
-	[ -e $lockfile ] && restart || :
+  condrestart)
+	if [ -f /var/lock/subsys/$name ]; then
+	    stop
+	    start
+	    RETVAL=$?
+	fi
 	;;
   *)
-	echo 1>&2 $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|force-reload}"
-	exit 2
+        echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+        exit 1
 esac
 
 exit $RETVAL
