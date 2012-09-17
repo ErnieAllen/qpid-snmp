@@ -1,85 +1,45 @@
-Source and makefiles for qpid-snmp
+qpid-snmpd README file
 
-qpid-snmp is an snmp agent based on the net-snmp libraries. It communicates with a single 
-qpid broker and exposes the broker's internal objects (queue, exchange, system, memory, etc.)
+After installation the following files should exist:
+/usr/bin/qpid-snmpd            - The snmp application to be run as a daemon
+/usr/share/snmp/qpid010.conf   - The application configuration file. 
+/usr/share/snmp/qpid_snmp.conf - Contains a line that must be appended to the /usr/share/snmp/snmp.conf file
+/etc/rc.d/init.d/qpid-snmpd    - The init script for the application
+/usr/share/doc/qpid-snmpd-1.0.0/README.txt
+/usr/share/doc/qpid-snmpd-1.0.0/license.txt
 
-Before compiling qpid-snmp, you'll need to have the following packages installed:
-- qpid-qmf-devel
-- qpid-cpp-client-devel
-- net-snmp
+Before stating the daemon:
 
-To compile:
-cd into either the Debug or Release directories and run
-make clean
-make
+- Edit the file /usr/share/snmp/snmp.conf and append to it the line contained in the file 
+/usr/share/snmp/qpid_snmp.conf. (Create the file if it doesn't already exist)
+Append the line:
+mibs +QPID-MESSAGING-MIB
 
-The application qpid-snmp should be created in that directory.
+- Edit the file /usr/share/snmp/qpid010.conf to point to the qpid broker.
+In qpid010.conf there is a commented out line
+#broker localhost
+If the broker is running on a different machine than qpid-snmpd, 
+uncomment the line and change the word localhost to the URL of the qpid broker. 
+An example is:
+broker grid0.lab.bos.redhat.com  
 
-To configure:
-Before you run, some configuration files need to be in place.
-- Place the file QPID-MESSAGING-MIB in ~/.snmp/mibs
-  This file is the qpid messaging mib.
+- Edit the file /usr/share/snmp/qpid010.conf and change the rocommunity and rwcommunity strings
+The default strings "public" and "private" should be changed to your own values
+ 
+Starting the snmp daemon:
+- Ensure nothing else is listening on ports 161 and 162
+- Run
+>service qpid-snmpd start
 
-- Place the file snmp.conf in ~/.snmp
-  This file should contain one line:
-		mibs +QPID-MESSAGING-MIB
-  
-- Place the file qpid010.conf in ~/.snmp
-- This file should contain two lines:
-		rocommunity public
-		rwcommunity private
-  These community strings are for use while testing only. You would change them to less obvious strings
-  for production.
-  
-All the above files should be in the git repository that contains the source (and this file).
+Testing:
+- Install package net-snmp-utils
+- Ensure the qpid-snmpd daemon is running
+>service qpid-snmpd status
+or
+>ps -aef | grep qpid-snmpd
 
-To run:
-usage: qpid-snmp [-D<tokens>] [-f] [-L] [-M] [-H] [-b<broker url>]
-	[-c<broker connection options>] [-q<qmfOptions>] [LISTENING ADDRESSES]
-	-f      Do not fork() from the calling shell.
-	-DTOKEN[,TOKEN,...]
-		Turn on debugging output for the given TOKEN(s).
-		Without any tokens specified, it defaults to printing
-		all the tokens (which is equivalent to the keyword 'ALL').
-		You might want to try ALL for extremely verbose output.
-		Note: You can't put a space between the -D and the TOKENs.
-	-H	Display a list of configuration file directives
-		understood by the agent and then exit.
-	-M	Run as a normal SNMP Agent instead of an AgentX sub-agent.
-	-x ADDRESS	connect to master agent at ADDRESS (default /var/agentx/master).
-	-L	Do not open a log file; print all messages to stderr.
-	-b	The URL of the broker to monitor. Defaults to localhost:5672.
-	-c	Additional options to pass to the broker when connecting.	
-	-q	Options to use when connecting through qmf. Defaults to {strict-security:False}[eallen@redhat Release]$ 
+- Use the snmp get utility to fetch the broker uptime attribute
+>snmpget -v 2c -c <public> localhost brokerBrokerUptime.0
+   where <public> is the rocommunity string in qpid010.conf
 
 
-
-For testing, run without forking and as a non-AgentX sub-agent. 
-Run in a normal user account (not root).
-Use a LISTENING ADDRESS of localhost:1161. Normal snmp upd requests are handled on port 161. 
-Since we are testing as a normal user, we can use port 1161. 
-
-./qpid-snmp -f -M -L -b <broker> localhost:1161
-
-If you are running a broker locally, your command line would look like:
-./qpid-snmp -f -M -L localhost:1161
-In this case, the -b argument is intentionally omitted since 
-the default is to look for the broker at localhost:5672.
-
-If all goes well, you will see
-[init_smux] bind failed: Permission denied
-This is because you are running as a non-root user. No worries here.
-
-To test:
-In a separate terminal window, run one of the net-snmp commands. For example:
-[user ~]$ snmpget -v2c -c public localhost:1161 qpid010Brokeruptime.0
-QPID-MESSAGING-MIB::qpid010BrokerUptime.0 = Timeticks: (16102344) 1 day, 20:43:43.44
-
-Another example:
-[user ~]$ snmpwalk -v2c -c public localhost:1161 qpid010ExchangeTable
-< a whole slew of info about exchanges>
-
-In the above examples we are using version 2c of snmp.
-The "public" community string matches the one specified in ~/.spec/qpid010.conf
-
-Currently (4/28/2012), the net-snmp set commands have not been implemented.
