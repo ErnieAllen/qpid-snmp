@@ -1,0 +1,67 @@
+.\" Manpage for qpid-snmpd.
+.\" Contact eallen@redhat.com to correct errors or typos.
+.TH qpid-snmpd 8
+.SH NAME qpid-snmpd \- SNMP agent for monitoring Apache qpid broker
+.SH SYNOPSIS
+.B qpid-snmpd 
+[-D<tokens>] [-f] [-L] [-M] [-H] [-b<broker url>]
+[-c<broker connection options>] [-q<qmfOptions>] [LISTENING ADDRESSES]
+.SH DESCRIPTION 
+\fIqpid-snmpd\fP - net-snmp agent for Apache qpid. Provides read-only   
+information about qpid brokers, queues, messages, exchanges, etc.
+.SH OPTIONS
+.IP -f
+Do not fork() from the calling shell. Used if you manually start from command line.
+.IP "-D TOKEN,TOKEN,..."
+Turn on debugging output for the given TOKEN(s). Without any tokens specified, it defaults to printing all the tokens (which is equivalent to the keyword 'ALL'). You might want to try ALL for extremely verbose output. Note: You can't put a space between the -D and the TOKENs.
+.IP -H
+Display a list of configuration file directives understood by the agent and then exit.
+.IP -M
+Run as a master SNMP Agent instead of an AgentX sub-agent
+.BI(default).
+.IP -S
+Run as an AgentX sub-agent. A separate master agent must alread be running.
+.IP -x
+ADDRESS	connect to master agent at ADDRESS (default /var/agentx/master). 
+Used with -S
+.IP -L
+Do not open a log file; print all messages to stderr.
+.IP -b
+The URL of the broker to monitor. Defaults to localhost:5672.
+.IP -c
+Additional options to pass to the broker when connecting.
+.IP -q
+Options to use when connecting through qmf. Defaults to {strict-security:False}.
+.SH DIAGNOSTICS
+.IP "Unable to connect to endpoint"
+There is probably another process using port 161
+.IP "Timeout: No Response from localhost. When running snmpget command."
+Either the qpid-snmpd process is not running or it was unable to connect to a broker.
+To verify that qpid-snmpd is running, type: 
+service qpid-snmpd status
+To connect to a broker, edit the /usr/share/snmp/qpid010.conf file and add a broker line.
+.IP "Unknown Object Identifier (Sub-id not found: ...)"
+The qpid-snmpd daemon cannot find the MIB. Make sure the file /usr/share/snmp/snmp.conf contains the line 
+mibs +QPID-MESSAGING-MIB
+.SH SEE ALSO
+.BR snmpd(8)
+.SH COPYRIGHT 
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+.PP
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+(dev@qpid.apache.org)
