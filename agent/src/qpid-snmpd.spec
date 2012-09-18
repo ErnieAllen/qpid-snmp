@@ -14,12 +14,10 @@ BuildRequires:  qpid-qmf-devel
 BuildRequires:  pciutils-devel
 BuildRequires:  cmake
 
-Requires:		net-snmp
-Requires(post): chkconfig
-Requires(preun): chkconfig
+Requires:       net-snmp
 
 %description
-qpid-snmpd - net-snmp agent for Apache qpid. Provides read-only   
+qpid-snmpd - SNMP agent for Apache qpid. Provides read-only   
 information about qpid brokers, queues, messages, exchanges, etc.
 
 %global _build_dir %{name}_build
@@ -37,21 +35,25 @@ rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
 # install the config files
-mkdir -p %{buildroot}%{_datadir}/snmp
-cp %{_build_dir}/conf/qpid010.conf %{buildroot}%{_datadir}/snmp
-cp  %{_build_dir}/conf/snmp.conf %{buildroot}%{_datadir}/snmp/qpid_snmp.conf
+mkdir -p %{buildroot}%{_datadir}/snmp/
+cp -p %{_build_dir}/conf/qpid010.conf %{buildroot}%{_datadir}/snmp
+cp -p %{_build_dir}/conf/snmp.conf %{buildroot}%{_datadir}/snmp/qpid_snmp.conf
 
 # install the mib
 mkdir -p %{buildroot}%{_datadir}/snmp/mibs/
-cp %{_build_dir}/conf/QPID-MESSAGING-MIB.txt %{buildroot}%{_datadir}/snmp/mibs
+cp -p %{_build_dir}/conf/QPID-MESSAGING-MIB.txt %{buildroot}%{_datadir}/snmp/mibs
 
 # install the init script
-mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_initrddir}/
 install -m 755 %{_build_dir}/etc/%{name} %{buildroot}%{_initrddir}
+
+#zip the raw man page
+mkdir -p %{buildroot}%{_mandir}/man8/
+cp -p %{_build_dir}/conf/%{name}.8 %{buildroot}%{_mandir}/man8
+gzip %{buildroot}%{_mandir}/man8/%{name}.8
 
 %clean
 rm -rf %{buildroot}
-
 
 %post
 %{_sbindir}/chkconfig --add %{name}
@@ -69,8 +71,6 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %files
-%defattr(-,root,root)
-
 %{_bindir}/%{name}
 %doc %{_build_dir}/README.txt
 %doc %{_build_dir}/license.txt
@@ -78,6 +78,7 @@ fi
 %{_datadir}/snmp/qpid010.conf
 %{_datadir}/snmp/qpid_snmp.conf
 %{_datadir}/snmp/mibs/QPID-MESSAGING-MIB.txt
+%{_mandir}/man8/%{name}.8.gz
 
 %changelog
 
