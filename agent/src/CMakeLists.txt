@@ -59,6 +59,7 @@ SET(snmpd_HEADERS
     exchange/ExchangeTable_oids.h
     exchange/ExchangeTable.h
     ha/HaBroker.h
+    include/net-snmp-features.h
     link/LinkTable_data_access.h
     link/LinkTable_data_get.h
     link/LinkTable_data_set.h
@@ -162,6 +163,10 @@ SET(snmpd_SOURCES
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 ADD_EXECUTABLE(qpid-snmpd ${snmpd_SOURCES} ${snmpd_HEADERS})
-TARGET_LINK_LIBRARIES(qpid-snmpd netsnmpmibs pci dl rpm rpmio netsnmpagent netsnmp crypto qmf2 qpidmessaging qpidtypes pthread)
+
+EXECUTE_PROCESS(COMMAND net-snmp-config --external-agent-libs 
+    OUTPUT_VARIABLE snmp_link_flags OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+TARGET_LINK_LIBRARIES(qpid-snmpd netsnmpmibs pci dl rpm rpmio netsnmpagent netsnmp crypto qmf2 qpidmessaging qpidtypes pthread ${snmp_link_flags})
 
 INSTALL (TARGETS qpid-snmpd RUNTIME DESTINATION bin)
