@@ -7,7 +7,7 @@
  */
 #include <net-snmp/net-snmp-config.h>
 #include <net-snmp/config_api.h>
-#include <net-snmp/net-snmp-features.h>
+#include "include/net-snmp-features.h"
 #include <net-snmp/net-snmp-includes.h>
 #include <net-snmp/agent/net-snmp-agent-includes.h>
 #include <signal.h>
@@ -65,7 +65,7 @@ static void
 usage(void)
 {
     printf
-        ("usage: qpid-snmp [-D<tokens>] [-f] [-L] [-M] [-H] [-b<broker url>]\n\t[-c<broker connection options>] [-q<qmfOptions>] [LISTENING ADDRESSES]\n"
+        ("usage: qpid-snmp [-D<tokens>] [-f] [-L] [-M] [-H] [-b <broker url>]\n\t[-c <broker connection options>] [-q <qmfOptions>] [LISTENING ADDRESSES]\n"
          "\t-f      Do not fork() from the calling shell.\n"
          "\t-DTOKEN[,TOKEN,...]\n"
          "\t\tTurn on debugging output for the given TOKEN(s).\n"
@@ -79,7 +79,7 @@ usage(void)
          "\t-x ADDRESS\tconnect to master agent at ADDRESS (default /var/agentx/master).\n"
          "\t-L\tDo not open a log file; print all messages to stderr.\n"
          "\t-b\tThe URL of the broker to monitor. Defaults to localhost:5672.\n"
-         "\t-c\tAdditional options to pass to the broker when connecting."
+         "\t-c\tAdditional options to pass to the broker when connecting.\n"
          "\t-q\tOptions to use when connecting through qmf. Defaults to {strict-security:False}");
     exit(0);
 }
@@ -124,7 +124,7 @@ main(int argc, char **argv)
     char           *agentx_socket = NULL;
 
     char		   *qpidBrokerUrl_default = "localhost:5672";
-    char		   *qpidBrokerConnectOptions_default = "";
+    char		   *qpidBrokerConnectOptions_default = "{reconnect: true}";
     char		   *qpidQmfOptions_default = "{strict-security:False}";
 
     char		   *qpidBrokerUrl_cmdl = NULL;
@@ -170,7 +170,6 @@ main(int argc, char **argv)
             agentx_socket = optarg;
             break;
         default:
-            fprintf(stderr, "unknown option %c\n", ch);
             usage();
             break;
         }
@@ -329,13 +328,7 @@ main(int argc, char **argv)
      */
     printf("qpid agent listening...\n");
     while (keep_running) {
-        /*
-         * if you use select(), see snmp_select_info() in snmp_api(3) 
-         */
-        /*
-         * --- OR ---  
-         */
-        agent_check_and_process(1);     /* 0 == don't block */
+    	agent_check_and_process(1);     /* 0 == don't block */
     }
 
     /*
