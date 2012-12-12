@@ -898,13 +898,13 @@ _brokerSessionTable_get_column(brokerSessionTable_rowreq_ctx * rowreq_ctx,
         break;
 
         /*
-         * brokerSessionFramesOutstanding(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h 
+         * brokerSessionUnackedMessages(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
-    case COLUMN_brokerSESSIONFRAMESOUTSTANDING:
-        var->val_len = sizeof(u_long);
-        var->type = ASN_COUNTER;
-        rc = brokerSessionFramesOutstanding_get(rowreq_ctx,
-                                                (u_long *) var->val.
+    case COLUMN_brokerSESSIONUNACKEDMESSAGES:
+        var->val_len = sizeof(U64);
+        var->type = ASN_COUNTER64;
+        rc = brokerSessionUnackedMessages_get(rowreq_ctx,
+                                                (U64 *) var->val.
                                                 string);
         break;
 
@@ -1188,9 +1188,9 @@ _brokerSessionTable_check_column(brokerSessionTable_rowreq_ctx *
         break;
 
         /*
-         * brokerSessionFramesOutstanding(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h 
+         * brokerSessionUnackedMessages(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
-    case COLUMN_brokerSESSIONFRAMESOUTSTANDING:
+    case COLUMN_brokerSESSIONUNACKEDMESSAGES:
         rc = SNMP_ERR_NOTWRITABLE;
         break;
 
@@ -2314,10 +2314,9 @@ _brokerSessionTable_container_col_save(brokerSessionTable_rowreq_ctx *
                     rowreq_ctx->data.brokerSessionMaxClientRate);
         break;
 
-    case COLUMN_brokerSESSIONFRAMESOUTSTANDING:    /** COUNTER = ASN_COUNTER */
+    case COLUMN_brokerSESSIONUNACKEDMESSAGES:    /** COUNTER = ASN_COUNTER */
         buf +=
-            sprintf(buf, "%lu",
-                    rowreq_ctx->data.brokerSessionFramesOutstanding);
+            sprintf(buf, "%lu", rowreq_ctx->data.brokerSessionUnackedMessages);
         break;
 
     case COLUMN_brokerSESSIONTXNSTARTS:    /** COUNTER64 = ASN_COUNTER64 */
@@ -2443,11 +2442,11 @@ _brokerSessionTable_container_col_restore(brokerSessionTable_rowreq_ctx *
                                       brokerSessionMaxClientRate, &len);
         break;
 
-    case COLUMN_brokerSESSIONFRAMESOUTSTANDING:    /** COUNTER = ASN_COUNTER */
-        len = sizeof(rowreq_ctx->data.brokerSessionFramesOutstanding);
-        buf = read_config_read_memory(ASN_COUNTER, buf,
+    case COLUMN_brokerSESSIONUNACKEDMESSAGES:    /** COUNTER = ASN_COUNTER64 */
+        len = sizeof(rowreq_ctx->data.brokerSessionUnackedMessages);
+        buf = read_config_read_memory(ASN_COUNTER64, buf,
                                       (char *) &rowreq_ctx->data.
-                                      brokerSessionFramesOutstanding,
+                                      brokerSessionUnackedMessages,
                                       &len);
         break;
 
