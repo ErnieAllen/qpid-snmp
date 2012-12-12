@@ -1,0 +1,12 @@
+[Unit]
+Description=SNMP agent for Apache qpid                                        
+Documentation=man:qpid-snmpd(8)                                         
+After=network.target
+After=snmpd.service
+ 
+[Service]
+Type=forking
+ExecStart=/usr/bin/qpid-snmpd
+ 
+[Install]
+WantedBy=multi-user.target
