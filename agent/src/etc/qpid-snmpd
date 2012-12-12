@@ -25,7 +25,6 @@
 # Provides: qpid-snmpd
 # Required-Start: $local_fs
 # Required-Stop: $local_fs
-# Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # Short-Description: start or stop qpid-snmpd
 # Description: qpid-snmpd is an Net-SNMP master agent. It exposes properties for the QPID AMQP broker.
@@ -52,21 +51,21 @@ prog="/usr/bin/qpid-snmpd"
 
 start() {
         # Start daemons.
-        echo -n $"Starting $name: "
+        echo -n $"Starting qpid-snmpd: "
         daemon $prog
 	RETVAL=$?
         echo
-        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$name
+        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/qpid-snmpd
 	return $RETVAL
 }
 
 stop() {
         # Stop daemons.
-        echo -n $"Shutting down $name: "
+        echo -n $"Shutting down qpid-snmpd: "
 	killproc $prog
 	RETVAL=$?
         echo
-        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$name
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/qpid-snmpd
 	return $RETVAL
 }
 
@@ -79,7 +78,7 @@ case "$1" in
 	stop
         ;;
   status)
-	status $name
+	status qpid-snmpd
 	RETVAL=$?
 	;;
   restart|reload)
@@ -88,7 +87,7 @@ case "$1" in
 	RETVAL=$?
 	;;
   condrestart)
-	if [ -f /var/lock/subsys/$name ]; then
+	if [ -f /var/lock/subsys/qpid-snmpd ]; then
 	    stop
 	    start
 	    RETVAL=$?
