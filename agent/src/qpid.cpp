@@ -297,8 +297,8 @@ void * QmfWrapper::threadEntryPoint(void * pthis)
 
 void QmfWrapper::runThread()
 {
+	qmf::ConsoleEvent event;
 	while (isConnected) {
-		qmf::ConsoleEvent event;
 		if (sess.nextEvent(event, qpid::messaging::Duration::SECOND)) {
 			qmf::Agent agent = event.getAgent();
 			switch (event.getType()) {
