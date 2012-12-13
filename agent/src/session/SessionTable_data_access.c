@@ -264,21 +264,24 @@ brokerSessionTable_container_load(netsnmp_container * container)
         qmfData.brokerSessionAttached = qpidGetBool(pRow, "attached");
         qmfData.brokerSessionExpireTime = qpidGetU32(pRow, "expireTime");
         qmfData.brokerSessionMaxClientRate = qpidGetU32(pRow, "maxClientRate");
-        qmfData.brokerSessionFramesOutstanding = qpidGetU32(pRow, "framesOutstanding");
 
-        u64Data = qpidGetU64(pRow, "txnStarts");
+        u64Data = qpidGetU64(pRow, "unackedMessages");
+        qmfData.brokerSessionUnackedMessages.high = HIGHLONG(u64Data);
+        qmfData.brokerSessionUnackedMessages.low = LOWLONG(u64Data);
+
+        u64Data = qpidGetU64(pRow, "TxnStarts");
         qmfData.brokerSessionTxnStarts.high = HIGHLONG(u64Data);
         qmfData.brokerSessionTxnStarts.low = LOWLONG(u64Data);
 
-        u64Data = qpidGetU64(pRow, "txnCommits");
+        u64Data = qpidGetU64(pRow, "TxnCommits");
         qmfData.brokerSessionTxnCommits.high = HIGHLONG(u64Data);
         qmfData.brokerSessionTxnCommits.low = LOWLONG(u64Data);
 
-        u64Data = qpidGetU64(pRow, "txnRejects");
+        u64Data = qpidGetU64(pRow, "TxnRejects");
         qmfData.brokerSessionTxnRejects.high = HIGHLONG(u64Data);
         qmfData.brokerSessionTxnRejects.low = LOWLONG(u64Data);
 
-        qmfData.brokerSessionTxnCount = qpidGetU32(pRow, "txnCount");
+        qmfData.brokerSessionTxnCount = qpidGetU32(pRow, "TxnCount");
         qmfData.brokerSessionClientCredit = qpidGetU32(pRow, "clientCredit");
 
         /*
@@ -407,12 +410,14 @@ brokerSessionTable_container_load(netsnmp_container * container)
         		qmfData.brokerSessionMaxClientRate;
 
         /*
-         * setup/save data for brokerSessionFramesOutstanding
-         * brokerSessionFramesOutstanding(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * setup/save data for brokerSessionUnackedMessages
+         * brokerSessionUnackedMessages(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
          */
     /** no mapping */
-        rowreq_ctx->data.brokerSessionFramesOutstanding =
-        		qmfData.brokerSessionFramesOutstanding;
+        rowreq_ctx->data.brokerSessionUnackedMessages.high =
+        		qmfData.brokerSessionUnackedMessages.high;
+        rowreq_ctx->data.brokerSessionUnackedMessages.low =
+        		qmfData.brokerSessionUnackedMessages.low;
 
         /*
          * setup/save data for brokerSessionTxnStarts
