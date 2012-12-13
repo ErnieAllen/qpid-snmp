@@ -1,6 +1,6 @@
 Name:           qpid-snmpd
 Version:        1.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        SNMP agent for Apache qpid
 
 License:        ASL 2.0
@@ -136,6 +136,9 @@ fi
 %{_mandir}/man8/%{name}.8.gz
 
 %changelog
+* Wed Dec 12 2012 Ernie Allen <eallen@redhat.com> 1.0.0-9
+- Fix for bz 886543 - crashes when displaying brokerLinks
+
 * Tue Dec 11 2012 Ernie Allen <eallen@redhat.com> 1.0.0-8
 - Fix for bz 886045 - does not reconnect on broker restart
 
