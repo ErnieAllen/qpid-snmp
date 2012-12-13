@@ -186,19 +186,19 @@ extern          "C" {
                                         rowreq_ctx);
 
     int            
-    brokerSessionUnackedMessages_check_value
+        brokerSessionFramesOutstanding_check_value
         (brokerSessionTable_rowreq_ctx * rowreq_ctx,
-         U64 brokerSessionUnackedMessages_val);
+         u_long brokerSessionFramesOutstanding_val);
     int            
-    brokerSessionUnackedMessages_undo_setup
+        brokerSessionFramesOutstanding_undo_setup
         (brokerSessionTable_rowreq_ctx * rowreq_ctx);
     int            
-    brokerSessionUnackedMessages_set(brokerSessionTable_rowreq_ctx *
+        brokerSessionFramesOutstanding_set(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx,
-                                           U64
-                                           brokerSessionUnackedMessages_val);
+                                           u_long
+                                           brokerSessionFramesOutstanding_val);
     int            
-    brokerSessionUnackedMessages_undo(brokerSessionTable_rowreq_ctx *
+        brokerSessionFramesOutstanding_undo(brokerSessionTable_rowreq_ctx *
                                             rowreq_ctx);
 
     int            

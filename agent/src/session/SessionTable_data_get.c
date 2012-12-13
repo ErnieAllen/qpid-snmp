@@ -692,8 +692,8 @@ brokerSessionMaxClientRate_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
 }                               /* brokerSessionMaxClientRate_get */
 
 /*---------------------------------------------------------------------
- * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionUnackedMessages
- * brokerSessionUnackedMessages is subid 9 of brokerSessionEntry.
+ * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionFramesOutstanding
+ * brokerSessionFramesOutstanding is subid 9 of brokerSessionEntry.
  * Its status is Current, and its access level is ReadOnly.
  * OID: .1.3.6.1.4.1.18060.5672.1.1.13.1.1.9
  * Description:
@@ -710,13 +710,13 @@ Session framesOutstanding
  * The net-snmp type is ASN_COUNTER. The C type decl is u_long (u_long)
  */
 /**
- * Extract the current value of the brokerSessionUnackedMessages data.
+ * Extract the current value of the brokerSessionFramesOutstanding data.
  *
  * Set a value using the data context for the row.
  *
  * @param rowreq_ctx
  *        Pointer to the row request context.
- * @param brokerSessionUnackedMessages_val_ptr
+ * @param brokerSessionFramesOutstanding_val_ptr
  *        Pointer to storage for a u_long variable
  *
  * @retval MFD_SUCCESS         : success
@@ -724,24 +724,28 @@ Session framesOutstanding
  * @retval MFD_ERROR           : Any other error
  */
 int
-brokerSessionUnackedMessages_get(brokerSessionTable_rowreq_ctx * rowreq_ctx,
-                                   U64 * brokerSessionUnackedMessages_val_ptr)
+brokerSessionFramesOutstanding_get(brokerSessionTable_rowreq_ctx *
+                                   rowreq_ctx,
+                                   u_long *
+                                   brokerSessionFramesOutstanding_val_ptr)
 {
    /** we should have a non-NULL pointer */
-    netsnmp_assert(NULL != brokerSessionUnackedMessages_val_ptr);
+    netsnmp_assert(NULL != brokerSessionFramesOutstanding_val_ptr);
+
+
+    DEBUGMSGTL(("verbose:brokerSessionTable:brokerSessionFramesOutstanding_get", "called\n"));
+
     netsnmp_assert(NULL != rowreq_ctx);
 
     /*
-     * TODO:231:o: |-> Extract the current value of the brokerSessionUnackedMessages data.
-     * copy (* brokerSessionUnackedMessages_val_ptr ) from rowreq_ctx->data
+     * TODO:231:o: |-> Extract the current value of the brokerSessionFramesOutstanding data.
+     * copy (* brokerSessionFramesOutstanding_val_ptr ) from rowreq_ctx->data
      */
-    (*brokerSessionUnackedMessages_val_ptr).high =
-        rowreq_ctx->data.brokerSessionUnackedMessages.high;
-    (*brokerSessionUnackedMessages_val_ptr).low =
-        rowreq_ctx->data.brokerSessionUnackedMessages.low;
+    (*brokerSessionFramesOutstanding_val_ptr) =
+        rowreq_ctx->data.brokerSessionFramesOutstanding;
 
     return MFD_SUCCESS;
-}                               /* brokerSessionUnackedMessages_get */
+}                               /* brokerSessionFramesOutstanding_get */
 
 /*---------------------------------------------------------------------
  * QPID-MESSAGING-MIB::brokerSessionEntry.brokerSessionTxnStarts

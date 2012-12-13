@@ -87,10 +87,10 @@ extern          "C" {
                                        u_long *
                                        brokerSessionMaxClientRate_val_ptr);
     int            
-    brokerSessionUnackedMessages_get(brokerSessionTable_rowreq_ctx *
+        brokerSessionFramesOutstanding_get(brokerSessionTable_rowreq_ctx *
                                            rowreq_ctx,
-                                           U64 *
-                                           brokerSessionUnackedMessages_val_ptr);
+                                           u_long *
+                                           brokerSessionFramesOutstanding_val_ptr);
     int            
         brokerSessionTxnStarts_get(brokerSessionTable_rowreq_ctx *
                                    rowreq_ctx,
