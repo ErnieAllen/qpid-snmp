@@ -130,9 +130,9 @@ config_require(QPID-MESSAGING-MIB/brokerSessionTable/brokerSessionTable_data_set
         u_long          brokerSessionMaxClientRate;
 
         /*
-         * brokerSessionFramesOutstanding(9)/COUNTER/ASN_COUNTER/u_long(u_long)//l/A/w/e/r/d/h
+         * brokerSessionUnackedMessages(9)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h
          */
-        u_long          brokerSessionFramesOutstanding;
+        U64             brokerSessionUnackedMessages;
 
         /*
          * brokerSessionTxnStarts(10)/COUNTER64/ASN_COUNTER64/U64(U64)//l/A/w/e/r/d/h

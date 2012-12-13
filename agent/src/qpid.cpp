@@ -201,7 +201,7 @@ const char * qpidGetString(void *p, const char *attrib)
 		try {
 			qpid::types::Variant prop(pQmfData->getProperty(attrib));
 			return prop.asString().c_str();
-		} catch (qmf::KeyNotFound) { }
+		} catch (qmf::KeyNotFound) {}
 	}
 	return wqmf->emptyString;
 }
@@ -297,8 +297,8 @@ void * QmfWrapper::threadEntryPoint(void * pthis)
 
 void QmfWrapper::runThread()
 {
+	qmf::ConsoleEvent event;
 	while (isConnected) {
-		qmf::ConsoleEvent event;
 		if (sess.nextEvent(event, qpid::messaging::Duration::SECOND)) {
 			qmf::Agent agent = event.getAgent();
 			switch (event.getType()) {

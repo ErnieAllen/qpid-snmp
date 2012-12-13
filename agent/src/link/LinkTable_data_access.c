@@ -12,6 +12,8 @@
 #include <net-snmp/net-snmp-includes.h>
 #include <net-snmp/agent/net-snmp-agent-includes.h>
 
+#include "../qpid_api.h"
+
 /*
  * include our parent header 
  */
@@ -272,7 +274,7 @@ brokerLinkTable_container_load(netsnmp_container * container)
         qmfData.brokerLinkConnectionRef_len = strlen(qmfData.brokerLinkConnectionRef) + 1;
 
         strncpy(qmfData.brokerLinkState,
-        		qpidGetString(pRow, "linkState"), 254);
+        		qpidGetString(pRow, "state"), 254);
         qmfData.brokerLinkState_len = strlen(qmfData.brokerLinkState) + 1;
 
         strncpy(qmfData.brokerLinkLastError,
@@ -280,7 +282,7 @@ brokerLinkTable_container_load(netsnmp_container * container)
         qmfData.brokerLinkLastError_len = strlen(qmfData.brokerLinkLastError) + 1;
 
         qmfData.brokerLinkDurable = qpidGetBool(pRow, "durable");
-        qmfData.brokerLinkPort = qpidGetU32(pRow, "linkPort");
+        qmfData.brokerLinkPort = qpidGetU32(pRow, "port");
 
         /*
          * set indexes in new brokerLinkTable rowreq context.
@@ -464,7 +466,6 @@ brokerLinkTable_container_load(netsnmp_container * container)
         		qmfData.brokerLinkLastError_len * sizeof(qmfData.brokerLinkLastError[0]);
         memcpy(rowreq_ctx->data.brokerLinkLastError, qmfData.brokerLinkLastError,
         		qmfData.brokerLinkLastError_len * sizeof(qmfData.brokerLinkLastError[0]));
-
 
         /*
          * insert into table container

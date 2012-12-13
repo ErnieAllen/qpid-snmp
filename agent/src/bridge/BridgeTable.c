@@ -146,6 +146,7 @@ brokerBridgeTable_rowreq_ctx_init(brokerBridgeTable_rowreq_ctx *
      * Perform extra brokerBridgeTable rowreq initialization. (eg DEFVALS)
      */
     rowreq_ctx->data.brokerBridgeLinkRef_len = 255;        /* # of char elements, not bytes */
+    rowreq_ctx->data.brokerBridgeName_len = 255;
     rowreq_ctx->data.brokerBridgeSrc_len = 255;
     rowreq_ctx->data.brokerBridgeDest_len = 255;
     rowreq_ctx->data.brokerBridgeKey_len = 65535;

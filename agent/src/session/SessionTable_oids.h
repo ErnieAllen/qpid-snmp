@@ -36,7 +36,7 @@ extern          "C" {
 
 #define COLUMN_brokerSESSIONMAXCLIENTRATE         8
 
-#define COLUMN_brokerSESSIONFRAMESOUTSTANDING         9
+#define COLUMN_brokerSESSIONUNACKEDMESSAGES         9
 
 #define COLUMN_brokerSESSIONTXNSTARTS         10
 
