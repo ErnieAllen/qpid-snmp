@@ -80,7 +80,7 @@ usage(void)
          "\t-L\tDo not open a log file; print all messages to stderr.\n"
          "\t-b\tThe URL of the broker to monitor. Defaults to localhost:5672.\n"
          "\t-c\tAdditional options to pass to the broker when connecting.\n"
-         "\t-q\tOptions to use when connecting through qmf. Defaults to {strict-security:False}");
+         "\t-q\tOptions to use when connecting through qmf. Defaults to {strict-security:False}\n");
     exit(0);
 }
 
@@ -120,7 +120,7 @@ main(int argc, char **argv)
      */
     int             ch;
     extern char    *optarg;
-    int             dont_fork = 0, use_syslog = 0;
+    int             dont_fork = 0, use_syslog = 1;
     char           *agentx_socket = NULL;
 
     char		   *qpidBrokerUrl_default = "localhost:5672";
@@ -154,7 +154,6 @@ main(int argc, char **argv)
                                    NETSNMP_DS_AGENT_NO_ROOT_ACCESS, 1);
             init_agent("qpid010");     /* register our .conf handlers */
             init_snmp("qpid010");
-            fprintf(stderr, "Configuration directives understood:\n");
             read_config_print_usage("  ");
             exit(0);
         case 'M':
@@ -186,8 +185,7 @@ main(int argc, char **argv)
                                            NETSNMP_DS_AGENT_PORTS))) {
                 astring = malloc(strlen(c) + 2 + strlen(argv[i]));
                 if (astring == NULL) {
-                    fprintf(stderr, "malloc failure processing argv[%d]\n",
-                            i);
+                    DEBUGMSGTL(("snmpd/main", "malloc failure processing argv[%d]\n", i));
                     exit(1);
                 }
                 sprintf(astring, "%s,%s", c, argv[i]);
@@ -306,7 +304,6 @@ main(int argc, char **argv)
 
     if (!init_qmf(qpidBrokerUrl, qpidBrokerConnectOptions, qpidQmfOptions)) {
         DEBUGMSGTL(("qpid-snmp/main", "failed to connect to broker %s\n", qpidBrokerUrl));
-        printf("qpid-snmp/main: failed to connect to broker %s\n", qpidBrokerUrl);
         exit(-1);
     }
 
@@ -326,7 +323,7 @@ main(int argc, char **argv)
     /*
      * main loop...
      */
-    printf("qpid agent listening...\n");
+    DEBUGMSGTL(("qpid-snmp/main", "qpid agent listening\n"));
     while (keep_running) {
     	agent_check_and_process(1);     /* 0 == don't block */
     }

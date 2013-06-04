@@ -1,11 +1,11 @@
 Name:           qpid-snmpd
 Version:        1.0.0
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        SNMP agent for Apache qpid
 
 License:        ASL 2.0
 URL:            http://eallen.fedorapeople.org/
-Source0:        http://eallen.fedorapeople.org/%{name}-%{version}.tar.bz2
+Source0:        %{name}-%{version}.tar.bz2
 Group:          System Environment/Daemons
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -16,6 +16,11 @@ BuildRequires:  cmake
 %if 0%{?rhel} >= 7
 BuildRequires:  systemd-units
 %endif
+
+#BZ 886561
+Patch1:         01-Initialized-BridgeName_len.patch
+#BZ 966882
+Patch2:         02-Remove-Print-Statements.patch
 
 Requires:       net-snmp
 %if 0%{?rhel} >= 7
@@ -30,6 +35,9 @@ information about qpid brokers, queues, messages, exchanges, etc.
 
 %prep
 %setup -q -c %{name}-%{version}
+
+%patch1 -p2
+%patch2 -p2
 
 %build
 pushd %{name}
@@ -136,6 +144,15 @@ fi
 %{_mandir}/man8/%{name}.8.gz
 
 %changelog
+* Mon Jun  3 2013 Ernie Allen <eallen@redhat.com> 1.0.0-11
+- Fix for bz 966882 -  qpid-snmpd prints messages to stdout
+
+* Tue May  7 2013 Irina Boverman <iboverma@redhat.com> 1.0.0-10
+- Rebuilt for qpid 0.22
+
+* Tue Jan 08 2013 Ernie Allen <eallen@redhat.com> 1.0.0-10
+- Fix for bz 886561 - brokerBridgeTable is not populated
+
 * Wed Dec 12 2012 Ernie Allen <eallen@redhat.com> 1.0.0-9
 - Fix for bz 886543 - crashes when displaying brokerLinks
 
