@@ -185,7 +185,7 @@ main(int argc, char **argv)
                                            NETSNMP_DS_AGENT_PORTS))) {
                 astring = malloc(strlen(c) + 2 + strlen(argv[i]));
                 if (astring == NULL) {
-                    DEBUGMSGTL(("snmpd/main", "malloc failure processing argv[%d]\n", i));
+                	DEBUGMSGTL(("snmpd/main", "malloc failure processing argv[%d]\n", i));
                     exit(1);
                 }
                 sprintf(astring, "%s,%s", c, argv[i]);
@@ -302,6 +302,9 @@ main(int argc, char **argv)
     if (!qpidQmfOptions)
     	qpidQmfOptions = qpidQmfOptions_default;
 
+    // Connect to the broker. This blocks.
+    // If an snmp request comes in before the init_qmf call returns
+    // the request will timeout.
     if (!init_qmf(qpidBrokerUrl, qpidBrokerConnectOptions, qpidQmfOptions)) {
         DEBUGMSGTL(("qpid-snmp/main", "failed to connect to broker %s\n", qpidBrokerUrl));
         exit(-1);
